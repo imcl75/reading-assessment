@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 <style>
 :root {
   --brand: #009ae4;
@@ -322,7 +323,10 @@ tr:hover td { background: #f9fafb; }
           <h2 style="margin:0 0 4px">📊 Class Analysis</h2>
           <p class="subtitle" style="margin:0">Question-level performance, domain breakdown and individual pupil results.</p>
         </div>
-        <button onclick="loadAnalysis()" class="btn btn-primary" id="analysis-btn">Load Class Analysis</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button onclick="loadAnalysis()" class="btn btn-primary" id="analysis-btn">Load Class Analysis</button>
+          <button onclick="exportToExcel()" class="btn btn-outline" id="export-btn" style="display:none">⬇ Export to Excel</button>
+        </div>
       </div>
 
       <div id="analysis-content" style="margin-top:24px;display:none">
@@ -701,6 +705,111 @@ async function confirmOverride(i, pupil, qid, max) {
   }
 }
 
+// ===== EXCEL EXPORT =====
+function exportToExcel() {
+  if (!classData || !classData.length) { alert('Load Class Analysis first.'); return; }
+
+  const wb = XLSX.utils.book_new();
+  const domains = ['2a','2b','2c','2d','2g'];
+  const ttypeNames = { NF:'Making Waves', P:'Field Mouse', F:'Food Chain' };
+
+  // ── Sheet 1: All Results ──────────────────────────────────────────────────
+  const allHeaders = ['Pupil','Date','Time Taken','Sections','Total Score','Max Score','%'];
+  QUESTION_META.forEach(q => allHeaders.push('Q' + q.id + ' (' + q.domain + ')'));
+  const allRows = [allHeaders];
+  classData.forEach(p => {
+    const row = [
+      p.pupil, p.date, p.timeTaken, p.sections, p.autoScore, p.totalMax,
+      p.totalMax > 0 ? Math.round(p.autoScore / p.totalMax * 100) + '%' : '—'
+    ];
+    QUESTION_META.forEach(q => {
+      const s = p.scores['Q' + q.id];
+      row.push(s === null || s === undefined ? '—' : s === 'pending' ? 'pending' : s);
+    });
+    allRows.push(row);
+  });
+  const ws1 = XLSX.utils.aoa_to_sheet(allRows);
+  // Column widths
+  ws1['!cols'] = [
+    {wch:18},{wch:12},{wch:12},{wch:28},{wch:12},{wch:12},{wch:8},
+    ...QUESTION_META.map(() => ({wch:7}))
+  ];
+  XLSX.utils.book_append_sheet(wb, ws1, 'All Results');
+
+  // ── Sheet 2: Question Summary ─────────────────────────────────────────────
+  const qHeaders = ['Question','Domain','Domain Name','Text Type','Max Marks','Class Total Scored','Class Total Possible','Class %'];
+  const qRows = [qHeaders];
+  // Aggregate per question
+  QUESTION_META.forEach(q => {
+    const qid = 'Q' + q.id;
+    let scored = 0, possible = 0;
+    classData.forEach(p => {
+      const s = p.scores[qid];
+      const secTaken = p.sections.includes(ttypeNames[q.ttype] || '');
+      if (s === null || s === undefined || s === 'pending' || !secTaken) return;
+      scored += s; possible += q.marks;
+    });
+    const pct = possible > 0 ? Math.round(scored / possible * 100) + '%' : '—';
+    qRows.push(['Q'+q.id, q.domain, DOMAIN_LABELS[q.domain], TTYPE_LABELS[q.ttype], q.marks, scored, possible, pct]);
+  });
+  const ws2 = XLSX.utils.aoa_to_sheet(qRows);
+  ws2['!cols'] = [{wch:8},{wch:6},{wch:22},{wch:28},{wch:10},{wch:18},{wch:20},{wch:10}];
+  XLSX.utils.book_append_sheet(wb, ws2, 'Question Summary');
+
+  // ── Sheet 3: Domain Summary ───────────────────────────────────────────────
+  const dHeaders = ['Domain','Domain Name','Class Total Scored','Class Total Possible','Class %',
+    ...classData.map(p => p.pupil)];
+  const dRows = [dHeaders];
+  domains.forEach(d => {
+    let classScored = 0, classPoss = 0;
+    const pupilCols = classData.map(p => {
+      let s = 0, m = 0;
+      const st = p.sections;
+      QUESTION_META.filter(q => q.domain === d).forEach(q => {
+        const score = p.scores['Q'+q.id];
+        const secTaken = st.includes(ttypeNames[q.ttype] || '');
+        if (score === null || score === undefined || score === 'pending' || !secTaken) return;
+        s += score; m += q.marks;
+      });
+      classScored += s; classPoss += m;
+      return m > 0 ? Math.round(s/m*100) + '%' : '—';
+    });
+    const cPct = classPoss > 0 ? Math.round(classScored/classPoss*100) + '%' : '—';
+    dRows.push([d, DOMAIN_LABELS[d], classScored, classPoss, cPct, ...pupilCols]);
+  });
+  const ws3 = XLSX.utils.aoa_to_sheet(dRows);
+  ws3['!cols'] = [{wch:6},{wch:22},{wch:20},{wch:22},{wch:10},...classData.map(()=>({wch:14}))];
+  XLSX.utils.book_append_sheet(wb, ws3, 'Domain Summary');
+
+  // ── Sheet 4: Text Type Summary ────────────────────────────────────────────
+  const tHeaders = ['Text Type','Class Total Scored','Class Total Possible','Class %',
+    ...classData.map(p => p.pupil)];
+  const tRows = [tHeaders];
+  ['NF','P','F'].forEach(tt => {
+    let classScored = 0, classPoss = 0;
+    const pupilCols = classData.map(p => {
+      let s = 0, m = 0;
+      QUESTION_META.filter(q => q.ttype === tt).forEach(q => {
+        const score = p.scores['Q'+q.id];
+        const secTaken = p.sections.includes(ttypeNames[tt] || '');
+        if (score === null || score === undefined || score === 'pending' || !secTaken) return;
+        s += score; m += q.marks;
+      });
+      classScored += s; classPoss += m;
+      return m > 0 ? Math.round(s/m*100) + '%' : '—';
+    });
+    const cPct = classPoss > 0 ? Math.round(classScored/classPoss*100) + '%' : '—';
+    tRows.push([TTYPE_LABELS[tt], classScored, classPoss, cPct, ...pupilCols]);
+  });
+  const ws4 = XLSX.utils.aoa_to_sheet(tRows);
+  ws4['!cols'] = [{wch:30},{wch:20},{wch:22},{wch:10},...classData.map(()=>({wch:14}))];
+  XLSX.utils.book_append_sheet(wb, ws4, 'Text Type Summary');
+
+  // Download
+  const date = new Date().toLocaleDateString('en-GB').replace(/\//g,'-');
+  XLSX.writeFile(wb, `Y4-Reading-Assessment-${date}.xlsx`);
+}
+
 function esc(str) {
   return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
@@ -761,6 +870,7 @@ async function loadAnalysis() {
       return;
     }
     document.getElementById('analysis-content').style.display = 'block';
+    document.getElementById('export-btn').style.display = '';
     btn.textContent = '↺ Refresh';
     btn.disabled = false;
     renderHeatmap();

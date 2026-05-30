@@ -527,7 +527,9 @@ function displayMarkingResults(results) {
   const confOrder = { low: 0, medium: 1, high: 2 };
   rows.sort((a, b) => (confOrder[a.confidence] || 0) - (confOrder[b.confidence] || 0));
 
-  const needsAttention = rows.filter(r => r.confidence === 'low' || r.confidence === 'medium').length;
+  // Only show rows that actually have an answer to review
+  const reviewableRows = rows.filter(r => r.answer && r.answer.trim());
+  const needsAttention = reviewableRows.filter(r => r.confidence === 'low' || r.confidence === 'medium').length;
   if (needsAttention > 0) {
     attentionCount.textContent = `${needsAttention} answer${needsAttention !== 1 ? 's' : ''} need your attention (low or medium confidence)`;
     attentionNote.style.display = 'flex';
@@ -535,7 +537,7 @@ function displayMarkingResults(results) {
     attentionNote.style.display = 'none';
   }
 
-  tbody.innerHTML = rows.map((r, i) => {
+  tbody.innerHTML = reviewableRows.map((r, i) => {
     const needsReview = r.confidence === 'low' || r.confidence === 'medium';
     const badgeClass = r.confidence === 'low' ? 'badge-low' : r.confidence === 'medium' ? 'badge-medium' : 'badge-high';
     const badgeIcon = r.confidence === 'low' ? '🔴' : r.confidence === 'medium' ? '🟡' : '🟢';

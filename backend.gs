@@ -3,26 +3,25 @@
  * ================================================
  * SETUP INSTRUCTIONS:
  *
- * 1. Go to https://sheets.google.com and create a new blank spreadsheet.
- *    Name it something like "Y4 Reading Assessment Results".
- *    Copy the Sheet ID from the URL:
- *    https://docs.google.com/spreadsheets/d/  <SHEET_ID_HERE>  /edit
+ * The Google Sheet has already been created for you:
+ * https://docs.google.com/spreadsheets/d/13h2sUXYMUPjoe1OlUzAuOpGvstPg2lQfTlvqJopTT5w/edit
  *
- * 2. In the spreadsheet, go to Extensions → Apps Script.
- *    Delete any existing code and paste this entire file in.
+ * 1. Open the sheet above, go to Extensions → Apps Script.
+ *    Delete any existing code and paste this entire file in. Save (Ctrl+S).
  *
- * 3. Set your secret values:
+ * 2. Set your Anthropic API key:
  *    In Apps Script: Project Settings (⚙️) → Script Properties → Add:
- *      SHEET_ID       → the ID you copied in step 1
  *      ANTHROPIC_KEY  → your Anthropic API key (sk-ant-...)
+ *    (Find yours at https://console.anthropic.com/settings/keys)
  *
- * 4. Deploy the script:
+ * 3. Deploy the script:
  *    Click Deploy → New Deployment → Type: Web App
  *    Execute as: Me
  *    Who has access: Anyone
  *    Click Deploy, copy the Web App URL.
  *
- * 5. Paste the Web App URL into index.html where it says BACKEND_URL = ''
+ * 4. Paste the Web App URL into index.html where it says BACKEND_URL = ''
+ *    Then commit and push.
  *
  * The script creates two sheets automatically:
  *   "Results"  — one row per pupil, all question scores and answers
@@ -45,7 +44,7 @@ function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
     const ss = SpreadsheetApp.openById(
-      PropertiesService.getScriptProperties().getProperty('SHEET_ID')
+      '13h2sUXYMUPjoe1OlUzAuOpGvstPg2lQfTlvqJopTT5w'
     );
 
     // 1. Save raw assessment data

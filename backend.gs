@@ -92,6 +92,13 @@ function doGet(e) {
     result = getSubmissionsSummary(ss);
   } else if (action === 'mark') {
     result = markAllPending(ss);
+  } else if (action === 'update') {
+    // Override a single question score
+    // Params: pupil, qid (e.g. Q22), score (integer)
+    const pupil = e.parameter.pupil || '';
+    const qid   = e.parameter.qid   || '';
+    const score = parseInt(e.parameter.score, 10);
+    result = updateScore(ss, pupil, qid, score);
   } else {
     result = { error: 'unknown action' };
   }
@@ -288,6 +295,31 @@ function markAllPending(ss) {
   });
 
   return { ok: true, marked: pending.length, results: allResults };
+}
+
+// ── Override a single score ──────────────────────────────────────────────────
+function updateScore(ss, pupilName, qid, score) {
+  if (!pupilName || !qid || isNaN(score)) return { ok: false, error: 'Missing params' };
+  const sheet = ss.getSheetByName(RESULTS_SHEET);
+  if (!sheet) return { ok: false, error: 'No Results sheet' };
+
+  const data = sheet.getDataRange().getValues();
+  const headers = data[0];
+
+  // Find last row matching pupil name
+  let targetRow = -1;
+  for (let i = data.length - 1; i >= 1; i--) {
+    if (data[i][1] === pupilName) { targetRow = i + 1; break; }
+  }
+  if (targetRow < 0) return { ok: false, error: 'Pupil not found: ' + pupilName };
+
+  // Find the score column (e.g. "Q22 Score")
+  const colHeader = qid + ' Score';
+  const colIdx = headers.indexOf(colHeader);
+  if (colIdx < 0) return { ok: false, error: 'Column not found: ' + colHeader };
+
+  sheet.getRange(targetRow, colIdx + 1).setValue(score);
+  return { ok: true, pupil: pupilName, qid, score };
 }
 
 // ── Save raw submission ──────────────────────────────────────────────────────

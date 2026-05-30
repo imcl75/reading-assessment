@@ -280,7 +280,7 @@ tr:hover td { background: #f9fafb; }
 </div>
 
 <script>
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbw9b1FG0i4dxCzhxTUued6Q8NOv_9Seh71UK1XYNuShboazo8YzbJ7paGAoZt2VcZ46sQ/exec';
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzIsAe8Dp-Dzy_ESaUVqShWVO3r3E5j3i3lzvX11XJYE-ftjqRYJy0nPZgCleiEnnPqRg/exec';
 const CORRECT_PIN = '2025';
 
 // ===== PIN =====
@@ -535,7 +535,7 @@ function displayMarkingResults(results) {
     attentionNote.style.display = 'none';
   }
 
-  tbody.innerHTML = rows.map(r => {
+  tbody.innerHTML = rows.map((r, i) => {
     const needsReview = r.confidence === 'low' || r.confidence === 'medium';
     const badgeClass = r.confidence === 'low' ? 'badge-low' : r.confidence === 'medium' ? 'badge-medium' : 'badge-high';
     const badgeIcon = r.confidence === 'low' ? '🔴' : r.confidence === 'medium' ? '🟡' : '🟢';
@@ -543,11 +543,26 @@ function displayMarkingResults(results) {
     const answerHtml = r.answer
       ? `<span style="background:#f3f4f6;border-radius:4px;padding:4px 8px;display:inline-block;font-style:italic">"${esc(r.answer)}"</span>`
       : `<span style="color:#aaa">—</span>`;
-    return `<tr class="${needsReview ? 'conf-low-row' : ''}">
+    const rowId = `row-${i}`;
+    return `<tr id="${rowId}" class="${needsReview ? 'conf-low-row' : ''}">
       <td><strong>${esc(r.pupil)}</strong><br><span style="font-size:12px;color:var(--muted)">${esc(r.date)}</span></td>
       <td style="font-weight:600">${esc(r.qid)}</td>
       <td style="max-width:260px;font-size:13px;color:#374151">${answerHtml}</td>
-      <td style="font-weight:700;font-size:1.1rem">${scoreDisp}</td>
+      <td>
+        <span id="score-disp-${i}" style="font-weight:700;font-size:1.1rem">${scoreDisp}</span>
+        <button onclick="startOverride(${i},'${esc(r.pupil)}','${esc(r.qid)}',${r.score},${r.max})"
+          style="margin-left:8px;background:none;border:1px solid #d1d5db;border-radius:4px;padding:2px 7px;font-size:12px;cursor:pointer;color:#6b7280"
+          title="Override score" id="edit-btn-${i}">✏️</button>
+        <span id="override-ui-${i}" style="display:none;margin-top:6px">
+          <input type="number" id="override-val-${i}" min="0" max="${r.max}" value="${r.score ?? 0}"
+            style="width:48px;padding:3px 6px;border:2px solid #009ae4;border-radius:4px;font-size:14px;font-weight:bold">
+          <span style="font-size:13px;color:#888">/${r.max}</span>
+          <button onclick="confirmOverride(${i},'${esc(r.pupil)}','${esc(r.qid)}',${r.max})"
+            style="margin-left:4px;background:#009ae4;color:#fff;border:none;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:13px">✓</button>
+          <button onclick="cancelOverride(${i})"
+            style="background:#f3f4f6;border:none;border-radius:4px;padding:3px 8px;cursor:pointer;font-size:13px;color:#6b7280">✗</button>
+        </span>
+      </td>
       <td><span class="badge ${badgeClass}">${badgeIcon} ${r.confidence}</span></td>
       <td style="font-size:13px;color:var(--muted);max-width:280px">${esc(r.reasoning)}</td>
     </tr>`;
@@ -555,6 +570,57 @@ function displayMarkingResults(results) {
 
   card.style.display = 'block';
   card.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ===== SCORE OVERRIDE =====
+function startOverride(i, pupil, qid, currentScore, max) {
+  document.getElementById('score-disp-' + i).style.display = 'none';
+  document.getElementById('edit-btn-' + i).style.display = 'none';
+  document.getElementById('override-ui-' + i).style.display = 'inline';
+  const inp = document.getElementById('override-val-' + i);
+  inp.value = currentScore ?? 0;
+  inp.focus();
+  inp.select();
+}
+
+function cancelOverride(i) {
+  document.getElementById('score-disp-' + i).style.display = '';
+  document.getElementById('edit-btn-' + i).style.display = '';
+  document.getElementById('override-ui-' + i).style.display = 'none';
+}
+
+async function confirmOverride(i, pupil, qid, max) {
+  const inp = document.getElementById('override-val-' + i);
+  let score = parseInt(inp.value, 10);
+  if (isNaN(score) || score < 0) score = 0;
+  if (score > max) score = max;
+
+  const btn = inp.nextElementSibling.nextElementSibling; // ✓ button
+  btn.textContent = '…';
+  btn.disabled = true;
+
+  try {
+    const url = BACKEND_URL + '?action=update&pupil=' + encodeURIComponent(pupil)
+      + '&qid=' + encodeURIComponent(qid) + '&score=' + score;
+    const result = await jsonpFetch(url, 15000);
+    if (result.ok) {
+      document.getElementById('score-disp-' + i).textContent = score + '/' + max;
+      cancelOverride(i);
+      document.getElementById('score-disp-' + i).style.display = '';
+      // Flash green to confirm
+      const disp = document.getElementById('score-disp-' + i);
+      disp.style.color = '#16a34a';
+      setTimeout(() => { disp.style.color = ''; }, 2000);
+    } else {
+      alert('Failed to save: ' + (result.error || 'Unknown error'));
+      btn.textContent = '✓';
+      btn.disabled = false;
+    }
+  } catch (err) {
+    alert('Connection error — could not save override.');
+    btn.textContent = '✓';
+    btn.disabled = false;
+  }
 }
 
 function esc(str) {

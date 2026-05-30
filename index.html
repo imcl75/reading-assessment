@@ -109,6 +109,22 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .match-row select { flex: 1; padding: 9px 10px; font-size: 14px; border: 2px solid #ddd; border-radius: 7px; outline: none; font-family: inherit; }
 .match-row select:focus { border-color: var(--brand); }
 .match-given { flex: 1; background: #e8f5e9; border: 1px solid #b2dfdb; border-radius: 7px; padding: 8px 13px; font-style: italic; color: #555; font-size: 14px; }
+
+/* Tap-to-select match UI */
+.match-instructions { font-size: 13px; color: #666; margin-bottom: 12px; font-family: sans-serif; font-style: italic; }
+.tap-match-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tap-words-col { display: flex; flex-direction: column; gap: 8px; }
+.tap-meanings-col { display: flex; flex-direction: column; gap: 8px; }
+.tap-word-slot { background: #f5d5a0; border: 2px solid #ccc; border-radius: 8px; padding: 10px 12px; min-height: 48px; cursor: pointer; font-size: 14px; font-weight: bold; transition: border-color .15s, background .15s; user-select: none; }
+.tap-word-slot .slot-word { color: #333; }
+.tap-word-slot .slot-answer { font-size: 12px; font-weight: normal; color: #1798d3; margin-top: 4px; font-style: italic; }
+.tap-word-slot.selected { border-color: var(--brand); background: #cce9f8; }
+.tap-word-slot.assigned { border-color: #4caf50; background: #e8f5e9; }
+.tap-word-slot.given { border-color: #b2dfdb; background: #e8f5e9; cursor: default; opacity: .8; }
+.tap-meaning-chip { background: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 10px 12px; min-height: 48px; cursor: pointer; font-size: 13px; transition: border-color .15s, background .15s; user-select: none; display: flex; align-items: center; }
+.tap-meaning-chip:hover:not(.used):not(.sel-meaning) { border-color: var(--brand); background: #e8f5fd; }
+.tap-meaning-chip.sel-meaning { border-color: #ff9800; background: #fff3e0; }
+.tap-meaning-chip.used { opacity: .45; cursor: pointer; font-style: italic; color: #888; border-style: dashed; }
 .order-rows { display: flex; flex-direction: column; gap: 8px; }
 .order-row { display: flex; align-items: center; gap: 10px; }
 .order-txt { flex: 1; background: #f5f5f5; border: 1px solid #ddd; border-radius: 7px; padding: 10px 14px; font-size: 14px; line-height: 1.4; }
@@ -117,6 +133,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .order-inp:disabled { background: #e8f5e9; border-color: #a5d6a7; color: #388e3c; cursor: default; }
 .ans-ext { width: 100%; padding: 11px 13px; font-size: 15px; border: 2px solid #ddd; border-radius: 8px; outline: none; resize: vertical; min-height: 90px; font-family: inherit; background: #fff; }
 .ans-ext:focus { border-color: var(--brand); }
+.spelling-note { font-size: 13px; color: #666; margin: 4px 0 8px; font-style: italic; }
 .qfooter { position: fixed; bottom: 0; left: 46%; right: 0; background: #fff; border-top: 2px solid #eee; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; }
 .qfooter .prog { font-size: 13px; color: #888; }
 
@@ -492,12 +509,10 @@ const QUESTIONS = [
     type:'text', q:'Where do you end up if you go on the fast slides?',
     accepted:['the plunge pool','plunge pool'] },
   { id:6,    sec:0, marks:2, domain:'2b', qtype:'sc',  ttype:'NF',
-    type:'multi_text', count:2,
+    type:'extended', review:true,
     prompt:'Look at the section headed: <strong>Parties that go swimmingly.</strong>',
-    q:'What are the benefits of booking a private party? Give <strong>two</strong>.',
-    acceptedPool:['pool to yourselves','pool to yourself','have it to yourselves','exclusive use','private pool','exclusive access',
-                  'floats','water toys','floats and water toys','selection of floats','water toys provided',
-                  'party tea','food','sandwiches','snacks','party food','tea in the café','delicious party tea','pool to themselves'] },
+    q:'What are the benefits of booking a private party? Give <strong>two</strong> benefits in your answer.',
+    guidance:'Award 1 mark per benefit (max 2). Accept any reasonable paraphrase of: exclusive pool use / pool to yourselves; floats and water toys included; party tea/food provided. Do not accept vague answers without reference to a specific benefit.' },
   { id:7,    sec:0, marks:1, domain:'2b', qtype:'sc',  ttype:'NF',
     type:'text', prompt:'Look again at the section headed: <strong>Parties that go swimmingly.</strong>',
     q:'If the Leisure Centre were providing food for your party, what would you have to pay extra for?',
@@ -508,10 +523,10 @@ const QUESTIONS = [
     q:'The writer uses different adjectives to make the party food seem appealing. Give <strong>two</strong> examples.',
     acceptedPool:['delicious','mouth-watering','mouth watering'] },
   { id:9,    sec:0, marks:1, domain:'2b', qtype:'sc',  ttype:'NF',
-    type:'text', prompt:'Look at the section headed: <strong>Booking Information</strong>',
+    type:'extended', review:true,
+    prompt:'Look at the section headed: <strong>Booking Information</strong>',
     q:'How does the centre make sure that people are safe?',
-    accepted:['lifeguards','pool-side lifeguards','poolside lifeguards','they provide lifeguards',
-              'provide pool-side lifeguards','responsible adults supervise','adults supervise'] },
+    guidance:'Award 1 mark for reference to lifeguards / poolside lifeguards / responsible adults supervising. Accept reasonable paraphrase. Do not accept simply "they are safe" without explaining the mechanism.' },
   { id:10,   sec:0, marks:1, domain:'2b', qtype:'sc',  ttype:'NF',
     type:'text', q:'How far in advance should you make a booking for a party?',
     accepted:['at least a month','a month','one month','at least one month','a month in advance'] },
@@ -551,9 +566,10 @@ const QUESTIONS = [
     q:"Which word has the poet used instead of <em>falls</em>?",
     accepted:['tumbles'] },
   { id:17,   sec:1, marks:1, domain:'2b', qtype:'sc',  ttype:'P',
-    type:'text', prompt:'Look at verse <strong>two</strong>.',
+    type:'extended', review:true,
+    prompt:'Look at verse <strong>two</strong>.',
     q:'In verse two, where would you find the mouse <em>peeping</em>?',
-    accepted:['round about the tall tree roots','the tall tree roots','tall tree roots','around the tall tree roots'] },
+    guidance:'Award 1 mark for reference to the tree roots / round about the tall tree roots / around the tree roots. Accept reasonable paraphrase that conveys the correct location.' },
   { id:18,   sec:1, marks:1, domain:'2a', qtype:'sc',  ttype:'P',
     type:'extended', prompt:"'Nibbling at their fallen fruits'",
     q:"What impression does the word <em>'nibbling'</em> give you about how the mouse eats?", review:true,
@@ -563,9 +579,9 @@ const QUESTIONS = [
     q:'What does the poem suggest the mouse eats instead of the grain?',
     accepted:['nut','nuts','acorn','acorns','fallen fruits','the nut','nuts and acorns'] },
   { id:20,   sec:1, marks:1, domain:'2d', qtype:'fc',  ttype:'P',
-    type:'text',
+    type:'extended', review:true,
     q:'<strong>Find</strong> and <strong>copy a group of words</strong> which show that it has been hard work for the farmer to stack the grain.',
-    accepted:['stacked with so much pain','with so much pain'] },
+    guidance:'Award 1 mark for any phrase that conveys difficulty/effort in stacking the grain. Accept partial copies that retain the core meaning of effort/difficulty.' },
   { id:21,   sec:1, marks:1, domain:'2b', qtype:'mc',  ttype:'P',
     type:'mc', prompt:'Read verse <strong>four</strong>.',
     q:'The poet tells the mouse to stay away from the...',
@@ -577,10 +593,10 @@ const QUESTIONS = [
 
   // ===== THE TOP OF THE FOOD CHAIN =====
   { id:23,   sec:2, marks:1, domain:'2b', qtype:'sc',  ttype:'F',
-    type:'text', prompt:'Look at the first paragraph beginning: <em>The pigeon landed...</em>',
+    type:'extended', review:true,
+    prompt:'Look at the first paragraph beginning: <em>The pigeon landed...</em>',
     q:'Why was it easy for the pigeon to find food?',
-    accepted:['humans littered','humans often littered','humans left food','people littered','humans passed and littered',
-              'humans often passed and littered the floor','humans littered the floor with food','people left food scraps'] },
+    guidance:'Award 1 mark for reference to humans/people littering or leaving food on the ground. Accept any reasonable paraphrase.' },
   { id:24,   sec:2, marks:1, domain:'2b', qtype:'fc',  ttype:'F',
     type:'text', prompt:'Look at the paragraph beginning: <em>He was not alone...</em>',
     q:'<strong>Find</strong> and <strong>copy a group of words</strong> that tell us that the eagle would like to eat the pigeon.',
@@ -588,10 +604,10 @@ const QUESTIONS = [
               'her vicious beak opened briefly, then closed as if tasting the flavour of her next meal',
               'tasting the flavour of her next meal'] },
   { id:25,   sec:2, marks:1, domain:'2d', qtype:'sc',  ttype:'F',
-    type:'text', prompt:'Look at the paragraph beginning: <em>The pigeon only noticed...</em>',
+    type:'extended', review:true,
+    prompt:'Look at the paragraph beginning: <em>The pigeon only noticed...</em>',
     q:'How can you tell that the pigeon is anxious when he first sees the eagle?',
-    accepted:['he was alarmed and fluttered upwards in a clumsy panic','alarmed and fluttered upwards in a clumsy panic',
-              'he fluttered upwards in a clumsy panic','fluttered upwards in a clumsy panic','alarmed','he was alarmed'] },
+    guidance:'Award 1 mark for reference to the pigeon being alarmed / fluttering upwards / panicking. Accept any answer that conveys a clear sign of anxiety from the text.' },
   { id:26,   sec:2, marks:1, domain:'2d', qtype:'mc',  ttype:'F',
     type:'mc', prompt:"Early on in the conversation between the two birds, why does the pigeon say <em>'No need to get personal...'</em>",
     q:'Tick <strong>one</strong>.',
@@ -812,14 +828,35 @@ function renderQuestion(q) {
     q.rows.map(r=>`<tr><th style="width:50%">${r.label}</th><td><input type="text" class="ans-text" data-qid="${id}" data-key="${r.key}" placeholder="" oninput="saveFill('${id}','${r.key}',this.value)" autocomplete="off"></td></tr>`
     ).join('') + '</tbody></table>';
   } else if (q.type === 'match') {
-    const givenRow = `<div class="match-row"><div class="match-left">${q.given.word}</div><div class="match-given">→ ${q.given.meaning} (given)</div></div>`;
-    const pairRows = q.pairs.map(p=>
-      `<div class="match-row"><div class="match-left">${p.word}</div>
-       <select data-qid="${id}" data-word="${p.word}" onchange="saveMatch('${id}','${p.word}',this.value)">
-         <option value="">— choose —</option>
-         ${p.options.map(o=>`<option value="${o}">${o}</option>`).join('')}
-       </select></div>`).join('');
-    inputHtml = `<div class="match-rows">${givenRow}${pairRows}</div>`;
+    // Tap-to-select UI
+    const allMeanings = [...new Set(q.pairs.flatMap(p => p.options))];
+    // Shuffle meanings (deterministic by qid)
+    const shuffled = [...allMeanings].sort((a,b) => {
+      const ha = (String(id)+a).split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+      const hb = (String(id)+b).split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+      return ha - hb;
+    });
+    const wordSlots = [
+      `<div class="tap-word-slot given" data-qid="${id}" data-word="${q.given.word}">
+         <div class="slot-word">${q.given.word}</div>
+         <div class="slot-answer">→ ${q.given.meaning} (given)</div>
+       </div>`,
+      ...q.pairs.map(p =>
+        `<div class="tap-word-slot" id="slot-${id}-${p.word.replace(/\s/g,'_')}" data-qid="${id}" data-word="${p.word}" onclick="tapWord('${id}','${p.word}')">
+           <div class="slot-word">${p.word}</div>
+           <div class="slot-answer" id="slotans-${id}-${p.word.replace(/\s/g,'_')}"></div>
+         </div>`
+      )
+    ].join('');
+    const meaningChips = shuffled.map(m =>
+      `<div class="tap-meaning-chip" id="chip-${id}-${m.replace(/\s/g,'_')}" data-qid="${id}" data-meaning="${m}" onclick="tapMeaning('${id}','${m}')">${m}</div>`
+    ).join('');
+    inputHtml = `
+      <p class="match-instructions">Tap a word on the left, then tap its meaning on the right — or tap a meaning first, then its word.</p>
+      <div class="tap-match-wrap">
+        <div class="tap-words-col">${wordSlots}</div>
+        <div class="tap-meanings-col">${meaningChips}</div>
+      </div>`;
   } else if (q.type === 'order') {
     inputHtml = `<div class="order-rows">` +
     q.items.map((item,i)=>
@@ -831,10 +868,16 @@ function renderQuestion(q) {
     inputHtml = `<textarea class="ans-ext" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)"></textarea>`;
   }
 
+  // Add spelling note for find & copy questions
+  const qTextLower = q.q.toLowerCase();
+  const spellingNote = (qTextLower.includes('find') && qTextLower.includes('copy'))
+    ? `<p class="spelling-note">📋 Copy carefully — spelling counts</p>` : '';
+
   return `<div class="qblock" id="qb-${id}">
     <div class="qnum">${id}.</div>
     ${promptHtml}
     <div class="qtxt">${q.q}</div>
+    ${spellingNote}
     <div class="qmarks">${marksLabel}</div>
     ${inputHtml}
   </div>`;
@@ -848,6 +891,130 @@ function saveMultiText(qid, idx, val)   { if (!answers[qid]) answers[qid] = []; 
 function saveTF(qid, row, val)          { if (!answers[qid]) answers[qid] = {}; answers[qid][row] = val; }
 function saveFill(qid, key, val)        { if (!answers[qid]) answers[qid] = {}; answers[qid][key] = val; }
 function saveMatch(qid, word, val)      { if (!answers[qid]) answers[qid] = {}; answers[qid][word] = val; }
+
+// Tap-to-select match state
+const tapMatchState = {}; // { qid: { selectedWord: null, selectedMeaning: null } }
+
+function getTapState(qid) {
+  if (!tapMatchState[qid]) tapMatchState[qid] = { selectedWord: null, selectedMeaning: null };
+  return tapMatchState[qid];
+}
+
+function tapWord(qid, word) {
+  const state = getTapState(qid);
+  const slot = document.getElementById('slot-' + qid + '-' + word.replace(/\s/g,'_'));
+  if (!slot) return;
+
+  const currentAssignment = answers[qid] && answers[qid][word];
+
+  // If this slot has a meaning, unassign it
+  if (currentAssignment) {
+    // Return meaning chip to available
+    const chip = document.getElementById('chip-' + qid + '-' + currentAssignment.replace(/\s/g,'_'));
+    if (chip) { chip.classList.remove('used'); }
+    saveMatch(qid, word, '');
+    slot.classList.remove('assigned');
+    document.getElementById('slotans-' + qid + '-' + word.replace(/\s/g,'_')).textContent = '';
+    // If a meaning is already selected, assign it
+    if (state.selectedMeaning) {
+      assignMatch(qid, word, state.selectedMeaning);
+      state.selectedMeaning = null;
+      // Clear meaning selection highlight
+      document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
+    } else {
+      // Select this word slot
+      clearWordSelection(qid);
+      state.selectedWord = word;
+      slot.classList.add('selected');
+    }
+    return;
+  }
+
+  // If a meaning is already selected, assign it now
+  if (state.selectedMeaning) {
+    clearWordSelection(qid);
+    assignMatch(qid, word, state.selectedMeaning);
+    state.selectedMeaning = null;
+    document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
+    return;
+  }
+
+  // Select/deselect this word slot
+  if (state.selectedWord === word) {
+    slot.classList.remove('selected');
+    state.selectedWord = null;
+  } else {
+    clearWordSelection(qid);
+    state.selectedWord = word;
+    slot.classList.add('selected');
+  }
+}
+
+function tapMeaning(qid, meaning) {
+  const state = getTapState(qid);
+  const chip = document.getElementById('chip-' + qid + '-' + meaning.replace(/\s/g,'_'));
+  if (!chip) return;
+
+  // If this meaning is already used, find its word and unassign
+  if (chip.classList.contains('used')) {
+    // Find which word has this meaning
+    const ans = answers[qid] || {};
+    let assignedWord = null;
+    Object.entries(ans).forEach(([w, m]) => { if (m === meaning) assignedWord = w; });
+    if (assignedWord) {
+      const slot = document.getElementById('slot-' + qid + '-' + assignedWord.replace(/\s/g,'_'));
+      if (slot) { slot.classList.remove('assigned'); slot.classList.remove('selected'); }
+      document.getElementById('slotans-' + qid + '-' + assignedWord.replace(/\s/g,'_')).textContent = '';
+      saveMatch(qid, assignedWord, '');
+      chip.classList.remove('used');
+      // Now select this meaning
+      clearMeaningSelection(qid);
+      state.selectedMeaning = meaning;
+      chip.classList.add('sel-meaning');
+    }
+    return;
+  }
+
+  // If a word slot is selected, assign this meaning to it
+  if (state.selectedWord) {
+    clearMeaningSelection(qid);
+    assignMatch(qid, state.selectedWord, meaning);
+    const slot = document.getElementById('slot-' + qid + '-' + state.selectedWord.replace(/\s/g,'_'));
+    if (slot) slot.classList.remove('selected');
+    state.selectedWord = null;
+    return;
+  }
+
+  // Select/deselect this meaning chip
+  if (state.selectedMeaning === meaning) {
+    chip.classList.remove('sel-meaning');
+    state.selectedMeaning = null;
+  } else {
+    clearMeaningSelection(qid);
+    state.selectedMeaning = meaning;
+    chip.classList.add('sel-meaning');
+  }
+}
+
+function assignMatch(qid, word, meaning) {
+  saveMatch(qid, word, meaning);
+  const slot = document.getElementById('slot-' + qid + '-' + word.replace(/\s/g,'_'));
+  const ansEl = document.getElementById('slotans-' + qid + '-' + word.replace(/\s/g,'_'));
+  const chip = document.getElementById('chip-' + qid + '-' + meaning.replace(/\s/g,'_'));
+  if (slot) { slot.classList.remove('selected'); slot.classList.add('assigned'); }
+  if (ansEl) ansEl.textContent = '→ ' + meaning;
+  if (chip) chip.classList.add('used');
+}
+
+function clearWordSelection(qid) {
+  document.querySelectorAll(`.tap-word-slot[data-qid="${qid}"]`).forEach(s => s.classList.remove('selected'));
+  getTapState(qid).selectedWord = null;
+}
+
+function clearMeaningSelection(qid) {
+  document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
+  getTapState(qid).selectedMeaning = null;
+}
 function saveOrder(qid, idx, val)       { if (!answers[qid]) answers[qid] = {}; answers[qid][idx] = parseInt(val) || null; }
 
 function restoreAnswer(q) {
@@ -875,9 +1042,14 @@ function restoreAnswer(q) {
       if (el) el.value = val;
     });
   } else if (q.type === 'match' && typeof saved === 'object') {
-    Object.entries(saved).forEach(([word,val]) => {
-      const sel = document.querySelector(`select[data-qid="${id}"][data-word="${word}"]`);
-      if (sel) sel.value = val;
+    Object.entries(saved).forEach(([word, val]) => {
+      if (!val) return;
+      const slot = document.getElementById('slot-' + id + '-' + word.replace(/\s/g,'_'));
+      const ansEl = document.getElementById('slotans-' + id + '-' + word.replace(/\s/g,'_'));
+      const chip = document.getElementById('chip-' + id + '-' + val.replace(/\s/g,'_'));
+      if (slot) { slot.classList.add('assigned'); }
+      if (ansEl) ansEl.textContent = '→ ' + val;
+      if (chip) chip.classList.add('used');
     });
   } else if (q.type === 'order' && typeof saved === 'object') {
     Object.entries(saved).forEach(([idx,val]) => {
@@ -1129,6 +1301,7 @@ function postToBackend() {
     timeTaken,
     sections: selectedSections,
     total, totalMax,
+    assessmentId: 'Y4-summer-2025',
     scores: scoresPayload,
     answers: answersPayload,
     reviewQuestions

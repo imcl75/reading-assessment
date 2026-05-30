@@ -304,7 +304,8 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
   <div class="done-inner">
     <div class="done-emoji" id="done-emoji" onclick="teacherTap()">🎉</div>
     <div class="done-heading">Well Done!</div>
-    <div class="done-sub">You've finished the reading assessment. Your teacher will look at your results.</div>
+    <div class="done-sub" id="done-sub">You've finished the reading assessment. Your teacher will look at your results.</div>
+    <div id="done-sending" style="display:none;margin-top:16px;font-size:13px;color:#009ae4;font-family:sans-serif;">Sending your answers… ✓</div>
   </div>
 </div>
 
@@ -342,7 +343,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
     <div class="res-pane" id="rp-review">
       <div class="review-card">
         <h3>✏️ Teacher Marking</h3>
-        <p class="rev-intro">Read each answer below and award marks. The total score will update automatically.</p>
+        <p class="rev-intro" id="review-intro">These extended answers are sent to the class spreadsheet for AI marking. You can still award marks manually here if needed — the total score updates automatically.</p>
         <div id="review-items"></div>
       </div>
     </div>
@@ -378,6 +379,11 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 </div>
 
 <script>
+// ======================================================
+// CONFIG — paste your Apps Script Web App URL here after deploying backend.gs
+// ======================================================
+const BACKEND_URL = ''; // e.g. 'https://script.google.com/macros/s/ABC.../exec'
+
 // ======================================================
 // TEXTS
 // ======================================================
@@ -1048,6 +1054,7 @@ function submitAssessment() {
   buildQLA();
   buildClassTab();
   saveToClassData();
+  postToBackend();
 }
 
 // ======================================================
@@ -1081,6 +1088,64 @@ function saveToClassData() {
 function getClassData() {
   try { return JSON.parse(localStorage.getItem('ra_class_data') || '[]'); }
   catch(e) { return []; }
+}
+
+// ======================================================
+// BACKEND SYNC (Google Apps Script → Google Sheet + Claude marking)
+// ======================================================
+function postToBackend() {
+  if (!BACKEND_URL) return; // not configured yet
+
+  // Build the payload — include review questions with full marking info
+  // so the Apps Script can pass them to Claude
+  const reviewQuestions = QUESTIONS
+    .filter(q => q.review && selectedSections.includes(q.sec))
+    .map(q => ({
+      id: q.id,
+      question: q.q,
+      prompt: q.prompt || '',
+      guidance: q.guidance || '',
+      max: q.marks
+    }));
+
+  const {total, totalMax} = calcTotals();
+  const scoresPayload = {};
+  markResults.forEach(r => {
+    const sc = r.review ? (reviewScores[r.q.id] ?? null) : r.score;
+    scoresPayload['Q'+r.q.id] = { score: sc, max: r.max, domain: r.q.domain, qtype: r.q.qtype, ttype: r.q.ttype };
+  });
+  const answersPayload = {};
+  markResults.forEach(r => {
+    const ans = answers[r.q.id];
+    answersPayload['Q'+r.q.id] = !ans ? '' :
+      Array.isArray(ans) ? ans.filter(v=>v).join('; ') :
+      typeof ans === 'object' ? Object.entries(ans).map(([k,v])=>k+': '+v).join('; ') :
+      String(ans);
+  });
+
+  const payload = {
+    pupilName,
+    date: new Date().toLocaleDateString('en-GB'),
+    timeTaken,
+    sections: selectedSections,
+    total, totalMax,
+    scores: scoresPayload,
+    answers: answersPayload,
+    reviewQuestions
+  };
+
+  // Fire-and-forget (no-cors — we can't read the response but data is saved)
+  fetch(BACKEND_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(payload)
+  }).then(() => {
+    const el = document.getElementById('done-sending');
+    if (el) { el.style.display = 'block'; el.textContent = '✓ Answers saved to class spreadsheet'; }
+  }).catch(() => {
+    const el = document.getElementById('done-sending');
+    if (el) { el.style.display = 'block'; el.style.color = '#f44336'; el.textContent = 'Could not save to spreadsheet — check internet connection.'; }
+  });
 }
 
 function clearClassData() {

@@ -6,8 +6,8 @@
 <title>Year 4 Reading Assessment – Summer</title>
 <style>
 :root {
-  --orange: #f5a623;
-  --orange-dk: #e08910;
+  --brand: #009ae4;
+  --brand-dk: #0080c8;
   --blue: #1798d3;
   --bg: #faf8f5;
   --text-bg: #fff9f0;
@@ -20,52 +20,50 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .screen.active { display: flex; }
 
 /* ===== LOGIN ===== */
-#s-login { align-items: center; justify-content: center; background: linear-gradient(160deg, #fff8ee 0%, #fde8c2 100%); }
+#s-login { align-items: center; justify-content: center; background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%); }
 .card { background: #fff; border-radius: 20px; padding: 36px 40px; max-width: 500px; width: 92%; box-shadow: 0 6px 32px rgba(0,0,0,.12); text-align: center; }
 .card-logo { font-size: 2.4rem; margin-bottom: 4px; }
-.card h1 { color: var(--orange); font-size: 1.6rem; margin-bottom: 4px; }
+.card h1 { color: var(--brand); font-size: 1.6rem; margin-bottom: 4px; }
 .card .sub { color: #888; font-style: italic; margin-bottom: 26px; font-size: .9rem; }
 .fg { margin-bottom: 16px; text-align: left; }
 .fg label { display: block; font-weight: bold; margin-bottom: 7px; font-size: .9rem; color: #444; font-family: sans-serif; }
 .fg input, .fg select { width: 100%; padding: 13px 14px; font-size: 16px; border: 2px solid #ddd; border-radius: 10px; outline: none; font-family: inherit; background: #fafafa; }
-.fg input:focus, .fg select:focus { border-color: var(--orange); background: #fff; }
+.fg input:focus, .fg select:focus { border-color: var(--brand); background: #fff; }
 .text-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
 .text-sel-btn {
   padding: 10px 8px; border: 2px solid #ddd; border-radius: 10px;
   cursor: pointer; font-size: 13px; font-family: sans-serif; background: #fafafa;
   text-align: center; transition: all .15s; line-height: 1.3; color: #555;
 }
-.text-sel-btn:hover { border-color: var(--orange); background: #fff8ee; }
-.text-sel-btn.sel { border-color: var(--orange); background: #fff3e0; color: #222; font-weight: bold; }
+.text-sel-btn:hover { border-color: var(--brand); background: #e8f5fd; }
+.text-sel-btn.sel { border-color: var(--brand); background: #cce9f8; color: #222; font-weight: bold; }
 .text-sel-btn.full { grid-column: 1/-1; }
 .btn { padding: 14px 32px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background .15s, transform .1s; font-family: sans-serif; }
 .btn:active { transform: scale(.97); }
-.btn-primary { background: var(--orange); color: #fff; width: 100%; }
-.btn-primary:hover { background: var(--orange-dk); }
+.btn-primary { background: var(--brand); color: #fff; width: 100%; }
+.btn-primary:hover { background: var(--brand-dk); }
 .btn-sm { padding: 10px 22px; font-size: 14px; width: auto; }
-.btn-outline { background: #fff; border: 2px solid var(--orange); color: var(--orange); }
+.btn-outline { background: #fff; border: 2px solid var(--brand); color: var(--brand); }
 
 /* ===== INSTRUCTIONS ===== */
-#s-instructions { align-items: center; justify-content: center; background: linear-gradient(160deg, #fff8ee 0%, #fde8c2 100%); }
+#s-instructions { align-items: center; justify-content: center; background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%); }
 #s-instructions .card { max-width: 620px; text-align: left; }
-#s-instructions h2 { color: var(--orange); margin-bottom: 18px; font-size: 1.5rem; }
+#s-instructions h2 { color: var(--brand); margin-bottom: 18px; font-size: 1.5rem; }
 #s-instructions p { margin-bottom: 11px; line-height: 1.65; font-size: 15px; }
 #s-instructions .inst-footer { margin-top: 24px; display: flex; justify-content: flex-end; }
 
 /* ===== ASSESSMENT ===== */
 #s-assessment { overflow: hidden; }
-.aheader { background: var(--orange); color: #fff; padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; font-family: sans-serif; }
+.aheader { background: var(--brand); color: #fff; padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; font-family: sans-serif; }
 .aheader .pupil { font-weight: bold; font-size: .95rem; }
 .sec-tabs { display: flex; gap: 6px; }
 .sec-tab { padding: 5px 13px; border-radius: 14px; font-size: 13px; font-weight: bold; border: 2px solid rgba(255,255,255,.4); color: rgba(255,255,255,.8); cursor: default; background: transparent; font-family: sans-serif; }
-.sec-tab.active { background: #fff; color: var(--orange); border-color: #fff; }
+.sec-tab.active { background: #fff; color: var(--brand); border-color: #fff; }
 .sec-tab.done { border-color: rgba(255,255,255,.7); color: #fff; }
 .sec-tab.skip { opacity: .4; }
-.timer { background: rgba(0,0,0,.2); padding: 4px 13px; border-radius: 8px; font-size: 1.05rem; font-weight: bold; min-width: 58px; text-align: center; font-family: sans-serif; }
-.timer.warn { background: #c0392b; }
 .abody { display: flex; flex: 1; overflow: hidden; }
 .tpanel { width: 46%; flex-shrink: 0; background: var(--text-bg); border-right: 3px solid var(--border); overflow-y: auto; padding: 20px 22px; }
-.tpanel h2 { color: var(--orange-dk); font-size: 1.35rem; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.tpanel h2 { color: var(--brand-dk); font-size: 1.35rem; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
 .tpanel .txt { font-size: 14.5px; line-height: 1.75; }
 .tpanel .txt h3 { font-size: .95rem; font-weight: bold; margin: 14px 0 5px; }
 .tpanel .txt h4 { font-style: italic; margin: 12px 0 5px; }
@@ -77,31 +75,31 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .tpanel .txt table th { background: #f5d5a0; font-weight: bold; }
 .tpanel .txt .contact { font-size: 13px; }
 .qpanel { flex: 1; overflow-y: auto; padding: 18px 20px 80px; background: #fff; }
-.qpanel h3 { color: var(--orange); font-size: 1.05rem; margin-bottom: 14px; padding: 8px 12px; background: #fff8ee; border-radius: 6px; font-family: sans-serif; }
-.qblock { border-left: 4px solid var(--orange); border-radius: 0 10px 10px 0; background: #fafafa; padding: 15px 18px; margin-bottom: 18px; }
-.qnum { color: var(--orange); font-size: 1.35rem; font-weight: bold; margin-bottom: 6px; font-family: sans-serif; }
+.qpanel h3 { color: var(--brand); font-size: 1.05rem; margin-bottom: 14px; padding: 8px 12px; background: #e8f5fd; border-radius: 6px; font-family: sans-serif; }
+.qblock { border-left: 4px solid var(--brand); border-radius: 0 10px 10px 0; background: #fafafa; padding: 15px 18px; margin-bottom: 18px; }
+.qnum { color: var(--brand); font-size: 1.35rem; font-weight: bold; margin-bottom: 6px; font-family: sans-serif; }
 .qprompt { color: #666; font-size: 13.5px; margin-bottom: 8px; line-height: 1.5; }
 .qtxt { font-size: 15px; margin-bottom: 12px; line-height: 1.55; }
-.qmarks { display: inline-block; background: var(--orange); color: #fff; font-size: 11px; padding: 2px 9px; border-radius: 4px; margin-bottom: 11px; font-family: sans-serif; font-weight: bold; }
+.qmarks { display: inline-block; background: var(--brand); color: #fff; font-size: 11px; padding: 2px 9px; border-radius: 4px; margin-bottom: 11px; font-family: sans-serif; font-weight: bold; }
 .ans-text { width: 100%; padding: 11px 13px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px; outline: none; font-family: inherit; background: #fff; }
-.ans-text:focus { border-color: var(--orange); }
+.ans-text:focus { border-color: var(--brand); }
 .mc-opt { display: flex; align-items: center; padding: 11px 14px; margin-bottom: 7px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 15px; transition: all .12s; background: #fff; user-select: none; }
-.mc-opt:hover { border-color: var(--orange); background: #fff8ee; }
-.mc-opt.sel { border-color: var(--orange); background: #fff3e0; }
-.mc-opt input { margin-right: 11px; width: 18px; height: 18px; accent-color: var(--orange); flex-shrink: 0; }
+.mc-opt:hover { border-color: var(--brand); background: #e8f5fd; }
+.mc-opt.sel { border-color: var(--brand); background: #cce9f8; }
+.mc-opt input { margin-right: 11px; width: 18px; height: 18px; accent-color: var(--brand); flex-shrink: 0; }
 .tf-tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
-.tf-tbl th { background: var(--orange); color: #fff; padding: 9px 12px; text-align: center; font-family: sans-serif; }
+.tf-tbl th { background: var(--brand); color: #fff; padding: 9px 12px; text-align: center; font-family: sans-serif; }
 .tf-tbl th:first-child { text-align: left; }
 .tf-tbl td { border: 1px solid #ddd; padding: 9px 12px; }
 .tf-tbl td:first-child { background: #f8f8f8; }
 .tf-tbl .tfc { text-align: center; }
 .tf-tbl .tfc label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 4px 8px; }
-.tf-tbl .tfc input { width: 18px; height: 18px; accent-color: var(--orange); }
+.tf-tbl .tfc input { width: 18px; height: 18px; accent-color: var(--brand); }
 .fill-tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
 .fill-tbl th { background: #f5d5a0; padding: 9px 12px; text-align: left; border: 1px solid #ccc; font-family: sans-serif; }
 .fill-tbl td { border: 1px solid #ccc; padding: 7px 10px; }
 .fill-tbl input { width: 100%; padding: 8px 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 14px; font-family: inherit; outline: none; }
-.fill-tbl input:focus { border-color: var(--orange); }
+.fill-tbl input:focus { border-color: var(--brand); }
 .multi-inp { display: flex; flex-direction: column; gap: 8px; }
 .multi-inp .mi-row { display: flex; align-items: center; gap: 10px; }
 .multi-inp .mi-label { font-weight: bold; color: #888; font-family: sans-serif; min-width: 20px; }
@@ -109,35 +107,42 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .match-row { display: flex; align-items: center; gap: 10px; }
 .match-left { background: #f5d5a0; border: 1px solid #ccc; border-radius: 7px; padding: 8px 13px; font-weight: bold; min-width: 110px; text-align: center; font-size: 14px; }
 .match-row select { flex: 1; padding: 9px 10px; font-size: 14px; border: 2px solid #ddd; border-radius: 7px; outline: none; font-family: inherit; }
-.match-row select:focus { border-color: var(--orange); }
+.match-row select:focus { border-color: var(--brand); }
 .match-given { flex: 1; background: #e8f5e9; border: 1px solid #b2dfdb; border-radius: 7px; padding: 8px 13px; font-style: italic; color: #555; font-size: 14px; }
 .order-rows { display: flex; flex-direction: column; gap: 8px; }
 .order-row { display: flex; align-items: center; gap: 10px; }
 .order-txt { flex: 1; background: #f5f5f5; border: 1px solid #ddd; border-radius: 7px; padding: 10px 14px; font-size: 14px; line-height: 1.4; }
 .order-inp { width: 46px; height: 46px; text-align: center; font-size: 18px; font-weight: bold; border: 2px solid #ddd; border-radius: 8px; outline: none; font-family: sans-serif; }
-.order-inp:focus { border-color: var(--orange); }
+.order-inp:focus { border-color: var(--brand); }
 .order-inp:disabled { background: #e8f5e9; border-color: #a5d6a7; color: #388e3c; cursor: default; }
 .ans-ext { width: 100%; padding: 11px 13px; font-size: 15px; border: 2px solid #ddd; border-radius: 8px; outline: none; resize: vertical; min-height: 90px; font-family: inherit; background: #fff; }
-.ans-ext:focus { border-color: var(--orange); }
-.teacher-note { font-size: 12px; color: #999; font-style: italic; margin-top: 5px; font-family: sans-serif; }
+.ans-ext:focus { border-color: var(--brand); }
 .qfooter { position: fixed; bottom: 0; left: 46%; right: 0; background: #fff; border-top: 2px solid #eee; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; }
 .qfooter .prog { font-size: 13px; color: #888; }
+
+/* ===== DONE SCREEN ===== */
+#s-done { align-items: center; justify-content: center; background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%); }
+#s-done .done-inner { text-align: center; }
+#s-done .done-emoji { font-size: 5rem; margin-bottom: 18px; }
+#s-done .done-heading { font-size: 2.4rem; font-weight: bold; color: var(--brand); margin-bottom: 14px; font-family: sans-serif; }
+#s-done .done-sub { font-size: 1.05rem; color: #555; line-height: 1.6; max-width: 420px; margin: 0 auto; font-family: sans-serif; }
 
 /* ===== RESULTS ===== */
 #s-results { overflow-y: auto; background: var(--bg); padding: 20px; align-items: center; }
 .res-wrap { max-width: 900px; width: 100%; }
 .res-hdr { background: #fff; border-radius: 14px; padding: 24px 28px; text-align: center; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
-.res-hdr h2 { color: var(--orange); font-size: 1.5rem; margin-bottom: 4px; }
+.res-hdr h2 { color: var(--brand); font-size: 1.5rem; margin-bottom: 4px; }
 .res-hdr .pname { font-size: 1rem; color: #666; margin-bottom: 14px; font-family: sans-serif; }
 .score-big { font-size: 3.2rem; font-weight: bold; color: #222; line-height: 1; }
 .score-denom { font-size: 1.3rem; color: #888; }
 .score-pct { font-size: .95rem; color: #aaa; font-family: sans-serif; margin-top: 4px; }
+.score-time { font-size: .85rem; color: #bbb; font-family: sans-serif; margin-top: 2px; }
 
 /* Results tabs */
 .res-tabs { display: flex; gap: 0; margin-bottom: 16px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
 .res-tab { flex: 1; padding: 13px; text-align: center; font-family: sans-serif; font-size: 14px; font-weight: bold; cursor: pointer; background: #fff; color: #888; border: none; transition: all .15s; }
-.res-tab.active { background: var(--orange); color: #fff; }
-.res-tab:not(.active):hover { background: #fff8ee; color: var(--orange-dk); }
+.res-tab.active { background: var(--brand); color: #fff; }
+.res-tab:not(.active):hover { background: #e8f5fd; color: var(--brand-dk); }
 .res-pane { display: none; }
 .res-pane.active { display: block; }
 
@@ -165,7 +170,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .modal-bg.open { display: flex; }
 .modal { background: #fff; border-radius: 16px; padding: 28px; max-width: 560px; width: 92%; max-height: 85vh; overflow-y: auto; box-shadow: 0 8px 40px rgba(0,0,0,.2); }
 .modal-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
-.modal-head h3 { color: var(--orange); font-size: 1.2rem; font-family: sans-serif; }
+.modal-head h3 { color: var(--brand); font-size: 1.2rem; font-family: sans-serif; }
 .modal-close { background: #eee; border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 18px; cursor: pointer; flex-shrink: 0; }
 .modal .m-qtext { font-size: 14px; color: #444; margin-bottom: 16px; line-height: 1.55; padding: 12px; background: #f9f9f9; border-radius: 8px; }
 .modal .m-section { margin-bottom: 14px; }
@@ -181,23 +186,24 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .modal .m-mark-btns { display: flex; gap: 8px; align-items: center; margin-top: 12px; font-family: sans-serif; font-size: 13px; }
 .modal .m-mark-btns span { color: #888; }
 .mbtn { padding: 7px 18px; border-radius: 6px; border: 2px solid #ddd; cursor: pointer; font-weight: bold; background: #fff; font-size: 14px; transition: all .12s; }
-.mbtn:hover { border-color: var(--orange); }
-.mbtn.sel { background: var(--orange); color: #fff; border-color: var(--orange); }
+.mbtn:hover { border-color: var(--brand); }
+.mbtn.sel { background: var(--brand); color: #fff; border-color: var(--brand); }
 
 /* Teacher review tab */
 .review-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.07); margin-bottom: 16px; }
-.review-card h3 { color: var(--orange); margin-bottom: 6px; font-family: sans-serif; }
+.review-card h3 { color: var(--brand); margin-bottom: 6px; font-family: sans-serif; }
 .review-card .rev-intro { font-size: 13px; color: #888; margin-bottom: 18px; font-family: sans-serif; }
 .rev-item { border: 1px solid #eee; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
 .rev-item .rlabel { font-weight: bold; color: #555; font-size: 13px; margin-bottom: 4px; font-family: sans-serif; }
 .rev-item .rq-text { font-size: 14px; color: #666; margin-bottom: 8px; }
 .rev-item .rans { background: #f5f5f5; border-radius: 6px; padding: 10px 12px; font-style: italic; margin-bottom: 10px; font-size: 14px; min-height: 36px; line-height: 1.5; }
+.rev-guidance { background: #e8f5fd; border-left: 3px solid #009ae4; border-radius: 6px; padding: 10px 13px; font-size: 13px; color: #1a5f7a; margin-bottom: 10px; line-height: 1.5; font-family: sans-serif; }
 .mark-btns { display: flex; gap: 8px; align-items: center; font-family: sans-serif; font-size: 13px; }
 .mark-btns span { color: #888; }
 
 /* QLA Analysis */
 .qla-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.07); margin-bottom: 16px; }
-.qla-card h3 { color: var(--orange); margin-bottom: 6px; font-family: sans-serif; }
+.qla-card h3 { color: var(--brand); margin-bottom: 6px; font-family: sans-serif; }
 .qla-card .qla-intro { font-size: 13px; color: #888; margin-bottom: 20px; font-family: sans-serif; }
 .qla-section { margin-bottom: 26px; }
 .qla-section h4 { font-size: 13px; font-family: sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: .5px; color: #999; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
@@ -208,7 +214,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .qla-row .qla-pct { font-size: 13px; font-weight: bold; min-width: 48px; text-align: right; }
 .qla-row .qla-frac { font-size: 12px; color: #aaa; min-width: 50px; text-align: right; }
 .bar-hi { background: #4caf50; }
-.bar-mid { background: var(--orange); }
+.bar-mid { background: var(--brand); }
 .bar-lo { background: #f44336; }
 .bar-na { background: #ccc; }
 
@@ -225,7 +231,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 @media print {
   body { overflow: visible; }
   .screen { display: block !important; height: auto; }
-  #s-login, #s-instructions, #s-assessment { display: none !important; }
+  #s-login, #s-instructions, #s-assessment, #s-done { display: none !important; }
   #s-results { display: block !important; padding: 0; }
   .res-actions, .res-tabs { display: none; }
   .res-pane { display: block !important; }
@@ -244,15 +250,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
     <p class="sub">Summer Term &nbsp;|&nbsp; PiXL Diagnostic</p>
     <div class="fg">
       <label for="inp-name">Your first name and surname</label>
-      <input type="text" id="inp-name" placeholder="e.g. Freya Brown" autocomplete="off">
-    </div>
-    <div class="fg">
-      <label for="inp-class">Your class</label>
-      <select id="inp-class">
-        <option value="">— Select class —</option>
-        <option>4A</option><option>4B</option><option>4C</option>
-        <option>4D</option><option>4E</option><option>4F</option><option>Other</option>
-      </select>
+      <input type="text" id="inp-name" autocomplete="off">
     </div>
     <div class="fg">
       <label>Which text are you completing today?</label>
@@ -291,7 +289,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
       <div class="sec-tab" id="tab-1">The Field Mouse</div>
       <div class="sec-tab" id="tab-2">Food Chain</div>
     </div>
-    <div class="timer" id="timer-display">50:00</div>
   </div>
   <div class="abody">
     <div class="tpanel" id="text-panel"></div>
@@ -300,6 +297,16 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
   <div class="qfooter">
     <div class="prog" id="q-progress"></div>
     <button class="btn btn-primary btn-sm" id="sec-next-btn" onclick="nextSection()">Next Text →</button>
+  </div>
+</div>
+
+<!-- ===== DONE SCREEN ===== -->
+<div id="s-done" class="screen">
+  <div class="done-inner">
+    <div class="done-emoji">🎉</div>
+    <div class="done-heading">Well Done!</div>
+    <div class="done-sub">You've finished the reading assessment. Your teacher will look at your results.</div>
+    <button class="btn btn-outline btn-sm" onclick="showTeacherResults()" style="margin-top:32px;font-size:13px;opacity:0.7;">Teacher: View Results →</button>
   </div>
 </div>
 
@@ -312,6 +319,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
       <div class="score-big" id="res-score">—</div>
       <div class="score-denom" id="res-denom"></div>
       <div class="score-pct" id="res-pct"></div>
+      <div class="score-time" id="res-time"></div>
     </div>
     <div class="res-tabs">
       <button class="res-tab active" onclick="showResTab('overview',this)">📊 Overview</button>
@@ -350,7 +358,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
     </div>
 
     <div class="res-actions">
-      <button class="btn btn-primary btn-sm" onclick="window.print()">Print Results</button>
+      <button class="btn btn-primary btn-sm" onclick="exportCSV()">Export to Excel</button>
       <button class="btn btn-outline btn-sm" onclick="restartApp()">New Assessment</button>
     </div>
   </div>
@@ -471,7 +479,7 @@ const QUESTIONS = [
   { id:4,    sec:0, marks:1, domain:'2a', qtype:'fc',  ttype:'NF',
     type:'text', prompt:'Look again at the section headed: <strong>Laughter Ahoy!</strong>',
     q:'<strong>Find</strong> and <strong>copy one word</strong> that means <em>to be taken somewhere suddenly</em>.',
-    accepted:['whisks'] },
+    accepted:['whisks','swept','whoosh'] },
   { id:5,    sec:0, marks:1, domain:'2b', qtype:'sc',  ttype:'NF',
     type:'text', q:'Where do you end up if you go on the fast slides?',
     accepted:['the plunge pool','plunge pool'] },
@@ -518,7 +526,8 @@ const QUESTIONS = [
     type:'mc', q:'Who do you think the intended audience is for this advert?',
     options:['Toddlers','Parents','Teachers'], correct:'Parents' },
   { id:'13b',sec:0, marks:1, domain:'2d', qtype:'ext', ttype:'NF',
-    type:'extended', q:'Explain your answer to question 13 using evidence from the text.', review:true },
+    type:'extended', q:'Explain your answer to question 13 using evidence from the text.', review:true,
+    guidance:'Award 1 mark for reference to any of: information parents need (times/prices/safety/booking); parents would book a party; text is persuading parents to bring their children. Do not accept generic answers without text evidence.' },
 
   // ===== THE FIELD MOUSE =====
   { id:14,   sec:1, marks:1, domain:'2a', qtype:'fc',  ttype:'P',
@@ -539,7 +548,8 @@ const QUESTIONS = [
     accepted:['round about the tall tree roots','the tall tree roots','tall tree roots','around the tall tree roots'] },
   { id:18,   sec:1, marks:1, domain:'2a', qtype:'sc',  ttype:'P',
     type:'extended', prompt:"'Nibbling at their fallen fruits'",
-    q:"What impression does the word <em>'nibbling'</em> give you about how the mouse eats?", review:true },
+    q:"What impression does the word <em>'nibbling'</em> give you about how the mouse eats?", review:true,
+    guidance:'Award 1 mark for any answer suggesting the mouse eats gently / delicately / carefully / in small bites / slowly / quietly / daintily. Do not accept answers that simply repeat "it nibbles" without conveying an impression of how it eats.' },
   { id:19,   sec:1, marks:1, domain:'2b', qtype:'sc',  ttype:'P',
     type:'text', prompt:'Look at verse <strong>three</strong>.',
     q:'What does the poem suggest the mouse eats instead of the grain?',
@@ -554,7 +564,8 @@ const QUESTIONS = [
     options:['corn and house','hole and moss','meadows','oak tree'], correct:'corn and house' },
   { id:22,   sec:1, marks:2, domain:'2d', qtype:'ext', ttype:'P',
     type:'extended', prompt:'Look at the whole poem.',
-    q:'How do you think the poet feels about field mice? Use evidence from the whole text to support your answer.', review:true },
+    q:'How do you think the poet feels about field mice? Use evidence from the whole text to support your answer.', review:true,
+    guidance:'Award 2 marks for: a clear statement of the poet\'s feelings (fond/caring/protective/affectionate) WITH supporting evidence from the poem. Award 1 mark for: feeling stated without evidence OR evidence given without a clear statement of feeling. Evidence may include: "pretty, quiet harmless thing", "none will harm you", the warning to stay away from the farmer, "eye so round and merry".' },
 
   // ===== THE TOP OF THE FOOD CHAIN =====
   { id:23,   sec:2, marks:1, domain:'2b', qtype:'sc',  ttype:'F',
@@ -626,7 +637,8 @@ const QUESTIONS = [
     q:'Tick <strong>one</strong>.',
     options:['greedy','wise','scared'], correct:'wise' },
   { id:'32b',sec:2, marks:1, domain:'2d', qtype:'ext', ttype:'F',
-    type:'extended', q:'Explain your answer to question 32.', review:true },
+    type:'extended', q:'Explain your answer to question 32.', review:true,
+    guidance:'Award 1 mark for: reference to evidence that shows the pigeon is wise/clever/calm, e.g. "not in the slightest bit flustered", uses logic/reason rather than force, points out the eagle\'s chain, speech about sticking together and being smart. Do not accept simply repeating "wise" without explanation.' },
 ];
 
 // QLA metadata
@@ -651,14 +663,14 @@ const TTYPE_LABELS = { 'NF':'Non-fiction', 'P':'Poetry', 'F':'Fiction' };
 // ======================================================
 // STATE
 // ======================================================
-let pupilName = '', pupilClass = '';
+let pupilName = '';
 let selectedSections = [0,1,2];
 let currentSection = 0;
 let answers = {};
 let reviewScores = {};
 let markResults = [];
-let timerInterval = null;
-let secondsLeft = 50 * 60;
+let startTime = null;
+let timeTaken = '';
 
 // ======================================================
 // LOGIN
@@ -670,12 +682,10 @@ function selectText(el) {
 
 function startInstructions() {
   const n = document.getElementById('inp-name').value.trim();
-  const c = document.getElementById('inp-class').value;
   if (!n) { alert('Please enter your name.'); return; }
-  if (!c) { alert('Please select your class.'); return; }
   const sel = document.querySelector('.text-sel-btn.sel');
   if (!sel) { alert('Please choose which text you are completing today.'); return; }
-  pupilName = n; pupilClass = c;
+  pupilName = n;
   const v = sel.dataset.sec;
   selectedSections = v === 'all' ? [0,1,2] : [parseInt(v)];
   show('s-instructions');
@@ -691,7 +701,8 @@ function show(id) {
 
 function startAssessment() {
   show('s-assessment');
-  document.getElementById('hdr-pupil').textContent = pupilName + ' · ' + pupilClass;
+  startTime = Date.now();
+  document.getElementById('hdr-pupil').textContent = pupilName;
   // Style tabs
   [0,1,2].forEach(i => {
     const t = document.getElementById('tab-'+i);
@@ -701,19 +712,6 @@ function startAssessment() {
   currentSection = selectedSections[0];
   document.getElementById('tab-'+currentSection).classList.add('active');
   renderSection(currentSection);
-  startTimer();
-}
-
-function startTimer() {
-  const disp = document.getElementById('timer-display');
-  timerInterval = setInterval(() => {
-    secondsLeft--;
-    const m = Math.floor(secondsLeft / 60);
-    const s = secondsLeft % 60;
-    disp.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    if (secondsLeft <= 300) disp.classList.add('warn');
-    if (secondsLeft <= 0) { clearInterval(timerInterval); submitAssessment(); }
-  }, 1000);
 }
 
 function nextSection() {
@@ -730,6 +728,8 @@ function nextSection() {
     submitAssessment();
   }
 }
+
+function showTeacherResults() { show('s-results'); }
 
 // ======================================================
 // RENDERING
@@ -811,8 +811,7 @@ function renderQuestion(q) {
         : `<div class="order-row"><div class="order-txt">${item.txt}</div><input type="number" class="order-inp" min="1" max="5" data-qid="${id}" data-idx="${i}" placeholder="" oninput="saveOrder('${id}',${i},this.value)"></div>`
     ).join('') + '</div>';
   } else if (q.type === 'extended') {
-    inputHtml = `<textarea class="ans-ext" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)"></textarea>
-    <div class="teacher-note">📝 This answer will be marked by your teacher.</div>`;
+    inputHtml = `<textarea class="ans-ext" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)"></textarea>`;
   }
 
   return `<div class="qblock" id="qb-${id}">
@@ -976,13 +975,17 @@ function markQuestion(q) {
 // SUBMISSION & RESULTS
 // ======================================================
 function submitAssessment() {
-  clearInterval(timerInterval);
+  const elapsedMs = Date.now() - startTime;
+  const elapsedMin = Math.floor(elapsedMs/60000);
+  const elapsedSec = Math.floor((elapsedMs%60000)/1000);
+  timeTaken = elapsedMin + 'm ' + elapsedSec + 's';
+
   markResults = QUESTIONS
     .filter(q => selectedSections.includes(q.sec))
     .map(q => ({ q, ...markQuestion(q) }));
 
-  show('s-results');
-  document.getElementById('res-name').textContent = pupilName + ' · ' + pupilClass;
+  show('s-done');
+  document.getElementById('res-name').textContent = pupilName;
   updateScoreDisplay();
   buildGrid();
   buildReview();
@@ -1007,6 +1010,8 @@ function updateScoreDisplay() {
   const pct = Math.round(total/totalMax*100);
   const pending = reviewMax > revScore;
   document.getElementById('res-pct').textContent = `${pct}%${pending?' (teacher marking pending)':''}`;
+  const te = document.getElementById('res-time');
+  if (te && timeTaken) te.textContent = 'Time taken: ' + timeTaken;
   // Update teacher tab badge
   const reviewBtn = document.querySelector('.res-tab:nth-child(2)');
   const needsReview = markResults.filter(r=>r.review).length;
@@ -1042,10 +1047,12 @@ function buildReview() {
     const btns = Array.from({length:r.max+1},(_,i)=>
       `<button class="mbtn${reviewScores[r.q.id]===i?' sel':''}" onclick="setReviewScore('${r.q.id}',${i},${r.max})">${i}</button>`
     ).join('');
+    const guidanceHtml = r.q.guidance ? `<div class="rev-guidance">📋 ${r.q.guidance}</div>` : '';
     return `<div class="rev-item" id="rev-${r.q.id}">
       <div class="rlabel">Question ${r.q.id} — ${r.max} mark${r.max>1?'s':''}</div>
       <div class="rq-text">${r.q.prompt ? '<em>'+r.q.prompt.replace(/<[^>]+>/g,'')+'</em><br>' : ''}${r.q.q.replace(/<[^>]+>/g,'')}</div>
       <div class="rans">${ans || '<em style="color:#bbb">No answer given</em>'}</div>
+      ${guidanceHtml}
       <div class="mark-btns"><span>Award marks:</span>${btns}</div>
     </div>`;
   }).join('');
@@ -1101,14 +1108,17 @@ function openModal(qid) {
       <div class="m-value m-accepted">${q.correct}</div></div>`;
   }
 
-  // Teacher mark buttons for review questions
+  // Teacher mark buttons and guidance for review questions
   let markBtnsHtml = '';
   if (r.review) {
     const current = reviewScores[q.id];
     const btns = Array.from({length:q.marks+1},(_,i)=>
       `<button class="mbtn${current===i?' sel':''}" onclick="setReviewScoreModal('${q.id}',${i},${q.marks})">${i}</button>`
     ).join('');
-    markBtnsHtml = `<div class="m-section"><div class="m-label">Award marks</div>
+    const guidanceSectionHtml = q.guidance
+      ? `<div class="m-section"><div class="m-label">Marking Guidance</div><div class="rev-guidance">${q.guidance}</div></div>`
+      : '';
+    markBtnsHtml = `${guidanceSectionHtml}<div class="m-section"><div class="m-label">Award marks</div>
       <div class="m-mark-btns"><span>Mark:</span>${btns}</div></div>`;
   }
 
@@ -1176,7 +1186,7 @@ function buildQLA() {
       return `<div class="qla-row">
         <div class="qla-label">${label}</div>
         <div class="qla-bar-wrap"><div class="qla-bar ${barClass}" style="width:${pct}%"></div></div>
-        <div class="qla-pct" style="color:${pct>=75?'#4caf50':pct>=50?'#e08910':'#f44336'}">${pct}%</div>
+        <div class="qla-pct" style="color:${pct>=75?'#4caf50':pct>=50?'#0080c8':'#f44336'}">${pct}%</div>
         <div class="qla-frac">${score}/${max}</div>
       </div>`;
     }).join('');
@@ -1196,16 +1206,50 @@ function showResTab(pane, btn) {
 }
 
 // ======================================================
+// CSV EXPORT
+// ======================================================
+function exportCSV() {
+  const rows = [];
+  const dateStr = new Date().toLocaleDateString('en-GB');
+  rows.push(['Pupil', pupilName]);
+  rows.push(['Date', dateStr]);
+  rows.push(['Time Taken', timeTaken]);
+  const {total, totalMax} = calcTotals();
+  rows.push(['Total Score', total, 'out of', totalMax]);
+  rows.push([]);
+  rows.push(['Question','Text','Domain','Question Type','Score','Max Marks','Answer Given']);
+  markResults.forEach(r => {
+    const score = r.review ? (reviewScores[r.q.id] ?? '') : r.score;
+    const ans = answers[r.q.id];
+    let ansStr = '';
+    if (!ans) ansStr = '';
+    else if (Array.isArray(ans)) ansStr = ans.filter(v=>v).join('; ');
+    else if (typeof ans === 'object') ansStr = Object.entries(ans).map(([k,v])=>k+': '+v).join('; ');
+    else ansStr = String(ans);
+    rows.push([
+      'Q'+r.q.id,
+      TTYPE_LABELS[r.q.ttype]||r.q.ttype,
+      DOMAIN_LABELS[r.q.domain]||r.q.domain,
+      QTYPE_LABELS[r.q.qtype]||r.q.qtype,
+      score,
+      r.max,
+      ansStr
+    ]);
+  });
+  const csv = '﻿' + rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = (pupilName||'assessment').replace(/\s+/g,'_')+'_reading_results.csv';
+  a.click();
+}
+
+// ======================================================
 // RESTART
 // ======================================================
 function restartApp() {
-  clearInterval(timerInterval);
   answers = {}; reviewScores = {}; markResults = [];
-  secondsLeft = 50*60;
-  document.getElementById('timer-display').textContent = '50:00';
-  document.getElementById('timer-display').classList.remove('warn');
+  startTime = null; timeTaken = '';
   document.getElementById('inp-name').value = '';
-  document.getElementById('inp-class').value = '';
   document.querySelectorAll('.text-sel-btn').forEach(b => b.classList.remove('sel'));
   show('s-login');
 }

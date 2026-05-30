@@ -269,6 +269,11 @@ function markAllPending(ss) {
     const rowData2 = { pupilName: sub.pupil, date: sub.date, answers, reviewQuestions };
     const aiMarks = markWithClaude(rowData2);
 
+    // Attach the pupil's answer to each mark so the admin UI can display it
+    Object.keys(aiMarks).forEach(qid => {
+      aiMarks[qid].answer = answers[qid] || '';
+    });
+
     // Save AI marks
     saveAIMarks(ss, rowData2, aiMarks);
 

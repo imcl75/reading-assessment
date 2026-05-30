@@ -269,7 +269,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 <div id="s-instructions" class="screen">
   <div class="card">
     <h2>Instructions</h2>
-    <p>You will have <strong>about 50 minutes</strong> to complete this assessment. Your teacher will tell you when to stop.</p>
     <p>The reading text is shown on the <strong>left side</strong> of the screen. Read the text and answer the questions about it.</p>
     <p><strong>You should use the texts to help you answer the questions.</strong></p>
     <p>There are different types of questions. Read the instructions for each question carefully.</p>
@@ -303,10 +302,9 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 <!-- ===== DONE SCREEN ===== -->
 <div id="s-done" class="screen">
   <div class="done-inner">
-    <div class="done-emoji">🎉</div>
+    <div class="done-emoji" id="done-emoji" onclick="teacherTap()">🎉</div>
     <div class="done-heading">Well Done!</div>
     <div class="done-sub">You've finished the reading assessment. Your teacher will look at your results.</div>
-    <button class="btn btn-outline btn-sm" onclick="showTeacherResults()" style="margin-top:32px;font-size:13px;opacity:0.7;">Teacher: View Results →</button>
   </div>
 </div>
 
@@ -325,6 +323,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
       <button class="res-tab active" onclick="showResTab('overview',this)">📊 Overview</button>
       <button class="res-tab" onclick="showResTab('review',this)">✏️ Teacher Marking</button>
       <button class="res-tab" onclick="showResTab('analysis',this)">🎯 Analysis</button>
+      <button class="res-tab" onclick="showResTab('class',this)">📋 Class Data</button>
     </div>
 
     <!-- OVERVIEW TAB -->
@@ -357,8 +356,11 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
       </div>
     </div>
 
+    <!-- CLASS DATA TAB -->
+    <div class="res-pane" id="rp-class"></div>
+
     <div class="res-actions">
-      <button class="btn btn-primary btn-sm" onclick="exportCSV()">Export to Excel</button>
+      <button class="btn btn-primary btn-sm" onclick="exportCSV()">Export This Pupil</button>
       <button class="btn btn-outline btn-sm" onclick="restartApp()">New Assessment</button>
     </div>
   </div>
@@ -731,6 +733,15 @@ function nextSection() {
 
 function showTeacherResults() { show('s-results'); }
 
+// Teacher secret access: tap emoji 5 times within 3 seconds
+let _tapCount = 0, _tapTimer = null;
+function teacherTap() {
+  _tapCount++;
+  clearTimeout(_tapTimer);
+  if (_tapCount >= 5) { _tapCount = 0; showTeacherResults(); return; }
+  _tapTimer = setTimeout(() => { _tapCount = 0; }, 3000);
+}
+
 // ======================================================
 // RENDERING
 // ======================================================
@@ -886,13 +897,53 @@ function editDist(a, b) {
   return dp[m][n];
 }
 
+const STOPWORDS = new Set(['the','and','for','that','with','this','from','are','was','they','have','been','will','each','when','into','about','round','where','would','you','find','their','there','then','than','but','not','all','can','its','one','two','how','why','who','she','her','him','his','has','had','did','what','just','out','up','at','in','on','of','to','a','an','is','it','be','do','so','we','or','if','by','as','no','my','me']);
+
+function editDist(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));
+  for (let i=1;i<=m;i++) for (let j=1;j<=n;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+// Extract meaningful content words from a string
+function contentWords(s) {
+  return norm(s).split(/\s+/).filter(w => w.length > 2 && !STOPWORDS.has(w));
+}
+
+// Check if pupil answer contains enough key words from an accepted phrase
+function keywordOverlap(answerNorm, acceptedNorm) {
+  const keys = contentWords(acceptedNorm);
+  if (keys.length === 0) return null;
+  const ansWords = answerNorm.split(/\s+/);
+  let matched = 0;
+  for (const k of keys) {
+    // exact word match, substring match, or close edit distance
+    if (ansWords.includes(k) || answerNorm.includes(k)) { matched++; continue; }
+    for (const w of ansWords) {
+      if (w.length > 2 && editDist(w, k) <= Math.min(2, Math.floor(k.length / 4))) { matched++; break; }
+    }
+  }
+  const ratio = matched / keys.length;
+  if (ratio >= 0.85) return 'exact';  // nearly all key words present → accept as correct
+  if (ratio >= 0.6)  return 'fuzzy';  // majority present → accept with flag
+  return null;
+}
+
 function fuzzyMatch(answer, acceptedList) {
   const na = norm(answer);
   for (const acc of acceptedList) {
     const nb = norm(acc);
     if (na === nb) return 'exact';
-    const threshold = Math.min(3, Math.max(1, Math.floor(nb.length / 5)));
-    if (editDist(na, nb) <= threshold) return 'fuzzy';
+    // Levenshtein for short answers / single words
+    if (nb.split(' ').length <= 3) {
+      const threshold = Math.min(3, Math.max(1, Math.floor(nb.length / 5)));
+      if (editDist(na, nb) <= threshold) return 'fuzzy';
+    }
+    // Keyword overlap for longer phrases
+    const kw = keywordOverlap(na, nb);
+    if (kw) return kw;
   }
   return null;
 }
@@ -900,12 +951,17 @@ function fuzzyMatch(answer, acceptedList) {
 function fuzzyMatchPhrase(answer, acceptedList) {
   const direct = fuzzyMatch(answer, acceptedList);
   if (direct) return direct;
+  // Also try stripping leading articles
   const na = norm(answer).replace(/^(the|a|an)\s+/, '');
   for (const acc of acceptedList) {
     const nb = norm(acc).replace(/^(the|a|an)\s+/, '');
     if (na === nb) return 'exact';
-    const threshold = Math.min(3, Math.max(1, Math.floor(nb.length / 5)));
-    if (editDist(na, nb) <= threshold) return 'fuzzy';
+    if (nb.split(' ').length <= 3) {
+      const threshold = Math.min(3, Math.max(1, Math.floor(nb.length / 5)));
+      if (editDist(na, nb) <= threshold) return 'fuzzy';
+    }
+    const kw = keywordOverlap(na, nb);
+    if (kw) return kw;
   }
   return null;
 }
@@ -990,6 +1046,177 @@ function submitAssessment() {
   buildGrid();
   buildReview();
   buildQLA();
+  buildClassTab();
+  saveToClassData();
+}
+
+// ======================================================
+// CLASS DATA (localStorage)
+// ======================================================
+function saveToClassData() {
+  try {
+    const existing = JSON.parse(localStorage.getItem('ra_class_data') || '[]');
+    const {total, totalMax} = calcTotals();
+    const record = {
+      name: pupilName,
+      date: new Date().toISOString(),
+      timeTaken,
+      sections: selectedSections,
+      total, totalMax,
+      scores: {}, answers: {}
+    };
+    markResults.forEach(r => {
+      const sc = r.review ? (reviewScores[r.q.id] ?? null) : r.score;
+      record.scores['Q'+r.q.id] = { score: sc, max: r.max, domain: r.q.domain, qtype: r.q.qtype, ttype: r.q.ttype, fuzzy: r.fuzzy };
+      const ans = answers[r.q.id];
+      let ansStr = !ans ? '' : Array.isArray(ans) ? ans.filter(v=>v).join('; ') :
+        typeof ans === 'object' ? Object.entries(ans).map(([k,v])=>k+': '+v).join('; ') : String(ans);
+      record.answers['Q'+r.q.id] = ansStr;
+    });
+    existing.push(record);
+    localStorage.setItem('ra_class_data', JSON.stringify(existing));
+  } catch(e) { /* localStorage unavailable */ }
+}
+
+function getClassData() {
+  try { return JSON.parse(localStorage.getItem('ra_class_data') || '[]'); }
+  catch(e) { return []; }
+}
+
+function clearClassData() {
+  if (confirm('Clear all saved class data? This cannot be undone.')) {
+    localStorage.removeItem('ra_class_data');
+    buildClassTab();
+  }
+}
+
+function exportClassCSV() {
+  const data = getClassData();
+  if (!data.length) { alert('No class data saved yet.'); return; }
+
+  // Collect all question IDs in order
+  const allQids = QUESTIONS.map(q => 'Q'+q.id);
+  const rows = [];
+
+  // === SHEET 1: Per-pupil scores ===
+  rows.push(['INDIVIDUAL RESULTS']);
+  rows.push(['Name','Date','Time Taken','Total Score','Total Marks','Percentage',
+    ...allQids.flatMap(qid => [qid+' Score', qid+' Answer'])]);
+
+  data.forEach(r => {
+    const pct = r.totalMax ? Math.round(r.total/r.totalMax*100)+'%' : '-';
+    const qCells = allQids.flatMap(qid => {
+      const sc = r.scores[qid];
+      const ans = r.answers[qid] || '';
+      return [sc ? (sc.score !== null ? sc.score : '?') : '-', ans];
+    });
+    rows.push([r.name, new Date(r.date).toLocaleDateString('en-GB'), r.timeTaken||'', r.total, r.totalMax, pct, ...qCells]);
+  });
+
+  rows.push([]);
+
+  // === SHEET 2: Class aggregates by domain ===
+  rows.push(['CLASS AGGREGATE — BY READING SKILL (CONTENT DOMAIN)']);
+  rows.push(['Domain','Total Score','Total Marks','Class %']);
+  const domAgg = {};
+  data.forEach(r => {
+    Object.entries(r.scores).forEach(([qid, sc]) => {
+      const d = sc.domain; if (!domAgg[d]) domAgg[d] = {score:0,max:0};
+      if (sc.score !== null) { domAgg[d].score += sc.score; domAgg[d].max += sc.max; }
+    });
+  });
+  Object.entries(domAgg).forEach(([d,{score,max}]) => {
+    rows.push([DOMAIN_LABELS[d]||d, score, max, max ? Math.round(score/max*100)+'%' : '-']);
+  });
+
+  rows.push([]);
+  rows.push(['CLASS AGGREGATE — BY QUESTION FORMAT']);
+  rows.push(['Format','Total Score','Total Marks','Class %']);
+  const qtAgg = {};
+  data.forEach(r => {
+    Object.entries(r.scores).forEach(([qid, sc]) => {
+      const t = sc.qtype; if (!qtAgg[t]) qtAgg[t] = {score:0,max:0};
+      if (sc.score !== null) { qtAgg[t].score += sc.score; qtAgg[t].max += sc.max; }
+    });
+  });
+  Object.entries(qtAgg).forEach(([t,{score,max}]) => {
+    rows.push([QTYPE_LABELS[t]||t, score, max, max ? Math.round(score/max*100)+'%' : '-']);
+  });
+
+  rows.push([]);
+  rows.push(['CLASS AGGREGATE — BY TEXT TYPE']);
+  rows.push(['Text Type','Total Score','Total Marks','Class %']);
+  const ttAgg = {};
+  data.forEach(r => {
+    Object.entries(r.scores).forEach(([qid, sc]) => {
+      const t = sc.ttype; if (!ttAgg[t]) ttAgg[t] = {score:0,max:0};
+      if (sc.score !== null) { ttAgg[t].score += sc.score; ttAgg[t].max += sc.max; }
+    });
+  });
+  Object.entries(ttAgg).forEach(([t,{score,max}]) => {
+    rows.push([TTYPE_LABELS[t]||t, score, max, max ? Math.round(score/max*100)+'%' : '-']);
+  });
+
+  rows.push([]);
+  rows.push(['CLASS AGGREGATE — PER QUESTION']);
+  rows.push(['Question','Domain','Format','Text Type','Class Score','Class Max','Class %']);
+  allQids.forEach(qid => {
+    let score=0, max=0, n=0;
+    data.forEach(r => {
+      const sc = r.scores[qid];
+      if (sc && sc.score !== null) { score += sc.score; max += sc.max; n++; }
+    });
+    if (!n) return;
+    const q = QUESTIONS.find(x => 'Q'+x.id === qid);
+    rows.push([qid, DOMAIN_LABELS[q?.domain]||'', QTYPE_LABELS[q?.qtype]||'', TTYPE_LABELS[q?.ttype]||'',
+      score, max, max ? Math.round(score/max*100)+'%' : '-']);
+  });
+
+  const csv = '﻿' + rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'class_reading_results_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+}
+
+function buildClassTab() {
+  const data = getClassData();
+  const el = document.getElementById('rp-class');
+  if (!data.length) {
+    el.innerHTML = '<div class="qla-card"><h3>📋 Class Data</h3><p class="qla-intro">No pupils have completed the assessment yet. Results will appear here automatically after each submission.</p></div>';
+    return;
+  }
+  // Summary table
+  const rows = data.map((r,i) => {
+    const pct = r.totalMax ? Math.round(r.total/r.totalMax*100) : 0;
+    const bar = `<div style="display:inline-block;width:${pct}%;height:8px;background:${pct>=75?'#4caf50':pct>=50?'var(--brand)':'#f44336'};border-radius:4px;min-width:2px"></div>`;
+    return `<tr>
+      <td style="font-weight:bold">${r.name}</td>
+      <td style="color:#888;font-size:12px">${new Date(r.date).toLocaleDateString('en-GB')}</td>
+      <td style="color:#888;font-size:12px">${r.timeTaken||'-'}</td>
+      <td style="font-weight:bold;text-align:right">${r.total}/${r.totalMax}</td>
+      <td style="min-width:120px;padding-left:8px">${bar} <span style="font-size:12px;color:#888">${pct}%</span></td>
+    </tr>`;
+  }).join('');
+
+  el.innerHTML = `<div class="qla-card">
+    <h3>📋 Class Data <span style="font-size:13px;color:#aaa;font-weight:normal">(${data.length} pupil${data.length!==1?'s':''})</span></h3>
+    <p class="qla-intro">Saved automatically after each assessment. Export to Excel for full question-level detail and class aggregates.</p>
+    <table style="width:100%;border-collapse:collapse;font-family:sans-serif;font-size:14px;margin-bottom:16px">
+      <thead><tr style="border-bottom:2px solid #eee">
+        <th style="text-align:left;padding:6px 4px">Pupil</th>
+        <th style="text-align:left;padding:6px 4px">Date</th>
+        <th style="text-align:left;padding:6px 4px">Time</th>
+        <th style="text-align:right;padding:6px 4px">Score</th>
+        <th style="padding:6px 8px"></th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary btn-sm" onclick="exportClassCSV()">📊 Export Class Excel</button>
+      <button class="btn btn-outline btn-sm" onclick="clearClassData()" style="color:#f44336;border-color:#f44336">Clear Data</button>
+    </div>
+  </div>`;
 }
 
 function calcTotals() {
@@ -1203,6 +1430,7 @@ function showResTab(pane, btn) {
   document.querySelectorAll('.res-tab').forEach(b => b.classList.remove('active'));
   document.getElementById('rp-'+pane).classList.add('active');
   btn.classList.add('active');
+  if (pane === 'class') buildClassTab();
 }
 
 // ======================================================

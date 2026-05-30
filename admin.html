@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Assessment — Teacher Marking Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brand: #009ae4;
+  --brand-dk: #0080c8;
+  --bg: #f4f6f9;
+  --card: #fff;
+  --border: #e5e7eb;
+  --text: #1a1a2e;
+  --muted: #6b7280;
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --red: #ef4444;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ===== PIN SCREEN ===== */
+#pin-screen {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+}
+.pin-card {
+  background: #fff; border-radius: 20px; padding: 48px 40px; max-width: 400px;
+  width: 92%; box-shadow: 0 8px 40px rgba(0,0,0,.12); text-align: center;
+}
+.pin-logo { font-size: 3rem; margin-bottom: 8px; }
+.pin-card h1 { color: var(--brand); font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+.pin-card .subtitle { color: var(--muted); font-size: .9rem; margin-bottom: 32px; }
+.pin-input-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
+.pin-digit {
+  width: 56px; height: 64px; text-align: center; font-size: 1.8rem; font-weight: 700;
+  border: 2px solid var(--border); border-radius: 12px; outline: none;
+  transition: border-color .15s; background: #f9fafb;
+}
+.pin-digit:focus { border-color: var(--brand); background: #fff; }
+.pin-btn {
+  width: 100%; padding: 14px; background: var(--brand); color: #fff;
+  border: none; border-radius: 10px; font-size: 16px; font-weight: 600;
+  cursor: pointer; transition: background .15s;
+}
+.pin-btn:hover { background: var(--brand-dk); }
+.pin-error { color: var(--red); font-size: 14px; margin-top: 12px; min-height: 20px; }
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-8px); }
+  40%,80% { transform: translateX(8px); }
+}
+.pin-card.shake { animation: shake .4s ease; }
+
+/* ===== MAIN INTERFACE ===== */
+#main { display: none; }
+.header {
+  background: var(--brand); color: #fff; padding: 16px 24px;
+  display: flex; align-items: center; gap: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.header-icon { font-size: 2rem; }
+.header-text h1 { font-size: 1.1rem; font-weight: 700; }
+.header-text p { font-size: .85rem; opacity: .85; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 24px 20px; }
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--card); border-radius: 16px; padding: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.07); margin-bottom: 24px;
+}
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+.card-title { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.card-sub { font-size: .85rem; color: var(--muted); margin-top: 2px; }
+
+/* ===== STATS ROW ===== */
+.stats-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+.stat-box {
+  background: var(--card); border-radius: 12px; padding: 18px 22px; flex: 1; min-width: 140px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.07); text-align: center;
+}
+.stat-num { font-size: 2.2rem; font-weight: 700; color: var(--brand); }
+.stat-label { font-size: .8rem; color: var(--muted); margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: .4px; }
+
+/* ===== TABLE ===== */
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; padding: 10px 14px; background: #f8fafc; color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--border); }
+td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #f9fafb; }
+
+/* ===== BADGES ===== */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;
+}
+.badge-pending { background: #fff8e7; color: #b45309; border: 1px solid #fcd34d; }
+.badge-marked  { background: #f0fdf4; color: #16a34a; border: 1px solid #86efac; }
+.badge-low     { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+.badge-medium  { background: #fffbeb; color: #d97706; border: 1px solid #fcd34d; }
+.badge-high    { background: #f0fdf4; color: #16a34a; border: 1px solid #86efac; }
+
+/* ===== BUTTONS ===== */
+.btn {
+  padding: 10px 20px; border-radius: 8px; border: none;
+  font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif;
+  transition: background .15s, opacity .15s; display: inline-flex; align-items: center; gap: 6px;
+}
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--brand-dk); }
+.btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+.btn-outline { background: #fff; border: 2px solid var(--brand); color: var(--brand); }
+.btn-outline:hover { background: #e0f2fe; }
+.btn-sm { padding: 7px 14px; font-size: 13px; }
+
+/* ===== SPINNER ===== */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite;
+  display: inline-block; flex-shrink: 0;
+}
+.spinner-brand {
+  border-color: rgba(0,154,228,.2); border-top-color: var(--brand);
+}
+
+/* ===== MARKING STATUS ===== */
+.marking-status {
+  background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px;
+  padding: 14px 18px; font-size: 14px; color: #1d4ed8;
+  display: none; align-items: center; gap: 10px; margin-top: 14px;
+}
+.marking-status.visible { display: flex; }
+.success-msg {
+  background: #f0fdf4; border: 1px solid #86efac; border-radius: 10px;
+  padding: 14px 18px; font-size: 14px; color: #16a34a;
+  display: none; margin-top: 14px;
+}
+.success-msg.visible { display: block; }
+
+/* ===== RESULTS TABLE ===== */
+.attention-note {
+  background: #fff8f1; border: 1px solid #fbbf24; border-radius: 8px;
+  padding: 12px 16px; font-size: 14px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px; font-weight: 500;
+}
+.conf-low-row td { border-left: 3px solid var(--red); }
+.conf-low-row td:first-child { padding-left: 11px; }
+
+/* ===== LOADING / EMPTY STATES ===== */
+.empty-state { text-align: center; padding: 48px; color: var(--muted); }
+.empty-state .empty-icon { font-size: 3rem; margin-bottom: 12px; }
+.empty-state p { font-size: 15px; }
+
+@media (max-width: 600px) {
+  .stats-row { flex-direction: column; }
+  .card { padding: 18px 16px; }
+  .container { padding: 16px 12px; }
+  .pin-card { padding: 36px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PIN SCREEN ===== -->
+<div id="pin-screen">
+  <div class="pin-card" id="pin-card">
+    <div class="pin-logo">🔐</div>
+    <h1>Teacher Marking Panel</h1>
+    <p class="subtitle">Enter your PIN to access the marking panel</p>
+    <div class="pin-input-row">
+      <input type="password" class="pin-digit" id="pin1" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+      <input type="password" class="pin-digit" id="pin2" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+      <input type="password" class="pin-digit" id="pin3" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+      <input type="password" class="pin-digit" id="pin4" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
+    </div>
+    <button class="pin-btn" onclick="checkPin()">Unlock →</button>
+    <div class="pin-error" id="pin-error"></div>
+  </div>
+</div>
+
+<!-- ===== MAIN INTERFACE ===== -->
+<div id="main">
+  <div class="header">
+    <div class="header-icon">📖</div>
+    <div class="header-text">
+      <h1>Wallscourt Farm Academy</h1>
+      <p>Reading Assessment — Teacher Marking Panel</p>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Stats row -->
+    <div class="stats-row" id="stats-row" style="display:none">
+      <div class="stat-box">
+        <div class="stat-num" id="stat-total">—</div>
+        <div class="stat-label">Total Submissions</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="stat-pending" style="color:#d97706">—</div>
+        <div class="stat-label">Awaiting Marking</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="stat-marked" style="color:#16a34a">—</div>
+        <div class="stat-label">Marked</div>
+      </div>
+    </div>
+
+    <!-- Submissions card -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">📋 Submissions</div>
+          <div class="card-sub">Auto-loads on page open. Click Refresh to update.</div>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="loadSubmissions()">↻ Refresh</button>
+      </div>
+      <div id="submissions-content">
+        <div class="empty-state">
+          <div class="empty-icon">⏳</div>
+          <p>Loading submissions…</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mark with Claude card -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">🤖 Mark with Claude</div>
+          <div class="card-sub">Sends all pending submissions to Claude for AI marking. Keep this page open while running.</div>
+        </div>
+        <button class="btn btn-primary" id="mark-btn" onclick="markPending()" disabled>
+          ▶ Mark all pending with Claude
+        </button>
+      </div>
+      <div class="marking-status" id="marking-status">
+        <div class="spinner"></div>
+        <span id="marking-status-text">Claude is marking assessments… please keep this page open. This may take several minutes.</span>
+      </div>
+      <div class="success-msg" id="mark-success"></div>
+    </div>
+
+    <!-- Results card (shown after marking) -->
+    <div class="card" id="results-card" style="display:none">
+      <div class="card-header">
+        <div>
+          <div class="card-title">📊 Marking Results</div>
+          <div class="card-sub">Sorted by confidence — low confidence answers shown first.</div>
+        </div>
+      </div>
+      <div class="attention-note" id="attention-note" style="display:none">
+        ⚠️ <span id="attention-count"></span>
+      </div>
+      <div class="tbl-wrap">
+        <table id="results-table">
+          <thead>
+            <tr>
+              <th>Pupil</th>
+              <th>Question</th>
+              <th>Answer</th>
+              <th>Score</th>
+              <th>Confidence</th>
+              <th>Reasoning</th>
+            </tr>
+          </thead>
+          <tbody id="results-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxoDXDJ3YQomzOkmV6kxe1dWZm-nBrt9ogeR7RrZAbqYe2Rqa-vnxiqU_Z0KYvwu9qtrw/exec';
+const CORRECT_PIN = '2025';
+
+// ===== PIN =====
+document.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('adminUnlocked') === '1') {
+    unlockPanel();
+  } else {
+    document.getElementById('pin1').focus();
+    // Auto-advance digits
+    ['pin1','pin2','pin3','pin4'].forEach((id, idx, arr) => {
+      const el = document.getElementById(id);
+      el.addEventListener('input', () => {
+        if (el.value.length === 1 && idx < arr.length - 1) {
+          document.getElementById(arr[idx + 1]).focus();
+        }
+        if (idx === arr.length - 1 && el.value.length === 1) checkPin();
+      });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !el.value && idx > 0) {
+          document.getElementById(arr[idx - 1]).focus();
+        }
+        if (e.key === 'Enter') checkPin();
+      });
+    });
+  }
+});
+
+function checkPin() {
+  const pin = ['pin1','pin2','pin3','pin4'].map(id => document.getElementById(id).value).join('');
+  if (pin === CORRECT_PIN) {
+    sessionStorage.setItem('adminUnlocked', '1');
+    unlockPanel();
+  } else {
+    const card = document.getElementById('pin-card');
+    card.classList.add('shake');
+    setTimeout(() => card.classList.remove('shake'), 400);
+    document.getElementById('pin-error').textContent = 'Incorrect PIN — try again.';
+    ['pin1','pin2','pin3','pin4'].forEach(id => { document.getElementById(id).value = ''; });
+    document.getElementById('pin1').focus();
+  }
+}
+
+function unlockPanel() {
+  document.getElementById('pin-screen').style.display = 'none';
+  document.getElementById('main').style.display = 'block';
+  loadSubmissions();
+}
+
+// ===== SUBMISSIONS =====
+let submissionsData = [];
+
+async function loadSubmissions() {
+  const content = document.getElementById('submissions-content');
+  content.innerHTML = `<div class="empty-state"><div class="spinner spinner-brand" style="width:32px;height:32px;margin:0 auto 12px;display:block"></div><p>Loading…</p></div>`;
+
+  try {
+    const res = await fetch(BACKEND_URL + '?action=results');
+    const data = await res.json();
+    submissionsData = Array.isArray(data) ? data : [];
+    renderSubmissions();
+  } catch (err) {
+    content.innerHTML = `<div class="empty-state"><p style="color:#ef4444">Failed to load submissions. Check your internet connection and try again.</p></div>`;
+  }
+}
+
+function renderSubmissions() {
+  const data = submissionsData;
+  const content = document.getElementById('submissions-content');
+  const statsRow = document.getElementById('stats-row');
+
+  const pending = data.filter(s => s.aiStatus === 'pending').length;
+  const marked  = data.filter(s => s.aiStatus === 'marked').length;
+
+  // Stats
+  document.getElementById('stat-total').textContent = data.length;
+  document.getElementById('stat-pending').textContent = pending;
+  document.getElementById('stat-marked').textContent = marked;
+  statsRow.style.display = data.length ? 'flex' : 'none';
+
+  // Mark button
+  const markBtn = document.getElementById('mark-btn');
+  markBtn.disabled = pending === 0;
+
+  if (!data.length) {
+    content.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><p>No submissions yet.</p></div>`;
+    return;
+  }
+
+  const rows = data.map(s => `
+    <tr>
+      <td><strong>${esc(s.pupil)}</strong></td>
+      <td style="color:var(--muted);font-size:13px">${esc(s.date)}</td>
+      <td style="color:var(--muted);font-size:13px">${esc(s.timeTaken)}</td>
+      <td style="font-size:13px">${esc(s.sections)}</td>
+      <td>${s.aiStatus === 'marked'
+        ? '<span class="badge badge-marked">✅ Marked</span>'
+        : '<span class="badge badge-pending">⏳ Pending</span>'}</td>
+    </tr>`).join('');
+
+  content.innerHTML = `<div class="tbl-wrap"><table>
+    <thead><tr>
+      <th>Pupil</th><th>Date</th><th>Time Taken</th><th>Sections</th><th>Status</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+// ===== MARK WITH CLAUDE =====
+let isMarking = false;
+
+async function markPending() {
+  if (isMarking) return;
+  isMarking = true;
+
+  const markBtn = document.getElementById('mark-btn');
+  const statusEl = document.getElementById('marking-status');
+  const successEl = document.getElementById('mark-success');
+  const pending = submissionsData.filter(s => s.aiStatus === 'pending').length;
+
+  markBtn.disabled = true;
+  markBtn.innerHTML = '<div class="spinner"></div> Marking…';
+  statusEl.classList.add('visible');
+  document.getElementById('marking-status-text').textContent =
+    `Claude is marking ${pending} assessment${pending !== 1 ? 's' : ''}… please keep this page open. This may take several minutes.`;
+  successEl.classList.remove('visible');
+
+  try {
+    const res = await fetch(BACKEND_URL + '?action=mark');
+    const result = await res.json();
+    isMarking = false;
+    statusEl.classList.remove('visible');
+    markBtn.innerHTML = '▶ Mark all pending with Claude';
+
+    if (result.ok) {
+      successEl.textContent = `✅ Marking complete — ${result.marked} submission${result.marked !== 1 ? 's' : ''} marked.`;
+      successEl.classList.add('visible');
+      // Reload submissions
+      await loadSubmissions();
+      // Show results
+      if (result.results && result.results.length) {
+        displayMarkingResults(result.results);
+      }
+    } else {
+      successEl.style.background = '#fef2f2';
+      successEl.style.borderColor = '#fca5a5';
+      successEl.style.color = '#dc2626';
+      successEl.textContent = '❌ Marking failed: ' + (result.error || 'Unknown error');
+      successEl.classList.add('visible');
+      markBtn.disabled = false;
+    }
+  } catch (err) {
+    isMarking = false;
+    statusEl.classList.remove('visible');
+    markBtn.innerHTML = '▶ Mark all pending with Claude';
+    markBtn.disabled = false;
+    successEl.style.background = '#fef2f2';
+    successEl.style.borderColor = '#fca5a5';
+    successEl.style.color = '#dc2626';
+    successEl.textContent = '❌ Request failed — check your internet connection.';
+    successEl.classList.add('visible');
+  }
+}
+
+// ===== RESULTS DISPLAY =====
+function displayMarkingResults(results) {
+  const card = document.getElementById('results-card');
+  const tbody = document.getElementById('results-tbody');
+  const attentionNote = document.getElementById('attention-note');
+  const attentionCount = document.getElementById('attention-count');
+
+  // Flatten all marks into rows
+  const rows = [];
+  results.forEach(sub => {
+    Object.entries(sub.marks || {}).forEach(([qid, mark]) => {
+      rows.push({
+        pupil: sub.pupil,
+        date: sub.date,
+        qid,
+        score: mark.score,
+        max: mark.max,
+        confidence: mark.confidence || 'low',
+        reasoning: mark.reasoning || '',
+        answer: mark.answer || ''
+      });
+    });
+  });
+
+  // Sort: low → medium → high
+  const confOrder = { low: 0, medium: 1, high: 2 };
+  rows.sort((a, b) => (confOrder[a.confidence] || 0) - (confOrder[b.confidence] || 0));
+
+  const needsAttention = rows.filter(r => r.confidence === 'low' || r.confidence === 'medium').length;
+  if (needsAttention > 0) {
+    attentionCount.textContent = `${needsAttention} answer${needsAttention !== 1 ? 's' : ''} need your attention (low or medium confidence)`;
+    attentionNote.style.display = 'flex';
+  } else {
+    attentionNote.style.display = 'none';
+  }
+
+  tbody.innerHTML = rows.map(r => {
+    const isLow = r.confidence === 'low';
+    const badgeClass = r.confidence === 'low' ? 'badge-low' : r.confidence === 'medium' ? 'badge-medium' : 'badge-high';
+    const badgeIcon = r.confidence === 'low' ? '🔴' : r.confidence === 'medium' ? '🟡' : '🟢';
+    const scoreDisp = r.score !== null ? `${r.score}/${r.max}` : `?/${r.max}`;
+    return `<tr class="${isLow ? 'conf-low-row' : ''}">
+      <td><strong>${esc(r.pupil)}</strong><br><span style="font-size:12px;color:var(--muted)">${esc(r.date)}</span></td>
+      <td style="font-weight:600">${esc(r.qid)}</td>
+      <td style="max-width:240px;font-size:13px;color:#374151">${esc(r.answer || '—')}</td>
+      <td style="font-weight:700;font-size:1.1rem">${scoreDisp}</td>
+      <td><span class="badge ${badgeClass}">${badgeIcon} ${r.confidence}</span></td>
+      <td style="font-size:13px;color:var(--muted);max-width:280px">${esc(r.reasoning)}</td>
+    </tr>`;
+  }).join('');
+
+  card.style.display = 'block';
+  card.scrollIntoView({ behavior: 'smooth' });
+}
+
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>

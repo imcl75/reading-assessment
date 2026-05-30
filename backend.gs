@@ -99,6 +99,8 @@ function doGet(e) {
     const qid   = e.parameter.qid   || '';
     const score = parseInt(e.parameter.score, 10);
     result = updateScore(ss, pupil, qid, score);
+  } else if (action === 'classdata') {
+    result = getClassData(ss);
   } else {
     result = { error: 'unknown action' };
   }
@@ -490,6 +492,50 @@ function markWithClaude(data) {
   });
 
   return results;
+}
+
+function getClassData(ss) {
+  const sheet = ss.getSheetByName(RESULTS_SHEET);
+  if (!sheet) return [];
+
+  const data = sheet.getDataRange().getValues();
+  if (data.length <= 1) return [];
+
+  const headers = data[0];
+  const ALL_Q = ['1','2','3','4','5','6','7','8','9','10','11','12','13a','13b',
+    '14','15','16','17','18','19','20','21','22',
+    '23','24','25','26','27','28','29','30','31','32a','32b'];
+
+  const pupils = [];
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i];
+    const pupil = row[1];
+    if (!pupil) continue;
+
+    const scores = {};
+    ALL_Q.forEach(qid => {
+      const col = headers.indexOf('Q' + qid + ' Score');
+      if (col >= 0) {
+        const val = row[col];
+        scores['Q' + qid] = (val === '' || val === '-' || val === undefined) ? null
+          : val === 'pending' ? 'pending'
+          : Number(val);
+      }
+    });
+
+    // Read sections from col 4 (Sections Completed)
+    pupils.push({
+      pupil: String(pupil),
+      date: String(row[2] || ''),
+      timeTaken: String(row[3] || ''),
+      sections: String(row[4] || ''),
+      assessmentId: String(row[8] || ''),
+      autoScore: Number(row[5]) || 0,
+      totalMax: Number(row[6]) || 0,
+      scores
+    });
+  }
+  return pupils;
 }
 
 function buildMarkingPrompt(rq, answer) {

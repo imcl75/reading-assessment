@@ -317,6 +317,20 @@ tr:hover td { background: #f9fafb; }
     </div>
 
     <!-- ===== CLASS ANALYSIS ===== -->
+    <!-- ===== PUPIL LIST ===== -->
+    <div class="card" style="margin-top:24px">
+      <div class="card-header">
+        <div>
+          <div class="card-title">👥 Class Pupil List</div>
+          <div class="card-sub">Names pupils see when they start the assessment. One name per line.</div>
+        </div>
+        <button onclick="savePupilList()" class="btn btn-primary btn-sm" id="pupils-save-btn">Save list</button>
+      </div>
+      <div id="pupils-loading" style="color:#9ca3af;font-size:13px">Loading…</div>
+      <textarea id="pupils-textarea" style="display:none;width:100%;min-height:180px;padding:10px;border:1px solid #e5e7eb;border-radius:8px;font-size:14px;font-family:'Inter',sans-serif;resize:vertical;line-height:1.6" placeholder="Alice Smith&#10;Bob Jones&#10;Charlie Brown"></textarea>
+      <p id="pupils-saved-msg" style="display:none;color:#16a34a;font-size:13px;margin-top:8px">✅ Saved — pupils will see the updated list next time they load the assessment.</p>
+    </div>
+
     <div class="card" id="analysis-card" style="margin-top:24px">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
         <div>
@@ -375,7 +389,7 @@ tr:hover td { background: #f9fafb; }
 </div>
 
 <script>
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxAXN2Kt-RKMHPfRQ6UwNMCT_nuG5sBgTXSHhdmKozbIO0zEp_Jl1Z1h25F0y_jpSdakA/exec';
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzg4vrq0QhHlpCkCsDmgMpNpASswiBw_Es0k-LQLyg0jHtS_xl_xf6ANXM00e9kZ66mqA/exec';
 const CORRECT_PIN = '2025';
 
 // ===== PIN =====
@@ -422,6 +436,43 @@ function unlockPanel() {
   document.getElementById('pin-screen').style.display = 'none';
   document.getElementById('main').style.display = 'block';
   loadSubmissions();
+  loadPupilList();
+}
+
+// ===== PUPIL LIST =====
+async function loadPupilList() {
+  try {
+    const names = await jsonpFetch(BACKEND_URL + '?action=pupils', 10000);
+    document.getElementById('pupils-loading').style.display = 'none';
+    const ta = document.getElementById('pupils-textarea');
+    ta.value = Array.isArray(names) ? names.join('\n') : '';
+    ta.style.display = 'block';
+  } catch(e) {
+    document.getElementById('pupils-loading').textContent = 'Could not load pupil list.';
+  }
+}
+
+async function savePupilList() {
+  const btn = document.getElementById('pupils-save-btn');
+  const names = document.getElementById('pupils-textarea').value
+    .split('\n').map(n => n.trim()).filter(Boolean);
+  btn.textContent = 'Saving…';
+  btn.disabled = true;
+  try {
+    const url = BACKEND_URL + '?action=savepupils&names=' + encodeURIComponent(names.join('\n'));
+    const result = await jsonpFetch(url, 15000);
+    if (result.ok) {
+      const msg = document.getElementById('pupils-saved-msg');
+      msg.style.display = 'block';
+      setTimeout(() => { msg.style.display = 'none'; }, 4000);
+    } else {
+      alert('Save failed: ' + (result.error || 'Unknown error'));
+    }
+  } catch(e) {
+    alert('Connection error — could not save.');
+  }
+  btn.textContent = 'Save list';
+  btn.disabled = false;
 }
 
 // ===== JSONP helper (bypasses CORS on Apps Script) =====

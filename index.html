@@ -30,6 +30,25 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .fg input, .fg select { width: 100%; padding: 13px 14px; font-size: 16px; border: 2px solid #ddd; border-radius: 10px; outline: none; font-family: inherit; background: #fafafa; }
 .fg input:focus, .fg select:focus { border-color: var(--brand); background: #fff; }
 .text-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+/* Name picker grid */
+#name-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 4px;
+}
+.name-btn {
+  padding: 12px 8px; border: 2px solid #ddd; border-radius: 10px;
+  cursor: pointer; font-size: 14px; font-family: sans-serif; background: #fafafa;
+  text-align: center; transition: all .15s; color: #333; font-weight: 500;
+  line-height: 1.2;
+}
+.name-btn:hover { border-color: var(--brand); background: #e8f5fd; }
+.name-btn.name-sel { border-color: var(--brand); background: var(--brand); color: #fff; font-weight: bold; }
+.name-btn-other { color: #888; font-size: 12px; border-style: dashed; grid-column: 1/-1; }
+
 .text-sel-btn {
   padding: 10px 8px; border: 2px solid #ddd; border-radius: 10px;
   cursor: pointer; font-size: 13px; font-family: sans-serif; background: #fafafa;
@@ -266,8 +285,14 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
     <h1>Year 4 Reading Assessment</h1>
     <p class="sub">Summer Term &nbsp;|&nbsp; PiXL Diagnostic</p>
     <div class="fg">
-      <label for="inp-name">Your first name and surname</label>
-      <input type="text" id="inp-name" autocomplete="off">
+      <label>Tap your name</label>
+      <div id="name-loading" style="text-align:center;padding:24px;color:#888;font-size:14px">Loading class list…</div>
+      <div id="name-grid" style="display:none"></div>
+      <div id="name-selected" style="display:none;margin-top:10px;padding:10px 14px;background:#e0f2fe;border-radius:8px;font-weight:600;font-size:15px;color:#0369a1"></div>
+      <div id="name-fallback" style="display:none;margin-top:10px">
+        <p style="font-size:13px;color:#888;margin-bottom:6px">Can't find your name? Type it:</p>
+        <input type="text" id="inp-name" autocomplete="off" placeholder="First name Surname" style="width:100%;padding:10px;border:2px solid #d1d5db;border-radius:8px;font-size:15px">
+      </div>
     </div>
     <div class="fg">
       <label>Which text are you completing today?</label>
@@ -399,7 +424,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 // ======================================================
 // CONFIG — paste your Apps Script Web App URL here after deploying backend.gs
 // ======================================================
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxAXN2Kt-RKMHPfRQ6UwNMCT_nuG5sBgTXSHhdmKozbIO0zEp_Jl1Z1h25F0y_jpSdakA/exec';
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzg4vrq0QhHlpCkCsDmgMpNpASswiBw_Es0k-LQLyg0jHtS_xl_xf6ANXM00e9kZ66mqA/exec';
 
 // ======================================================
 // TEXTS
@@ -697,19 +722,68 @@ let startTime = null;
 let timeTaken = '';
 
 // ======================================================
-// LOGIN
+// LOGIN — name picker
 // ======================================================
+
+// Fetch pupil list from backend, fall back to text input gracefully
+(function loadPupilList() {
+  if (!BACKEND_URL) { showNameFallback(); return; }
+  const cb = 'pupil_cb_' + Date.now();
+  const script = document.createElement('script');
+  const timer = setTimeout(() => { showNameFallback(); }, 8000);
+  window[cb] = function(names) {
+    clearTimeout(timer);
+    delete window[cb];
+    if (script.parentNode) document.body.removeChild(script);
+    if (Array.isArray(names) && names.length) {
+      renderNameGrid(names);
+    } else {
+      showNameFallback();
+    }
+  };
+  script.onerror = () => { clearTimeout(timer); showNameFallback(); };
+  script.src = BACKEND_URL + '?action=pupils&callback=' + cb;
+  document.body.appendChild(script);
+})();
+
+function renderNameGrid(names) {
+  document.getElementById('name-loading').style.display = 'none';
+  const grid = document.getElementById('name-grid');
+  grid.innerHTML = names.map(n =>
+    `<button class="name-btn" onclick="selectName(this,'${n.replace(/'/g,"\\'")}'">${n}</button>`
+  ).join('') +
+  `<button class="name-btn name-btn-other" onclick="document.getElementById('name-fallback').style.display='block'">My name isn't here</button>`;
+  grid.style.display = 'grid';
+}
+
+function showNameFallback() {
+  document.getElementById('name-loading').style.display = 'none';
+  document.getElementById('name-fallback').style.display = 'block';
+}
+
+function selectName(btn, name) {
+  document.querySelectorAll('.name-btn').forEach(b => b.classList.remove('name-sel'));
+  btn.classList.add('name-sel');
+  pupilName = name;
+  const disp = document.getElementById('name-selected');
+  disp.textContent = '✓ ' + name;
+  disp.style.display = 'block';
+}
+
 function selectText(el) {
   document.querySelectorAll('.text-sel-btn').forEach(b => b.classList.remove('sel'));
   el.classList.add('sel');
 }
 
 function startInstructions() {
-  const n = document.getElementById('inp-name').value.trim();
-  if (!n) { alert('Please enter your name.'); return; }
+  // Name from grid selection OR fallback text input
+  if (!pupilName) {
+    const typed = document.getElementById('inp-name') && document.getElementById('inp-name').value.trim();
+    if (typed) pupilName = typed;
+  }
+  if (!pupilName) { alert('Please tap your name to select it.'); return; }
   const sel = document.querySelector('.text-sel-btn.sel');
   if (!sel) { alert('Please choose which text you are completing today.'); return; }
-  pupilName = n;
   const v = sel.dataset.sec;
   selectedSections = v === 'all' ? [0,1,2] : [parseInt(v)];
   show('s-instructions');

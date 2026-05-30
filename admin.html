@@ -329,6 +329,21 @@ tr:hover td { background: #f9fafb; }
         </div>
       </div>
 
+      <!-- Filter panel -->
+      <div id="analysis-filter" style="display:none;margin-top:20px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px">
+          <strong style="font-size:14px">Select submissions to include in analysis</strong>
+          <div style="display:flex;gap:8px">
+            <button onclick="filterByDate()" class="btn btn-outline btn-sm">Filter by date…</button>
+            <button onclick="selectAllSubmissions(true)" class="btn btn-outline btn-sm">Select all</button>
+            <button onclick="selectAllSubmissions(false)" class="btn btn-outline btn-sm">Deselect all</button>
+            <button onclick="applyFilter()" class="btn btn-primary btn-sm">Apply →</button>
+          </div>
+        </div>
+        <div id="filter-submission-list" style="display:flex;flex-wrap:wrap;gap:8px;max-height:160px;overflow-y:auto"></div>
+        <p style="font-size:12px;color:#9ca3af;margin-top:10px">💡 Results from the same pupil across multiple days are automatically combined.</p>
+      </div>
+
       <div id="analysis-content" style="margin-top:24px;display:none">
 
         <!-- Tabs -->
@@ -707,7 +722,7 @@ async function confirmOverride(i, pupil, qid, max) {
 
 // ===== EXCEL EXPORT =====
 function exportToExcel() {
-  if (!classData || !classData.length) { alert('Load Class Analysis first.'); return; }
+  if (!activeData || !activeData.length) { alert('Load Class Analysis first.'); return; }
 
   const wb = XLSX.utils.book_new();
   const domains = ['2a','2b','2c','2d','2g'];
@@ -717,7 +732,7 @@ function exportToExcel() {
   const allHeaders = ['Pupil','Date','Time Taken','Sections','Total Score','Max Score','%'];
   QUESTION_META.forEach(q => allHeaders.push('Q' + q.id + ' (' + q.domain + ')'));
   const allRows = [allHeaders];
-  classData.forEach(p => {
+  activeData.forEach(p => {
     const row = [
       p.pupil, p.date, p.timeTaken, p.sections, p.autoScore, p.totalMax,
       p.totalMax > 0 ? Math.round(p.autoScore / p.totalMax * 100) + '%' : '—'
@@ -743,7 +758,7 @@ function exportToExcel() {
   QUESTION_META.forEach(q => {
     const qid = 'Q' + q.id;
     let scored = 0, possible = 0;
-    classData.forEach(p => {
+    activeData.forEach(p => {
       const s = p.scores[qid];
       const secTaken = p.sections.includes(ttypeNames[q.ttype] || '');
       if (s === null || s === undefined || s === 'pending' || !secTaken) return;
@@ -758,11 +773,11 @@ function exportToExcel() {
 
   // ── Sheet 3: Domain Summary ───────────────────────────────────────────────
   const dHeaders = ['Domain','Domain Name','Class Total Scored','Class Total Possible','Class %',
-    ...classData.map(p => p.pupil)];
+    ...activeData.map(p => p.pupil)];
   const dRows = [dHeaders];
   domains.forEach(d => {
     let classScored = 0, classPoss = 0;
-    const pupilCols = classData.map(p => {
+    const pupilCols = activeData.map(p => {
       let s = 0, m = 0;
       const st = p.sections;
       QUESTION_META.filter(q => q.domain === d).forEach(q => {
@@ -778,16 +793,16 @@ function exportToExcel() {
     dRows.push([d, DOMAIN_LABELS[d], classScored, classPoss, cPct, ...pupilCols]);
   });
   const ws3 = XLSX.utils.aoa_to_sheet(dRows);
-  ws3['!cols'] = [{wch:6},{wch:22},{wch:20},{wch:22},{wch:10},...classData.map(()=>({wch:14}))];
+  ws3['!cols'] = [{wch:6},{wch:22},{wch:20},{wch:22},{wch:10},...activeData.map(()=>({wch:14}))];
   XLSX.utils.book_append_sheet(wb, ws3, 'Domain Summary');
 
   // ── Sheet 4: Text Type Summary ────────────────────────────────────────────
   const tHeaders = ['Text Type','Class Total Scored','Class Total Possible','Class %',
-    ...classData.map(p => p.pupil)];
+    ...activeData.map(p => p.pupil)];
   const tRows = [tHeaders];
   ['NF','P','F'].forEach(tt => {
     let classScored = 0, classPoss = 0;
-    const pupilCols = classData.map(p => {
+    const pupilCols = activeData.map(p => {
       let s = 0, m = 0;
       QUESTION_META.filter(q => q.ttype === tt).forEach(q => {
         const score = p.scores['Q'+q.id];
@@ -802,7 +817,7 @@ function exportToExcel() {
     tRows.push([TTYPE_LABELS[tt], classScored, classPoss, cPct, ...pupilCols]);
   });
   const ws4 = XLSX.utils.aoa_to_sheet(tRows);
-  ws4['!cols'] = [{wch:30},{wch:20},{wch:22},{wch:10},...classData.map(()=>({wch:14}))];
+  ws4['!cols'] = [{wch:30},{wch:20},{wch:22},{wch:10},...activeData.map(()=>({wch:14}))];
   XLSX.utils.book_append_sheet(wb, ws4, 'Text Type Summary');
 
   // Download
@@ -855,7 +870,8 @@ const QUESTION_META = [
 const DOMAIN_LABELS = {'2a':'Vocabulary','2b':'Retrieval','2c':'Summarising','2d':'Inference','2g':'Language & Structure'};
 const TTYPE_LABELS  = {'NF':'Making Waves (Non-fiction)','P':'The Field Mouse (Poetry)','F':'Food Chain (Fiction)'};
 
-let classData = [];
+let classData = [];      // raw rows from sheet
+let activeData = [];     // merged, filtered rows used for analysis
 
 async function loadAnalysis() {
   const btn = document.getElementById('analysis-btn');
@@ -869,18 +885,107 @@ async function loadAnalysis() {
       btn.disabled = false;
       return;
     }
-    document.getElementById('analysis-content').style.display = 'block';
-    document.getElementById('export-btn').style.display = '';
     btn.textContent = '↺ Refresh';
     btn.disabled = false;
-    renderHeatmap();
-    renderDomainPane();
-    populatePupilSelect();
+    renderFilterPanel();
+    // Default: select all, apply immediately
+    selectAllSubmissions(true);
+    applyFilter();
   } catch(err) {
     alert('Failed to load class data: ' + err.message);
     btn.textContent = 'Load Class Analysis';
     btn.disabled = false;
   }
+}
+
+// ── Filter panel ─────────────────────────────────────────────────────────────
+function renderFilterPanel() {
+  document.getElementById('analysis-filter').style.display = 'block';
+  const list = document.getElementById('filter-submission-list');
+  list.innerHTML = classData.map((p, i) => `
+    <label style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e5e7eb;
+      border-radius:6px;padding:6px 10px;font-size:13px;cursor:pointer;white-space:nowrap">
+      <input type="checkbox" id="sub-chk-${i}" checked style="accent-color:#009ae4">
+      <strong>${esc(p.pupil)}</strong>
+      <span style="color:#9ca3af">${esc(p.date)} · ${esc(p.sections)}</span>
+    </label>`).join('');
+}
+
+function selectAllSubmissions(checked) {
+  classData.forEach((_, i) => {
+    const chk = document.getElementById('sub-chk-' + i);
+    if (chk) chk.checked = checked;
+  });
+}
+
+function filterByDate() {
+  const dates = [...new Set(classData.map(p => p.date))].sort();
+  const chosen = prompt('Enter a date to select (e.g. ' + dates.join(' or ') + '):', dates[dates.length-1] || '');
+  if (!chosen) return;
+  classData.forEach((p, i) => {
+    const chk = document.getElementById('sub-chk-' + i);
+    if (chk) chk.checked = p.date === chosen.trim();
+  });
+}
+
+function applyFilter() {
+  // Get selected rows
+  const selected = classData.filter((_, i) => {
+    const chk = document.getElementById('sub-chk-' + i);
+    return chk && chk.checked;
+  });
+
+  // Merge rows with the same pupil name
+  activeData = mergeByPupil(selected);
+
+  document.getElementById('analysis-content').style.display = 'block';
+  document.getElementById('export-btn').style.display = '';
+  renderHeatmap();
+  renderDomainPane();
+  populatePupilSelect();
+}
+
+// ── Merge multiple rows for the same pupil ────────────────────────────────────
+function mergeByPupil(rows) {
+  const map = new Map();
+  rows.forEach(p => {
+    const key = p.pupil.trim().toLowerCase();
+    if (!map.has(key)) {
+      // Clone the row
+      map.set(key, { ...p, scores: { ...p.scores }, _dates: [p.date], _sections: [p.sections] });
+    } else {
+      const merged = map.get(key);
+      // Merge scores: take latest non-null, non-pending value
+      Object.keys(p.scores).forEach(qid => {
+        const s = p.scores[qid];
+        if (s !== null && s !== undefined && s !== 'pending') {
+          if (merged.scores[qid] === null || merged.scores[qid] === undefined || merged.scores[qid] === 'pending') {
+            merged.scores[qid] = s;
+          } else {
+            // Both have a score — take the most recent (later in array = more recent)
+            merged.scores[qid] = s;
+          }
+        }
+      });
+      merged._dates.push(p.date);
+      merged._sections.push(p.sections);
+      // Combine sections string (deduplicate)
+      const allSecs = new Set([...merged._sections.join(', ').split(', ')].filter(Boolean));
+      merged.sections = [...allSecs].join(', ');
+      // Recalculate totals
+      let scored = 0, max = 0;
+      QUESTION_META.forEach(q => {
+        const sc = merged.scores['Q'+q.id];
+        if (sc !== null && sc !== undefined && sc !== 'pending') {
+          scored += sc; max += q.marks;
+        }
+      });
+      merged.autoScore = scored;
+      merged.totalMax = max;
+      merged.date = merged._dates[0] + (merged._dates.length > 1 ? ' +' + (merged._dates.length-1) + ' day(s)' : '');
+    }
+  });
+  return [...map.values()];
 }
 
 function showTab(name) {
@@ -918,7 +1023,7 @@ function renderHeatmap() {
   const colTotals = {};
   QUESTION_META.forEach(q => { colTotals['Q'+q.id] = {scored:0, possible:0, count:0}; });
 
-  classData.forEach(pupil => {
+  activeData.forEach(pupil => {
     const sectionsTaken = pupil.sections || '';
     let pupilScored = 0, pupilMax = 0;
 
@@ -986,7 +1091,7 @@ function renderDomainPane() {
   const byQ = {};
   QUESTION_META.forEach(q => { byQ['Q'+q.id] = {scored:0, possible:0, label:'Q'+q.id}; });
 
-  classData.forEach(pupil => {
+  activeData.forEach(pupil => {
     const sectionsTaken = pupil.sections || '';
     QUESTION_META.forEach(q => {
       const qid = 'Q' + q.id;
@@ -1087,13 +1192,13 @@ function renderDomainPane() {
 // ── Individual pupil ──────────────────────────────────────────────────────────
 function populatePupilSelect() {
   const sel = document.getElementById('pupil-select');
-  sel.innerHTML = classData.map((p,i) => `<option value="${i}">${esc(p.pupil)} (${esc(p.date)})</option>`).join('');
+  sel.innerHTML = activeData.map((p,i) => `<option value="${i}">${esc(p.pupil)} (${esc(p.date)})</option>`).join('');
   renderPupilPane();
 }
 
 function renderPupilPane() {
   const idx = parseInt(document.getElementById('pupil-select').value, 10);
-  const pupil = classData[idx];
+  const pupil = activeData[idx];
   if (!pupil) return;
 
   const sectionsTaken = pupil.sections || '';
@@ -1104,7 +1209,7 @@ function renderPupilPane() {
   // Compute class averages for comparison
   const classAvg = {};
   QUESTION_META.forEach(q => { classAvg['Q'+q.id] = {scored:0, possible:0, count:0}; });
-  classData.forEach(p => {
+  activeData.forEach(p => {
     const st = p.sections || '';
     QUESTION_META.forEach(q => {
       const qid = 'Q'+q.id;

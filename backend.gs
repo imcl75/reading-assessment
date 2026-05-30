@@ -300,6 +300,17 @@ function saveResults(ss, data) {
     sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
     sheet.getRange(1, 1, 1, headers.length).setFontWeight('bold');
     sheet.setFrozenRows(1);
+  } else {
+    // Migrate: insert Assessment ID column after Percentage if not already present
+    const existingHeaders = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    if (existingHeaders.indexOf('Assessment ID') < 0) {
+      const pctIdx = existingHeaders.indexOf('Percentage');
+      if (pctIdx >= 0) {
+        sheet.insertColumnAfter(pctIdx + 1);
+        const newCol = pctIdx + 2; // 1-based
+        sheet.getRange(1, newCol).setValue('Assessment ID').setFontWeight('bold');
+      }
+    }
   }
 
   const sectionNames = { 0: 'Making Waves', 1: 'The Field Mouse', 2: 'Food Chain' };

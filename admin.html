@@ -329,6 +329,34 @@ function unlockPanel() {
   loadSubmissions();
 }
 
+// ===== JSONP helper (bypasses CORS on Apps Script) =====
+function jsonpFetch(url, timeoutMs) {
+  timeoutMs = timeoutMs || 30000;
+  return new Promise(function(resolve, reject) {
+    const cb = 'gs_cb_' + Date.now() + '_' + Math.floor(Math.random()*9999);
+    const script = document.createElement('script');
+    const timer = setTimeout(function() {
+      delete window[cb];
+      if (script.parentNode) document.body.removeChild(script);
+      reject(new Error('Request timed out'));
+    }, timeoutMs);
+    window[cb] = function(data) {
+      clearTimeout(timer);
+      delete window[cb];
+      if (script.parentNode) document.body.removeChild(script);
+      resolve(data);
+    };
+    script.onerror = function() {
+      clearTimeout(timer);
+      delete window[cb];
+      reject(new Error('Network error'));
+    };
+    const sep = url.indexOf('?') >= 0 ? '&' : '?';
+    script.src = url + sep + 'callback=' + cb;
+    document.body.appendChild(script);
+  });
+}
+
 // ===== SUBMISSIONS =====
 let submissionsData = [];
 
@@ -337,8 +365,7 @@ async function loadSubmissions() {
   content.innerHTML = `<div class="empty-state"><div class="spinner spinner-brand" style="width:32px;height:32px;margin:0 auto 12px;display:block"></div><p>Loading…</p></div>`;
 
   try {
-    const res = await fetch(BACKEND_URL + '?action=results');
-    const data = await res.json();
+    const data = await jsonpFetch(BACKEND_URL + '?action=results');
     submissionsData = Array.isArray(data) ? data : [];
     renderSubmissions();
   } catch (err) {
@@ -408,8 +435,7 @@ async function markPending() {
   successEl.classList.remove('visible');
 
   try {
-    const res = await fetch(BACKEND_URL + '?action=mark');
-    const result = await res.json();
+    const result = await jsonpFetch(BACKEND_URL + '?action=mark', 15 * 60 * 1000); // 15 min timeout
     isMarking = false;
     statusEl.classList.remove('visible');
     markBtn.innerHTML = '▶ Mark all pending with Claude';

@@ -83,22 +83,31 @@ function doPost(e) {
 
 // ── Entry point (GET) ────────────────────────────────────────────────────────
 function doGet(e) {
-  const action = (e && e.parameter && e.parameter.action) || 'results';
+  const action   = (e && e.parameter && e.parameter.action)   || 'results';
+  const callback = (e && e.parameter && e.parameter.callback) || null;
   const ss = SpreadsheetApp.openById('13h2sUXYMUPjoe1OlUzAuOpGvstPg2lQfTlvqJopTT5w');
 
+  let result;
   if (action === 'results') {
-    return jsonResponse(getSubmissionsSummary(ss));
+    result = getSubmissionsSummary(ss);
+  } else if (action === 'mark') {
+    result = markAllPending(ss);
+  } else {
+    result = { error: 'unknown action' };
   }
-  if (action === 'mark') {
-    const results = markAllPending(ss);
-    return jsonResponse(results);
-  }
-  return jsonResponse({ error: 'unknown action' });
+  return jsonResponse(result, callback);
 }
 
-function jsonResponse(obj) {
+function jsonResponse(obj, callback) {
+  const json = JSON.stringify(obj);
+  if (callback) {
+    // JSONP — bypasses browser CORS restrictions
+    return ContentService
+      .createTextOutput(callback + '(' + json + ')')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
   return ContentService
-    .createTextOutput(JSON.stringify(obj))
+    .createTextOutput(json)
     .setMimeType(ContentService.MimeType.JSON);
 }
 

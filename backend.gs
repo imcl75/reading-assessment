@@ -101,6 +101,11 @@ function doGet(e) {
     result = updateScore(ss, pupil, qid, score);
   } else if (action === 'classdata') {
     result = getClassData(ss);
+  } else if (action === 'pupils') {
+    result = getPupils(ss);
+  } else if (action === 'savepupils') {
+    const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
+    result = savePupils(ss, names);
   } else {
     result = { error: 'unknown action' };
   }
@@ -322,6 +327,32 @@ function updateScore(ss, pupilName, qid, score) {
 
   sheet.getRange(targetRow, colIdx + 1).setValue(score);
   return { ok: true, pupil: pupilName, qid, score };
+}
+
+// ── Pupil list ───────────────────────────────────────────────────────────────
+const PUPILS_SHEET = 'Pupils';
+
+function getPupils(ss) {
+  const sheet = ss.getSheetByName(PUPILS_SHEET);
+  if (!sheet) return [];
+  const data = sheet.getDataRange().getValues();
+  return data.slice(1).map(r => String(r[0]).trim()).filter(Boolean);
+}
+
+function savePupils(ss, names) {
+  let sheet = ss.getSheetByName(PUPILS_SHEET);
+  if (!sheet) {
+    sheet = ss.insertSheet(PUPILS_SHEET);
+    sheet.getRange(1,1).setValue('Pupil Name').setFontWeight('bold');
+  } else {
+    // Clear existing names (keep header)
+    const last = sheet.getLastRow();
+    if (last > 1) sheet.getRange(2, 1, last - 1, 1).clearContent();
+  }
+  if (names.length) {
+    sheet.getRange(2, 1, names.length, 1).setValues(names.map(n => [n]));
+  }
+  return { ok: true, saved: names.length };
 }
 
 // ── Save raw submission ──────────────────────────────────────────────────────

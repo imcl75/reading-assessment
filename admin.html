@@ -158,6 +158,45 @@ tr:hover td { background: #f9fafb; }
 .empty-state .empty-icon { font-size: 3rem; margin-bottom: 12px; }
 .empty-state p { font-size: 15px; }
 
+.ana-tab {
+  padding: 8px 20px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color .15s, border-color .15s;
+}
+.ana-tab.active { color: var(--brand); border-bottom-color: var(--brand); }
+.ana-tab:hover { color: var(--brand); }
+
+/* Heatmap */
+.heatmap-wrap { overflow-x: auto; margin-top:8px; }
+.heatmap-table { border-collapse: collapse; font-size: 12px; min-width: 100%; }
+.heatmap-table th {
+  background: #f9fafb; padding: 4px 6px; text-align:center;
+  border: 1px solid #e5e7eb; font-weight:600; white-space:nowrap;
+  position: sticky; top: 0; z-index:1;
+}
+.heatmap-table th.pupil-col { text-align:left; position:sticky; left:0; z-index:2; background:#f9fafb; min-width:120px; }
+.heatmap-table td { padding: 5px 6px; border: 1px solid #e5e7eb; text-align:center; font-size:12px; }
+.heatmap-table td.pupil-cell { text-align:left; font-weight:600; font-size:13px; position:sticky; left:0; background:#fff; z-index:1; white-space:nowrap; }
+.heatmap-table tr:hover td { filter: brightness(0.95); }
+.cell-full   { background: #bbf7d0; color: #14532d; }
+.cell-partial { background: #fef9c3; color: #713f12; }
+.cell-zero   { background: #fee2e2; color: #7f1d1d; }
+.cell-skip   { background: #f3f4f6; color: #9ca3af; }
+.cell-pending { background: #e0f2fe; color: #0369a1; }
+.avg-row td  { background: #f0f9ff; font-weight: 700; border-top: 2px solid #009ae4; }
+.section-header th { background: #e0f2fe; color: #0369a1; font-size:11px; padding:3px 6px; }
+
+/* Domain bars */
+.domain-bar-bg { background:#e5e7eb; border-radius:4px; height:10px; width:100%; min-width:120px; }
+.domain-bar-fill { height:10px; border-radius:4px; background: var(--brand); transition: width .4s; }
+
 @media (max-width: 600px) {
   .stats-row { flex-direction: column; }
   .card { padding: 18px 16px; }
@@ -276,11 +315,48 @@ tr:hover td { background: #f9fafb; }
       </div>
     </div>
 
+    <!-- ===== CLASS ANALYSIS ===== -->
+    <div class="card" id="analysis-card" style="margin-top:24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+        <div>
+          <h2 style="margin:0 0 4px">📊 Class Analysis</h2>
+          <p class="subtitle" style="margin:0">Question-level performance, domain breakdown and individual pupil results.</p>
+        </div>
+        <button onclick="loadAnalysis()" class="btn btn-primary" id="analysis-btn">Load Class Analysis</button>
+      </div>
+
+      <div id="analysis-content" style="margin-top:24px;display:none">
+
+        <!-- Tabs -->
+        <div style="display:flex;gap:0;border-bottom:2px solid #e5e7eb;margin-bottom:24px">
+          <button class="ana-tab active" onclick="showTab('heatmap')" id="tab-heatmap">Class Heatmap</button>
+          <button class="ana-tab" onclick="showTab('domain')" id="tab-domain">Domain Breakdown</button>
+          <button class="ana-tab" onclick="showTab('pupil')" id="tab-pupil">Individual Pupil</button>
+        </div>
+
+        <!-- Heatmap tab -->
+        <div id="pane-heatmap"></div>
+
+        <!-- Domain tab -->
+        <div id="pane-domain" style="display:none"></div>
+
+        <!-- Pupil tab -->
+        <div id="pane-pupil" style="display:none">
+          <div style="margin-bottom:16px">
+            <label style="font-weight:600;font-size:14px">Select pupil: </label>
+            <select id="pupil-select" onchange="renderPupilPane()" style="padding:6px 10px;border:1px solid #d1d5db;border-radius:6px;font-size:14px"></select>
+          </div>
+          <div id="pupil-detail"></div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzIsAe8Dp-Dzy_ESaUVqShWVO3r3E5j3i3lzvX11XJYE-ftjqRYJy0nPZgCleiEnnPqRg/exec';
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxAXN2Kt-RKMHPfRQ6UwNMCT_nuG5sBgTXSHhdmKozbIO0zEp_Jl1Z1h25F0y_jpSdakA/exec';
 const CORRECT_PIN = '2025';
 
 // ===== PIN =====
@@ -627,6 +703,410 @@ async function confirmOverride(i, pupil, qid, max) {
 
 function esc(str) {
   return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ===== CLASS ANALYSIS =====
+const QUESTION_META = [
+  {id:'1',   domain:'2b', ttype:'NF', marks:1},
+  {id:'2',   domain:'2a', ttype:'NF', marks:1},
+  {id:'3',   domain:'2b', ttype:'NF', marks:1},
+  {id:'4',   domain:'2a', ttype:'NF', marks:1},
+  {id:'5',   domain:'2b', ttype:'NF', marks:1},
+  {id:'6',   domain:'2b', ttype:'NF', marks:2},
+  {id:'7',   domain:'2b', ttype:'NF', marks:1},
+  {id:'8',   domain:'2g', ttype:'NF', marks:2},
+  {id:'9',   domain:'2b', ttype:'NF', marks:1},
+  {id:'10',  domain:'2b', ttype:'NF', marks:1},
+  {id:'11',  domain:'2b', ttype:'NF', marks:2},
+  {id:'12',  domain:'2b', ttype:'NF', marks:1},
+  {id:'13a', domain:'2d', ttype:'NF', marks:1},
+  {id:'13b', domain:'2d', ttype:'NF', marks:1},
+  {id:'14',  domain:'2a', ttype:'P',  marks:1},
+  {id:'15',  domain:'2d', ttype:'P',  marks:1},
+  {id:'16',  domain:'2a', ttype:'P',  marks:1},
+  {id:'17',  domain:'2b', ttype:'P',  marks:1},
+  {id:'18',  domain:'2a', ttype:'P',  marks:1},
+  {id:'19',  domain:'2b', ttype:'P',  marks:1},
+  {id:'20',  domain:'2d', ttype:'P',  marks:1},
+  {id:'21',  domain:'2b', ttype:'P',  marks:1},
+  {id:'22',  domain:'2d', ttype:'P',  marks:2},
+  {id:'23',  domain:'2b', ttype:'F',  marks:1},
+  {id:'24',  domain:'2b', ttype:'F',  marks:1},
+  {id:'25',  domain:'2d', ttype:'F',  marks:1},
+  {id:'26',  domain:'2d', ttype:'F',  marks:1},
+  {id:'27',  domain:'2b', ttype:'F',  marks:1},
+  {id:'28',  domain:'2b', ttype:'F',  marks:2},
+  {id:'29',  domain:'2a', ttype:'F',  marks:1},
+  {id:'30',  domain:'2b', ttype:'F',  marks:2},
+  {id:'31',  domain:'2c', ttype:'F',  marks:1},
+  {id:'32a', domain:'2d', ttype:'F',  marks:1},
+  {id:'32b', domain:'2d', ttype:'F',  marks:1},
+];
+
+const DOMAIN_LABELS = {'2a':'Vocabulary','2b':'Retrieval','2c':'Summarising','2d':'Inference','2g':'Language & Structure'};
+const TTYPE_LABELS  = {'NF':'Making Waves (Non-fiction)','P':'The Field Mouse (Poetry)','F':'Food Chain (Fiction)'};
+
+let classData = [];
+
+async function loadAnalysis() {
+  const btn = document.getElementById('analysis-btn');
+  btn.textContent = 'Loading…';
+  btn.disabled = true;
+  try {
+    classData = await jsonpFetch(BACKEND_URL + '?action=classdata', 30000);
+    if (!Array.isArray(classData) || classData.length === 0) {
+      alert('No data found in the sheet yet.');
+      btn.textContent = 'Load Class Analysis';
+      btn.disabled = false;
+      return;
+    }
+    document.getElementById('analysis-content').style.display = 'block';
+    btn.textContent = '↺ Refresh';
+    btn.disabled = false;
+    renderHeatmap();
+    renderDomainPane();
+    populatePupilSelect();
+  } catch(err) {
+    alert('Failed to load class data: ' + err.message);
+    btn.textContent = 'Load Class Analysis';
+    btn.disabled = false;
+  }
+}
+
+function showTab(name) {
+  ['heatmap','domain','pupil'].forEach(t => {
+    document.getElementById('pane-' + t).style.display = t === name ? '' : 'none';
+    document.getElementById('tab-' + t).classList.toggle('active', t === name);
+  });
+}
+
+// ── Heatmap ──────────────────────────────────────────────────────────────────
+function renderHeatmap() {
+  const sections = [
+    { ttype: 'NF', label: 'Making Waves (Non-fiction)', qs: QUESTION_META.filter(q => q.ttype === 'NF') },
+    { ttype: 'P',  label: 'The Field Mouse (Poetry)',   qs: QUESTION_META.filter(q => q.ttype === 'P')  },
+    { ttype: 'F',  label: 'Food Chain (Fiction)',        qs: QUESTION_META.filter(q => q.ttype === 'F')  },
+  ];
+
+  let html = '<div class="heatmap-wrap"><table class="heatmap-table"><thead>';
+
+  // Section header row
+  html += '<tr><th class="pupil-col">Pupil</th>';
+  sections.forEach(sec => {
+    html += `<th colspan="${sec.qs.length}" style="background:#dbeafe;color:#1e40af">${sec.label}</th>`;
+  });
+  html += '<th style="background:#f0fdf4;color:#14532d">Total</th></tr>';
+
+  // Question number header row
+  html += '<tr><th class="pupil-col">Score →</th>';
+  QUESTION_META.forEach(q => {
+    html += `<th title="Q${q.id} | ${DOMAIN_LABELS[q.domain]} | ${q.marks}mk">Q${q.id}<br><span style="font-weight:400;font-size:10px;color:#6b7280">${q.domain}</span></th>`;
+  });
+  html += '<th></th></tr></thead><tbody>';
+
+  // Per-pupil rows
+  const colTotals = {};
+  QUESTION_META.forEach(q => { colTotals['Q'+q.id] = {scored:0, possible:0, count:0}; });
+
+  classData.forEach(pupil => {
+    const sectionsTaken = pupil.sections || '';
+    let pupilScored = 0, pupilMax = 0;
+
+    html += `<tr><td class="pupil-cell">${esc(pupil.pupil)}<br><span style="font-weight:400;font-size:11px;color:#9ca3af">${esc(pupil.date)}</span></td>`;
+
+    QUESTION_META.forEach(q => {
+      const qid = 'Q' + q.id;
+      const score = pupil.scores[qid];
+      const secTaken = sectionsTaken.includes({ NF:'Making Waves', P:'Field Mouse', F:'Food Chain' }[q.ttype] || '');
+
+      if (score === null || score === undefined || !secTaken) {
+        html += `<td class="cell-skip">—</td>`;
+      } else if (score === 'pending') {
+        html += `<td class="cell-pending">?</td>`;
+      } else {
+        pupilScored += score;
+        pupilMax += q.marks;
+        colTotals[qid].scored += score;
+        colTotals[qid].possible += q.marks;
+        colTotals[qid].count++;
+
+        const pct = q.marks > 0 ? score / q.marks : 0;
+        const cls = pct === 1 ? 'cell-full' : pct > 0 ? 'cell-partial' : 'cell-zero';
+        html += `<td class="${cls}" title="${score}/${q.marks}">${score}/${q.marks}</td>`;
+      }
+    });
+
+    const totalPct = pupilMax > 0 ? Math.round(pupilScored/pupilMax*100) : 0;
+    html += `<td style="font-weight:700;background:#f0fdf4">${pupilScored}/${pupilMax} <span style="font-size:11px;color:#16a34a">${totalPct}%</span></td></tr>`;
+  });
+
+  // Average row
+  html += '<tr class="avg-row"><td class="pupil-cell" style="background:#f0f9ff;font-size:12px">Class average</td>';
+  QUESTION_META.forEach(q => {
+    const qid = 'Q' + q.id;
+    const ct = colTotals[qid];
+    if (ct.count === 0) {
+      html += `<td class="cell-skip">—</td>`;
+    } else {
+      const avg = ct.possible > 0 ? ct.scored / ct.possible : 0;
+      const pct = Math.round(avg * 100);
+      const cls = pct >= 80 ? 'cell-full' : pct >= 40 ? 'cell-partial' : 'cell-zero';
+      html += `<td class="${cls}">${pct}%</td>`;
+    }
+  });
+  html += '<td style="background:#f0f9ff">—</td></tr>';
+
+  html += '</tbody></table></div>';
+  html += '<p style="font-size:12px;color:#9ca3af;margin-top:8px">🟢 Full marks &nbsp; 🟡 Partial &nbsp; 🔴 Zero &nbsp; ░ Not attempted</p>';
+
+  document.getElementById('pane-heatmap').innerHTML = html;
+}
+
+// ── Domain breakdown ──────────────────────────────────────────────────────────
+function renderDomainPane() {
+  const domains = ['2a','2b','2c','2d','2g'];
+  const ttypes  = ['NF','P','F'];
+
+  const byDomain = {};
+  domains.forEach(d => { byDomain[d] = {scored:0, possible:0}; });
+
+  const byTtype = {};
+  ttypes.forEach(t => { byTtype[t] = {scored:0, possible:0}; });
+
+  const byQ = {};
+  QUESTION_META.forEach(q => { byQ['Q'+q.id] = {scored:0, possible:0, label:'Q'+q.id}; });
+
+  classData.forEach(pupil => {
+    const sectionsTaken = pupil.sections || '';
+    QUESTION_META.forEach(q => {
+      const qid = 'Q' + q.id;
+      const score = pupil.scores[qid];
+      const secTaken = sectionsTaken.includes({ NF:'Making Waves', P:'Field Mouse', F:'Food Chain' }[q.ttype] || '');
+      if (score === null || score === undefined || score === 'pending' || !secTaken) return;
+      byDomain[q.domain].scored   += score;
+      byDomain[q.domain].possible += q.marks;
+      byTtype[q.ttype].scored     += score;
+      byTtype[q.ttype].possible   += q.marks;
+      byQ[qid].scored   += score;
+      byQ[qid].possible += q.marks;
+    });
+  });
+
+  function pct(d) { return d.possible > 0 ? Math.round(d.scored/d.possible*100) : null; }
+  function barColour(p) { return p >= 80 ? '#16a34a' : p >= 50 ? '#d97706' : '#dc2626'; }
+
+  let html = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;flex-wrap:wrap">';
+
+  // Domain table
+  html += `<div><h3 style="margin:0 0 12px;font-size:15px">By Reading Domain</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:14px">
+    <thead><tr>
+      <th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e5e7eb">Domain</th>
+      <th style="text-align:right;padding:6px 8px;border-bottom:2px solid #e5e7eb">Score</th>
+      <th style="padding:6px 8px;border-bottom:2px solid #e5e7eb;min-width:120px">Class %</th>
+    </tr></thead><tbody>`;
+  domains.forEach(d => {
+    const p = pct(byDomain[d]);
+    if (p === null) return;
+    const colour = barColour(p);
+    html += `<tr>
+      <td style="padding:8px;border-bottom:1px solid #f3f4f6"><strong>${d}</strong> — ${DOMAIN_LABELS[d]}</td>
+      <td style="text-align:right;padding:8px;border-bottom:1px solid #f3f4f6;color:#6b7280">${byDomain[d].scored}/${byDomain[d].possible}</td>
+      <td style="padding:8px;border-bottom:1px solid #f3f4f6">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="domain-bar-bg" style="flex:1"><div class="domain-bar-fill" style="width:${p}%;background:${colour}"></div></div>
+          <span style="font-weight:700;color:${colour};min-width:36px">${p}%</span>
+        </div>
+      </td>
+    </tr>`;
+  });
+  html += '</tbody></table></div>';
+
+  // Text type table
+  html += `<div><h3 style="margin:0 0 12px;font-size:15px">By Text Type</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:14px">
+    <thead><tr>
+      <th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e5e7eb">Text</th>
+      <th style="text-align:right;padding:6px 8px;border-bottom:2px solid #e5e7eb">Score</th>
+      <th style="padding:6px 8px;border-bottom:2px solid #e5e7eb;min-width:120px">Class %</th>
+    </tr></thead><tbody>`;
+  ttypes.forEach(t => {
+    const p = pct(byTtype[t]);
+    if (p === null) return;
+    const colour = barColour(p);
+    html += `<tr>
+      <td style="padding:8px;border-bottom:1px solid #f3f4f6"><strong>${TTYPE_LABELS[t]}</strong></td>
+      <td style="text-align:right;padding:8px;border-bottom:1px solid #f3f4f6;color:#6b7280">${byTtype[t].scored}/${byTtype[t].possible}</td>
+      <td style="padding:8px;border-bottom:1px solid #f3f4f6">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="domain-bar-bg" style="flex:1"><div class="domain-bar-fill" style="width:${p}%;background:${colour}"></div></div>
+          <span style="font-weight:700;color:${colour};min-width:36px">${p}%</span>
+        </div>
+      </td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+
+  // Weakest 5 questions
+  const ranked = Object.values(byQ)
+    .filter(q => q.possible > 0)
+    .map(q => ({...q, pct: Math.round(q.scored/q.possible*100)}))
+    .sort((a,b) => a.pct - b.pct)
+    .slice(0, 5);
+  html += `<h3 style="margin:20px 0 10px;font-size:15px">⚠️ Weakest Questions</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:14px"><tbody>`;
+  ranked.forEach(q => {
+    const colour = barColour(q.pct);
+    html += `<tr>
+      <td style="padding:6px 8px;border-bottom:1px solid #f3f4f6;font-weight:600">${q.label}</td>
+      <td style="text-align:right;padding:6px 8px;border-bottom:1px solid #f3f4f6;color:#6b7280">${q.scored}/${q.possible}</td>
+      <td style="padding:6px 8px;border-bottom:1px solid #f3f4f6">
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="domain-bar-bg" style="flex:1"><div class="domain-bar-fill" style="width:${q.pct}%;background:${colour}"></div></div>
+          <span style="font-weight:700;color:${colour};min-width:36px">${q.pct}%</span>
+        </div>
+      </td>
+    </tr>`;
+  });
+  html += '</tbody></table></div>';
+
+  html += '</div>';
+  document.getElementById('pane-domain').innerHTML = html;
+}
+
+// ── Individual pupil ──────────────────────────────────────────────────────────
+function populatePupilSelect() {
+  const sel = document.getElementById('pupil-select');
+  sel.innerHTML = classData.map((p,i) => `<option value="${i}">${esc(p.pupil)} (${esc(p.date)})</option>`).join('');
+  renderPupilPane();
+}
+
+function renderPupilPane() {
+  const idx = parseInt(document.getElementById('pupil-select').value, 10);
+  const pupil = classData[idx];
+  if (!pupil) return;
+
+  const sectionsTaken = pupil.sections || '';
+  const domains = ['2a','2b','2c','2d','2g'];
+  const byDomain = {};
+  domains.forEach(d => { byDomain[d] = {scored:0, possible:0}; });
+
+  // Compute class averages for comparison
+  const classAvg = {};
+  QUESTION_META.forEach(q => { classAvg['Q'+q.id] = {scored:0, possible:0, count:0}; });
+  classData.forEach(p => {
+    const st = p.sections || '';
+    QUESTION_META.forEach(q => {
+      const qid = 'Q'+q.id;
+      const score = p.scores[qid];
+      const secTaken = st.includes({ NF:'Making Waves', P:'Field Mouse', F:'Food Chain' }[q.ttype] || '');
+      if (score === null || score === undefined || score === 'pending' || !secTaken) return;
+      classAvg[qid].scored += score; classAvg[qid].possible += q.marks; classAvg[qid].count++;
+    });
+  });
+
+  function pct(d) { return d.possible > 0 ? Math.round(d.scored/d.possible*100) : null; }
+  function barColour(p) { return p >= 80 ? '#16a34a' : p >= 50 ? '#d97706' : '#dc2626'; }
+
+  // Domain summary for this pupil
+  QUESTION_META.forEach(q => {
+    const qid = 'Q'+q.id;
+    const score = pupil.scores[qid];
+    const secTaken = sectionsTaken.includes({ NF:'Making Waves', P:'Field Mouse', F:'Food Chain' }[q.ttype] || '');
+    if (score === null || score === undefined || score === 'pending' || !secTaken) return;
+    byDomain[q.domain].scored += score;
+    byDomain[q.domain].possible += q.marks;
+  });
+
+  let html = `<div style="background:#f0f9ff;border-radius:8px;padding:16px;margin-bottom:20px">
+    <strong style="font-size:16px">${esc(pupil.pupil)}</strong>
+    <span style="margin-left:12px;color:#6b7280;font-size:14px">${esc(pupil.date)} · ${esc(pupil.sections)}</span>
+    <span style="margin-left:16px;font-size:18px;font-weight:700;color:#009ae4">${pupil.autoScore}/${pupil.totalMax}</span>
+  </div>`;
+
+  // Domain breakdown for this pupil vs class
+  html += `<h3 style="margin:0 0 12px;font-size:15px">Domain breakdown vs class average</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:24px">
+  <thead><tr>
+    <th style="text-align:left;padding:6px 8px;border-bottom:2px solid #e5e7eb">Domain</th>
+    <th style="text-align:center;padding:6px 8px;border-bottom:2px solid #e5e7eb">Pupil</th>
+    <th style="text-align:center;padding:6px 8px;border-bottom:2px solid #e5e7eb">Class avg</th>
+    <th style="padding:6px 8px;border-bottom:2px solid #e5e7eb">Progress</th>
+  </tr></thead><tbody>`;
+
+  domains.forEach(d => {
+    const p = pct(byDomain[d]);
+    if (p === null) return;
+    const colour = barColour(p);
+
+    // Class average for this domain
+    let cScored=0, cPoss=0;
+    QUESTION_META.filter(q=>q.domain===d).forEach(q => {
+      const ca = classAvg['Q'+q.id];
+      cScored += ca.scored; cPoss += ca.possible;
+    });
+    const cPct = cPoss > 0 ? Math.round(cScored/cPoss*100) : null;
+
+    html += `<tr>
+      <td style="padding:8px;border-bottom:1px solid #f3f4f6"><strong>${d}</strong> — ${DOMAIN_LABELS[d]}</td>
+      <td style="text-align:center;font-weight:700;color:${colour};padding:8px;border-bottom:1px solid #f3f4f6">${p}%</td>
+      <td style="text-align:center;color:#6b7280;padding:8px;border-bottom:1px solid #f3f4f6">${cPct !== null ? cPct+'%' : '—'}</td>
+      <td style="padding:8px;border-bottom:1px solid #f3f4f6">
+        <div class="domain-bar-bg"><div class="domain-bar-fill" style="width:${p}%;background:${colour}"></div></div>
+      </td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+
+  // Per-question detail table
+  html += `<h3 style="margin:0 0 12px;font-size:15px">Question by question</h3>
+  <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px">
+  <thead><tr>
+    <th style="text-align:left;padding:5px 8px;border-bottom:2px solid #e5e7eb;background:#f9fafb">Q</th>
+    <th style="padding:5px 8px;border-bottom:2px solid #e5e7eb;background:#f9fafb">Domain</th>
+    <th style="padding:5px 8px;border-bottom:2px solid #e5e7eb;background:#f9fafb">Score</th>
+    <th style="padding:5px 8px;border-bottom:2px solid #e5e7eb;background:#f9fafb">Max</th>
+    <th style="padding:5px 8px;border-bottom:2px solid #e5e7eb;background:#f9fafb">Class avg</th>
+    <th style="padding:5px 8px;border-bottom:2px solid #e5e7eb;background:#f9fafb">Result</th>
+  </tr></thead><tbody>`;
+
+  let lastTtype = null;
+  QUESTION_META.forEach(q => {
+    const qid = 'Q'+q.id;
+    const score = pupil.scores[qid];
+    const secTaken = sectionsTaken.includes({ NF:'Making Waves', P:'Field Mouse', F:'Food Chain' }[q.ttype] || '');
+
+    if (q.ttype !== lastTtype) {
+      lastTtype = q.ttype;
+      html += `<tr><td colspan="6" style="background:#dbeafe;color:#1e40af;font-weight:600;font-size:12px;padding:5px 8px">${TTYPE_LABELS[q.ttype]}</td></tr>`;
+    }
+
+    if (!secTaken) {
+      html += `<tr><td style="padding:5px 8px;border-bottom:1px solid #f3f4f6;font-weight:600">Q${q.id}</td>
+        <td style="padding:5px 8px;border-bottom:1px solid #f3f4f6;color:#9ca3af">${q.domain}</td>
+        <td colspan="4" style="padding:5px 8px;border-bottom:1px solid #f3f4f6;color:#9ca3af;font-style:italic">Section not taken</td></tr>`;
+      return;
+    }
+
+    const ca = classAvg[qid];
+    const cAvgStr = ca.possible > 0 ? Math.round(ca.scored/ca.possible*100)+'%' : '—';
+    const displayScore = score === 'pending' ? '?' : score;
+    const pct2 = (score !== null && score !== undefined && score !== 'pending' && q.marks > 0) ? score/q.marks : null;
+    const colour = pct2 === null ? '#9ca3af' : barColour(Math.round(pct2*100));
+    const label = pct2 === null ? '—' : pct2 === 1 ? '✅ Full' : pct2 > 0 ? '🟡 Partial' : '❌ Zero';
+
+    html += `<tr>
+      <td style="padding:5px 8px;border-bottom:1px solid #f3f4f6;font-weight:600">Q${q.id}</td>
+      <td style="padding:5px 8px;border-bottom:1px solid #f3f4f6;color:#6b7280">${q.domain}</td>
+      <td style="text-align:center;padding:5px 8px;border-bottom:1px solid #f3f4f6;font-weight:700;color:${colour}">${displayScore ?? '—'}</td>
+      <td style="text-align:center;padding:5px 8px;border-bottom:1px solid #f3f4f6;color:#9ca3af">${q.marks}</td>
+      <td style="text-align:center;padding:5px 8px;border-bottom:1px solid #f3f4f6;color:#6b7280">${cAvgStr}</td>
+      <td style="padding:5px 8px;border-bottom:1px solid #f3f4f6">${label}</td>
+    </tr>`;
+  });
+
+  html += '</tbody></table></div>';
+  document.getElementById('pupil-detail').innerHTML = html;
 }
 </script>
 </body>

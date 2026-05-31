@@ -80,14 +80,17 @@
 
   /* Pupil rows */
   #pupil-assign-rows { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
-  .pupil-assign-row { display: flex; align-items: center; gap: 10px; }
+  .pupil-assign-row { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 8px; border: 2px solid transparent; }
+  .pupil-assign-row.exception { background: #fff8e1; border-color: #ffe082; }
   .pupil-assign-name { flex: 1; font-size: 15px; font-weight: 600; color: #333; }
   .pupil-group-sel {
     padding: 7px 10px; font-size: 14px; border: 2px solid #ddd;
     border-radius: 8px; outline: none; font-family: inherit;
-    background: #fff; cursor: pointer; min-width: 130px;
+    background: #fff; cursor: pointer; min-width: 140px;
   }
   .pupil-group-sel:focus { border-color: var(--brand); }
+  .pupil-group-sel.changed { border-color: #f59e0b; background: #fffbeb; font-weight: 700; }
+  #group-summary { font-size: 13px; color: #666; margin-top: 12px; line-height: 1.8; }
 
   /* Buttons */
   .btn { padding: 13px 28px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .15s; }
@@ -144,10 +147,11 @@
   <!-- Pupil assignments -->
   <div class="card">
     <h2>📋 Pupil List &amp; Group Assignments</h2>
-    <p class="hint">Paste all pupil names below (one per line), then click <strong>Load Names</strong> to assign each pupil to a group.</p>
+    <p class="hint">Paste all pupil names below (one per line) and click <strong>Load Names</strong>. Everyone defaults to your <strong>first group</strong> — only change the dropdown for the few exceptions. Highlighted rows <span style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:4px;padding:1px 6px;">like this</span> are not in the main group.</p>
     <textarea id="pupil-textarea" placeholder="Alice&#10;Bob&#10;Charlie&#10;..."></textarea>
     <button class="load-names-btn" onclick="loadNames()">Load Names →</button>
     <div id="pupil-assign-rows"></div>
+    <div id="group-summary"></div>
   </div>
 
   <button class="btn btn-primary" onclick="saveConfig()">Save &amp; Activate →</button>
@@ -345,19 +349,29 @@ function loadNames() {
 
 function renderPupilRows() {
   const container = document.getElementById('pupil-assign-rows');
-  if (!pupils.length) { container.innerHTML = ''; return; }
+  const summary = document.getElementById('group-summary');
+  if (!pupils.length) { container.innerHTML = ''; summary.innerHTML = ''; return; }
 
-  const groupOpts = groups.map(g =>
-    `<option value="${g.id}" data-uid="${g._uid}">${g.name}</option>`
-  ).join('');
+  const mainGroupId = groups[0] ? groups[0].id : '';
 
-  container.innerHTML = pupils.map((p, i) =>
-    `<div class="pupil-assign-row">
+  container.innerHTML = pupils.map((p, i) => {
+    const isException = p.group && p.group !== mainGroupId;
+    const opts = groups.map(g =>
+      `<option value="${g.id}" ${p.group === g.id ? 'selected' : ''}>${g.name || '(unnamed)'}</option>`
+    ).join('');
+    return `<div class="pupil-assign-row${isException ? ' exception' : ''}">
       <span class="pupil-assign-name">${p.name}</span>
-      <select class="pupil-group-sel" data-idx="${i}" onchange="updatePupilGroup(${i}, this.value)">
-        ${groups.map(g => `<option value="${g.id}" data-uid="${g._uid}" ${p.group === g.id ? 'selected' : ''}>${g.name}</option>`).join('')}
+      <select class="pupil-group-sel${isException ? ' changed' : ''}" data-idx="${i}" onchange="updatePupilGroup(${i}, this.value)">
+        ${opts}
       </select>
-    </div>`
+    </div>`;
+  }).join('');
+
+  // Summary counts
+  const counts = {};
+  pupils.forEach(p => { counts[p.group] = (counts[p.group] || 0) + 1; });
+  summary.innerHTML = groups.map(g =>
+    `<div>👥 <strong>${g.name || '(unnamed)'}</strong>: ${counts[g.id] || 0} pupil${(counts[g.id] || 0) === 1 ? '' : 's'}</div>`
   ).join('');
 
   // Also populate textarea if it's empty
@@ -368,6 +382,7 @@ function renderPupilRows() {
 
 function updatePupilGroup(idx, groupId) {
   if (pupils[idx]) pupils[idx].group = groupId;
+  renderPupilRows();
 }
 
 // ── Save config ───────────────────────────────────────

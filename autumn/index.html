@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Year 4 Reading Assessment – Autumn</title>
+<style>
+:root {
+  --brand: #009ae4;
+  --brand-dk: #0080c8;
+  --blue: #1798d3;
+  --bg: #faf8f5;
+  --text-bg: #fff9f0;
+  --border: #e0c8a0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; background: var(--bg); color: #222; }
+
+.screen { display: none; height: 100dvh; flex-direction: column; }
+.screen.active { display: flex; }
+
+/* ===== LOGIN ===== */
+#s-login { align-items: center; justify-content: center; background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%); }
+.card { background: #fff; border-radius: 20px; padding: 36px 40px; max-width: 500px; width: 92%; box-shadow: 0 6px 32px rgba(0,0,0,.12); text-align: center; }
+.card-logo { font-size: 2.4rem; margin-bottom: 4px; }
+.card h1 { color: var(--brand); font-size: 1.6rem; margin-bottom: 4px; }
+.card .sub { color: #888; font-style: italic; margin-bottom: 26px; font-size: .9rem; }
+.fg { margin-bottom: 16px; text-align: left; }
+.fg label { display: block; font-weight: bold; margin-bottom: 7px; font-size: .9rem; color: #444; font-family: sans-serif; }
+.fg input, .fg select { width: 100%; padding: 13px 14px; font-size: 16px; border: 2px solid #ddd; border-radius: 10px; outline: none; font-family: inherit; background: #fafafa; }
+.fg input:focus, .fg select:focus { border-color: var(--brand); background: #fff; }
+.text-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+/* Name picker grid */
+#name-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 4px;
+}
+.name-btn {
+  padding: 12px 8px; border: 2px solid #ddd; border-radius: 10px;
+  cursor: pointer; font-size: 14px; font-family: sans-serif; background: #fafafa;
+  text-align: center; transition: all .15s; color: #333; font-weight: 500;
+  line-height: 1.2;
+}
+.name-btn:hover { border-color: var(--brand); background: #e8f5fd; }
+.name-btn.name-sel { border-color: var(--brand); background: var(--brand); color: #fff; font-weight: bold; }
+.name-btn-other { color: #888; font-size: 12px; border-style: dashed; grid-column: 1/-1; }
+
+.btn { padding: 14px 32px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background .15s, transform .1s; font-family: sans-serif; }
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--brand); color: #fff; width: 100%; }
+.btn-primary:hover { background: var(--brand-dk); }
+.btn-sm { padding: 10px 22px; font-size: 14px; width: auto; }
+.btn-outline { background: #fff; border: 2px solid var(--brand); color: var(--brand); }
+
+/* ===== INSTRUCTIONS ===== */
+#s-instructions { align-items: center; justify-content: center; background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%); }
+#s-instructions .card { max-width: 620px; text-align: left; }
+#s-instructions h2 { color: var(--brand); margin-bottom: 18px; font-size: 1.5rem; }
+#s-instructions p { margin-bottom: 11px; line-height: 1.65; font-size: 15px; }
+#s-instructions .inst-footer { margin-top: 24px; display: flex; justify-content: flex-end; }
+
+/* ===== ASSESSMENT ===== */
+#s-assessment { overflow: hidden; }
+.aheader { background: var(--brand); color: #fff; padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; font-family: sans-serif; }
+.aheader .pupil { font-weight: bold; font-size: .95rem; }
+.sec-tabs { display: flex; gap: 6px; }
+.sec-tab { padding: 5px 13px; border-radius: 14px; font-size: 13px; font-weight: bold; border: 2px solid rgba(255,255,255,.4); color: rgba(255,255,255,.8); cursor: default; background: transparent; font-family: sans-serif; }
+.sec-tab.active { background: #fff; color: var(--brand); border-color: #fff; }
+.sec-tab.done { border-color: rgba(255,255,255,.7); color: #fff; }
+.sec-tab.skip { opacity: .4; }
+.abody { display: flex; flex: 1; overflow: hidden; }
+.tpanel { width: 46%; flex-shrink: 0; background: var(--text-bg); border-right: 3px solid var(--border); overflow-y: auto; padding: 20px 22px; }
+.tpanel h2 { color: var(--brand-dk); font-size: 1.35rem; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.tpanel .txt { font-size: 16px; line-height: 1.75; }
+.tpanel .txt h3 { font-size: .95rem; font-weight: bold; margin: 14px 0 5px; }
+.tpanel .txt h4 { font-style: italic; margin: 12px 0 5px; }
+.tpanel .txt p { margin-bottom: 10px; }
+.tpanel .txt .poem-line { margin: 0; }
+.tpanel .txt .poem-stanza { margin-bottom: 14px; }
+.tpanel .txt table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 16px; }
+.tpanel .txt table td, .tpanel .txt table th { border: 1px solid #ccc; padding: 7px 9px; }
+.tpanel .txt table th { background: #f5d5a0; font-weight: bold; }
+.tpanel .txt .contact { font-size: 13px; }
+.qpanel { flex: 1; overflow-y: auto; padding: 18px 20px 80px; background: #fff; }
+.qpanel h3 { color: var(--brand); font-size: 1.05rem; margin-bottom: 14px; padding: 8px 12px; background: #e8f5fd; border-radius: 6px; font-family: sans-serif; }
+.qblock { border-left: 4px solid var(--brand); border-radius: 0 10px 10px 0; background: #fafafa; padding: 15px 18px; margin-bottom: 18px; }
+.qnum { color: var(--brand); font-size: 1.35rem; font-weight: bold; margin-bottom: 6px; font-family: sans-serif; }
+.qprompt { color: #666; font-size: 16px; margin-bottom: 8px; line-height: 1.5; }
+.qtxt { font-size: 18px; margin-bottom: 12px; line-height: 1.55; }
+.qmarks { display: inline-block; background: var(--brand); color: #fff; font-size: 11px; padding: 2px 9px; border-radius: 4px; margin-bottom: 11px; font-family: sans-serif; font-weight: bold; }
+.ans-text { width: 100%; padding: 13px 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; outline: none; font-family: inherit; background: #fff; }
+.ans-text:focus { border-color: var(--brand); }
+.mc-opt { display: flex; align-items: center; padding: 13px 16px; margin-bottom: 8px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 18px; transition: all .12s; background: #fff; user-select: none; }
+.mc-opt:hover { border-color: var(--brand); background: #e8f5fd; }
+.mc-opt.sel { border-color: var(--brand); background: #cce9f8; }
+.mc-opt input { margin-right: 11px; width: 18px; height: 18px; accent-color: var(--brand); flex-shrink: 0; }
+.tf-tbl { width: 100%; border-collapse: collapse; font-size: 17px; }
+.tf-tbl th { background: var(--brand); color: #fff; padding: 9px 12px; text-align: center; font-family: sans-serif; }
+.tf-tbl th:first-child { text-align: left; }
+.tf-tbl td { border: 1px solid #ddd; padding: 9px 12px; }
+.tf-tbl td:first-child { background: #f8f8f8; }
+.tf-tbl .tfc { text-align: center; }
+.tf-tbl .tfc label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 4px 8px; }
+.tf-tbl .tfc input { width: 18px; height: 18px; accent-color: var(--brand); }
+.fill-tbl { width: 100%; border-collapse: collapse; font-size: 17px; }
+.fill-tbl th { background: #f5d5a0; padding: 9px 12px; text-align: left; border: 1px solid #ccc; font-family: sans-serif; }
+.fill-tbl td { border: 1px solid #ccc; padding: 7px 10px; }
+.fill-tbl input { width: 100%; padding: 10px 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 17px; font-family: inherit; outline: none; }
+.fill-tbl input:focus { border-color: var(--brand); }
+.multi-inp { display: flex; flex-direction: column; gap: 8px; }
+.multi-inp .mi-row { display: flex; align-items: center; gap: 10px; }
+.multi-inp .mi-label { font-weight: bold; color: #888; font-family: sans-serif; min-width: 20px; }
+.match-rows { display: flex; flex-direction: column; gap: 8px; }
+.match-row { display: flex; align-items: center; gap: 10px; }
+.match-left { background: #f5d5a0; border: 1px solid #ccc; border-radius: 7px; padding: 10px 14px; font-weight: bold; min-width: 120px; text-align: center; font-size: 17px; }
+.match-row select { flex: 1; padding: 11px 12px; font-size: 17px; border: 2px solid #ddd; border-radius: 7px; outline: none; font-family: inherit; }
+.match-row select:focus { border-color: var(--brand); }
+.match-given { flex: 1; background: #e8f5e9; border: 1px solid #b2dfdb; border-radius: 7px; padding: 10px 14px; font-style: italic; color: #555; font-size: 17px; }
+
+/* Tap-to-select match UI */
+.match-instructions { font-size: 15px; color: #666; margin-bottom: 12px; font-family: sans-serif; font-style: italic; }
+.tap-match-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.tap-words-col { display: flex; flex-direction: column; gap: 8px; }
+.tap-meanings-col { display: flex; flex-direction: column; gap: 8px; }
+.tap-word-slot { background: #f5d5a0; border: 2px solid #ccc; border-radius: 8px; padding: 12px 14px; min-height: 52px; cursor: pointer; font-size: 17px; font-weight: bold; transition: border-color .15s, background .15s; user-select: none; }
+.tap-word-slot .slot-word { color: #333; }
+.tap-word-slot .slot-answer { font-size: 12px; font-weight: normal; color: #1798d3; margin-top: 4px; font-style: italic; }
+.tap-word-slot.selected { border-color: var(--brand); background: #cce9f8; }
+.tap-word-slot.assigned { border-color: #4caf50; background: #e8f5e9; }
+.tap-word-slot.given { border-color: #b2dfdb; background: #e8f5e9; cursor: default; opacity: .8; }
+.tap-meaning-chip { background: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 14px; min-height: 52px; cursor: pointer; font-size: 16px; transition: border-color .15s, background .15s; user-select: none; display: flex; align-items: center; }
+.tap-meaning-chip:hover:not(.used):not(.sel-meaning) { border-color: var(--brand); background: #e8f5fd; }
+.tap-meaning-chip.sel-meaning { border-color: #ff9800; background: #fff3e0; }
+.tap-meaning-chip.used { opacity: .45; cursor: pointer; font-style: italic; color: #888; border-style: dashed; }
+.order-rows { display: flex; flex-direction: column; gap: 8px; }
+.order-row { display: flex; align-items: center; gap: 10px; }
+.order-txt { flex: 1; background: #f5f5f5; border: 1px solid #ddd; border-radius: 7px; padding: 12px 16px; font-size: 17px; line-height: 1.4; }
+.order-inp { width: 46px; height: 46px; text-align: center; font-size: 18px; font-weight: bold; border: 2px solid #ddd; border-radius: 8px; outline: none; font-family: sans-serif; }
+.order-inp:focus { border-color: var(--brand); }
+.order-inp:disabled { background: #e8f5e9; border-color: #a5d6a7; color: #388e3c; cursor: default; }
+.ans-ext { width: 100%; padding: 13px 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; outline: none; resize: vertical; min-height: 90px; font-family: inherit; background: #fff; }
+.ans-ext:focus { border-color: var(--brand); }
+.spelling-note { font-size: 15px; color: #666; margin: 4px 0 8px; font-style: italic; }
+.qfooter { position: fixed; bottom: 0; left: 46%; right: 0; background: #fff; border-top: 2px solid #eee; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; }
+.qfooter .prog { font-size: 13px; color: #888; }
+
+/* ===== DONE SCREEN ===== */
+#s-done { align-items: center; justify-content: center; background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%); }
+#s-done .done-inner { text-align: center; }
+#s-done .done-emoji { font-size: 5rem; margin-bottom: 18px; }
+#s-done .done-heading { font-size: 2.4rem; font-weight: bold; color: var(--brand); margin-bottom: 14px; font-family: sans-serif; }
+#s-done .done-sub { font-size: 1.05rem; color: #555; line-height: 1.6; max-width: 420px; margin: 0 auto; font-family: sans-serif; }
+
+/* ===== RESULTS ===== */
+#s-results { overflow-y: auto; background: var(--bg); padding: 20px; align-items: center; }
+.res-wrap { max-width: 900px; width: 100%; }
+.res-hdr { background: #fff; border-radius: 14px; padding: 24px 28px; text-align: center; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+.res-hdr h2 { color: var(--brand); font-size: 1.5rem; margin-bottom: 4px; }
+.res-hdr .pname { font-size: 1rem; color: #666; margin-bottom: 14px; font-family: sans-serif; }
+.score-big { font-size: 3.2rem; font-weight: bold; color: #222; line-height: 1; }
+.score-denom { font-size: 1.3rem; color: #888; }
+.score-pct { font-size: .95rem; color: #aaa; font-family: sans-serif; margin-top: 4px; }
+.score-time { font-size: .85rem; color: #bbb; font-family: sans-serif; margin-top: 2px; }
+
+/* Results tabs */
+.res-tabs { display: flex; gap: 0; margin-bottom: 16px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.res-tab { flex: 1; padding: 13px; text-align: center; font-family: sans-serif; font-size: 14px; font-weight: bold; cursor: pointer; background: #fff; color: #888; border: none; transition: all .15s; }
+.res-tab.active { background: var(--brand); color: #fff; }
+.res-tab:not(.active):hover { background: #e8f5fd; color: var(--brand-dk); }
+.res-pane { display: none; }
+.res-pane.active { display: block; }
+
+/* Question grid */
+.res-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13px; font-family: sans-serif; color: #555; align-items: center; }
+.leg-dot { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+.res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-bottom: 16px; }
+.rq { background: #fff; border-radius: 10px; padding: 12px 10px; text-align: center; box-shadow: 0 1px 5px rgba(0,0,0,.07); border-top: 4px solid #ddd; font-family: sans-serif; cursor: pointer; transition: transform .1s, box-shadow .1s; }
+.rq:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+.rq.ok { border-top-color: #4caf50; }
+.rq.bad { border-top-color: #f44336; }
+.rq.rev { border-top-color: #ff9800; }
+.rq.spell { border-top-color: #8bc34a; }
+.rq .rq-num { font-size: 12px; color: #999; margin-bottom: 4px; }
+.rq .rq-score { font-size: 1.3rem; font-weight: bold; }
+.rq.ok .rq-score { color: #4caf50; }
+.rq.bad .rq-score { color: #f44336; }
+.rq.rev .rq-score { color: #ff9800; }
+.rq.spell .rq-score { color: #689f38; }
+.rq .rq-max { font-size: 11px; color: #bbb; }
+.rq-spell-tag { font-size: 10px; color: #8bc34a; font-style: italic; margin-top: 2px; }
+
+/* Answer modal */
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 100; align-items: center; justify-content: center; }
+.modal-bg.open { display: flex; }
+.modal { background: #fff; border-radius: 16px; padding: 28px; max-width: 560px; width: 92%; max-height: 85vh; overflow-y: auto; box-shadow: 0 8px 40px rgba(0,0,0,.2); }
+.modal-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+.modal-head h3 { color: var(--brand); font-size: 1.2rem; font-family: sans-serif; }
+.modal-close { background: #eee; border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 18px; cursor: pointer; flex-shrink: 0; }
+.modal .m-qtext { font-size: 14px; color: #444; margin-bottom: 16px; line-height: 1.55; padding: 12px; background: #f9f9f9; border-radius: 8px; }
+.modal .m-section { margin-bottom: 14px; }
+.modal .m-label { font-size: 12px; font-family: sans-serif; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+.modal .m-value { font-size: 15px; padding: 10px 13px; border-radius: 8px; line-height: 1.5; }
+.modal .m-pupil { background: #f5f5f5; border-left: 3px solid #ddd; }
+.modal .m-pupil.m-ok { border-left-color: #4caf50; background: #f1f8f1; }
+.modal .m-pupil.m-spell { border-left-color: #8bc34a; background: #f4f9ec; }
+.modal .m-pupil.m-bad { border-left-color: #f44336; background: #fdf3f3; }
+.modal .m-accepted { background: #e8f5e9; color: #2e7d32; font-size: 13px; }
+.modal .m-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.modal .m-tag { font-size: 12px; font-family: sans-serif; padding: 3px 10px; border-radius: 12px; background: #eee; color: #555; }
+.modal .m-mark-btns { display: flex; gap: 8px; align-items: center; margin-top: 12px; font-family: sans-serif; font-size: 13px; }
+.modal .m-mark-btns span { color: #888; }
+.mbtn { padding: 7px 18px; border-radius: 6px; border: 2px solid #ddd; cursor: pointer; font-weight: bold; background: #fff; font-size: 14px; transition: all .12s; }
+.mbtn:hover { border-color: var(--brand); }
+.mbtn.sel { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+/* Teacher review tab */
+.review-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.07); margin-bottom: 16px; }
+.review-card h3 { color: var(--brand); margin-bottom: 6px; font-family: sans-serif; }
+.review-card .rev-intro { font-size: 13px; color: #888; margin-bottom: 18px; font-family: sans-serif; }
+.rev-item { border: 1px solid #eee; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+.rev-item .rlabel { font-weight: bold; color: #555; font-size: 13px; margin-bottom: 4px; font-family: sans-serif; }
+.rev-item .rq-text { font-size: 14px; color: #666; margin-bottom: 8px; }
+.rev-item .rans { background: #f5f5f5; border-radius: 6px; padding: 10px 12px; font-style: italic; margin-bottom: 10px; font-size: 14px; min-height: 36px; line-height: 1.5; }
+.rev-guidance { background: #e8f5fd; border-left: 3px solid #009ae4; border-radius: 6px; padding: 10px 13px; font-size: 13px; color: #1a5f7a; margin-bottom: 10px; line-height: 1.5; font-family: sans-serif; }
+.mark-btns { display: flex; gap: 8px; align-items: center; font-family: sans-serif; font-size: 13px; }
+.mark-btns span { color: #888; }
+
+/* QLA Analysis */
+.qla-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.07); margin-bottom: 16px; }
+.qla-card h3 { color: var(--brand); margin-bottom: 6px; font-family: sans-serif; }
+.qla-card .qla-intro { font-size: 13px; color: #888; margin-bottom: 20px; font-family: sans-serif; }
+.qla-section { margin-bottom: 26px; }
+.qla-section h4 { font-size: 13px; font-family: sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: .5px; color: #999; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
+.qla-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-family: sans-serif; }
+.qla-row .qla-label { font-size: 13px; color: #444; min-width: 180px; flex-shrink: 0; }
+.qla-row .qla-bar-wrap { flex: 1; background: #f0f0f0; border-radius: 6px; height: 18px; overflow: hidden; }
+.qla-row .qla-bar { height: 100%; border-radius: 6px; transition: width .4s; min-width: 2px; }
+.qla-row .qla-pct { font-size: 13px; font-weight: bold; min-width: 48px; text-align: right; }
+.qla-row .qla-frac { font-size: 12px; color: #aaa; min-width: 50px; text-align: right; }
+.bar-hi { background: #4caf50; }
+.bar-mid { background: var(--brand); }
+.bar-lo { background: #f44336; }
+.bar-na { background: #ccc; }
+
+.res-actions { display: flex; gap: 12px; justify-content: center; margin-top: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+
+@media (max-width: 700px) {
+  .abody { flex-direction: column; }
+  .tpanel { width: 100%; height: 38vh; border-right: none; border-bottom: 3px solid var(--border); }
+  .qpanel { padding-bottom: 90px; }
+  .qfooter { left: 0; }
+  .aheader .sec-tabs { display: none; }
+  .qla-row .qla-label { min-width: 130px; }
+}
+@media print {
+  body { overflow: visible; }
+  .screen { display: block !important; height: auto; }
+  #s-login, #s-instructions, #s-assessment, #s-done { display: none !important; }
+  #s-results { display: block !important; padding: 0; }
+  .res-actions, .res-tabs { display: none; }
+  .res-pane { display: block !important; }
+  .mark-btns, .m-mark-btns { display: none; }
+  .modal-bg { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="s-login" class="screen active">
+  <div class="card">
+    <div style="text-align:right;margin-bottom:8px"><a href="home.html" style="font-size:12px;color:#aaa;text-decoration:none;">← Home</a></div>
+    <div class="card-logo">📖</div>
+    <h1>Year 4 Reading Assessment</h1>
+    <p class="sub">Autumn Term &nbsp;|&nbsp; PiXL Diagnostic</p>
+    <div class="fg">
+      <label>Tap your name</label>
+      <div id="name-loading" style="text-align:center;padding:24px;color:#888;font-size:14px">Loading class list…</div>
+      <div id="name-grid" style="display:none"></div>
+      <div id="name-selected" style="display:none;margin-top:10px;padding:10px 14px;background:#e0f2fe;border-radius:8px;font-weight:600;font-size:15px;color:#0369a1"></div>
+      <div id="name-fallback" style="display:none;margin-top:10px">
+        <p style="font-size:13px;color:#888;margin-bottom:6px">Can't find your name? Type it:</p>
+        <input type="text" id="inp-name" autocomplete="off" placeholder="First name Surname" style="width:100%;padding:10px;border:2px solid #d1d5db;border-radius:8px;font-size:15px">
+      </div>
+    </div>
+    <div class="fg" id="text-sel-wrap">
+      <label>Today you are completing</label>
+      <div id="text-notice" style="padding:12px 16px;background:#e8f5fd;border-radius:10px;font-size:15px;font-weight:700;color:#0a6fa8;min-height:44px;">Loading…</div>
+    </div>
+    <button class="btn btn-primary" onclick="startInstructions()" style="margin-top:8px;">Start →</button>
+  </div>
+</div>
+
+<!-- ===== INSTRUCTIONS ===== -->
+<div id="s-instructions" class="screen">
+  <div class="card">
+    <h2>Instructions</h2>
+    <p>The reading text is shown on the <strong>left side</strong> of the screen. Read the text and answer the questions about it.</p>
+    <p><strong>You should use the texts to help you answer the questions.</strong></p>
+    <p>There are different types of questions. Read the instructions for each question carefully.</p>
+    <p>If you cannot answer a question, <strong>move on to the next one</strong>. You can always come back to it.</p>
+    <div class="inst-footer">
+      <button class="btn btn-primary btn-sm" onclick="startAssessment()">Begin Assessment →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ASSESSMENT ===== -->
+<div id="s-assessment" class="screen">
+  <div class="aheader">
+    <div class="pupil" id="hdr-pupil"></div>
+    <div class="sec-tabs">
+      <div class="sec-tab" id="tab-0">Taking to the Stage</div>
+      <div class="sec-tab" id="tab-1">Lead On</div>
+      <div class="sec-tab" id="tab-2">The Russian Figurine</div>
+    </div>
+  </div>
+  <div class="abody">
+    <div class="tpanel" id="text-panel"></div>
+    <div class="qpanel" id="q-panel"></div>
+  </div>
+  <div class="qfooter">
+    <div class="prog" id="q-progress"></div>
+    <button class="btn btn-primary btn-sm" id="sec-next-btn" onclick="nextSection()">Next Text →</button>
+  </div>
+</div>
+
+<!-- ===== DONE SCREEN ===== -->
+<div id="s-done" class="screen">
+  <div class="done-inner">
+    <div class="done-emoji" id="done-emoji" onclick="teacherTap()">🎉</div>
+    <div class="done-heading">Well Done!</div>
+    <div class="done-sub" id="done-sub">You've finished the reading assessment. Your teacher will look at your results.</div>
+    <div id="done-sending" style="display:none;margin-top:16px;font-size:13px;color:#009ae4;font-family:sans-serif;">Sending your answers… ✓</div>
+  </div>
+</div>
+
+<!-- ===== RESULTS ===== -->
+<div id="s-results" class="screen">
+  <div class="res-wrap">
+    <div class="res-hdr">
+      <h2>Assessment Complete</h2>
+      <div class="pname" id="res-name"></div>
+      <div class="score-big" id="res-score">—</div>
+      <div class="score-denom" id="res-denom"></div>
+      <div class="score-pct" id="res-pct"></div>
+      <div class="score-time" id="res-time"></div>
+    </div>
+    <div class="res-tabs">
+      <button class="res-tab active" onclick="showResTab('overview',this)">📊 Overview</button>
+      <button class="res-tab" onclick="showResTab('review',this)">✏️ Teacher Marking</button>
+      <button class="res-tab" onclick="showResTab('analysis',this)">🎯 Analysis</button>
+      <button class="res-tab" onclick="showResTab('class',this)">📋 Class Data</button>
+    </div>
+
+    <!-- OVERVIEW TAB -->
+    <div class="res-pane active" id="rp-overview">
+      <div class="res-legend">
+        <span><span class="leg-dot" style="background:#4caf50"></span>Correct</span>
+        <span><span class="leg-dot" style="background:#8bc34a"></span>Correct (spelling — tap to check)</span>
+        <span><span class="leg-dot" style="background:#f44336"></span>Incorrect</span>
+        <span><span class="leg-dot" style="background:#ff9800"></span>Teacher marking needed</span>
+      </div>
+      <p style="font-size:12px;color:#aaa;font-family:sans-serif;margin-bottom:10px;">Tap any question to see the answer.</p>
+      <div class="res-grid" id="res-grid"></div>
+    </div>
+
+    <!-- TEACHER MARKING TAB -->
+    <div class="res-pane" id="rp-review">
+      <div class="review-card">
+        <h3>✏️ Teacher Marking</h3>
+        <p class="rev-intro" id="review-intro">These extended answers are sent to the class spreadsheet for AI marking. You can still award marks manually here if needed — the total score updates automatically.</p>
+        <div id="review-items"></div>
+      </div>
+    </div>
+
+    <!-- ANALYSIS TAB -->
+    <div class="res-pane" id="rp-analysis">
+      <div class="qla-card">
+        <h3>🎯 Question Level Analysis</h3>
+        <p class="qla-intro">Breakdown of performance by reading skill, question format, and text type. Helps identify target areas.</p>
+        <div id="qla-content"></div>
+      </div>
+    </div>
+
+    <!-- CLASS DATA TAB -->
+    <div class="res-pane" id="rp-class"></div>
+
+    <div class="res-actions">
+      <button class="btn btn-primary btn-sm" onclick="exportCSV()">Export This Pupil</button>
+      <button class="btn btn-outline btn-sm" onclick="restartApp()">New Assessment</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANSWER MODAL -->
+<div class="modal-bg" id="ans-modal" onclick="closeModal(event)">
+  <div class="modal" id="modal-inner">
+    <div class="modal-head">
+      <h3 id="modal-title">Question</h3>
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ======================================================
+// CONFIG — paste your Apps Script Web App URL here after deploying backend.gs
+// ======================================================
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+
+// ======================================================
+// TEXTS
+// ======================================================
+const TEXTS = {
+  0: {
+    title: 'Taking to the Stage',
+    html: `
+<p>Have you ever wanted to be someone different? If so, why not have a go at acting? There are lots of reasons to give it a try. As well as being lots of fun, it can be a great way to meet new friends and learn some very useful skills.</p>
+<h3>Early performers</h3>
+<p>Taking to the stage is something that people have been doing for thousands of years. The ancient Greeks were the earliest actors. One player, Thespis, is thought to have been the first ever person to have played a part as someone else – not as himself. That is why actors are sometimes called 'thespians', even now.</p>
+<p>These days, top actors enjoy great fame and wealth. For some actors, they love performing as someone else. Others are tempted by the idea of the money and glamorous lifestyle. Most actors will tell you that it is not an easy job though!</p>
+<h3>Bad reputation</h3>
+<p>People haven't always respected actors as we do nowadays. Before the days of Queen Elizabeth I, they were widely seen as being little better than tramps and crooks. In England, only men and boys were allowed to act because it was not thought to be a decent job.</p>
+<p>Acting changed a great deal for the better when the famous writer, William Shakespeare, arrived on the scene. Being an actor became much more acceptable and people even started to build permanent theatres in towns and cities for people to visit.</p>
+<h3>Screen actors</h3>
+<p>For the last hundred years or so, theatres have had to compete with film and TV. These inventions meant that it was easier for people to see the world's greatest stars without having to travel farther than their local cinema. It did mean, however, that actors had to adapt their skills. After all, on a stage your actions and voice must be louder than life so that they can be seen and heard by the people at the back. On screen, on the other hand, the camera can be so close that even the smallest movement will be clearly noticed.</p>
+<h4>What you need:</h4>
+<p>Acting might have changed over the centuries, but the basic skills you need remain the same:</p>
+<ul style="margin:8px 0 10px 20px;line-height:1.8">
+  <li>A good imagination</li>
+  <li>The confidence to perform in front of crowds</li>
+  <li>The ability to remember lots of lines</li>
+  <li>A clear, interesting voice</li>
+</ul>
+<h4>Advice for getting started:</h4>
+<p>When your school is putting on a show, make sure that you audition for a part. If you don't have any luck, try to find out if there are any drama groups in your area. Alternatively, you could search the internet for local acting clubs for young people.</p>`
+  },
+  1: {
+    title: 'Lead On',
+    html: `
+<div class="poem-stanza">
+  <p class="poem-line"><em>"Sit!" my gentle giant barks.</em></p>
+  <p class="poem-line"><em>A forest of legs above my head:</em></p>
+  <p class="poem-line"><em>Like shifting trees, marching by.</em></p>
+  <p class="poem-line"><em>Bursts of yellow, green and red,</em></p>
+  <p class="poem-line"><em>Switch and shimmer in the air,</em></p>
+  <p class="poem-line"><em>A restless rainbow, just hanging there.</em></p>
+</div>
+<div class="poem-stanza">
+  <p class="poem-line"><em>Pause as metal beasts roll by</em></p>
+  <p class="poem-line"><em>Until, at last, the traffic slows.</em></p>
+  <p class="poem-line"><em>A shining being, dressed in green</em></p>
+  <p class="poem-line"><em>Commands the human pack to go.</em></p>
+  <p class="poem-line"><em>We surge across the road as one</em></p>
+  <p class="poem-line"><em>While shining eyes keep looking on.</em></p>
+</div>
+<div class="poem-stanza">
+  <p class="poem-line"><em>The people herd along the path,</em></p>
+  <p class="poem-line"><em>My stumpy legs begin to tire.</em></p>
+  <p class="poem-line"><em>If only I could soar and fly</em></p>
+  <p class="poem-line"><em>Above the trees, or even higher.</em></p>
+  <p class="poem-line"><em>Sounds and smells help me revive,</em></p>
+  <p class="poem-line"><em>I sense, at home, we'll soon arrive.</em></p>
+</div>
+<div class="poem-stanza">
+  <p class="poem-line"><em>I've exercised enough today,</em></p>
+  <p class="poem-line"><em>The length and vastness of my world.</em></p>
+  <p class="poem-line"><em>So now I head straight for my bed.</em></p>
+  <p class="poem-line"><em>And follow my tail until I'm curled.</em></p>
+  <p class="poem-line"><em>My eyes look sad, but I feel no sorrow:</em></p>
+  <p class="poem-line"><em>I'll have another walk tomorrow.</em></p>
+</div>`
+  },
+  2: {
+    title: 'The Russian Figurine',
+    html: `
+<p>Mum wouldn't be back from work for another couple of hours. Anita had been left in charge, but she might as well have been on a different planet – she only had eyes for her phone. She certainly wasn't interested in talking to her brother.</p>
+<p>If only he hadn't said what he'd said to her yesterday, at least he wouldn't have been grounded. Apparently, there were some words that everyone knew, but no one was allowed to mention, unless they were sixteen and going through 'a difficult time'. Difficult time? Raul couldn't see what was so difficult for Anita about lying around on your bed, chatting to your friends all day, every day.</p>
+<p>For a moment, he thought about his own mates down there, practising their tricks at the skate park. But it just made him more fed up. Turning his back on the window, he gazed around the room for something, anything, to do. There was nothing. They didn't even have a telly now.</p>
+<p>He looked around again. Were the boxes by the door full of things to sell or give to charity? Not that he really cared.</p>
+<p>Lacking anything else to do, he looked inside the nearest box. Raul was saddened to find various little china figures wrapped up in tissue paper. He had given these to mum as a present over the years.</p>
+<p>He picked one of them out and turned it over in his hands. As he did so, memories came flooding back of happier times when Dad was still around. The four of them used to go to the playground in the park, then have lunch in a burger bar. After that, they would wander through the market, looking for things that you couldn't find in normal shops. Mum's favourite stall sold antiques and 'knick-knacks' ('junk' as Dad called it).</p>
+<p>One year, a week or two before Mum's birthday, Dad had taken Raul and Anita to the market on their own to choose a birthday present for Mum. The figure Raul was now holding was the one he had chosen for her. It was a pretty shepherd girl with a blue bonnet and white, floor-length dress. He hated it, but Mum adored it.</p>
+<p>On the base, he discovered a small hole. For no particular reason, he peered inside. The middle was smooth and white, and not very interesting. But then something caught his eye. Just where it narrowed to the neck, he noticed a scrap of paper stuffed into the hollow of the head. But how could he get it out?</p>
+<p>A pair of tweezers provided the answer. After a couple of frustrating fails, he managed to tug it free.</p>
+<p>Carefully, he unrolled the scrap to find a hand-written message in a language he didn't understand. But if he was right, it was a brief letter that looked like it had been written by someone called 'Nicholas' to 'Anastasia'. This was an exciting discovery and not one he was willing to share...</p>`
+  }
+};
+
+// ======================================================
+// QUESTIONS  (domain, qtype, ttype added for QLA)
+// domain: 2a=vocabulary, 2b=retrieval, 2c=summarise, 2d=inference, 2g=language/word choice
+// qtype: mc, fc (find&copy), sc (short constructed), tab, ext, match, order
+// ttype: NF, P, F
+// ======================================================
+const QUESTIONS = [
+  // ===== TAKING TO THE STAGE =====
+  { id:1,  sec:0, marks:2, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    prompt:'Look at the first paragraph.',
+    q:'Name <strong>two</strong> reasons why people might give acting a try.',
+    guidance:'Award 1 mark for each of any two of: it is lots of fun / a great way to meet new friends / learn some very useful skills. Max 2 marks.' },
+
+  { id:2,  sec:0, marks:1, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'text',
+    q:'Who were the earliest actors?',
+    accepted:['the ancient greeks','ancient greeks','ancient greek people','the ancient greek people'] },
+
+  { id:3,  sec:0, marks:1, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'text',
+    q:'What is the name of the first person thought to have played a part as someone else?',
+    accepted:['thespis'] },
+
+  { id:4,  sec:0, marks:1, domain:'2a', qtype:'mc', ttype:'NF',
+    type:'mc',
+    prompt:"<em>'These days, top actors enjoy great fame and wealth'</em><br><br>Tick the sentence that most closely matches the meaning of <em>'enjoy great fame and wealth'</em>",
+    q:'Tick <strong>one</strong>.',
+    options:['They work hard.','They do not enjoy acting.','They are well-known and earn lots of money.','They win lots of prizes.'],
+    correct:'They are well-known and earn lots of money.' },
+
+  { id:5,  sec:0, marks:1, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'According to the text, why do some people want to become famous actors? Give <strong>one</strong> reason.',
+    guidance:'Award 1 mark for reference to any of: they love performing as someone else / tempted by the idea of the money / glamorous lifestyle. Accept any plausible paraphrase.' },
+
+  { id:6,  sec:0, marks:1, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'text',
+    q:'What would most actors tell you about the job?',
+    accepted:['it is not an easy job','not an easy job',"it's not an easy job",'it is not easy','not easy'] },
+
+  { id:7,  sec:0, marks:1, domain:'2a', qtype:'mc', ttype:'NF',
+    type:'mc',
+    prompt:'Look at the paragraph: <strong>Bad Reputation</strong>.',
+    q:"Tick the sentence that is closest in meaning to: <em>'People haven't always respected actors.'</em>",
+    options:['Actors were not responsible.',"People didn't always admire actors.",'People have always thought highly of actors.','Actors were well thought of by the queen.'],
+    correct:"People didn't always admire actors." },
+
+  { id:8,  sec:0, marks:1, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'text',
+    prompt:'Look at the paragraph: <strong>Bad Reputation</strong>.',
+    q:'In the past, why were only men and boys allowed to act in England?',
+    accepted:['it was not thought to be a decent job','not thought to be a decent job','not a decent job','it was not a decent job','not thought to be decent'] },
+
+  { id:9,  sec:0, marks:2, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'Name <strong>two</strong> things that changed about acting because of William Shakespeare.',
+    guidance:'Award 1 mark for each of any two of: acting became more acceptable / permanent theatres were built in towns and cities. Max 2 marks.' },
+
+  { id:10, sec:0, marks:1, domain:'2d', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'How did the invention of film and TV make life easier for people?',
+    guidance:'Award 1 mark for reference to: people could see the world\'s greatest stars without having to travel / could see them at their local cinema.' },
+
+  { id:11, sec:0, marks:1, domain:'2a', qtype:'fc', ttype:'NF',
+    type:'text',
+    prompt:'Look at the paragraph: <strong>Screen Actors</strong>.',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> closest in meaning to <em>change</em>.',
+    accepted:['adapt'] },
+
+  { id:12, sec:0, marks:1, domain:'2d', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'According to the text, why don\'t you need a loud voice to act on screen?',
+    guidance:'Award 1 mark for reference to: the camera is very close / can pick up even the smallest movement / even the smallest movement will be clearly noticed.' },
+
+  { id:13, sec:0, marks:1, domain:'2b', qtype:'tab', ttype:'NF',
+    type:'tf_table',
+    q:'Put <strong>one</strong> tick next to each statement to show whether it is <strong>true</strong> or <strong>false</strong>.',
+    rows:[
+      { txt:'Actors do not need to have a good memory.',                             ans:'false' },
+      { txt:'Nowadays acting is acceptable and can make you lots of money.',         ans:'true'  },
+      { txt:'Acting was not always thought of as an acceptable job.',                ans:'true'  },
+      { txt:"Film and TV has made it more difficult to see the world's greatest stars.", ans:'false' },
+    ] },
+
+  { id:14, sec:0, marks:2, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'What advice does the article give people who are interested in acting? Give <strong>two</strong> examples.',
+    guidance:'Award 1 mark for each of any two of: audition for a school show / find drama groups in your area / search the internet for local acting clubs for young people. Max 2 marks.' },
+
+  // ===== LEAD ON =====
+  { id:15, sec:1, marks:1, domain:'2d', qtype:'mc', ttype:'P',
+    type:'mc',
+    prompt:'Look at verse one.',
+    q:'Who is the <em>gentle giant</em> in verse one? Tick <strong>one</strong>.',
+    options:['A cat','A dog','A dog owner','A tree'],
+    correct:'A dog owner' },
+
+  { id:16, sec:1, marks:1, domain:'2d', qtype:'sc', ttype:'P',
+    type:'text',
+    prompt:'Look at verse 2.',
+    q:'In verse 2, what are the <em>metal beasts</em>?',
+    accepted:['cars','traffic','vehicles','cars and traffic','the cars','the traffic'] },
+
+  { id:17, sec:1, marks:1, domain:'2a', qtype:'fc', ttype:'P',
+    type:'text',
+    prompt:'Look at verse 2.',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> in verse 2 that means <em>to tell someone what to do</em>.',
+    accepted:['commands','command'] },
+
+  { id:18, sec:1, marks:1, domain:'2a', qtype:'mc', ttype:'P',
+    type:'mc',
+    prompt:"<em>We <strong>surge</strong> across the road as one...</em>",
+    q:'The word <em>surge</em> means the same as:',
+    options:['plod','smile','rush','trip'],
+    correct:'rush' },
+
+  { id:19, sec:1, marks:1, domain:'2b', qtype:'sc', ttype:'P',
+    type:'text',
+    prompt:'Look at verse 3.',
+    q:'In verse 3, what does the dog wish he could do?',
+    accepted:['soar and fly','fly and soar','soar','fly','soar and fly above the trees'] },
+
+  { id:20, sec:1, marks:1, domain:'2b', qtype:'sc', ttype:'P',
+    type:'text',
+    q:'At the end of the poem, what does the dog do straight after it has finished exercising? Give <strong>one</strong> example.',
+    accepted:['head straight for bed','head for bed','goes to bed','goes to sleep','follows tail','follow tail','curls up','curl up','snuggles down','follows its tail'] },
+
+  { id:21, sec:1, marks:1, domain:'2d', qtype:'mc', ttype:'P',
+    type:'mc',
+    q:'What is the poem about? Tick <strong>one</strong>.',
+    options:['A boy and his family','A dog out for a walk','People crossing the road','Being able to fly'],
+    correct:'A dog out for a walk' },
+
+  // ===== THE RUSSIAN FIGURINE =====
+  { id:22, sec:2, marks:1, domain:'2b', qtype:'sc', ttype:'F',
+    type:'text',
+    prompt:"Look at the paragraph beginning <em>'Mum wouldn't be back...'</em>",
+    q:'What was Anita doing while she was supposed to be in charge?',
+    accepted:['on her phone','using her phone','looking at her phone','on/looking at her phone','looking at her phone','on her phone','staring at her phone'] },
+
+  { id:23, sec:2, marks:1, domain:'2b', qtype:'mc', ttype:'F',
+    type:'mc',
+    q:'Raul was grounded because...',
+    options:['He had been chatting to his friends all day, every day.','He was going through a difficult time.','He had stolen something.','He had said something he shouldn\'t have.'],
+    correct:'He had said something he shouldn\'t have.' },
+
+  { id:24, sec:2, marks:2, domain:'2d', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    prompt:"Look at the paragraph beginning: <em>'For a moment, he thought...'</em>",
+    q:'Why was Raul fed up about being at home? Give <strong>two</strong> reasons.',
+    guidance:'Award 1 mark for each of any two of: his friends were at the skate park / he was bored / he was grounded / there was nothing to do / there was not even a telly / Anita was ignoring him. Max 2 marks.' },
+
+  { id:25, sec:2, marks:2, domain:'2d', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    q:'Raul found the china figures wrapped up in a box. Why did this make him feel sad? Give <strong>two</strong> reasons.',
+    guidance:'Award 1 mark for each of any two of: he had given them to Mum as presents / they were wrapped up to give away / they brought back memories of happier times. Max 2 marks.' },
+
+  { id:26, sec:2, marks:1, domain:'2a', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    prompt:"<em>As he did so, <strong>memories came flooding back…</strong></em>",
+    q:'What does this mean?',
+    guidance:"Award 1 mark for any plausible explanation of: he was remembering the past / memories of the past rushed into his mind / he was suddenly thinking about times gone by. Accept any clear explanation." },
+
+  { id:27, sec:2, marks:2, domain:'2b', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    prompt:"Look at the paragraph beginning <em>'He picked one of them out...'</em>",
+    q:'The figurines make Raul remember happier times. Give <strong>two</strong> things he remembers doing with Dad.',
+    guidance:'Award 1 mark for each of any two of: go to the playground/park / have lunch in a burger bar / wander through the market / find interesting knick-knacks/junk. Max 2 marks.' },
+
+  { id:28, sec:2, marks:1, domain:'2d', qtype:'sc', ttype:'F',
+    type:'text',
+    q:'Why was the pretty shepherd girl particularly special to Raul?',
+    accepted:['he had chosen it as a birthday present for mum','he chose it for mum','he bought it for mum','he had chosen it for mum','he picked it for mum','it was chosen as a birthday present for mum'] },
+
+  { id:29, sec:2, marks:1, domain:'2a', qtype:'mc', ttype:'F',
+    type:'mc',
+    prompt:"<em>…it was a <strong>brief</strong> letter that looked like it had been written by someone called 'Nicholas'…</em>",
+    q:'The word <em>brief</em> means:',
+    options:['long','detailed','short','difficult'],
+    correct:'short' },
+
+  { id:30, sec:2, marks:1, domain:'2b', qtype:'tab', ttype:'F',
+    type:'tf_table',
+    q:'Look at the whole text. Put <strong>one</strong> tick next to each statement to show whether it is <strong>true</strong> or <strong>false</strong>.',
+    rows:[
+      { txt:'Raul was pleased that his Mum was getting rid of the figurines.',  ans:'false' },
+      { txt:"Raul's memories were of happier times.",                            ans:'true'  },
+      { txt:'Raul broke the figurine to remove the scrap of paper.',            ans:'false' },
+      { txt:'Raul understood what the letter said.',                            ans:'false' },
+    ] },
+
+  { id:31, sec:2, marks:2, domain:'2e', qtype:'ext', ttype:'F',
+    type:'extended', review:true,
+    q:'What do you think Raul might do with the letter next? Give evidence from the text to support your answer.',
+    guidance:"Award 1 mark for a plausible prediction and 1 mark for supporting evidence with reference to the text. Example 2-mark answer: 'He will try to find out what the letter says because the text says he isn't ready to share it.' Accept any plausible prediction with text evidence. Max 2 marks." },
+
+  { id:32, sec:2, marks:1, domain:'2f', qtype:'match', ttype:'F',
+    type:'match',
+    q:'Draw lines to match each part of the story with the correct label. One has been done for you.',
+    given:{ word:'Emotion', meaning:'Raul was saddened to find various china figures wrapped up in tissue paper.' },
+    pairs:[
+      { word:'Character',
+        options:[
+          'She might as well have been on a different planet – she only had eyes for her phone.',
+          'The four of them used to go to the playground in the park, then have lunch in a burger bar.'
+        ],
+        correct:'She might as well have been on a different planet – she only had eyes for her phone.' },
+      { word:'Past events',
+        options:[
+          'She might as well have been on a different planet – she only had eyes for her phone.',
+          'The four of them used to go to the playground in the park, then have lunch in a burger bar.'
+        ],
+        correct:'The four of them used to go to the playground in the park, then have lunch in a burger bar.' },
+    ] },
+
+  { id:33, sec:2, marks:1, domain:'2c', qtype:'order', ttype:'F',
+    type:'order',
+    q:'Below are some <strong>summaries</strong> of different paragraphs from the text. Number them 1–5 to show the <strong>order</strong> in which they appear in the text. The first one has been done for you.',
+    items:[
+      { txt:'He discovers a letter in the figurine.',              given:false, correct:5 },
+      { txt:'Raul looks inside the boxes.',                        given:false, correct:3 },
+      { txt:'The figurines he finds make him think about the past.', given:false, correct:4 },
+      { txt:'Raul struggles to find something to do.',             given:false, correct:2 },
+      { txt:"Raul's sister had been left in charge.",              given:true,  value:1  },
+    ] },
+];
+
+// QLA metadata
+const DOMAIN_LABELS = {
+  '2a': 'Vocabulary (2a)',
+  '2b': 'Retrieval (2b)',
+  '2c': 'Summarise main ideas (2c)',
+  '2d': 'Inference (2d)',
+  '2g': 'Language / word choice (2g)',
+  '2e': 'Predict (2e)',
+  '2f': 'Structure/meaning (2f)',
+};
+const QTYPE_LABELS = {
+  'mc':    'Multiple choice',
+  'fc':    'Find & copy',
+  'sc':    'Short answer',
+  'tab':   'Table / tabulated',
+  'ext':   'Extended response',
+  'match': 'Matching',
+  'order': 'Ordering',
+};
+const TTYPE_LABELS = { 'NF':'Non-fiction', 'P':'Poetry', 'F':'Fiction' };
+
+// ======================================================
+// STATE
+// ======================================================
+let pupilName = '';
+let selectedSections = [0,1,2];
+let currentSection = 0;
+let answers = {};
+let reviewScores = {};
+let markResults = [];
+let startTime = null;
+let timeTaken = '';
+
+// ======================================================
+// LOGIN — name picker
+// ======================================================
+
+// Fetch pupil list from backend, fall back to text input gracefully
+(function loadConfig() {
+  if (!BACKEND_URL) { showNameFallback(); return; }
+  const cb = 'config_cb_' + Date.now();
+  const script = document.createElement('script');
+  const timer = setTimeout(() => { showNameFallback(); }, 15000);
+  window[cb] = function(config) {
+    clearTimeout(timer);
+    delete window[cb];
+    if (script.parentNode) document.body.removeChild(script);
+    // Pupils
+    const names = config && Array.isArray(config.pupils) ? config.pupils : [];
+    if (names.length) renderNameGrid(names); else showNameFallback();
+    // Active texts
+    const active = config && Array.isArray(config.selectedTexts) ? config.selectedTexts : [0,1,2];
+    applyTextConfig(active);
+  };
+  script.onerror = () => { clearTimeout(timer); showNameFallback(); };
+  script.src = BACKEND_URL + '?action=getconfig&callback=' + cb;
+  document.body.appendChild(script);
+})();
+
+function renderNameGrid(names) {
+  document.getElementById('name-loading').style.display = 'none';
+  const grid = document.getElementById('name-grid');
+  grid.innerHTML = names.map(n =>
+    `<button class="name-btn" data-name="${n.replace(/"/g,'&quot;')}" onclick="selectName(this,this.dataset.name)">${n}</button>`
+  ).join('') +
+  `<button class="name-btn name-btn-other" onclick="document.getElementById('name-fallback').style.display='block'">My name isn't here</button>`;
+  grid.style.display = 'grid';
+}
+
+function showNameFallback() {
+  document.getElementById('name-loading').style.display = 'none';
+  document.getElementById('name-fallback').style.display = 'block';
+}
+
+function applyTextConfig(active) {
+  const TEXT_NAMES = ['📖 Taking to the Stage','🐕 Lead On','🪆 The Russian Figurine'];
+  selectedSections = active.length ? active : [0,1,2];
+  const names = selectedSections.map(i => TEXT_NAMES[i]);
+  const notice = document.getElementById('text-notice');
+  if (notice) notice.textContent = names.join(' · ');
+}
+
+function selectName(btn, name) {
+  document.querySelectorAll('.name-btn').forEach(b => b.classList.remove('name-sel'));
+  btn.classList.add('name-sel');
+  pupilName = name;
+  const disp = document.getElementById('name-selected');
+  disp.textContent = '✓ ' + name;
+  disp.style.display = 'block';
+}
+
+function startInstructions() {
+  // Name from grid selection OR fallback text input
+  if (!pupilName) {
+    const typed = document.getElementById('inp-name') && document.getElementById('inp-name').value.trim();
+    if (typed) pupilName = typed;
+  }
+  if (!pupilName) { alert('Please tap your name to select it.'); return; }
+  show('s-instructions');
+}
+
+// ======================================================
+// NAVIGATION
+// ======================================================
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startAssessment() {
+  show('s-assessment');
+  startTime = Date.now();
+  document.getElementById('hdr-pupil').textContent = pupilName;
+  // Style tabs
+  [0,1,2].forEach(i => {
+    const t = document.getElementById('tab-'+i);
+    t.className = 'sec-tab';
+    if (!selectedSections.includes(i)) t.classList.add('skip');
+  });
+  currentSection = selectedSections[0];
+  document.getElementById('tab-'+currentSection).classList.add('active');
+  renderSection(currentSection);
+}
+
+function nextSection() {
+  const idx = selectedSections.indexOf(currentSection);
+  if (idx < selectedSections.length - 1) {
+    document.getElementById('tab-'+currentSection).classList.remove('active');
+    document.getElementById('tab-'+currentSection).classList.add('done');
+    currentSection = selectedSections[idx + 1];
+    document.getElementById('tab-'+currentSection).classList.add('active');
+    renderSection(currentSection);
+    document.getElementById('q-panel').scrollTop = 0;
+    document.getElementById('text-panel').scrollTop = 0;
+  } else {
+    submitAssessment();
+  }
+}
+
+function showTeacherResults() { show('s-results'); }
+
+// Teacher secret access: tap emoji 5 times within 3 seconds
+let _tapCount = 0, _tapTimer = null;
+function teacherTap() {
+  _tapCount++;
+  clearTimeout(_tapTimer);
+  if (_tapCount >= 5) { _tapCount = 0; showTeacherResults(); return; }
+  _tapTimer = setTimeout(() => { _tapCount = 0; }, 3000);
+}
+
+// ======================================================
+// RENDERING
+// ======================================================
+function renderSection(sec) {
+  document.getElementById('text-panel').innerHTML =
+    `<h2>${TEXTS[sec].title}</h2><div class="txt">${TEXTS[sec].html}</div>`;
+
+  const sNames = ['Taking to the Stage','Lead On','The Russian Figurine'];
+  const ranges = [[1,14],[15,21],[22,33]];
+  const [qs, qe] = ranges[sec];
+  let html = `<h3>Questions ${qs}–${qe} are about <em>${sNames[sec]}</em></h3>`;
+  QUESTIONS.filter(q => q.sec === sec).forEach(q => { html += renderQuestion(q); });
+  document.getElementById('q-panel').innerHTML = html;
+
+  QUESTIONS.filter(q => q.sec === sec).forEach(q => restoreAnswer(q));
+
+  document.querySelectorAll('.mc-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const name = opt.querySelector('input').name;
+      document.querySelectorAll(`.mc-opt input[name="${name}"]`).forEach(r => r.closest('.mc-opt').classList.remove('sel'));
+      opt.classList.add('sel');
+      opt.querySelector('input').checked = true;
+      const qid = opt.querySelector('input').dataset.qid;
+      const val = opt.querySelector('input').value;
+      saveAnswer(qid, val);
+      // Update any question that links to this one
+      QUESTIONS.filter(q => q.linkedTo === qid).forEach(lq => {
+        const qtxtEl = document.querySelector(`#qb-${lq.id} .qtxt`);
+        if (qtxtEl) qtxtEl.innerHTML = lq.q.replace(/\{[^}]+\}/g, `<em>${val}</em>`);
+      });
+    });
+  });
+
+  const idx = selectedSections.indexOf(sec);
+  document.getElementById('q-progress').textContent =
+    `Text ${idx+1} of ${selectedSections.length}`;
+  document.getElementById('sec-next-btn').textContent =
+    idx < selectedSections.length - 1 ? 'Next Text →' : 'Submit Assessment ✓';
+}
+
+function renderQuestion(q) {
+  const id = q.id;
+  const promptHtml = q.prompt ? `<div class="qprompt">${q.prompt}</div>` : '';
+  const marksLabel = q.marks === 1 ? '1 mark' : `${q.marks} marks`;
+  let inputHtml = '';
+
+  if (q.type === 'text') {
+    inputHtml = `<input type="text" class="ans-text" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)" autocomplete="off">`;
+  } else if (q.type === 'mc') {
+    inputHtml = q.options.map(o =>
+      `<label class="mc-opt"><input type="radio" name="q${id}" value="${o}" data-qid="${id}"> ${o}</label>`
+    ).join('');
+  } else if (q.type === 'multi_text') {
+    const inputs = Array.from({length:q.count},(_,i)=>
+      `<div class="mi-row"><span class="mi-label">${i+1}.</span><input type="text" class="ans-text" data-qid="${id}" data-idx="${i}" placeholder="Write your answer here..." oninput="saveMultiText('${id}',${i},this.value)" autocomplete="off"></div>`
+    ).join('');
+    inputHtml = `<div class="multi-inp">${inputs}</div>`;
+  } else if (q.type === 'tf_table') {
+    const isEP = q.colLabels && q.colLabels.length === 2;
+    const cols = isEP ? q.colLabels : ['True','False'];
+    const vals = isEP ? q.colLabels : ['true','false'];
+    inputHtml = `<table class="tf-tbl"><thead><tr><th style="width:60%"></th><th>${cols[0]}</th><th>${cols[1]}</th></tr></thead><tbody>` +
+    q.rows.map((r,i)=>`<tr><td>${r.txt}</td>
+      <td class="tfc"><label><input type="radio" name="q${id}_r${i}" value="${vals[0]}" data-qid="${id}" data-row="${i}" onchange="saveTF('${id}',${i},this.value)"> ${cols[0]}</label></td>
+      <td class="tfc"><label><input type="radio" name="q${id}_r${i}" value="${vals[1]}" data-qid="${id}" data-row="${i}" onchange="saveTF('${id}',${i},this.value)"> ${cols[1]}</label></td>
+    </tr>`).join('') + '</tbody></table>';
+  } else if (q.type === 'fill_table') {
+    inputHtml = `<table class="fill-tbl"><tbody>` +
+    q.rows.map(r=>`<tr><th style="width:50%">${r.label}</th><td><input type="text" class="ans-text" data-qid="${id}" data-key="${r.key}" placeholder="" oninput="saveFill('${id}','${r.key}',this.value)" autocomplete="off"></td></tr>`
+    ).join('') + '</tbody></table>';
+  } else if (q.type === 'match') {
+    // Tap-to-select UI
+    const allMeanings = [...new Set(q.pairs.flatMap(p => p.options))];
+    // Shuffle meanings (deterministic by qid)
+    const shuffled = [...allMeanings].sort((a,b) => {
+      const ha = (String(id)+a).split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+      const hb = (String(id)+b).split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+      return ha - hb;
+    });
+    const wordSlots = [
+      `<div class="tap-word-slot given" data-qid="${id}" data-word="${q.given.word}">
+         <div class="slot-word">${q.given.word}</div>
+         <div class="slot-answer">→ ${q.given.meaning} (given)</div>
+       </div>`,
+      ...q.pairs.map(p =>
+        `<div class="tap-word-slot" id="slot-${id}-${p.word.replace(/\s/g,'_')}" data-qid="${id}" data-word="${p.word}" onclick="tapWord('${id}','${p.word}')">
+           <div class="slot-word">${p.word}</div>
+           <div class="slot-answer" id="slotans-${id}-${p.word.replace(/\s/g,'_')}"></div>
+         </div>`
+      )
+    ].join('');
+    const meaningChips = shuffled.map(m =>
+      `<div class="tap-meaning-chip" id="chip-${id}-${m.replace(/\s/g,'_')}" data-qid="${id}" data-meaning="${m}" onclick="tapMeaning('${id}','${m}')">${m}</div>`
+    ).join('');
+    inputHtml = `
+      <p class="match-instructions">Tap a word on the left, then tap its meaning on the right — or tap a meaning first, then its word.</p>
+      <div class="tap-match-wrap">
+        <div class="tap-words-col">${wordSlots}</div>
+        <div class="tap-meanings-col">${meaningChips}</div>
+      </div>`;
+  } else if (q.type === 'order') {
+    inputHtml = `<div class="order-rows">` +
+    q.items.map((item,i)=>
+      item.given
+        ? `<div class="order-row"><div class="order-txt">${item.txt}</div><input type="number" class="order-inp" value="1" disabled></div>`
+        : `<div class="order-row"><div class="order-txt">${item.txt}</div><input type="number" class="order-inp" min="1" max="5" data-qid="${id}" data-idx="${i}" placeholder="" oninput="saveOrder('${id}',${i},this.value)"></div>`
+    ).join('') + '</div>';
+  } else if (q.type === 'extended') {
+    inputHtml = `<textarea class="ans-ext" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)"></textarea>`;
+  }
+
+  // Resolve {linkedId} placeholders using saved answers
+  let qText = q.q;
+  if (q.linkedTo) {
+    const linkedAnswer = (answers[q.linkedTo] || '').trim();
+    const display = linkedAnswer || '___';
+    qText = qText.replace(/\{[^}]+\}/g, `<em>${display}</em>`);
+  }
+
+  // Add spelling note for find & copy questions
+  const qTextLower = qText.toLowerCase();
+  const spellingNote = (qTextLower.includes('find') && qTextLower.includes('copy'))
+    ? `<p class="spelling-note">📋 Copy carefully — spelling counts</p>` : '';
+
+  return `<div class="qblock" id="qb-${id}">
+    <div class="qnum">${id}.</div>
+    ${promptHtml}
+    <div class="qtxt">${qText}</div>
+    ${spellingNote}
+    <div class="qmarks">${marksLabel}</div>
+    ${inputHtml}
+  </div>`;
+}
+
+// ======================================================
+// ANSWER SAVING & RESTORING
+// ======================================================
+function saveAnswer(qid, val)           { answers[qid] = val; }
+function saveMultiText(qid, idx, val)   { if (!answers[qid]) answers[qid] = []; answers[qid][idx] = val; }
+function saveTF(qid, row, val)          { if (!answers[qid]) answers[qid] = {}; answers[qid][row] = val; }
+function saveFill(qid, key, val)        { if (!answers[qid]) answers[qid] = {}; answers[qid][key] = val; }
+function saveMatch(qid, word, val)      { if (!answers[qid]) answers[qid] = {}; answers[qid][word] = val; }
+
+// Tap-to-select match state
+const tapMatchState = {}; // { qid: { selectedWord: null, selectedMeaning: null } }
+
+function getTapState(qid) {
+  if (!tapMatchState[qid]) tapMatchState[qid] = { selectedWord: null, selectedMeaning: null };
+  return tapMatchState[qid];
+}
+
+function tapWord(qid, word) {
+  const state = getTapState(qid);
+  const slot = document.getElementById('slot-' + qid + '-' + word.replace(/\s/g,'_'));
+  if (!slot) return;
+
+  const currentAssignment = answers[qid] && answers[qid][word];
+
+  // If this slot has a meaning, unassign it
+  if (currentAssignment) {
+    // Return meaning chip to available
+    const chip = document.getElementById('chip-' + qid + '-' + currentAssignment.replace(/\s/g,'_'));
+    if (chip) { chip.classList.remove('used'); }
+    saveMatch(qid, word, '');
+    slot.classList.remove('assigned');
+    document.getElementById('slotans-' + qid + '-' + word.replace(/\s/g,'_')).textContent = '';
+    // If a meaning is already selected, assign it
+    if (state.selectedMeaning) {
+      assignMatch(qid, word, state.selectedMeaning);
+      state.selectedMeaning = null;
+      // Clear meaning selection highlight
+      document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
+    } else {
+      // Select this word slot
+      clearWordSelection(qid);
+      state.selectedWord = word;
+      slot.classList.add('selected');
+    }
+    return;
+  }
+
+  // If a meaning is already selected, assign it now
+  if (state.selectedMeaning) {
+    clearWordSelection(qid);
+    assignMatch(qid, word, state.selectedMeaning);
+    state.selectedMeaning = null;
+    document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
+    return;
+  }
+
+  // Select/deselect this word slot
+  if (state.selectedWord === word) {
+    slot.classList.remove('selected');
+    state.selectedWord = null;
+  } else {
+    clearWordSelection(qid);
+    state.selectedWord = word;
+    slot.classList.add('selected');
+  }
+}
+
+function tapMeaning(qid, meaning) {
+  const state = getTapState(qid);
+  const chip = document.getElementById('chip-' + qid + '-' + meaning.replace(/\s/g,'_'));
+  if (!chip) return;
+
+  // If this meaning is already used, find its word and unassign
+  if (chip.classList.contains('used')) {
+    // Find which word has this meaning
+    const ans = answers[qid] || {};
+    let assignedWord = null;
+    Object.entries(ans).forEach(([w, m]) => { if (m === meaning) assignedWord = w; });
+    if (assignedWord) {
+      const slot = document.getElementById('slot-' + qid + '-' + assignedWord.replace(/\s/g,'_'));
+      if (slot) { slot.classList.remove('assigned'); slot.classList.remove('selected'); }
+      document.getElementById('slotans-' + qid + '-' + assignedWord.replace(/\s/g,'_')).textContent = '';
+      saveMatch(qid, assignedWord, '');
+      chip.classList.remove('used');
+      // Now select this meaning
+      clearMeaningSelection(qid);
+      state.selectedMeaning = meaning;
+      chip.classList.add('sel-meaning');
+    }
+    return;
+  }
+
+  // If a word slot is selected, assign this meaning to it
+  if (state.selectedWord) {
+    clearMeaningSelection(qid);
+    assignMatch(qid, state.selectedWord, meaning);
+    const slot = document.getElementById('slot-' + qid + '-' + state.selectedWord.replace(/\s/g,'_'));
+    if (slot) slot.classList.remove('selected');
+    state.selectedWord = null;
+    return;
+  }
+
+  // Select/deselect this meaning chip
+  if (state.selectedMeaning === meaning) {
+    chip.classList.remove('sel-meaning');
+    state.selectedMeaning = null;
+  } else {
+    clearMeaningSelection(qid);
+    state.selectedMeaning = meaning;
+    chip.classList.add('sel-meaning');
+  }
+}
+
+function assignMatch(qid, word, meaning) {
+  saveMatch(qid, word, meaning);
+  const slot = document.getElementById('slot-' + qid + '-' + word.replace(/\s/g,'_'));
+  const ansEl = document.getElementById('slotans-' + qid + '-' + word.replace(/\s/g,'_'));
+  const chip = document.getElementById('chip-' + qid + '-' + meaning.replace(/\s/g,'_'));
+  if (slot) { slot.classList.remove('selected'); slot.classList.add('assigned'); }
+  if (ansEl) ansEl.textContent = '→ ' + meaning;
+  if (chip) chip.classList.add('used');
+}
+
+function clearWordSelection(qid) {
+  document.querySelectorAll(`.tap-word-slot[data-qid="${qid}"]`).forEach(s => s.classList.remove('selected'));
+  getTapState(qid).selectedWord = null;
+}
+
+function clearMeaningSelection(qid) {
+  document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
+  getTapState(qid).selectedMeaning = null;
+}
+function saveOrder(qid, idx, val)       { if (!answers[qid]) answers[qid] = {}; answers[qid][idx] = parseInt(val) || null; }
+
+function restoreAnswer(q) {
+  const id = q.id; const saved = answers[id]; if (!saved) return;
+  if (q.type === 'text') {
+    const el = document.querySelector(`input.ans-text[data-qid="${id}"]`);
+    if (el) el.value = saved;
+  } else if (q.type === 'mc') {
+    document.querySelectorAll(`input[name="q${id}"]`).forEach(r => {
+      if (r.value === saved) { r.checked = true; r.closest('.mc-opt').classList.add('sel'); }
+    });
+  } else if (q.type === 'multi_text' && Array.isArray(saved)) {
+    saved.forEach((v,i) => {
+      const el = document.querySelector(`input.ans-text[data-qid="${id}"][data-idx="${i}"]`);
+      if (el && v) el.value = v;
+    });
+  } else if (q.type === 'tf_table' && typeof saved === 'object') {
+    Object.entries(saved).forEach(([row,val]) => {
+      const r = document.querySelector(`input[name="q${id}_r${row}"][value="${val}"]`);
+      if (r) r.checked = true;
+    });
+  } else if (q.type === 'fill_table' && typeof saved === 'object') {
+    Object.entries(saved).forEach(([key,val]) => {
+      const el = document.querySelector(`input.ans-text[data-qid="${id}"][data-key="${key}"]`);
+      if (el) el.value = val;
+    });
+  } else if (q.type === 'match' && typeof saved === 'object') {
+    Object.entries(saved).forEach(([word, val]) => {
+      if (!val) return;
+      const slot = document.getElementById('slot-' + id + '-' + word.replace(/\s/g,'_'));
+      const ansEl = document.getElementById('slotans-' + id + '-' + word.replace(/\s/g,'_'));
+      const chip = document.getElementById('chip-' + id + '-' + val.replace(/\s/g,'_'));
+      if (slot) { slot.classList.add('assigned'); }
+      if (ansEl) ansEl.textContent = '→ ' + val;
+      if (chip) chip.classList.add('used');
+    });
+  } else if (q.type === 'order' && typeof saved === 'object') {
+    Object.entries(saved).forEach(([idx,val]) => {
+      const el = document.querySelector(`.order-inp[data-qid="${id}"][data-idx="${idx}"]`);
+      if (el && val) el.value = val;
+    });
+  } else if (q.type === 'extended') {
+    const el = document.querySelector(`textarea[data-qid="${id}"]`);
+    if (el) el.value = saved;
+  }
+}
+
+// ======================================================
+// MARKING
+// ======================================================
+function norm(s) { return String(s).toLowerCase().trim().replace(/['']/g,"'"); }
+
+function editDist(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));
+  for (let i=1;i<=m;i++) for (let j=1;j<=n;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+const STOPWORDS = new Set(['the','and','for','that','with','this','from','are','was','they','have','been','will','each','when','into','about','round','where','would','you','find','their','there','then','than','but','not','all','can','its','one','two','how','why','who','she','her','him','his','has','had','did','what','just','out','up','at','in','on','of','to','a','an','is','it','be','do','so','we','or','if','by','as','no','my','me']);
+
+function editDist(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));
+  for (let i=1;i<=m;i++) for (let j=1;j<=n;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+// Extract meaningful content words from a string
+function contentWords(s) {
+  return norm(s).split(/\s+/).filter(w => w.length > 2 && !STOPWORDS.has(w));
+}
+
+// Check if pupil answer contains enough key words from an accepted phrase
+function keywordOverlap(answerNorm, acceptedNorm) {
+  const keys = contentWords(acceptedNorm);
+  if (keys.length === 0) return null;
+  const ansWords = answerNorm.split(/\s+/);
+  let matched = 0;
+  for (const k of keys) {
+    // exact word match, substring match, or close edit distance
+    if (ansWords.includes(k) || answerNorm.includes(k)) { matched++; continue; }
+    for (const w of ansWords) {
+      if (w.length > 2 && editDist(w, k) <= Math.min(2, Math.floor(k.length / 4))) { matched++; break; }
+    }
+  }
+  const ratio = matched / keys.length;
+  if (ratio >= 0.85) return 'exact';  // nearly all key words present → accept as correct
+  if (ratio >= 0.6)  return 'fuzzy';  // majority present → accept with flag
+  return null;
+}
+
+function fuzzyMatch(answer, acceptedList) {
+  const na = norm(answer);
+  for (const acc of acceptedList) {
+    const nb = norm(acc);
+    if (na === nb) return 'exact';
+    // Levenshtein for short answers / single words
+    if (nb.split(' ').length <= 3) {
+      const threshold = Math.min(3, Math.max(1, Math.floor(nb.length / 5)));
+      if (editDist(na, nb) <= threshold) return 'fuzzy';
+    }
+    // Keyword overlap for longer phrases
+    const kw = keywordOverlap(na, nb);
+    if (kw) return kw;
+  }
+  return null;
+}
+
+function fuzzyMatchPhrase(answer, acceptedList) {
+  const direct = fuzzyMatch(answer, acceptedList);
+  if (direct) return direct;
+  // Also try stripping leading articles
+  const na = norm(answer).replace(/^(the|a|an)\s+/, '');
+  for (const acc of acceptedList) {
+    const nb = norm(acc).replace(/^(the|a|an)\s+/, '');
+    if (na === nb) return 'exact';
+    if (nb.split(' ').length <= 3) {
+      const threshold = Math.min(3, Math.max(1, Math.floor(nb.length / 5)));
+      if (editDist(na, nb) <= threshold) return 'fuzzy';
+    }
+    const kw = keywordOverlap(na, nb);
+    if (kw) return kw;
+  }
+  return null;
+}
+
+function markQuestion(q) {
+  const id = q.id, ans = answers[id];
+  if (q.review) return { score:0, max:q.marks, review:true, fuzzy:false };
+
+  if (q.type === 'text') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    const m = fuzzyMatchPhrase(ans, q.accepted);
+    return { score:m?1:0, max:1, review:false, fuzzy:m==='fuzzy' };
+  }
+  if (q.type === 'mc') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    return { score:norm(ans)===norm(q.correct)?1:0, max:1, review:false, fuzzy:false };
+  }
+  if (q.type === 'multi_text') {
+    if (!ans||!Array.isArray(ans)) return { score:0, max:q.marks, review:false, fuzzy:false };
+    const pool = q.acceptedPool; const usedPool = new Set();
+    let score = 0, anyFuzzy = false;
+    ans.forEach(v => {
+      if (!v) return;
+      for (const p of pool) {
+        if (usedPool.has(p)) continue;
+        const m = fuzzyMatchPhrase(v, [p]);
+        if (m) { score++; usedPool.add(p); if (m==='fuzzy') anyFuzzy=true; break; }
+      }
+    });
+    return { score:Math.min(score,q.marks), max:q.marks, review:false, fuzzy:anyFuzzy };
+  }
+  if (q.type === 'tf_table') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    let correct = 0;
+    q.rows.forEach((r,i) => { if (ans[i] && norm(ans[i])===norm(r.ans)) correct++; });
+    let score = correct===q.rows.length ? q.marks : correct>=q.rows.length-1 ? q.marks-1 : 0;
+    return { score:Math.max(0,score), max:q.marks, review:false, fuzzy:false };
+  }
+  if (q.type === 'fill_table') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    let correct = 0, anyFuzzy = false;
+    q.rows.forEach(r => {
+      const v = ans[r.key]; if (!v) return;
+      const m = fuzzyMatchPhrase(v, r.accepted);
+      if (m) { correct++; if (m==='fuzzy') anyFuzzy=true; }
+    });
+    if (q.marks===1) return { score:correct===q.rows.length?1:0, max:1, review:false, fuzzy:anyFuzzy };
+    return { score:Math.min(correct,q.marks), max:q.marks, review:false, fuzzy:anyFuzzy };
+  }
+  if (q.type === 'match') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    let correct = 0;
+    q.pairs.forEach(p => { if (ans[p.word]&&norm(ans[p.word])===norm(p.correct)) correct++; });
+    return { score:correct===q.pairs.length?1:0, max:1, review:false, fuzzy:false };
+  }
+  if (q.type === 'order') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    let correct = 0;
+    q.items.forEach((item,i) => { if (!item.given && ans[i]===item.correct) correct++; });
+    const ng = q.items.filter(x=>!x.given).length;
+    return { score:correct===ng?1:0, max:1, review:false, fuzzy:false };
+  }
+  return { score:0, max:q.marks, review:false, fuzzy:false };
+}
+
+// ======================================================
+// SUBMISSION & RESULTS
+// ======================================================
+function submitAssessment() {
+  const elapsedMs = Date.now() - startTime;
+  const elapsedMin = Math.floor(elapsedMs/60000);
+  const elapsedSec = Math.floor((elapsedMs%60000)/1000);
+  timeTaken = elapsedMin + 'm ' + elapsedSec + 's';
+
+  markResults = QUESTIONS
+    .filter(q => selectedSections.includes(q.sec))
+    .map(q => ({ q, ...markQuestion(q) }));
+
+  show('s-done');
+  document.getElementById('res-name').textContent = pupilName;
+  updateScoreDisplay();
+  buildGrid();
+  buildReview();
+  buildQLA();
+  buildClassTab();
+  saveToClassData();
+  postToBackend();
+}
+
+// ======================================================
+// CLASS DATA (localStorage)
+// ======================================================
+function saveToClassData() {
+  try {
+    const existing = JSON.parse(localStorage.getItem('ra_class_data_autumn') || '[]');
+    const {total, totalMax} = calcTotals();
+    const record = {
+      name: pupilName,
+      date: new Date().toISOString(),
+      timeTaken,
+      sections: selectedSections,
+      total, totalMax,
+      scores: {}, answers: {}
+    };
+    markResults.forEach(r => {
+      const sc = r.review ? (reviewScores[r.q.id] ?? null) : r.score;
+      record.scores['Q'+r.q.id] = { score: sc, max: r.max, domain: r.q.domain, qtype: r.q.qtype, ttype: r.q.ttype, fuzzy: r.fuzzy };
+      const ans = answers[r.q.id];
+      let ansStr = !ans ? '' : Array.isArray(ans) ? ans.filter(v=>v).join('; ') :
+        typeof ans === 'object' ? Object.entries(ans).map(([k,v])=>k+': '+v).join('; ') : String(ans);
+      record.answers['Q'+r.q.id] = ansStr;
+    });
+    existing.push(record);
+    localStorage.setItem('ra_class_data_autumn', JSON.stringify(existing));
+  } catch(e) { /* localStorage unavailable */ }
+}
+
+function getClassData() {
+  try { return JSON.parse(localStorage.getItem('ra_class_data_autumn') || '[]'); }
+  catch(e) { return []; }
+}
+
+// ======================================================
+// BACKEND SYNC (Google Apps Script → Google Sheet + Claude marking)
+// ======================================================
+function postToBackend() {
+  if (!BACKEND_URL) return; // not configured yet
+
+  // Build the payload — include review questions with full marking info
+  // so the Apps Script can pass them to Claude
+  const reviewQuestions = QUESTIONS
+    .filter(q => q.review && selectedSections.includes(q.sec))
+    .map(q => ({
+      id: q.id,
+      question: q.q,
+      prompt: q.prompt || '',
+      guidance: q.guidance || '',
+      max: q.marks
+    }));
+
+  const {total, totalMax} = calcTotals();
+  const scoresPayload = {};
+  markResults.forEach(r => {
+    const sc = r.review ? (reviewScores[r.q.id] ?? null) : r.score;
+    scoresPayload['Q'+r.q.id] = { score: sc, max: r.max, domain: r.q.domain, qtype: r.q.qtype, ttype: r.q.ttype };
+  });
+  const answersPayload = {};
+  markResults.forEach(r => {
+    const ans = answers[r.q.id];
+    answersPayload['Q'+r.q.id] = !ans ? '' :
+      Array.isArray(ans) ? ans.filter(v=>v).join('; ') :
+      typeof ans === 'object' ? Object.entries(ans).map(([k,v])=>k+': '+v).join('; ') :
+      String(ans);
+  });
+
+  const payload = {
+    pupilName,
+    date: new Date().toLocaleDateString('en-GB'),
+    timeTaken,
+    sections: selectedSections,
+    total, totalMax,
+    assessmentId: 'Y4-autumn-2025',
+    scores: scoresPayload,
+    answers: answersPayload,
+    reviewQuestions
+  };
+
+  // Fire-and-forget (no-cors — we can't read the response but data is saved)
+  fetch(BACKEND_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(payload)
+  }).then(() => {
+    const el = document.getElementById('done-sending');
+    if (el) { el.style.display = 'block'; el.textContent = '✓ Answers saved to class spreadsheet'; }
+  }).catch(() => {
+    const el = document.getElementById('done-sending');
+    if (el) { el.style.display = 'block'; el.style.color = '#f44336'; el.textContent = 'Could not save to spreadsheet — check internet connection.'; }
+  });
+}
+
+function clearClassData() {
+  if (confirm('Clear all saved class data? This cannot be undone.')) {
+    localStorage.removeItem('ra_class_data_autumn');
+    buildClassTab();
+  }
+}
+
+function exportClassCSV() {
+  const data = getClassData();
+  if (!data.length) { alert('No class data saved yet.'); return; }
+
+  // Collect all question IDs in order
+  const allQids = QUESTIONS.map(q => 'Q'+q.id);
+  const rows = [];
+
+  // === SHEET 1: Per-pupil scores ===
+  rows.push(['INDIVIDUAL RESULTS']);
+  rows.push(['Name','Date','Time Taken','Total Score','Total Marks','Percentage',
+    ...allQids.flatMap(qid => [qid+' Score', qid+' Answer'])]);
+
+  data.forEach(r => {
+    const pct = r.totalMax ? Math.round(r.total/r.totalMax*100)+'%' : '-';
+    const qCells = allQids.flatMap(qid => {
+      const sc = r.scores[qid];
+      const ans = r.answers[qid] || '';
+      return [sc ? (sc.score !== null ? sc.score : '?') : '-', ans];
+    });
+    rows.push([r.name, new Date(r.date).toLocaleDateString('en-GB'), r.timeTaken||'', r.total, r.totalMax, pct, ...qCells]);
+  });
+
+  rows.push([]);
+
+  // === SHEET 2: Class aggregates by domain ===
+  rows.push(['CLASS AGGREGATE — BY READING SKILL (CONTENT DOMAIN)']);
+  rows.push(['Domain','Total Score','Total Marks','Class %']);
+  const domAgg = {};
+  data.forEach(r => {
+    Object.entries(r.scores).forEach(([qid, sc]) => {
+      const d = sc.domain; if (!domAgg[d]) domAgg[d] = {score:0,max:0};
+      if (sc.score !== null) { domAgg[d].score += sc.score; domAgg[d].max += sc.max; }
+    });
+  });
+  Object.entries(domAgg).forEach(([d,{score,max}]) => {
+    rows.push([DOMAIN_LABELS[d]||d, score, max, max ? Math.round(score/max*100)+'%' : '-']);
+  });
+
+  rows.push([]);
+  rows.push(['CLASS AGGREGATE — BY QUESTION FORMAT']);
+  rows.push(['Format','Total Score','Total Marks','Class %']);
+  const qtAgg = {};
+  data.forEach(r => {
+    Object.entries(r.scores).forEach(([qid, sc]) => {
+      const t = sc.qtype; if (!qtAgg[t]) qtAgg[t] = {score:0,max:0};
+      if (sc.score !== null) { qtAgg[t].score += sc.score; qtAgg[t].max += sc.max; }
+    });
+  });
+  Object.entries(qtAgg).forEach(([t,{score,max}]) => {
+    rows.push([QTYPE_LABELS[t]||t, score, max, max ? Math.round(score/max*100)+'%' : '-']);
+  });
+
+  rows.push([]);
+  rows.push(['CLASS AGGREGATE — BY TEXT TYPE']);
+  rows.push(['Text Type','Total Score','Total Marks','Class %']);
+  const ttAgg = {};
+  data.forEach(r => {
+    Object.entries(r.scores).forEach(([qid, sc]) => {
+      const t = sc.ttype; if (!ttAgg[t]) ttAgg[t] = {score:0,max:0};
+      if (sc.score !== null) { ttAgg[t].score += sc.score; ttAgg[t].max += sc.max; }
+    });
+  });
+  Object.entries(ttAgg).forEach(([t,{score,max}]) => {
+    rows.push([TTYPE_LABELS[t]||t, score, max, max ? Math.round(score/max*100)+'%' : '-']);
+  });
+
+  rows.push([]);
+  rows.push(['CLASS AGGREGATE — PER QUESTION']);
+  rows.push(['Question','Domain','Format','Text Type','Class Score','Class Max','Class %']);
+  allQids.forEach(qid => {
+    let score=0, max=0, n=0;
+    data.forEach(r => {
+      const sc = r.scores[qid];
+      if (sc && sc.score !== null) { score += sc.score; max += sc.max; n++; }
+    });
+    if (!n) return;
+    const q = QUESTIONS.find(x => 'Q'+x.id === qid);
+    rows.push([qid, DOMAIN_LABELS[q?.domain]||'', QTYPE_LABELS[q?.qtype]||'', TTYPE_LABELS[q?.ttype]||'',
+      score, max, max ? Math.round(score/max*100)+'%' : '-']);
+  });
+
+  const csv = '﻿' + rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'class_reading_results_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+}
+
+function buildClassTab() {
+  const data = getClassData();
+  const el = document.getElementById('rp-class');
+  if (!data.length) {
+    el.innerHTML = '<div class="qla-card"><h3>📋 Class Data</h3><p class="qla-intro">No pupils have completed the assessment yet. Results will appear here automatically after each submission.</p></div>';
+    return;
+  }
+  // Summary table
+  const rows = data.map((r,i) => {
+    const pct = r.totalMax ? Math.round(r.total/r.totalMax*100) : 0;
+    const bar = `<div style="display:inline-block;width:${pct}%;height:8px;background:${pct>=75?'#4caf50':pct>=50?'var(--brand)':'#f44336'};border-radius:4px;min-width:2px"></div>`;
+    return `<tr>
+      <td style="font-weight:bold">${r.name}</td>
+      <td style="color:#888;font-size:12px">${new Date(r.date).toLocaleDateString('en-GB')}</td>
+      <td style="color:#888;font-size:12px">${r.timeTaken||'-'}</td>
+      <td style="font-weight:bold;text-align:right">${r.total}/${r.totalMax}</td>
+      <td style="min-width:120px;padding-left:8px">${bar} <span style="font-size:12px;color:#888">${pct}%</span></td>
+    </tr>`;
+  }).join('');
+
+  el.innerHTML = `<div class="qla-card">
+    <h3>📋 Class Data <span style="font-size:13px;color:#aaa;font-weight:normal">(${data.length} pupil${data.length!==1?'s':''})</span></h3>
+    <p class="qla-intro">Saved automatically after each assessment. Export to Excel for full question-level detail and class aggregates.</p>
+    <table style="width:100%;border-collapse:collapse;font-family:sans-serif;font-size:14px;margin-bottom:16px">
+      <thead><tr style="border-bottom:2px solid #eee">
+        <th style="text-align:left;padding:6px 4px">Pupil</th>
+        <th style="text-align:left;padding:6px 4px">Date</th>
+        <th style="text-align:left;padding:6px 4px">Time</th>
+        <th style="text-align:right;padding:6px 4px">Score</th>
+        <th style="padding:6px 8px"></th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary btn-sm" onclick="exportClassCSV()">📊 Export Class Excel</button>
+      <button class="btn btn-outline btn-sm" onclick="clearClassData()" style="color:#f44336;border-color:#f44336">Clear Data</button>
+    </div>
+  </div>`;
+}
+
+function calcTotals() {
+  let autoScore=0, autoMax=0, reviewMax=0;
+  markResults.forEach(r => {
+    if (r.review) reviewMax += r.max;
+    else { autoScore += r.score; autoMax += r.max; }
+  });
+  const revScore = Object.values(reviewScores).reduce((a,b)=>a+b,0);
+  return { autoScore, autoMax, reviewMax, revScore,
+           total: autoScore+revScore, totalMax: autoMax+reviewMax };
+}
+
+function updateScoreDisplay() {
+  const {total, totalMax, reviewMax, revScore} = calcTotals();
+  document.getElementById('res-score').textContent = total;
+  document.getElementById('res-denom').textContent = `out of ${totalMax}`;
+  const pct = Math.round(total/totalMax*100);
+  const pending = reviewMax > revScore;
+  document.getElementById('res-pct').textContent = `${pct}%${pending?' (teacher marking pending)':''}`;
+  const te = document.getElementById('res-time');
+  if (te && timeTaken) te.textContent = 'Time taken: ' + timeTaken;
+  // Update teacher tab badge
+  const reviewBtn = document.querySelector('.res-tab:nth-child(2)');
+  const needsReview = markResults.filter(r=>r.review).length;
+  reviewBtn.textContent = needsReview > 0 ? `✏️ Teacher Marking (${needsReview})` : '✏️ Teacher Marking';
+}
+
+function buildGrid() {
+  const grid = document.getElementById('res-grid');
+  grid.innerHTML = markResults.map(r => {
+    let cls, badge;
+    if (r.review) { cls='rev'; badge='?'; }
+    else if (r.score===0) { cls='bad'; badge=r.score; }
+    else if (r.fuzzy) { cls='spell'; badge=r.score; }
+    else { cls='ok'; badge=r.score; }
+    return `<div class="rq ${cls}" id="rqcard-${r.q.id}" onclick="openModal('${r.q.id}')">
+      <div class="rq-num">Q${r.q.id}</div>
+      <div class="rq-score" id="rqs-${r.q.id}">${badge}</div>
+      <div class="rq-max">/ ${r.max}</div>
+      ${r.fuzzy?'<div class="rq-spell-tag">sp?</div>':''}
+    </div>`;
+  }).join('');
+}
+
+function buildReview() {
+  const reviewItems = markResults.filter(r => r.review);
+  const ri = document.getElementById('review-items');
+  if (reviewItems.length === 0) {
+    ri.innerHTML = '<p style="color:#aaa;font-family:sans-serif;font-size:14px;">No teacher marking required for the selected text(s).</p>';
+    return;
+  }
+  ri.innerHTML = reviewItems.map(r => {
+    const ans = answers[r.q.id] || '';
+    const btns = Array.from({length:r.max+1},(_,i)=>
+      `<button class="mbtn${reviewScores[r.q.id]===i?' sel':''}" onclick="setReviewScore('${r.q.id}',${i},${r.max})">${i}</button>`
+    ).join('');
+    const guidanceHtml = r.q.guidance ? `<div class="rev-guidance">📋 ${r.q.guidance}</div>` : '';
+    return `<div class="rev-item" id="rev-${r.q.id}">
+      <div class="rlabel">Question ${r.q.id} — ${r.max} mark${r.max>1?'s':''}</div>
+      <div class="rq-text">${r.q.prompt ? '<em>'+r.q.prompt.replace(/<[^>]+>/g,'')+'</em><br>' : ''}${r.q.q.replace(/<[^>]+>/g,'')}</div>
+      <div class="rans">${ans || '<em style="color:#bbb">No answer given</em>'}</div>
+      ${guidanceHtml}
+      <div class="mark-btns"><span>Award marks:</span>${btns}</div>
+    </div>`;
+  }).join('');
+}
+
+function setReviewScore(qid, score, max) {
+  reviewScores[qid] = score;
+  document.getElementById(`rev-${qid}`).querySelectorAll('.mbtn').forEach((btn,i) => btn.classList.toggle('sel', i===score));
+  // Update grid card
+  const card = document.getElementById(`rqcard-${qid}`);
+  if (card) {
+    card.className = `rq ${score===max?'ok':score>0?'rev':'bad'}`;
+    card.onclick = () => openModal(qid);
+    document.getElementById(`rqs-${qid}`).textContent = score;
+  }
+  updateScoreDisplay();
+  buildQLA(); // refresh analysis
+}
+
+// ======================================================
+// ANSWER MODAL
+// ======================================================
+function openModal(qid) {
+  const r = markResults.find(x => String(x.q.id) === String(qid));
+  if (!r) return;
+  const q = r.q;
+  const ans = answers[q.id];
+  document.getElementById('modal-title').textContent = `Question ${q.id}`;
+
+  // Format the pupil's answer for display
+  let ansDisplay = '';
+  if (!ans || (Array.isArray(ans) && ans.every(v=>!v)) ||
+      (typeof ans === 'object' && !Array.isArray(ans) && Object.values(ans).every(v=>!v))) {
+    ansDisplay = '<em style="color:#bbb">No answer given</em>';
+  } else if (Array.isArray(ans)) {
+    ansDisplay = ans.filter(v=>v).map((v,i)=>`${i+1}. ${v}`).join('<br>');
+  } else if (typeof ans === 'object') {
+    ansDisplay = Object.entries(ans).map(([k,v])=>`<strong>${k}:</strong> ${v}`).join('<br>');
+  } else {
+    ansDisplay = String(ans);
+  }
+
+  const scoreNow = r.review ? (reviewScores[q.id] ?? '?') : r.score;
+  const pClass = r.review ? '' : (r.score===0?'m-bad':r.fuzzy?'m-spell':'m-ok');
+
+  // Accepted answer hint (not for MC/extended/match/order)
+  let acceptedHtml = '';
+  if (q.type==='text' && q.accepted) {
+    acceptedHtml = `<div class="m-section"><div class="m-label">Accepted answers</div>
+      <div class="m-value m-accepted">${q.accepted.join(' / ')}</div></div>`;
+  } else if (q.type==='mc' && q.correct) {
+    acceptedHtml = `<div class="m-section"><div class="m-label">Correct answer</div>
+      <div class="m-value m-accepted">${q.correct}</div></div>`;
+  }
+
+  // Teacher mark buttons and guidance for review questions
+  let markBtnsHtml = '';
+  if (r.review) {
+    const current = reviewScores[q.id];
+    const btns = Array.from({length:q.marks+1},(_,i)=>
+      `<button class="mbtn${current===i?' sel':''}" onclick="setReviewScoreModal('${q.id}',${i},${q.marks})">${i}</button>`
+    ).join('');
+    const guidanceSectionHtml = q.guidance
+      ? `<div class="m-section"><div class="m-label">Marking Guidance</div><div class="rev-guidance">${q.guidance}</div></div>`
+      : '';
+    markBtnsHtml = `${guidanceSectionHtml}<div class="m-section"><div class="m-label">Award marks</div>
+      <div class="m-mark-btns"><span>Mark:</span>${btns}</div></div>`;
+  }
+
+  const domainLabel = DOMAIN_LABELS[q.domain] || q.domain;
+  const qtypeLabel  = QTYPE_LABELS[q.qtype]   || q.qtype;
+  const ttypeLabel  = TTYPE_LABELS[q.ttype]   || q.ttype;
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="m-section">
+      <div class="m-label">Question</div>
+      <div class="m-qtext">${q.prompt?'<em>'+q.prompt+'</em><br><br>':''} ${q.q}</div>
+    </div>
+    <div class="m-section">
+      <div class="m-label">Pupil's answer &nbsp;·&nbsp; ${scoreNow} / ${q.marks}</div>
+      <div class="m-value m-pupil ${pClass}">${ansDisplay}${r.fuzzy?'<br><span style="font-size:12px;color:#8bc34a;font-style:italic">⚠️ Accepted with possible spelling error</span>':''}</div>
+    </div>
+    ${acceptedHtml}
+    ${markBtnsHtml}
+    <div class="m-meta">
+      <span class="m-tag">${domainLabel}</span>
+      <span class="m-tag">${qtypeLabel}</span>
+      <span class="m-tag">${ttypeLabel}</span>
+    </div>`;
+
+  document.getElementById('ans-modal').classList.add('open');
+}
+
+function setReviewScoreModal(qid, score, max) {
+  setReviewScore(qid, score, max);
+  // Refresh modal score display
+  document.querySelectorAll(`#modal-body .m-mark-btns .mbtn`).forEach((btn,i) => btn.classList.toggle('sel', i===score));
+  const scoreEl = document.querySelector('#modal-body .m-label');
+  if (scoreEl && scoreEl.textContent.includes('Pupil')) return;
+  openModal(qid); // re-render modal with updated score
+}
+
+function closeModal(e) { if (e.target===document.getElementById('ans-modal')) closeModalBtn(); }
+function closeModalBtn() { document.getElementById('ans-modal').classList.remove('open'); }
+
+// ======================================================
+// QLA ANALYSIS
+// ======================================================
+function buildQLA() {
+  const content = document.getElementById('qla-content');
+  const sections = [
+    { title:'By Reading Skill (Content Domain)', key:'domain', labels:DOMAIN_LABELS },
+    { title:'By Question Format',                key:'qtype',  labels:QTYPE_LABELS  },
+    { title:'By Text Type',                      key:'ttype',  labels:TTYPE_LABELS  },
+  ];
+
+  content.innerHTML = sections.map(s => {
+    const groups = {};
+    markResults.forEach(r => {
+      const k = r.q[s.key];
+      if (!groups[k]) groups[k] = { score:0, max:0 };
+      const sc = r.review ? (reviewScores[r.q.id] ?? 0) : r.score;
+      groups[k].score += sc;
+      groups[k].max   += r.max;
+    });
+
+    const rows = Object.entries(groups).map(([k, {score, max}]) => {
+      const pct = max===0 ? 0 : Math.round(score/max*100);
+      const barClass = pct>=75 ? 'bar-hi' : pct>=50 ? 'bar-mid' : max===0 ? 'bar-na' : 'bar-lo';
+      const label = s.labels[k] || k;
+      return `<div class="qla-row">
+        <div class="qla-label">${label}</div>
+        <div class="qla-bar-wrap"><div class="qla-bar ${barClass}" style="width:${pct}%"></div></div>
+        <div class="qla-pct" style="color:${pct>=75?'#4caf50':pct>=50?'#0080c8':'#f44336'}">${pct}%</div>
+        <div class="qla-frac">${score}/${max}</div>
+      </div>`;
+    }).join('');
+
+    return `<div class="qla-section"><h4>${s.title}</h4>${rows}</div>`;
+  }).join('');
+}
+
+// ======================================================
+// RESULTS TABS
+// ======================================================
+function showResTab(pane, btn) {
+  document.querySelectorAll('.res-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.res-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('rp-'+pane).classList.add('active');
+  btn.classList.add('active');
+  if (pane === 'class') buildClassTab();
+}
+
+// ======================================================
+// CSV EXPORT
+// ======================================================
+function exportCSV() {
+  const rows = [];
+  const dateStr = new Date().toLocaleDateString('en-GB');
+  rows.push(['Pupil', pupilName]);
+  rows.push(['Date', dateStr]);
+  rows.push(['Time Taken', timeTaken]);
+  const {total, totalMax} = calcTotals();
+  rows.push(['Total Score', total, 'out of', totalMax]);
+  rows.push([]);
+  rows.push(['Question','Text','Domain','Question Type','Score','Max Marks','Answer Given']);
+  markResults.forEach(r => {
+    const score = r.review ? (reviewScores[r.q.id] ?? '') : r.score;
+    const ans = answers[r.q.id];
+    let ansStr = '';
+    if (!ans) ansStr = '';
+    else if (Array.isArray(ans)) ansStr = ans.filter(v=>v).join('; ');
+    else if (typeof ans === 'object') ansStr = Object.entries(ans).map(([k,v])=>k+': '+v).join('; ');
+    else ansStr = String(ans);
+    rows.push([
+      'Q'+r.q.id,
+      TTYPE_LABELS[r.q.ttype]||r.q.ttype,
+      DOMAIN_LABELS[r.q.domain]||r.q.domain,
+      QTYPE_LABELS[r.q.qtype]||r.q.qtype,
+      score,
+      r.max,
+      ansStr
+    ]);
+  });
+  const csv = '﻿' + rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = (pupilName||'assessment').replace(/\s+/g,'_')+'_reading_results.csv';
+  a.click();
+}
+
+// ======================================================
+// RESTART
+// ======================================================
+function restartApp() {
+  answers = {}; reviewScores = {}; markResults = [];
+  startTime = null; timeTaken = '';
+  document.getElementById('inp-name').value = '';
+  show('s-login');
+}
+</script>
+</body>
+</html>

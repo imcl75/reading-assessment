@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Year 4 Reading Assessment – Summer</title>
+<title>KS1 Reading Assessment – Paper 2</title>
 <style>
 :root {
   --brand: #009ae4;
@@ -29,7 +29,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .fg label { display: block; font-weight: bold; margin-bottom: 7px; font-size: .9rem; color: #444; font-family: sans-serif; }
 .fg input, .fg select { width: 100%; padding: 13px 14px; font-size: 16px; border: 2px solid #ddd; border-radius: 10px; outline: none; font-family: inherit; background: #fafafa; }
 .fg input:focus, .fg select:focus { border-color: var(--brand); background: #fff; }
-.text-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
 /* Name picker grid */
 #name-grid {
   display: grid;
@@ -79,12 +78,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .tpanel .txt h3 { font-size: .95rem; font-weight: bold; margin: 14px 0 5px; }
 .tpanel .txt h4 { font-style: italic; margin: 12px 0 5px; }
 .tpanel .txt p { margin-bottom: 10px; }
-.tpanel .txt .poem-line { margin: 0; }
-.tpanel .txt .poem-stanza { margin-bottom: 14px; }
-.tpanel .txt table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 16px; }
-.tpanel .txt table td, .tpanel .txt table th { border: 1px solid #ccc; padding: 7px 9px; }
-.tpanel .txt table th { background: #f5d5a0; font-weight: bold; }
-.tpanel .txt .contact { font-size: 13px; }
+.tpanel .txt ul { margin: 6px 0 10px 20px; line-height: 1.8; }
 .qpanel { flex: 1; overflow-y: auto; padding: 18px 20px 80px; background: #fff; }
 .qpanel h3 { color: var(--brand); font-size: 1.05rem; margin-bottom: 14px; padding: 8px 12px; background: #e8f5fd; border-radius: 6px; font-family: sans-serif; }
 .qblock { border-left: 4px solid var(--brand); border-radius: 0 10px 10px 0; background: #fafafa; padding: 15px 18px; margin-bottom: 18px; }
@@ -106,42 +100,12 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .tf-tbl .tfc { text-align: center; }
 .tf-tbl .tfc label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 4px 8px; }
 .tf-tbl .tfc input { width: 18px; height: 18px; accent-color: var(--brand); }
-.fill-tbl { width: 100%; border-collapse: collapse; font-size: 17px; }
-.fill-tbl th { background: #f5d5a0; padding: 9px 12px; text-align: left; border: 1px solid #ccc; font-family: sans-serif; }
-.fill-tbl td { border: 1px solid #ccc; padding: 7px 10px; }
-.fill-tbl input { width: 100%; padding: 10px 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 17px; font-family: inherit; outline: none; }
-.fill-tbl input:focus { border-color: var(--brand); }
-.multi-inp { display: flex; flex-direction: column; gap: 8px; }
-.multi-inp .mi-row { display: flex; align-items: center; gap: 10px; }
-.multi-inp .mi-label { font-weight: bold; color: #888; font-family: sans-serif; min-width: 20px; }
-.match-rows { display: flex; flex-direction: column; gap: 8px; }
+/* Match select rows */
+.match-rows { display: flex; flex-direction: column; gap: 10px; }
 .match-row { display: flex; align-items: center; gap: 10px; }
-.match-left { background: #f5d5a0; border: 1px solid #ccc; border-radius: 7px; padding: 10px 14px; font-weight: bold; min-width: 120px; text-align: center; font-size: 17px; }
-.match-row select { flex: 1; padding: 11px 12px; font-size: 17px; border: 2px solid #ddd; border-radius: 7px; outline: none; font-family: inherit; }
+.match-left { background: #f5d5a0; border: 1px solid #ccc; border-radius: 7px; padding: 10px 14px; font-weight: bold; flex: 1; font-size: 16px; }
+.match-row select { flex: 1; padding: 11px 12px; font-size: 16px; border: 2px solid #ddd; border-radius: 7px; outline: none; font-family: inherit; }
 .match-row select:focus { border-color: var(--brand); }
-.match-given { flex: 1; background: #e8f5e9; border: 1px solid #b2dfdb; border-radius: 7px; padding: 10px 14px; font-style: italic; color: #555; font-size: 17px; }
-
-/* Tap-to-select match UI */
-.match-instructions { font-size: 15px; color: #666; margin-bottom: 12px; font-family: sans-serif; font-style: italic; }
-.tap-match-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.tap-words-col { display: flex; flex-direction: column; gap: 8px; }
-.tap-meanings-col { display: flex; flex-direction: column; gap: 8px; }
-.tap-word-slot { background: #f5d5a0; border: 2px solid #ccc; border-radius: 8px; padding: 12px 14px; min-height: 52px; cursor: pointer; font-size: 17px; font-weight: bold; transition: border-color .15s, background .15s; user-select: none; }
-.tap-word-slot .slot-word { color: #333; }
-.tap-word-slot .slot-answer { font-size: 12px; font-weight: normal; color: #1798d3; margin-top: 4px; font-style: italic; }
-.tap-word-slot.selected { border-color: var(--brand); background: #cce9f8; }
-.tap-word-slot.assigned { border-color: #4caf50; background: #e8f5e9; }
-.tap-word-slot.given { border-color: #b2dfdb; background: #e8f5e9; cursor: default; opacity: .8; }
-.tap-meaning-chip { background: #f5f5f5; border: 2px solid #ddd; border-radius: 8px; padding: 12px 14px; min-height: 52px; cursor: pointer; font-size: 16px; transition: border-color .15s, background .15s; user-select: none; display: flex; align-items: center; }
-.tap-meaning-chip:hover:not(.used):not(.sel-meaning) { border-color: var(--brand); background: #e8f5fd; }
-.tap-meaning-chip.sel-meaning { border-color: #ff9800; background: #fff3e0; }
-.tap-meaning-chip.used { opacity: .45; cursor: pointer; font-style: italic; color: #888; border-style: dashed; }
-.order-rows { display: flex; flex-direction: column; gap: 8px; }
-.order-row { display: flex; align-items: center; gap: 10px; }
-.order-txt { flex: 1; background: #f5f5f5; border: 1px solid #ddd; border-radius: 7px; padding: 12px 16px; font-size: 17px; line-height: 1.4; }
-.order-inp { width: 46px; height: 46px; text-align: center; font-size: 18px; font-weight: bold; border: 2px solid #ddd; border-radius: 8px; outline: none; font-family: sans-serif; }
-.order-inp:focus { border-color: var(--brand); }
-.order-inp:disabled { background: #e8f5e9; border-color: #a5d6a7; color: #388e3c; cursor: default; }
 .ans-ext { width: 100%; padding: 13px 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; outline: none; resize: vertical; min-height: 90px; font-family: inherit; background: #fff; }
 .ans-ext:focus { border-color: var(--brand); }
 .spelling-note { font-size: 15px; color: #666; margin: 4px 0 8px; font-style: italic; }
@@ -165,16 +129,12 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .score-denom { font-size: 1.3rem; color: #888; }
 .score-pct { font-size: .95rem; color: #aaa; font-family: sans-serif; margin-top: 4px; }
 .score-time { font-size: .85rem; color: #bbb; font-family: sans-serif; margin-top: 2px; }
-
-/* Results tabs */
 .res-tabs { display: flex; gap: 0; margin-bottom: 16px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
 .res-tab { flex: 1; padding: 13px; text-align: center; font-family: sans-serif; font-size: 14px; font-weight: bold; cursor: pointer; background: #fff; color: #888; border: none; transition: all .15s; }
 .res-tab.active { background: var(--brand); color: #fff; }
 .res-tab:not(.active):hover { background: #e8f5fd; color: var(--brand-dk); }
 .res-pane { display: none; }
 .res-pane.active { display: block; }
-
-/* Question grid */
 .res-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13px; font-family: sans-serif; color: #555; align-items: center; }
 .leg-dot { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
 .res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-bottom: 16px; }
@@ -192,8 +152,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .rq.spell .rq-score { color: #689f38; }
 .rq .rq-max { font-size: 11px; color: #bbb; }
 .rq-spell-tag { font-size: 10px; color: #8bc34a; font-style: italic; margin-top: 2px; }
-
-/* Answer modal */
 .modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 100; align-items: center; justify-content: center; }
 .modal-bg.open { display: flex; }
 .modal { background: #fff; border-radius: 16px; padding: 28px; max-width: 560px; width: 92%; max-height: 85vh; overflow-y: auto; box-shadow: 0 8px 40px rgba(0,0,0,.2); }
@@ -216,8 +174,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .mbtn { padding: 7px 18px; border-radius: 6px; border: 2px solid #ddd; cursor: pointer; font-weight: bold; background: #fff; font-size: 14px; transition: all .12s; }
 .mbtn:hover { border-color: var(--brand); }
 .mbtn.sel { background: var(--brand); color: #fff; border-color: var(--brand); }
-
-/* Teacher review tab */
 .review-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.07); margin-bottom: 16px; }
 .review-card h3 { color: var(--brand); margin-bottom: 6px; font-family: sans-serif; }
 .review-card .rev-intro { font-size: 13px; color: #888; margin-bottom: 18px; font-family: sans-serif; }
@@ -228,8 +184,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .rev-guidance { background: #e8f5fd; border-left: 3px solid #009ae4; border-radius: 6px; padding: 10px 13px; font-size: 13px; color: #1a5f7a; margin-bottom: 10px; line-height: 1.5; font-family: sans-serif; }
 .mark-btns { display: flex; gap: 8px; align-items: center; font-family: sans-serif; font-size: 13px; }
 .mark-btns span { color: #888; }
-
-/* QLA Analysis */
 .qla-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.07); margin-bottom: 16px; }
 .qla-card h3 { color: var(--brand); margin-bottom: 6px; font-family: sans-serif; }
 .qla-card .qla-intro { font-size: 13px; color: #888; margin-bottom: 20px; font-family: sans-serif; }
@@ -245,7 +199,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .bar-mid { background: var(--brand); }
 .bar-lo { background: #f44336; }
 .bar-na { background: #ccc; }
-
 .res-actions { display: flex; gap: 12px; justify-content: center; margin-top: 8px; margin-bottom: 24px; flex-wrap: wrap; }
 
 @media (max-width: 700px) {
@@ -273,10 +226,9 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 <!-- ===== LOGIN ===== -->
 <div id="s-login" class="screen active">
   <div class="card">
-    <div style="text-align:right;margin-bottom:8px"><a href="home.html" style="font-size:12px;color:#aaa;text-decoration:none;">← Home</a></div>
-    <div class="card-logo">📖</div>
-    <h1>Year 4 Reading Assessment</h1>
-    <p class="sub">Summer Term &nbsp;|&nbsp; PiXL Diagnostic</p>
+    <div class="card-logo">📚</div>
+    <h1>KS1 Reading Assessment</h1>
+    <p class="sub">Paper 2 &nbsp;|&nbsp; 2025</p>
     <div class="fg">
       <label>Tap your name</label>
       <div id="name-loading" style="text-align:center;padding:24px;color:#888;font-size:14px">Loading class list…</div>
@@ -314,9 +266,8 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
   <div class="aheader">
     <div class="pupil" id="hdr-pupil"></div>
     <div class="sec-tabs">
-      <div class="sec-tab" id="tab-0">Making Waves</div>
-      <div class="sec-tab" id="tab-1">The Field Mouse</div>
-      <div class="sec-tab" id="tab-2">Food Chain</div>
+      <div class="sec-tab" id="tab-0">🍦 The History of Ice Cream</div>
+      <div class="sec-tab" id="tab-1">🦕 A New Room for William</div>
     </div>
   </div>
   <div class="abody">
@@ -357,7 +308,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
       <button class="res-tab" onclick="showResTab('class',this)">📋 Class Data</button>
     </div>
 
-    <!-- OVERVIEW TAB -->
     <div class="res-pane active" id="rp-overview">
       <div class="res-legend">
         <span><span class="leg-dot" style="background:#4caf50"></span>Correct</span>
@@ -369,25 +319,22 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
       <div class="res-grid" id="res-grid"></div>
     </div>
 
-    <!-- TEACHER MARKING TAB -->
     <div class="res-pane" id="rp-review">
       <div class="review-card">
         <h3>✏️ Teacher Marking</h3>
-        <p class="rev-intro" id="review-intro">These extended answers are sent to the class spreadsheet for AI marking. You can still award marks manually here if needed — the total score updates automatically.</p>
+        <p class="rev-intro" id="review-intro">All KS1 questions are auto-marked. If you need to override a mark, adjust it here — the total updates automatically.</p>
         <div id="review-items"></div>
       </div>
     </div>
 
-    <!-- ANALYSIS TAB -->
     <div class="res-pane" id="rp-analysis">
       <div class="qla-card">
         <h3>🎯 Question Level Analysis</h3>
-        <p class="qla-intro">Breakdown of performance by reading skill, question format, and text type. Helps identify target areas.</p>
+        <p class="qla-intro">Breakdown of performance by reading skill, question format, and text type.</p>
         <div id="qla-content"></div>
       </div>
     </div>
 
-    <!-- CLASS DATA TAB -->
     <div class="res-pane" id="rp-class"></div>
 
     <div class="res-actions">
@@ -409,9 +356,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 </div>
 
 <script>
-// ======================================================
-// CONFIG — paste your Apps Script Web App URL here after deploying backend.gs
-// ======================================================
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
 
 // ======================================================
@@ -419,272 +363,169 @@ const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy5
 // ======================================================
 const TEXTS = {
   0: {
-    title: 'Making Waves',
+    title: 'The History of Ice Cream',
     html: `
-<p><strong>It's finally here!</strong> The new pool is now open at the Ranchester Leisure Centre. Why not dip your toe in this fantastic new facility and see how much fun swimming can be?</p>
-<h3>Laughter ahoy!</h3>
-<p>The Blue Lagoon is a pirate-themed pleasure pool that whisks you off to a tropical paradise, complete with a wave machine and scramble slide. While toddlers paddle in the relaxing baby pool, the more adventurous can risk a soaking from tipping buckets as they are swept around Parrot Creek, our indoor river feature.</p>
-<p>Are you brave enough to try our high-speed flumes, Redbeard and Blackbeard, as they whoosh around the many twists and turns before splashing down into the plunge pool?</p>
-<h3>Opening Times</h3>
-<table>
-  <tr><th>Monday – Friday</th><td>9.00am to 11am and 3pm to 5.00pm</td></tr>
-  <tr><th>Saturdays, Sundays and School Holidays</th><td>8.30am to 6.00pm</td></tr>
-</table>
-<h4>Parties that go swimmingly</h4>
-<p>Want a birthday to remember? Then why not hire the Lagoon for your own private party after everyone else has gone home? As well as letting you have the pleasure pool to yourselves, we'll throw in a selection of floats and other water toys.</p>
-<p>Once you're all dried and dressed, we'll lay on a delicious party tea in our café, including a mouth-watering spread of sandwiches, snacks and nibbles (birthday cake is an additional cost).</p>
-<h3>Booking Information</h3>
-<p>We will provide pool-side lifeguards for your party. However, responsible adults are expected to supervise party guests at all times and everyone will need to follow the pool rules or they may be asked to exit the water for safety reasons.</p>
-<p>Prices start at £8 per child for parties of 30 or more up to a maximum of 60; smaller parties cost £12 per child. Bookings require a <strong>£50 deposit</strong> and should be made at <strong>least a month in advance</strong>. Please contact us for more information.</p>
-<div class="contact"><p><strong>Email:</strong> customerservices@ranchesterleisure.org</p><p><strong>Tel:</strong> 01433 2828289</p><p>(8.30am – 5.00pm, Monday to Saturday)</p></div>`
+<h3>How ice cream began</h3>
+<p>Long ago, people in ancient China mixed milk and rice together and packed it in snow to make a cold pudding. People in ancient Rome also mixed snow with honey and fruit.</p>
+<p>About 350 years ago, the King of England was given a recipe for a cold, creamy pudding. The recipe was so precious that the King paid the cook to keep it a secret.</p>
+<p>Today, ice cream is usually made from milk, cream and sugar.</p>
+<h3>Keeping ice cream cold</h3>
+<p>Before freezers were invented, people had to use blocks of ice to keep things cold. The ice was brought over from Norway, where there was plenty of it. This was a tricky task as the ice had to be transported before it melted.</p>
+<h3>Ice cream cones</h3>
+<p>About 100 years ago, at a big fair in the United States of America, an ice cream seller ran out of the bowls he used to serve ice cream. Luckily, another man at the fair was selling waffles. He rolled his waffles into the shape of a cone so that they could hold the ice cream. People loved it!</p>
+<h3>Exciting flavours</h3>
+<p>Ice cream is sold in ice cream parlours. You can buy many exciting flavours there – some unusual ones include lime, cheese and curry! However, chocolate and vanilla are still the most popular flavours.</p>
+<h3>Interesting ice cream facts</h3>
+<ul>
+  <li>The United States of America holds a national Ice Cream Day.</li>
+  <li>In the past, people used to buy a 'penny lick' – a small amount of ice cream served in a glass cup.</li>
+  <li>New Zealand is the country where people eat the most ice cream.</li>
+  <li>Norway holds the record for the tallest ice cream cone, which was 3 metres tall!</li>
+</ul>`
   },
   1: {
-    title: 'The Field Mouse',
+    title: 'A New Room for William',
     html: `
-<p style="font-style:italic;color:#666;margin-bottom:14px;">By Cecil Frances Alexander</p>
-<div class="poem-stanza">
-  <p class="poem-line">Where the acorn tumbles down,</p>
-  <p class="poem-line">Where the ash tree sheds its berry,</p>
-  <p class="poem-line">With your fur so soft and brown,</p>
-  <p class="poem-line">With your eye so round and merry,</p>
-  <p class="poem-line">Scarcely moving the long grass,</p>
-  <p class="poem-line">Fieldmouse, I can see you pass.</p>
-</div>
-<div class="poem-stanza">
-  <p class="poem-line">Little thing, in what dark den,</p>
-  <p class="poem-line">Lie you all winter sleeping?</p>
-  <p class="poem-line">Till warm weather comes again,</p>
-  <p class="poem-line">Then once more I see you peeping</p>
-  <p class="poem-line">Round about the tall tree roots,</p>
-  <p class="poem-line">Nibbling at their fallen fruits.</p>
-</div>
-<div class="poem-stanza">
-  <p class="poem-line">Fieldmouse, fieldmouse, do not go,</p>
-  <p class="poem-line">Where the farmer stacks his treasure,</p>
-  <p class="poem-line">Find the nut that falls below,</p>
-  <p class="poem-line">Eat the acorn at your pleasure,</p>
-  <p class="poem-line">But you must not steal the grain</p>
-  <p class="poem-line">He has stacked with so much pain.</p>
-</div>
-<div class="poem-stanza">
-  <p class="poem-line">Make your hole where mosses spring,</p>
-  <p class="poem-line">Underneath the tall oak's shadow,</p>
-  <p class="poem-line">Pretty, quiet harmless thing,</p>
-  <p class="poem-line">Play about the sunny meadow.</p>
-  <p class="poem-line">Keep away from corn and house,</p>
-  <p class="poem-line">None will harm you, little mouse.</p>
-</div>`
-  },
-  2: {
-    title: 'The Top of the Food Chain',
-    html: `
-<p>The pigeon landed in a flurry of feathers and tucked in his wings. Bobbing his head, he strutted around looking for crumbs – this was not a difficult task as humans often passed this way and often littered the floor with the remains of their food.</p>
-<p>He was not alone. A golden eagle was eyeing him hungrily from a post just a few metres away. As her two yellow eyes glared down on him, her talons tightened their grip on her perch. Her vicious beak opened briefly, then closed as if tasting the flavour of her next meal.</p>
-<p>The pigeon only noticed the bird of prey when she lazily stretched and flapped her wings, like she was warming up for take-off. At first, he was alarmed and fluttered upwards in a clumsy panic before settling back on the ground.</p>
-<p>'Keep your feathers on – I've already eaten today,' she lied, as she neatly folded her enormous, brown wings.</p>
-<p>'Me too,' he replied. 'Still, there's plenty of grub just lying around here. Shame to waste it.'</p>
-<p>The eagle looked on with contempt as the pigeon continued to peck at the ground.</p>
-<p>'Where do you put it all?' she sneered. 'You're so greedy!'</p>
-<p>'No need to get personal,' said the pigeon.</p>
-<p>'Take a look at me,' continued the eagle, ignoring his reply. 'Here at the top of the food chain, we have to take care of ourselves. We eagles are built for power and speed. Observe my sleek feathers; marvel at the span of my wings; tremble at the power of my deadly talons.' With that, she spread her wings again and gave a more forceful flap in order to prove her point.</p>
-<p>'You are indeed a very fine specimen, madam,' agreed the pigeon, humbly. 'Nevertheless, there is more than one way to judge success. No doubt, I wouldn't last a few seconds if I had to take you on. But brute strength isn't everything. Look around you: how many eagles do you see? That's right, just the one.'</p>
-<p>'Your point is … ?' asked the eagle, a little impatiently.</p>
-<p>'Well, take a peek up there on the roof. I can see three of my friends, but no eagles. Up in that oak tree, there are another four pigeons, yet none of your kind. Over there by the bench, you'll find still more of us but not an eagle in sight. What's more, this is the land of the humans – too dangerous for eagles, but we pigeons are thriving. You see, it's not about sheer, brute strength; it's about sticking together, being smart and finding new ways to get on. That's how the weaker ones can show their true worth.'</p>
-<p>'Well, clever-claws, all your fine talk won't save you now,' snarled the eagle, spreading her wings once more and readying herself to snatch the pigeon. 'I'll make you eat your words while I prove who's the strongest.' But before she could get more than a metre into the air, she was brought back to her perch with a bump, a rattle and a clinking of metal.</p>
-<p>'Oh, and another thing,' continued the pigeon, not in the slightest bit flustered. 'I'm free, not tied to a post in a zoo. You might be top of the food chain, but I can see another chain. It's a man-made chain; it's attached to your leg and it's holding you back.'</p>`
+<p>William stood in the middle of his new bedroom. The bare walls stared back at him. In his old room, the walls were covered in pictures. He turned to look out of the window. He could see a big tree at the end of the garden. In his old garden, there had been a climbing frame. A boy appeared at the window of the house next door. He waved at William. William ducked down below the windowsill.</p>
+<p>The next day, Mum and William went shopping for wallpaper. William wanted the same as he had in his old room, but they didn't have it. William walked around the shop slowly. Suddenly, he stopped. There, on the shelf, was the most amazing wallpaper he had ever seen. It was covered in dinosaurs. "That one, Mum!" he said. "Can we have that one?"</p>
+<p>When they went home, William put the wallpaper roll in the corner of his empty room. Then he started to unpack the boxes in his room. He found his model dinosaurs and placed them carefully on the windowsill. The boy next door appeared again. This time, William gave a small wave back.</p>
+<p>The next morning, William woke up early. Today was the day the decorating would begin. He was too excited to stay in bed, so he went downstairs and out into the garden. He stomped along the path. "GRRR, I'm a fierce dinosaur!" he growled.</p>
+<p>"RARRR! I'm an even fiercer dinosaur!" came a voice from the tree.</p>
+<p>William looked up. The boy from next door was sitting in the branches. "I'm Tom," said the boy. "I live next door. This is our tree – it goes from your garden into mine."</p>
+<p>"I'm William," said William. He looked at Tom's garden. There was a climbing frame.</p>
+<p>They played together all morning. When Mum called William in for lunch, he raced inside. "Come and see your room!" said Mum. William ran upstairs. The walls were covered in dinosaurs. "It's brilliant!" he said.</p>
+<p>That night, William lay in bed, looking at his wallpaper. The moonlight shone through the curtains and made the T-rex look like it was chasing the Stegosaurus right across the wall. William smiled and closed his eyes.</p>`
   }
 };
 
 // ======================================================
-// QUESTIONS  (domain, qtype, ttype added for QLA)
-// domain: 2a=vocabulary, 2b=retrieval, 2c=summarise, 2d=inference, 2g=language/word choice
-// qtype: mc, fc (find&copy), sc (short constructed), tab, ext, match, order
-// ttype: NF, P, F
+// QUESTIONS
 // ======================================================
 const QUESTIONS = [
-  // ===== MAKING WAVES =====
-  { id:1,    sec:0, marks:1, domain:'2b', qtype:'fc',  ttype:'NF',
-    type:'text', prompt:'Look at the introduction.',
-    q:'<strong>Find</strong> and <strong>copy one word</strong> that shows that people had been waiting for the pool to be open.',
-    accepted:['finally'] },
-  { id:2,    sec:0, marks:1, domain:'2a', qtype:'mc',  ttype:'NF',
-    type:'mc', prompt:"Look at the section headed: <strong>Laughter Ahoy!</strong><br><br><em>'...the more adventurous can risk a soaking...'</em>",
-    q:'Which word is closest in meaning to <em>adventurous</em>?',
-    options:['courageous','advantage','proud','unpleasant'], correct:'courageous' },
-  { id:3,    sec:0, marks:1, domain:'2b', qtype:'sc',  ttype:'NF',
-    type:'text', q:'What is the name of the indoor river feature?',
-    accepted:['parrot creek'] },
-  { id:4,    sec:0, marks:1, domain:'2a', qtype:'fc',  ttype:'NF',
-    type:'text', prompt:'Look again at the section headed: <strong>Laughter Ahoy!</strong>',
-    q:'<strong>Find</strong> and <strong>copy one word</strong> that means <em>to be taken somewhere suddenly</em>.',
-    accepted:['whisks','swept','whoosh'] },
-  { id:5,    sec:0, marks:1, domain:'2b', qtype:'sc',  ttype:'NF',
-    type:'text', q:'Where do you end up if you go on the fast slides?',
-    accepted:['the plunge pool','plunge pool'] },
-  { id:6,    sec:0, marks:2, domain:'2b', qtype:'sc',  ttype:'NF',
-    type:'extended', review:true,
-    prompt:'Look at the section headed: <strong>Parties that go swimmingly.</strong>',
-    q:'What are the benefits of booking a private party? Give <strong>two</strong> benefits in your answer.',
-    guidance:'Award 1 mark per benefit (max 2). Accept any reasonable paraphrase of: exclusive pool use / pool to yourselves; floats and water toys included; party tea/food provided. Do not accept vague answers without reference to a specific benefit.' },
-  { id:7,    sec:0, marks:1, domain:'2b', qtype:'sc',  ttype:'NF',
-    type:'text', prompt:'Look again at the section headed: <strong>Parties that go swimmingly.</strong>',
-    q:'If the Leisure Centre were providing food for your party, what would you have to pay extra for?',
-    accepted:['birthday cake','the birthday cake','cake'] },
-  { id:8,    sec:0, marks:2, domain:'2g', qtype:'sc',  ttype:'NF',
-    type:'multi_text', count:2,
-    prompt:'Look again at the section headed: <strong>Parties that go swimmingly.</strong>',
-    q:'The writer uses different adjectives to make the party food seem appealing. Give <strong>two</strong> examples.',
-    acceptedPool:['delicious','mouth-watering','mouth watering'] },
-  { id:9,    sec:0, marks:1, domain:'2b', qtype:'sc',  ttype:'NF',
-    type:'extended', review:true,
-    prompt:'Look at the section headed: <strong>Booking Information</strong>',
-    q:'How does the centre make sure that people are safe?',
-    guidance:'Award 1 mark for reference to lifeguards / poolside lifeguards / responsible adults supervising. Accept reasonable paraphrase. Do not accept simply "they are safe" without explaining the mechanism.' },
-  { id:10,   sec:0, marks:1, domain:'2b', qtype:'sc',  ttype:'NF',
-    type:'text', q:'How far in advance should you make a booking for a party?',
-    accepted:['at least a month','a month','one month','at least one month','a month in advance'] },
-  { id:11,   sec:0, marks:2, domain:'2b', qtype:'tab', ttype:'NF',
-    type:'tf_table',
-    q:'Using information from the text, tick whether the following statements are <strong>true</strong> or <strong>false</strong>.',
-    rows:[
-      {txt:'The pool has a river feature that is inside.',                        ans:'true'},
-      {txt:'The pool opens at 9am every day.',                                   ans:'false'},
-      {txt:'Party bookings require a £10 deposit.',                              ans:'false'},
-      {txt:'Adults are not expected to supervise their children at parties.',     ans:'false'},
-    ] },
-  { id:12,   sec:0, marks:1, domain:'2b', qtype:'tab', ttype:'NF',
-    type:'fill_table', q:'Use information from the whole text to complete the table below.',
-    rows:[
-      {label:'Names of the high-speed flumes:',        key:'flumes', accepted:['redbeard and blackbeard','blackbeard and redbeard']},
-      {label:'Prices for parties start at... per child:', key:'price',  accepted:['£8','8','eight pounds','£8 per child']},
-    ] },
-  { id:'13a',sec:0, marks:1, domain:'2d', qtype:'mc',  ttype:'NF',
-    type:'mc', q:'Who do you think the intended audience is for this advert?',
-    options:['Toddlers','Parents','Teachers'], correct:'Parents' },
-  { id:'13b',sec:0, marks:1, domain:'2d', qtype:'ext', ttype:'NF',
-    type:'extended', q:'Explain your answer to question 13 using evidence from the text.', review:true,
-    guidance:'Award 1 mark for reference to any of: information parents need (times/prices/safety/booking); parents would book a party; text is persuading parents to bring their children. Do not accept generic answers without text evidence.' },
+  // ===== TEXT 0: The History of Ice Cream =====
+  // Q1: 1 mark for mentioning at least 2 of milk/rice/snow — keyword scored locally
+  { id:1,  sec:0, marks:1, domain:'1b', qtype:'sc', ttype:'NF',
+    type:'multi_kw',
+    q:'What did people in ancient China use to make ice cream? Write two things.',
+    keyGroups:[['milk'],['rice'],['snow','packed']],
+    minGroups:2 },
 
-  // ===== THE FIELD MOUSE =====
-  { id:14,   sec:1, marks:1, domain:'2a', qtype:'fc',  ttype:'P',
-    type:'text', prompt:'Look at the first verse.',
-    q:'<strong>Find</strong> and <strong>copy one word</strong> which means <em>not very much</em>.',
-    accepted:['scarcely'] },
-  { id:15,   sec:1, marks:1, domain:'2d', qtype:'mc',  ttype:'P',
-    type:'mc', prompt:'Look at the first verse.',
-    q:'In which season do you think the <strong>first</strong> verse is set?',
-    options:['Autumn','Winter','Spring','Summer'], correct:'Autumn' },
-  { id:16,   sec:1, marks:1, domain:'2a', qtype:'sc',  ttype:'P',
-    type:'text', prompt:'Look again at the <strong>first</strong> verse.',
-    q:"Which word has the poet used instead of <em>falls</em>?",
-    accepted:['tumbles'] },
-  { id:17,   sec:1, marks:1, domain:'2b', qtype:'sc',  ttype:'P',
-    type:'extended', review:true,
-    prompt:'Look at verse <strong>two</strong>.',
-    q:'In verse two, where would you find the mouse <em>peeping</em>?',
-    guidance:'Award 1 mark for reference to the tree roots / round about the tall tree roots / around the tree roots. Accept reasonable paraphrase that conveys the correct location.' },
-  { id:18,   sec:1, marks:1, domain:'2a', qtype:'sc',  ttype:'P',
-    type:'extended', prompt:"'Nibbling at their fallen fruits'",
-    q:"What impression does the word <em>'nibbling'</em> give you about how the mouse eats?", review:true,
-    guidance:'Award 1 mark for any answer suggesting the mouse eats gently / delicately / carefully / in small bites / slowly / quietly / daintily. Do not accept answers that simply repeat "it nibbles" without conveying an impression of how it eats.' },
-  { id:19,   sec:1, marks:1, domain:'2b', qtype:'sc',  ttype:'P',
-    type:'text', prompt:'Look at verse <strong>three</strong>.',
-    q:'What does the poem suggest the mouse eats instead of the grain?',
-    accepted:['nut','nuts','acorn','acorns','fallen fruits','the nut','nuts and acorns'] },
-  { id:20,   sec:1, marks:1, domain:'2d', qtype:'fc',  ttype:'P',
-    type:'extended', review:true,
-    q:'<strong>Find</strong> and <strong>copy a group of words</strong> which show that it has been hard work for the farmer to stack the grain.',
-    guidance:'Award 1 mark for any phrase that conveys difficulty/effort in stacking the grain. Accept partial copies that retain the core meaning of effort/difficulty.' },
-  { id:21,   sec:1, marks:1, domain:'2b', qtype:'mc',  ttype:'P',
-    type:'mc', prompt:'Read verse <strong>four</strong>.',
-    q:'The poet tells the mouse to stay away from the...',
-    options:['corn and house','hole and moss','meadows','oak tree'], correct:'corn and house' },
-  { id:22,   sec:1, marks:2, domain:'2d', qtype:'ext', ttype:'P',
-    type:'extended', prompt:'Look at the whole poem.',
-    q:'How do you think the poet feels about field mice? Use evidence from the whole text to support your answer.', review:true,
-    guidance:'Award 2 marks for: a clear statement of the poet\'s feelings (fond/caring/protective/affectionate) WITH supporting evidence from the poem. Award 1 mark for: feeling stated without evidence OR evidence given without a clear statement of feeling. Evidence may include: "pretty, quiet harmless thing", "none will harm you", the warning to stay away from the farmer, "eye so round and merry".' },
-
-  // ===== THE TOP OF THE FOOD CHAIN =====
-  { id:23,   sec:2, marks:1, domain:'2b', qtype:'sc',  ttype:'F',
-    type:'extended', review:true,
-    prompt:'Look at the first paragraph beginning: <em>The pigeon landed...</em>',
-    q:'Why was it easy for the pigeon to find food?',
-    guidance:'Award 1 mark for reference to humans/people littering or leaving food on the ground. Accept any reasonable paraphrase.' },
-  { id:24,   sec:2, marks:1, domain:'2b', qtype:'fc',  ttype:'F',
-    type:'text', prompt:'Look at the paragraph beginning: <em>He was not alone...</em>',
-    q:'<strong>Find</strong> and <strong>copy a group of words</strong> that tell us that the eagle would like to eat the pigeon.',
-    accepted:['eyeing him hungrily','as if tasting the flavour of her next meal',
-              'her vicious beak opened briefly, then closed as if tasting the flavour of her next meal',
-              'tasting the flavour of her next meal'] },
-  { id:25,   sec:2, marks:1, domain:'2d', qtype:'sc',  ttype:'F',
-    type:'extended', review:true,
-    prompt:'Look at the paragraph beginning: <em>The pigeon only noticed...</em>',
-    q:'How can you tell that the pigeon is anxious when he first sees the eagle?',
-    guidance:'Award 1 mark for reference to the pigeon being alarmed / fluttering upwards / panicking. Accept any answer that conveys a clear sign of anxiety from the text.' },
-  { id:26,   sec:2, marks:1, domain:'2d', qtype:'mc',  ttype:'F',
-    type:'mc', prompt:"Early on in the conversation between the two birds, why does the pigeon say <em>'No need to get personal...'</em>",
+  { id:2,  sec:0, marks:1, domain:'1a', qtype:'mc', ttype:'NF',
+    type:'mc',
+    prompt:'<em>"The recipe was so precious…"</em><br><br>The word <em>precious</em> tells you the recipe was…',
     q:'Tick <strong>one</strong>.',
-    options:['Because he is frightened of the eagle.',
-             'Because the eagle is being rude about the pigeon being greedy.',
-             'Because the eagle is at the top of the food chain.',
-             'Because the eagle eyes him hungrily.'],
-    correct:'Because the eagle is being rude about the pigeon being greedy.' },
-  { id:27,   sec:2, marks:1, domain:'2b', qtype:'sc',  ttype:'F',
-    type:'text', prompt:"Read the paragraph beginning: <em>'Take a look at me...'</em>",
-    q:'What does the eagle say that eagles are built for?',
-    accepted:['power and speed','speed and power'] },
-  { id:28,   sec:2, marks:2, domain:'2b', qtype:'tab', ttype:'F',
-    type:'fill_table',
-    prompt:'In the same paragraph, identify one adjective used to describe <strong>each</strong> of the following aspects of the eagle.',
-    q:'',
-    rows:[
-      {label:'Feathers', key:'feathers', accepted:['sleek']},
-      {label:'Talons',   key:'talons',   accepted:['deadly']},
-    ] },
-  { id:29,   sec:2, marks:1, domain:'2a', qtype:'match',ttype:'F',
-    type:'match', q:'Draw a line to match each word with its meaning. One has been done for you.',
-    given:{ word:'snarled', meaning:'growled' },
+    options:['sweet','cold','horrible','special'],
+    correct:'special' },
+
+  { id:3,  sec:0, marks:1, domain:'1a', qtype:'fc', ttype:'NF',
+    type:'text',
+    prompt:'Look at the section called <strong>Keeping ice cream cold</strong>.',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> that means the same as difficult.',
+    accepted:['tricky'] },
+
+  { id:4,  sec:0, marks:1, domain:'1d', qtype:'mc', ttype:'NF',
+    type:'mc',
+    prompt:'<em>"Luckily, another man at the fair was selling waffles."</em>',
+    q:'Why was this lucky for the ice cream seller?',
+    options:['He wanted to eat a waffle.','He did not like his dishes.','He could keep selling his ice cream.','He had an idea for a new flavour.'],
+    correct:'He could keep selling his ice cream.' },
+
+  { id:5,  sec:0, marks:1, domain:'1b', qtype:'sc', ttype:'NF',
+    type:'text',
+    q:'What special name is used for an ice cream café?',
+    accepted:['parlour','ice cream parlour','parlours','ice cream parlours'] },
+
+  { id:6,  sec:0, marks:1, domain:'1a', qtype:'fc', ttype:'NF',
+    type:'text',
+    prompt:'Look at the <strong>Exciting flavours</strong> section.',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> that means the same as strange.',
+    accepted:['unusual'] },
+
+  { id:7,  sec:0, marks:1, domain:'1b', qtype:'sc', ttype:'NF',
+    type:'text',
+    q:'What was used to hold a penny lick?',
+    accepted:['a glass cup','glass cup','glass','cup','a glass'] },
+
+  { id:8,  sec:0, marks:1, domain:'1b', qtype:'match', ttype:'NF',
+    type:'match',
+    q:'Draw lines to match each sentence with the correct country.',
     pairs:[
-      { word:'humbly',    options:['not proud','healthy','nervous','growled'], correct:'not proud' },
-      { word:'thriving',  options:['not proud','healthy','nervous','growled'], correct:'healthy' },
-      { word:'flustered', options:['not proud','healthy','nervous','growled'], correct:'nervous' },
+      { left:'The most ice cream is eaten in…', correct:'New Zealand.' },
+      { left:'The tallest ice cream cone was made in…', correct:'Norway.' },
+      { left:'Ice Cream Day takes place in…', correct:'the United States of America.' }
     ] },
-  { id:30,   sec:2, marks:2, domain:'2b', qtype:'tab', ttype:'F',
+
+  { id:9,  sec:0, marks:2, domain:'1b', qtype:'tab', ttype:'NF',
     type:'tf_table',
-    q:'Using information from the whole text, tick one box in each row to show whether the statement is about the eagle or the pigeon.',
-    colLabels:['Eagle','Pigeon'],
+    q:'Put <strong>one</strong> tick next to each statement to show whether it is <strong>true</strong> or <strong>false</strong>.',
     rows:[
-      {txt:"Lies about having already eaten.",                              ans:'Eagle'},
-      {txt:"Shows off about their strength.",                              ans:'Eagle'},
-      {txt:"Wouldn't last a few seconds if they took the other one on.",   ans:'Pigeon'},
-      {txt:"Says the other is a 'fine specimen'.",                         ans:'Pigeon'},
+      { txt:'People like lime ice cream more than any other flavour.',                       ans:'false' },
+      { txt:'People think ice cream cones were invented in the United States of America.',   ans:'true'  },
+      { txt:'The King of England held a feast in his castle.',                               ans:'false' },
+      { txt:'A penny lick is a new ice cream flavour.',                                      ans:'false' }
     ] },
-  { id:31,   sec:2, marks:1, domain:'2c', qtype:'order',ttype:'F',
-    type:'order',
-    q:'Below are some summaries of different paragraphs from the text. Number them 1–5 to show the order in which they appear in the text. The first one has been done for you.',
-    items:[
-      { txt:'The pigeon is offended by what the eagle says.',        given:false, correct:2 },
-      { txt:'The eagle tells the pigeon about how amazing eagles are.', given:false, correct:3 },
-      { txt:'The eagle wants to eat the pigeon.',                    given:true,  value:1 },
-      { txt:'The pigeon tells the eagle why pigeons are better.',    given:false, correct:4 },
-      { txt:'The eagle tries to attack the pigeon.',                 given:false, correct:5 },
+
+  // ===== TEXT 1: A New Room for William =====
+  { id:10, sec:1, marks:1, domain:'1d', qtype:'mc', ttype:'F',
+    type:'mc',
+    q:'At the beginning of the story, William had…',
+    options:['just moved house','climbed a tree','decorated his room','made a new friend'],
+    correct:'just moved house' },
+
+  { id:11, sec:1, marks:1, domain:'1b', qtype:'sc', ttype:'F',
+    type:'text',
+    q:'When did Mum and William go shopping for wallpaper?',
+    accepted:['the next day','next day'] },
+
+  { id:12, sec:1, marks:1, domain:'1b', qtype:'sc', ttype:'F',
+    type:'text',
+    q:'In the shop, which wallpaper did William want first?',
+    accepted:['the same as in his old room','his old room wallpaper','the same one as before','the same as his old room','the same wallpaper as his old room'] },
+
+  { id:13, sec:1, marks:1, domain:'1b', qtype:'sc', ttype:'F',
+    type:'text',
+    q:'What did William unpack from the boxes in his room?',
+    accepted:['model dinosaurs','dinosaurs','models','toy dinosaurs','his dinosaurs'] },
+
+  { id:14, sec:1, marks:2, domain:'1b', qtype:'tab', ttype:'F',
+    type:'tf_table',
+    q:'Put <strong>one</strong> tick next to each statement to show whether it is <strong>true</strong> or <strong>false</strong>.',
+    rows:[
+      { txt:"There were pictures in William's old room.",                        ans:'true'  },
+      { txt:'William could see a small tree from his window.',                   ans:'false' },
+      { txt:"Mum thought decorating the room would make it look better.",        ans:'true'  },
+      { txt:"There was a climbing frame in William's new garden.",               ans:'false' }
     ] },
-  { id:'32a',sec:2, marks:1, domain:'2d', qtype:'mc',  ttype:'F',
-    type:'mc', prompt:"At the end of the text, which word would you use to describe the pigeon's character?",
-    q:'Tick <strong>one</strong>.',
-    options:['greedy','wise','scared'], correct:'wise' },
-  { id:'32b',sec:2, marks:1, domain:'2d', qtype:'ext', ttype:'F',
-    type:'extended', q:'Explain why you chose <strong>{32a}</strong>.', linkedTo:'32a', review:true,
-    guidance:'Award 1 mark for: reference to evidence that shows the pigeon is wise/clever/calm, e.g. "not in the slightest bit flustered", uses logic/reason rather than force, points out the eagle\'s chain, speech about sticking together and being smart. Do not accept simply repeating "wise" without explanation.' },
+
+  { id:15, sec:1, marks:1, domain:'1b', qtype:'sc', ttype:'F',
+    type:'text',
+    q:'Where did Tom live?',
+    accepted:['next door','next door to william','the house next door','next to william','next-door'] },
+
+  { id:16, sec:1, marks:1, domain:'1b', qtype:'sc', ttype:'F',
+    type:'text',
+    q:'What did William do in the garden to pretend to be a dinosaur?',
+    accepted:['stomped','growled','stomped along the path','said he was a fierce dinosaur','made dinosaur noises','roared','stomped and growled'] },
+
+  // Q17: 2 marks — 1 per distinct reason category mentioned, keyword scored locally
+  { id:17, sec:1, marks:2, domain:'1d', qtype:'ext', ttype:'F',
+    type:'multi_kw',
+    q:'Think about the whole story. Why did William like his new house in the end? Write two reasons.',
+    keyGroups:[
+      ['friend','tom','neighbour','boy next door'],
+      ['wallpaper','decorated','room','dinosaur wall'],
+      ['model','dinosaur','windowsill'],
+      ['climbing frame','climb']
+    ],
+    minGroups:1 }
 ];
 
-// QLA metadata
 const DOMAIN_LABELS = {
-  '2a': 'Vocabulary (2a)',
-  '2b': 'Retrieval (2b)',
-  '2c': 'Summarise main ideas (2c)',
-  '2d': 'Inference (2d)',
-  '2g': 'Language / word choice (2g)',
+  '1a': 'Vocabulary (1a)',
+  '1b': 'Key facts & information (1b)',
+  '1c': 'Sequence (1c)',
+  '1d': 'Inference (1d)',
+  '1e': 'Prediction (1e)',
 };
 const QTYPE_LABELS = {
   'mc':    'Multiple choice',
@@ -693,15 +534,14 @@ const QTYPE_LABELS = {
   'tab':   'Table / tabulated',
   'ext':   'Extended response',
   'match': 'Matching',
-  'order': 'Ordering',
 };
-const TTYPE_LABELS = { 'NF':'Non-fiction', 'P':'Poetry', 'F':'Fiction' };
+const TTYPE_LABELS = { 'NF':'Non-fiction', 'F':'Fiction' };
 
 // ======================================================
 // STATE
 // ======================================================
 let pupilName = '';
-let selectedSections = [0,1,2];
+let selectedSections = [0,1];
 let currentSection = 0;
 let answers = {};
 let reviewScores = {};
@@ -710,17 +550,14 @@ let startTime = null;
 let timeTaken = '';
 
 // ======================================================
-// LOGIN — name picker
+// LOGIN
 // ======================================================
-
-// Fetch pupil list from backend, fall back to text input gracefully
 (function loadConfig() {
-  // Preload from login.html — silently route without showing name picker
   const preload = JSON.parse(localStorage.getItem('ra_preload') || 'null');
-  if (preload && preload.assessment === 'summer') {
+  if (preload && preload.assessment === 'ks1') {
     localStorage.removeItem('ra_preload');
     pupilName = preload.name;
-    applyTextConfig(Array.isArray(preload.texts) ? preload.texts : [0,1,2]);
+    applyTextConfig(Array.isArray(preload.texts) ? preload.texts : [0,1]);
     startInstructions();
     return;
   }
@@ -732,15 +569,13 @@ let timeTaken = '';
     clearTimeout(timer);
     delete window[cb];
     if (script.parentNode) document.body.removeChild(script);
-    // Pupils
     const names = config && Array.isArray(config.pupils) ? config.pupils : [];
     if (names.length) renderNameGrid(names); else showNameFallback();
-    // Active texts
-    const active = config && Array.isArray(config.selectedTexts) ? config.selectedTexts : [0,1,2];
+    const active = config && Array.isArray(config.selectedTexts) ? config.selectedTexts : [0,1];
     applyTextConfig(active);
   };
   script.onerror = () => { clearTimeout(timer); showNameFallback(); };
-  script.src = BACKEND_URL + '?action=getconfig&callback=' + cb;
+  script.src = BACKEND_URL + '?action=getconfig&assessment=ks1&callback=' + cb;
   document.body.appendChild(script);
 })();
 
@@ -760,8 +595,8 @@ function showNameFallback() {
 }
 
 function applyTextConfig(active) {
-  const TEXT_NAMES = ['🌊 Making Waves','🐭 The Field Mouse','🦅 Top of the Food Chain'];
-  selectedSections = active.length ? active : [0,1,2];
+  const TEXT_NAMES = ['🍦 The History of Ice Cream','🦕 A New Room for William'];
+  selectedSections = active.length ? active : [0,1];
   const names = selectedSections.map(i => TEXT_NAMES[i]);
   const notice = document.getElementById('text-notice');
   if (notice) notice.textContent = names.join(' · ');
@@ -777,7 +612,6 @@ function selectName(btn, name) {
 }
 
 function startInstructions() {
-  // Name from grid selection OR fallback text input
   if (!pupilName) {
     const typed = document.getElementById('inp-name') && document.getElementById('inp-name').value.trim();
     if (typed) pupilName = typed;
@@ -798,8 +632,7 @@ function startAssessment() {
   show('s-assessment');
   startTime = Date.now();
   document.getElementById('hdr-pupil').textContent = pupilName;
-  // Style tabs
-  [0,1,2].forEach(i => {
+  [0,1].forEach(i => {
     const t = document.getElementById('tab-'+i);
     t.className = 'sec-tab';
     if (!selectedSections.includes(i)) t.classList.add('skip');
@@ -826,7 +659,6 @@ function nextSection() {
 
 function showTeacherResults() { show('s-results'); }
 
-// Teacher secret access: tap emoji 5 times within 3 seconds
 let _tapCount = 0, _tapTimer = null;
 function teacherTap() {
   _tapCount++;
@@ -842,8 +674,8 @@ function renderSection(sec) {
   document.getElementById('text-panel').innerHTML =
     `<h2>${TEXTS[sec].title}</h2><div class="txt">${TEXTS[sec].html}</div>`;
 
-  const sNames = ['Making Waves','The Field Mouse','The Top of the Food Chain'];
-  const ranges = [[1,13],[14,22],[23,32]];
+  const sNames = ['The History of Ice Cream','A New Room for William'];
+  const ranges = [[1,9],[10,17]];
   const [qs, qe] = ranges[sec];
   let html = `<h3>Questions ${qs}–${qe} are about <em>${sNames[sec]}</em></h3>`;
   QUESTIONS.filter(q => q.sec === sec).forEach(q => { html += renderQuestion(q); });
@@ -860,11 +692,6 @@ function renderSection(sec) {
       const qid = opt.querySelector('input').dataset.qid;
       const val = opt.querySelector('input').value;
       saveAnswer(qid, val);
-      // Update any question that links to this one
-      QUESTIONS.filter(q => q.linkedTo === qid).forEach(lq => {
-        const qtxtEl = document.querySelector(`#qb-${lq.id} .qtxt`);
-        if (qtxtEl) qtxtEl.innerHTML = lq.q.replace(/\{[^}]+\}/g, `<em>${val}</em>`);
-      });
     });
   });
 
@@ -887,82 +714,43 @@ function renderQuestion(q) {
     inputHtml = q.options.map(o =>
       `<label class="mc-opt"><input type="radio" name="q${id}" value="${o}" data-qid="${id}"> ${o}</label>`
     ).join('');
-  } else if (q.type === 'multi_text') {
-    const inputs = Array.from({length:q.count},(_,i)=>
-      `<div class="mi-row"><span class="mi-label">${i+1}.</span><input type="text" class="ans-text" data-qid="${id}" data-idx="${i}" placeholder="Write your answer here..." oninput="saveMultiText('${id}',${i},this.value)" autocomplete="off"></div>`
-    ).join('');
-    inputHtml = `<div class="multi-inp">${inputs}</div>`;
   } else if (q.type === 'tf_table') {
-    const isEP = q.colLabels && q.colLabels.length === 2;
-    const cols = isEP ? q.colLabels : ['True','False'];
-    const vals = isEP ? q.colLabels : ['true','false'];
-    inputHtml = `<table class="tf-tbl"><thead><tr><th style="width:60%"></th><th>${cols[0]}</th><th>${cols[1]}</th></tr></thead><tbody>` +
+    inputHtml = `<table class="tf-tbl"><thead><tr><th style="width:60%"></th><th>True</th><th>False</th></tr></thead><tbody>` +
     q.rows.map((r,i)=>`<tr><td>${r.txt}</td>
-      <td class="tfc"><label><input type="radio" name="q${id}_r${i}" value="${vals[0]}" data-qid="${id}" data-row="${i}" onchange="saveTF('${id}',${i},this.value)"> ${cols[0]}</label></td>
-      <td class="tfc"><label><input type="radio" name="q${id}_r${i}" value="${vals[1]}" data-qid="${id}" data-row="${i}" onchange="saveTF('${id}',${i},this.value)"> ${cols[1]}</label></td>
+      <td class="tfc"><label><input type="radio" name="q${id}_r${i}" value="true" data-qid="${id}" data-row="${i}" onchange="saveTF('${id}',${i},this.value)"> True</label></td>
+      <td class="tfc"><label><input type="radio" name="q${id}_r${i}" value="false" data-qid="${id}" data-row="${i}" onchange="saveTF('${id}',${i},this.value)"> False</label></td>
     </tr>`).join('') + '</tbody></table>';
-  } else if (q.type === 'fill_table') {
-    inputHtml = `<table class="fill-tbl"><tbody>` +
-    q.rows.map(r=>`<tr><th style="width:50%">${r.label}</th><td><input type="text" class="ans-text" data-qid="${id}" data-key="${r.key}" placeholder="" oninput="saveFill('${id}','${r.key}',this.value)" autocomplete="off"></td></tr>`
-    ).join('') + '</tbody></table>';
   } else if (q.type === 'match') {
-    // Tap-to-select UI
-    const allMeanings = [...new Set(q.pairs.flatMap(p => p.options))];
-    // Shuffle meanings (deterministic by qid)
-    const shuffled = [...allMeanings].sort((a,b) => {
+    const rightOptions = q.pairs.map(p => p.correct);
+    // Shuffle deterministically
+    const shuffled = [...rightOptions].sort((a,b) => {
       const ha = (String(id)+a).split('').reduce((s,c)=>s+c.charCodeAt(0),0);
       const hb = (String(id)+b).split('').reduce((s,c)=>s+c.charCodeAt(0),0);
       return ha - hb;
     });
-    const wordSlots = [
-      `<div class="tap-word-slot given" data-qid="${id}" data-word="${q.given.word}">
-         <div class="slot-word">${q.given.word}</div>
-         <div class="slot-answer">→ ${q.given.meaning} (given)</div>
-       </div>`,
-      ...q.pairs.map(p =>
-        `<div class="tap-word-slot" id="slot-${id}-${p.word.replace(/\s/g,'_')}" data-qid="${id}" data-word="${p.word}" onclick="tapWord('${id}','${p.word}')">
-           <div class="slot-word">${p.word}</div>
-           <div class="slot-answer" id="slotans-${id}-${p.word.replace(/\s/g,'_')}"></div>
-         </div>`
-      )
-    ].join('');
-    const meaningChips = shuffled.map(m =>
-      `<div class="tap-meaning-chip" id="chip-${id}-${m.replace(/\s/g,'_')}" data-qid="${id}" data-meaning="${m}" onclick="tapMeaning('${id}','${m}')">${m}</div>`
-    ).join('');
-    inputHtml = `
-      <p class="match-instructions">Tap a word on the left, then tap its meaning on the right — or tap a meaning first, then its word.</p>
-      <div class="tap-match-wrap">
-        <div class="tap-words-col">${wordSlots}</div>
-        <div class="tap-meanings-col">${meaningChips}</div>
-      </div>`;
-  } else if (q.type === 'order') {
-    inputHtml = `<div class="order-rows">` +
-    q.items.map((item,i)=>
-      item.given
-        ? `<div class="order-row"><div class="order-txt">${item.txt}</div><input type="number" class="order-inp" value="1" disabled></div>`
-        : `<div class="order-row"><div class="order-txt">${item.txt}</div><input type="number" class="order-inp" min="1" max="5" data-qid="${id}" data-idx="${i}" placeholder="" oninput="saveOrder('${id}',${i},this.value)"></div>`
-    ).join('') + '</div>';
-  } else if (q.type === 'extended') {
+    inputHtml = `<div class="match-rows">` +
+      q.pairs.map((p,i) =>
+        `<div class="match-row">
+          <div class="match-left">${p.left}</div>
+          <select data-qid="${id}" data-idx="${i}" onchange="saveMatchSelect('${id}',${i},this.value)">
+            <option value="">— choose —</option>
+            ${shuffled.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+          </select>
+        </div>`
+      ).join('') +
+    `</div>`;
+  } else if (q.type === 'extended' || q.type === 'multi_kw') {
     inputHtml = `<textarea class="ans-ext" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)"></textarea>`;
   }
 
-  // Resolve {linkedId} placeholders using saved answers
-  let qText = q.q;
-  if (q.linkedTo) {
-    const linkedAnswer = (answers[q.linkedTo] || '').trim();
-    const display = linkedAnswer || '___';
-    qText = qText.replace(/\{[^}]+\}/g, `<em>${display}</em>`);
-  }
-
-  // Add spelling note for find & copy questions
-  const qTextLower = qText.toLowerCase();
+  const qTextLower = q.q.toLowerCase();
   const spellingNote = (qTextLower.includes('find') && qTextLower.includes('copy'))
     ? `<p class="spelling-note">📋 Copy carefully — spelling counts</p>` : '';
 
   return `<div class="qblock" id="qb-${id}">
     <div class="qnum">${id}.</div>
     ${promptHtml}
-    <div class="qtxt">${qText}</div>
+    <div class="qtxt">${q.q}</div>
     ${spellingNote}
     <div class="qmarks">${marksLabel}</div>
     ${inputHtml}
@@ -973,135 +761,8 @@ function renderQuestion(q) {
 // ANSWER SAVING & RESTORING
 // ======================================================
 function saveAnswer(qid, val)           { answers[qid] = val; }
-function saveMultiText(qid, idx, val)   { if (!answers[qid]) answers[qid] = []; answers[qid][idx] = val; }
 function saveTF(qid, row, val)          { if (!answers[qid]) answers[qid] = {}; answers[qid][row] = val; }
-function saveFill(qid, key, val)        { if (!answers[qid]) answers[qid] = {}; answers[qid][key] = val; }
-function saveMatch(qid, word, val)      { if (!answers[qid]) answers[qid] = {}; answers[qid][word] = val; }
-
-// Tap-to-select match state
-const tapMatchState = {}; // { qid: { selectedWord: null, selectedMeaning: null } }
-
-function getTapState(qid) {
-  if (!tapMatchState[qid]) tapMatchState[qid] = { selectedWord: null, selectedMeaning: null };
-  return tapMatchState[qid];
-}
-
-function tapWord(qid, word) {
-  const state = getTapState(qid);
-  const slot = document.getElementById('slot-' + qid + '-' + word.replace(/\s/g,'_'));
-  if (!slot) return;
-
-  const currentAssignment = answers[qid] && answers[qid][word];
-
-  // If this slot has a meaning, unassign it
-  if (currentAssignment) {
-    // Return meaning chip to available
-    const chip = document.getElementById('chip-' + qid + '-' + currentAssignment.replace(/\s/g,'_'));
-    if (chip) { chip.classList.remove('used'); }
-    saveMatch(qid, word, '');
-    slot.classList.remove('assigned');
-    document.getElementById('slotans-' + qid + '-' + word.replace(/\s/g,'_')).textContent = '';
-    // If a meaning is already selected, assign it
-    if (state.selectedMeaning) {
-      assignMatch(qid, word, state.selectedMeaning);
-      state.selectedMeaning = null;
-      // Clear meaning selection highlight
-      document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
-    } else {
-      // Select this word slot
-      clearWordSelection(qid);
-      state.selectedWord = word;
-      slot.classList.add('selected');
-    }
-    return;
-  }
-
-  // If a meaning is already selected, assign it now
-  if (state.selectedMeaning) {
-    clearWordSelection(qid);
-    assignMatch(qid, word, state.selectedMeaning);
-    state.selectedMeaning = null;
-    document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
-    return;
-  }
-
-  // Select/deselect this word slot
-  if (state.selectedWord === word) {
-    slot.classList.remove('selected');
-    state.selectedWord = null;
-  } else {
-    clearWordSelection(qid);
-    state.selectedWord = word;
-    slot.classList.add('selected');
-  }
-}
-
-function tapMeaning(qid, meaning) {
-  const state = getTapState(qid);
-  const chip = document.getElementById('chip-' + qid + '-' + meaning.replace(/\s/g,'_'));
-  if (!chip) return;
-
-  // If this meaning is already used, find its word and unassign
-  if (chip.classList.contains('used')) {
-    // Find which word has this meaning
-    const ans = answers[qid] || {};
-    let assignedWord = null;
-    Object.entries(ans).forEach(([w, m]) => { if (m === meaning) assignedWord = w; });
-    if (assignedWord) {
-      const slot = document.getElementById('slot-' + qid + '-' + assignedWord.replace(/\s/g,'_'));
-      if (slot) { slot.classList.remove('assigned'); slot.classList.remove('selected'); }
-      document.getElementById('slotans-' + qid + '-' + assignedWord.replace(/\s/g,'_')).textContent = '';
-      saveMatch(qid, assignedWord, '');
-      chip.classList.remove('used');
-      // Now select this meaning
-      clearMeaningSelection(qid);
-      state.selectedMeaning = meaning;
-      chip.classList.add('sel-meaning');
-    }
-    return;
-  }
-
-  // If a word slot is selected, assign this meaning to it
-  if (state.selectedWord) {
-    clearMeaningSelection(qid);
-    assignMatch(qid, state.selectedWord, meaning);
-    const slot = document.getElementById('slot-' + qid + '-' + state.selectedWord.replace(/\s/g,'_'));
-    if (slot) slot.classList.remove('selected');
-    state.selectedWord = null;
-    return;
-  }
-
-  // Select/deselect this meaning chip
-  if (state.selectedMeaning === meaning) {
-    chip.classList.remove('sel-meaning');
-    state.selectedMeaning = null;
-  } else {
-    clearMeaningSelection(qid);
-    state.selectedMeaning = meaning;
-    chip.classList.add('sel-meaning');
-  }
-}
-
-function assignMatch(qid, word, meaning) {
-  saveMatch(qid, word, meaning);
-  const slot = document.getElementById('slot-' + qid + '-' + word.replace(/\s/g,'_'));
-  const ansEl = document.getElementById('slotans-' + qid + '-' + word.replace(/\s/g,'_'));
-  const chip = document.getElementById('chip-' + qid + '-' + meaning.replace(/\s/g,'_'));
-  if (slot) { slot.classList.remove('selected'); slot.classList.add('assigned'); }
-  if (ansEl) ansEl.textContent = '→ ' + meaning;
-  if (chip) chip.classList.add('used');
-}
-
-function clearWordSelection(qid) {
-  document.querySelectorAll(`.tap-word-slot[data-qid="${qid}"]`).forEach(s => s.classList.remove('selected'));
-  getTapState(qid).selectedWord = null;
-}
-
-function clearMeaningSelection(qid) {
-  document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
-  getTapState(qid).selectedMeaning = null;
-}
-function saveOrder(qid, idx, val)       { if (!answers[qid]) answers[qid] = {}; answers[qid][idx] = parseInt(val) || null; }
+function saveMatchSelect(qid, idx, val) { if (!answers[qid]) answers[qid] = {}; answers[qid][idx] = val; }
 
 function restoreAnswer(q) {
   const id = q.id; const saved = answers[id]; if (!saved) return;
@@ -1112,37 +773,17 @@ function restoreAnswer(q) {
     document.querySelectorAll(`input[name="q${id}"]`).forEach(r => {
       if (r.value === saved) { r.checked = true; r.closest('.mc-opt').classList.add('sel'); }
     });
-  } else if (q.type === 'multi_text' && Array.isArray(saved)) {
-    saved.forEach((v,i) => {
-      const el = document.querySelector(`input.ans-text[data-qid="${id}"][data-idx="${i}"]`);
-      if (el && v) el.value = v;
-    });
   } else if (q.type === 'tf_table' && typeof saved === 'object') {
     Object.entries(saved).forEach(([row,val]) => {
       const r = document.querySelector(`input[name="q${id}_r${row}"][value="${val}"]`);
       if (r) r.checked = true;
     });
-  } else if (q.type === 'fill_table' && typeof saved === 'object') {
-    Object.entries(saved).forEach(([key,val]) => {
-      const el = document.querySelector(`input.ans-text[data-qid="${id}"][data-key="${key}"]`);
-      if (el) el.value = val;
-    });
   } else if (q.type === 'match' && typeof saved === 'object') {
-    Object.entries(saved).forEach(([word, val]) => {
-      if (!val) return;
-      const slot = document.getElementById('slot-' + id + '-' + word.replace(/\s/g,'_'));
-      const ansEl = document.getElementById('slotans-' + id + '-' + word.replace(/\s/g,'_'));
-      const chip = document.getElementById('chip-' + id + '-' + val.replace(/\s/g,'_'));
-      if (slot) { slot.classList.add('assigned'); }
-      if (ansEl) ansEl.textContent = '→ ' + val;
-      if (chip) chip.classList.add('used');
-    });
-  } else if (q.type === 'order' && typeof saved === 'object') {
     Object.entries(saved).forEach(([idx,val]) => {
-      const el = document.querySelector(`.order-inp[data-qid="${id}"][data-idx="${idx}"]`);
+      const el = document.querySelector(`select[data-qid="${id}"][data-idx="${idx}"]`);
       if (el && val) el.value = val;
     });
-  } else if (q.type === 'extended') {
+  } else if (q.type === 'extended' || q.type === 'multi_kw') {
     const el = document.querySelector(`textarea[data-qid="${id}"]`);
     if (el) el.value = saved;
   }
@@ -1163,35 +804,24 @@ function editDist(a, b) {
 
 const STOPWORDS = new Set(['the','and','for','that','with','this','from','are','was','they','have','been','will','each','when','into','about','round','where','would','you','find','their','there','then','than','but','not','all','can','its','one','two','how','why','who','she','her','him','his','has','had','did','what','just','out','up','at','in','on','of','to','a','an','is','it','be','do','so','we','or','if','by','as','no','my','me']);
 
-function editDist(a, b) {
-  const m = a.length, n = b.length;
-  const dp = Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));
-  for (let i=1;i<=m;i++) for (let j=1;j<=n;j++)
-    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
-  return dp[m][n];
-}
-
-// Extract meaningful content words from a string
 function contentWords(s) {
   return norm(s).split(/\s+/).filter(w => w.length > 2 && !STOPWORDS.has(w));
 }
 
-// Check if pupil answer contains enough key words from an accepted phrase
 function keywordOverlap(answerNorm, acceptedNorm) {
   const keys = contentWords(acceptedNorm);
   if (keys.length === 0) return null;
   const ansWords = answerNorm.split(/\s+/);
   let matched = 0;
   for (const k of keys) {
-    // exact word match, substring match, or close edit distance
     if (ansWords.includes(k) || answerNorm.includes(k)) { matched++; continue; }
     for (const w of ansWords) {
       if (w.length > 2 && editDist(w, k) <= Math.min(2, Math.floor(k.length / 4))) { matched++; break; }
     }
   }
   const ratio = matched / keys.length;
-  if (ratio >= 0.85) return 'exact';  // nearly all key words present → accept as correct
-  if (ratio >= 0.6)  return 'fuzzy';  // majority present → accept with flag
+  if (ratio >= 0.85) return 'exact';
+  if (ratio >= 0.6)  return 'fuzzy';
   return null;
 }
 
@@ -1200,12 +830,10 @@ function fuzzyMatch(answer, acceptedList) {
   for (const acc of acceptedList) {
     const nb = norm(acc);
     if (na === nb) return 'exact';
-    // Levenshtein for short answers / single words
     if (nb.split(' ').length <= 3) {
       const threshold = Math.min(3, Math.max(1, Math.floor(nb.length / 5)));
       if (editDist(na, nb) <= threshold) return 'fuzzy';
     }
-    // Keyword overlap for longer phrases
     const kw = keywordOverlap(na, nb);
     if (kw) return kw;
   }
@@ -1215,7 +843,6 @@ function fuzzyMatch(answer, acceptedList) {
 function fuzzyMatchPhrase(answer, acceptedList) {
   const direct = fuzzyMatch(answer, acceptedList);
   if (direct) return direct;
-  // Also try stripping leading articles
   const na = norm(answer).replace(/^(the|a|an)\s+/, '');
   for (const acc of acceptedList) {
     const nb = norm(acc).replace(/^(the|a|an)\s+/, '');
@@ -1232,7 +859,14 @@ function fuzzyMatchPhrase(answer, acceptedList) {
 
 function markQuestion(q) {
   const id = q.id, ans = answers[id];
-  if (q.review) return { score:0, max:q.marks, review:true, fuzzy:false };
+  if (q.type === 'multi_kw') {
+    // Count how many keyword groups the answer hits; award 1m per group (up to q.marks)
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    const na = norm(ans);
+    const hits = (q.keyGroups || []).filter(grp => grp.some(kw => na.includes(norm(kw)))).length;
+    const score = hits >= (q.minGroups || 1) ? Math.min(hits, q.marks) : 0;
+    return { score, max:q.marks, review:false, fuzzy:false };
+  }
 
   if (q.type === 'text') {
     if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
@@ -1243,50 +877,23 @@ function markQuestion(q) {
     if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
     return { score:norm(ans)===norm(q.correct)?1:0, max:1, review:false, fuzzy:false };
   }
-  if (q.type === 'multi_text') {
-    if (!ans||!Array.isArray(ans)) return { score:0, max:q.marks, review:false, fuzzy:false };
-    const pool = q.acceptedPool; const usedPool = new Set();
-    let score = 0, anyFuzzy = false;
-    ans.forEach(v => {
-      if (!v) return;
-      for (const p of pool) {
-        if (usedPool.has(p)) continue;
-        const m = fuzzyMatchPhrase(v, [p]);
-        if (m) { score++; usedPool.add(p); if (m==='fuzzy') anyFuzzy=true; break; }
-      }
-    });
-    return { score:Math.min(score,q.marks), max:q.marks, review:false, fuzzy:anyFuzzy };
-  }
   if (q.type === 'tf_table') {
     if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
     let correct = 0;
     q.rows.forEach((r,i) => { if (ans[i] && norm(ans[i])===norm(r.ans)) correct++; });
-    let score = correct===q.rows.length ? q.marks : correct>=q.rows.length-1 ? q.marks-1 : 0;
+    let score;
+    if (q.marks === 2) {
+      score = correct === 4 ? 2 : correct >= 2 ? 1 : 0;
+    } else {
+      score = correct === q.rows.length ? q.marks : correct >= q.rows.length - 1 ? q.marks - 1 : 0;
+    }
     return { score:Math.max(0,score), max:q.marks, review:false, fuzzy:false };
-  }
-  if (q.type === 'fill_table') {
-    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
-    let correct = 0, anyFuzzy = false;
-    q.rows.forEach(r => {
-      const v = ans[r.key]; if (!v) return;
-      const m = fuzzyMatchPhrase(v, r.accepted);
-      if (m) { correct++; if (m==='fuzzy') anyFuzzy=true; }
-    });
-    if (q.marks===1) return { score:correct===q.rows.length?1:0, max:1, review:false, fuzzy:anyFuzzy };
-    return { score:Math.min(correct,q.marks), max:q.marks, review:false, fuzzy:anyFuzzy };
   }
   if (q.type === 'match') {
     if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
     let correct = 0;
-    q.pairs.forEach(p => { if (ans[p.word]&&norm(ans[p.word])===norm(p.correct)) correct++; });
+    q.pairs.forEach((p,i) => { if (ans[i] && norm(ans[i])===norm(p.correct)) correct++; });
     return { score:correct===q.pairs.length?1:0, max:1, review:false, fuzzy:false };
-  }
-  if (q.type === 'order') {
-    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
-    let correct = 0;
-    q.items.forEach((item,i) => { if (!item.given && ans[i]===item.correct) correct++; });
-    const ng = q.items.filter(x=>!x.given).length;
-    return { score:correct===ng?1:0, max:1, review:false, fuzzy:false };
   }
   return { score:0, max:q.marks, review:false, fuzzy:false };
 }
@@ -1320,7 +927,7 @@ function submitAssessment() {
 // ======================================================
 function saveToClassData() {
   try {
-    const existing = JSON.parse(localStorage.getItem('ra_class_data') || '[]');
+    const existing = JSON.parse(localStorage.getItem('ra_class_data_ks1') || '[]');
     const {total, totalMax} = calcTotals();
     const record = {
       name: pupilName,
@@ -1334,28 +941,25 @@ function saveToClassData() {
       const sc = r.review ? (reviewScores[r.q.id] ?? null) : r.score;
       record.scores['Q'+r.q.id] = { score: sc, max: r.max, domain: r.q.domain, qtype: r.q.qtype, ttype: r.q.ttype, fuzzy: r.fuzzy };
       const ans = answers[r.q.id];
-      let ansStr = !ans ? '' : Array.isArray(ans) ? ans.filter(v=>v).join('; ') :
-        typeof ans === 'object' ? Object.entries(ans).map(([k,v])=>k+': '+v).join('; ') : String(ans);
+      let ansStr = !ans ? '' : typeof ans === 'object' ? Object.entries(ans).map(([k,v])=>k+': '+v).join('; ') : String(ans);
       record.answers['Q'+r.q.id] = ansStr;
     });
     existing.push(record);
-    localStorage.setItem('ra_class_data', JSON.stringify(existing));
-  } catch(e) { /* localStorage unavailable */ }
+    localStorage.setItem('ra_class_data_ks1', JSON.stringify(existing));
+  } catch(e) {}
 }
 
 function getClassData() {
-  try { return JSON.parse(localStorage.getItem('ra_class_data') || '[]'); }
+  try { return JSON.parse(localStorage.getItem('ra_class_data_ks1') || '[]'); }
   catch(e) { return []; }
 }
 
 // ======================================================
-// BACKEND SYNC (Google Apps Script → Google Sheet + Claude marking)
+// BACKEND SYNC
 // ======================================================
 function postToBackend() {
-  if (!BACKEND_URL) return; // not configured yet
+  if (!BACKEND_URL) return;
 
-  // Build the payload — include review questions with full marking info
-  // so the Apps Script can pass them to Claude
   const reviewQuestions = QUESTIONS
     .filter(q => q.review && selectedSections.includes(q.sec))
     .map(q => ({
@@ -1376,7 +980,6 @@ function postToBackend() {
   markResults.forEach(r => {
     const ans = answers[r.q.id];
     answersPayload['Q'+r.q.id] = !ans ? '' :
-      Array.isArray(ans) ? ans.filter(v=>v).join('; ') :
       typeof ans === 'object' ? Object.entries(ans).map(([k,v])=>k+': '+v).join('; ') :
       String(ans);
   });
@@ -1387,13 +990,13 @@ function postToBackend() {
     timeTaken,
     sections: selectedSections,
     total, totalMax,
-    assessmentId: 'Y4-summer-2025',
+    assessmentId: 'KS1-P2-2025',
+    assessment: 'ks1',
     scores: scoresPayload,
     answers: answersPayload,
     reviewQuestions
   };
 
-  // Fire-and-forget (no-cors — we can't read the response but data is saved)
   fetch(BACKEND_URL, {
     method: 'POST',
     mode: 'no-cors',
@@ -1409,7 +1012,7 @@ function postToBackend() {
 
 function clearClassData() {
   if (confirm('Clear all saved class data? This cannot be undone.')) {
-    localStorage.removeItem('ra_class_data');
+    localStorage.removeItem('ra_class_data_ks1');
     buildClassTab();
   }
 }
@@ -1418,15 +1021,11 @@ function exportClassCSV() {
   const data = getClassData();
   if (!data.length) { alert('No class data saved yet.'); return; }
 
-  // Collect all question IDs in order
   const allQids = QUESTIONS.map(q => 'Q'+q.id);
   const rows = [];
-
-  // === SHEET 1: Per-pupil scores ===
   rows.push(['INDIVIDUAL RESULTS']);
   rows.push(['Name','Date','Time Taken','Total Score','Total Marks','Percentage',
     ...allQids.flatMap(qid => [qid+' Score', qid+' Answer'])]);
-
   data.forEach(r => {
     const pct = r.totalMax ? Math.round(r.total/r.totalMax*100)+'%' : '-';
     const qCells = allQids.flatMap(qid => {
@@ -1437,69 +1036,10 @@ function exportClassCSV() {
     rows.push([r.name, new Date(r.date).toLocaleDateString('en-GB'), r.timeTaken||'', r.total, r.totalMax, pct, ...qCells]);
   });
 
-  rows.push([]);
-
-  // === SHEET 2: Class aggregates by domain ===
-  rows.push(['CLASS AGGREGATE — BY READING SKILL (CONTENT DOMAIN)']);
-  rows.push(['Domain','Total Score','Total Marks','Class %']);
-  const domAgg = {};
-  data.forEach(r => {
-    Object.entries(r.scores).forEach(([qid, sc]) => {
-      const d = sc.domain; if (!domAgg[d]) domAgg[d] = {score:0,max:0};
-      if (sc.score !== null) { domAgg[d].score += sc.score; domAgg[d].max += sc.max; }
-    });
-  });
-  Object.entries(domAgg).forEach(([d,{score,max}]) => {
-    rows.push([DOMAIN_LABELS[d]||d, score, max, max ? Math.round(score/max*100)+'%' : '-']);
-  });
-
-  rows.push([]);
-  rows.push(['CLASS AGGREGATE — BY QUESTION FORMAT']);
-  rows.push(['Format','Total Score','Total Marks','Class %']);
-  const qtAgg = {};
-  data.forEach(r => {
-    Object.entries(r.scores).forEach(([qid, sc]) => {
-      const t = sc.qtype; if (!qtAgg[t]) qtAgg[t] = {score:0,max:0};
-      if (sc.score !== null) { qtAgg[t].score += sc.score; qtAgg[t].max += sc.max; }
-    });
-  });
-  Object.entries(qtAgg).forEach(([t,{score,max}]) => {
-    rows.push([QTYPE_LABELS[t]||t, score, max, max ? Math.round(score/max*100)+'%' : '-']);
-  });
-
-  rows.push([]);
-  rows.push(['CLASS AGGREGATE — BY TEXT TYPE']);
-  rows.push(['Text Type','Total Score','Total Marks','Class %']);
-  const ttAgg = {};
-  data.forEach(r => {
-    Object.entries(r.scores).forEach(([qid, sc]) => {
-      const t = sc.ttype; if (!ttAgg[t]) ttAgg[t] = {score:0,max:0};
-      if (sc.score !== null) { ttAgg[t].score += sc.score; ttAgg[t].max += sc.max; }
-    });
-  });
-  Object.entries(ttAgg).forEach(([t,{score,max}]) => {
-    rows.push([TTYPE_LABELS[t]||t, score, max, max ? Math.round(score/max*100)+'%' : '-']);
-  });
-
-  rows.push([]);
-  rows.push(['CLASS AGGREGATE — PER QUESTION']);
-  rows.push(['Question','Domain','Format','Text Type','Class Score','Class Max','Class %']);
-  allQids.forEach(qid => {
-    let score=0, max=0, n=0;
-    data.forEach(r => {
-      const sc = r.scores[qid];
-      if (sc && sc.score !== null) { score += sc.score; max += sc.max; n++; }
-    });
-    if (!n) return;
-    const q = QUESTIONS.find(x => 'Q'+x.id === qid);
-    rows.push([qid, DOMAIN_LABELS[q?.domain]||'', QTYPE_LABELS[q?.qtype]||'', TTYPE_LABELS[q?.ttype]||'',
-      score, max, max ? Math.round(score/max*100)+'%' : '-']);
-  });
-
   const csv = '﻿' + rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
   const a = document.createElement('a');
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download = 'class_reading_results_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.download = 'class_ks1_reading_results_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
 }
 
@@ -1507,11 +1047,10 @@ function buildClassTab() {
   const data = getClassData();
   const el = document.getElementById('rp-class');
   if (!data.length) {
-    el.innerHTML = '<div class="qla-card"><h3>📋 Class Data</h3><p class="qla-intro">No pupils have completed the assessment yet. Results will appear here automatically after each submission.</p></div>';
+    el.innerHTML = '<div class="qla-card"><h3>📋 Class Data</h3><p class="qla-intro">No pupils have completed the assessment yet.</p></div>';
     return;
   }
-  // Summary table
-  const rows = data.map((r,i) => {
+  const rows = data.map(r => {
     const pct = r.totalMax ? Math.round(r.total/r.totalMax*100) : 0;
     const bar = `<div style="display:inline-block;width:${pct}%;height:8px;background:${pct>=75?'#4caf50':pct>=50?'var(--brand)':'#f44336'};border-radius:4px;min-width:2px"></div>`;
     return `<tr>
@@ -1522,10 +1061,8 @@ function buildClassTab() {
       <td style="min-width:120px;padding-left:8px">${bar} <span style="font-size:12px;color:#888">${pct}%</span></td>
     </tr>`;
   }).join('');
-
   el.innerHTML = `<div class="qla-card">
     <h3>📋 Class Data <span style="font-size:13px;color:#aaa;font-weight:normal">(${data.length} pupil${data.length!==1?'s':''})</span></h3>
-    <p class="qla-intro">Saved automatically after each assessment. Export to Excel for full question-level detail and class aggregates.</p>
     <table style="width:100%;border-collapse:collapse;font-family:sans-serif;font-size:14px;margin-bottom:16px">
       <thead><tr style="border-bottom:2px solid #eee">
         <th style="text-align:left;padding:6px 4px">Pupil</th>
@@ -1563,7 +1100,6 @@ function updateScoreDisplay() {
   document.getElementById('res-pct').textContent = `${pct}%${pending?' (teacher marking pending)':''}`;
   const te = document.getElementById('res-time');
   if (te && timeTaken) te.textContent = 'Time taken: ' + timeTaken;
-  // Update teacher tab badge
   const reviewBtn = document.querySelector('.res-tab:nth-child(2)');
   const needsReview = markResults.filter(r=>r.review).length;
   reviewBtn.textContent = needsReview > 0 ? `✏️ Teacher Marking (${needsReview})` : '✏️ Teacher Marking';
@@ -1601,7 +1137,7 @@ function buildReview() {
     const guidanceHtml = r.q.guidance ? `<div class="rev-guidance">📋 ${r.q.guidance}</div>` : '';
     return `<div class="rev-item" id="rev-${r.q.id}">
       <div class="rlabel">Question ${r.q.id} — ${r.max} mark${r.max>1?'s':''}</div>
-      <div class="rq-text">${r.q.prompt ? '<em>'+r.q.prompt.replace(/<[^>]+>/g,'')+'</em><br>' : ''}${r.q.q.replace(/<[^>]+>/g,'')}</div>
+      <div class="rq-text">${r.q.q.replace(/<[^>]+>/g,'')}</div>
       <div class="rans">${ans || '<em style="color:#bbb">No answer given</em>'}</div>
       ${guidanceHtml}
       <div class="mark-btns"><span>Award marks:</span>${btns}</div>
@@ -1612,7 +1148,6 @@ function buildReview() {
 function setReviewScore(qid, score, max) {
   reviewScores[qid] = score;
   document.getElementById(`rev-${qid}`).querySelectorAll('.mbtn').forEach((btn,i) => btn.classList.toggle('sel', i===score));
-  // Update grid card
   const card = document.getElementById(`rqcard-${qid}`);
   if (card) {
     card.className = `rq ${score===max?'ok':score>0?'rev':'bad'}`;
@@ -1620,7 +1155,7 @@ function setReviewScore(qid, score, max) {
     document.getElementById(`rqs-${qid}`).textContent = score;
   }
   updateScoreDisplay();
-  buildQLA(); // refresh analysis
+  buildQLA();
 }
 
 // ======================================================
@@ -1633,13 +1168,9 @@ function openModal(qid) {
   const ans = answers[q.id];
   document.getElementById('modal-title').textContent = `Question ${q.id}`;
 
-  // Format the pupil's answer for display
   let ansDisplay = '';
-  if (!ans || (Array.isArray(ans) && ans.every(v=>!v)) ||
-      (typeof ans === 'object' && !Array.isArray(ans) && Object.values(ans).every(v=>!v))) {
+  if (!ans || (typeof ans === 'object' && Object.values(ans).every(v=>!v))) {
     ansDisplay = '<em style="color:#bbb">No answer given</em>';
-  } else if (Array.isArray(ans)) {
-    ansDisplay = ans.filter(v=>v).map((v,i)=>`${i+1}. ${v}`).join('<br>');
   } else if (typeof ans === 'object') {
     ansDisplay = Object.entries(ans).map(([k,v])=>`<strong>${k}:</strong> ${v}`).join('<br>');
   } else {
@@ -1649,7 +1180,6 @@ function openModal(qid) {
   const scoreNow = r.review ? (reviewScores[q.id] ?? '?') : r.score;
   const pClass = r.review ? '' : (r.score===0?'m-bad':r.fuzzy?'m-spell':'m-ok');
 
-  // Accepted answer hint (not for MC/extended/match/order)
   let acceptedHtml = '';
   if (q.type==='text' && q.accepted) {
     acceptedHtml = `<div class="m-section"><div class="m-label">Accepted answers</div>
@@ -1659,7 +1189,6 @@ function openModal(qid) {
       <div class="m-value m-accepted">${q.correct}</div></div>`;
   }
 
-  // Teacher mark buttons and guidance for review questions
   let markBtnsHtml = '';
   if (r.review) {
     const current = reviewScores[q.id];
@@ -1699,11 +1228,7 @@ function openModal(qid) {
 
 function setReviewScoreModal(qid, score, max) {
   setReviewScore(qid, score, max);
-  // Refresh modal score display
-  document.querySelectorAll(`#modal-body .m-mark-btns .mbtn`).forEach((btn,i) => btn.classList.toggle('sel', i===score));
-  const scoreEl = document.querySelector('#modal-body .m-label');
-  if (scoreEl && scoreEl.textContent.includes('Pupil')) return;
-  openModal(qid); // re-render modal with updated score
+  openModal(qid);
 }
 
 function closeModal(e) { if (e.target===document.getElementById('ans-modal')) closeModalBtn(); }
@@ -1719,7 +1244,6 @@ function buildQLA() {
     { title:'By Question Format',                key:'qtype',  labels:QTYPE_LABELS  },
     { title:'By Text Type',                      key:'ttype',  labels:TTYPE_LABELS  },
   ];
-
   content.innerHTML = sections.map(s => {
     const groups = {};
     markResults.forEach(r => {
@@ -1729,7 +1253,6 @@ function buildQLA() {
       groups[k].score += sc;
       groups[k].max   += r.max;
     });
-
     const rows = Object.entries(groups).map(([k, {score, max}]) => {
       const pct = max===0 ? 0 : Math.round(score/max*100);
       const barClass = pct>=75 ? 'bar-hi' : pct>=50 ? 'bar-mid' : max===0 ? 'bar-na' : 'bar-lo';
@@ -1741,7 +1264,6 @@ function buildQLA() {
         <div class="qla-frac">${score}/${max}</div>
       </div>`;
     }).join('');
-
     return `<div class="qla-section"><h4>${s.title}</h4>${rows}</div>`;
   }).join('');
 }
@@ -1769,13 +1291,12 @@ function exportCSV() {
   const {total, totalMax} = calcTotals();
   rows.push(['Total Score', total, 'out of', totalMax]);
   rows.push([]);
-  rows.push(['Question','Text','Domain','Question Type','Score','Max Marks','Answer Given']);
+  rows.push(['Question','Text Type','Domain','Question Type','Score','Max Marks','Answer Given']);
   markResults.forEach(r => {
     const score = r.review ? (reviewScores[r.q.id] ?? '') : r.score;
     const ans = answers[r.q.id];
     let ansStr = '';
     if (!ans) ansStr = '';
-    else if (Array.isArray(ans)) ansStr = ans.filter(v=>v).join('; ');
     else if (typeof ans === 'object') ansStr = Object.entries(ans).map(([k,v])=>k+': '+v).join('; ');
     else ansStr = String(ans);
     rows.push([
@@ -1783,15 +1304,13 @@ function exportCSV() {
       TTYPE_LABELS[r.q.ttype]||r.q.ttype,
       DOMAIN_LABELS[r.q.domain]||r.q.domain,
       QTYPE_LABELS[r.q.qtype]||r.q.qtype,
-      score,
-      r.max,
-      ansStr
+      score, r.max, ansStr
     ]);
   });
   const csv = '﻿' + rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
   const a = document.createElement('a');
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-  a.download = (pupilName||'assessment').replace(/\s+/g,'_')+'_reading_results.csv';
+  a.download = (pupilName||'assessment').replace(/\s+/g,'_')+'_ks1_reading_results.csv';
   a.click();
 }
 
@@ -1801,7 +1320,8 @@ function exportCSV() {
 function restartApp() {
   answers = {}; reviewScores = {}; markResults = [];
   startTime = null; timeTaken = '';
-  document.getElementById('inp-name').value = '';
+  const inp = document.getElementById('inp-name');
+  if (inp) inp.value = '';
   show('s-login');
 }
 </script>

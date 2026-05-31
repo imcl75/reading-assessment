@@ -156,6 +156,9 @@
 
   <button class="btn btn-primary" onclick="saveConfig()">Save &amp; Activate →</button>
   <p class="msg" id="save-msg"></p>
+  <p style="text-align:center;margin-top:16px;">
+    <button onclick="resetAll()" style="background:none;border:none;color:#ccc;font-size:13px;cursor:pointer;font-family:inherit;text-decoration:underline;">Reset everything &amp; start over</button>
+  </p>
   <p class="admin-link">Go to <a href="admin.html">Admin / Marking →</a></p>
 </div>
 
@@ -383,6 +386,16 @@ function renderPupilRows() {
 function updatePupilGroup(idx, groupId) {
   if (pupils[idx]) pupils[idx].group = groupId;
   renderPupilRows();
+}
+
+function resetAll() {
+  if (!confirm('This will clear all groups and pupils. Are you sure?')) return;
+  groups = [{ id: '', name: '', assessment: 'summer', texts: [0,1,2], _uid: ++groupIdCounter }];
+  pupils = [];
+  document.getElementById('pupil-textarea').value = '';
+  renderGroups();
+  renderPupilRows();
+  document.getElementById('save-msg').textContent = '';
 }
 
 // ── Save config ───────────────────────────────────────

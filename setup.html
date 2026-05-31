@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assessment Setup — Wallscourt Farm Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --brand: #1798d3; --brand-dk: #0a6fa8; --border: #e0e0e0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: #f0f6fb; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 48px; }
+  .logo { font-size: 2rem; margin-bottom: 4px; }
+  h1 { color: var(--brand); font-size: 1.5rem; margin-bottom: 2px; }
+  .sub { color: #888; font-size: 0.9rem; margin-bottom: 28px; }
+
+  /* PIN screen */
+  #pin-screen { width: 100%; max-width: 380px; text-align: center; }
+  .pin-wrap { display: flex; gap: 10px; justify-content: center; margin: 20px 0 16px; }
+  .pin-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--brand); background: #fff; transition: background .15s; }
+  .pin-dot.filled { background: var(--brand); }
+  .pin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 0 auto 12px; }
+  .pin-btn { padding: 16px; border: 2px solid #ddd; border-radius: 12px; background: #fff; font-size: 1.4rem; font-weight: bold; cursor: pointer; font-family: inherit; transition: background .1s, border-color .1s; }
+  .pin-btn:active { background: #e8f5fd; border-color: var(--brand); }
+  .pin-btn.wide { grid-column: span 3; }
+  #pin-error { color: #e53935; font-size: 14px; min-height: 20px; margin-top: 4px; }
+
+  /* Setup panel */
+  #setup-panel { display: none; width: 100%; max-width: 600px; }
+  .card { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+  .card h2 { color: var(--brand); font-size: 1.2rem; margin-bottom: 6px; }
+  .card .hint { font-size: 13px; color: #888; margin-bottom: 16px; }
+
+  /* Text selector */
+  .text-options { display: flex; flex-direction: column; gap: 10px; }
+  .text-option { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 2px solid #ddd; border-radius: 12px; cursor: pointer; transition: border-color .15s, background .15s; }
+  .text-option:hover { border-color: var(--brand); background: #f0f9ff; }
+  .text-option input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--brand); cursor: pointer; flex-shrink: 0; }
+  .text-option label { font-size: 1rem; font-weight: 600; cursor: pointer; flex: 1; }
+  .text-option .qlabel { font-size: 12px; color: #aaa; margin-top: 2px; }
+
+  /* Pupils */
+  textarea { width: 100%; height: 200px; padding: 12px 14px; border: 2px solid #ddd; border-radius: 10px; font-size: 15px; font-family: inherit; resize: vertical; outline: none; }
+  textarea:focus { border-color: var(--brand); }
+
+  /* Buttons */
+  .btn { padding: 13px 28px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .15s; }
+  .btn-primary { background: var(--brand); color: #fff; width: 100%; }
+  .btn-primary:hover { background: var(--brand-dk); }
+  .btn-secondary { background: #eee; color: #333; }
+  .msg { margin-top: 10px; font-size: 14px; min-height: 20px; }
+  .msg.ok { color: #388e3c; }
+  .msg.err { color: #e53935; }
+
+  .admin-link { font-size: 13px; color: #aaa; margin-top: 8px; text-align: center; }
+  .admin-link a { color: var(--brand); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="logo">⚙️</div>
+<h1>Assessment Setup</h1>
+<p class="sub">Wallscourt Farm Academy — Year 4 Reading</p>
+
+<!-- PIN -->
+<div id="pin-screen">
+  <p style="font-size:15px;color:#555;margin-bottom:8px;">Enter teacher PIN to continue</p>
+  <div class="pin-wrap">
+    <div class="pin-dot" id="d0"></div>
+    <div class="pin-dot" id="d1"></div>
+    <div class="pin-dot" id="d2"></div>
+    <div class="pin-dot" id="d3"></div>
+  </div>
+  <div class="pin-grid">
+    <button class="pin-btn" onclick="pinPress('1')">1</button>
+    <button class="pin-btn" onclick="pinPress('2')">2</button>
+    <button class="pin-btn" onclick="pinPress('3')">3</button>
+    <button class="pin-btn" onclick="pinPress('4')">4</button>
+    <button class="pin-btn" onclick="pinPress('5')">5</button>
+    <button class="pin-btn" onclick="pinPress('6')">6</button>
+    <button class="pin-btn" onclick="pinPress('7')">7</button>
+    <button class="pin-btn" onclick="pinPress('8')">8</button>
+    <button class="pin-btn" onclick="pinPress('9')">9</button>
+    <button class="pin-btn" onclick="pinPress('0')">0</button>
+    <button class="pin-btn" onclick="pinDel()">⌫</button>
+  </div>
+  <p id="pin-error"></p>
+</div>
+
+<!-- Setup panel -->
+<div id="setup-panel">
+
+  <!-- Text selection -->
+  <div class="card">
+    <h2>📖 Active Texts</h2>
+    <p class="hint">Tick the texts children will complete today. Unticked texts will be hidden from the assessment.</p>
+    <div class="text-options">
+      <div class="text-option" onclick="toggleText(0)">
+        <input type="checkbox" id="t0" checked>
+        <div>
+          <label for="t0">🌊 Making Waves <span style="font-weight:400;color:#888;">(Non-fiction)</span></label>
+          <div class="qlabel">Questions 1–13</div>
+        </div>
+      </div>
+      <div class="text-option" onclick="toggleText(1)">
+        <input type="checkbox" id="t1" checked>
+        <div>
+          <label for="t1">🐭 The Field Mouse <span style="font-weight:400;color:#888;">(Poetry)</span></label>
+          <div class="qlabel">Questions 14–22</div>
+        </div>
+      </div>
+      <div class="text-option" onclick="toggleText(2)">
+        <input type="checkbox" id="t2" checked>
+        <div>
+          <label for="t2">🦅 Top of the Food Chain <span style="font-weight:400;color:#888;">(Fiction)</span></label>
+          <div class="qlabel">Questions 23–32</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pupil list -->
+  <div class="card">
+    <h2>👥 Class Pupil List</h2>
+    <p class="hint">One name per line. Children will tap their name to log in — saves typing mistakes.</p>
+    <textarea id="pupil-list" placeholder="Alice&#10;Bob&#10;Charlie&#10;..."></textarea>
+  </div>
+
+  <!-- Save -->
+  <button class="btn btn-primary" onclick="saveConfig()">Save & Activate →</button>
+  <p class="msg" id="save-msg"></p>
+  <p class="admin-link">Go to <a href="admin.html">Admin / Marking →</a></p>
+</div>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzmbFldm-vWAV34Bws4oRd6qt0ywhCYdOOU_kZnuLIKikoyAr_j9LR2okZUmytgKOvrxA/exec';
+const CORRECT_PIN = '2025';
+
+// ── PIN ──────────────────────────────────────────────
+let pinEntry = '';
+function pinPress(d) {
+  if (pinEntry.length >= 4) return;
+  pinEntry += d;
+  document.getElementById('d' + (pinEntry.length - 1)).classList.add('filled');
+  if (pinEntry.length === 4) checkPin();
+}
+function pinDel() {
+  if (!pinEntry.length) return;
+  document.getElementById('d' + (pinEntry.length - 1)).classList.remove('filled');
+  pinEntry = pinEntry.slice(0, -1);
+  document.getElementById('pin-error').textContent = '';
+}
+function checkPin() {
+  if (pinEntry === CORRECT_PIN) {
+    document.getElementById('pin-screen').style.display = 'none';
+    document.getElementById('setup-panel').style.display = 'block';
+    loadConfig();
+  } else {
+    document.getElementById('pin-error').textContent = 'Incorrect PIN — try again';
+    pinEntry = '';
+    [0,1,2,3].forEach(i => document.getElementById('d'+i).classList.remove('filled'));
+  }
+}
+
+// ── JSONP helper ─────────────────────────────────────
+function jsonpFetch(url, timeout = 10000) {
+  return new Promise((resolve, reject) => {
+    const cb = 'jcb_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout);
+    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Network error')); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.body.appendChild(script);
+  });
+}
+
+// ── Toggle text checkbox ──────────────────────────────
+function toggleText(idx) {
+  const cb = document.getElementById('t' + idx);
+  cb.checked = !cb.checked;
+}
+
+// ── Load existing config ──────────────────────────────
+async function loadConfig() {
+  try {
+    const config = await jsonpFetch(BACKEND_URL + '?action=getconfig');
+    // Apply selectedTexts
+    const active = Array.isArray(config.selectedTexts) ? config.selectedTexts : [0,1,2];
+    [0,1,2].forEach(i => { document.getElementById('t'+i).checked = active.includes(i); });
+    // Apply pupils
+    const names = Array.isArray(config.pupils) ? config.pupils : [];
+    document.getElementById('pupil-list').value = names.join('\n');
+  } catch(e) {
+    // Silent — defaults already set
+  }
+}
+
+// ── Save config ───────────────────────────────────────
+async function saveConfig() {
+  const msg = document.getElementById('save-msg');
+  msg.textContent = 'Saving…';
+  msg.className = 'msg';
+
+  const selectedTexts = [0,1,2].filter(i => document.getElementById('t'+i).checked);
+  if (!selectedTexts.length) {
+    msg.textContent = 'Please select at least one text.';
+    msg.className = 'msg err';
+    return;
+  }
+
+  const names = document.getElementById('pupil-list').value
+    .split('\n').map(n => n.trim()).filter(Boolean);
+
+  try {
+    const url = BACKEND_URL + '?action=saveconfig'
+      + '&texts=' + encodeURIComponent(selectedTexts.join(','))
+      + '&names=' + encodeURIComponent(names.join('\n'));
+    const result = await jsonpFetch(url);
+    if (result && result.ok) {
+      msg.textContent = `✓ Saved — ${selectedTexts.length} text(s) active, ${result.pupilCount} pupils`;
+      msg.className = 'msg ok';
+    } else {
+      throw new Error('Unexpected response');
+    }
+  } catch(e) {
+    msg.textContent = 'Error saving — check your connection and try again.';
+    msg.className = 'msg err';
+  }
+}
+</script>
+</body>
+</html>

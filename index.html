@@ -294,8 +294,8 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
         <input type="text" id="inp-name" autocomplete="off" placeholder="First name Surname" style="width:100%;padding:10px;border:2px solid #d1d5db;border-radius:8px;font-size:15px">
       </div>
     </div>
-    <div class="fg">
-      <label>Which text are you completing today?</label>
+    <div class="fg" id="text-sel-wrap">
+      <label class="text-sel-label">Which text are you completing today?</label>
       <div class="text-selector">
         <div class="text-sel-btn full" data-sec="all" onclick="selectText(this)">📚 All three texts</div>
         <div class="text-sel-btn" data-sec="0" onclick="selectText(this)">🌊 Making Waves</div>
@@ -424,7 +424,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 // ======================================================
 // CONFIG — paste your Apps Script Web App URL here after deploying backend.gs
 // ======================================================
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzg4vrq0QhHlpCkCsDmgMpNpASswiBw_Es0k-LQLyg0jHtS_xl_xf6ANXM00e9kZ66mqA/exec';
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzmbFldm-vWAV34Bws4oRd6qt0ywhCYdOOU_kZnuLIKikoyAr_j9LR2okZUmytgKOvrxA/exec';
 
 // ======================================================
 // TEXTS
@@ -726,23 +726,24 @@ let timeTaken = '';
 // ======================================================
 
 // Fetch pupil list from backend, fall back to text input gracefully
-(function loadPupilList() {
+(function loadConfig() {
   if (!BACKEND_URL) { showNameFallback(); return; }
-  const cb = 'pupil_cb_' + Date.now();
+  const cb = 'config_cb_' + Date.now();
   const script = document.createElement('script');
   const timer = setTimeout(() => { showNameFallback(); }, 8000);
-  window[cb] = function(names) {
+  window[cb] = function(config) {
     clearTimeout(timer);
     delete window[cb];
     if (script.parentNode) document.body.removeChild(script);
-    if (Array.isArray(names) && names.length) {
-      renderNameGrid(names);
-    } else {
-      showNameFallback();
-    }
+    // Pupils
+    const names = config && Array.isArray(config.pupils) ? config.pupils : [];
+    if (names.length) renderNameGrid(names); else showNameFallback();
+    // Active texts
+    const active = config && Array.isArray(config.selectedTexts) ? config.selectedTexts : [0,1,2];
+    applyTextConfig(active);
   };
   script.onerror = () => { clearTimeout(timer); showNameFallback(); };
-  script.src = BACKEND_URL + '?action=pupils&callback=' + cb;
+  script.src = BACKEND_URL + '?action=getconfig&callback=' + cb;
   document.body.appendChild(script);
 })();
 
@@ -759,6 +760,40 @@ function renderNameGrid(names) {
 function showNameFallback() {
   document.getElementById('name-loading').style.display = 'none';
   document.getElementById('name-fallback').style.display = 'block';
+}
+
+function applyTextConfig(active) {
+  // active = array of section indices the teacher has enabled, e.g. [0] or [0,2]
+  const TEXT_NAMES = ['Making Waves','The Field Mouse','Top of the Food Chain'];
+  const allBtn   = document.querySelector('.text-sel-btn[data-sec="all"]');
+  const secBtns  = document.querySelectorAll('.text-sel-btn[data-sec="0"], .text-sel-btn[data-sec="1"], .text-sel-btn[data-sec="2"]');
+
+  // Show/hide individual buttons
+  secBtns.forEach(btn => {
+    const sec = parseInt(btn.dataset.sec);
+    btn.style.display = active.includes(sec) ? '' : 'none';
+  });
+
+  // "All three texts" button: only show when all 3 are active
+  if (allBtn) allBtn.style.display = active.length === 3 ? '' : 'none';
+
+  // If only one text is active, auto-select it and hide the whole picker row
+  if (active.length === 1) {
+    const onlyBtn = document.querySelector(`.text-sel-btn[data-sec="${active[0]}"]`);
+    if (onlyBtn) { selectText(onlyBtn); }
+    const label = document.querySelector('.text-sel-label');
+    if (label) label.style.display = 'none'; // hide "Which text?" label
+    secBtns.forEach(b => b.style.display = 'none'); // hide all buttons — auto-selected
+    if (allBtn) allBtn.style.display = 'none';
+    // Show a quiet confirmation instead
+    const wrap = document.getElementById('text-sel-wrap');
+    if (wrap) {
+      const notice = document.createElement('p');
+      notice.style.cssText = 'font-size:14px;color:#888;margin:0;font-style:italic;';
+      notice.textContent = `Today you are completing: ${TEXT_NAMES[active[0]]}`;
+      wrap.appendChild(notice);
+    }
+  }
 }
 
 function selectName(btn, name) {

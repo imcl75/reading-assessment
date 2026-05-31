@@ -177,25 +177,25 @@ function renderNameGrid(pupils) {
   document.getElementById('name-section').style.display = 'block';
 
   const grid = document.getElementById('name-grid');
-  // Sort alphabetically
   const sorted = [...pupils].sort((a,b) => a.name.localeCompare(b.name));
   grid.innerHTML = sorted.map(p =>
-    `<button class="name-btn" onclick="selectPupil(${JSON.stringify(JSON.stringify(p))})">${p.name}</button>`
+    `<button class="name-btn" data-name="${p.name.replace(/"/g,'&quot;')}" data-group="${(p.group||'').replace(/"/g,'&quot;')}">${p.name}</button>`
   ).join('');
+
+  grid.addEventListener('click', function(e) {
+    const btn = e.target.closest('.name-btn');
+    if (!btn) return;
+    selectPupil(btn.dataset.name, btn.dataset.group);
+  });
 }
 
-function selectPupil(pupilJson) {
-  const pupil = JSON.parse(pupilJson);
-  const name = pupil.name;
-  const groupId = pupil.group;
+function selectPupil(name, groupId) {
 
-  // Find group config
   const group = groupsData && groupsData.groups
     ? groupsData.groups.find(g => g.id === groupId)
     : null;
 
   if (!group) {
-    // Group not found — route to default
     routeTo(name, 'summer', [0,1,2]);
     return;
   }

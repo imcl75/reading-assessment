@@ -83,7 +83,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .abody { display: flex; flex: 1; overflow: hidden; }
 .tpanel { width: 46%; flex-shrink: 0; background: var(--text-bg); border-right: 3px solid var(--border); overflow-y: auto; padding: 20px 22px; }
 .tpanel h2 { color: var(--brand-dk); font-size: 1.35rem; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
-.tpanel .txt { font-size: 20px; line-height: 1.75; }
+.tpanel .txt { font-size: 16px; line-height: 1.75; }
 .tpanel .txt h3 { font-size: .95rem; font-weight: bold; margin: 14px 0 5px; }
 .tpanel .txt h4 { font-style: italic; margin: 12px 0 5px; }
 .tpanel .txt p { margin-bottom: 10px; }
@@ -686,7 +686,7 @@ const QUESTIONS = [
     q:'Tick <strong>one</strong>.',
     options:['greedy','wise','scared'], correct:'wise' },
   { id:'32b',sec:2, marks:1, domain:'2d', qtype:'ext', ttype:'F',
-    type:'extended', q:'Explain your answer to question 32.', review:true,
+    type:'extended', q:'Explain why you chose <strong>{32a}</strong>.', linkedTo:'32a', review:true,
     guidance:'Award 1 mark for: reference to evidence that shows the pigeon is wise/clever/calm, e.g. "not in the slightest bit flustered", uses logic/reason rather than force, points out the eagle\'s chain, speech about sticking together and being smart. Do not accept simply repeating "wise" without explanation.' },
 ];
 
@@ -860,7 +860,14 @@ function renderSection(sec) {
       document.querySelectorAll(`.mc-opt input[name="${name}"]`).forEach(r => r.closest('.mc-opt').classList.remove('sel'));
       opt.classList.add('sel');
       opt.querySelector('input').checked = true;
-      saveAnswer(opt.querySelector('input').dataset.qid, opt.querySelector('input').value);
+      const qid = opt.querySelector('input').dataset.qid;
+      const val = opt.querySelector('input').value;
+      saveAnswer(qid, val);
+      // Update any question that links to this one
+      QUESTIONS.filter(q => q.linkedTo === qid).forEach(lq => {
+        const qtxtEl = document.querySelector(`#qb-${lq.id} .qtxt`);
+        if (qtxtEl) qtxtEl.innerHTML = lq.q.replace(/\{[^}]+\}/g, `<em>${val}</em>`);
+      });
     });
   });
 
@@ -942,15 +949,23 @@ function renderQuestion(q) {
     inputHtml = `<textarea class="ans-ext" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)"></textarea>`;
   }
 
+  // Resolve {linkedId} placeholders using saved answers
+  let qText = q.q;
+  if (q.linkedTo) {
+    const linkedAnswer = (answers[q.linkedTo] || '').trim();
+    const display = linkedAnswer || '___';
+    qText = qText.replace(/\{[^}]+\}/g, `<em>${display}</em>`);
+  }
+
   // Add spelling note for find & copy questions
-  const qTextLower = q.q.toLowerCase();
+  const qTextLower = qText.toLowerCase();
   const spellingNote = (qTextLower.includes('find') && qTextLower.includes('copy'))
     ? `<p class="spelling-note">📋 Copy carefully — spelling counts</p>` : '';
 
   return `<div class="qblock" id="qb-${id}">
     <div class="qnum">${id}.</div>
     ${promptHtml}
-    <div class="qtxt">${q.q}</div>
+    <div class="qtxt">${qText}</div>
     ${spellingNote}
     <div class="qmarks">${marksLabel}</div>
     ${inputHtml}

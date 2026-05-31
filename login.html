@@ -46,13 +46,27 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Letter filter bar */
+#letter-bar {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  justify-content: center; margin-bottom: 14px;
+}
+.letter-btn {
+  width: 34px; height: 34px; border: 2px solid #ddd; border-radius: 8px;
+  background: #f5f5f5; font-size: 14px; font-weight: 800;
+  font-family: 'Nunito', sans-serif; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .12s; color: #555;
+}
+.letter-btn:hover { border-color: var(--brand); background: #e8f5fd; color: var(--brand); }
+.letter-btn.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+.letter-btn.disabled { opacity: .25; pointer-events: none; }
+
 /* Name grid */
 #name-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   gap: 10px;
-  max-height: 380px;
-  overflow-y: auto;
   padding: 4px;
 }
 .name-btn {
@@ -110,6 +124,7 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
   <!-- Name grid (shown when loaded) -->
   <div id="name-section" style="display:none">
     <p class="card-heading">Tap your name to begin</p>
+    <div id="letter-bar"></div>
     <div id="name-grid"></div>
     <p style="text-align:center;margin-top:14px;font-size:13px;color:#aaa;">
       Can't find your name?
@@ -172,21 +187,54 @@ let groupsData = null; // { groups: [...], pupils: [...] }
   document.body.appendChild(script);
 })();
 
+let allPupils = [];
+let activeLetter = '';
+
 function renderNameGrid(pupils) {
   document.getElementById('loading-msg').style.display = 'none';
   document.getElementById('name-section').style.display = 'block';
 
-  const grid = document.getElementById('name-grid');
-  const sorted = [...pupils].sort((a,b) => a.name.localeCompare(b.name));
-  grid.innerHTML = sorted.map(p =>
-    `<button class="name-btn" data-name="${p.name.replace(/"/g,'&quot;')}" data-group="${(p.group||'').replace(/"/g,'&quot;')}">${p.name}</button>`
+  allPupils = [...pupils].sort((a,b) => a.name.localeCompare(b.name));
+
+  // Build letter bar — only letters that exist
+  const letters = [...new Set(allPupils.map(p => p.name[0].toUpperCase()))].sort();
+  const bar = document.getElementById('letter-bar');
+  bar.innerHTML = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(l =>
+    `<button class="letter-btn${letters.includes(l) ? '' : ' disabled'}" data-letter="${l}">${l}</button>`
   ).join('');
 
-  grid.addEventListener('click', function(e) {
+  // Default to first available letter
+  activeLetter = letters[0] || '';
+  renderFilteredGrid();
+
+  bar.addEventListener('click', function(e) {
+    const btn = e.target.closest('.letter-btn');
+    if (!btn || btn.classList.contains('disabled')) return;
+    activeLetter = btn.dataset.letter;
+    document.querySelectorAll('.letter-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === activeLetter));
+    renderFilteredGrid();
+  });
+
+  document.getElementById('name-grid').addEventListener('click', function(e) {
     const btn = e.target.closest('.name-btn');
     if (!btn) return;
     selectPupil(btn.dataset.name, btn.dataset.group);
   });
+}
+
+function renderFilteredGrid() {
+  // Highlight active letter button
+  document.querySelectorAll('.letter-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.letter === activeLetter)
+  );
+
+  const filtered = activeLetter
+    ? allPupils.filter(p => p.name[0].toUpperCase() === activeLetter)
+    : allPupils;
+
+  document.getElementById('name-grid').innerHTML = filtered.map(p =>
+    `<button class="name-btn" data-name="${p.name.replace(/"/g,'&quot;')}" data-group="${(p.group||'').replace(/"/g,'&quot;')}">${p.name}</button>`
+  ).join('');
 }
 
 function selectPupil(name, groupId) {

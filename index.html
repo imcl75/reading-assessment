@@ -738,8 +738,13 @@ let timeTaken = '';
 function renderNameGrid(names) {
   document.getElementById('name-loading').style.display = 'none';
   const grid = document.getElementById('name-grid');
+  // Use data-name to avoid any quote-escaping issues in onclick
   grid.innerHTML = names.map(n =>
-    `<button class="name-btn" onclick="selectName(this,'${n.replace(/'/g,"\\'")}'">${n}</button>`
+    `<button class="name-btn" data-name="${n.replace(/"/g,'&quot;')}" onclick="selectName(this,this.dataset.name)">${n}</button>`
+  ).join('') +
+  `<button class="name-btn name-btn-other" onclick="document.getElementById('name-fallback').style.display='block'">My name isn't here</button>`;
+  grid.style.display = 'grid';
+}'">${n}</button>`
   ).join('') +
   `<button class="name-btn name-btn-other" onclick="document.getElementById('name-fallback').style.display='block'">My name isn't here</button>`;
   grid.style.display = 'grid';

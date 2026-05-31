@@ -35,7 +35,7 @@
   .text-option { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 2px solid #ddd; border-radius: 12px; cursor: pointer; transition: border-color .15s, background .15s; }
   .text-option:hover { border-color: var(--brand); background: #f0f9ff; }
   .text-option input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--brand); cursor: pointer; flex-shrink: 0; }
-  .text-option label { font-size: 1rem; font-weight: 600; cursor: pointer; flex: 1; }
+  .text-label { font-size: 1rem; font-weight: 600; }
   .text-option .qlabel { font-size: 12px; color: #aaa; margin-top: 2px; }
 
   /* Pupils */
@@ -95,27 +95,27 @@
     <h2>📖 Active Texts</h2>
     <p class="hint">Tick the texts children will complete today. Unticked texts will be hidden from the assessment.</p>
     <div class="text-options">
-      <div class="text-option" onclick="toggleText(0)">
+      <label class="text-option">
         <input type="checkbox" id="t0" checked>
         <div>
-          <label for="t0">🌊 Making Waves <span style="font-weight:400;color:#888;">(Non-fiction)</span></label>
+          <div class="text-label">🌊 Making Waves <span style="font-weight:400;color:#888;">(Non-fiction)</span></div>
           <div class="qlabel">Questions 1–13</div>
         </div>
-      </div>
-      <div class="text-option" onclick="toggleText(1)">
+      </label>
+      <label class="text-option">
         <input type="checkbox" id="t1" checked>
         <div>
-          <label for="t1">🐭 The Field Mouse <span style="font-weight:400;color:#888;">(Poetry)</span></label>
+          <div class="text-label">🐭 The Field Mouse <span style="font-weight:400;color:#888;">(Poetry)</span></div>
           <div class="qlabel">Questions 14–22</div>
         </div>
-      </div>
-      <div class="text-option" onclick="toggleText(2)">
+      </label>
+      <label class="text-option">
         <input type="checkbox" id="t2" checked>
         <div>
-          <label for="t2">🦅 Top of the Food Chain <span style="font-weight:400;color:#888;">(Fiction)</span></label>
+          <div class="text-label">🦅 Top of the Food Chain <span style="font-weight:400;color:#888;">(Fiction)</span></div>
           <div class="qlabel">Questions 23–32</div>
         </div>
-      </div>
+      </label>
     </div>
   </div>
 
@@ -150,6 +150,13 @@ function pinDel() {
   pinEntry = pinEntry.slice(0, -1);
   document.getElementById('pin-error').textContent = '';
 }
+document.addEventListener('keydown', function(e) {
+  const pinScreen = document.getElementById('pin-screen');
+  if (pinScreen.style.display === 'none') return;
+  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+  else if (e.key === 'Backspace') pinDel();
+});
+
 function checkPin() {
   if (pinEntry === CORRECT_PIN) {
     document.getElementById('pin-screen').style.display = 'none';
@@ -174,12 +181,6 @@ function jsonpFetch(url, timeout = 10000) {
     script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
     document.body.appendChild(script);
   });
-}
-
-// ── Toggle text checkbox ──────────────────────────────
-function toggleText(idx) {
-  const cb = document.getElementById('t' + idx);
-  cb.checked = !cb.checked;
 }
 
 // ── Load existing config ──────────────────────────────

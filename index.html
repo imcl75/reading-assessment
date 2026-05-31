@@ -412,7 +412,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 // ======================================================
 // CONFIG — paste your Apps Script Web App URL here after deploying backend.gs
 // ======================================================
-const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbzmbFldm-vWAV34Bws4oRd6qt0ywhCYdOOU_kZnuLIKikoyAr_j9LR2okZUmytgKOvrxA/exec';
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
 
 // ======================================================
 // TEXTS
@@ -718,7 +718,7 @@ let timeTaken = '';
   if (!BACKEND_URL) { showNameFallback(); return; }
   const cb = 'config_cb_' + Date.now();
   const script = document.createElement('script');
-  const timer = setTimeout(() => { showNameFallback(); }, 8000);
+  const timer = setTimeout(() => { showNameFallback(); }, 15000);
   window[cb] = function(config) {
     clearTimeout(timer);
     delete window[cb];

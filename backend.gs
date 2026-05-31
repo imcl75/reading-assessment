@@ -107,7 +107,7 @@ function doGet(e) {
     const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
     result = savePupils(ss, names);
   } else if (action === 'getconfig') {
-    result = getConfig();
+    result = getConfig(ss);
   } else if (action === 'saveconfig') {
     const texts = (e.parameter.texts || '0,1,2').split(',').map(Number);
     const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
@@ -597,15 +597,18 @@ Respond with ONLY a JSON object, nothing else:
 // ======================================================
 // CONFIG (active texts + pupils, stored in Script Properties)
 // ======================================================
-function getConfig() {
+function getConfig(ss) {
   const props = PropertiesService.getScriptProperties();
   const raw = props.getProperty('ASSESSMENT_CONFIG');
-  if (!raw) return { selectedTexts: [0,1,2], pupils: [] };
-  try {
-    return JSON.parse(raw);
-  } catch(e) {
-    return { selectedTexts: [0,1,2], pupils: [] };
+  let config = { selectedTexts: [0,1,2], pupils: [] };
+  if (raw) {
+    try { config = JSON.parse(raw); } catch(e) {}
   }
+  // Fall back to Pupils sheet if config has no names yet
+  if (!config.pupils || config.pupils.length === 0) {
+    config.pupils = ss ? getPupils(ss) : [];
+  }
+  return config;
 }
 
 function saveConfig(texts, names, ss) {

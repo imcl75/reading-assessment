@@ -114,6 +114,10 @@ function doGet(e) {
     const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
     const assessment = (e && e.parameter && e.parameter.assessment) || '';
     result = saveConfig(texts, names, ss, assessment);
+  } else if (action === 'getgroups') {
+    result = getGroups(ss);
+  } else if (action === 'savegroups') {
+    result = saveGroups(e, ss);
   } else {
     result = { error: 'unknown action' };
   }
@@ -599,9 +603,58 @@ Respond with ONLY a JSON object, nothing else:
 // ======================================================
 // CONFIG (active texts + pupils, stored in Script Properties)
 // ======================================================
+function getGroups(ss) {
+  const raw = PropertiesService.getScriptProperties().getProperty('ASSESSMENT_CONFIG_GROUPS');
+  if (!raw) return { groups: [], pupils: [] };
+  try { return JSON.parse(raw); } catch(e) { return { groups: [], pupils: [] }; }
+}
+
+function saveGroups(e, ss) {
+  const groupsJson = e.parameter.groups || '[]';
+  const pupilsJson = e.parameter.pupils || '[]';
+  let groups, pupils;
+  try { groups = JSON.parse(groupsJson); } catch(x) { groups = []; }
+  try { pupils = JSON.parse(pupilsJson); } catch(x) { pupils = []; }
+
+  const config = { groups: groups, pupils: pupils };
+  PropertiesService.getScriptProperties().setProperty('ASSESSMENT_CONFIG_GROUPS', JSON.stringify(config));
+
+  // Update legacy per-assessment config keys for backward compat
+  const byAssessment = {};
+  groups.forEach(function(g) {
+    if (!byAssessment[g.assessment]) byAssessment[g.assessment] = g.texts;
+  });
+
+  const props = PropertiesService.getScriptProperties();
+  const allNames = pupils.map(function(p) { return p.name; });
+
+  if (byAssessment.summer) {
+    const existing = JSON.parse(props.getProperty('ASSESSMENT_CONFIG') || '{}');
+    existing.selectedTexts = byAssessment.summer;
+    existing.pupils = allNames;
+    props.setProperty('ASSESSMENT_CONFIG', JSON.stringify(existing));
+  }
+  if (byAssessment.autumn) {
+    const existing = JSON.parse(props.getProperty('ASSESSMENT_CONFIG_AUTUMN') || '{}');
+    existing.selectedTexts = byAssessment.autumn;
+    existing.pupils = allNames;
+    props.setProperty('ASSESSMENT_CONFIG_AUTUMN', JSON.stringify(existing));
+  }
+  if (byAssessment.ks1) {
+    const existing = JSON.parse(props.getProperty('ASSESSMENT_CONFIG_KS1') || '{}');
+    existing.selectedTexts = byAssessment.ks1;
+    existing.pupils = allNames;
+    props.setProperty('ASSESSMENT_CONFIG_KS1', JSON.stringify(existing));
+  }
+
+  return { ok: true, groupCount: groups.length, pupilCount: pupils.length };
+}
+
 function getConfig(ss, assessment) {
   const props = PropertiesService.getScriptProperties();
-  const configKey = assessment === 'autumn' ? 'ASSESSMENT_CONFIG_AUTUMN' : 'ASSESSMENT_CONFIG';
+  const configKey = assessment === 'autumn' ? 'ASSESSMENT_CONFIG_AUTUMN'
+                  : assessment === 'ks1'    ? 'ASSESSMENT_CONFIG_KS1'
+                  : 'ASSESSMENT_CONFIG';
   const raw = props.getProperty(configKey);
   let config = { selectedTexts: [0,1,2], pupils: [] };
   if (raw) {

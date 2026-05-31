@@ -760,6 +760,15 @@ let timeTaken = '';
 
 // Fetch pupil list from backend, fall back to text input gracefully
 (function loadConfig() {
+  // Preload from login.html — silently route without showing name picker
+  const preload = JSON.parse(localStorage.getItem('ra_preload') || 'null');
+  if (preload && preload.assessment === 'autumn') {
+    localStorage.removeItem('ra_preload');
+    pupilName = preload.name;
+    applyTextConfig(Array.isArray(preload.texts) ? preload.texts : [0,1,2]);
+    startInstructions();
+    return;
+  }
   if (!BACKEND_URL) { showNameFallback(); return; }
   const cb = 'config_cb_' + Date.now();
   const script = document.createElement('script');

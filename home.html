@@ -53,7 +53,20 @@
     margin-top: 5px; display: inline-block; letter-spacing: .3px;
   }
 
-  .footer { margin-top: 36px; font-size: 12px; color: #8aacbe; text-align: center; }
+  /* Group status section */
+  #group-status {
+    max-width: 440px; width: 100%;
+    margin-top: 20px;
+    font-size: 12px; color: #8aacbe;
+    line-height: 1.7;
+    text-align: left;
+  }
+  #group-status .gs-title {
+    font-weight: 700; color: #a0b8c8; text-transform: uppercase;
+    letter-spacing: .5px; font-size: 10px; margin-bottom: 4px;
+  }
+
+  .footer { margin-top: 24px; font-size: 12px; color: #8aacbe; text-align: center; }
 </style>
 </head>
 <body>
@@ -64,22 +77,12 @@
 
 <div class="cards">
 
-  <!-- Pupil — Summer -->
-  <a class="card pupil" href="index.html">
-    <div class="card-icon">☀️</div>
+  <!-- Pupil — unified login -->
+  <a class="card pupil" href="login.html">
+    <div class="card-icon">📖</div>
     <div class="card-body">
-      <div class="card-title">Start Assessment — Summer</div>
-      <div class="card-desc">Making Waves · The Field Mouse · Top of the Food Chain</div>
-    </div>
-    <div class="card-arrow">›</div>
-  </a>
-
-  <!-- Pupil — Autumn -->
-  <a class="card pupil" href="autumn/index.html" style="background:linear-gradient(135deg,#e07b00,#b85e00)">
-    <div class="card-icon">🍂</div>
-    <div class="card-body">
-      <div class="card-title">Start Assessment — Autumn</div>
-      <div class="card-desc">Taking to the Stage · Lead On · The Russian Figurine</div>
+      <div class="card-title">Start Assessment →</div>
+      <div class="card-desc">Tap here to find your name and begin</div>
     </div>
     <div class="card-arrow">›</div>
   </a>
@@ -89,7 +92,7 @@
     <div class="card-icon">⚙️</div>
     <div class="card-body">
       <div class="card-title">Setup</div>
-      <div class="card-desc">Select the term, choose active texts and manage the class pupil list</div>
+      <div class="card-desc">Manage groups, active texts and the class pupil list</div>
       <span class="pin-badge">🔒 PIN protected</span>
     </div>
     <div class="card-arrow">›</div>
@@ -108,7 +111,60 @@
 
 </div>
 
+<!-- Teacher-only group status (subtle, loads silently) -->
+<div id="group-status" style="display:none">
+  <div class="gs-title">Active groups</div>
+  <div id="group-status-content"></div>
+</div>
+
 <p class="footer">Wallscourt Farm Academy · Cabot Learning Federation</p>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+
+const TEXT_ICONS = {
+  summer: ['🌊 Making Waves','🐭 The Field Mouse','🦅 Top of the Food Chain'],
+  autumn: ['📖 Taking to the Stage','🐕 Lead On','🪆 The Russian Figurine'],
+  ks1:    ['🍦 The History of Ice Cream','🦕 A New Room for William']
+};
+
+// Load group status silently — show if it works, hide if not
+(function loadGroupStatus() {
+  const cb = 'gs_cb_' + Date.now();
+  const script = document.createElement('script');
+  const timer = setTimeout(() => {
+    delete window[cb];
+    if (script.parentNode) document.body.removeChild(script);
+  }, 8000);
+
+  window[cb] = function(data) {
+    clearTimeout(timer);
+    delete window[cb];
+    if (script.parentNode) document.body.removeChild(script);
+    if (!data || !Array.isArray(data.groups) || !data.groups.length) return;
+
+    const lines = data.groups.map(g => {
+      const texts = (g.texts || []).map(i => {
+        const list = TEXT_ICONS[g.assessment] || [];
+        return list[i] || ('Text ' + i);
+      }).join(' · ');
+      return `<div><strong>${g.name} group:</strong> ${texts}</div>`;
+    }).join('');
+
+    document.getElementById('group-status-content').innerHTML = lines;
+    document.getElementById('group-status').style.display = 'block';
+  };
+
+  script.onerror = function() {
+    clearTimeout(timer);
+    delete window[cb];
+    if (script.parentNode) document.body.removeChild(script);
+  };
+
+  script.src = BACKEND_URL + '?action=getgroups&callback=' + cb;
+  document.body.appendChild(script);
+})();
+</script>
 
 </body>
 </html>

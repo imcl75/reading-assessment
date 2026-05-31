@@ -24,36 +24,70 @@
   #pin-error { color: #e53935; font-size: 14px; min-height: 20px; margin-top: 4px; }
 
   /* Setup panel */
-  #setup-panel { display: none; width: 100%; max-width: 620px; }
-
-  /* Assessment tabs */
-  .assess-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-  .assess-tab {
-    flex: 1; min-width: 140px; padding: 12px 16px; border: 2px solid #ddd; border-radius: 12px;
-    background: #fff; font-family: inherit; font-size: 0.95rem; font-weight: 700;
-    cursor: pointer; text-align: center; transition: all .15s; color: #555;
-  }
-  .assess-tab:hover { border-color: var(--brand); color: var(--brand); }
-  .assess-tab.active { border-color: var(--brand); background: var(--brand); color: #fff; }
-  .assess-tab .tab-icon { font-size: 1.3rem; display: block; margin-bottom: 3px; }
-  .assess-tab .tab-sub { font-size: 11px; font-weight: 600; opacity: .75; }
+  #setup-panel { display: none; width: 100%; max-width: 680px; }
 
   /* Cards */
   .card { background: #fff; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
   .card h2 { color: var(--brand); font-size: 1.1rem; margin-bottom: 6px; }
   .card .hint { font-size: 13px; color: #888; margin-bottom: 16px; line-height: 1.5; }
 
-  /* Text options */
-  .text-options { display: flex; flex-direction: column; gap: 10px; }
-  .text-option { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 2px solid #ddd; border-radius: 12px; cursor: pointer; transition: border-color .15s, background .15s; }
-  .text-option:hover { border-color: var(--brand); background: #f0f9ff; }
-  .text-option input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--brand); cursor: pointer; flex-shrink: 0; }
-  .text-label { font-size: 1rem; font-weight: 700; }
-  .text-option .qlabel { font-size: 12px; color: #aaa; margin-top: 2px; }
+  /* Group rows */
+  .group-list { display: flex; flex-direction: column; gap: 16px; }
+  .group-row {
+    border: 2px solid #e5e7eb; border-radius: 12px; padding: 16px;
+    background: #fafafa; position: relative;
+  }
+  .group-row-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .group-name-inp {
+    flex: 1; padding: 9px 12px; font-size: 15px; font-family: inherit;
+    border: 2px solid #ddd; border-radius: 8px; outline: none; font-weight: 700;
+  }
+  .group-name-inp:focus { border-color: var(--brand); }
+  .group-assess-sel {
+    padding: 9px 12px; font-size: 14px; font-family: inherit;
+    border: 2px solid #ddd; border-radius: 8px; outline: none;
+    background: #fff; cursor: pointer;
+  }
+  .group-assess-sel:focus { border-color: var(--brand); }
+  .del-btn {
+    background: none; border: 2px solid #f5c2c2; color: #c0392b;
+    border-radius: 8px; padding: 6px 12px; cursor: pointer;
+    font-size: 14px; font-family: inherit; font-weight: 700; flex-shrink: 0;
+  }
+  .del-btn:hover { background: #fff5f5; }
+  .text-checkboxes { display: flex; flex-direction: column; gap: 8px; }
+  .text-cb-row { display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; padding: 4px 0; }
+  .text-cb-row input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--brand); cursor: pointer; }
 
-  /* Pupils */
-  textarea { width: 100%; height: 200px; padding: 12px 14px; border: 2px solid #ddd; border-radius: 10px; font-size: 15px; font-family: inherit; resize: vertical; outline: none; }
+  .add-group-btn {
+    border: 2px dashed #c0d8e8; background: #f0f8fd; color: var(--brand);
+    border-radius: 12px; padding: 14px; width: 100%; font-size: 15px;
+    font-family: inherit; font-weight: 700; cursor: pointer; margin-top: 4px;
+    transition: background .15s, border-color .15s;
+  }
+  .add-group-btn:hover { background: #e0f0fa; border-color: var(--brand); }
+
+  /* Pupil assignment */
+  textarea { width: 100%; height: 180px; padding: 12px 14px; border: 2px solid #ddd; border-radius: 10px; font-size: 15px; font-family: inherit; resize: vertical; outline: none; }
   textarea:focus { border-color: var(--brand); }
+  .load-names-btn {
+    margin-top: 10px; padding: 11px 22px; border: none; border-radius: 8px;
+    background: #e8f5fd; color: var(--brand); font-size: 14px; font-weight: 700;
+    font-family: inherit; cursor: pointer; border: 2px solid #b3dff5;
+    transition: background .15s;
+  }
+  .load-names-btn:hover { background: #cce9f8; }
+
+  /* Pupil rows */
+  #pupil-assign-rows { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+  .pupil-assign-row { display: flex; align-items: center; gap: 10px; }
+  .pupil-assign-name { flex: 1; font-size: 15px; font-weight: 600; color: #333; }
+  .pupil-group-sel {
+    padding: 7px 10px; font-size: 14px; border: 2px solid #ddd;
+    border-radius: 8px; outline: none; font-family: inherit;
+    background: #fff; cursor: pointer; min-width: 130px;
+  }
+  .pupil-group-sel:focus { border-color: var(--brand); }
 
   /* Buttons */
   .btn { padding: 13px 28px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .15s; }
@@ -99,28 +133,24 @@
 <!-- Setup panel -->
 <div id="setup-panel">
 
-  <!-- Assessment selector -->
+  <!-- Groups section -->
   <div class="card">
-    <h2>📋 Which Assessment?</h2>
-    <p class="hint">Select the term you are setting up. Each term has its own active texts and saves independently.</p>
-    <div class="assess-tabs" id="assess-tabs"></div>
+    <h2>👥 Groups</h2>
+    <p class="hint">Each group can be assigned a different assessment and set of texts. Children in that group will automatically be routed to the right assessment when they log in via the unified login page.</p>
+    <div class="group-list" id="group-list"></div>
+    <button class="add-group-btn" onclick="addGroup()" style="margin-top:12px">+ Add Group</button>
   </div>
 
-  <!-- Text selection -->
+  <!-- Pupil assignments -->
   <div class="card">
-    <h2>📖 Active Texts</h2>
-    <p class="hint">Tick the texts children will complete today. Unticked texts will be hidden from the assessment.</p>
-    <div class="text-options" id="text-options"></div>
+    <h2>📋 Pupil List &amp; Group Assignments</h2>
+    <p class="hint">Paste all pupil names below (one per line), then click <strong>Load Names</strong> to assign each pupil to a group.</p>
+    <textarea id="pupil-textarea" placeholder="Alice&#10;Bob&#10;Charlie&#10;..."></textarea>
+    <button class="load-names-btn" onclick="loadNames()">Load Names →</button>
+    <div id="pupil-assign-rows"></div>
   </div>
 
-  <!-- Pupil list -->
-  <div class="card">
-    <h2>👥 Class Pupil List</h2>
-    <p class="hint">One name per line. Shared across all assessments — update here once and it applies everywhere. Children tap their name to log in.</p>
-    <textarea id="pupil-list" placeholder="Alice&#10;Bob&#10;Charlie&#10;..."></textarea>
-  </div>
-
-  <button class="btn btn-primary" onclick="saveConfig()">Save & Activate →</button>
+  <button class="btn btn-primary" onclick="saveConfig()">Save &amp; Activate →</button>
   <p class="msg" id="save-msg"></p>
   <p class="admin-link">Go to <a href="admin.html">Admin / Marking →</a></p>
 </div>
@@ -129,31 +159,17 @@
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
 const CORRECT_PIN = '2025';
 
-// ── Assessment definitions ────────────────────────────
-const ASSESSMENTS = [
-  {
-    id: '',          // empty = summer (default backend key)
-    icon: '☀️',
-    label: 'Summer',
-    texts: [
-      { icon: '🌊', name: 'Making Waves',        genre: 'Non-fiction', qs: 'Questions 1–13' },
-      { icon: '🐭', name: 'The Field Mouse',      genre: 'Poetry',      qs: 'Questions 14–22' },
-      { icon: '🦅', name: 'Top of the Food Chain',genre: 'Fiction',     qs: 'Questions 23–32' },
-    ]
-  },
-  {
-    id: 'autumn',
-    icon: '🍂',
-    label: 'Autumn',
-    texts: [
-      { icon: '📖', name: 'Taking to the Stage', genre: 'Non-fiction', qs: 'Questions 1–14' },
-      { icon: '🐕', name: 'Lead On',              genre: 'Poetry',      qs: 'Questions 15–21' },
-      { icon: '🪆', name: 'The Russian Figurine', genre: 'Fiction',     qs: 'Questions 22–33' },
-    ]
-  }
-];
+const ASSESSMENTS = {
+  summer: { label: 'Summer ☀️',       texts: ['🌊 Making Waves','🐭 The Field Mouse','🦅 Top of the Food Chain'] },
+  autumn: { label: 'Autumn 🍂',       texts: ['📖 Taking to the Stage','🐕 Lead On','🪆 The Russian Figurine'] },
+  ks1:    { label: 'KS1 Year 2 🍦',   texts: ['🍦 The History of Ice Cream','🦕 A New Room for William'] }
+};
 
-let currentAssessment = ASSESSMENTS[0];
+// groups: [{id, name, assessment, texts}, ...]
+let groups = [];
+// pupils: [{name, group}, ...]
+let pupils = [];
+let groupIdCounter = 0;
 
 // ── PIN ───────────────────────────────────────────────
 let pinEntry = '';
@@ -178,49 +194,12 @@ function checkPin() {
   if (pinEntry === CORRECT_PIN) {
     document.getElementById('pin-screen').style.display = 'none';
     document.getElementById('setup-panel').style.display = 'block';
-    buildTabs();
-    selectAssessment(ASSESSMENTS[0]);
+    loadExistingConfig();
   } else {
     document.getElementById('pin-error').textContent = 'Incorrect PIN — try again';
     pinEntry = '';
     [0,1,2,3].forEach(i => document.getElementById('d'+i).classList.remove('filled'));
   }
-}
-
-// ── Build assessment tabs ─────────────────────────────
-function buildTabs() {
-  const container = document.getElementById('assess-tabs');
-  container.innerHTML = '';
-  ASSESSMENTS.forEach(a => {
-    const btn = document.createElement('button');
-    btn.className = 'assess-tab';
-    btn.dataset.id = a.id;
-    btn.innerHTML = `<span class="tab-icon">${a.icon}</span>${a.label}<div class="tab-sub">PiXL Y4 Reading</div>`;
-    btn.onclick = () => selectAssessment(a);
-    container.appendChild(btn);
-  });
-}
-
-function selectAssessment(a) {
-  currentAssessment = a;
-  // Update tabs
-  document.querySelectorAll('.assess-tab').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.id === a.id);
-  });
-  // Rebuild text checkboxes
-  const opts = document.getElementById('text-options');
-  opts.innerHTML = a.texts.map((t, i) => `
-    <label class="text-option">
-      <input type="checkbox" id="t${i}" checked>
-      <div>
-        <div class="text-label">${t.icon} ${t.name} <span style="font-weight:400;color:#888;">(${t.genre})</span></div>
-        <div class="qlabel">${t.qs}</div>
-      </div>
-    </label>
-  `).join('');
-  // Clear save message and load config
-  document.getElementById('save-msg').textContent = '';
-  loadConfig();
 }
 
 // ── JSONP helper ──────────────────────────────────────
@@ -237,21 +216,158 @@ function jsonpFetch(url, timeout = 10000) {
   });
 }
 
-// ── Load config for current assessment ───────────────
-async function loadConfig() {
-  const assessParam = currentAssessment.id ? '&assessment=' + currentAssessment.id : '';
+// ── Load existing config ──────────────────────────────
+async function loadExistingConfig() {
   try {
-    const config = await jsonpFetch(BACKEND_URL + '?action=getconfig' + assessParam);
-    const active = Array.isArray(config.selectedTexts) ? config.selectedTexts : [0,1,2];
-    currentAssessment.texts.forEach((_, i) => {
-      const el = document.getElementById('t'+i);
-      if (el) el.checked = active.includes(i);
-    });
-    const names = Array.isArray(config.pupils) ? config.pupils : [];
-    document.getElementById('pupil-list').value = names.join('\n');
+    const data = await jsonpFetch(BACKEND_URL + '?action=getgroups');
+    if (data && Array.isArray(data.groups) && data.groups.length) {
+      groups = data.groups.map((g, i) => ({ ...g, _uid: ++groupIdCounter }));
+      pupils = Array.isArray(data.pupils) ? data.pupils : [];
+    } else {
+      // Default: one group
+      groups = [{ id: 'standard', name: 'Standard', assessment: 'summer', texts: [0,1,2], _uid: ++groupIdCounter }];
+      pupils = [];
+    }
   } catch(e) {
-    // Silent — defaults (all checked) already set
+    groups = [{ id: 'standard', name: 'Standard', assessment: 'summer', texts: [0,1,2], _uid: ++groupIdCounter }];
+    pupils = [];
   }
+  renderGroups();
+  renderPupilRows();
+}
+
+// ── Render groups ─────────────────────────────────────
+function renderGroups() {
+  const container = document.getElementById('group-list');
+  container.innerHTML = '';
+  groups.forEach(g => {
+    const a = ASSESSMENTS[g.assessment] || ASSESSMENTS.summer;
+    const textChecks = a.texts.map((name, i) =>
+      `<label class="text-cb-row">
+        <input type="checkbox" ${(g.texts || []).includes(i) ? 'checked' : ''}
+          onchange="updateGroupTexts(${g._uid}, ${i}, this.checked)">
+        ${name}
+      </label>`
+    ).join('');
+
+    const assessOpts = Object.entries(ASSESSMENTS).map(([key, val]) =>
+      `<option value="${key}" ${g.assessment === key ? 'selected' : ''}>${val.label}</option>`
+    ).join('');
+
+    const row = document.createElement('div');
+    row.className = 'group-row';
+    row.id = 'group-' + g._uid;
+    row.innerHTML = `
+      <div class="group-row-header">
+        <input class="group-name-inp" type="text" value="${g.name}"
+          placeholder="Group name"
+          oninput="updateGroupName(${g._uid}, this.value)">
+        <select class="group-assess-sel" onchange="updateGroupAssessment(${g._uid}, this.value)">
+          ${assessOpts}
+        </select>
+        <button class="del-btn" onclick="deleteGroup(${g._uid})">× Remove</button>
+      </div>
+      <div class="text-checkboxes" id="texts-${g._uid}">${textChecks}</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function addGroup() {
+  const uid = ++groupIdCounter;
+  groups.push({ id: 'group' + uid, name: 'New Group', assessment: 'summer', texts: [0,1,2], _uid: uid });
+  renderGroups();
+  renderPupilRows(); // refresh dropdowns
+}
+
+function deleteGroup(uid) {
+  if (groups.length <= 1) { alert('You need at least one group.'); return; }
+  groups = groups.filter(g => g._uid !== uid);
+  // Unassign pupils from deleted group
+  const deleted = [...document.querySelectorAll('.group-row')].find(r => r.id === 'group-' + uid);
+  renderGroups();
+  renderPupilRows();
+}
+
+function updateGroupName(uid, val) {
+  const g = groups.find(g => g._uid === uid);
+  if (g) { g.name = val; g.id = val.toLowerCase().replace(/\s+/g, '_') || 'group' + uid; }
+  // Refresh pupil dropdowns labels
+  document.querySelectorAll('.pupil-group-sel').forEach(sel => {
+    [...sel.options].forEach(opt => {
+      if (parseInt(opt.dataset.uid) === uid) opt.textContent = val || '—';
+    });
+  });
+}
+
+function updateGroupAssessment(uid, assessment) {
+  const g = groups.find(g => g._uid === uid);
+  if (!g) return;
+  g.assessment = assessment;
+  g.texts = []; // reset texts to none selected
+  // Re-render just the text checkboxes for this group
+  const a = ASSESSMENTS[assessment] || ASSESSMENTS.summer;
+  const textChecks = a.texts.map((name, i) =>
+    `<label class="text-cb-row">
+      <input type="checkbox" onchange="updateGroupTexts(${uid}, ${i}, this.checked)">
+      ${name}
+    </label>`
+  ).join('');
+  const el = document.getElementById('texts-' + uid);
+  if (el) el.innerHTML = textChecks;
+}
+
+function updateGroupTexts(uid, idx, checked) {
+  const g = groups.find(g => g._uid === uid);
+  if (!g) return;
+  if (!g.texts) g.texts = [];
+  if (checked) { if (!g.texts.includes(idx)) g.texts.push(idx); }
+  else { g.texts = g.texts.filter(t => t !== idx); }
+  g.texts.sort();
+}
+
+// ── Pupil rows ────────────────────────────────────────
+function loadNames() {
+  const raw = document.getElementById('pupil-textarea').value;
+  const names = raw.split('\n').map(n => n.trim()).filter(Boolean);
+  if (!names.length) { alert('Please paste at least one name first.'); return; }
+
+  // Preserve existing group assignments where name matches
+  const existing = {};
+  pupils.forEach(p => { existing[p.name] = p.group; });
+
+  pupils = names.map(name => ({
+    name,
+    group: existing[name] || (groups[0] ? groups[0].id : '')
+  }));
+  renderPupilRows();
+}
+
+function renderPupilRows() {
+  const container = document.getElementById('pupil-assign-rows');
+  if (!pupils.length) { container.innerHTML = ''; return; }
+
+  const groupOpts = groups.map(g =>
+    `<option value="${g.id}" data-uid="${g._uid}">${g.name}</option>`
+  ).join('');
+
+  container.innerHTML = pupils.map((p, i) =>
+    `<div class="pupil-assign-row">
+      <span class="pupil-assign-name">${p.name}</span>
+      <select class="pupil-group-sel" data-idx="${i}" onchange="updatePupilGroup(${i}, this.value)">
+        ${groups.map(g => `<option value="${g.id}" data-uid="${g._uid}" ${p.group === g.id ? 'selected' : ''}>${g.name}</option>`).join('')}
+      </select>
+    </div>`
+  ).join('');
+
+  // Also populate textarea if it's empty
+  if (!document.getElementById('pupil-textarea').value.trim()) {
+    document.getElementById('pupil-textarea').value = pupils.map(p => p.name).join('\n');
+  }
+}
+
+function updatePupilGroup(idx, groupId) {
+  if (pupils[idx]) pupils[idx].group = groupId;
 }
 
 // ── Save config ───────────────────────────────────────
@@ -259,24 +375,38 @@ async function saveConfig() {
   const msg = document.getElementById('save-msg');
   msg.textContent = 'Saving…'; msg.className = 'msg';
 
-  const selectedTexts = currentAssessment.texts.map((_, i) => i).filter(i => document.getElementById('t'+i).checked);
-  if (!selectedTexts.length) {
-    msg.textContent = 'Please select at least one text.';
-    msg.className = 'msg err';
-    return;
+  // Validate: each group must have at least one text
+  for (const g of groups) {
+    if (!g.texts || !g.texts.length) {
+      msg.textContent = `Please select at least one text for the "${g.name}" group.`;
+      msg.className = 'msg err';
+      return;
+    }
   }
 
-  const names = document.getElementById('pupil-list').value
+  // Collect any names in textarea that haven't been loaded yet
+  const rawNames = document.getElementById('pupil-textarea').value
     .split('\n').map(n => n.trim()).filter(Boolean);
 
+  // If pupil-assign-rows is empty but textarea has names, auto-assign to first group
+  if (!pupils.length && rawNames.length) {
+    pupils = rawNames.map(name => ({ name, group: groups[0]?.id || '' }));
+  }
+
+  // Build clean groups (without _uid)
+  const cleanGroups = groups.map(g => ({
+    id: g.id, name: g.name, assessment: g.assessment, texts: g.texts
+  }));
+
   try {
-    const assessParam = currentAssessment.id ? '&assessment=' + currentAssessment.id : '';
-    const url = BACKEND_URL + '?action=saveconfig' + assessParam
-      + '&texts=' + encodeURIComponent(selectedTexts.join(','))
-      + '&names=' + encodeURIComponent(names.join('\n'));
+    const url = BACKEND_URL
+      + '?action=savegroups'
+      + '&groups=' + encodeURIComponent(JSON.stringify(cleanGroups))
+      + '&pupils=' + encodeURIComponent(JSON.stringify(pupils));
+
     const result = await jsonpFetch(url);
     if (result && result.ok) {
-      msg.textContent = `✓ Saved — ${selectedTexts.length} text(s) active for ${currentAssessment.label}, ${result.pupilCount} pupils`;
+      msg.textContent = `✓ Saved — ${result.groupCount} group(s), ${result.pupilCount} pupils`;
       msg.className = 'msg ok';
     } else { throw new Error(); }
   } catch(e) {

@@ -107,11 +107,13 @@ function doGet(e) {
     const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
     result = savePupils(ss, names);
   } else if (action === 'getconfig') {
-    result = getConfig(ss);
+    const assessment = (e && e.parameter && e.parameter.assessment) || '';
+    result = getConfig(ss, assessment);
   } else if (action === 'saveconfig') {
     const texts = (e.parameter.texts || '0,1,2').split(',').map(Number);
     const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
-    result = saveConfig(texts, names, ss);
+    const assessment = (e && e.parameter && e.parameter.assessment) || '';
+    result = saveConfig(texts, names, ss, assessment);
   } else {
     result = { error: 'unknown action' };
   }
@@ -597,9 +599,10 @@ Respond with ONLY a JSON object, nothing else:
 // ======================================================
 // CONFIG (active texts + pupils, stored in Script Properties)
 // ======================================================
-function getConfig(ss) {
+function getConfig(ss, assessment) {
   const props = PropertiesService.getScriptProperties();
-  const raw = props.getProperty('ASSESSMENT_CONFIG');
+  const configKey = assessment === 'autumn' ? 'ASSESSMENT_CONFIG_AUTUMN' : 'ASSESSMENT_CONFIG';
+  const raw = props.getProperty(configKey);
   let config = { selectedTexts: [0,1,2], pupils: [] };
   if (raw) {
     try { config = JSON.parse(raw); } catch(e) {}
@@ -611,9 +614,10 @@ function getConfig(ss) {
   return config;
 }
 
-function saveConfig(texts, names, ss) {
+function saveConfig(texts, names, ss, assessment) {
   const config = { selectedTexts: texts, pupils: names };
-  PropertiesService.getScriptProperties().setProperty('ASSESSMENT_CONFIG', JSON.stringify(config));
+  const configKey = assessment === 'autumn' ? 'ASSESSMENT_CONFIG_AUTUMN' : 'ASSESSMENT_CONFIG';
+  PropertiesService.getScriptProperties().setProperty(configKey, JSON.stringify(config));
   // Also keep the Pupils sheet in sync
   savePupils(ss, names);
   return { ok: true, selectedTexts: texts, pupilCount: names.length };

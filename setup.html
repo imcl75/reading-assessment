@@ -225,11 +225,11 @@ async function loadExistingConfig() {
       pupils = Array.isArray(data.pupils) ? data.pupils : [];
     } else {
       // Default: one group
-      groups = [{ id: 'standard', name: 'Standard', assessment: 'summer', texts: [0,1,2], _uid: ++groupIdCounter }];
+      groups = [{ id: '', name: '', assessment: 'summer', texts: [0,1,2], _uid: ++groupIdCounter }];
       pupils = [];
     }
   } catch(e) {
-    groups = [{ id: 'standard', name: 'Standard', assessment: 'summer', texts: [0,1,2], _uid: ++groupIdCounter }];
+    groups = [{ id: '', name: '', assessment: 'summer', texts: [0,1,2], _uid: ++groupIdCounter }];
     pupils = [];
   }
   renderGroups();
@@ -260,7 +260,7 @@ function renderGroups() {
     row.innerHTML = `
       <div class="group-row-header">
         <input class="group-name-inp" type="text" value="${g.name}"
-          placeholder="Group name"
+          placeholder="e.g. Year 4, Reading group 2…"
           oninput="updateGroupName(${g._uid}, this.value)">
         <select class="group-assess-sel" onchange="updateGroupAssessment(${g._uid}, this.value)">
           ${assessOpts}

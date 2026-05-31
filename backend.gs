@@ -106,6 +106,12 @@ function doGet(e) {
   } else if (action === 'savepupils') {
     const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
     result = savePupils(ss, names);
+  } else if (action === 'getconfig') {
+    result = getConfig();
+  } else if (action === 'saveconfig') {
+    const texts = (e.parameter.texts || '0,1,2').split(',').map(Number);
+    const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
+    result = saveConfig(texts, names, ss);
   } else {
     result = { error: 'unknown action' };
   }
@@ -586,4 +592,26 @@ Set confidence to 'high' if the answer clearly matches or clearly does not match
 
 Respond with ONLY a JSON object, nothing else:
 {"score": <integer 0–${rq.max}>, "max": ${rq.max}, "confidence": "high"|"medium"|"low", "reasoning": "<one clear sentence explaining your marking decision>"}`;
+}
+
+// ======================================================
+// CONFIG (active texts + pupils, stored in Script Properties)
+// ======================================================
+function getConfig() {
+  const props = PropertiesService.getScriptProperties();
+  const raw = props.getProperty('ASSESSMENT_CONFIG');
+  if (!raw) return { selectedTexts: [0,1,2], pupils: [] };
+  try {
+    return JSON.parse(raw);
+  } catch(e) {
+    return { selectedTexts: [0,1,2], pupils: [] };
+  }
+}
+
+function saveConfig(texts, names, ss) {
+  const config = { selectedTexts: texts, pupils: names };
+  PropertiesService.getScriptProperties().setProperty('ASSESSMENT_CONFIG', JSON.stringify(config));
+  // Also keep the Pupils sheet in sync
+  savePupils(ss, names);
+  return { ok: true, selectedTexts: texts, pupilCount: names.length };
 }

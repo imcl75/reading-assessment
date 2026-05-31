@@ -49,14 +49,6 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .name-btn.name-sel { border-color: var(--brand); background: var(--brand); color: #fff; font-weight: bold; }
 .name-btn-other { color: #888; font-size: 12px; border-style: dashed; grid-column: 1/-1; }
 
-.text-sel-btn {
-  padding: 10px 8px; border: 2px solid #ddd; border-radius: 10px;
-  cursor: pointer; font-size: 13px; font-family: sans-serif; background: #fafafa;
-  text-align: center; transition: all .15s; line-height: 1.3; color: #555;
-}
-.text-sel-btn:hover { border-color: var(--brand); background: #e8f5fd; }
-.text-sel-btn.sel { border-color: var(--brand); background: #cce9f8; color: #222; font-weight: bold; }
-.text-sel-btn.full { grid-column: 1/-1; }
 .btn { padding: 14px 32px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background .15s, transform .1s; font-family: sans-serif; }
 .btn:active { transform: scale(.97); }
 .btn-primary { background: var(--brand); color: #fff; width: 100%; }
@@ -296,13 +288,8 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
       </div>
     </div>
     <div class="fg" id="text-sel-wrap">
-      <label class="text-sel-label">Which text are you completing today?</label>
-      <div class="text-selector">
-        <div class="text-sel-btn full" data-sec="all" onclick="selectText(this)">📚 All three texts</div>
-        <div class="text-sel-btn" data-sec="0" onclick="selectText(this)">🌊 Making Waves</div>
-        <div class="text-sel-btn" data-sec="1" onclick="selectText(this)">🐭 The Field Mouse</div>
-        <div class="text-sel-btn" data-sec="2" onclick="selectText(this)">🦅 Top of the Food Chain</div>
-      </div>
+      <label>Today you are completing</label>
+      <div id="text-notice" style="padding:12px 16px;background:#e8f5fd;border-radius:10px;font-size:15px;font-weight:700;color:#0a6fa8;min-height:44px;">Loading…</div>
     </div>
     <button class="btn btn-primary" onclick="startInstructions()" style="margin-top:8px;">Start →</button>
   </div>
@@ -764,37 +751,11 @@ function showNameFallback() {
 }
 
 function applyTextConfig(active) {
-  // active = array of section indices the teacher has enabled, e.g. [0] or [0,2]
-  const TEXT_NAMES = ['Making Waves','The Field Mouse','Top of the Food Chain'];
-  const allBtn   = document.querySelector('.text-sel-btn[data-sec="all"]');
-  const secBtns  = document.querySelectorAll('.text-sel-btn[data-sec="0"], .text-sel-btn[data-sec="1"], .text-sel-btn[data-sec="2"]');
-
-  // Show/hide individual buttons
-  secBtns.forEach(btn => {
-    const sec = parseInt(btn.dataset.sec);
-    btn.style.display = active.includes(sec) ? '' : 'none';
-  });
-
-  // "All three texts" button: only show when all 3 are active
-  if (allBtn) allBtn.style.display = active.length === 3 ? '' : 'none';
-
-  // If only one text is active, auto-select it and hide the whole picker row
-  if (active.length === 1) {
-    const onlyBtn = document.querySelector(`.text-sel-btn[data-sec="${active[0]}"]`);
-    if (onlyBtn) { selectText(onlyBtn); }
-    const label = document.querySelector('.text-sel-label');
-    if (label) label.style.display = 'none'; // hide "Which text?" label
-    secBtns.forEach(b => b.style.display = 'none'); // hide all buttons — auto-selected
-    if (allBtn) allBtn.style.display = 'none';
-    // Show a quiet confirmation instead
-    const wrap = document.getElementById('text-sel-wrap');
-    if (wrap) {
-      const notice = document.createElement('p');
-      notice.style.cssText = 'font-size:14px;color:#888;margin:0;font-style:italic;';
-      notice.textContent = `Today you are completing: ${TEXT_NAMES[active[0]]}`;
-      wrap.appendChild(notice);
-    }
-  }
+  const TEXT_NAMES = ['🌊 Making Waves','🐭 The Field Mouse','🦅 Top of the Food Chain'];
+  selectedSections = active.length ? active : [0,1,2];
+  const names = selectedSections.map(i => TEXT_NAMES[i]);
+  const notice = document.getElementById('text-notice');
+  if (notice) notice.textContent = names.join(' · ');
 }
 
 function selectName(btn, name) {
@@ -806,11 +767,6 @@ function selectName(btn, name) {
   disp.style.display = 'block';
 }
 
-function selectText(el) {
-  document.querySelectorAll('.text-sel-btn').forEach(b => b.classList.remove('sel'));
-  el.classList.add('sel');
-}
-
 function startInstructions() {
   // Name from grid selection OR fallback text input
   if (!pupilName) {
@@ -818,10 +774,6 @@ function startInstructions() {
     if (typed) pupilName = typed;
   }
   if (!pupilName) { alert('Please tap your name to select it.'); return; }
-  const sel = document.querySelector('.text-sel-btn.sel');
-  if (!sel) { alert('Please choose which text you are completing today.'); return; }
-  const v = sel.dataset.sec;
-  selectedSections = v === 'all' ? [0,1,2] : [parseInt(v)];
   show('s-instructions');
 }
 
@@ -1841,7 +1793,6 @@ function restartApp() {
   answers = {}; reviewScores = {}; markResults = [];
   startTime = null; timeTaken = '';
   document.getElementById('inp-name').value = '';
-  document.querySelectorAll('.text-sel-btn').forEach(b => b.classList.remove('sel'));
   show('s-login');
 }
 </script>

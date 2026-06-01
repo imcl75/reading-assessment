@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- login.html — unified pupil login, routes silently to correct assessment -->
+<!-- 3in3/login.html — Name picker for the 3 in 3 intervention -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Reading Assessment — Who are you?</title>
+<title>3 in 3 — Year 6 — Who are you?</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root { --brand: #1798d3; --brand-dk: #0a6fa8; }
@@ -15,7 +15,6 @@ html, body {
   display: flex; flex-direction: column; align-items: center;
   justify-content: flex-start; padding: 28px 16px 48px;
 }
-
 .logo { font-size: 3rem; margin-bottom: 6px; text-align: center; }
 h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: center; margin-bottom: 3px; }
 .sub { color: #5a8fa8; font-size: 0.95rem; text-align: center; margin-bottom: 28px; }
@@ -25,32 +24,20 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
   max-width: 580px; width: 100%;
   box-shadow: 0 6px 32px rgba(23,152,211,.13);
 }
+.card-heading { font-size: 1.1rem; font-weight: 800; color: #222; margin-bottom: 16px; text-align: center; }
 
-.card-heading {
-  font-size: 1.1rem; font-weight: 800; color: #222;
-  margin-bottom: 16px; text-align: center;
-}
-
-/* Loading */
 #loading-msg {
-  text-align: center; padding: 36px 16px;
-  color: #888; font-size: 15px;
+  text-align: center; padding: 36px 16px; color: #888; font-size: 15px;
   display: flex; flex-direction: column; align-items: center; gap: 14px;
 }
 .spinner {
-  width: 36px; height: 36px;
-  border: 4px solid #ddd;
-  border-top-color: var(--brand);
-  border-radius: 50%;
+  width: 36px; height: 36px; border: 4px solid #ddd;
+  border-top-color: var(--brand); border-radius: 50%;
   animation: spin .7s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Letter filter bar */
-#letter-bar {
-  display: flex; flex-wrap: wrap; gap: 5px;
-  justify-content: center; margin-bottom: 14px;
-}
+#letter-bar { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 14px; }
 .letter-btn {
   width: 34px; height: 34px; border: 2px solid #ddd; border-radius: 8px;
   background: #f5f5f5; font-size: 14px; font-weight: 800;
@@ -62,12 +49,9 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
 .letter-btn.active { background: var(--brand); border-color: var(--brand); color: #fff; }
 .letter-btn.disabled { opacity: .25; pointer-events: none; }
 
-/* Name grid */
 #name-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 10px;
-  padding: 4px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px; padding: 4px;
 }
 .name-btn {
   padding: 14px 10px; border: 2px solid #ddd; border-radius: 12px;
@@ -78,14 +62,9 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
 .name-btn:hover { border-color: var(--brand); background: #e8f5fd; color: var(--brand); }
 .name-btn:active { transform: scale(.96); }
 
-/* Fallback */
 #fallback-section { display: none; }
-.fallback-msg {
-  font-size: 14px; color: #888; margin-bottom: 10px; text-align: center;
-}
-.inp-wrap {
-  display: flex; gap: 10px; margin-top: 12px;
-}
+.fallback-msg { font-size: 14px; color: #888; margin-bottom: 10px; text-align: center; }
+.inp-wrap { display: flex; gap: 10px; margin-top: 12px; }
 .inp-name {
   flex: 1; padding: 13px 14px; font-size: 16px;
   border: 2px solid #ddd; border-radius: 10px; outline: none;
@@ -99,29 +78,20 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
   transition: background .15s;
 }
 .btn:hover { background: var(--brand-dk); }
-.btn:active { transform: scale(.97); }
-
-.error-msg {
-  margin-top: 14px; padding: 10px 14px;
-  background: #fff3cd; border-radius: 8px;
-  font-size: 14px; color: #856404; text-align: center; display: none;
-}
 </style>
 </head>
 <body>
 
-<div class="logo">📚</div>
-<h1>Reading Assessment</h1>
+<div class="logo">📖</div>
+<h1>3 in 3 Reading</h1>
 <p class="sub">Wallscourt Farm Academy</p>
 
 <div class="card">
-  <!-- Loading state -->
   <div id="loading-msg">
     <div class="spinner"></div>
-    <span>Loading class list…</span>
+    <span>Loading…</span>
   </div>
 
-  <!-- Name grid (shown when loaded) -->
   <div id="name-section" style="display:none">
     <p class="card-heading">Tap your name to begin</p>
     <div id="letter-bar"></div>
@@ -132,129 +102,106 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
     </p>
   </div>
 
-  <!-- Fallback (type name) -->
   <div id="fallback-section">
-    <p class="card-heading">Type your first name</p>
-    <p class="fallback-msg">We couldn't load the class list. Please type your name to continue.</p>
+    <p class="card-heading">Type your name</p>
+    <p class="fallback-msg">Enter your name to continue.</p>
     <div class="inp-wrap">
       <input type="text" id="inp-name" class="inp-name" placeholder="First name Surname" autocomplete="off">
       <button class="btn" onclick="startFallback()">Start →</button>
     </div>
   </div>
-
-  <div class="error-msg" id="error-msg">Something went wrong. Please try again or ask your teacher.</div>
 </div>
 
 <script>
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
 
-// Assessment URL map
-const ASSESSMENT_URLS = {
-  summer: 'index.html',
-  autumn: 'autumn/index.html',
-  ks1:    'ks1/index.html'
-};
+function jsonpFetch(url, timeout) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb3l_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout || 12000);
+    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.body.appendChild(script);
+  });
+}
 
-let groupsData = null; // { groups: [...], pupils: [...] }
+const CLASS_YEAR = 'Y6';
+const DEFAULT_INTERVENTION = 'Y6';
 
-// Fetch groups config via JSONP
-(function fetchGroups() {
-  const cb = 'cb_' + Date.now();
-  const script = document.createElement('script');
-  const timer = setTimeout(() => {
-    cleanup();
-    showFallback();
-  }, 12000);
+let allPupils = []; // [{name, interventionYear}]
+let activeLetter = '';
 
-  function cleanup() {
-    clearTimeout(timer);
-    delete window[cb];
-    if (script.parentNode) document.body.removeChild(script);
-  }
-
-  window[cb] = function(data) {
-    cleanup();
-    if (data && Array.isArray(data.pupils) && data.pupils.length > 0) {
-      groupsData = data;
-      renderNameGrid(data.pupils);
+(async function load() {
+  try {
+    const data = await jsonpFetch(BACKEND_URL + '?action=get3in3pupils&classYear=' + CLASS_YEAR);
+    let pupils = [];
+    if (Array.isArray(data) && data.length) {
+      if (typeof data[0] === 'object') {
+        pupils = data;
+      } else {
+        pupils = data.map(n => ({ name: n, interventionYear: DEFAULT_INTERVENTION }));
+      }
+    } else if (data && Array.isArray(data.pupils)) {
+      pupils = data.pupils.map(n => typeof n === 'object' ? n : { name: n, interventionYear: DEFAULT_INTERVENTION });
+    }
+    if (pupils.length) {
+      renderGrid(pupils);
     } else {
       showFallback();
     }
-  };
-
-  script.onerror = function() { cleanup(); showFallback(); };
-  script.src = BACKEND_URL + '?action=getgroups&callback=' + cb;
-  document.body.appendChild(script);
+  } catch(e) {
+    showFallback();
+  }
 })();
 
-let allPupils = [];
-let activeLetter = '';
-
-function renderNameGrid(pupils) {
+function renderGrid(pupils) {
   document.getElementById('loading-msg').style.display = 'none';
   document.getElementById('name-section').style.display = 'block';
 
-  allPupils = [...pupils].sort((a,b) => a.name.localeCompare(b.name));
+  allPupils = [...pupils].sort((a, b) => a.name.localeCompare(b.name));
 
-  // Build letter bar — only letters that exist
   const letters = [...new Set(allPupils.map(p => p.name[0].toUpperCase()))].sort();
   const bar = document.getElementById('letter-bar');
   bar.innerHTML = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(l =>
     `<button class="letter-btn${letters.includes(l) ? '' : ' disabled'}" data-letter="${l}">${l}</button>`
   ).join('');
 
-  // Default to first available letter
   activeLetter = letters[0] || '';
-  renderFilteredGrid();
+  renderFiltered();
 
   bar.addEventListener('click', function(e) {
     const btn = e.target.closest('.letter-btn');
     if (!btn || btn.classList.contains('disabled')) return;
     activeLetter = btn.dataset.letter;
     document.querySelectorAll('.letter-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === activeLetter));
-    renderFilteredGrid();
+    renderFiltered();
   });
 
   document.getElementById('name-grid').addEventListener('click', function(e) {
     const btn = e.target.closest('.name-btn');
     if (!btn) return;
-    selectPupil(btn.dataset.name, btn.dataset.group);
+    start(btn.dataset.name, btn.dataset.interventionYear || DEFAULT_INTERVENTION);
   });
 }
 
-function renderFilteredGrid() {
-  // Highlight active letter button
+function renderFiltered() {
   document.querySelectorAll('.letter-btn').forEach(b =>
     b.classList.toggle('active', b.dataset.letter === activeLetter)
   );
-
   const filtered = activeLetter
     ? allPupils.filter(p => p.name[0].toUpperCase() === activeLetter)
     : allPupils;
-
   document.getElementById('name-grid').innerHTML = filtered.map(p =>
-    `<button class="name-btn" data-name="${p.name.replace(/"/g,'&quot;')}" data-group="${(p.group||'').replace(/"/g,'&quot;')}">${p.name}</button>`
+    `<button class="name-btn" data-name="${p.name.replace(/"/g,'&quot;')}" data-intervention-year="${p.interventionYear}">${p.name}</button>`
   ).join('');
 }
 
-function selectPupil(name, groupId) {
-
-  const group = groupsData && groupsData.groups
-    ? groupsData.groups.find(g => g.id === groupId)
-    : null;
-
-  if (!group) {
-    routeTo(name, 'summer', [0,1,2]);
-    return;
-  }
-
-  routeTo(name, group.assessment, Array.isArray(group.texts) ? group.texts : [0,1,2]);
-}
-
-function routeTo(name, assessment, texts) {
-  const url = ASSESSMENT_URLS[assessment] || 'index.html';
-  localStorage.setItem('ra_preload', JSON.stringify({ name, assessment, texts }));
-  window.location.href = url;
+function start(name, interventionYear) {
+  localStorage.setItem('ra_preload', JSON.stringify({ name, classYear: CLASS_YEAR, interventionYear: interventionYear || DEFAULT_INTERVENTION, assessment: '3in3-Y6' }));
+  window.location.href = 'index.html';
 }
 
 function showFallback() {
@@ -265,15 +212,8 @@ function showFallback() {
 
 function startFallback() {
   const name = document.getElementById('inp-name').value.trim();
-  if (!name) {
-    document.getElementById('inp-name').focus();
-    return;
-  }
-  // No group routing possible — go to default summer assessment with no preload
-  // (assessment will show its own name picker from backend)
-  // We do set a minimal preload so the name is carried through
-  localStorage.setItem('ra_preload', JSON.stringify({ name, assessment: 'summer', texts: [0,1,2] }));
-  window.location.href = 'index.html';
+  if (!name) { document.getElementById('inp-name').focus(); return; }
+  start(name, DEFAULT_INTERVENTION);
 }
 </script>
 <p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01m</p>

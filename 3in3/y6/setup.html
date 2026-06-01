@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3 in 3 Setup — Year 4</title>
+<title>3 in 3 Setup — Year 6</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root { --brand: #1798d3; --brand-dk: #0a6fa8; }
@@ -54,7 +54,7 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 <body>
 
 <div class="logo">⚙️</div>
-<h1>3 in 3 Setup — Year 4</h1>
+<h1>3 in 3 Setup — Year 6</h1>
 <p class="sub">Wallscourt Farm Academy</p>
 <p style="font-size:12px;margin-top:-20px;margin-bottom:28px;"><a href="home.html" style="color:#aaa;text-decoration:none;">← Home</a></p>
 
@@ -83,12 +83,14 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 <div id="setup-panel">
   <div class="card">
     <h2>👧 Add a Child</h2>
-    <p class="hint">Enter the child's name and select which year's intervention content they are working on. A Year 4 child who is reading significantly below age-related expectations may be doing Year 3 content.</p>
+    <p class="hint">Enter the child's name and select which year's intervention content they are working on. A Year 6 child who is reading significantly below age-related expectations may be doing Year 3 content.</p>
     <div class="add-row">
       <input type="text" id="inp-name" class="inp-name" placeholder="First name Surname" autocomplete="off">
       <select id="inp-year" class="yr-select">
         <option value="Y3">Y3 content</option>
-        <option value="Y4" selected>Y4 content</option>
+        <option value="Y4">Y4 content</option>
+        <option value="Y5">Y5 content</option>
+        <option value="Y6"  selected>Y6 content</option>
       </select>
       <button class="btn btn-primary" onclick="addChild()">Add →</button>
     </div>
@@ -97,7 +99,7 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 
   <div class="card" id="list-card">
     <h2>📋 Children in this intervention</h2>
-    <p class="hint">These children will appear on the Year 4 login screen. Their assigned content level is shown beside each name — you can change it at any time.</p>
+    <p class="hint">These children will appear on the Year 6 login screen. Their assigned content level is shown beside each name — you can change it at any time.</p>
     <div class="name-list" id="name-list"><div class="empty-hint">Loading…</div></div>
     <button class="btn-save" id="save-btn" onclick="save()" style="display:none">Save changes →</button>
     <p class="msg" id="save-msg"></p>
@@ -107,8 +109,8 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 <script>
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
 const CORRECT_PIN = '2025';
-const CLASS_YEAR = 'Y4';
-const AVAILABLE_YEARS = ['Y3', 'Y4'];
+const CLASS_YEAR = 'Y6';
+const AVAILABLE_YEARS = ['Y3', 'Y4', 'Y5', 'Y6'];
 
 let children = []; // [{name, interventionYear}]
 

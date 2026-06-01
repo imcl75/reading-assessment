@@ -3020,15 +3020,16 @@ const SESSIONS_Y6 = [
     idx: 1, set: "A", textIndex: 0,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "find_copy", key: "q1",
           stem: "Find and copy one word from the first sentence that means ‘split’.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "divide",
+          guidance: "Award 1 mark for: divide"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "According to the text, which lines of latitude are the most well-known?",
-          answers: [],
-          guidance: ""
+          answers: ["equator", "tropic of Cancer", "tropic of Capricorn"],
+          guidance: "Award 1 mark for: equator, tropic of Cancer, tropic of Capricorn"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
@@ -3044,20 +3045,20 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "According to the text, what does the equator mark?",
-          answers: [],
-          guidance: ""
+          answers: ["equal distance between the two poles", "equal distance", "two poles", "midway between poles", "equidistant from poles", "line of equal distance"],
+          guidance: "Award 1 mark for: equal distance between the two poles, equal distance, two poles"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "How were lines of latitude established?",
-          answers: [],
-          guidance: ""
+          answers: ["position of the sun", "sun at midday", "noting the position", "midday", "sun's position", "observation of the sun"],
+          guidance: "Award 1 mark for: position of the sun, sun at midday, noting the position"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "Why was measuring longitude accurately so important to shipping?",
-          answers: [],
-          guidance: ""
+          answers: ["shipwrecks", "know where they were", "location", "navigation", "mistakes could lead to", "exactly where"],
+          guidance: "Award 1 mark for: shipwrecks, know where they were, location"
         }
     ]
   },
@@ -3067,19 +3068,21 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "What did the men use to clear the dirt?",
-          answers: [],
-          guidance: ""
+          answers: ["their fingers", "fingers", "blew", "breath", "blowing"],
+          guidance: "Award 1 mark for: their fingers, fingers, blew"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "How wide was the stone slab?",
-          answers: [],
-          guidance: ""
+          answers: ["half a metre", "half metre", "0.5 metre", "0.5m", "50 centimetres", "50cm"],
+          guidance: "Award 1 mark for: half a metre, half metre, 0.5 metre"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q3",
           stem: "What does the word daunted mean? Tick one.",
-          guidance: "Options: amused / recalled / ghostly / scared. Award 1 mark for the correct answer."
+          options: ["amused", "recalled", "ghostly", "scared"],
+          answer: "scared",
+          guidance: "Answer: scared."
         }
     ]
   },
@@ -3089,8 +3092,8 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "How was the inscription written on the slab?",
-          answers: [],
-          guidance: ""
+          answers: ["carved", "carved into the stone", "engraved", "etched", "inscription carved"],
+          guidance: "Award 1 mark for: carved, carved into the stone, engraved"
         },
         {
           num: 2, domain: "inference", type: "open", key: "q5",
@@ -3110,8 +3113,8 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "Who lived in Britain before the Romans arrived?",
-          answers: [],
-          guidance: ""
+          answers: ["Celts", "Celtic people", "the Celts", "Iron Age people", "people who lived in settlements", "hill fort dwellers"],
+          guidance: "Award 1 mark for: Celts, Celtic people, the Celts"
         },
         {
           num: 2, domain: "retrieval", type: "short_parts", key: "q2",
@@ -3137,15 +3140,17 @@ const SESSIONS_Y6 = [
     idx: 6, set: "B", textIndex: 2,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q4",
           stem: "‘… they built well-defended enclosures …’",
-          guidance: "Options: iron weapon / foreign invader / deep moat / fenced area. Award 1 mark for the correct answer."
+          options: ["iron weapon", "foreign invader", "deep moat", "fenced area"],
+          answer: "fenced area",
+          guidance: "Answer: fenced area."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "Why is the term ‘hill forts’ not a totally accurate description of their settlements?",
-          answers: [],
-          guidance: ""
+          answers: ["not all on hills", "not all hills", "some not on hills", "located in different places", "various locations", "not exclusively on hills"],
+          guidance: "Award 1 mark for: not all on hills, not all hills, some not on hills"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -3160,20 +3165,20 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "What is the name of the main character in this text?",
-          answers: [],
-          guidance: ""
+          answers: ["Morgan", "The main character is Morgan", "Morgan is the main character", "main character named Morgan", "Morgan's name", "character's name is Morgan"],
+          guidance: "Award 1 mark for: Morgan, The main character is Morgan, Morgan is the main character"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "Apart from dark shapes, what could he see on the ground?",
-          answers: [],
-          guidance: ""
+          answers: ["pinprick of yellow light", "yellow light", "house", "lights", "occasional pinprick", "houses"],
+          guidance: "Award 1 mark for: pinprick of yellow light, yellow light, house"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "What did he do straight after he had counted to ten?",
-          answers: [],
-          guidance: ""
+          answers: ["pulled the cord", "pulled cord", "opened parachute", "parachute opened", "pulled the ripcord", "yanked the cord"],
+          guidance: "Award 1 mark for: pulled the cord, pulled cord, opened parachute"
         }
     ]
   },
@@ -3188,14 +3193,14 @@ const SESSIONS_Y6 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "‘… just the occasional pinprick of yellow light betraying the location of a house.’",
-          answers: [],
-          guidance: ""
+          answers: ["pinprick of yellow light", "house", "location", "lights below", "dark shapes", "occasional light"],
+          guidance: "Award 1 mark for: pinprick of yellow light, house, location"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "Morgan was falling to the ground on a parachute. Why did the writer say that ‘the ground rushed up to meet him’?",
-          answers: [],
-          guidance: ""
+          answers: ["perspective", "point of view", "frame of reference", "Morgan's perspective", "relative motion", "apparent motion", "how it appears to Morgan"],
+          guidance: "Award 1 mark for: perspective, point of view, frame of reference"
         }
     ]
   },
@@ -3203,19 +3208,23 @@ const SESSIONS_Y6 = [
     idx: 9, set: "A", textIndex: 4,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
           stem: "What does the word instinct mean? Tick one.",
-          guidance: "Options: heat / reply / vapour / impulse. Award 1 mark for the correct answer."
+          options: ["heat", "reply", "vapour", "impulse"],
+          answer: "impulse",
+          guidance: "Answer: impulse."
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+                    num: 2, domain: "vocabulary", type: "find_copy", key: "q2",
           stem: "Find and copy one word from the text that means ‘can’t be seen’.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "invisible",
+          guidance: "Award 1 mark for: invisible"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "find_copy", key: "q3",
           stem: "Find and copy the words that explain how steam is caused.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "the evaporation of water",
+          guidance: "Award 1 mark for: the evaporation of water"
         }
     ]
   },
@@ -3225,13 +3234,14 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "Why, according to the text, do the tiny droplets of water in clouds stay drifting across the sky?",
-          answers: [],
-          guidance: ""
+          answers: ["too small to be affected by gravity", "too small", "gravity", "small enough", "not affected by gravity", "size"],
+          guidance: "Award 1 mark for: too small to be affected by gravity, too small, gravity"
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q5",
+                    num: 2, domain: "vocabulary", type: "find_copy", key: "q5",
           stem: "Find and copy the two words that mean ‘what most people believe’.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "common understanding",
+          guidance: "Award 1 mark for: common understanding"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -3255,14 +3265,14 @@ const SESSIONS_Y6 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "The text mentions violent shaking of the earth’s surface. What does it suggest might be a man-made cause of this?",
-          answers: [],
-          guidance: ""
+          answers: ["explosions", "explosion", "man-made", "man made"],
+          guidance: "Award 1 mark for: explosions, explosion, man-made"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "What can the shifting of the world’s tectonic plates release?",
-          answers: [],
-          guidance: ""
+          answers: ["enormous amount of energy", "energy", "enough to shake whole cities", "massive energy", "large amount of energy", "huge energy"],
+          guidance: "Award 1 mark for: enormous amount of energy, energy, enough to shake whole cities"
         }
     ]
   },
@@ -3272,14 +3282,14 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "According to the text, why is any ‘shaking of the earth’s surface’ alarming?",
-          answers: [],
-          guidance: ""
+          answers: ["expect the ground to be solid and stable", "ground is solid", "stable", "expect it to be stable", "come to expect", "solid and stable"],
+          guidance: "Award 1 mark for: expect the ground to be solid and stable, ground is solid, stable"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "According to the text, what are ‘tectonic plates’?",
-          answers: [],
-          guidance: ""
+          answers: ["massive areas of land", "jigsaw", "earth's crust", "plates", "where they meet", "movement"],
+          guidance: "Award 1 mark for: massive areas of land, jigsaw, earth's crust"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -3292,15 +3302,17 @@ const SESSIONS_Y6 = [
     idx: 13, set: "A", textIndex: 6,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
           stem: "What does the word rigid mean? Tick one.",
-          guidance: "Options: cold / stiff / sleeping / comfortably. Award 1 mark for the correct answer."
+          options: ["cold", "stiff", "sleeping", "comfortably"],
+          answer: "stiff",
+          guidance: "Answer: stiff."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "Why did Phoebe go to her bedroom door?",
-          answers: [],
-          guidance: ""
+          answers: ["to get a better idea", "to hear the noise better", "to find out what the noise was", "to locate the sound", "to investigate the noise"],
+          guidance: "Award 1 mark for: to get a better idea, to hear the noise better, to find out what the noise was"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q3",
@@ -3320,8 +3332,8 @@ const SESSIONS_Y6 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "‘She tiptoed over to her bedroom door and silently opened it…’",
-          answers: [],
-          guidance: ""
+          answers: ["tiptoed", "bedroom door", "silently", "quietly", "investigate", "noise", "check"],
+          guidance: "Award 1 mark for: tiptoed, bedroom door, silently"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -3336,14 +3348,14 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "Which word in the first sentence means the same as towns or villages?",
-          answers: [],
-          guidance: ""
+          answers: ["settlements", "settlement"],
+          guidance: "Award 1 mark for: settlements, settlement"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "In what year was the Norman conquest?",
-          answers: [],
-          guidance: ""
+          answers: ["1066", "Norman conquest in 1066", "Norman conquest 1066", "the year 1066", "1066"],
+          guidance: "Award 1 mark for: 1066, Norman conquest in 1066, Norman conquest 1066"
         },
         {
           num: 3, domain: "retrieval", type: "short_parts", key: "q3",
@@ -3362,19 +3374,20 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "According to the text, what has caused the sizes of settlements to change?",
-          answers: [],
-          guidance: ""
+          answers: ["human activity", "jobs changed", "changes in employment", "how people's jobs", "economic changes", "industrial changes"],
+          guidance: "Award 1 mark for: human activity, jobs changed, changes in employment"
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q5",
+                    num: 2, domain: "vocabulary", type: "find_copy", key: "q5",
           stem: "Find and copy the names of two towns that were amongst the largest in England 700 years ago",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "Bristol, King's Lynn",
+          guidance: "Award 1 mark for: Bristol, King's Lynn"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "‘… places have risen or fallen in the rankings.’",
-          answers: [],
-          guidance: ""
+          answers: ["jobs have changed", "human activity changes", "how people's jobs have changed", "economic changes", "changes in employment", "occupations changed"],
+          guidance: "Award 1 mark for: jobs have changed, human activity changes, how people's jobs have changed"
         }
     ]
   },
@@ -3384,20 +3397,20 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "In what year does the text say that Britain stood alone against Nazi Germany?",
-          answers: [],
-          guidance: ""
+          answers: ["1940", "nineteen forty", "year 1940", "1940 when Britain stood alone"],
+          guidance: "Award 1 mark for: 1940, nineteen forty, year 1940"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "What was the name of the German air force?",
-          answers: [],
-          guidance: ""
+          answers: ["Luftwaffe", "German air force", "air force", "Nazi air force", "Hitler's air force"],
+          guidance: "Award 1 mark for: Luftwaffe, German air force, air force"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "What did the German army need to cross in order to take over Britain?",
-          answers: [],
-          guidance: ""
+          answers: ["English Channel", "the Channel", "Channel"],
+          guidance: "Award 1 mark for: English Channel, the Channel, Channel"
         }
     ]
   },
@@ -3405,20 +3418,23 @@ const SESSIONS_Y6 = [
     idx: 18, set: "B", textIndex: 8,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q4",
           stem: "…Britain stood alone against the might of Nazi Germany…",
-          guidance: "Options: strength / leader / possibility / flight. Award 1 mark for the correct answer."
+          options: ["strength", "leader", "possibility", "flight"],
+          answer: "strength",
+          guidance: "Answer: strength."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "The text says that Hitler did not want to invade Britain, so why did he order his air force to attack?",
-          answers: [],
-          guidance: ""
+          answers: ["could not afford to leave it alone", "make it easier for armies to cross", "easier to invade", "destroy the RAF", "take over the country", "remove obstacle to invasion"],
+          guidance: "Award 1 mark for: could not afford to leave it alone, make it easier for armies to cross, easier to invade"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+                    num: 3, domain: "vocabulary", type: "find_copy", key: "q6",
           stem: "Find and copy one word in the last sentence that means friends or partners.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "allies",
+          guidance: "Award 1 mark for: allies"
         }
     ]
   },
@@ -3428,20 +3444,20 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "According to the text, how long would it take him to walk to the station?",
-          answers: [],
-          guidance: ""
+          answers: ["four minutes", "4 minutes", "about four minutes", "approximately four minutes", "four minutes' walk"],
+          guidance: "Award 1 mark for: four minutes, 4 minutes, about four minutes"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "What does the writer mean by ‘Bee-baaarb’?",
-          answers: [],
-          guidance: ""
+          answers: ["train horn", "sound of the horn", "train whistle", "warning sound", "the train's horn", "alert"],
+          guidance: "Award 1 mark for: train horn, sound of the horn, train whistle"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "What did the writer say would happen if Jamal stopped to pick up his wallet?",
-          answers: [],
-          guidance: ""
+          answers: ["miss the train", "wouldn't catch the train", "wouldn't make the train", "train would leave", "wouldn't catch it", "would miss it"],
+          guidance: "Award 1 mark for: miss the train, wouldn't catch the train, wouldn't make the train"
         }
     ]
   },
@@ -3451,14 +3467,14 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "The text starts: ‘Jamal checked his watch again, then quickened his pace.’ Use your own words to describe what the writer meant by ‘quickened his pace’.",
-          answers: [],
-          guidance: ""
+          answers: ["walked faster", "increased speed", "sped up", "went faster", "accelerated", "moved quicker"],
+          guidance: "Award 1 mark for: walked faster, increased speed, sped up"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "Why was it so important for Jamal to catch this train?",
-          answers: [],
-          guidance: ""
+          answers: ["big trouble", "had to catch", "absolutely had to", "would be in trouble", "must catch", "important"],
+          guidance: "Award 1 mark for: big trouble, had to catch, absolutely had to"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -3471,19 +3487,23 @@ const SESSIONS_Y6 = [
     idx: 21, set: "A", textIndex: 10,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "find_copy", key: "q1",
           stem: "Find and copy the example given by the text of a ‘total vacuum’.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "outer space",
+          guidance: "Award 1 mark for: outer space"
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+                    num: 2, domain: "vocabulary", type: "find_copy", key: "q2",
           stem: "Find and copy a word from the second line the means the same as ‘meet’.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "encounter",
+          guidance: "Award 1 mark for: encounter"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q3",
           stem: "What does the word molecules mean? Tick one.",
-          guidance: "Options: moving objects / tiny particles / spacecraft / friction force. Award 1 mark for the correct answer."
+          options: ["moving objects", "tiny particles", "spacecraft", "friction force"],
+          answer: "tiny particles",
+          guidance: "Answer: tiny particles."
         }
     ]
   },
@@ -3493,20 +3513,20 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "According to the text, when might you not notice water resistance?",
-          answers: [],
-          guidance: ""
+          answers: ["dipping", "dip hands", "inserting", "hand in water", "without pulling", "stationary", "not moving"],
+          guidance: "Award 1 mark for: dipping, dip hands, inserting"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "What does the text instruct us to do to feel ‘a force working against us’ in water?",
-          answers: [],
-          guidance: ""
+          answers: ["pull back hands", "pull hands back", "pull your hands", "cup your hands", "cup hands", "increase resistance"],
+          guidance: "Award 1 mark for: pull back hands, pull hands back, pull your hands"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "According to the text, what activity does water resistance help us to do?",
-          answers: [],
-          guidance: ""
+          answers: ["swim", "swimming", "move through water", "push through water", "propel ourselves"],
+          guidance: "Award 1 mark for: swim, swimming, move through water"
         }
     ]
   },
@@ -3516,20 +3536,20 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "What words does the text use to describe how rivers start?",
-          answers: [],
-          guidance: ""
+          answers: ["little trickle", "rain falls", "high ground", "soaks into the soil", "springs"],
+          guidance: "Award 1 mark for: little trickle, rain falls, high ground"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "How long is the River Severn?",
-          answers: [],
-          guidance: ""
+          answers: ["220 miles", "220", "miles", "Severn is 220 miles", "Severn is 220 miles long"],
+          guidance: "Award 1 mark for: 220 miles, 220, miles"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "How high above sea level is the source of the River Thames?",
-          answers: [],
-          guidance: ""
+          answers: ["110 metres", "110 meters", "110m", "110 metres above sea level", "110 meters above sea level"],
+          guidance: "Award 1 mark for: 110 metres, 110 meters, 110m"
         }
     ]
   },
@@ -3539,19 +3559,21 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "Why does the text describe the soil as ‘like a gigantic sponge’?",
-          answers: [],
-          guidance: ""
+          answers: ["absorbs water", "soaks up water", "retains water", "holds water", "permeable", "porous"],
+          guidance: "Award 1 mark for: absorbs water, soaks up water, retains water"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "Draw lines to match the words to their meanings as used within this text.",
-          answers: [],
-          guidance: ""
+          answers: ["tributaries - smaller rivers", "tributaries - streams that join", "source - where river starts", "source - origin", "soaks - absorbs", "soaks - sinks into"],
+          guidance: "Award 1 mark for: tributaries - smaller rivers, tributaries - streams that join, source - where river starts"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q6",
           stem: "‘Clearly, the height of the source has no bearing on the length of the river.’",
-          guidance: "Options: does not recognise / does not affect / does not measure / is in a different direction. Award 1 mark for the correct answer."
+          options: ["does not recognise", "does not affect", "does not measure", "is in a different direction"],
+          answer: "does not affect",
+          guidance: "Answer: does not affect."
         }
     ]
   },
@@ -3561,20 +3583,20 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "What does the text describe as ‘a golden age of progress for the United Kingdom’?",
-          answers: [],
-          guidance: ""
+          answers: ["Queen Victoria's reign", "Victoria's reign", "the reign of Queen Victoria", "Victorian era", "Victorian period", "Victoria"],
+          guidance: "Award 1 mark for: Queen Victoria's reign, Victoria's reign, the reign of Queen Victoria"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "How did many people benefit from this ‘time of great opportunity’?",
-          answers: [],
-          guidance: ""
+          answers: ["became wealthy", "became very wealthy", "wealth", "became rich", "made money", "financial gain"],
+          guidance: "Award 1 mark for: became wealthy, became very wealthy, wealth"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "What were ‘rapidly expanding’ at this time?",
-          answers: [],
-          guidance: ""
+          answers: ["cities", "expanding cities", "the cities", "cities were expanding", "rapidly expanding cities"],
+          guidance: "Award 1 mark for: cities, expanding cities, the cities"
         }
     ]
   },
@@ -3582,9 +3604,11 @@ const SESSIONS_Y6 = [
     idx: 26, set: "B", textIndex: 12,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q4",
           stem: "What does the word fortunate mean? Tick one.",
-          guidance: "Options: expanding / poor / lucky / progress. Award 1 mark for the correct answer."
+          options: ["expanding", "poor", "lucky", "progress"],
+          answer: "lucky",
+          guidance: "Answer: lucky."
         },
         {
           num: 2, domain: "retrieval", type: "short_parts", key: "q5",
@@ -3608,19 +3632,21 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "What did Lily call her grandmother?",
-          answers: [],
-          guidance: ""
+          answers: ["Nana", "grandmother", "her grandmother"],
+          guidance: "Award 1 mark for: Nana, grandmother, her grandmother"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "Where was the musical box kept?",
-          answers: [],
-          guidance: ""
+          answers: ["Nana's bedroom", "grandmother's bedroom", "bedroom", "Nana's room", "grandmother's room"],
+          guidance: "Award 1 mark for: Nana's bedroom, grandmother's bedroom, bedroom"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q3",
           stem: "‘… she had been enchanted by her grandmother’s musical box.’",
-          guidance: "Options: tricked / bored / hidden / delighted. Award 1 mark for the correct answer."
+          options: ["tricked", "bored", "hidden", "delighted"],
+          answer: "delighted",
+          guidance: "Answer: delighted."
         }
     ]
   },
@@ -3630,14 +3656,14 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "‘With a secret smile, Lily picked it up and turned it over and over in her hands.’",
-          answers: [],
-          guidance: ""
+          answers: ["secret smile", "picked it up", "turned it over", "hands", "happy", "pleased", "excited"],
+          guidance: "Award 1 mark for: secret smile, picked it up, turned it over"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "‘The familiar tinkle of the tune started playing immediately but there was something wrong with the little dancer.’",
-          answers: [],
-          guidance: ""
+          answers: ["dancer didn't twirl", "dancer wasn't moving", "dancer sat still", "dancer didn't spin", "arms folded legs crossed", "dancer turned her back", "dancer wasn't dancing"],
+          guidance: "Award 1 mark for: dancer didn't twirl, dancer wasn't moving, dancer sat still"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -3652,18 +3678,22 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "What does science try to find answers about?",
-          answers: [],
-          guidance: ""
+          answers: ["world around us", "questions about the world", "the world", "world", "questions"],
+          guidance: "Award 1 mark for: world around us, questions about the world, the world"
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+                    num: 2, domain: "vocabulary", type: "mc", key: "q2",
           stem: "What does the word devise mean? Tick one.",
-          guidance: "Options: create / run / answer / reveal. Award 1 mark for the correct answer."
+          options: ["create", "run", "answer", "reveal"],
+          answer: "create",
+          guidance: "Answer: create."
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q3",
           stem: "Using information from the whole text, tick one box in each row to show whether the statements are true or false.",
-          guidance: "Options: True / False. Award 1 mark for the correct answer."
+          options: ["True", "False"],
+          answer: "True",
+          guidance: "Answer: True."
         }
     ]
   },
@@ -3671,21 +3701,22 @@ const SESSIONS_Y6 = [
     idx: 30, set: "B", textIndex: 14,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+                    num: 1, domain: "vocabulary", type: "find_copy", key: "q4",
           stem: "What are experiments designed to reveal? Find and copy two suggestions from the text.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "results and patterns",
+          guidance: "Award 1 mark for: results and patterns"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "According to the text, why is it not always clear what is causing an effect?",
-          answers: [],
-          guidance: ""
+          answers: ["variables", "multiple factors", "many factors", "number of factors", "factors could be causing", "uncontrolled variables"],
+          guidance: "Award 1 mark for: variables, multiple factors, many factors"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "‘In order to be able to trust our findings, we need to make sure that we have controlled all variables   except the one we are investigating.’",
-          answers: [],
-          guidance: ""
+          answers: ["controlled variables", "variables", "control", "except the one investigating", "independent variable", "fair test"],
+          guidance: "Award 1 mark for: controlled variables, variables, control"
         }
     ]
   },
@@ -3713,9 +3744,11 @@ const SESSIONS_Y6 = [
     idx: 32, set: "B", textIndex: 15,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q4",
           stem: "Which word is closest in meaning to festooned? Circle one.",
-          guidance: "Options: caught / rubbed / rotten / draped. Award 1 mark for the correct answer."
+          options: ["caught", "rubbed", "rotten", "draped"],
+          answer: "draped",
+          guidance: "Answer: draped."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
@@ -3734,9 +3767,11 @@ const SESSIONS_Y6 = [
     idx: 33, set: "A", textIndex: 16,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
           stem: "Which word is closest in meaning to sanctuary? Circle one.",
-          guidance: "Options: classroom / boredom / safety / warmth. Award 1 mark for the correct answer."
+          options: ["classroom", "boredom", "safety", "warmth"],
+          answer: "safety",
+          guidance: "Answer: safety."
         },
         {
           num: 2, domain: "inference", type: "open", key: "q2",
@@ -3851,8 +3886,8 @@ const SESSIONS_Y6 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "Tick true or false in the following table.",
-          answers: [],
-          guidance: ""
+          answers: ["train", "commute", "crowded", "packed carriage", "strangers", "uncomfortable"],
+          guidance: "Award 1 mark for: train, commute, crowded"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
@@ -3868,8 +3903,8 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "Using information from the text, tick true or false in the following table.",
-          answers: [],
-          guidance: ""
+          answers: ["bag", "moved", "snake", "python", "cupboard", "head"],
+          guidance: "Award 1 mark for: bag, moved, snake"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
@@ -3897,8 +3932,8 @@ const SESSIONS_Y6 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "Based on what you have read, what do you think might happen next?",
-          answers: [],
-          guidance: ""
+          answers: ["tell adults", "warn relatives", "alert grown-ups", "snake escapes", "python", "danger", "interrupt discussion"],
+          guidance: "Award 1 mark for: tell adults, warn relatives, alert grown-ups"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
@@ -3914,8 +3949,8 @@ const SESSIONS_Y6 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "Number these facts from 1 – 5 to show the order in which they happened.",
-          answers: [],
-          guidance: ""
+          answers: ["motorcycles first", "open-topped cars second", "soldiers last", "boots on stone", "steel-headed soldiers third"],
+          guidance: "Award 1 mark for: motorcycles first, open-topped cars second, soldiers last"
         },
         {
           num: 2, domain: "vocabulary", type: "find_copy", key: "q2",
@@ -3934,9 +3969,11 @@ const SESSIONS_Y6 = [
     idx: 42, set: "B", textIndex: 20,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q4",
           stem: "Who was wearing the peaked caps? Circle one.",
-          guidance: "Options: Lotte / the motorcyclists / the men in the car / the marching soldiers. Award 1 mark for the correct answer."
+          options: ["Lotte", "the motorcyclists", "the men in the car", "the marching soldiers"],
+          answer: "the men in the car",
+          guidance: "Answer: the men in the car."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
@@ -3956,9 +3993,11 @@ const SESSIONS_Y6 = [
     idx: 43, set: "A", textIndex: 21,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
           stem: "Which word is closest in meaning to urge? Circle one.",
-          guidance: "Options: escape / impulse / fear / warmth. Award 1 mark for the correct answer."
+          options: ["escape", "impulse", "fear", "warmth"],
+          answer: "impulse",
+          guidance: "Answer: impulse."
         },
         {
           num: 2, domain: "inference", type: "open", key: "q2",
@@ -3999,9 +4038,11 @@ const SESSIONS_Y6 = [
     idx: 45, set: "A", textIndex: 22,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
           stem: "Which word is closest in meaning to searing? Circle one.",
-          guidance: "Options: intense / soothing / dull / sore. Award 1 mark for the correct answer."
+          options: ["intense", "soothing", "dull", "sore"],
+          answer: "intense",
+          guidance: "Answer: intense."
         },
         {
           num: 2, domain: "retrieval", type: "short_parts", key: "q2",
@@ -4056,8 +4097,8 @@ const SESSIONS_Y6 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "Tick true or false in the following table.",
-          answers: [],
-          guidance: ""
+          answers: ["funeral", "wedding", "ceremony", "flowers", "formal event", "service"],
+          guidance: "Award 1 mark for: funeral, wedding, ceremony"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
@@ -4150,8 +4191,8 @@ const SESSIONS_Y6 = [
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "What do you think Sara was thinking when she saw the finish line?",
-          answers: [],
-          guidance: ""
+          answers: ["almost there", "nearly won", "finish line", "relief", "victory", "winning", "last effort", "push harder", "close to finishing", "determination"],
+          guidance: "Award 1 mark for: almost there, nearly won, finish line"
         }
     ]
   },
@@ -4188,8 +4229,8 @@ const SESSIONS_Y6 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "Number these facts from 1 – 5 to show the order in which they happened.",
-          answers: [],
-          guidance: ""
+          answers: ["ringmaster announces", "spotlight rises", "woman balances", "she lunges", "she navigates"],
+          guidance: "Award 1 mark for: ringmaster announces, spotlight rises, woman balances"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
@@ -4203,9 +4244,11 @@ const SESSIONS_Y6 = [
     idx: 54, set: "B", textIndex: 26,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q4",
           stem: "Who declared the show was about to start? Circle one.",
-          guidance: "Options: the audience / the ringmaster / the lady in the dress / the circus manager. Award 1 mark for the correct answer."
+          options: ["the audience", "the ringmaster", "the lady in the dress", "the circus manager"],
+          answer: "the ringmaster",
+          guidance: "Answer: the ringmaster."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
@@ -4281,7 +4324,7 @@ async function fetchProgress() {
   // Then verify with backend in the background; update if different
   try {
     const data = await jsonpFetch(
-      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName),
+      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName) + '&interventionYear=' + encodeURIComponent(interventionYear),
       10000
     );
     if (data && data.idx) {
@@ -4529,7 +4572,9 @@ async function submitSession() {
     timeTaken,
     answers: encodeURIComponent(JSON.stringify(answers)),
     scores: encodeURIComponent(JSON.stringify(scores)),
-    review: encodeURIComponent(JSON.stringify(reviewList))
+    review: encodeURIComponent(JSON.stringify(reviewList)),
+    classYear: preload.classYear || \'Y6\',
+    interventionYear: interventionYear
   };
 
   const url = BACKEND_URL + '?action=save3in3&' +

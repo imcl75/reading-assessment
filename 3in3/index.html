@@ -301,9 +301,9 @@ const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy5
 // ── Content Data ─────────────────────────────────────────────────────────────
 
 const TEXTS = {
-  0: 'What do you get if you add a netball team to a string quartet, a married couple, new-born triplets and a football team? Your first thought might be ‘a strange party’, but if you want a mathematical answer, you need to dig deeper. That’s because they are all completely different from each other. In order to add them together, you should first find something they all have in common – the fact that they are groups of people. Once you know how many are in each group, you’re away. The same is true when you add fractions – they all need to share the same common thing, their denominator.',
-  1: 'Is there anything that frustrates you about writing? Maybe you don’t like having to check spellings or meanings in a dictionary. Perhaps you wish that you already had such a great knowledge of words that you didn’t need to check a thesaurus to find the one that is most pertinent (it means relevant). You might even dislike having to make notes or plans. But imagine going to visit a professional writer. What do you think you would find? That’s right – a dictionary, thesaurus, notes and plans. Like tractors to farmers or thermometers to nurses, those are the tools of the writer’s trade.',
-  2: 'We often hear about the damage that humans cause to the environment. While this is certainly true, we can also have a positive impact. For example, there is a really cool insect that lives in our country called the stag beetle. These beetles are big – nearly eight centimetres long – with fierce looking ‘antlers’. If you’re lucky, you might see them flying around on warm evenings. Sadly, they are dying out, however, mostly due to the lack of suitable habitat. If you have the space, why not help to protect them by creating a pile of rotten logs where they can lay their eggs?'
+  0: "What do you get if you add a netball team to a string quartet, a married couple, new-born triplets and a football team? Your first thought might be ‘a strange party’, but if you want a mathematical answer, you need to dig deeper. That’s because they are all completely different from each other. In order to add them together, you should first find something they all have in common – the fact that they are groups of people. Once you know how many are in each group, you’re away. The same is true when you add fractions – they all need to share the same common thing, their denominator.",
+  1: "Is there anything that frustrates you about writing? Maybe you don’t like having to check spellings or meanings in a dictionary. Perhaps you wish that you already had such a great knowledge of words that you didn’t need to check a thesaurus to find the one that is most pertinent (it means relevant). You might even dislike having to make notes or plans. But imagine going to visit a professional writer. What do you think you would find? That’s right – a dictionary, thesaurus, notes and plans. Like tractors to farmers or thermometers to nurses, those are the tools of the writer’s trade.",
+  2: "We often hear about the damage that humans cause to the environment. While this is certainly true, we can also have a positive impact. For example, there is a really cool insect that lives in our country called the stag beetle. These beetles are big – nearly eight centimetres long – with fierce looking ‘antlers’. If you’re lucky, you might see them flying around on warm evenings. Sadly, they are dying out, however, mostly due to the lack of suitable habitat. If you have the space, why not help to protect them by creating a pile of rotten logs where they can lay their eggs?"
 };
 
 const SESSIONS = [
@@ -317,9 +317,9 @@ const SESSIONS = [
         ] },
       { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
         stem: 'Which words are used to describe the triplets?',
-        guidance: 'Award 1 mark for “new-born”. Accept “newborn”.' },
+        guidance: 'Award 1 mark for "new-born". Accept "newborn".' },
       { num: 3, domain: 'inference', type: 'open', key: 'q3',
-        stem: 'Why might the reader’s first thought have been that it was ‘a strange party’?',
+        stem: "Why might the reader's first thought have been that it was 'a strange party'?",
         guidance: 'Award 1 mark for any reasonable explanation, e.g. the groups are very different types of groups to attend a party together, or they seem unrelated to each other.' }
     ]
   },
@@ -365,12 +365,12 @@ const SESSIONS = [
         guidance: 'Award 1 mark for any item mentioned in the text: check spellings, check meanings in a dictionary, check a thesaurus, make notes, make plans.' },
       { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
         stem: 'Who should you imagine visiting, according to the text?',
-        guidance: 'Award 1 mark for “a professional writer”. Accept “writer”.' },
-      { num: 3, domain: ‘retrieval’, type: ‘short_parts’,
-        stem: ‘What does the text suggest are the tools of the writer’s trade? Name two.’,
+        guidance: 'Award 1 mark for "a professional writer". Accept "writer".' },
+      { num: 3, domain: 'retrieval', type: 'short_parts',
+        stem: "What does the text suggest are the tools of the writer's trade? Name two.",
         parts: [
-          {label: ‘a)’, key: ‘q3a’, guidance: ‘Award 1 mark for any one of: dictionary, thesaurus, notes, plans. Single-answer part.’},
-          {label: ‘b)’, key: ‘q3b’, guidance: ‘Award 1 mark for any one of: dictionary, thesaurus, notes, plans — different from the answer given in part (a). Single-answer part.’}
+          {label: 'a)', key: 'q3a', guidance: 'Award 1 mark for any one of: dictionary, thesaurus, notes, plans. Single-answer part.'},
+          {label: 'b)', key: 'q3b', guidance: 'Award 1 mark for any one of: dictionary, thesaurus, notes, plans — different from the answer given in part (a). Single-answer part.'}
         ] }
     ]
   },
@@ -379,23 +379,23 @@ const SESSIONS = [
       { num: 1, domain: 'vocabulary', type: 'find_copy', key: 'q1',
         stem: 'Find and copy the word in the first sentence that is closest in meaning to <strong>harm</strong>.',
         answer: 'damage',
-        guidance: 'Award 1 mark for “damage”.' },
+        guidance: 'Award 1 mark for "damage".' },
       { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
         stem: 'What sort of impact does the text say that humans can have on the environment?',
-        guidance: 'Award 1 mark for “positive” or “a positive impact”.' },
+        guidance: 'Award 1 mark for "positive" or "a positive impact".' },
       { num: 3, domain: 'inference', type: 'open', key: 'q3',
-        stem: 'Why do you think the author believes that stag beetles look ‘cool’?',
+        stem: "Why do you think the author believes that stag beetles look 'cool'?",
         guidance: 'Award 1 mark for any reasonable inference about appearance or behaviour, e.g. they are large/impressive, have fierce-looking antlers, or can fly.' }
     ]
   },
   { idx: 6, set: 'B', textIndex: 2,
     questions: [
       { num: 1, domain: 'inference', type: 'open', key: 'q1',
-        stem: 'Why does the author put the word ‘antlers’ in inverted commas?',
+        stem: "Why does the author put the word 'antlers' in inverted commas?",
         guidance: 'Award 1 mark for any reasonable explanation, e.g. they are not real antlers (it is a comparison/metaphor), or the word is used loosely.' },
       { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
         stem: 'When might you see stag beetles flying about?',
-        guidance: 'Award 1 mark for “on warm evenings” or “warm evenings”.' },
+        guidance: 'Award 1 mark for "on warm evenings" or "warm evenings".' },
       { num: 3, domain: 'vocabulary', type: 'mc', key: 'q3',
         stem: 'Which word is closest in meaning to <strong>suitable</strong>? Tick one.',
         options: ['smart', 'tidy', 'wooden', 'appropriate'],
@@ -716,11 +716,11 @@ function showDone(scores) {
     'Well done, ' + pupilName.split(' ')[0] + '! 🌟';
 
   const textNum = Math.ceil(currentSession.idx / 2);
-  document.getElementById(‘done-sub’).textContent =
-    ‘You’ve finished Text ‘ + textNum + ‘, Set ‘ + currentSession.set + ‘. Great reading!’;
+  document.getElementById('done-sub').textContent =
+    "You've finished Text " + textNum + ", Set " + currentSession.set + ". Great reading!";
 
   // Show auto-marked MC scores
-  const mcQ = currentSession.questions.filter(q => q.type === ‘mc’);
+  const mcQ = currentSession.questions.filter(q => q.type === 'mc');
   const row = document.getElementById('score-row');
   row.innerHTML = '';
   if (mcQ.length > 0) {
@@ -734,6 +734,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01f</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01g</p>
 </body>
 </html>

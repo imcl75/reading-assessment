@@ -415,10 +415,24 @@ let startTime = null;
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 (function init() {
-  const preload = JSON.parse(localStorage.getItem('ra_preload') || '{}');
-  pupilName = preload.name || 'Unknown';
-  document.getElementById('pupil-name-hdr').textContent = pupilName;
-  fetchProgress();
+  try {
+    const preload = JSON.parse(localStorage.getItem('ra_preload') || '{}');
+    pupilName = preload.name || 'Unknown';
+    document.getElementById('pupil-name-hdr').textContent = pupilName;
+    fetchProgress();
+  } catch(err) {
+    // If anything throws, hide spinner and show session 1 anyway
+    document.getElementById('loading-screen').style.display = 'none';
+    loadSession(1);
+  }
+  // Hard fallback: if spinner still showing after 3s, force session 1
+  setTimeout(function() {
+    const ls = document.getElementById('loading-screen');
+    if (ls && ls.style.display !== 'none') {
+      ls.style.display = 'none';
+      if (!currentSession) loadSession(1);
+    }
+  }, 3000);
 })();
 
 // ── JSONP helper ───────────────────────────────────────────────────────────────
@@ -720,6 +734,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01e</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01f</p>
 </body>
 </html>

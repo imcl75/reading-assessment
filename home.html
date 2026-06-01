@@ -67,6 +67,12 @@
   }
 
   .footer { margin-top: 24px; font-size: 12px; color: #8aacbe; text-align: center; }
+  .pdf-link {
+    display:block; padding:7px 10px; background:#f0f8fd; border:1.5px solid #c8e6f5;
+    border-radius:8px; font-size:13px; font-weight:700; color:var(--brand);
+    text-decoration:none; transition:background .12s;
+  }
+  .pdf-link:hover { background:#daeef8; }
 </style>
 </head>
 <body>
@@ -109,6 +115,29 @@
     <div class="card-arrow">›</div>
   </a>
 
+  <!-- Print texts -->
+  <div class="card" style="cursor:default;">
+    <div class="card-icon">🖨️</div>
+    <div class="card-body">
+      <div class="card-title">Print Reading Texts</div>
+      <div class="card-desc">Download a PDF of any text for children to read from paper</div>
+      <div class="texts-list" style="margin-top:12px;display:flex;flex-direction:column;gap:6px;" onclick="event.stopPropagation()">
+        <div style="font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px;">Summer</div>
+        <a href="texts/summer-making-waves.pdf" target="_blank" class="pdf-link">🌊 Making Waves</a>
+        <a href="texts/summer-field-mouse.pdf" target="_blank" class="pdf-link">🐭 The Field Mouse</a>
+        <a href="texts/summer-food-chain.pdf" target="_blank" class="pdf-link">🦅 Top of the Food Chain</a>
+        <div style="font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.4px;margin:6px 0 2px;">Autumn</div>
+        <a href="texts/autumn-taking-to-the-stage.pdf" target="_blank" class="pdf-link">📖 Taking to the Stage</a>
+        <a href="texts/autumn-lead-on.pdf" target="_blank" class="pdf-link">🐕 Lead On</a>
+        <a href="texts/autumn-russian-figurine.pdf" target="_blank" class="pdf-link">🪆 The Russian Figurine</a>
+        <div style="font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.4px;margin:6px 0 2px;">KS1 Year 2</div>
+        <a href="texts/ks1-history-of-ice-cream.pdf" target="_blank" class="pdf-link">🍦 The History of Ice Cream</a>
+        <a href="texts/ks1-new-room-for-william.pdf" target="_blank" class="pdf-link">🦕 A New Room for William</a>
+      </div>
+    </div>
+    <div class="card-arrow">›</div>
+  </div>
+
 </div>
 
 <!-- Teacher-only group status (subtle, loads silently) -->
@@ -117,7 +146,7 @@
   <div id="group-status-content"></div>
 </div>
 
-<p class="footer">Wallscourt Farm Academy · Cabot Learning Federation · <span style="opacity:.6">v26.05.31a</span></p>
+<p class="footer">Wallscourt Farm Academy · Cabot Learning Federation · <span style="opacity:.6">v26.06.01a</span></p>
 
 <script>
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';

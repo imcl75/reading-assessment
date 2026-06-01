@@ -126,6 +126,7 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 .score-badge.correct { background: #e8f5e9; color: #2e7d32; }
 .score-badge.wrong { background: #ffebee; color: #c62828; }
 .score-badge.pending { background: #fff8e1; color: #f57f17; }
+.score-badge.review { background: #fff3e0; color: #e65100; border: 2px solid #ffa726; }
 
 .domain-chip {
   font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px;
@@ -406,10 +407,12 @@ function closeDetail() {
 function buildSessionDetail(s) {
   const qRows = Array.isArray(s.questions) ? s.questions.map(q => {
     const scoreHtml = q.score === null
-      ? '<span class="score-badge pending">?</span>'
-      : q.score >= q.max
-        ? '<span class="score-badge correct">✓</span>'
-        : '<span class="score-badge wrong">' + q.score + '/' + q.max + '</span>';
+      ? '<span class="score-badge pending" title="Awaiting Claude marking">?</span>'
+      : q.needsReview
+        ? '<span class="score-badge review" title="Claude marked but flagged for teacher review">⚠ ' + q.score + '/' + q.max + '</span>'
+        : q.score >= q.max
+          ? '<span class="score-badge correct">✓</span>'
+          : '<span class="score-badge wrong">' + q.score + '/' + q.max + '</span>';
 
     return `<tr>
       <td><span class="domain-chip ${q.domain}">${q.domain}</span></td>
@@ -464,6 +467,6 @@ async function triggerMarking() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01k</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01l</p>
 </body>
 </html>

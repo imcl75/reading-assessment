@@ -912,6 +912,7 @@ function mark3in3Pending(ss) {
             const mark = JSON.parse(jsonMatch[0]);
             scores[rq.key] = Math.max(0, Math.min(rq.max || 1, Math.round(mark.score)));
             rq.reasoning = mark.reasoning || '';
+            rq.needsReview = mark.needsReview === true;
             changed = true;
             totalMarked++;
           }
@@ -943,7 +944,8 @@ Marking guidance: ${rq.guidance}
 Pupil's answer: "${answer}"
 
 Apply the marking guidance strictly but fairly for a primary-age child. Accept reasonable paraphrases.
+Be confident in your marking — only set needsReview to true if the answer is genuinely ambiguous and a teacher's professional judgement is truly needed. The vast majority of answers should be marked with confidence (needsReview: false).
 
 Respond with ONLY a JSON object:
-{"score": <integer 0-${rq.max || 1}>, "reasoning": "<one clear sentence>"}`;
+{"score": <integer 0-${rq.max || 1}>, "reasoning": "<one clear sentence>", "needsReview": <true only if genuinely ambiguous, otherwise false>}`;
 }

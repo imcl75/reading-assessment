@@ -29,7 +29,11 @@
     transition: border-color .15s, transform .1s, box-shadow .15s;
   }
   .card:hover { border-color: var(--brand); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(23,152,211,.18); }
-  .card-icon { font-size: 2rem; flex-shrink: 0; }
+  .card-icon {
+    width: 52px; height: 52px; border-radius: 14px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem;
+  }
   .card-body { flex: 1; }
   .card-title { font-size: 1.05rem; font-weight: 800; color: #1a1a2e; margin-bottom: 2px; }
   .card-desc { font-size: 0.83rem; color: #6b7280; line-height: 1.4; }
@@ -52,41 +56,41 @@
 <div class="cards">
 
   <a class="card" href="y3/home.html">
-    <div class="card-icon">🌱</div>
+    <div class="card-icon" style="background:#fce4f0;">📖</div>
     <div class="card-body">
       <div class="card-title">Year 3</div>
       <div class="card-desc">3 in 3 Reading Intervention for Year 3</div>
-      <span class="yr-badge">Y3</span>
+      <span class="yr-badge" style="background:#fce4f0;color:#c2185b;">Y3</span>
     </div>
     <div class="card-arrow">›</div>
   </a>
 
   <a class="card" href="y4/home.html">
-    <div class="card-icon">📗</div>
+    <div class="card-icon" style="background:#e3f0fb;">📖</div>
     <div class="card-body">
       <div class="card-title">Year 4</div>
       <div class="card-desc">3 in 3 Reading Intervention for Year 4</div>
-      <span class="yr-badge">Y4</span>
+      <span class="yr-badge" style="background:#e3f0fb;color:#1565c0;">Y4</span>
     </div>
     <div class="card-arrow">›</div>
   </a>
 
   <a class="card" href="y5/home.html">
-    <div class="card-icon">📘</div>
+    <div class="card-icon" style="background:#fff3e0;">📖</div>
     <div class="card-body">
       <div class="card-title">Year 5</div>
       <div class="card-desc">3 in 3 Reading Intervention for Year 5</div>
-      <span class="yr-badge">Y5</span>
+      <span class="yr-badge" style="background:#fff3e0;color:#e65100;">Y5</span>
     </div>
     <div class="card-arrow">›</div>
   </a>
 
   <a class="card" href="y6/home.html">
-    <div class="card-icon">📙</div>
+    <div class="card-icon" style="background:#e8f5e9;">📖</div>
     <div class="card-body">
       <div class="card-title">Year 6</div>
       <div class="card-desc">3 in 3 Reading Intervention for Year 6</div>
-      <span class="yr-badge">Y6</span>
+      <span class="yr-badge" style="background:#e8f5e9;color:#2e7d32;">Y6</span>
     </div>
     <div class="card-arrow">›</div>
   </a>

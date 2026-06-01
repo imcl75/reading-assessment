@@ -248,34 +248,37 @@ function jsonpFetch(url, timeout = 12000) {
 
 // ── Load data ─────────────────────────────────────────────────────────────────
 async function loadData() {
+  // Load session data (required) and groups (optional — failure is non-fatal)
+  let sessionsData, groupsData;
   try {
-    const [sessionsData, groupsData] = await Promise.all([
-      jsonpFetch(BACKEND_URL + '?action=get3in3data'),
-      jsonpFetch(BACKEND_URL + '?action=getgroups')
-    ]);
-
-    allData = Array.isArray(sessionsData) ? sessionsData : [];
-
-    // Extract 3in3 pupils from groups config
-    if (groupsData && Array.isArray(groupsData.pupils)) {
-      const groups = groupsData.groups || [];
-      const threein3Groups = groups.filter(g => g.assessment && g.assessment.startsWith('3in3'));
-      const groupIds = threein3Groups.map(g => g.id);
-      pupils3in3 = groupsData.pupils
-        .filter(p => groupIds.includes(p.group))
-        .map(p => p.name);
-    }
-
-    // If no pupils in 3in3 groups, show all who have 3in3 data
-    if (!pupils3in3.length) {
-      pupils3in3 = [...new Set(allData.map(r => r.name))];
-    }
-
-    renderGrid();
+    sessionsData = await jsonpFetch(BACKEND_URL + '?action=get3in3data');
   } catch(e) {
     document.getElementById('pupil-grid').innerHTML =
-      '<div class="msg err">Could not load data — check your connection.</div>';
+      '<div class="msg err">Could not load session data — check your connection and try again.</div>';
+    return;
   }
+
+  try {
+    groupsData = await jsonpFetch(BACKEND_URL + '?action=getgroups', 8000);
+  } catch(e) {
+    groupsData = null; // fine — fall back to all pupils in 3in3 data
+  }
+
+  allData = Array.isArray(sessionsData) ? sessionsData : [];
+
+  // Get pupil list from 3in3 pupils store
+  try {
+    const pupilsData = await jsonpFetch(BACKEND_URL + '?action=get3in3pupils', 8000);
+    const names = Array.isArray(pupilsData) ? pupilsData : (pupilsData && Array.isArray(pupilsData.pupils) ? pupilsData.pupils : []);
+    if (names.length) pupils3in3 = names;
+  } catch(e) { /* fall through */ }
+
+  // Fallback: any pupil who has completed a session
+  if (!pupils3in3.length) {
+    pupils3in3 = [...new Set(allData.map(r => r.name))];
+  }
+
+  renderGrid();
 }
 
 // ── Render grid ───────────────────────────────────────────────────────────────
@@ -443,6 +446,6 @@ async function triggerMarking() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01g</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01h</p>
 </body>
 </html>

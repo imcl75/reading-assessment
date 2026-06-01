@@ -118,6 +118,11 @@ function doGet(e) {
     result = getGroups(ss);
   } else if (action === 'savegroups') {
     result = saveGroups(e, ss);
+  } else if (action === 'get3in3pupils') {
+    result = get3in3Pupils();
+  } else if (action === 'save3in3pupils') {
+    const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
+    result = save3in3Pupils(names);
   } else if (action === 'save3in3') {
     result = save3in3(e, ss);
   } else if (action === 'get3in3progress') {
@@ -690,6 +695,17 @@ function saveConfig(texts, names, ss, assessment) {
 // ══════════════════════════════════════════════════════════════════════════════
 
 const SHEET_3IN3 = '3in3 Results';
+
+// ── 3in3 pupil list (separate from main assessment groups) ───────────────────
+function get3in3Pupils() {
+  const raw = PropertiesService.getScriptProperties().getProperty('3IN3_PUPILS') || '[]';
+  try { return JSON.parse(raw); } catch(e) { return []; }
+}
+
+function save3in3Pupils(names) {
+  PropertiesService.getScriptProperties().setProperty('3IN3_PUPILS', JSON.stringify(names));
+  return { ok: true, count: names.length };
+}
 
 // ── Save a 3in3 session (called via JSONP GET from index.html) ────────────────
 function save3in3(e, ss) {

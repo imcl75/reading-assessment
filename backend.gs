@@ -827,8 +827,8 @@ function get3in3Data(ss) {
       name,
       week:        Number(row[2]),
       session:     String(row[3]),
-      date:        String(row[4]),
-      timeTaken:   String(row[5] || ''),
+      date:        (row[4] instanceof Date ? Utilities.formatDate(row[4], Session.getScriptTimeZone(), 'dd/MM/yyyy') : String(row[4])),
+      timeTaken:   (row[5] instanceof Date ? Utilities.formatDate(row[5], Session.getScriptTimeZone(), 'H:mm') : String(row[5] || '')),
       nextWeek:    progress.week    || null,
       nextSession: progress.session || null,
       questions

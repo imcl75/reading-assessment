@@ -363,50 +363,28 @@ function renderPupilRows() {
   if (!pupils.length) { container.innerHTML = ''; summary.innerHTML = ''; return; }
 
   const mainGroupId = groups[0] ? groups[0].id : '';
-  const threein3Groups = groups.filter(g => ASSESSMENTS[g.assessment] && ASSESSMENTS[g.assessment].noTexts);
-  const has3in3 = threein3Groups.length > 0;
 
   container.innerHTML = pupils.map((p, i) => {
     const isException = p.group && p.group !== mainGroupId;
-    const mainOpts = groups.filter(g => !ASSESSMENTS[g.assessment]?.noTexts).map(g =>
+    const opts = groups.map(g =>
       `<option value="${g.id}" ${p.group === g.id ? 'selected' : ''}>${g.name || '(unnamed)'}</option>`
     ).join('');
-    const threein3Opts = `<option value="">— None —</option>` + threein3Groups.map(g =>
-      `<option value="${g.id}" ${p.group3in3 === g.id ? 'selected' : ''}>${g.name || '(unnamed)'}</option>`
-    ).join('');
-
     return `<div class="pupil-assign-row${isException ? ' exception' : ''}">
       <span class="pupil-assign-name">${p.name}</span>
       <select class="pupil-group-sel${isException ? ' changed' : ''}" data-idx="${i}" onchange="updatePupilGroup(${i}, this.value)">
-        ${mainOpts}
+        ${opts}
       </select>
-      ${has3in3 ? `<select class="pupil-group-sel" style="min-width:120px;font-size:12px;color:#555;" title="3 in 3 intervention group" data-idx="${i}" onchange="updatePupil3in3(${i}, this.value)">
-        ${threein3Opts}
-      </select>` : ''}
     </div>`;
   }).join('');
 
-  // Column header hint if 3in3 groups exist
-  if (has3in3 && pupils.length) {
-    container.insertAdjacentHTML('afterbegin',
-      `<div style="display:flex;gap:10px;padding:0 10px 6px;font-size:11px;font-weight:800;color:#9ca3af;text-transform:uppercase;letter-spacing:.4px;">
-        <span style="flex:1">Name</span>
-        <span style="min-width:140px">Assessment group</span>
-        <span style="min-width:120px">3 in 3 group</span>
-      </div>`
-    );
-  }
-
   // Summary counts
   const counts = {};
-  pupils.forEach(p => {
-    counts[p.group] = (counts[p.group] || 0) + 1;
-    if (p.group3in3) counts[p.group3in3] = (counts[p.group3in3] || 0) + 1;
-  });
+  pupils.forEach(p => { counts[p.group] = (counts[p.group] || 0) + 1; });
   summary.innerHTML = groups.map(g =>
     `<div>👥 <strong>${g.name || '(unnamed)'}</strong>: ${counts[g.id] || 0} pupil${(counts[g.id] || 0) === 1 ? '' : 's'}</div>`
   ).join('');
 
+  // Also populate textarea if it's empty
   if (!document.getElementById('pupil-textarea').value.trim()) {
     document.getElementById('pupil-textarea').value = pupils.map(p => p.name).join('\n');
   }
@@ -414,11 +392,6 @@ function renderPupilRows() {
 
 function updatePupilGroup(idx, groupId) {
   if (pupils[idx]) pupils[idx].group = groupId;
-  renderPupilRows();
-}
-
-function updatePupil3in3(idx, groupId) {
-  if (pupils[idx]) pupils[idx].group3in3 = groupId || null;
   renderPupilRows();
 }
 

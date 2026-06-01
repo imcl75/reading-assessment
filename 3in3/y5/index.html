@@ -2100,21 +2100,22 @@ const SESSIONS_Y5 = [
     idx: 1, set: "A", textIndex: 0,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "find_copy", key: "q1",
           stem: "Find and copy the word in the first sentence that is closest in meaning to word.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "term",
+          guidance: "Award 1 mark for: term"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "What is a prime number always greater than?",
-          answers: [],
-          guidance: ""
+          answers: ["one", "1", "greater than one", "greater than 1", "than one", "than 1"],
+          guidance: "Award 1 mark for: one, 1, greater than one"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "What are a prime number’s only factors?",
-          answers: [],
-          guidance: ""
+          answers: ["one and itself", "one", "itself", "1 and itself", "only one and itself", "no other factors"],
+          guidance: "Award 1 mark for: one and itself, one, itself"
         }
     ]
   },
@@ -2122,21 +2123,23 @@ const SESSIONS_Y5 = [
     idx: 2, set: "B", textIndex: 0,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q4",
           stem: "… has gripped maths experts…",
-          guidance: "Options: grasped / interested / hurt / counted. Award 1 mark for the correct answer."
+          options: ["grasped", "interested", "hurt", "counted"],
+          answer: "interested",
+          guidance: "Answer: interested."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "How does the text suggest that the Ancient Egyptians did not fully understand prime numbers?",
-          answers: [],
-          guidance: ""
+          answers: ["hints at", "hint at knowledge", "no definite proof", "not certain", "not for definite", "first people to study them for definite were the Greeks", "Greeks studied them for definite"],
+          guidance: "Award 1 mark for: hints at, hint at knowledge, no definite proof"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "What did the Greeks prove?",
-          answers: [],
-          guidance: ""
+          answers: ["no limit to prime numbers", "infinite prime numbers", "unlimited prime numbers", "prime numbers are infinite", "there is no limit", "no end to prime numbers"],
+          guidance: "Award 1 mark for: no limit to prime numbers, infinite prime numbers, unlimited prime numbers"
         }
     ]
   },
@@ -2144,15 +2147,17 @@ const SESSIONS_Y5 = [
     idx: 3, set: "A", textIndex: 1,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
           stem: "Which word is closest in meaning to especially? Tick one.",
-          guidance: "Options: nicely / occasionally / annoyingly / particularly. Award 1 mark for the correct answer."
+          options: ["nicely", "occasionally", "annoyingly", "particularly"],
+          answer: "particularly",
+          guidance: "Answer: particularly."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "According to the text, when is speed reading really useful?",
-          answers: [],
-          guidance: ""
+          answers: ["research", "doing research", "ability to read well and quickly", "when it comes to doing research", "research purposes"],
+          guidance: "Award 1 mark for: research, doing research, ability to read well and quickly"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q3",
@@ -2176,8 +2181,8 @@ const SESSIONS_Y5 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "… not every book will be your cup of tea …",
-          answers: [],
-          guidance: ""
+          answers: ["personal preference", "different tastes", "not all books suit everyone", "individual preference", "you won't like every book", "different people like different books"],
+          guidance: "Award 1 mark for: personal preference, different tastes, not all books suit everyone"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -2192,19 +2197,21 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "Based on what you have read, what do you think would happen if you did not take measurements in an experiment?",
-          answers: [],
-          guidance: ""
+          answers: ["wouldn't know results", "couldn't gauge changes", "no data", "couldn't answer the question", "wouldn't measure", "unable to compare", "no way to find out"],
+          guidance: "Award 1 mark for: wouldn't know results, couldn't gauge changes, no data"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "According to the text, what sort of things do you often need to measure?",
-          answers: [],
-          guidance: ""
+          answers: ["weight", "temperature", "measure", "something", "changes"],
+          guidance: "Award 1 mark for: weight, temperature, measure"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q3",
           stem: "… find a way to gauge any changes …",
-          guidance: "Options: measure / think / change / science. Award 1 mark for the correct answer."
+          options: ["measure", "think", "change", "science"],
+          answer: "measure",
+          guidance: "Answer: measure."
         }
     ]
   },
@@ -2214,20 +2221,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "According to the text, what do scientists recommend doing?",
-          answers: [],
-          guidance: ""
+          answers: ["repeating tests", "repeat", "repeat your tests", "range of results", "repeat the experiment", "do the test multiple times"],
+          guidance: "Award 1 mark for: repeating tests, repeat, repeat your tests"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "Which words suggest that experiments sometimes go wrong?",
-          answers: [],
-          guidance: ""
+          answers: ["mistakes", "won't achieve the same results", "nothing like the rest", "suspect are mistakes", "outliers", "inconsistent results"],
+          guidance: "Award 1 mark for: mistakes, won't achieve the same results, nothing like the rest"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "According to the text, why might you want to find an average of the remaining values?",
-          answers: [],
-          guidance: ""
+          answers: ["truer picture", "true picture", "accurate result", "more accurate", "better representation", "remove outliers", "exclude mistakes"],
+          guidance: "Award 1 mark for: truer picture, true picture, accurate result"
         }
     ]
   },
@@ -2235,15 +2242,17 @@ const SESSIONS_Y5 = [
     idx: 7, set: "A", textIndex: 3,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
           stem: "… giving completely the wrong impression.",
-          guidance: "Options: voice / copy / dent / idea. Award 1 mark for the correct answer."
+          options: ["voice", "copy", "dent", "idea"],
+          answer: "idea",
+          guidance: "Answer: idea."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "How does the traditional myth of King Cnut give the wrong impression of him?",
-          answers: [],
-          guidance: ""
+          answers: ["wise leader", "prove he had limits", "couldn't control nature", "refute flattery", "show his limitations", "demonstrate powerlessness"],
+          guidance: "Award 1 mark for: wise leader, prove he had limits, couldn't control nature"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q3",
@@ -2258,20 +2267,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "What did King Cnut think of the people who kept telling him how marvellous he was?",
-          answers: [],
-          guidance: ""
+          answers: ["fed up", "tired of", "annoyed by", "exasperated with", "sick of"],
+          guidance: "Award 1 mark for: fed up, tired of, annoyed by"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "According to the text, what sort of a leader was Cnut really?",
-          answers: [],
-          guidance: ""
+          answers: ["wise", "wise leader", "very wise", "wise leader who", "fed up with flattery", "proved he had limits"],
+          guidance: "Award 1 mark for: wise, wise leader, very wise"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "How did getting his feet wet at the seaside prove that he wasn’t as wonderful as his people said?",
-          answers: [],
-          guidance: ""
+          answers: ["couldn't control", "limits to power", "not all-powerful", "human limitations", "couldn't command nature", "prove he wasn't wonderful"],
+          guidance: "Award 1 mark for: couldn't control, limits to power, not all-powerful"
         }
     ]
   },
@@ -2279,20 +2288,23 @@ const SESSIONS_Y5 = [
     idx: 9, set: "A", textIndex: 4,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
           stem: "Which word is closest in meaning to chaos? Tick one.",
-          guidance: "Options: confusion / lava / damage / chase. Award 1 mark for the correct answer."
+          options: ["confusion", "lava", "damage", "chase"],
+          answer: "confusion",
+          guidance: "Answer: confusion."
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+                    num: 2, domain: "vocabulary", type: "find_copy", key: "q2",
           stem: "Find and copy the word in the first sentence that is closest in meaning to explosions.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "blasts",
+          guidance: "Award 1 mark for: blasts"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "According to the text, what can lava crush?",
-          answers: [],
-          guidance: ""
+          answers: ["communities", "crush communities", "lava can crush", "buildings", "structures"],
+          guidance: "Award 1 mark for: communities, crush communities, lava can crush"
         }
     ]
   },
@@ -2302,8 +2314,8 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "Where was Pompeii?",
-          answers: [],
-          guidance: ""
+          answers: ["Pompeii", "ancient Rome", "Rome", "Italy", "Roman"],
+          guidance: "Award 1 mark for: Pompeii, ancient Rome, Rome"
         },
         {
           num: 2, domain: "retrieval", type: "short_parts", key: "q5",
@@ -2317,8 +2329,8 @@ const SESSIONS_Y5 = [
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "Which words tell you that the volcano in 2010 affected people far beyond Iceland?",
-          answers: [],
-          guidance: ""
+          answers: ["hundreds if not thousands of miles", "impact of a volcano can be felt", "grounded aircraft for weeks across much of Europe", "felt for hundreds", "across much of Europe", "far beyond"],
+          guidance: "Award 1 mark for: hundreds if not thousands of miles, impact of a volcano can be felt, grounded aircraft for weeks across much of Europe"
         }
     ]
   },
@@ -2328,8 +2340,8 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "Which word is used to suggest that some musical instruments are so similar, it’s like they’re related?",
-          answers: [],
-          guidance: ""
+          answers: ["family", "musical family", "families", "related", "part of both families"],
+          guidance: "Award 1 mark for: family, musical family, families"
         },
         {
           num: 2, domain: "inference", type: "open", key: "q2",
@@ -2337,9 +2349,10 @@ const SESSIONS_Y5 = [
           guidance: ""
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "find_copy", key: "q3",
           stem: "Find and copy the names of two sorts of piano.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "grand piano, baby grand piano",
+          guidance: "Award 1 mark for: grand piano, baby grand piano"
         }
     ]
   },
@@ -2349,19 +2362,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "According to the text, why could a piano be described as a percussion instrument?",
-          answers: [],
-          guidance: ""
+          answers: ["hammers strike", "striking", "hitting", "little hammers", "press the keys", "percussion means hitting"],
+          guidance: "Award 1 mark for: hammers strike, striking, hitting"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "According to the text, what strikes the strings in a piano to make the notes?",
-          answers: [],
-          guidance: ""
+          answers: ["hammers", "little hammers", "strike the strings", "striking the strings", "hit the strings"],
+          guidance: "Award 1 mark for: hammers, little hammers, strike the strings"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+                    num: 3, domain: "vocabulary", type: "find_copy", key: "q6",
           stem: "Find and copy the word in the last sentence that is closest in meaning to thought.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "considered",
+          guidance: "Award 1 mark for: considered"
         }
     ]
   },
@@ -2371,19 +2385,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "How does the text suggest that you probably don’t know what was the first recorded sporting competition between two countries?",
-          answers: [],
-          guidance: ""
+          answers: ["not always easy to be certain", "you might be very surprised", "assume that the original Olympics", "have to skip forward", "you probably don't know"],
+          guidance: "Award 1 mark for: not always easy to be certain, you might be very surprised, assume that the original Olympics"
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+                    num: 2, domain: "vocabulary", type: "find_copy", key: "q2",
           stem: "Find and copy the word in the second sentence that is closest in meaning to single.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "individual",
+          guidance: "Award 1 mark for: individual"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "According to the text, what only involved people from one country?",
-          answers: [],
-          guidance: ""
+          answers: ["original Olympics", "Olympics", "ancient Greece", "one country"],
+          guidance: "Award 1 mark for: original Olympics, Olympics, ancient Greece"
         }
     ]
   },
@@ -2402,14 +2417,14 @@ const SESSIONS_Y5 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "… believe it or not …",
-          answers: [],
-          guidance: ""
+          answers: ["1844", "United States", "Canada", "cricket", "first recorded sporting competition", "international competition"],
+          guidance: "Award 1 mark for: 1844, United States, Canada"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "… you might be very surprised to learn …",
-          answers: [],
-          guidance: ""
+          answers: ["cricket", "the sport was cricket", "sport was cricket", "it was cricket", "cricket was the sport"],
+          guidance: "Award 1 mark for: cricket, the sport was cricket, sport was cricket"
         }
     ]
   },
@@ -2417,21 +2432,22 @@ const SESSIONS_Y5 = [
     idx: 15, set: "A", textIndex: 7,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "find_copy", key: "q1",
           stem: "Find and copy the word in the first sentence that means worried.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "concerned",
+          guidance: "Award 1 mark for: concerned"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "Which was the first day on which Tomaz had not seen Mrs Watson?",
-          answers: [],
-          guidance: ""
+          answers: ["Monday", "the first day", "day one", "first day of the week", "beginning of the week"],
+          guidance: "Award 1 mark for: Monday, the first day, day one"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "How did Tomaz usually know that his neighbour was there?",
-          answers: [],
-          guidance: ""
+          answers: ["wave", "waved", "waving", "window", "chair", "greeting"],
+          guidance: "Award 1 mark for: wave, waved, waving"
         }
     ]
   },
@@ -2441,14 +2457,14 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "… she was probably visiting relatives, or something …",
-          answers: [],
-          guidance: ""
+          answers: ["visiting relatives", "visiting family", "away visiting", "gone visiting", "relatives", "family visit"],
+          guidance: "Award 1 mark for: visiting relatives, visiting family, away visiting"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "… if only to stop him bothering her …",
-          answers: [],
-          guidance: ""
+          answers: ["stop him bothering her", "to stop Tomaz bothering", "prevent him from bothering", "stop his pestering", "silence him", "get him to stop", "cease the bothering"],
+          guidance: "Award 1 mark for: stop him bothering her, to stop Tomaz bothering, prevent him from bothering"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -2463,8 +2479,8 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "How long had Dora been saving money?",
-          answers: [],
-          guidance: ""
+          answers: ["a year", "one year", "12 months", "twelve months", "11 months", "whole year"],
+          guidance: "Award 1 mark for: a year, one year, 12 months"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
@@ -2473,9 +2489,11 @@ const SESSIONS_Y5 = [
           guidance: ""
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q3",
           stem: "… how could that have occurred? …",
-          guidance: "Options: happened / increased / paid / realised. Award 1 mark for the correct answer."
+          options: ["happened", "increased", "paid", "realised"],
+          answer: "happened",
+          guidance: "Answer: happened."
         }
     ]
   },
@@ -2485,8 +2503,8 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "How long had Dora been saving money?",
-          answers: [],
-          guidance: ""
+          answers: ["a year", "one year", "12 months", "twelve months", "11 months", "eleven months"],
+          guidance: "Award 1 mark for: a year, one year, 12 months"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
@@ -2495,9 +2513,11 @@ const SESSIONS_Y5 = [
           guidance: ""
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q6",
           stem: "… how could that have occurred? …",
-          guidance: "Options: happened / increased / paid / realised. Award 1 mark for the correct answer."
+          options: ["happened", "increased", "paid", "realised"],
+          answer: "happened",
+          guidance: "Answer: happened."
         }
     ]
   },
@@ -2512,8 +2532,8 @@ const SESSIONS_Y5 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "Why was it especially disappointing to find that the price had gone up?",
-          answers: [],
-          guidance: ""
+          answers: ["after a year of saving", "in the final month", "just as she thought she had achieved her dream", "had been the same price for eleven months", "twelfth month", "almost at her goal", "last moment", "after all her sacrifice"],
+          guidance: "Award 1 mark for: after a year of saving, in the final month, just as she thought she had achieved her dream"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q3",
@@ -2533,8 +2553,8 @@ const SESSIONS_Y5 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "Why was it especially disappointing to find that the price had gone up?",
-          answers: [],
-          guidance: ""
+          answers: ["twelfth month", "last month", "final month", "almost achieved", "nearly reached", "just as she thought", "price increase", "now", "after a year", "right at the end"],
+          guidance: "Award 1 mark for: twelfth month, last month, final month"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -2547,14 +2567,17 @@ const SESSIONS_Y5 = [
     idx: 21, set: "A", textIndex: 10,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
           stem: "… This was disastrous …",
-          guidance: "Options: deadly / confusing / natural / terrible. Award 1 mark for the correct answer."
+          options: ["deadly", "confusing", "natural", "terrible"],
+          answer: "terrible",
+          guidance: "Answer: terrible."
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+                    num: 2, domain: "vocabulary", type: "find_copy", key: "q2",
           stem: "Find and copy the word in the third sentence that is closest in meaning to a loud protest.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "uproar",
+          guidance: "Award 1 mark for: uproar"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q3",
@@ -2569,19 +2592,21 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "Why was the land by the brook special?",
-          answers: [],
-          guidance: ""
+          answers: ["natural environment", "rare wildlife", "only natural environment", "home to rare wildlife", "wildlife habitat"],
+          guidance: "Award 1 mark for: natural environment, rare wildlife, only natural environment"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "Why did they not complain to the government?",
-          answers: [],
-          guidance: ""
+          answers: ["wouldn't interfere", "government wouldn't interfere", "wouldn't get involved", "pointed out", "someone said", "they wouldn't help"],
+          guidance: "Award 1 mark for: wouldn't interfere, government wouldn't interfere, wouldn't get involved"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q6",
           stem: "Tick one box in each row to show whether each statement is true or false.",
-          guidance: "Options: True / False. Award 1 mark for the correct answer."
+          options: ["True", "False"],
+          answer: "True",
+          guidance: "Answer: True."
         }
     ]
   },
@@ -2589,20 +2614,23 @@ const SESSIONS_Y5 = [
     idx: 23, set: "A", textIndex: 11,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "find_copy", key: "q1",
           stem: "Find and copy the word in the first sentence that is closest in meaning to often.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "frequently",
+          guidance: "Award 1 mark for: frequently"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "According to the text, what do the words proper and improper sometimes feel like?",
-          answers: [],
-          guidance: ""
+          answers: ["criticism", "being criticised", "being told off", "criticism or disapproval", "negative feedback"],
+          guidance: "Award 1 mark for: criticism, being criticised, being told off"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q3",
           stem: "… you might feel a bit awkward …",
-          guidance: "Options: proper / uncomfortable / actions / told. Award 1 mark for the correct answer."
+          options: ["proper", "uncomfortable", "actions", "told"],
+          answer: "uncomfortable",
+          guidance: "Answer: uncomfortable."
         }
     ]
   },
@@ -2610,21 +2638,23 @@ const SESSIONS_Y5 = [
     idx: 24, set: "B", textIndex: 11,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+                    num: 1, domain: "vocabulary", type: "mc", key: "q4",
           stem: "… it only indicates that the top number …",
-          guidance: "Options: means / counts / tops / fractions. Award 1 mark for the correct answer."
+          options: ["means", "counts", "tops", "fractions"],
+          answer: "means",
+          guidance: "Answer: means."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "According to the text, what does the word improper mean when talking about fractions?",
-          answers: [],
-          guidance: ""
+          answers: ["top number is greater than the lower one", "greater than one whole", "numerator greater than denominator", "worth more than one whole", "top number larger"],
+          guidance: "Award 1 mark for: top number is greater than the lower one, greater than one whole, numerator greater than denominator"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "Which words in the text suggest that the author isn’t going to tell you how to convert improper fractions into mixed numbers?",
-          answers: [],
-          guidance: ""
+          answers: ["All you need to do is find out how", "find out how", "isn't going to tell", "you need to find out", "find out", "up to you to find out"],
+          guidance: "Award 1 mark for: All you need to do is find out how, find out how, isn't going to tell"
         }
     ]
   },
@@ -2634,19 +2664,21 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "According to the text, why does reading fiction become more interesting as you get better at reading?",
-          answers: [],
-          guidance: ""
+          answers: ["authors start playing games", "authors play games", "more complex", "fill in the gaps", "work out what is not immediately apparent", "not straightforward"],
+          guidance: "Award 1 mark for: authors start playing games, authors play games, more complex"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "How does the text suggest that authors don’t play games with you in a nasty way?",
-          answers: [],
-          guidance: ""
+          answers: ["magicians", "let you see what they want", "directing viewpoint", "control what you see", "intentional", "deliberate choices"],
+          guidance: "Award 1 mark for: magicians, let you see what they want, directing viewpoint"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q3",
           stem: "… tend to be rather straightforward …",
-          guidance: "Options: simple / ahead / unbending / younger. Award 1 mark for the correct answer."
+          options: ["simple", "ahead", "unbending", "younger"],
+          answer: "simple",
+          guidance: "Answer: simple."
         }
     ]
   },
@@ -2656,20 +2688,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "According to the text, what does more advanced writing recognise about you?",
-          answers: [],
-          guidance: ""
+          answers: ["grown up", "mature", "work out", "not immediately apparent", "fill in the gaps", "understand implicit meaning"],
+          guidance: "Award 1 mark for: grown up, mature, work out"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "… authors are like magicians: they only let you see what they want you to see …",
-          answers: [],
-          guidance: ""
+          answers: ["control information", "selective disclosure", "direct perspective", "manipulate viewpoint", "choose what revealed", "limit what visible", "authorial control"],
+          guidance: "Award 1 mark for: control information, selective disclosure, direct perspective"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "How does the text suggest that readers are not always aware of how the author is controlling their view?",
-          answers: [],
-          guidance: ""
+          answers: ["not always conscious", "fill in the gaps", "unconsciously", "without realizing", "you might not always be conscious", "unaware", "automatically fill in gaps"],
+          guidance: "Award 1 mark for: not always conscious, fill in the gaps, unconsciously"
         }
     ]
   },
@@ -2679,19 +2711,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "What creature is this text about?",
-          answers: [],
-          guidance: ""
+          answers: ["salmon", "North American salmon", "fish", "salmon lifecycle"],
+          guidance: "Award 1 mark for: salmon, North American salmon, fish"
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+                    num: 2, domain: "vocabulary", type: "find_copy", key: "q2",
           stem: "Find and copy the word in the first sentence that is closest in meaning to order.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "lifecycle",
+          guidance: "Award 1 mark for: lifecycle"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "Which part of the world do these creatures come from?",
-          answers: [],
-          guidance: ""
+          answers: ["North America", "North American", "America", "North American salmon"],
+          guidance: "Award 1 mark for: North America, North American, America"
         }
     ]
   },
@@ -2701,20 +2734,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "Where do young salmon live?",
-          answers: [],
-          guidance: ""
+          answers: ["fresh water streams", "streams", "fresh water", "water streams", "streams where they were born", "born"],
+          guidance: "Award 1 mark for: fresh water streams, streams, fresh water"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "How long do they spend out at sea?",
-          answers: [],
-          guidance: ""
+          answers: ["eight years", "around eight years", "8 years", "approximately eight years", "about eight years"],
+          guidance: "Award 1 mark for: eight years, around eight years, 8 years"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "Which of the creatures’ senses help them to find their way back to the stream where they were born?",
-          answers: [],
-          guidance: ""
+          answers: ["sense of smell", "smell", "nose", "olfactory", "scent", "odor"],
+          guidance: "Award 1 mark for: sense of smell, smell, nose"
         }
     ]
   },
@@ -2722,21 +2755,22 @@ const SESSIONS_Y5 = [
     idx: 29, set: "A", textIndex: 14,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "find_copy", key: "q1",
           stem: "Find and copy the word in the first sentence that means the same as beginning.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "dawn",
+          guidance: "Award 1 mark for: dawn"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "According to the text, what did steam power have a lasting effect on?",
-          answers: [],
-          guidance: ""
+          answers: ["culture", "culture of the nation", "culture of our nation", "the culture", "national culture"],
+          guidance: "Award 1 mark for: culture, culture of the nation, culture of our nation"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "According to the text, what made it easier to move around the country?",
-          answers: [],
-          guidance: ""
+          answers: ["rail network", "steam power", "railways", "rail", "steam", "trains"],
+          guidance: "Award 1 mark for: rail network, steam power, railways"
         }
     ]
   },
@@ -2746,13 +2780,15 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "Why did people from different parts of the country change the way they viewed each other?",
-          answers: [],
-          guidance: ""
+          answers: ["travel became easier", "could mix more often", "rail network", "able to travel", "increased contact", "better transportation"],
+          guidance: "Award 1 mark for: travel became easier, could mix more often, rail network"
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q5",
+                    num: 2, domain: "vocabulary", type: "mc", key: "q5",
           stem: "… people from different regions ...",
-          guidance: "Options: trains / Victorians / cultures / areas. Award 1 mark for the correct answer."
+          options: ["trains", "Victorians", "cultures", "areas"],
+          answer: "Victorians",
+          guidance: "Answer: Victorians."
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -2767,19 +2803,21 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "According to the text, what are England and Germany examples of?",
-          answers: [],
-          guidance: ""
+          answers: ["larger European countries", "larger countries", "European countries", "larger ones", "well-known countries", "bigger countries"],
+          guidance: "Award 1 mark for: larger European countries, larger countries, European countries"
         },
         {
-                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+                    num: 2, domain: "vocabulary", type: "mc", key: "q2",
           stem: "…aware of their existence …",
-          guidance: "Options: capitals / size / being / country. Award 1 mark for the correct answer."
+          options: ["capitals", "size", "being", "country"],
+          answer: "being",
+          guidance: "Answer: being."
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "According to the text, what does your map need to show?",
-          answers: [],
-          guidance: ""
+          answers: ["physical features", "physical", "features", "mountains", "terrain", "landforms"],
+          guidance: "Award 1 mark for: physical features, physical, features"
         }
     ]
   },
@@ -2789,19 +2827,21 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "What is the name of the mountain range mentioned in the text?",
-          answers: [],
-          guidance: ""
+          answers: ["Pyrenees", "the Pyrenees", "range of mountains", "mountain range", "between France and Spain"],
+          guidance: "Award 1 mark for: Pyrenees, the Pyrenees, range of mountains"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "… tucked in amongst those peaks …",
-          answers: [],
-          guidance: ""
+          answers: ["Andorra", "small country", "minute country", "Pyrenees", "between France and Spain", "tiny state"],
+          guidance: "Award 1 mark for: Andorra, small country, minute country"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q6",
           stem: "Which word in the second to last sentence is closest in meaning to tiny? Tick one.",
-          guidance: "Options: tucked / minute / peaks / Andorra. Award 1 mark for the correct answer."
+          options: ["tucked", "minute", "peaks", "Andorra"],
+          answer: "minute",
+          guidance: "Answer: minute."
         }
     ]
   },
@@ -2811,20 +2851,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "According to the text, what is it easy to confuse rhythm with?",
-          answers: [],
-          guidance: ""
+          answers: ["beat", "the beat", "confuse rhythm with beat", "confuse with beat", "confused with the beat"],
+          guidance: "Award 1 mark for: beat, the beat, confuse rhythm with beat"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "According to the text, what does beat refer to?",
-          answers: [],
-          guidance: ""
+          answers: ["steady pulse", "pulse of the music", "steady pulse of the music", "beat refers to the steady pulse"],
+          guidance: "Award 1 mark for: steady pulse, pulse of the music, steady pulse of the music"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "What sort of sentence does the text compare the beat of music with?",
-          answers: [],
-          guidance: ""
+          answers: ["one syllable in each word", "single syllable", "syllable in each word", "each word has one syllable", "one syllable per word", "monosyllabic"],
+          guidance: "Award 1 mark for: one syllable in each word, single syllable, syllable in each word"
         }
     ]
   },
@@ -2834,20 +2874,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "According to the text, what sort of a pattern is rhythm?",
-          answers: [],
-          guidance: ""
+          answers: ["regular", "repeating pattern", "variety within", "more variety", "pattern with variety", "regular repeating"],
+          guidance: "Award 1 mark for: regular, repeating pattern, variety within"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "According to the text, in what way is rhythm different to beat?",
-          answers: [],
-          guidance: ""
+          answers: ["variety", "more variety", "pattern", "regular pattern", "repeating pattern", "variation within", "less uniform", "different lengths", "varied durations"],
+          guidance: "Award 1 mark for: variety, more variety, pattern"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
           stem: "…Danny doesn’t want to wiggle his toes…",
-          answers: [],
-          guidance: ""
+          answers: ["rhythm", "variety", "pattern", "more variety", "different rhythm", "variation"],
+          guidance: "Award 1 mark for: rhythm, variety, pattern"
         }
     ]
   },
@@ -2862,14 +2902,14 @@ const SESSIONS_Y5 = [
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "According to the text, who enjoys hockey?",
-          answers: [],
-          guidance: ""
+          answers: ["men and women", "men and women all around the world", "around the world", "people all around the world", "worldwide", "globally"],
+          guidance: "Award 1 mark for: men and women, men and women all around the world, around the world"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "According to the text, what is longer for hockey than for most other sports?",
-          answers: [],
-          guidance: ""
+          answers: ["history", "hockey history", "longer history", "its history", "historical record"],
+          guidance: "Award 1 mark for: history, hockey history, longer history"
         }
     ]
   },
@@ -2879,19 +2919,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "How does the text suggest that the Aztecs and Greeks weren’t exactly playing hockey?",
-          answers: [],
-          guidance: ""
+          answers: ["variety of games", "different games", "hitting objects with sticks", "not the same game", "various games", "different versions"],
+          guidance: "Award 1 mark for: variety of games, different games, hitting objects with sticks"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "In which country were people first thought to have played something like hockey?",
-          answers: [],
-          guidance: ""
+          answers: ["Egypt", "ancient Egypt", "Egyptian", "Egyptians"],
+          guidance: "Award 1 mark for: Egypt, ancient Egypt, Egyptian"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+                    num: 3, domain: "vocabulary", type: "find_copy", key: "q6",
           stem: "Find and copy the word in the second from last sentence that is closest in meaning to keeping.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "preserving",
+          guidance: "Award 1 mark for: preserving"
         }
     ]
   },
@@ -2899,9 +2940,10 @@ const SESSIONS_Y5 = [
     idx: 37, set: "A", textIndex: 18,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+                    num: 1, domain: "vocabulary", type: "find_copy", key: "q1",
           stem: "Find and copy the word in the first sentence that means give up.",
-          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+          answer: "sacrifice",
+          guidance: "Award 1 mark for: sacrifice"
         },
         {
           num: 2, domain: "inference", type: "open", key: "q2",
@@ -2921,14 +2963,14 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "… she was feeling more cold than cool …",
-          answers: [],
-          guidance: ""
+          answers: ["literally cold", "temperature", "late October", "freezing", "breath into ghostly clouds", "physical cold", "cold weather"],
+          guidance: "Award 1 mark for: literally cold, temperature, late October"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "What time of year was it?",
-          answers: [],
-          guidance: ""
+          answers: ["late October", "October", "autumn", "fall", "late fall", "end of October"],
+          guidance: "Award 1 mark for: late October, October, autumn"
         },
         {
           num: 3, domain: "inference", type: "open", key: "q6",
@@ -2943,20 +2985,20 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q1",
           stem: "What gives the impression that the people in the car were surprised to be stopped?",
-          answers: [],
-          guidance: ""
+          answers: ["only on their way", "what was going on", "unexpected", "surprise", "didn't expect", "unusual", "leisure centre for a swim"],
+          guidance: "Award 1 mark for: only on their way, what was going on, unexpected"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
           stem: "Where were the people in the car going?",
-          answers: [],
-          guidance: ""
+          answers: ["leisure centre", "swimming", "swim", "pool", "water"],
+          guidance: "Award 1 mark for: leisure centre, swimming, swim"
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
           stem: "What did Dad say was the reason for their visit?",
-          answers: [],
-          guidance: ""
+          answers: ["exercise", "to exercise", "swimming", "for a swim", "leisure centre"],
+          guidance: "Award 1 mark for: exercise, to exercise, swimming"
         }
     ]
   },
@@ -2966,19 +3008,21 @@ const SESSIONS_Y5 = [
         {
           num: 1, domain: "retrieval", type: "short", key: "q4",
           stem: "What did the soldier ask for?",
-          answers: [],
-          guidance: ""
+          answers: ["proof of identity", "identity", "identification", "ID", "proof", "document"],
+          guidance: "Award 1 mark for: proof of identity, identity, identification"
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
           stem: "How does Mum suggest that the soldier’s questions are unusual?",
-          answers: [],
-          guidance: ""
+          answers: ["enquired why", "why they would need", "questioning the need", "challenges the requirement", "questions why identity needed", "unusual to need proof"],
+          guidance: "Award 1 mark for: enquired why, why they would need, questioning the need"
         },
         {
-                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+                    num: 3, domain: "vocabulary", type: "mc", key: "q6",
           stem: "Which word is closest in meaning to declared? Tick one.",
-          guidance: "Options: stopped / asked / snarled / announced. Award 1 mark for the correct answer."
+          options: ["stopped", "asked", "snarled", "announced"],
+          answer: "announced",
+          guidance: "Answer: announced."
         }
     ]
   }
@@ -3042,7 +3086,7 @@ async function fetchProgress() {
   // Then verify with backend in the background; update if different
   try {
     const data = await jsonpFetch(
-      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName),
+      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName) + '&interventionYear=' + encodeURIComponent(interventionYear),
       10000
     );
     if (data && data.idx) {
@@ -3290,7 +3334,9 @@ async function submitSession() {
     timeTaken,
     answers: encodeURIComponent(JSON.stringify(answers)),
     scores: encodeURIComponent(JSON.stringify(scores)),
-    review: encodeURIComponent(JSON.stringify(reviewList))
+    review: encodeURIComponent(JSON.stringify(reviewList)),
+    classYear: preload.classYear || \'Y5\',
+    interventionYear: interventionYear
   };
 
   const url = BACKEND_URL + '?action=save3in3&' +

@@ -437,16 +437,25 @@ function jsonpFetch(url, timeout = 12000) {
 
 // ── Fetch progress from backend ───────────────────────────────────────────────
 async function fetchProgress() {
-  let idx = 1;
+  // Show immediately from localStorage cache (instant) — no spinning
+  const cacheKey = '3in3_idx_' + pupilName;
+  const cached = parseInt(localStorage.getItem(cacheKey) || '0', 10);
+  loadSession(cached || 1);
+
+  // Then verify with backend in the background; update if different
   try {
     const data = await jsonpFetch(
-      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName)
+      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName),
+      10000
     );
-    if (data && data.idx) { idx = data.idx; }
-  } catch(e) {
-    // Default to session 1 if backend unreachable
-  }
-  loadSession(idx);
+    if (data && data.idx) {
+      localStorage.setItem(cacheKey, String(data.idx));
+      if (data.idx !== (cached || 1)) {
+        // Backend has a different (authoritative) value — reload silently
+        loadSession(data.idx);
+      }
+    }
+  } catch(e) { /* backend unreachable — cached value is fine */ }
 }
 
 // ── Load session ───────────────────────────────────────────────────────────────
@@ -670,6 +679,10 @@ async function submitSession() {
 
   const url = BACKEND_URL + '?action=save3in3&' +
     Object.entries(payload).map(([k,v]) => k + '=' + v).join('&');
+
+  // Update local cache immediately so next session loads instantly
+  const nextIdx = currentSession.idx + 1;
+  localStorage.setItem('3in3_idx_' + pupilName, String(nextIdx));
 
   try {
     await jsonpFetch(url, 15000);

@@ -139,9 +139,14 @@ function doGet(e) {
     result = save3in3(e, ss);
   } else if (action === 'get3in3progress') {
     const name = decodeURIComponent(e.parameter.name || '');
-    result = get3in3Progress(name);
+    const interventionYear = e.parameter.interventionYear || '';
+    result = get3in3Progress(name, interventionYear);
   } else if (action === 'get3in3data') {
-    result = get3in3Data(ss);
+    const classYear = e.parameter.classYear || '';
+    result = get3in3Data(ss, classYear);
+  } else if (action === 'get3in3history') {
+    const name = decodeURIComponent(e.parameter.name || '');
+    result = get3in3History(ss, name);
   } else if (action === 'mark3in3') {
     result = mark3in3Pending(ss);
   } else {
@@ -772,21 +777,23 @@ function save3in3Pupils(classYear, pupils) {
 // ── Save a 3in3 session (called via JSONP GET from index.html) ────────────────
 function save3in3(e, ss) {
   try {
-    const name      = decodeURIComponent(e.parameter.name || '');
-    const idx       = parseInt(e.parameter.idx || '1', 10);
-    const set       = e.parameter.set || 'A';
-    const date      = e.parameter.date || new Date().toLocaleDateString('en-GB');
-    const timeTaken = e.parameter.timeTaken || '';
+    const name           = decodeURIComponent(e.parameter.name || '');
+    const idx            = parseInt(e.parameter.idx || '1', 10);
+    const set            = e.parameter.set || 'A';
+    const date           = e.parameter.date || new Date().toLocaleDateString('en-GB');
+    const timeTaken      = e.parameter.timeTaken || '';
+    const classYear      = e.parameter.classYear || '';
+    const interventionYear = e.parameter.interventionYear || '';
     const answers   = JSON.parse(decodeURIComponent(e.parameter.answers || '{}'));
     const scores    = JSON.parse(decodeURIComponent(e.parameter.scores  || '{}'));
     const review    = JSON.parse(decodeURIComponent(e.parameter.review  || '[]'));
 
     // Persist raw results sheet row
-    save3in3Row(ss, { name, idx, set, date, timeTaken, answers, scores, review });
+    save3in3Row(ss, { name, idx, set, date, timeTaken, classYear, interventionYear, answers, scores, review });
 
-    // Advance to next session
+    // Advance to next session (progress is per name+interventionYear combination)
     const nextIdx = idx + 1;
-    update3in3Progress(name, nextIdx);
+    update3in3Progress(name, nextIdx, interventionYear);
 
     return { ok: true, nextIdx };
   } catch(err) {
@@ -799,11 +806,17 @@ function save3in3Row(ss, data) {
   let sheet = ss.getSheetByName(SHEET_3IN3);
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_3IN3);
-    sheet.getRange(1, 1, 1, 7).setValues([[
-      'Timestamp', 'Name', 'Session', 'Set', 'Date', 'Time Taken', 'Answers JSON'
+    sheet.getRange(1, 1, 1, 9).setValues([[
+      'Timestamp', 'Name', 'Session', 'Set', 'Date', 'Time Taken', 'Class Year', 'Intervention Year', 'Answers JSON'
     ]]);
-    sheet.getRange(1, 1, 1, 7).setFontWeight('bold');
+    sheet.getRange(1, 1, 1, 9).setFontWeight('bold');
     sheet.setFrozenRows(1);
+  }
+  // Handle existing sheets that only have 7 columns — add headers if needed
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  if (headers.length < 9) {
+    if (!headers.includes('Class Year'))      sheet.getRange(1, headers.length + 1).setValue('Class Year');
+    if (!headers.includes('Intervention Year')) sheet.getRange(1, headers.length + 2).setValue('Intervention Year');
   }
   sheet.appendRow([
     new Date().toISOString(),
@@ -812,35 +825,50 @@ function save3in3Row(ss, data) {
     data.set,
     data.date,
     data.timeTaken,
+    data.classYear || '',
+    data.interventionYear || '',
     JSON.stringify({ answers: data.answers, scores: data.scores, review: data.review })
   ]);
 }
 
 // ── Get / update progress (stored as Script Property) ────────────────────────
-function get3in3Progress(name) {
+// Key is name+interventionYear so a child can have independent progress in Y3 and Y4 etc.
+function get3in3Progress(name, interventionYear) {
   if (!name) return { idx: 1 };
-  const raw = PropertiesService.getScriptProperties().getProperty('3IN3_PROGRESS') || '{}';
+  const props = PropertiesService.getScriptProperties();
+  // Try per-interventionYear key first
+  if (interventionYear) {
+    const key = '3IN3_PROGRESS_' + interventionYear;
+    const raw = props.getProperty(key) || '{}';
+    let progress = {};
+    try { progress = JSON.parse(raw); } catch(e) {}
+    if (progress[name] && progress[name].idx) return { idx: progress[name].idx };
+  }
+  // Fall back to legacy combined key
+  const raw = props.getProperty('3IN3_PROGRESS') || '{}';
   let progress = {};
   try { progress = JSON.parse(raw); } catch(e) {}
   const p = progress[name];
   if (!p) return { idx: 1 };
-  // Migrate old format { week, session } → { idx }
   if (p.idx) return { idx: p.idx };
+  // Migrate old format { week, session } → { idx }
   const oldWeek = p.week || 1;
   const oldSess = p.session || 'A';
   return { idx: (oldWeek - 1) * 2 + (oldSess === 'A' ? 1 : 2) };
 }
 
-function update3in3Progress(name, idx) {
-  const raw = PropertiesService.getScriptProperties().getProperty('3IN3_PROGRESS') || '{}';
+function update3in3Progress(name, idx, interventionYear) {
+  const props = PropertiesService.getScriptProperties();
+  const key = interventionYear ? '3IN3_PROGRESS_' + interventionYear : '3IN3_PROGRESS';
+  const raw = props.getProperty(key) || '{}';
   let progress = {};
   try { progress = JSON.parse(raw); } catch(e) {}
   progress[name] = { idx };
-  PropertiesService.getScriptProperties().setProperty('3IN3_PROGRESS', JSON.stringify(progress));
+  props.setProperty(key, JSON.stringify(progress));
 }
 
 // ── Get all 3in3 session data ─────────────────────────────────────────────────
-function get3in3Data(ss) {
+function get3in3Data(ss, classYearFilter) {
   const sheet = ss.getSheetByName(SHEET_3IN3);
   if (!sheet) return [];
 
@@ -889,14 +917,24 @@ function get3in3Data(ss) {
       });
     }
 
-    // col[2] = session idx (or old week), col[3] = set A/B (or old session letter)
+    // col[2]=idx col[3]=set col[4]=date col[5]=timeTaken col[6]=classYear col[7]=interventionYear col[8]=answersJSON
+    // (Legacy rows only have 7 cols; classYear/interventionYear default to empty)
     const rawIdx = row[2];
     const rawSet = String(row[3] || '');
-    // Migrate: if col[3] looks like a session letter and col[2] is a small integer,
-    // assume old week/session format and convert to idx
+    const rowClassYear        = String(row[6] || '');
+    const rowInterventionYear = String(row[7] || '');
+    // If new row format (9 cols), answers are in col[8]; legacy rows have answers in col[6]
+    const hasNewFormat = row.length >= 9 && rowClassYear !== '' || row.length >= 9;
+    // Re-parse payload if needed (already parsed above from col[6] — fix for new format)
+    if (hasNewFormat && row.length >= 9) {
+      try { Object.assign(payload, JSON.parse(row[8] || '{}')); } catch(e) {}
+    }
+
+    // Filter by classYear if requested
+    if (classYearFilter && rowClassYear && rowClassYear !== classYearFilter) continue;
+
     let sessionIdx, sessionSet;
     if (rawSet === 'A' || rawSet === 'B') {
-      // Could be new format (idx, set) or old (week, session) — treat as idx directly
       sessionIdx = Number(rawIdx) || 1;
       sessionSet = rawSet;
     } else {
@@ -909,6 +947,8 @@ function get3in3Data(ss) {
       name,
       sessionIdx,
       sessionSet,
+      classYear:        rowClassYear,
+      interventionYear: rowInterventionYear,
       date:        (row[4] instanceof Date ? Utilities.formatDate(row[4], Session.getScriptTimeZone(), 'dd/MM/yyyy') : String(row[4])),
       timeTaken:   (row[5] instanceof Date ? Utilities.formatDate(row[5], Session.getScriptTimeZone(), 'H:mm') : String(row[5] || '')),
       nextIdx,
@@ -916,6 +956,13 @@ function get3in3Data(ss) {
     });
   }
   return rows;
+}
+
+// ── Get full cross-year history for one child ─────────────────────────────────
+function get3in3History(ss, name) {
+  if (!name) return [];
+  const all = get3in3Data(ss); // all rows, no classYear filter
+  return all.filter(r => r.name.toLowerCase() === name.toLowerCase());
 }
 
 // ── Claude marking for 3in3 pending answers ───────────────────────────────────

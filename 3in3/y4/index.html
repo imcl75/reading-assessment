@@ -1263,7 +1263,7 @@ async function fetchProgress() {
   // Then verify with backend in the background; update if different
   try {
     const data = await jsonpFetch(
-      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName),
+      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName) + '&interventionYear=' + encodeURIComponent(interventionYear),
       10000
     );
     if (data && data.idx) {
@@ -1503,12 +1503,15 @@ async function submitSession() {
   const scores = autoMark(currentSession.questions);
   const reviewList = buildReviewList(currentSession.questions, scores);
 
+  const preload = JSON.parse(localStorage.getItem('ra_preload') || '{}');
   const payload = {
     name: encodeURIComponent(pupilName),
     idx: currentSession.idx,
     set: currentSession.set,
     date: new Date().toLocaleDateString('en-GB'),
     timeTaken,
+    classYear: preload.classYear || 'Y4',
+    interventionYear: interventionYear,
     answers: encodeURIComponent(JSON.stringify(answers)),
     scores: encodeURIComponent(JSON.stringify(scores)),
     review: encodeURIComponent(JSON.stringify(reviewList))

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<!-- 3in3/history.html — Whole-school cross-year history viewer -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>3 in 3 — Pupil History</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --brand: #1798d3; --brand-dk: #0a6fa8; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  min-height: 100vh; font-family: 'Nunito', sans-serif;
+  background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%);
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: flex-start; padding: 24px 16px 56px;
+}
+.logo { font-size: 2.6rem; margin-bottom: 4px; text-align: center; }
+h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; text-align: center; margin-bottom: 2px; }
+.sub { color: #5a8fa8; font-size: 0.9rem; text-align: center; margin-bottom: 20px; }
+
+/* PIN SCREEN */
+#pin-screen {
+  background: #fff; border-radius: 20px; padding: 32px 28px;
+  max-width: 380px; width: 100%;
+  box-shadow: 0 6px 32px rgba(23,152,211,.13);
+  text-align: center;
+}
+.pin-heading { font-size: 1.05rem; font-weight: 800; color: #222; margin-bottom: 6px; }
+.pin-sub { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
+.pin-dots { display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; }
+.dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid #ccc; background: #f5f5f5; transition: background .15s, border-color .15s;
+}
+.dot.filled { background: var(--brand); border-color: var(--brand); }
+.pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 0 auto; }
+.pin-btn {
+  padding: 16px; border: 2px solid #e0e0e0; border-radius: 12px;
+  font-size: 1.2rem; font-weight: 800; font-family: 'Nunito', sans-serif;
+  background: #fafafa; cursor: pointer; transition: all .12s;
+}
+.pin-btn:hover { border-color: var(--brand); background: #e8f5fd; color: var(--brand); }
+.pin-btn:active { transform: scale(.95); }
+.pin-btn.del { font-size: 1rem; }
+.pin-error { color: #e05c5c; font-size: 0.85rem; margin-top: 12px; min-height: 20px; }
+
+/* MAIN SCREEN */
+#main-screen { display: none; max-width: 860px; width: 100%; }
+
+.search-bar {
+  display: flex; gap: 10px; margin-bottom: 20px;
+}
+.search-input {
+  flex: 1; padding: 13px 16px; font-size: 16px;
+  border: 2px solid #ccc; border-radius: 12px; outline: none;
+  font-family: 'Nunito', sans-serif; background: #fff;
+}
+.search-input:focus { border-color: var(--brand); }
+.search-btn {
+  padding: 13px 22px; border: none; border-radius: 12px;
+  font-size: 15px; font-weight: 800; cursor: pointer;
+  background: var(--brand); color: #fff; font-family: 'Nunito', sans-serif;
+  transition: background .15s;
+}
+.search-btn:hover { background: var(--brand-dk); }
+
+.pupil-list { display: flex; flex-direction: column; gap: 10px; }
+
+/* Autocomplete */
+.autocomplete-wrap { position: relative; flex: 1; }
+.autocomplete-list {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  background: #fff; border: 2px solid var(--brand); border-radius: 12px;
+  z-index: 100; max-height: 220px; overflow-y: auto;
+  box-shadow: 0 4px 16px rgba(23,152,211,.15);
+}
+.autocomplete-item {
+  padding: 11px 16px; cursor: pointer; font-size: 15px; font-weight: 700;
+  border-bottom: 1px solid #f0f0f0; transition: background .1s;
+}
+.autocomplete-item:last-child { border-bottom: none; }
+.autocomplete-item:hover { background: #e8f5fd; color: var(--brand); }
+
+/* History card */
+.pupil-card {
+  background: #fff; border-radius: 16px; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(23,152,211,.10);
+}
+.pupil-card-header {
+  padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+  border-bottom: 1px solid #f0f0f0; background: #fcfcfc;
+}
+.pupil-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--brand); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 800; flex-shrink: 0;
+}
+.pupil-name-big { font-size: 1.1rem; font-weight: 800; color: #1a1a2e; }
+.pupil-meta { font-size: 0.8rem; color: #888; margin-top: 1px; }
+
+.intervention-section { border-bottom: 1px solid #f0f0f0; }
+.intervention-section:last-child { border-bottom: none; }
+.intervention-header {
+  padding: 12px 20px; display: flex; align-items: center; gap: 10px;
+  background: #f9f9f9; cursor: pointer; user-select: none;
+}
+.intervention-header:hover { background: #f2f8fd; }
+.yr-pill {
+  display: inline-block; font-size: 11px; font-weight: 800;
+  border-radius: 6px; padding: 2px 9px;
+}
+.intervention-title { font-size: 0.95rem; font-weight: 800; color: #333; }
+.intervention-count { font-size: 0.82rem; color: #888; margin-left: auto; }
+.toggle-arrow { font-size: 1rem; color: #bbb; transition: transform .2s; }
+.toggle-arrow.open { transform: rotate(90deg); }
+
+.sessions-table-wrap { overflow-x: auto; }
+.sessions-table {
+  width: 100%; border-collapse: collapse; font-size: 14px;
+}
+.sessions-table th {
+  padding: 8px 14px; text-align: left; font-size: 11px; font-weight: 800;
+  color: #999; text-transform: uppercase; letter-spacing: .03em;
+  border-bottom: 1px solid #f0f0f0; white-space: nowrap;
+}
+.sessions-table td {
+  padding: 9px 14px; border-bottom: 1px solid #f8f8f8;
+  color: #333; vertical-align: top;
+}
+.sessions-table tr:last-child td { border-bottom: none; }
+.sessions-table tr:hover td { background: #fafeff; }
+
+.score-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 100px; }
+.score-bar { height: 8px; border-radius: 4px; flex: 1; background: #e8f0f5; overflow: hidden; }
+.score-bar-fill { height: 100%; border-radius: 4px; transition: width .3s; }
+.score-pct { font-size: 12px; font-weight: 700; white-space: nowrap; }
+
+.domain-pips { display: flex; gap: 4px; flex-wrap: wrap; }
+.pip {
+  display: inline-block; font-size: 10px; font-weight: 800;
+  padding: 2px 6px; border-radius: 5px; white-space: nowrap;
+}
+.pip-vocab { background: #fdf0e4; color: #c07020; }
+.pip-retrieval { background: #e4f4e4; color: #2a8a2a; }
+.pip-inference { background: #f0e4fd; color: #7020c0; }
+.pip-summary { background: #e4ecfd; color: #2050c0; }
+.pip-other { background: #f0f0f0; color: #666; }
+
+.needs-review { display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 5px; background: #fff3cd; color: #856404; }
+
+.empty-state {
+  padding: 40px 20px; text-align: center; color: #aaa; font-size: 15px;
+}
+.empty-state .big { font-size: 2.5rem; margin-bottom: 10px; }
+
+.spinner {
+  width: 30px; height: 30px; border: 3px solid #ddd;
+  border-top-color: var(--brand); border-radius: 50%;
+  animation: spin .7s linear infinite; margin: 0 auto 10px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#loading-overlay { display: none; text-align: center; padding: 40px; color: #888; }
+
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--brand); font-size: 0.88rem; font-weight: 700;
+  text-decoration: none; margin-bottom: 18px;
+  padding: 6px 12px; border-radius: 8px; background: rgba(23,152,211,.08);
+  transition: background .15s;
+}
+.back-link:hover { background: rgba(23,152,211,.15); }
+</style>
+</head>
+<body>
+
+<div class="logo">📖</div>
+<h1>3 in 3 Reading</h1>
+<p class="sub">Wallscourt Farm Academy · Pupil History</p>
+
+<!-- PIN screen -->
+<div id="pin-screen">
+  <p class="pin-heading">🔒 Staff access only</p>
+  <p class="pin-sub">Enter your 4-digit PIN to continue</p>
+  <div class="pin-dots" id="pin-dots">
+    <div class="dot" id="d0"></div>
+    <div class="dot" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
+  </div>
+  <div class="pin-pad">
+    <button class="pin-btn" onclick="pinKey('1')">1</button>
+    <button class="pin-btn" onclick="pinKey('2')">2</button>
+    <button class="pin-btn" onclick="pinKey('3')">3</button>
+    <button class="pin-btn" onclick="pinKey('4')">4</button>
+    <button class="pin-btn" onclick="pinKey('5')">5</button>
+    <button class="pin-btn" onclick="pinKey('6')">6</button>
+    <button class="pin-btn" onclick="pinKey('7')">7</button>
+    <button class="pin-btn" onclick="pinKey('8')">8</button>
+    <button class="pin-btn" onclick="pinKey('9')">9</button>
+    <button class="pin-btn del" onclick="pinDel()">⌫</button>
+    <button class="pin-btn" onclick="pinKey('0')">0</button>
+    <button class="pin-btn del" onclick="pinClear()">✕</button>
+  </div>
+  <p class="pin-error" id="pin-error"></p>
+</div>
+
+<!-- Main screen -->
+<div id="main-screen">
+  <a class="back-link" href="home.html">← Year group selector</a>
+
+  <div class="search-bar">
+    <div class="autocomplete-wrap">
+      <input type="text" id="search-input" class="search-input"
+        placeholder="Search pupil name…" autocomplete="off"
+        oninput="onSearchInput()" onkeydown="onSearchKey(event)">
+      <div class="autocomplete-list" id="ac-list" style="display:none"></div>
+    </div>
+    <button class="search-btn" onclick="doSearch()">Search</button>
+  </div>
+
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+    <div>Loading…</div>
+  </div>
+
+  <div class="pupil-list" id="pupil-list"></div>
+</div>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+const STAFF_PIN  = '2025';  // change here if needed
+
+// ───── PIN ─────
+let pinEntry = '';
+
+function pinKey(k) {
+  if (pinEntry.length >= 4) return;
+  pinEntry += k;
+  updateDots();
+  if (pinEntry.length === 4) setTimeout(checkPin, 100);
+}
+function pinDel() { pinEntry = pinEntry.slice(0,-1); updateDots(); }
+function pinClear() { pinEntry = ''; updateDots(); document.getElementById('pin-error').textContent = ''; }
+function updateDots() {
+  for (let i = 0; i < 4; i++)
+    document.getElementById('d' + i).classList.toggle('filled', i < pinEntry.length);
+}
+function checkPin() {
+  if (pinEntry === STAFF_PIN) {
+    document.getElementById('pin-screen').style.display = 'none';
+    document.getElementById('main-screen').style.display = 'block';
+    loadAllNames();
+  } else {
+    document.getElementById('pin-error').textContent = 'Incorrect PIN. Try again.';
+    pinEntry = '';
+    updateDots();
+  }
+}
+
+// ───── JSONP ─────
+function jsonpFetch(url, timeout) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb3h_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout || 15000);
+    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.body.appendChild(script);
+  });
+}
+
+// ───── Names autocomplete ─────
+let allNames = [];
+
+async function loadAllNames() {
+  try {
+    // Fetch pupils from all class years
+    const years = ['Y3','Y4','Y5','Y6'];
+    const sets = await Promise.allSettled(
+      years.map(y => jsonpFetch(`${BACKEND_URL}?action=get3in3pupils&classYear=${y}`))
+    );
+    const nameSet = new Set();
+    sets.forEach(r => {
+      if (r.status === 'fulfilled') {
+        const data = r.value;
+        let pupils = [];
+        if (Array.isArray(data)) pupils = data;
+        else if (data && Array.isArray(data.pupils)) pupils = data.pupils;
+        pupils.forEach(p => {
+          const name = typeof p === 'string' ? p : p.name;
+          if (name) nameSet.add(name);
+        });
+      }
+    });
+    allNames = [...nameSet].sort();
+  } catch(e) {
+    allNames = [];
+  }
+}
+
+function onSearchInput() {
+  const q = document.getElementById('search-input').value.trim().toLowerCase();
+  if (q.length < 1) { closeAC(); return; }
+  const matches = allNames.filter(n => n.toLowerCase().includes(q)).slice(0, 8);
+  if (!matches.length) { closeAC(); return; }
+  const list = document.getElementById('ac-list');
+  list.innerHTML = matches.map(n =>
+    `<div class="autocomplete-item" onclick="selectName('${n.replace(/'/g,'&#39;')}')">${n}</div>`
+  ).join('');
+  list.style.display = 'block';
+}
+
+function closeAC() { document.getElementById('ac-list').style.display = 'none'; }
+
+function selectName(name) {
+  document.getElementById('search-input').value = name;
+  closeAC();
+  doSearch();
+}
+
+function onSearchKey(e) {
+  if (e.key === 'Enter') { closeAC(); doSearch(); }
+  if (e.key === 'Escape') closeAC();
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.autocomplete-wrap')) closeAC();
+});
+
+// ───── History fetch & render ─────
+async function doSearch() {
+  const name = document.getElementById('search-input').value.trim();
+  if (!name) return;
+
+  const overlay = document.getElementById('loading-overlay');
+  const list    = document.getElementById('pupil-list');
+  overlay.style.display = 'block';
+  list.innerHTML = '';
+
+  try {
+    const data = await jsonpFetch(
+      `${BACKEND_URL}?action=get3in3history&name=${encodeURIComponent(name)}`
+    );
+    overlay.style.display = 'none';
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      list.innerHTML = `<div class="pupil-card"><div class="empty-state"><div class="big">🔍</div>No sessions found for <strong>${escHtml(name)}</strong></div></div>`;
+      return;
+    }
+    renderHistory(name, data, list);
+  } catch(e) {
+    overlay.style.display = 'none';
+    list.innerHTML = `<div class="pupil-card"><div class="empty-state"><div class="big">⚠️</div>Could not load data. Please try again.</div></div>`;
+  }
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+const YR_COLORS = {
+  Y3: { bg: '#e8f5fd', color: '#1798d3' },
+  Y4: { bg: '#e4f4e4', color: '#2a8a2a' },
+  Y5: { bg: '#fdf0e4', color: '#c07020' },
+  Y6: { bg: '#f0e4fd', color: '#7020c0' },
+};
+
+function renderHistory(name, rows, container) {
+  // Group by interventionYear (fallback to classYear)
+  const byYear = {};
+  rows.forEach(r => {
+    const yr = r.interventionYear || r.classYear || 'Unknown';
+    if (!byYear[yr]) byYear[yr] = [];
+    byYear[yr].push(r);
+  });
+
+  const totalSessions = rows.length;
+  const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+  const c = YR_COLORS[Object.keys(byYear)[0]] || { bg: '#e8f5fd', color: '#1798d3' };
+
+  let html = `
+    <div class="pupil-card">
+      <div class="pupil-card-header">
+        <div class="pupil-avatar" style="background:${c.color}">${escHtml(initials)}</div>
+        <div>
+          <div class="pupil-name-big">${escHtml(name)}</div>
+          <div class="pupil-meta">${totalSessions} session${totalSessions !== 1 ? 's' : ''} across ${Object.keys(byYear).length} intervention year${Object.keys(byYear).length !== 1 ? 's' : ''}</div>
+        </div>
+      </div>
+  `;
+
+  // Sort intervention years
+  const yearOrder = ['Y3','Y4','Y5','Y6'];
+  const sortedYears = Object.keys(byYear).sort((a,b) => {
+    const ia = yearOrder.indexOf(a), ib = yearOrder.indexOf(b);
+    return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+  });
+
+  sortedYears.forEach((yr, yi) => {
+    const sessions = byYear[yr].sort((a,b) => (a.idx||0) - (b.idx||0));
+    const yc = YR_COLORS[yr] || { bg: '#f0f0f0', color: '#666' };
+    const avgScore = sessions.length
+      ? Math.round(sessions.reduce((s, r) => s + totalScore(r), 0) / sessions.length)
+      : 0;
+    const maxPossible = sessions.length
+      ? Math.round(sessions.reduce((s, r) => s + maxScore(r), 0) / sessions.length)
+      : 3;
+
+    const uid = `section-${yi}`;
+    html += `
+      <div class="intervention-section">
+        <div class="intervention-header" onclick="toggleSection('${uid}')">
+          <span class="yr-pill" style="background:${yc.bg};color:${yc.color}">${yr}</span>
+          <span class="intervention-title">${yr} Intervention Content</span>
+          <span class="intervention-count">${sessions.length} session${sessions.length !== 1 ? 's' : ''} · avg ${avgScore}/${maxPossible}</span>
+          <span class="toggle-arrow open" id="arrow-${uid}">›</span>
+        </div>
+        <div id="${uid}">
+          <div class="sessions-table-wrap">
+            <table class="sessions-table">
+              <thead>
+                <tr>
+                  <th>Session</th>
+                  <th>Date</th>
+                  <th>Score</th>
+                  <th>Domains</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+    `;
+
+    sessions.forEach(r => {
+      const sc = totalScore(r);
+      const mx = maxScore(r);
+      const pct = mx > 0 ? Math.round(sc / mx * 100) : 0;
+      const barColor = pct >= 80 ? '#4caf50' : pct >= 50 ? '#ff9800' : '#e05c5c';
+      const domainPips = buildDomainPips(r);
+      const hasReview = r.needsReview;
+      html += `
+        <tr>
+          <td><strong>S${r.idx || '?'}</strong>${r.set ? ` <span style="color:#aaa;font-size:12px">Set ${r.set}</span>` : ''}</td>
+          <td style="white-space:nowrap;color:#666">${r.date || '—'}</td>
+          <td>
+            <div class="score-bar-wrap">
+              <div class="score-bar"><div class="score-bar-fill" style="width:${pct}%;background:${barColor}"></div></div>
+              <span class="score-pct" style="color:${barColor}">${sc}/${mx}</span>
+            </div>
+            ${hasReview ? '<br><span class="needs-review">⚠ Review</span>' : ''}
+          </td>
+          <td><div class="domain-pips">${domainPips}</div></td>
+          <td style="color:#888;white-space:nowrap">${r.timeTaken ? r.timeTaken + 's' : '—'}</td>
+        </tr>
+      `;
+    });
+
+    html += `
+              </tbody>
+            </table>
+          </div>
+          ${buildDomainSummary(sessions, yr)}
+        </div>
+      </div>
+    `;
+  });
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function toggleSection(uid) {
+  const el    = document.getElementById(uid);
+  const arrow = document.getElementById('arrow-' + uid);
+  const open  = el.style.display !== 'none';
+  el.style.display    = open ? 'none' : 'block';
+  arrow.classList.toggle('open', !open);
+}
+
+function totalScore(r) {
+  if (!r.scores) return 0;
+  try {
+    const sc = typeof r.scores === 'string' ? JSON.parse(r.scores) : r.scores;
+    return Object.values(sc).reduce((a,b) => a + (Number(b)||0), 0);
+  } catch { return 0; }
+}
+
+function maxScore(r) {
+  if (!r.scores) return 3;
+  try {
+    const sc = typeof r.scores === 'string' ? JSON.parse(r.scores) : r.scores;
+    return Object.keys(sc).length || 3;
+  } catch { return 3; }
+}
+
+const DOMAIN_MAP = {
+  vocabulary: { label: 'Vocab', cls: 'pip-vocab' },
+  retrieval:  { label: 'Retrieval', cls: 'pip-retrieval' },
+  inference:  { label: 'Inference', cls: 'pip-inference' },
+  summary:    { label: 'Summary', cls: 'pip-summary' },
+};
+
+function buildDomainPips(r) {
+  if (!r.answers) return '';
+  try {
+    const ans = typeof r.answers === 'string' ? JSON.parse(r.answers) : r.answers;
+    const sc  = r.scores ? (typeof r.scores === 'string' ? JSON.parse(r.scores) : r.scores) : {};
+    const seen = new Set();
+    return Object.entries(ans).map(([key, val]) => {
+      const dom = val.domain || '';
+      if (!dom || seen.has(dom)) return '';
+      seen.add(dom);
+      const m = DOMAIN_MAP[dom] || { label: dom, cls: 'pip-other' };
+      const score = sc[key] !== undefined ? Number(sc[key]) : -1;
+      const scoreHint = score >= 0 ? ` (${score}/1)` : '';
+      return `<span class="pip ${m.cls}" title="${dom}${scoreHint}">${m.label}</span>`;
+    }).join('');
+  } catch { return ''; }
+}
+
+function buildDomainSummary(sessions, yr) {
+  // Aggregate correct/total per domain
+  const tally = {};
+  sessions.forEach(r => {
+    if (!r.answers || !r.scores) return;
+    try {
+      const ans = typeof r.answers === 'string' ? JSON.parse(r.answers) : r.answers;
+      const sc  = typeof r.scores  === 'string' ? JSON.parse(r.scores)  : r.scores;
+      Object.entries(ans).forEach(([key, val]) => {
+        const dom = val.domain || 'other';
+        if (!tally[dom]) tally[dom] = { correct: 0, total: 0 };
+        tally[dom].total++;
+        if (Number(sc[key]) >= 1) tally[dom].correct++;
+      });
+    } catch {}
+  });
+
+  if (!Object.keys(tally).length) return '';
+
+  const order = ['vocabulary','retrieval','inference','summary'];
+  const keys = [...order.filter(k => tally[k]), ...Object.keys(tally).filter(k => !order.includes(k))];
+
+  let bars = keys.map(dom => {
+    const { correct, total } = tally[dom];
+    const pct = total > 0 ? Math.round(correct / total * 100) : 0;
+    const barColor = pct >= 80 ? '#4caf50' : pct >= 50 ? '#ff9800' : '#e05c5c';
+    const m = DOMAIN_MAP[dom] || { label: dom, cls: 'pip-other' };
+    return `
+      <div style="margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">
+          <span class="pip ${m.cls}">${m.label}</span>
+          <span style="color:#888;font-size:12px">${correct}/${total} (${pct}%)</span>
+        </div>
+        <div style="height:7px;border-radius:4px;background:#e8f0f5;overflow:hidden">
+          <div style="height:100%;width:${pct}%;background:${barColor};border-radius:4px;transition:width .3s"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  return `<div style="padding:14px 20px 16px;border-top:1px solid #f0f0f0">
+    <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#aaa;margin-bottom:10px">Domain breakdown</div>
+    ${bars}
+  </div>`;
+}
+</script>
+
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01m</p>
+</body>
+</html>

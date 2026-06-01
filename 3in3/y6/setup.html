@@ -49,6 +49,19 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 .remove-btn { background: none; border: none; color: #ccc; cursor: pointer; font-size: 16px; line-height: 1; padding: 2px 6px; font-family: inherit; transition: color .1s; }
 .remove-btn:hover { color: #e53935; }
 .empty-hint { font-size: 13px; color: #aaa; text-align: center; padding: 20px 0; }
+
+.archive-btn {
+  padding: 5px 10px; border: 1.5px solid #ddd; border-radius: 7px;
+  background: #fff; font-size: 11px; font-weight: 800; cursor: pointer;
+  font-family: inherit; color: #888; transition: all .12s; flex-shrink: 0;
+}
+.archive-btn:hover { border-color: #e65100; color: #e65100; background: #fff3e0; }
+.archived-header {
+  font-size: 12px; font-weight: 800; color: #aaa; padding: 10px 4px 6px;
+  cursor: pointer; user-select: none; border-top: 1px solid #f0f0f0; margin-top: 8px;
+}
+.archived-header:hover { color: #888; }
+.name-row.archived { opacity: .65; }
 </style>
 </head>
 <body>
@@ -203,22 +216,54 @@ function showAddMsg(t, c) {
 function renderList() {
   const list = document.getElementById('name-list');
   const saveBtn = document.getElementById('save-btn');
-  if (!children.length) {
+  const active   = children.filter(c => !c.archived);
+  const archived = children.filter(c => c.archived);
+
+  if (!active.length && !archived.length) {
     list.innerHTML = '<div class="empty-hint">No children added yet. Use the form above to add the first child.</div>';
     saveBtn.style.display = 'none';
     return;
   }
-  list.innerHTML = children.map((c, i) =>
-    `<div class="name-row">
+
+  const activeHtml = active.length ? active.map((c, i) => {
+    const realIdx = children.indexOf(c);
+    return `<div class="name-row">
       <span class="name-text">${c.name}</span>
       <span class="yr-chip ${c.interventionYear.toLowerCase()}">${c.interventionYear} content</span>
-      <select class="yr-select" style="padding:6px 8px;font-size:12px;" onchange="changeYear(${i}, this.value)">
+      <select class="yr-select" style="padding:6px 8px;font-size:12px;" onchange="changeYear(${realIdx}, this.value)">
         ${AVAILABLE_YEARS.map(y => '<option value="' + y + '"' + (y===c.interventionYear?' selected':'') + '>' + y + '</option>').join('')}
       </select>
-      <button class="remove-btn" onclick="removeChild(${i})" title="Remove">×</button>
-    </div>`
-  ).join('');
+      <button class="archive-btn" onclick="archiveChild(${realIdx})" title="Archive this child">Archive</button>
+      <button class="remove-btn" onclick="removeChild(${realIdx})" title="Remove permanently">×</button>
+    </div>`;
+  }).join('') : '<div class="empty-hint">No active children. Add one above.</div>';
+
+  const archivedHtml = archived.length ? `
+    <div class="archived-header" onclick="toggleArchived()">
+      📦 Archived (${archived.length}) <span id="archived-toggle">▶</span>
+    </div>
+    <div id="archived-list" style="display:none">
+      ${archived.map(c => {
+        const realIdx = children.indexOf(c);
+        return `<div class="name-row archived">
+          <span class="name-text" style="color:#aaa;">${c.name}</span>
+          <span class="yr-chip ${c.interventionYear.toLowerCase()}" style="opacity:.5;">${c.interventionYear}</span>
+          <button class="archive-btn" style="background:#e8f5e9;color:#2e7d32;border-color:#c8e6c9;" onclick="unarchiveChild(${realIdx})">Reactivate</button>
+        </div>`;
+      }).join('')}
+    </div>` : '';
+
+  list.innerHTML = activeHtml + archivedHtml;
   saveBtn.style.display = 'block';
+}
+
+function toggleArchived() {
+  const el = document.getElementById('archived-list');
+  const tog = document.getElementById('archived-toggle');
+  if (!el) return;
+  const shown = el.style.display !== 'none';
+  el.style.display = shown ? 'none' : 'block';
+  if (tog) tog.textContent = shown ? '▶' : '▼';
 }
 
 function changeYear(i, yr) {
@@ -228,6 +273,16 @@ function changeYear(i, yr) {
 }
 function removeChild(i) {
   children.splice(i, 1);
+  renderList();
+  showSaveMsg('Unsaved changes — press Save when ready.', '');
+}
+function archiveChild(i) {
+  children[i].archived = true;
+  renderList();
+  showSaveMsg('Unsaved changes — press Save when ready.', '');
+}
+function unarchiveChild(i) {
+  children[i].archived = false;
   renderList();
   showSaveMsg('Unsaved changes — press Save when ready.', '');
 }

@@ -306,8 +306,8 @@ const TEXTS = {
   2: 'We often hear about the damage that humans cause to the environment. While this is certainly true, we can also have a positive impact. For example, there is a really cool insect that lives in our country called the stag beetle. These beetles are big – nearly eight centimetres long – with fierce looking ‘antlers’. If you’re lucky, you might see them flying around on warm evenings. Sadly, they are dying out, however, mostly due to the lack of suitable habitat. If you have the space, why not help to protect them by creating a pile of rotten logs where they can lay their eggs?'
 };
 
-const WEEKS = [
-  { week: 1, session: 'A', textIndex: 0,
+const SESSIONS = [
+  { idx: 1, set: 'A', textIndex: 0,
     questions: [
       { num: 1, domain: 'retrieval', type: 'short_parts',
         stem: 'Which two teams are mentioned?',
@@ -323,7 +323,7 @@ const WEEKS = [
         guidance: 'Award 1 mark for any reasonable explanation, e.g. the groups are very different types of groups to attend a party together, or they seem unrelated to each other.' }
     ]
   },
-  { week: 1, session: 'B', textIndex: 0,
+  { idx: 2, set: 'B', textIndex: 0,
     questions: [
       { num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
         quote: '… you need to dig deeper …',
@@ -339,7 +339,7 @@ const WEEKS = [
         guidance: 'Award 1 mark for the same denominator / their denominator / the same common thing. Accept reasonable paraphrase.' }
     ]
   },
-  { week: 2, session: 'A', textIndex: 1,
+  { idx: 3, set: 'A', textIndex: 1,
     questions: [
       { num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
         quote: 'Is there anything that frustrates you about writing?',
@@ -358,7 +358,7 @@ const WEEKS = [
         guidance: 'Award 1 mark for any reasonable inference, e.g. the word is unusual and the author wants the reader to understand it.' }
     ]
   },
-  { week: 2, session: 'B', textIndex: 1,
+  { idx: 4, set: 'B', textIndex: 1,
     questions: [
       { num: 1, domain: 'retrieval', type: 'short', key: 'q1',
         stem: 'According to the text, what might you dislike having to do?',
@@ -374,7 +374,7 @@ const WEEKS = [
         ] }
     ]
   },
-  { week: 3, session: 'A', textIndex: 2,
+  { idx: 5, set: 'A', textIndex: 2,
     questions: [
       { num: 1, domain: 'vocabulary', type: 'find_copy', key: 'q1',
         stem: 'Find and copy the word in the first sentence that is closest in meaning to <strong>harm</strong>.',
@@ -388,7 +388,7 @@ const WEEKS = [
         guidance: 'Award 1 mark for any reasonable inference about appearance or behaviour, e.g. they are large/impressive, have fierce-looking antlers, or can fly.' }
     ]
   },
-  { week: 3, session: 'B', textIndex: 2,
+  { idx: 6, set: 'B', textIndex: 2,
     questions: [
       { num: 1, domain: 'inference', type: 'open', key: 'q1',
         stem: 'Why does the author put the word ‘antlers’ in inverted commas?',
@@ -405,11 +405,11 @@ const WEEKS = [
   }
 ];
 
-const MAX_WEEK = WEEKS.length > 0 ? Math.max(...WEEKS.map(w => w.week)) : 6;
+const MAX_IDX = SESSIONS.length > 0 ? Math.max(...SESSIONS.map(s => s.idx)) : 6;
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let pupilName = '';
-let currentWeekData = null;
+let currentSession = null;
 let answers = {};
 let startTime = null;
 
@@ -437,43 +437,44 @@ function jsonpFetch(url, timeout = 12000) {
 
 // ── Fetch progress from backend ───────────────────────────────────────────────
 async function fetchProgress() {
-  let week = 1, session = 'A';
+  let idx = 1;
   try {
     const data = await jsonpFetch(
       BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName)
     );
-    if (data && data.week) { week = data.week; session = data.session || 'A'; }
+    if (data && data.idx) { idx = data.idx; }
   } catch(e) {
-    // Default to week 1 session A if backend unreachable
+    // Default to session 1 if backend unreachable
   }
-  loadSession(week, session);
+  loadSession(idx);
 }
 
 // ── Load session ───────────────────────────────────────────────────────────────
-function loadSession(week, session) {
+function loadSession(idx) {
   document.getElementById('loading-screen').style.display = 'none';
 
-  currentWeekData = WEEKS.find(w => w.week === week && w.session === session);
+  currentSession = SESSIONS.find(s => s.idx === idx);
 
-  if (!currentWeekData) {
+  if (!currentSession) {
     // Beyond available content
     document.getElementById('complete-screen').style.display = 'block';
     return;
   }
 
-  // Badge
+  // Badge: "Text 1 · Set A"
+  const textNum = Math.ceil(idx / 2);
   document.getElementById('session-label').textContent =
-    'Week ' + week + ' · Session ' + session;
+    'Text ' + textNum + ' · Set ' + currentSession.set;
   const dot = document.getElementById('session-dot');
-  dot.className = 'dot ' + (session === 'A' ? 'a' : '');
+  dot.className = 'dot ' + (currentSession.set === 'A' ? 'a' : '');
 
   // Passage — shown large in reading phase
-  const passageText = TEXTS[currentWeekData.textIndex];
+  const passageText = TEXTS[currentSession.textIndex];
   document.getElementById('passage-text').textContent = passageText;
   document.getElementById('passage-text-q').textContent = passageText;
 
   // Questions pre-rendered (hidden until phase 2)
-  renderQuestions(currentWeekData.questions);
+  renderQuestions(currentSession.questions);
 
   document.getElementById('reading-phase').style.display = 'block';
   document.getElementById('questions-phase').style.display = 'none';
@@ -565,7 +566,7 @@ function selectMC(key, val, btn) {
 }
 
 function checkCardAnswered() {
-  currentWeekData.questions.forEach(q => {
+  currentSession.questions.forEach(q => {
     const card = document.getElementById('qcard-' + q.num);
     if (!card) return;
     const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
@@ -631,7 +632,7 @@ function buildReviewList(questions, scores) {
 async function submitSession() {
   // Validate all answered
   let allAnswered = true;
-  currentWeekData.questions.forEach(q => {
+  currentSession.questions.forEach(q => {
     const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
     keys.forEach(k => {
       if (!answers[k] || !answers[k].trim()) allAnswered = false;
@@ -653,13 +654,13 @@ async function submitSession() {
   const mins = Math.floor(timeSecs / 60), secs = timeSecs % 60;
   const timeTaken = mins + ':' + String(secs).padStart(2, '0');
 
-  const scores = autoMark(currentWeekData.questions);
-  const reviewList = buildReviewList(currentWeekData.questions, scores);
+  const scores = autoMark(currentSession.questions);
+  const reviewList = buildReviewList(currentSession.questions, scores);
 
   const payload = {
     name: encodeURIComponent(pupilName),
-    week: currentWeekData.week,
-    session: currentWeekData.session,
+    idx: currentSession.idx,
+    set: currentSession.set,
     date: new Date().toLocaleDateString('en-GB'),
     timeTaken,
     answers: encodeURIComponent(JSON.stringify(answers)),
@@ -687,12 +688,12 @@ function showDone(scores) {
   document.getElementById('done-title').textContent =
     'Well done, ' + pupilName.split(' ')[0] + '! 🌟';
 
-  document.getElementById('done-sub').textContent =
-    'You’ve finished Week ' + currentWeekData.week +
-    ' Session ' + currentWeekData.session + '. Great reading!';
+  const textNum = Math.ceil(currentSession.idx / 2);
+  document.getElementById(‘done-sub’).textContent =
+    ‘You’ve finished Text ‘ + textNum + ‘, Set ‘ + currentSession.set + ‘. Great reading!’;
 
   // Show auto-marked MC scores
-  const mcQ = currentWeekData.questions.filter(q => q.type === 'mc');
+  const mcQ = currentSession.questions.filter(q => q.type === ‘mc’);
   const row = document.getElementById('score-row');
   row.innerHTML = '';
   if (mcQ.length > 0) {

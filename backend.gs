@@ -710,24 +710,23 @@ function save3in3Pupils(names) {
 // ── Save a 3in3 session (called via JSONP GET from index.html) ────────────────
 function save3in3(e, ss) {
   try {
-    const name     = decodeURIComponent(e.parameter.name    || '');
-    const week     = parseInt(e.parameter.week    || '1', 10);
-    const session  = e.parameter.session  || 'A';
-    const date     = e.parameter.date     || new Date().toLocaleDateString('en-GB');
+    const name      = decodeURIComponent(e.parameter.name || '');
+    const idx       = parseInt(e.parameter.idx || '1', 10);
+    const set       = e.parameter.set || 'A';
+    const date      = e.parameter.date || new Date().toLocaleDateString('en-GB');
     const timeTaken = e.parameter.timeTaken || '';
-    const answers  = JSON.parse(decodeURIComponent(e.parameter.answers  || '{}'));
-    const scores   = JSON.parse(decodeURIComponent(e.parameter.scores   || '{}'));
-    const review   = JSON.parse(decodeURIComponent(e.parameter.review   || '[]'));
+    const answers   = JSON.parse(decodeURIComponent(e.parameter.answers || '{}'));
+    const scores    = JSON.parse(decodeURIComponent(e.parameter.scores  || '{}'));
+    const review    = JSON.parse(decodeURIComponent(e.parameter.review  || '[]'));
 
     // Persist raw results sheet row
-    save3in3Row(ss, { name, week, session, date, timeTaken, answers, scores, review });
+    save3in3Row(ss, { name, idx, set, date, timeTaken, answers, scores, review });
 
-    // Advance progress
-    const nextWeek    = session === 'A' ? week : week + 1;
-    const nextSession = session === 'A' ? 'B' : 'A';
-    update3in3Progress(name, nextWeek, nextSession);
+    // Advance to next session
+    const nextIdx = idx + 1;
+    update3in3Progress(name, nextIdx);
 
-    return { ok: true, nextWeek, nextSession };
+    return { ok: true, nextIdx };
   } catch(err) {
     console.error('save3in3 error:', err);
     return { ok: false, error: err.toString() };
@@ -739,7 +738,7 @@ function save3in3Row(ss, data) {
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_3IN3);
     sheet.getRange(1, 1, 1, 7).setValues([[
-      'Timestamp', 'Name', 'Week', 'Session', 'Date', 'Time Taken', 'Answers JSON'
+      'Timestamp', 'Name', 'Session', 'Set', 'Date', 'Time Taken', 'Answers JSON'
     ]]);
     sheet.getRange(1, 1, 1, 7).setFontWeight('bold');
     sheet.setFrozenRows(1);
@@ -747,8 +746,8 @@ function save3in3Row(ss, data) {
   sheet.appendRow([
     new Date().toISOString(),
     data.name,
-    data.week,
-    data.session,
+    data.idx,
+    data.set,
     data.date,
     data.timeTaken,
     JSON.stringify({ answers: data.answers, scores: data.scores, review: data.review })
@@ -757,18 +756,24 @@ function save3in3Row(ss, data) {
 
 // ── Get / update progress (stored as Script Property) ────────────────────────
 function get3in3Progress(name) {
-  if (!name) return { week: 1, session: 'A' };
+  if (!name) return { idx: 1 };
   const raw = PropertiesService.getScriptProperties().getProperty('3IN3_PROGRESS') || '{}';
   let progress = {};
   try { progress = JSON.parse(raw); } catch(e) {}
-  return progress[name] || { week: 1, session: 'A' };
+  const p = progress[name];
+  if (!p) return { idx: 1 };
+  // Migrate old format { week, session } → { idx }
+  if (p.idx) return { idx: p.idx };
+  const oldWeek = p.week || 1;
+  const oldSess = p.session || 'A';
+  return { idx: (oldWeek - 1) * 2 + (oldSess === 'A' ? 1 : 2) };
 }
 
-function update3in3Progress(name, week, session) {
+function update3in3Progress(name, idx) {
   const raw = PropertiesService.getScriptProperties().getProperty('3IN3_PROGRESS') || '{}';
   let progress = {};
   try { progress = JSON.parse(raw); } catch(e) {}
-  progress[name] = { week, session };
+  progress[name] = { idx };
   PropertiesService.getScriptProperties().setProperty('3IN3_PROGRESS', JSON.stringify(progress));
 }
 
@@ -822,15 +827,29 @@ function get3in3Data(ss) {
       });
     }
 
+    // col[2] = session idx (or old week), col[3] = set A/B (or old session letter)
+    const rawIdx = row[2];
+    const rawSet = String(row[3] || '');
+    // Migrate: if col[3] looks like a session letter and col[2] is a small integer,
+    // assume old week/session format and convert to idx
+    let sessionIdx, sessionSet;
+    if (rawSet === 'A' || rawSet === 'B') {
+      // Could be new format (idx, set) or old (week, session) — treat as idx directly
+      sessionIdx = Number(rawIdx) || 1;
+      sessionSet = rawSet;
+    } else {
+      sessionIdx = Number(rawIdx) || 1;
+      sessionSet = (sessionIdx % 2 === 1) ? 'A' : 'B';
+    }
     const progress = allProgress[name] || {};
+    const nextIdx = progress.idx || null;
     rows.push({
       name,
-      week:        Number(row[2]),
-      session:     String(row[3]),
+      sessionIdx,
+      sessionSet,
       date:        (row[4] instanceof Date ? Utilities.formatDate(row[4], Session.getScriptTimeZone(), 'dd/MM/yyyy') : String(row[4])),
       timeTaken:   (row[5] instanceof Date ? Utilities.formatDate(row[5], Session.getScriptTimeZone(), 'H:mm') : String(row[5] || '')),
-      nextWeek:    progress.week    || null,
-      nextSession: progress.session || null,
+      nextIdx,
       questions
     });
   }

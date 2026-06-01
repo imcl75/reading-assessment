@@ -55,27 +55,52 @@ html, body {
 }
 .session-badge .dot.a { background: #fff; }
 
-/* ── Text card ── */
+/* ── Phase 1: Reading ── */
+#reading-phase { }
 .text-card {
-  background: #fff; border-radius: 16px; padding: 24px 28px;
-  box-shadow: 0 4px 20px rgba(23,152,211,.12);
-  margin-bottom: 16px;
+  background: #fff; border-radius: 20px; padding: 32px 36px;
+  box-shadow: 0 6px 28px rgba(23,152,211,.14);
+  margin-bottom: 20px;
 }
 .text-card-label {
   font-size: 11px; font-weight: 800; color: var(--brand);
-  text-transform: uppercase; letter-spacing: .6px; margin-bottom: 10px;
+  text-transform: uppercase; letter-spacing: .6px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 6px;
 }
+/* Large passage for reading phase */
 .passage {
-  font-size: 1.05rem; line-height: 1.75; color: #1a1a2e;
+  font-size: 1.35rem; line-height: 1.9; color: #1a1a2e;
   font-weight: 600;
 }
+/* Smaller passage once questions are shown */
+.passage.compact {
+  font-size: 1.05rem; line-height: 1.75;
+}
+.ready-btn {
+  width: 100%; padding: 18px; border: none; border-radius: 16px;
+  background: var(--brand); color: #fff; font-size: 1.15rem; font-weight: 800;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  box-shadow: 0 4px 20px rgba(23,152,211,.35);
+  transition: background .15s, transform .1s;
+}
+.ready-btn:hover { background: var(--brand-dk); }
+.ready-btn:active { transform: scale(.98); }
 
-/* ── Questions ── */
+/* ── Phase 2: Questions ── */
+#questions-phase { display: none; }
 .questions-label {
   font-size: 11px; font-weight: 800; color: #6b7280;
   text-transform: uppercase; letter-spacing: .6px;
   margin-bottom: 12px; margin-top: 4px;
 }
+/* Toggle to re-show text */
+.text-toggle {
+  font-size: 13px; font-weight: 700; color: var(--brand);
+  background: none; border: none; cursor: pointer;
+  font-family: inherit; padding: 0; margin-bottom: 16px;
+  display: block;
+}
+.text-toggle:hover { text-decoration: underline; }
 
 .q-card {
   background: #fff; border-radius: 16px; padding: 22px 24px;
@@ -223,18 +248,29 @@ html, body {
     <span id="session-label">Week 1 · Session A</span>
   </div>
 
-  <!-- Passage -->
-  <div class="text-card">
-    <div class="text-card-label">📖 Read the text</div>
-    <p class="passage" id="passage-text"></p>
+  <!-- Phase 1: Reading -->
+  <div id="reading-phase">
+    <div class="text-card">
+      <div class="text-card-label">📖 Read the text carefully</div>
+      <p class="passage" id="passage-text"></p>
+    </div>
+    <button class="ready-btn" onclick="showQuestions()">I've read it — show me the questions →</button>
   </div>
 
-  <!-- Questions -->
-  <div class="questions-label">Now answer these questions</div>
-  <div class="err-banner" id="err-banner">Please answer all questions before submitting.</div>
-  <div id="questions-container"></div>
-
-  <button class="submit-btn" id="submit-btn" onclick="submitSession()">Submit answers →</button>
+  <!-- Phase 2: Questions -->
+  <div id="questions-phase">
+    <div class="text-card" id="text-card-compact">
+      <div class="text-card-label" style="justify-content:space-between">
+        <span>📖 Text</span>
+        <button class="text-toggle" onclick="toggleText()" id="text-toggle-btn">Hide text ▲</button>
+      </div>
+      <p class="passage compact" id="passage-text-q"></p>
+    </div>
+    <div class="questions-label">Now answer these questions</div>
+    <div class="err-banner" id="err-banner">Please answer all questions before submitting.</div>
+    <div id="questions-container"></div>
+    <button class="submit-btn" id="submit-btn" onclick="submitSession()">Submit answers →</button>
+  </div>
 </div>
 
 <!-- Done -->
@@ -425,14 +461,17 @@ function loadSession(week, session) {
   const dot = document.getElementById('session-dot');
   dot.className = 'dot ' + (session === 'A' ? 'a' : '');
 
-  // Passage
-  document.getElementById('passage-text').textContent = TEXTS[currentWeekData.textIndex];
+  // Passage — shown large in reading phase
+  const passageText = TEXTS[currentWeekData.textIndex];
+  document.getElementById('passage-text').textContent = passageText;
+  document.getElementById('passage-text-q').textContent = passageText;
 
-  // Questions
+  // Questions pre-rendered (hidden until phase 2)
   renderQuestions(currentWeekData.questions);
 
+  document.getElementById('reading-phase').style.display = 'block';
+  document.getElementById('questions-phase').style.display = 'none';
   document.getElementById('session-screen').style.display = 'block';
-  startTime = Date.now();
   answers = {};
 }
 
@@ -488,6 +527,21 @@ function renderQuestions(questions) {
     card.innerHTML = innerHtml;
     container.appendChild(card);
   });
+}
+
+// ── Phase transition ──────────────────────────────────────────────────────────
+function showQuestions() {
+  document.getElementById('reading-phase').style.display = 'none';
+  document.getElementById('questions-phase').style.display = 'block';
+  startTime = Date.now();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+let textVisible = true;
+function toggleText() {
+  textVisible = !textVisible;
+  document.getElementById('passage-text-q').style.display = textVisible ? 'block' : 'none';
+  document.getElementById('text-toggle-btn').textContent = textVisible ? 'Hide text ▲' : 'Show text ▼';
 }
 
 // ── Answer helpers ─────────────────────────────────────────────────────────────

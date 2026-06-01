@@ -311,8 +311,10 @@ const WEEKS = [
     questions: [
       { num: 1, domain: 'retrieval', type: 'short_parts',
         stem: 'Which two teams are mentioned?',
-        parts: [{label: 'a)', key: 'q1a'}, {label: 'b)', key: 'q1b'}],
-        guidance: 'Award 1 mark each for: a) netball (team), b) football (team).' },
+        parts: [
+          {label: 'a)', key: 'q1a', guidance: 'Award 1 mark for "netball" or "netball team". This is a single-answer part — the pupil only needs to name one team here.'},
+          {label: 'b)', key: 'q1b', guidance: 'Award 1 mark for "football" or "football team". This is a single-answer part — the pupil only needs to name one team here.'}
+        ] },
       { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
         stem: 'Which words are used to describe the triplets?',
         guidance: 'Award 1 mark for “new-born”. Accept “newborn”.' },
@@ -347,8 +349,10 @@ const WEEKS = [
         guidance: 'Answer: annoys.' },
       { num: 2, domain: 'retrieval', type: 'short_parts',
         stem: 'According to the text, what two things could you check in a dictionary?',
-        parts: [{label: 'a)', key: 'q2a'}, {label: 'b)', key: 'q2b'}],
-        guidance: 'Award 1 mark each for: a) spellings, b) meanings.' },
+        parts: [
+          {label: 'a)', key: 'q2a', guidance: 'Award 1 mark for "spellings". Single-answer part.'},
+          {label: 'b)', key: 'q2b', guidance: 'Award 1 mark for "meanings". Single-answer part.'}
+        ] },
       { num: 3, domain: 'inference', type: 'open', key: 'q3',
         stem: 'Why does the text explain what <em>pertinent</em> means?',
         guidance: 'Award 1 mark for any reasonable inference, e.g. the word is unusual and the author wants the reader to understand it.' }
@@ -362,10 +366,12 @@ const WEEKS = [
       { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
         stem: 'Who should you imagine visiting, according to the text?',
         guidance: 'Award 1 mark for “a professional writer”. Accept “writer”.' },
-      { num: 3, domain: 'retrieval', type: 'short_parts',
-        stem: 'What does the text suggest are the tools of the writer’s trade? Name two.',
-        parts: [{label: 'a)', key: 'q3a'}, {label: 'b)', key: 'q3b'}],
-        guidance: 'Award 1 mark each for any two of: dictionary, thesaurus, notes, plans.' }
+      { num: 3, domain: ‘retrieval’, type: ‘short_parts’,
+        stem: ‘What does the text suggest are the tools of the writer’s trade? Name two.’,
+        parts: [
+          {label: ‘a)’, key: ‘q3a’, guidance: ‘Award 1 mark for any one of: dictionary, thesaurus, notes, plans. Single-answer part.’},
+          {label: ‘b)’, key: ‘q3b’, guidance: ‘Award 1 mark for any one of: dictionary, thesaurus, notes, plans — different from the answer given in part (a). Single-answer part.’}
+        ] }
     ]
   },
   { week: 5, session: 'A', textIndex: 2,
@@ -577,9 +583,8 @@ function autoMark(questions) {
       scores[q.key] = given === q.answer.toLowerCase() ? 1 : 0;
     } else if (q.type === 'find_copy') {
       const given = (answers[q.key] || '').toLowerCase().trim();
-      scores[q.key] = given === q.answer.toLowerCase() ? 1 : null; // null = needs review
+      scores[q.key] = given === q.answer.toLowerCase() ? 1 : 0; // fully auto-marked
     } else if (q.type === 'short_parts') {
-      // Can't auto-mark short parts — set null for Claude
       q.parts.forEach(p => { scores[p.key] = null; });
     } else {
       scores[q.key] = null;
@@ -592,22 +597,32 @@ function autoMark(questions) {
 function buildReviewList(questions, scores) {
   const review = [];
   questions.forEach(q => {
-    if (q.type === 'mc') return; // already marked
-    const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
-    keys.forEach((k, i) => {
-      if (scores[k] === null) {
-        const label = q.type === 'short_parts'
-          ? q.stem + ' (' + q.parts[i].label + ')'
-          : (q.type === 'find_copy' ? '[Find & copy] ' + q.stem : q.stem);
+    if (q.type === 'mc') return;
+    if (q.type === 'find_copy') return; // fully auto-marked above
+
+    if (q.type === 'short_parts') {
+      q.parts.forEach(p => {
+        if (scores[p.key] === null) {
+          review.push({
+            key: p.key,
+            domain: q.domain,
+            question: q.stem.replace(/<[^>]+>/g, '') + ' [Part ' + p.label + ' — one answer only]',
+            guidance: p.guidance || q.guidance,
+            max: 1
+          });
+        }
+      });
+    } else {
+      if (scores[q.key] === null) {
         review.push({
-          key: k,
+          key: q.key,
           domain: q.domain,
-          question: label.replace(/<[^>]+>/g, ''),
+          question: q.stem.replace(/<[^>]+>/g, ''),
           guidance: q.guidance,
           max: 1
         });
       }
-    });
+    }
   });
   return review;
 }

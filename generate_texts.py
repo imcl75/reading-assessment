@@ -305,7 +305,7 @@ class PageManager:
             self.c.drawString(CONTENT_X, baseline, line)
             baseline -= self.body_leading
         self.y = baseline + self.body_leading - self.body_size * 0.12
-        self.add_space(10)   # stanza gap
+        self.add_space(self.body_leading)   # stanza gap — one full blank line
 
     def draw_contact_block(self, lines):
         """Draw a contact info block in a light grey tinted box."""

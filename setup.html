@@ -167,13 +167,9 @@ const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy5
 const CORRECT_PIN = '2025';
 
 const ASSESSMENTS = {
-  summer:    { label: 'Summer ☀️',        texts: ['🌊 Making Waves','🐭 The Field Mouse','🦅 Top of the Food Chain'] },
-  autumn:    { label: 'Autumn 🍂',        texts: ['📖 Taking to the Stage','🐕 Lead On','🪆 The Russian Figurine'] },
-  ks1:       { label: 'KS1 Year 2 🍦',    texts: ['🍦 The History of Ice Cream','🦕 A New Room for William'] },
-  '3in3-Y3': { label: '3 in 3 — Year 3 📖', texts: [], noTexts: true },
-  '3in3-Y4': { label: '3 in 3 — Year 4 📖', texts: [], noTexts: true },
-  '3in3-Y5': { label: '3 in 3 — Year 5 📖', texts: [], noTexts: true },
-  '3in3-Y6': { label: '3 in 3 — Year 6 📖', texts: [], noTexts: true }
+  summer: { label: 'Summer ☀️',     texts: ['🌊 Making Waves','🐭 The Field Mouse','🦅 Top of the Food Chain'] },
+  autumn: { label: 'Autumn 🍂',     texts: ['📖 Taking to the Stage','🐕 Lead On','🪆 The Russian Figurine'] },
+  ks1:    { label: 'KS1 Year 2 🍦', texts: ['🍦 The History of Ice Cream','🦕 A New Room for William'] }
 };
 
 // groups: [{id, name, assessment, texts}, ...]
@@ -253,15 +249,13 @@ function renderGroups() {
   container.innerHTML = '';
   groups.forEach(g => {
     const a = ASSESSMENTS[g.assessment] || ASSESSMENTS.summer;
-    const textChecks = a.noTexts
-      ? `<p style="font-size:13px;color:#aaa;font-style:italic;">Children progress through texts automatically — no selection needed.</p>`
-      : a.texts.map((name, i) =>
-          `<label class="text-cb-row">
-            <input type="checkbox" ${(g.texts || []).includes(i) ? 'checked' : ''}
-              onchange="updateGroupTexts(${g._uid}, ${i}, this.checked)">
-            ${name}
-          </label>`
-        ).join('');
+    const textChecks = a.texts.map((name, i) =>
+      `<label class="text-cb-row">
+        <input type="checkbox" ${(g.texts || []).includes(i) ? 'checked' : ''}
+          onchange="updateGroupTexts(${g._uid}, ${i}, this.checked)">
+        ${name}
+      </label>`
+    ).join('');
 
     const assessOpts = Object.entries(ASSESSMENTS).map(([key, val]) =>
       `<option value="${key}" ${g.assessment === key ? 'selected' : ''}>${val.label}</option>`
@@ -319,14 +313,12 @@ function updateGroupAssessment(uid, assessment) {
   g.assessment = assessment;
   g.texts = [];
   const a = ASSESSMENTS[assessment] || ASSESSMENTS.summer;
-  const textChecks = a.noTexts
-    ? `<p style="font-size:13px;color:#aaa;font-style:italic;">Children progress through texts automatically — no selection needed.</p>`
-    : a.texts.map((name, i) =>
-        `<label class="text-cb-row">
-          <input type="checkbox" onchange="updateGroupTexts(${uid}, ${i}, this.checked)">
-          ${name}
-        </label>`
-      ).join('');
+  const textChecks = a.texts.map((name, i) =>
+    `<label class="text-cb-row">
+      <input type="checkbox" onchange="updateGroupTexts(${uid}, ${i}, this.checked)">
+      ${name}
+    </label>`
+  ).join('');
   const el = document.getElementById('texts-' + uid);
   if (el) el.innerHTML = textChecks;
 }
@@ -410,10 +402,9 @@ async function saveConfig() {
   const msg = document.getElementById('save-msg');
   msg.textContent = 'Saving…'; msg.className = 'msg';
 
-  // Validate: each non-3in3 group must have at least one text
+  // Validate: each group must have at least one text
   for (const g of groups) {
-    const a = ASSESSMENTS[g.assessment] || {};
-    if (!a.noTexts && (!g.texts || !g.texts.length)) {
+    if (!g.texts || !g.texts.length) {
       msg.textContent = `Please select at least one text for the "${g.name}" group.`;
       msg.className = 'msg err';
       return;

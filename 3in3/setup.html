@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<!-- 3in3/setup.html — Manage children in the 3 in 3 intervention -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 in 3 Setup</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --brand: #1798d3; --brand-dk: #0a6fa8; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Nunito', sans-serif; background: #f0f6fb; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 48px; }
+.logo { font-size: 2rem; margin-bottom: 4px; }
+h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2px; }
+.sub { color: #888; font-size: 0.9rem; margin-bottom: 28px; }
+
+/* PIN */
+#pin-screen { width: 100%; max-width: 380px; text-align: center; }
+.pin-wrap { display: flex; gap: 10px; justify-content: center; margin: 20px 0 16px; }
+.pin-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--brand); background: #fff; transition: background .15s; }
+.pin-dot.filled { background: var(--brand); }
+.pin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 0 auto 12px; }
+.pin-btn { padding: 16px; border: 2px solid #ddd; border-radius: 12px; background: #fff; font-size: 1.4rem; font-weight: bold; cursor: pointer; font-family: inherit; transition: background .1s, border-color .1s; }
+.pin-btn:active { background: #e8f5fd; border-color: var(--brand); }
+#pin-error { color: #e53935; font-size: 14px; min-height: 20px; margin-top: 4px; }
+
+/* Setup panel */
+#setup-panel { display: none; width: 100%; max-width: 560px; }
+.card { background: #fff; border-radius: 16px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+.card h2 { color: var(--brand); font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
+.card .hint { font-size: 13px; color: #888; margin-bottom: 16px; line-height: 1.5; }
+
+textarea {
+  width: 100%; height: 240px; padding: 12px 14px;
+  border: 2px solid #ddd; border-radius: 10px; font-size: 15px;
+  font-family: 'Nunito', sans-serif; resize: vertical; outline: none;
+}
+textarea:focus { border-color: var(--brand); }
+
+.name-count { font-size: 13px; color: #6b7280; margin-top: 8px; }
+
+.btn { padding: 13px 28px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .15s; }
+.btn-primary { background: var(--brand); color: #fff; width: 100%; margin-top: 16px; }
+.btn-primary:hover { background: var(--brand-dk); }
+.msg { margin-top: 12px; font-size: 14px; min-height: 20px; text-align: center; }
+.msg.ok { color: #388e3c; }
+.msg.err { color: #e53935; }
+
+/* Preview list */
+.name-list { margin-top: 16px; display: flex; flex-direction: column; gap: 6px; max-height: 300px; overflow-y: auto; }
+.name-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px; background: #f8fafc; border-radius: 8px;
+  font-size: 14px; font-weight: 600; color: #333;
+}
+.remove-btn {
+  background: none; border: none; color: #ccc; cursor: pointer;
+  font-size: 16px; line-height: 1; padding: 2px 6px;
+  font-family: inherit; transition: color .1s;
+}
+.remove-btn:hover { color: #e53935; }
+</style>
+</head>
+<body>
+
+<div class="logo">⚙️</div>
+<h1>3 in 3 Setup</h1>
+<p class="sub">Wallscourt Farm Academy</p>
+<p style="font-size:12px;margin-top:-20px;margin-bottom:28px;"><a href="home.html" style="color:#aaa;text-decoration:none;">← Home</a></p>
+
+<!-- PIN -->
+<div id="pin-screen">
+  <p style="font-size:15px;color:#555;margin-bottom:8px;">Enter teacher PIN to continue</p>
+  <div class="pin-wrap">
+    <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+    <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
+  </div>
+  <div class="pin-grid">
+    <button class="pin-btn" onclick="pinPress('1')">1</button>
+    <button class="pin-btn" onclick="pinPress('2')">2</button>
+    <button class="pin-btn" onclick="pinPress('3')">3</button>
+    <button class="pin-btn" onclick="pinPress('4')">4</button>
+    <button class="pin-btn" onclick="pinPress('5')">5</button>
+    <button class="pin-btn" onclick="pinPress('6')">6</button>
+    <button class="pin-btn" onclick="pinPress('7')">7</button>
+    <button class="pin-btn" onclick="pinPress('8')">8</button>
+    <button class="pin-btn" onclick="pinPress('9')">9</button>
+    <button class="pin-btn" onclick="pinPress('0')">0</button>
+    <button class="pin-btn" onclick="pinDel()">⌫</button>
+  </div>
+  <p id="pin-error"></p>
+</div>
+
+<!-- Setup -->
+<div id="setup-panel">
+  <div class="card">
+    <h2>👧 Children in the Intervention</h2>
+    <p class="hint">Paste the names of all children who are receiving the 3 in 3 intervention — one per line. These are independent of any assessment groups.</p>
+    <textarea id="names-ta" placeholder="Alice Smith&#10;Bob Jones&#10;Charlie Brown&#10;…" oninput="updateCount()"></textarea>
+    <p class="name-count" id="name-count"></p>
+    <button class="btn btn-primary" onclick="save()">Save →</button>
+    <p class="msg" id="save-msg"></p>
+  </div>
+
+  <div class="card" id="current-card" style="display:none">
+    <h2>📋 Current list</h2>
+    <p class="hint">These children will appear in the 3 in 3 login screen. Remove any who have left the intervention.</p>
+    <div class="name-list" id="name-list"></div>
+  </div>
+</div>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+const CORRECT_PIN = '2025';
+
+let currentNames = [];
+
+// ── PIN ───────────────────────────────────────────────────────────────────────
+let pinEntry = '';
+function pinPress(d) {
+  if (pinEntry.length >= 4) return;
+  pinEntry += d;
+  document.getElementById('d' + (pinEntry.length - 1)).classList.add('filled');
+  if (pinEntry.length === 4) checkPin();
+}
+function pinDel() {
+  if (!pinEntry.length) return;
+  document.getElementById('d' + (pinEntry.length - 1)).classList.remove('filled');
+  pinEntry = pinEntry.slice(0, -1);
+  document.getElementById('pin-error').textContent = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('pin-screen').style.display === 'none') return;
+  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+  else if (e.key === 'Backspace') pinDel();
+});
+function checkPin() {
+  if (pinEntry === CORRECT_PIN) {
+    document.getElementById('pin-screen').style.display = 'none';
+    document.getElementById('setup-panel').style.display = 'block';
+    loadCurrent();
+  } else {
+    document.getElementById('pin-error').textContent = 'Incorrect PIN — try again';
+    pinEntry = '';
+    [0,1,2,3].forEach(i => document.getElementById('d'+i).classList.remove('filled'));
+  }
+}
+
+// ── JSONP ─────────────────────────────────────────────────────────────────────
+function jsonpFetch(url, timeout) {
+  return new Promise((resolve, reject) => {
+    const cb = 'jcb3s_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout || 12000);
+    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Network error')); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.body.appendChild(script);
+  });
+}
+
+// ── Load existing list ────────────────────────────────────────────────────────
+async function loadCurrent() {
+  try {
+    const data = await jsonpFetch(BACKEND_URL + '?action=get3in3pupils');
+    const names = Array.isArray(data) ? data : (data && Array.isArray(data.pupils) ? data.pupils : []);
+    if (names.length) {
+      currentNames = names;
+      document.getElementById('names-ta').value = names.join('\n');
+      updateCount();
+      renderCurrentList();
+    }
+  } catch(e) { /* fine — backend may have no data yet */ }
+}
+
+function updateCount() {
+  const names = parseTa();
+  const el = document.getElementById('name-count');
+  el.textContent = names.length ? `${names.length} child${names.length === 1 ? '' : 'ren'}` : '';
+}
+
+function parseTa() {
+  return document.getElementById('names-ta').value
+    .split('\n').map(n => n.trim()).filter(Boolean);
+}
+
+// ── Save ──────────────────────────────────────────────────────────────────────
+async function save() {
+  const names = parseTa();
+  if (!names.length) {
+    showMsg('Please add at least one name.', 'err'); return;
+  }
+  showMsg('Saving…', '');
+  try {
+    const result = await jsonpFetch(
+      BACKEND_URL + '?action=save3in3pupils&names=' + encodeURIComponent(names.join('\n'))
+    );
+    if (result && result.ok) {
+      showMsg(`✓ Saved ${result.count} child${result.count === 1 ? '' : 'ren'}`, 'ok');
+      currentNames = names;
+      renderCurrentList();
+    } else { throw new Error(); }
+  } catch(e) {
+    showMsg('Error saving — check your connection.', 'err');
+  }
+}
+
+function showMsg(text, cls) {
+  const el = document.getElementById('save-msg');
+  el.textContent = text;
+  el.className = 'msg' + (cls ? ' ' + cls : '');
+}
+
+// ── Current list ──────────────────────────────────────────────────────────────
+function renderCurrentList() {
+  if (!currentNames.length) {
+    document.getElementById('current-card').style.display = 'none';
+    return;
+  }
+  document.getElementById('current-card').style.display = 'block';
+  document.getElementById('name-list').innerHTML = currentNames.map((n, i) =>
+    `<div class="name-row">
+      <span>${n}</span>
+      <button class="remove-btn" onclick="removeName(${i})" title="Remove">×</button>
+    </div>`
+  ).join('');
+}
+
+function removeName(idx) {
+  currentNames.splice(idx, 1);
+  document.getElementById('names-ta').value = currentNames.join('\n');
+  updateCount();
+  renderCurrentList();
+}
+</script>
+</body>
+</html>

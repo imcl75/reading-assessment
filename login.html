@@ -132,6 +132,12 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
     </p>
   </div>
 
+  <!-- Choice screen: shown when pupil is in both standard + 3in3 groups -->
+  <div id="choice-section" style="display:none">
+    <p class="card-heading" id="choice-heading">Which would you like to do?</p>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;" id="choice-btns"></div>
+  </div>
+
   <!-- Fallback (type name) -->
   <div id="fallback-section">
     <p class="card-heading">Type your first name</p>
@@ -242,9 +248,18 @@ function renderFilteredGrid() {
 }
 
 function selectPupil(name, groupId) {
+  const pupil = groupsData && groupsData.pupils
+    ? groupsData.pupils.find(p => p.name === name)
+    : null;
 
   const group = groupsData && groupsData.groups
     ? groupsData.groups.find(g => g.id === groupId)
+    : null;
+
+  // Check if pupil also has a 3in3 group
+  const group3in3Id = pupil && pupil.group3in3;
+  const group3in3 = group3in3Id && groupsData.groups
+    ? groupsData.groups.find(g => g.id === group3in3Id)
     : null;
 
   if (!group) {
@@ -252,7 +267,39 @@ function selectPupil(name, groupId) {
     return;
   }
 
+  // If in both a standard group and a 3in3 group, show choice screen
+  if (group3in3) {
+    showChoiceScreen(name, group, group3in3);
+    return;
+  }
+
   routeTo(name, group.assessment, Array.isArray(group.texts) ? group.texts : [0,1,2]);
+}
+
+function showChoiceScreen(name, group, group3in3) {
+  document.getElementById('name-section').style.display = 'none';
+  document.getElementById('choice-section').style.display = 'block';
+  document.getElementById('choice-heading').textContent = 'Hi ' + name.split(' ')[0] + '! What are you doing today?';
+
+  const btns = document.getElementById('choice-btns');
+  btns.innerHTML = `
+    <button onclick="routeTo('${name.replace(/'/g,"\\'")}','${group.assessment}',${JSON.stringify(group.texts || [0,1,2])})"
+      style="padding:20px 16px;border:2px solid #ddd;border-radius:14px;background:#fff;font-size:1rem;font-weight:800;font-family:inherit;cursor:pointer;text-align:left;transition:all .12s;">
+      📚 <span style="color:#1798d3">${group.name || 'Reading Assessment'}</span>
+      <div style="font-size:13px;font-weight:600;color:#888;margin-top:3px;">Standard reading assessment</div>
+    </button>
+    <button onclick="routeTo('${name.replace(/'/g,"\\'")}','${group3in3.assessment}',[])"
+      style="padding:20px 16px;border:2px solid #ddd;border-radius:14px;background:#fff;font-size:1rem;font-weight:800;font-family:inherit;cursor:pointer;text-align:left;transition:all .12s;">
+      📖 <span style="color:#1798d3">${group3in3.name || '3 in 3 Intervention'}</span>
+      <div style="font-size:13px;font-weight:600;color:#888;margin-top:3px;">3 in 3 reading intervention</div>
+    </button>
+    <button onclick="goBack()" style="border:none;background:none;color:#aaa;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;padding:8px;">← Not me</button>
+  `;
+}
+
+function goBack() {
+  document.getElementById('choice-section').style.display = 'none';
+  document.getElementById('name-section').style.display = 'block';
 }
 
 function routeTo(name, assessment, texts) {

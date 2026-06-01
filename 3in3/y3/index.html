@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<!-- 3in3/index.html — 3 in 3 Reading Intervention Tool -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>3 in 3 Reading</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --brand: #1798d3; --brand-dk: #0a6fa8; --green: #2e7d32; --orange: #e65100; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  min-height: 100vh; font-family: 'Nunito', sans-serif;
+  background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 20px 16px 48px;
+}
+
+/* ── Header ── */
+.page-header {
+  width: 100%; max-width: 680px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.back-link { font-size: 13px; color: #5a8fa8; text-decoration: none; font-weight: 700; }
+.back-link:hover { color: var(--brand); }
+.page-title { font-size: 1.1rem; font-weight: 800; color: var(--brand); text-align: center; }
+.pupil-name { font-size: 13px; color: #5a8fa8; font-weight: 700; text-align: right; }
+
+/* ── Spinner ── */
+#loading-screen {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 16px; padding: 60px 16px;
+  color: #5a8fa8; font-size: 15px;
+}
+.spinner {
+  width: 40px; height: 40px; border: 4px solid #ddd;
+  border-top-color: var(--brand); border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Session screen ── */
+#session-screen { display: none; width: 100%; max-width: 680px; }
+
+.session-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--brand); color: #fff;
+  border-radius: 20px; padding: 6px 16px;
+  font-size: 14px; font-weight: 800; margin-bottom: 14px;
+}
+.session-badge .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.5);
+}
+.session-badge .dot.a { background: #fff; }
+
+/* ── Phase 1: Reading ── */
+#reading-phase { }
+.text-card {
+  background: #fff; border-radius: 20px; padding: 32px 36px;
+  box-shadow: 0 6px 28px rgba(23,152,211,.14);
+  margin-bottom: 20px;
+}
+.text-card-label {
+  font-size: 11px; font-weight: 800; color: var(--brand);
+  text-transform: uppercase; letter-spacing: .6px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 6px;
+}
+/* Large passage for reading phase */
+.passage {
+  font-size: 1.35rem; line-height: 1.9; color: #1a1a2e;
+  font-weight: 600;
+}
+/* Smaller passage once questions are shown */
+.passage.compact {
+  font-size: 1.05rem; line-height: 1.75;
+}
+.ready-btn {
+  width: 100%; padding: 18px; border: none; border-radius: 16px;
+  background: var(--brand); color: #fff; font-size: 1.15rem; font-weight: 800;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  box-shadow: 0 4px 20px rgba(23,152,211,.35);
+  transition: background .15s, transform .1s;
+}
+.ready-btn:hover { background: var(--brand-dk); }
+.ready-btn:active { transform: scale(.98); }
+
+/* ── Phase 2: Questions ── */
+#questions-phase { display: none; }
+.questions-label {
+  font-size: 11px; font-weight: 800; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .6px;
+  margin-bottom: 12px; margin-top: 4px;
+}
+/* Toggle to re-show text */
+.text-toggle {
+  font-size: 13px; font-weight: 700; color: var(--brand);
+  background: none; border: none; cursor: pointer;
+  font-family: inherit; padding: 0; margin-bottom: 16px;
+  display: block;
+}
+.text-toggle:hover { text-decoration: underline; }
+
+.q-card {
+  background: #fff; border-radius: 16px; padding: 22px 24px;
+  box-shadow: 0 3px 14px rgba(23,152,211,.1);
+  margin-bottom: 12px; border: 2px solid transparent;
+  transition: border-color .15s;
+}
+.q-card.answered { border-color: #b3dff5; }
+
+.q-header {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 14px;
+}
+.q-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--brand); color: #fff;
+  font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.q-domain {
+  font-size: 11px; font-weight: 700; padding: 2px 8px;
+  border-radius: 10px; flex-shrink: 0; margin-top: 3px;
+}
+.q-domain.retrieval  { background: #e8f5e9; color: #2e7d32; }
+.q-domain.vocabulary { background: #fff3e0; color: #e65100; }
+.q-domain.inference  { background: #f3e5f5; color: #6a1b9a; }
+.q-stem {
+  font-size: 15px; font-weight: 700; color: #1a1a2e;
+  line-height: 1.5; flex: 1;
+}
+.q-quote {
+  font-size: 13px; color: #5a8fa8; font-style: italic;
+  background: #f0f8fd; border-left: 3px solid var(--brand);
+  padding: 6px 12px; border-radius: 0 8px 8px 0;
+  margin-bottom: 10px;
+}
+
+/* MC options */
+.mc-options {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.mc-opt {
+  padding: 13px 12px; border: 2px solid #e5e7eb; border-radius: 10px;
+  background: #fafafa; font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  transition: all .12s; color: #333; text-align: center;
+}
+.mc-opt:hover { border-color: var(--brand); background: #e8f5fd; color: var(--brand); }
+.mc-opt.selected { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+/* Text inputs */
+.q-inp {
+  width: 100%; padding: 12px 14px; font-size: 16px;
+  border: 2px solid #ddd; border-radius: 10px; outline: none;
+  font-family: 'Nunito', sans-serif; font-weight: 600;
+  color: #1a1a2e; background: #fafafa; transition: border-color .15s;
+}
+.q-inp:focus { border-color: var(--brand); background: #fff; }
+.q-textarea {
+  width: 100%; padding: 12px 14px; font-size: 16px;
+  border: 2px solid #ddd; border-radius: 10px; outline: none;
+  font-family: 'Nunito', sans-serif; font-weight: 600;
+  color: #1a1a2e; background: #fafafa; transition: border-color .15s;
+  resize: vertical; min-height: 80px;
+}
+.q-textarea:focus { border-color: var(--brand); background: #fff; }
+
+.parts-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.part-label { font-size: 14px; font-weight: 800; color: #5a8fa8; flex-shrink: 0; width: 24px; }
+
+/* Submit */
+.submit-btn {
+  width: 100%; padding: 16px; border: none; border-radius: 14px;
+  background: var(--brand); color: #fff; font-size: 1.1rem; font-weight: 800;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  transition: background .15s; margin-top: 8px;
+  box-shadow: 0 4px 16px rgba(23,152,211,.3);
+}
+.submit-btn:hover { background: var(--brand-dk); }
+.submit-btn:active { transform: scale(.98); }
+.submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── Done screen ── */
+#done-screen {
+  display: none; width: 100%; max-width: 680px;
+  text-align: center;
+}
+.done-card {
+  background: #fff; border-radius: 20px; padding: 40px 32px;
+  box-shadow: 0 6px 32px rgba(23,152,211,.13);
+}
+.done-icon { font-size: 3.5rem; margin-bottom: 12px; }
+.done-title { font-size: 1.6rem; font-weight: 800; color: var(--brand); margin-bottom: 8px; }
+.done-sub { font-size: 1rem; color: #6b7280; line-height: 1.6; margin-bottom: 24px; }
+.score-row {
+  display: flex; justify-content: center; gap: 12px; margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.score-chip {
+  background: #f0f8fd; border: 2px solid #b3dff5; border-radius: 12px;
+  padding: 10px 16px; font-size: 14px; font-weight: 700; color: #1a1a2e;
+}
+.score-chip .val { font-size: 1.4rem; font-weight: 800; color: var(--brand); display: block; }
+.next-btn {
+  padding: 14px 36px; border: none; border-radius: 12px;
+  background: var(--brand); color: #fff; font-size: 1rem; font-weight: 800;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+}
+
+/* ── Complete screen ── */
+#complete-screen {
+  display: none; width: 100%; max-width: 680px; text-align: center;
+}
+
+/* ── Error ── */
+.err-banner {
+  background: #fff3cd; border: 1px solid #ffe082; border-radius: 10px;
+  padding: 12px 16px; font-size: 14px; color: #856404;
+  margin-bottom: 12px; display: none;
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <a class="back-link" href="home.html">← Home</a>
+  <div class="page-title">📖 3 in 3 Reading</div>
+  <div class="pupil-name" id="pupil-name-hdr"></div>
+</div>
+
+<!-- Loading -->
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <span>Loading your session…</span>
+</div>
+
+<!-- Session -->
+<div id="session-screen">
+  <div class="session-badge">
+    <span class="dot a" id="session-dot"></span>
+    <span id="session-label">Week 1 · Session A</span>
+  </div>
+
+  <!-- Phase 1: Reading -->
+  <div id="reading-phase">
+    <div class="text-card">
+      <div class="text-card-label">📖 Read the text carefully</div>
+      <p class="passage" id="passage-text"></p>
+    </div>
+    <button class="ready-btn" onclick="showQuestions()">I've read it — show me the questions →</button>
+  </div>
+
+  <!-- Phase 2: Questions -->
+  <div id="questions-phase">
+    <div class="text-card" id="text-card-compact">
+      <div class="text-card-label" style="justify-content:space-between">
+        <span>📖 Text</span>
+        <button class="text-toggle" onclick="toggleText()" id="text-toggle-btn">Hide text ▲</button>
+      </div>
+      <p class="passage compact" id="passage-text-q"></p>
+    </div>
+    <div class="questions-label">Now answer these questions</div>
+    <div class="err-banner" id="err-banner">Please answer all questions before submitting.</div>
+    <div id="questions-container"></div>
+    <button class="submit-btn" id="submit-btn" onclick="submitSession()">Submit answers →</button>
+  </div>
+</div>
+
+<!-- Done -->
+<div id="done-screen">
+  <div class="done-card">
+    <div class="done-icon">🌟</div>
+    <div class="done-title" id="done-title">Well done!</div>
+    <div class="done-sub" id="done-sub"></div>
+    <div class="score-row" id="score-row"></div>
+    <p style="font-size:13px;color:#9ca3af;margin-bottom:20px;">Your teacher will review your answers.</p>
+    <button class="next-btn" onclick="window.location.href='home.html'">Back to Home</button>
+  </div>
+</div>
+
+<!-- All weeks complete -->
+<div id="complete-screen">
+  <div class="done-card">
+    <div class="done-icon">🏆</div>
+    <div class="done-title">All done!</div>
+    <div class="done-sub">You've completed all available 3 in 3 sessions. Fantastic work!</div>
+    <button class="next-btn" onclick="window.location.href='home.html'">Back to Home</button>
+  </div>
+</div>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+
+// ── Content Data ─────────────────────────────────────────────────────────────
+// ── Y3 Content ──────────────────────────────────────────────────────────────
+const TEXTS_Y3 = {
+  0: "Why are Roman numerals written the way they are? It probably won’t surprise you to learn that no one really knows, but here are two popular ideas. Which do you believe? One is that they represent notches on a stick and the person doing the counting would make a second cut when the fifth item was reached. This became the symbol V. At ten, a further two notches were cut, forming X, and so on. Another idea is that V stands for the angle made by the thumb and little finger of your hand. The X of ten is made when you put the heels of your palms together.",
+  1: "Science is about looking at the world and asking questions about it. Whether you find the answers to those questions depends upon how well you test your ideas. Once you have something interesting to ask, you need to predict what you think the answer will be. You then need to plan an experiment that tests your ideas fairly. That means that you have to consider all the possible reasons why something might happen. You should then find a way to separate all those other factors and keep them constant. That will mean that any change you see can only have one explanation.",
+  2: "If you like reading books, then you have much to thank William Caxton for. He didn’t invent printing, but he was the first person to set up a printing press in England in 1472. Before this, people had to copy out books and documents by hand. This was a very skilled and difficult task. It also took a lot of time, which made it expensive. Printing meant that books could be produced more cheaply and in greater numbers. It was a major step forward in getting the country reading. We can only imagine what he would have thought of today’s word processors and printers.",
+  3: "Russia is a huge country. It stretches from eastern Europe all the way to the Pacific Ocean. In fact, it is only 55 miles from the United States at one point. They are separated by a narrow stretch of water called the Bering Strait. This sometimes freezes over in the middle of winter, so it should be possible to walk from one country to the other. In truth, this could not really happen for two reasons. First, the two countries are not very friendly towards each other. Second, the strong sea currents mean the ice is not stable enough to cross safely.",
+  4: "What is the oldest musical instrument ever found? The answer, believe it or not, is the flute. That does not mean that it was exactly the same as the modern versions. Early flutes were made of animal bones with holes drilled into them. The oldest are thought to be some 43,000 years old. These days, they tend to be made of metal. If you are just starting to learn, you will probably use a nickel or brass one. A musician who plays the flute for a living, however, will actually use one that is made of solid silver or gold.",
+  5: "When you learn to swim, you are helping to continue a sport that humans have been doing for centuries. There are cave paintings in Egypt that show people swimming some ten thousand years ago. They appear to be doing the breaststroke although it might be the doggy paddle. Perhaps even more impressive is the fact that these pictures were found in an area of rocky desert. It could not have been easy to find enough water to drink, let alone bathe in. No wonder they thought it was such a special event that they decided to make a record of it.",
+  6: "Deep in the heart of the Forest of Fools stood a lonely tower. Few had seen it and lived to tell the tale. Even so, the legend of the warlock’s treasure refused to die. For it was told that the wicked wizard who had built the tower had also discovered the secret to never ending life. Long after any other humans would have faded from memory, he used dark magic to stay young and maintain his strength. Through fair means or foul, he had then used his time to gather a vast amount of wealth which he stored in his dungeon.",
+  7: "Do your sentences make sense? If they don’t, consider what the word ‘sentence’ actually means. Its root comes from Latin – the language the Romans used to speak – and is all about having an opinion, a feel or a sense of something. So, each sentence should contain a thought or idea that makes sense. Yes, you can join them together using conjunctions to make longer, more complex sentences. But even then, you should not make them too lengthy as it will become more difficult to make sense of what you are trying to write. Then what would the Romans say?",
+  8: "Troy sat on the wall outside the corner shop. Inside, his friends were enjoying the thrill of choosing their sweets. Having only three pence to his name, he knew that there would be nothing that he could afford, so there was no point in even looking. He reached into his pocket and pulled out his feeble collection of coins. Why did they even bother making them if they couldn’t be used to buy anything? He rubbed his thumb over the two pence piece, as if cleaning it up would somehow increase its value. But then something happened that made him rub his own eyes instead.",
+  9: "How much would you weigh if you lived on a different planet? Often when we talk about weight, we actually mean mass. After all, mass is what we really measure using kilos and grams. Weight is a force caused by the effect of gravity on a mass. Your mass would be the same whatever planet you were on because it is about you. On the moon, for example, your weight would be less because the effect of the moon’s gravity is much less than Earth’s. Stand on Jupiter, however, and your weight would rocket because its greater size means it has stronger gravity.",
+  10: "Soil is extremely important. Without soil, no plants would grow and there would be nothing to eat. So perhaps it would help to have the recipe, just in case we ever ran out. First, you need crunched rocks. These need to be ground into tiny particles, but just how tiny depends upon the type of soil you want. Next you need the rotting remains of dead plants and animals. Yummy! Stir in a healthy dollop of micro-organisms to break it all down. Then mix together using worms and other minibeasts. Finally, leave for a thousand years per inch (2 ½ cm) of soil.",
+  11: "Think how much you know about the place where you live. Now think about what it was like before you arrived on the scene. Most of us live in a village, town or city that has been there for centuries. Over the years, there are bound to have been people who have been remembered for doing great things. Do you know who they are? There are usually clues, if you keep your eyes open. Perhaps there is a statue that you have never really given a second glance. Maybe there’s a name that keeps appearing on buildings or street signs.",
+  12: "Look at any map of the world and you will notice that the continents of North and South America are joined by a very narrow strip of land. This also separates the Atlantic from the Pacific. Right up until the 19th century, any ship that wanted to travel from one ocean to the other had to go around the southern tip of South America. This would take nearly two weeks and mean sailing through some very rough seas. It was a big problem for world trade. The answer was to build a ship canal right through what we now call Panama.",
+  13: "Most of us like a good sing-song, even if we’re not very good. But have you ever wondered how we make the noise that gives us a voice? Inside your neck there is a tube called the larynx through which air passes between your mouth and nose and your lungs. Stretched across the larynx are folded strips of tissue called vocal chords. These move in a way that makes the air vibrate at different speeds. Faster movements make higher notes and slower ones make lower notes. We then need our lips, teeth and tongue to turn the tune into words.",
+  14: "Great sports teams will always need great players. But success depends on more than having a group of skilled individuals. The coach needs to look at the pool of talent and choose the ones that will be most likely to work together as a well-balanced team. For example, a cricket team could have all the best bowlers in the world but if they don’t have anyone who can score runs with the bat, they will find it hard to win any game. Also, a netball team could be superb at keeping possession, but what good is that if none of them can score?",
+  15: "English is a very rich and special language. Whatever you want to say, there are often many different words you can use. The trick is to find the ones that best express your particular meaning. How did we get the words we use today? Thanks to our eventful history, new words kept being added to the mix from all sorts of different languages. The word bicycle, for example, comes from the Latin for two (bi) and the Greek for circle or wheel.  The result is the name of a machine that no one in the ancient world ever dreamed of.",
+  16: "Zara glanced around the room. Someone had tried really hard to make it look calm and relaxing. There were soothing pictures on the walls. Potted plants were dotted around the place. A coffee table covered with magazines tried and failed to suggest that this was an ordinary cosy lounge. But all Zara could think about was her teeth. Had her brushing been thorough enough? Was it a good or bad thing that she hadn’t lost all her baby teeth yet? How many sweets was too many? Just then, the door opened and a lady with a kind smile said, ‘Zara?’",
+  17: "Someone must know, surely? I was certain that everyone could see the dark cloud hanging over me. I felt like I was wearing a high-viz jacket of sadness, but if anyone had noticed, they hadn’t cared to show it. No one gave me more than a brief glance as I trudged through the middle of the bus and found a seat at the back, right in the corner. Leaning my head against the window, I used my finger to track the rain drops as they slid down the pane. It was as if I were practising how to follow the right path.",
+  18: "At the top of the stairs, Agnes took a deep breath. Why did the master of the house want to see her? She had only been working there a few days – surely, she couldn’t have done anything terribly wrong in such a short time? As she walked down the dimly lit passage, the grumpy old portraits on the wall glared down at her. Even they seemed to be frowning down at her and telling her she was naughty. By the time she had knocked on his door, she was trembling so much that she could hardly hold the handle when she was told to ‘Enter!’",
+};
+
+const SESSIONS_Y3 = [
+  {
+    idx: 1, set: "A", textIndex: 0,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+          stem: "Find and copy one word from the first sentence that means ‘numbers’.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "According to the text, where did people make notches when counting?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "What did they do when the fifth item was counted?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 2, set: "B", textIndex: 0,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+          stem: "Which word is closest in meaning to notches? Tick one.",
+          guidance: "Options: stick / Roman / number / cut. Award 1 mark for the correct answer."
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "What did people do when they counted the tenth item?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short_parts", key: "q6",
+          stem: "Which two parts of the hand made the symbol for 5?",
+          parts: [
+            { label: "a)", key: "q6a", answers: [], guidance: "" },
+            { label: "b)", key: "q6b", answers: [], guidance: "" }
+          ],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 3, set: "A", textIndex: 1,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "According to the text, what does science look at?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "According to the text, what does finding the answers to those questions depend upon?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+          stem: "What does the word constant mean? Tick one.",
+          guidance: "Options: fixed / changing / question / world. Award 1 mark for the correct answer."
+        }
+    ]
+  },
+  {
+    idx: 4, set: "B", textIndex: 1,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "In what way should the experiment test your ideas?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "What is the first thing you should do once you have found something interesting to ask?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+          stem: "Which phrase is closest in meaning to consider? Tick one.",
+          guidance: "Options: talk about / look up / think about / write about. Award 1 mark for the correct answer."
+        }
+    ]
+  },
+  {
+    idx: 5, set: "A", textIndex: 2,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "According to the article, why might you want to thank William Caxton?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "When did he set up the first printing press in England?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "How did people make books and documents before printing?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 6, set: "B", textIndex: 2,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short_parts", key: "q4",
+          stem: "There were problems with writing books and documents by hand. Name two of these problems.",
+          parts: [
+            { label: "a)", key: "q4a", answers: [], guidance: "" },
+            { label: "b)", key: "q4b", answers: [], guidance: "" }
+          ],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "Name one of the advantages of printing books.",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+          stem: "Which word is closest in meaning to produce? Tick one.",
+          guidance: "Options: print / make / date / expensive. Award 1 mark for the correct answer."
+        }
+    ]
+  },
+  {
+    idx: 7, set: "A", textIndex: 3,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "According to the text, which ocean does Russia meet?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "How far is Russia from the USA at its nearest point?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "Which stretch of water separates Russia and the USA?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 8, set: "B", textIndex: 3,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "What sometimes happens to the Bering Strait in the middle of winter?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "inference", type: "open", key: "q5",
+          stem: "What might it be possible to do in the middle of winter?",
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q6",
+          stem: "What makes the ice unstable?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 9, set: "A", textIndex: 4,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+          stem: "What does the word versions mean? Tick one.",
+          guidance: "Options: instruments / tunes / people / types. Award 1 mark for the correct answer."
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "What were early flutes made of?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "How old was the oldest flute that has been found?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 10, set: "B", textIndex: 4,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "If you were just starting to learn the flute, what would it probably be made of?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 2, domain: "vocabulary", type: "open", key: "q5",
+          stem: "Find and copy the word that means someone who plays music for a living.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        },
+        {
+          num: 3, domain: "retrieval", type: "short_parts", key: "q6",
+          stem: "Name the two metals that your instrument might be made of if you played flute for a living.",
+          parts: [
+            { label: "a)", key: "q6a", answers: [], guidance: "" },
+            { label: "b)", key: "q6b", answers: [], guidance: "" }
+          ],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 11, set: "A", textIndex: 5,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "In which country were the cave paintings found?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "How old are the paintings thought to be?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short_parts", key: "q3",
+          stem: "Which two swimming strokes does the article suggest might be shown in the paintings?",
+          parts: [
+            { label: "a)", key: "q3a", answers: [], guidance: "" },
+            { label: "b)", key: "q3b", answers: [], guidance: "" }
+          ],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 12, set: "B", textIndex: 5,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+          stem: "How is the land around the caves described? Circle one",
+          guidance: "Options: sandy beaches / rocky desert / dense jungle / rolling fields. Award 1 mark for the correct answer."
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "Apart from bathing, what would it have been hard to find enough water to do?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+          stem: "Find and copy the word in the last sentence that means occasion.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        }
+    ]
+  },
+  {
+    idx: 13, set: "A", textIndex: 6,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+          stem: "What does the word legend mean? Tick one.",
+          guidance: "Options: tower / forest / story / foot. Award 1 mark for the correct answer."
+        },
+        {
+                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+          stem: "… stood a lonely tower…  This means that the tower was _________ . Circle one.",
+          guidance: "Options: sad / on its own / tall / built of stone. Award 1 mark for the correct answer."
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+          stem: "Find and copy the word that means a sort of wizard.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        }
+    ]
+  },
+  {
+    idx: 14, set: "B", textIndex: 6,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "What was the legend about?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "What had the wicked wizard discovered the secret to?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+          stem: "The text describes the wizard as wicked. Find and copy one example of something he did that was wicked.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        }
+    ]
+  },
+  {
+    idx: 15, set: "A", textIndex: 7,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "What language does the root of the word ‘sentence’ come from?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "Who used to speak that language?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+          stem: "What does the word opinion mean? Tick one.",
+          guidance: "Options: belief / conjunction / word / sentence. Award 1 mark for the correct answer."
+        }
+    ]
+  },
+  {
+    idx: 16, set: "B", textIndex: 7,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "What can you use conjunctions to make?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 2, domain: "vocabulary", type: "open", key: "q5",
+          stem: "Which word is used to describe longer sentences that contain conjunctions? Tick one.",
+          guidance: "Options: idea / opinion / complex / Roman. Award 1 mark for the correct answer."
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q6",
+          stem: "According to the text, what should each sentence contain?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 17, set: "A", textIndex: 8,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "What was Troy sitting on?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "What were Troy’s friends doing?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "How much money did Troy have?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 18, set: "B", textIndex: 8,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q4",
+          stem: "…pulled out his feeble collection of coins.",
+          guidance: "Options: not enough / shiny / sweet / too much. Award 1 mark for the correct answer."
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "What did Troy used to rub his two pence coin?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q6",
+          stem: "What did Troy hope might happen when he rubbed the coin?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 19, set: "A", textIndex: 9,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "What do we often mean when we say weight?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "What do we measure mass in?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+          stem: "Find and copy the words that describe what weight really is.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        }
+    ]
+  },
+  {
+    idx: 20, set: "B", textIndex: 9,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "Where does the text say your weight be less than on Earth?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "On which planet would your weight be greater?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+          stem: "Find and copy the word in the last sentence that means increase a lot.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        }
+    ]
+  },
+  {
+    idx: 21, set: "A", textIndex: 10,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+          stem: "What does the word extremely mean? Tick one.",
+          guidance: "Options: not / dirty / exciting / very. Award 1 mark for the correct answer."
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "What does the text say would happen if no plants were able to grow?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "Why does the text suggest having the recipe might be useful?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 22, set: "B", textIndex: 10,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "According to the text, what is the first thing you would need to make soil?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 2, domain: "vocabulary", type: "open", key: "q5",
+          stem: "These need to be ground into tiny particles…",
+          guidance: "Options: rocks / soil / cooked / crunched. Award 1 mark for the correct answer."
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q6",
+          stem: "What do you need to mix the ingredients of soil?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 23, set: "A", textIndex: 11,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+          stem: "The text names three sorts of places where people live. Find and copy two of them.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        },
+        {
+                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+          stem: "Find and copy the word that describes how long these places have been there.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+          stem: "… there are bound to have been people …",
+          guidance: "Options: sure / tied / jump / lived. Award 1 mark for the correct answer."
+        }
+    ]
+  },
+  {
+    idx: 24, set: "B", textIndex: 11,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "What does the text say you need to do to notice the clues?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "inference", type: "open", key: "q5",
+          stem: "What might you have not given a second glance?",
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+          stem: "Find and copy the two places where the text suggests you might see names.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        }
+    ]
+  },
+  {
+    idx: 25, set: "A", textIndex: 12,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+          stem: "Find and copy the word in the first sentence that means see.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "What are North and South America joined by?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "What are the Atlantic and Pacific?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 26, set: "B", textIndex: 12,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "How long did it take to sail around the southern tip of South America?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "What does the text suggest made this trip dangerous?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q6",
+          stem: "What is the name of the place through which the ship canal passes?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 27, set: "A", textIndex: 13,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+          stem: "Find and copy the word in the second sentence that means the same as thought.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "Where is your larynx?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "What passes through your larynx?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 28, set: "B", textIndex: 13,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "What are vocal chords folded strips of?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 2, domain: "vocabulary", type: "open", key: "q5",
+          stem: "… these make the air vibrate at different speeds.",
+          guidance: "Options: sound / shake / sing / tune. Award 1 mark for the correct answer."
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q6",
+          stem: "What makes higher notes?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 29, set: "A", textIndex: 14,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "What will great sports teams always need?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+          stem: "What does the word depends mean? Tick one.",
+          guidance: "Options: success / runs / relies / wins. Award 1 mark for the correct answer."
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "Who needs to look at the pool of talent?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 30, set: "B", textIndex: 14,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "What sort of team could have all the best bowlers?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "What could a netball team be superb at doing?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+          stem: "Which word is closest in meaning to possession? Tick one.",
+          guidance: "Options: goal / net / sport / control. Award 1 mark for the correct answer."
+        }
+    ]
+  },
+  {
+    idx: 31, set: "A", textIndex: 15,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+          stem: "English is a very rich and special language.",
+          guidance: "Options: expensive / full / funny / creamy. Award 1 mark for the correct answer."
+        },
+        {
+                    num: 2, domain: "vocabulary", type: "open", key: "q2",
+          stem: "Find and copy the word in the third sentence that means show.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "Which word is used to describe our history?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 32, set: "B", textIndex: 15,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "What does the prefix bi mean?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "From which language does the root word cycle come?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+          stem: "Which word is closest in meaning to ancient? Tick one.",
+          guidance: "Options: root / machine / old / dream. Award 1 mark for the correct answer."
+        }
+    ]
+  },
+  {
+    idx: 33, set: "A", textIndex: 16,
+    questions: [
+        {
+                    num: 1, domain: "vocabulary", type: "open", key: "q1",
+          stem: "Find and copy the two words used describe how someone had tried to make the room look.",
+          guidance: "Award 1 mark for the correct word or phrase copied accurately from the text."
+        },
+        {
+          num: 2, domain: "inference", type: "open", key: "q2",
+          stem: "The room was supposed to make people feel at home. How do you know this hadn’t been achieved?",
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q3",
+          stem: "What were dotted around the room?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 34, set: "B", textIndex: 16,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "What was on the coffee table?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "What hadn’t Zara lost?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q6",
+          stem: "Where do you think Zara was?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 35, set: "A", textIndex: 17,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "What was hanging over me?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q2",
+          stem: "… I felt like I was wearing a high-viz jacket of sadness … What does the author mean by this?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+          stem: "What does the word glance mean? Tick one.",
+          guidance: "Options: look / passenger / bus / ticket. Award 1 mark for the correct answer."
+        }
+    ]
+  },
+  {
+    idx: 36, set: "B", textIndex: 17,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "Where on the bus did the author sit?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 2, domain: "vocabulary", type: "open", key: "q5",
+          stem: "…I used my finger to track …",
+          guidance: "Options: railway / path / follow / train. Award 1 mark for the correct answer."
+        },
+        {
+          num: 3, domain: "retrieval", type: "short", key: "q6",
+          stem: "What do you think the author means by follow the right path?",
+          answers: [],
+          guidance: ""
+        }
+    ]
+  },
+  {
+    idx: 37, set: "A", textIndex: 18,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q1",
+          stem: "What did Agnes do at the top of the stairs?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "inference", type: "open", key: "q2",
+          stem: "How is Agnes feeling? Use evidence from the text to support your answer.",
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q3",
+          stem: "… walked down the dimly lit passage …",
+          guidance: "Options: brightly / poorly / quickly / angrily. Award 1 mark for the correct answer."
+        }
+    ]
+  },
+  {
+    idx: 38, set: "B", textIndex: 18,
+    questions: [
+        {
+          num: 1, domain: "retrieval", type: "short", key: "q4",
+          stem: "What glared down at Agnes?",
+          answers: [],
+          guidance: ""
+        },
+        {
+          num: 2, domain: "retrieval", type: "short", key: "q5",
+          stem: "What did they seem to be telling her?",
+          answers: [],
+          guidance: ""
+        },
+        {
+                    num: 3, domain: "vocabulary", type: "open", key: "q6",
+          stem: "Which word is closest in meaning to trembling? Tick one.",
+          guidance: "Options: grumbling / knocking / shaking / holding. Award 1 mark for the correct answer."
+        }
+    ]
+  }
+];
+
+const ALL_SESSIONS = { Y3: SESSIONS_Y3 };
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let pupilName = '';
+let interventionYear = 'Y4';
+let activeSessions = SESSIONS_Y3;
+let currentSession = null;
+let answers = {};
+let startTime = null;
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+(function init() {
+  try {
+    const preload = JSON.parse(localStorage.getItem('ra_preload') || '{}');
+    pupilName = preload.name || 'Unknown';
+    interventionYear = preload.interventionYear || 'Y3';
+    activeSessions = ALL_SESSIONS[interventionYear] || SESSIONS_Y3;
+    document.getElementById('pupil-name-hdr').textContent = pupilName;
+    fetchProgress();
+  } catch(err) {
+    // If anything throws, hide spinner and show session 1 anyway
+    document.getElementById('loading-screen').style.display = 'none';
+    loadSession(1);
+  }
+  // Hard fallback: if spinner still showing after 3s, force session 1
+  setTimeout(function() {
+    const ls = document.getElementById('loading-screen');
+    if (ls && ls.style.display !== 'none') {
+      ls.style.display = 'none';
+      if (!currentSession) loadSession(1);
+    }
+  }, 3000);
+})();
+
+// ── JSONP helper ───────────────────────────────────────────────────────────────
+function jsonpFetch(url, timeout = 12000) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb3in3_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout);
+    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Network error')); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.body.appendChild(script);
+  });
+}
+
+// ── Fetch progress from backend ───────────────────────────────────────────────
+async function fetchProgress() {
+  // Show immediately from localStorage cache (instant) — no spinning
+  const cacheKey = '3in3_idx_' + pupilName;
+  const cached = parseInt(localStorage.getItem(cacheKey) || '0', 10);
+  loadSession(cached || 1);
+
+  // Then verify with backend in the background; update if different
+  try {
+    const data = await jsonpFetch(
+      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName),
+      10000
+    );
+    if (data && data.idx) {
+      localStorage.setItem(cacheKey, String(data.idx));
+      if (data.idx !== (cached || 1)) {
+        // Backend has a different (authoritative) value — reload silently
+        loadSession(data.idx);
+      }
+    }
+  } catch(e) { /* backend unreachable — cached value is fine */ }
+}
+
+// ── Load session ───────────────────────────────────────────────────────────────
+function loadSession(idx) {
+  document.getElementById('loading-screen').style.display = 'none';
+
+  currentSession = activeSessions.find(s => s.idx === idx);
+
+  if (!currentSession) {
+    // Beyond available content
+    document.getElementById('complete-screen').style.display = 'block';
+    return;
+  }
+
+  // Badge: "Text 1 · Set A"
+  const textNum = Math.ceil(idx / 2);
+  document.getElementById('session-label').textContent =
+    'Text ' + textNum + ' · Set ' + currentSession.set;
+  const dot = document.getElementById('session-dot');
+  dot.className = 'dot ' + (currentSession.set === 'A' ? 'a' : '');
+
+  // Passage — shown large in reading phase
+  const passageText = TEXTS[currentSession.textIndex];
+  document.getElementById('passage-text').textContent = passageText;
+  document.getElementById('passage-text-q').textContent = passageText;
+
+  // Questions pre-rendered (hidden until phase 2)
+  renderQuestions(currentSession.questions);
+
+  document.getElementById('reading-phase').style.display = 'block';
+  document.getElementById('questions-phase').style.display = 'none';
+  document.getElementById('session-screen').style.display = 'block';
+  answers = {};
+}
+
+// ── Render questions ───────────────────────────────────────────────────────────
+function renderQuestions(questions) {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+
+  questions.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'qcard-' + q.num;
+
+    let innerHtml = `
+      <div class="q-header">
+        <div class="q-num">${q.num}</div>
+        <div class="q-stem">${q.stem}</div>
+        <div class="q-domain ${q.domain}">${q.domain}</div>
+      </div>`;
+
+    if (q.quote) {
+      innerHtml += `<div class="q-quote">${q.quote}</div>`;
+    }
+
+    if (q.type === 'mc') {
+      innerHtml += `<div class="mc-options" id="mc-${q.key}">` +
+        q.options.map(opt =>
+          `<button class="mc-opt" onclick="selectMC('${q.key}','${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`
+        ).join('') + `</div>`;
+
+    } else if (q.type === 'short') {
+      innerHtml += `<input class="q-inp" id="inp-${q.key}" type="text" placeholder="Write your answer here…"
+        oninput="setAnswer('${q.key}',this.value)" autocomplete="off" autocorrect="off">`;
+
+    } else if (q.type === 'find_copy') {
+      innerHtml += `<input class="q-inp" id="inp-${q.key}" type="text" placeholder="Copy a word from the text…"
+        oninput="setAnswer('${q.key}',this.value)" autocomplete="off" autocorrect="off">`;
+
+    } else if (q.type === 'open') {
+      innerHtml += `<textarea class="q-textarea" id="inp-${q.key}" placeholder="Write your answer here…"
+        oninput="setAnswer('${q.key}',this.value)"></textarea>`;
+
+    } else if (q.type === 'short_parts') {
+      innerHtml += q.parts.map(p =>
+        `<div class="parts-row">
+          <span class="part-label">${p.label}</span>
+          <input class="q-inp" id="inp-${p.key}" type="text" placeholder="Write your answer here…"
+            oninput="setAnswer('${p.key}',this.value)" autocomplete="off" autocorrect="off">
+        </div>`
+      ).join('');
+    }
+
+    card.innerHTML = innerHtml;
+    container.appendChild(card);
+  });
+}
+
+// ── Phase transition ──────────────────────────────────────────────────────────
+function showQuestions() {
+  document.getElementById('reading-phase').style.display = 'none';
+  document.getElementById('questions-phase').style.display = 'block';
+  startTime = Date.now();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+let textVisible = true;
+function toggleText() {
+  textVisible = !textVisible;
+  document.getElementById('passage-text-q').style.display = textVisible ? 'block' : 'none';
+  document.getElementById('text-toggle-btn').textContent = textVisible ? 'Hide text ▲' : 'Show text ▼';
+}
+
+// ── Answer helpers ─────────────────────────────────────────────────────────────
+function setAnswer(key, val) {
+  answers[key] = val;
+  checkCardAnswered();
+}
+
+function selectMC(key, val, btn) {
+  const container = document.getElementById('mc-' + key);
+  container.querySelectorAll('.mc-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[key] = val;
+  checkCardAnswered();
+}
+
+function checkCardAnswered() {
+  currentSession.questions.forEach(q => {
+    const card = document.getElementById('qcard-' + q.num);
+    if (!card) return;
+    const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
+    const allFilled = keys.every(k => answers[k] && answers[k].trim());
+    card.classList.toggle('answered', allFilled);
+  });
+}
+
+// ── Auto-mark ──────────────────────────────────────────────────────────────────
+function matchAnswers(given, acceptedList) {
+  const g = given.toLowerCase().trim();
+  return acceptedList.some(a => g.includes(a.toLowerCase()));
+}
+
+function autoMark(questions) {
+  const scores = {};
+  questions.forEach(q => {
+    if (q.type === 'mc') {
+      const given = (answers[q.key] || '').toLowerCase().trim();
+      scores[q.key] = given === q.answer.toLowerCase() ? 1 : 0;
+    } else if (q.type === 'find_copy') {
+      const given = (answers[q.key] || '').toLowerCase().trim();
+      scores[q.key] = given === q.answer.toLowerCase() ? 1 : 0;
+    } else if (q.type === 'short') {
+      if (q.answers && q.answers.length) {
+        scores[q.key] = matchAnswers(answers[q.key] || '', q.answers) ? 1 : null;
+        // null = didn't match — still send to Claude as fallback
+      } else {
+        scores[q.key] = null;
+      }
+    } else if (q.type === 'short_parts') {
+      q.parts.forEach(p => {
+        if (p.answers && p.answers.length) {
+          scores[p.key] = matchAnswers(answers[p.key] || '', p.answers) ? 1 : null;
+        } else {
+          scores[p.key] = null;
+        }
+      });
+    } else {
+      // open — always Claude
+      scores[q.key] = null;
+    }
+  });
+  return scores;
+}
+
+// ── Build review list for Claude ───────────────────────────────────────────────
+function buildReviewList(questions, scores) {
+  const review = [];
+  questions.forEach(q => {
+    if (q.type === 'mc') return;
+    if (q.type === 'find_copy') return; // fully auto-marked above
+
+    if (q.type === 'short_parts') {
+      q.parts.forEach(p => {
+        if (scores[p.key] === null) {
+          review.push({
+            key: p.key,
+            domain: q.domain,
+            question: q.stem.replace(/<[^>]+>/g, '') + ' [Part ' + p.label + ' — one answer only]',
+            guidance: p.guidance || q.guidance,
+            max: 1
+          });
+        }
+      });
+    } else {
+      if (scores[q.key] === null) {
+        review.push({
+          key: q.key,
+          domain: q.domain,
+          question: q.stem.replace(/<[^>]+>/g, ''),
+          guidance: q.guidance,
+          max: 1
+        });
+      }
+    }
+  });
+  return review;
+}
+
+// ── Submit ─────────────────────────────────────────────────────────────────────
+async function submitSession() {
+  // Validate all answered
+  let allAnswered = true;
+  currentSession.questions.forEach(q => {
+    const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
+    keys.forEach(k => {
+      if (!answers[k] || !answers[k].trim()) allAnswered = false;
+    });
+  });
+  if (!allAnswered) {
+    const banner = document.getElementById('err-banner');
+    banner.style.display = 'block';
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  document.getElementById('err-banner').style.display = 'none';
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  const timeSecs = Math.round((Date.now() - startTime) / 1000);
+  const mins = Math.floor(timeSecs / 60), secs = timeSecs % 60;
+  const timeTaken = mins + ':' + String(secs).padStart(2, '0');
+
+  const scores = autoMark(currentSession.questions);
+  const reviewList = buildReviewList(currentSession.questions, scores);
+
+  const payload = {
+    name: encodeURIComponent(pupilName),
+    idx: currentSession.idx,
+    set: currentSession.set,
+    date: new Date().toLocaleDateString('en-GB'),
+    timeTaken,
+    answers: encodeURIComponent(JSON.stringify(answers)),
+    scores: encodeURIComponent(JSON.stringify(scores)),
+    review: encodeURIComponent(JSON.stringify(reviewList))
+  };
+
+  const url = BACKEND_URL + '?action=save3in3&' +
+    Object.entries(payload).map(([k,v]) => k + '=' + v).join('&');
+
+  // Update local cache immediately so next session loads instantly
+  const nextIdx = currentSession.idx + 1;
+  localStorage.setItem('3in3_idx_' + pupilName, String(nextIdx));
+
+  try {
+    await jsonpFetch(url, 15000);
+  } catch(e) {
+    // Save failed silently — show done screen anyway (data may still have saved)
+  }
+
+  showDone(scores);
+}
+
+// ── Show done screen ───────────────────────────────────────────────────────────
+function showDone(scores) {
+  document.getElementById('session-screen').style.display = 'none';
+  document.getElementById('done-screen').style.display = 'block';
+
+  document.getElementById('done-title').textContent =
+    'Well done, ' + pupilName.split(' ')[0] + '! 🌟';
+
+  const textNum = Math.ceil(currentSession.idx / 2);
+  document.getElementById('done-sub').textContent =
+    "You've finished Text " + textNum + ", Set " + currentSession.set + ". Great reading!";
+
+  document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01m</p>
+</body>
+</html>

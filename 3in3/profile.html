@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<!-- 3in3/profile.html — Teacher profile view for 3 in 3 intervention -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 in 3 Profiles — Wallscourt Farm Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --brand: #1798d3; --brand-dk: #0a6fa8; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Nunito', sans-serif; background: #f0f6fb;
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; padding: 24px 16px 60px;
+}
+.logo { font-size: 2rem; margin-bottom: 4px; }
+h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2px; }
+.sub { color: #888; font-size: 0.9rem; margin-bottom: 28px; }
+
+/* PIN */
+#pin-screen { width: 100%; max-width: 380px; text-align: center; }
+.pin-wrap { display: flex; gap: 10px; justify-content: center; margin: 20px 0 16px; }
+.pin-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--brand); background: #fff; transition: background .15s; }
+.pin-dot.filled { background: var(--brand); }
+.pin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 0 auto 12px; }
+.pin-btn { padding: 16px; border: 2px solid #ddd; border-radius: 12px; background: #fff; font-size: 1.4rem; font-weight: bold; cursor: pointer; font-family: inherit; transition: background .1s, border-color .1s; }
+.pin-btn:active { background: #e8f5fd; border-color: var(--brand); }
+#pin-error { color: #e53935; font-size: 14px; min-height: 20px; margin-top: 4px; }
+
+/* Main panel */
+#main-panel { display: none; width: 100%; max-width: 860px; }
+
+.spinner {
+  width: 36px; height: 36px; border: 4px solid #ddd;
+  border-top-color: var(--brand); border-radius: 50%;
+  animation: spin .7s linear infinite; margin: 40px auto; display: block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Top bar */
+.top-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+}
+.top-bar h2 { font-size: 1.2rem; font-weight: 800; color: #1a1a2e; }
+.mark-btn {
+  padding: 10px 20px; border: none; border-radius: 10px;
+  background: var(--brand); color: #fff; font-size: 14px; font-weight: 800;
+  cursor: pointer; font-family: inherit; transition: background .15s;
+}
+.mark-btn:hover { background: var(--brand-dk); }
+.mark-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Pupil grid */
+.pupil-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px; margin-bottom: 28px;
+}
+
+.pupil-card {
+  background: #fff; border-radius: 16px; padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.07);
+  border: 2px solid transparent; cursor: pointer; transition: all .15s;
+}
+.pupil-card:hover { border-color: var(--brand); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(23,152,211,.15); }
+.pupil-card.active { border-color: var(--brand); background: #f0f8fd; }
+
+.pc-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.pc-avatar {
+  width: 36px; height: 36px; border-radius: 50%; background: var(--brand);
+  color: #fff; font-size: 15px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.pc-name { font-size: 15px; font-weight: 800; color: #1a1a2e; }
+.pc-progress { font-size: 12px; color: #6b7280; margin-top: 1px; }
+
+/* Domain bars */
+.domain-bars { display: flex; flex-direction: column; gap: 6px; }
+.domain-row { display: flex; align-items: center; gap: 8px; }
+.domain-label { font-size: 11px; font-weight: 700; width: 70px; flex-shrink: 0; }
+.domain-label.retrieval  { color: #2e7d32; }
+.domain-label.vocabulary { color: #e65100; }
+.domain-label.inference  { color: #6a1b9a; }
+.bar-track { flex: 1; height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
+.bar-fill.retrieval  { background: #66bb6a; }
+.bar-fill.vocabulary { background: #ffa726; }
+.bar-fill.inference  { background: #ab47bc; }
+.bar-pct { font-size: 11px; font-weight: 700; color: #6b7280; width: 28px; text-align: right; flex-shrink: 0; }
+.no-data { font-size: 12px; color: #aaa; font-style: italic; }
+
+/* Detail panel */
+#detail-panel {
+  display: none; background: #fff; border-radius: 16px; padding: 24px;
+  box-shadow: 0 2px 14px rgba(0,0,0,.08); margin-bottom: 20px;
+}
+.detail-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+}
+.detail-name { font-size: 1.2rem; font-weight: 800; color: var(--brand); }
+.close-btn {
+  background: none; border: 2px solid #ddd; border-radius: 8px;
+  padding: 6px 12px; font-size: 13px; font-weight: 700; cursor: pointer;
+  font-family: inherit; color: #666;
+}
+.close-btn:hover { border-color: var(--brand); color: var(--brand); }
+
+/* History table */
+.history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.history-table th {
+  text-align: left; padding: 8px 10px; border-bottom: 2px solid #e5e7eb;
+  font-size: 11px; font-weight: 800; color: #9ca3af; text-transform: uppercase; letter-spacing: .4px;
+}
+.history-table td { padding: 9px 10px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; }
+.history-table tr:last-child td { border-bottom: none; }
+
+.answer-block { margin-bottom: 6px; }
+.q-label { font-size: 11px; font-weight: 800; color: #9ca3af; margin-bottom: 2px; }
+.q-answer { font-size: 13px; color: #1a1a2e; font-weight: 600; }
+
+.score-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%; font-size: 12px; font-weight: 800;
+}
+.score-badge.correct { background: #e8f5e9; color: #2e7d32; }
+.score-badge.wrong { background: #ffebee; color: #c62828; }
+.score-badge.pending { background: #fff8e1; color: #f57f17; }
+
+.domain-chip {
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 8px;
+}
+.domain-chip.retrieval  { background: #e8f5e9; color: #2e7d32; }
+.domain-chip.vocabulary { background: #fff3e0; color: #e65100; }
+.domain-chip.inference  { background: #f3e5f5; color: #6a1b9a; }
+
+.msg { font-size: 14px; color: #888; text-align: center; padding: 20px; }
+.msg.ok { color: #2e7d32; }
+.msg.err { color: #c62828; }
+
+/* No pupils */
+.no-pupils { background: #fff; border-radius: 16px; padding: 40px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+.no-pupils p { color: #888; font-size: 15px; }
+</style>
+</head>
+<body>
+
+<div class="logo">📊</div>
+<h1>3 in 3 Profiles</h1>
+<p class="sub">Wallscourt Farm Academy — Intervention Tracker</p>
+<p style="font-size:12px;margin-top:-20px;margin-bottom:28px;"><a href="../home.html" style="color:#aaa;text-decoration:none;">← Home</a></p>
+
+<!-- PIN -->
+<div id="pin-screen">
+  <p style="font-size:15px;color:#555;margin-bottom:8px;">Enter teacher PIN to continue</p>
+  <div class="pin-wrap">
+    <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+    <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
+  </div>
+  <div class="pin-grid">
+    <button class="pin-btn" onclick="pinPress('1')">1</button>
+    <button class="pin-btn" onclick="pinPress('2')">2</button>
+    <button class="pin-btn" onclick="pinPress('3')">3</button>
+    <button class="pin-btn" onclick="pinPress('4')">4</button>
+    <button class="pin-btn" onclick="pinPress('5')">5</button>
+    <button class="pin-btn" onclick="pinPress('6')">6</button>
+    <button class="pin-btn" onclick="pinPress('7')">7</button>
+    <button class="pin-btn" onclick="pinPress('8')">8</button>
+    <button class="pin-btn" onclick="pinPress('9')">9</button>
+    <button class="pin-btn" onclick="pinPress('0')">0</button>
+    <button class="pin-btn" onclick="pinDel()">⌫</button>
+  </div>
+  <p id="pin-error"></p>
+</div>
+
+<!-- Main -->
+<div id="main-panel">
+  <div class="top-bar">
+    <h2>Intervention Children</h2>
+    <button class="mark-btn" id="mark-btn" onclick="triggerMarking()">✦ Mark with Claude</button>
+  </div>
+  <div id="mark-msg" class="msg" style="display:none"></div>
+
+  <div id="detail-panel">
+    <div class="detail-header">
+      <div class="detail-name" id="detail-name"></div>
+      <button class="close-btn" onclick="closeDetail()">× Close</button>
+    </div>
+    <div id="detail-content"></div>
+  </div>
+
+  <div class="pupil-grid" id="pupil-grid">
+    <div class="spinner"></div>
+  </div>
+</div>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+const CORRECT_PIN = '2025';
+
+let allData = []; // raw session rows from backend
+let pupils3in3 = []; // names of 3in3 pupils from groups config
+
+// ── PIN ───────────────────────────────────────────────────────────────────────
+let pinEntry = '';
+function pinPress(d) {
+  if (pinEntry.length >= 4) return;
+  pinEntry += d;
+  document.getElementById('d' + (pinEntry.length - 1)).classList.add('filled');
+  if (pinEntry.length === 4) checkPin();
+}
+function pinDel() {
+  if (!pinEntry.length) return;
+  document.getElementById('d' + (pinEntry.length - 1)).classList.remove('filled');
+  pinEntry = pinEntry.slice(0, -1);
+  document.getElementById('pin-error').textContent = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('pin-screen').style.display === 'none') return;
+  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+  else if (e.key === 'Backspace') pinDel();
+});
+function checkPin() {
+  if (pinEntry === CORRECT_PIN) {
+    document.getElementById('pin-screen').style.display = 'none';
+    document.getElementById('main-panel').style.display = 'block';
+    loadData();
+  } else {
+    document.getElementById('pin-error').textContent = 'Incorrect PIN — try again';
+    pinEntry = '';
+    [0,1,2,3].forEach(i => document.getElementById('d'+i).classList.remove('filled'));
+  }
+}
+
+// ── JSONP ─────────────────────────────────────────────────────────────────────
+function jsonpFetch(url, timeout = 12000) {
+  return new Promise((resolve, reject) => {
+    const cb = 'jcb3_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout);
+    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Network error')); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.body.appendChild(script);
+  });
+}
+
+// ── Load data ─────────────────────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const [sessionsData, groupsData] = await Promise.all([
+      jsonpFetch(BACKEND_URL + '?action=get3in3data'),
+      jsonpFetch(BACKEND_URL + '?action=getgroups')
+    ]);
+
+    allData = Array.isArray(sessionsData) ? sessionsData : [];
+
+    // Extract 3in3 pupils from groups config
+    if (groupsData && Array.isArray(groupsData.pupils)) {
+      const groups = groupsData.groups || [];
+      const threein3Groups = groups.filter(g => g.assessment && g.assessment.startsWith('3in3'));
+      const groupIds = threein3Groups.map(g => g.id);
+      pupils3in3 = groupsData.pupils
+        .filter(p => groupIds.includes(p.group))
+        .map(p => p.name);
+    }
+
+    // If no pupils in 3in3 groups, show all who have 3in3 data
+    if (!pupils3in3.length) {
+      pupils3in3 = [...new Set(allData.map(r => r.name))];
+    }
+
+    renderGrid();
+  } catch(e) {
+    document.getElementById('pupil-grid').innerHTML =
+      '<div class="msg err">Could not load data — check your connection.</div>';
+  }
+}
+
+// ── Render grid ───────────────────────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById('pupil-grid');
+
+  if (!pupils3in3.length) {
+    grid.innerHTML = `<div class="no-pupils" style="grid-column:1/-1">
+      <p>No children are assigned to a 3 in 3 intervention group yet.</p>
+      <p style="margin-top:8px;font-size:13px;">Go to <a href="../setup.html" style="color:var(--brand)">Setup</a> to add children to a 3 in 3 group.</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = pupils3in3.map(name => {
+    const sessions = allData.filter(r => r.name === name);
+    const progress = getProgress(sessions);
+    const domains = getDomainScores(sessions);
+    return buildPupilCard(name, progress, domains);
+  }).join('');
+}
+
+function getProgress(sessions) {
+  if (!sessions.length) return { sessionsCompleted: 0, currentWeek: 1, currentSession: 'A' };
+  const last = sessions[sessions.length - 1];
+  return {
+    sessionsCompleted: sessions.length,
+    currentWeek: last.nextWeek || last.week,
+    currentSession: last.nextSession || last.session
+  };
+}
+
+function getDomainScores(sessions) {
+  const totals = { retrieval: {got:0,max:0}, vocabulary: {got:0,max:0}, inference: {got:0,max:0} };
+  sessions.forEach(s => {
+    if (!Array.isArray(s.questions)) return;
+    s.questions.forEach(q => {
+      const d = q.domain;
+      if (!totals[d]) return;
+      totals[d].max += q.max || 1;
+      if (typeof q.score === 'number') totals[d].got += q.score;
+    });
+  });
+  const result = {};
+  ['retrieval','vocabulary','inference'].forEach(d => {
+    const t = totals[d];
+    result[d] = t.max > 0 ? Math.round(t.got / t.max * 100) : null;
+  });
+  return result;
+}
+
+function buildPupilCard(name, progress, domains) {
+  const initials = name.split(' ').map(p => p[0]).join('').slice(0,2).toUpperCase();
+  const progressText = progress.sessionsCompleted === 0
+    ? 'Not started'
+    : `${progress.sessionsCompleted} session${progress.sessionsCompleted === 1 ? '' : 's'} done · Next: W${progress.currentWeek}${progress.currentSession}`;
+
+  const bars = ['retrieval','vocabulary','inference'].map(d => {
+    const pct = domains[d];
+    return pct === null ? '' :
+      `<div class="domain-row">
+        <span class="domain-label ${d}">${d.slice(0,3).toUpperCase()}</span>
+        <div class="bar-track"><div class="bar-fill ${d}" style="width:${pct}%"></div></div>
+        <span class="bar-pct">${pct}%</span>
+      </div>`;
+  }).join('');
+
+  return `<div class="pupil-card" onclick="showDetail('${name.replace(/'/g,"\\'")}')">
+    <div class="pc-header">
+      <div class="pc-avatar">${initials}</div>
+      <div>
+        <div class="pc-name">${name}</div>
+        <div class="pc-progress">${progressText}</div>
+      </div>
+    </div>
+    <div class="domain-bars">
+      ${bars || '<span class="no-data">No scores yet</span>'}
+    </div>
+  </div>`;
+}
+
+// ── Detail panel ──────────────────────────────────────────────────────────────
+function showDetail(name) {
+  document.querySelectorAll('.pupil-card').forEach(c => c.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
+  const sessions = allData.filter(r => r.name === name);
+  document.getElementById('detail-name').textContent = name;
+
+  const panel = document.getElementById('detail-panel');
+  const content = document.getElementById('detail-content');
+
+  if (!sessions.length) {
+    content.innerHTML = '<p class="msg">No sessions recorded yet.</p>';
+  } else {
+    content.innerHTML = sessions.map(s => buildSessionDetail(s)).join('');
+  }
+
+  panel.style.display = 'block';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function closeDetail() {
+  document.getElementById('detail-panel').style.display = 'none';
+  document.querySelectorAll('.pupil-card').forEach(c => c.classList.remove('active'));
+}
+
+function buildSessionDetail(s) {
+  const qRows = Array.isArray(s.questions) ? s.questions.map(q => {
+    const scoreHtml = q.score === null
+      ? '<span class="score-badge pending">?</span>'
+      : q.score >= q.max
+        ? '<span class="score-badge correct">✓</span>'
+        : '<span class="score-badge wrong">' + q.score + '/' + q.max + '</span>';
+
+    return `<tr>
+      <td><span class="domain-chip ${q.domain}">${q.domain}</span></td>
+      <td style="color:#555;font-size:13px;">${(q.question||'').replace(/<[^>]+>/g,'')}</td>
+      <td style="color:#1a1a2e;font-weight:600;font-size:13px;">${q.answer || '—'}</td>
+      <td>${scoreHtml}</td>
+      ${q.reasoning ? `<td style="font-size:12px;color:#888;max-width:180px;">${q.reasoning}</td>` : '<td></td>'}
+    </tr>`;
+  }).join('') : '<tr><td colspan="5" style="color:#aaa;font-size:13px;">No question detail available</td></tr>';
+
+  return `<div style="margin-bottom:24px;">
+    <div style="font-weight:800;color:#1a1a2e;margin-bottom:8px;font-size:14px;">
+      Week ${s.week} · Session ${s.session}
+      <span style="font-weight:600;color:#9ca3af;font-size:12px;margin-left:8px;">${s.date}</span>
+      ${s.timeTaken ? `<span style="font-weight:600;color:#9ca3af;font-size:12px;margin-left:4px;">· ${s.timeTaken}</span>` : ''}
+    </div>
+    <table class="history-table">
+      <thead><tr>
+        <th>Domain</th><th>Question</th><th>Answer</th><th>Score</th><th>Feedback</th>
+      </tr></thead>
+      <tbody>${qRows}</tbody>
+    </table>
+  </div>`;
+}
+
+// ── Claude marking ────────────────────────────────────────────────────────────
+async function triggerMarking() {
+  const btn = document.getElementById('mark-btn');
+  const msgEl = document.getElementById('mark-msg');
+  btn.disabled = true;
+  btn.textContent = 'Marking…';
+  msgEl.style.display = 'block';
+  msgEl.textContent = 'Sending to Claude — this may take a minute…';
+  msgEl.className = 'msg';
+
+  try {
+    const result = await jsonpFetch(BACKEND_URL + '?action=mark3in3', 60000);
+    if (result && result.ok) {
+      msgEl.textContent = `✓ Marked ${result.marked || 0} pending answer${result.marked === 1 ? '' : 's'}.`;
+      msgEl.className = 'msg ok';
+      await loadData();
+    } else {
+      throw new Error();
+    }
+  } catch(e) {
+    msgEl.textContent = 'Marking failed — check connection and try again.';
+    msgEl.className = 'msg err';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✦ Mark with Claude';
+  }
+}
+</script>
+</body>
+</html>

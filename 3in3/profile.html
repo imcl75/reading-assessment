@@ -148,7 +148,7 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 <div class="logo">📊</div>
 <h1>3 in 3 Profiles</h1>
 <p class="sub">Wallscourt Farm Academy — Intervention Tracker</p>
-<p style="font-size:12px;margin-top:-20px;margin-bottom:28px;"><a href="../home.html" style="color:#aaa;text-decoration:none;">← Home</a></p>
+<p style="font-size:12px;margin-top:-20px;margin-bottom:28px;"><a href="home.html" style="color:#aaa;text-decoration:none;">← Home</a></p>
 
 <!-- PIN -->
 <div id="pin-screen">
@@ -177,7 +177,7 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 <div id="main-panel">
   <div class="top-bar">
     <h2>Intervention Children</h2>
-    <button class="mark-btn" id="mark-btn" onclick="triggerMarking()">✦ Mark with Claude</button>
+    <button class="mark-btn" id="mark-btn" onclick="triggerMarking()" disabled>✦ Mark with Claude</button>
   </div>
   <div id="mark-msg" class="msg" style="display:none"></div>
 
@@ -279,6 +279,23 @@ async function loadData() {
   }
 
   renderGrid();
+  updateMarkBtn();
+}
+
+function countPending() {
+  let n = 0;
+  allData.forEach(s => {
+    if (!Array.isArray(s.questions)) return;
+    s.questions.forEach(q => { if (q.score === null) n++; });
+  });
+  return n;
+}
+
+function updateMarkBtn() {
+  const btn = document.getElementById('mark-btn');
+  const pending = countPending();
+  btn.disabled = pending === 0;
+  btn.title = pending === 0 ? 'No pending answers to mark' : `${pending} answer${pending === 1 ? '' : 's'} waiting to be marked`;
 }
 
 // ── Render grid ───────────────────────────────────────────────────────────────
@@ -434,6 +451,7 @@ async function triggerMarking() {
       msgEl.textContent = `✓ Marked ${result.marked || 0} pending answer${result.marked === 1 ? '' : 's'}.`;
       msgEl.className = 'msg ok';
       await loadData();
+      // loadData() calls updateMarkBtn() — button will auto-disable if nothing remains
     } else {
       throw new Error();
     }
@@ -446,6 +464,6 @@ async function triggerMarking() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01j</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01k</p>
 </body>
 </html>

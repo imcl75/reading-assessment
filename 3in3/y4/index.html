@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<!-- 3in3/index.html — 3 in 3 Reading Intervention Tool -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>3 in 3 Reading</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --brand: #1798d3; --brand-dk: #0a6fa8; --green: #2e7d32; --orange: #e65100; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  min-height: 100vh; font-family: 'Nunito', sans-serif;
+  background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 20px 16px 48px;
+}
+
+/* ── Header ── */
+.page-header {
+  width: 100%; max-width: 680px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.back-link { font-size: 13px; color: #5a8fa8; text-decoration: none; font-weight: 700; }
+.back-link:hover { color: var(--brand); }
+.page-title { font-size: 1.1rem; font-weight: 800; color: var(--brand); text-align: center; }
+.pupil-name { font-size: 13px; color: #5a8fa8; font-weight: 700; text-align: right; }
+
+/* ── Spinner ── */
+#loading-screen {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 16px; padding: 60px 16px;
+  color: #5a8fa8; font-size: 15px;
+}
+.spinner {
+  width: 40px; height: 40px; border: 4px solid #ddd;
+  border-top-color: var(--brand); border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Session screen ── */
+#session-screen { display: none; width: 100%; max-width: 680px; }
+
+.session-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--brand); color: #fff;
+  border-radius: 20px; padding: 6px 16px;
+  font-size: 14px; font-weight: 800; margin-bottom: 14px;
+}
+.session-badge .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.5);
+}
+.session-badge .dot.a { background: #fff; }
+
+/* ── Phase 1: Reading ── */
+#reading-phase { }
+.text-card {
+  background: #fff; border-radius: 20px; padding: 32px 36px;
+  box-shadow: 0 6px 28px rgba(23,152,211,.14);
+  margin-bottom: 20px;
+}
+.text-card-label {
+  font-size: 11px; font-weight: 800; color: var(--brand);
+  text-transform: uppercase; letter-spacing: .6px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 6px;
+}
+/* Large passage for reading phase */
+.passage {
+  font-size: 1.35rem; line-height: 1.9; color: #1a1a2e;
+  font-weight: 600;
+}
+/* Smaller passage once questions are shown */
+.passage.compact {
+  font-size: 1.05rem; line-height: 1.75;
+}
+.ready-btn {
+  width: 100%; padding: 18px; border: none; border-radius: 16px;
+  background: var(--brand); color: #fff; font-size: 1.15rem; font-weight: 800;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  box-shadow: 0 4px 20px rgba(23,152,211,.35);
+  transition: background .15s, transform .1s;
+}
+.ready-btn:hover { background: var(--brand-dk); }
+.ready-btn:active { transform: scale(.98); }
+
+/* ── Phase 2: Questions ── */
+#questions-phase { display: none; }
+.questions-label {
+  font-size: 11px; font-weight: 800; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .6px;
+  margin-bottom: 12px; margin-top: 4px;
+}
+/* Toggle to re-show text */
+.text-toggle {
+  font-size: 13px; font-weight: 700; color: var(--brand);
+  background: none; border: none; cursor: pointer;
+  font-family: inherit; padding: 0; margin-bottom: 16px;
+  display: block;
+}
+.text-toggle:hover { text-decoration: underline; }
+
+.q-card {
+  background: #fff; border-radius: 16px; padding: 22px 24px;
+  box-shadow: 0 3px 14px rgba(23,152,211,.1);
+  margin-bottom: 12px; border: 2px solid transparent;
+  transition: border-color .15s;
+}
+.q-card.answered { border-color: #b3dff5; }
+
+.q-header {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 14px;
+}
+.q-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--brand); color: #fff;
+  font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.q-domain {
+  font-size: 11px; font-weight: 700; padding: 2px 8px;
+  border-radius: 10px; flex-shrink: 0; margin-top: 3px;
+}
+.q-domain.retrieval  { background: #e8f5e9; color: #2e7d32; }
+.q-domain.vocabulary { background: #fff3e0; color: #e65100; }
+.q-domain.inference  { background: #f3e5f5; color: #6a1b9a; }
+.q-stem {
+  font-size: 15px; font-weight: 700; color: #1a1a2e;
+  line-height: 1.5; flex: 1;
+}
+.q-quote {
+  font-size: 13px; color: #5a8fa8; font-style: italic;
+  background: #f0f8fd; border-left: 3px solid var(--brand);
+  padding: 6px 12px; border-radius: 0 8px 8px 0;
+  margin-bottom: 10px;
+}
+
+/* MC options */
+.mc-options {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.mc-opt {
+  padding: 13px 12px; border: 2px solid #e5e7eb; border-radius: 10px;
+  background: #fafafa; font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  transition: all .12s; color: #333; text-align: center;
+}
+.mc-opt:hover { border-color: var(--brand); background: #e8f5fd; color: var(--brand); }
+.mc-opt.selected { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+/* Text inputs */
+.q-inp {
+  width: 100%; padding: 12px 14px; font-size: 16px;
+  border: 2px solid #ddd; border-radius: 10px; outline: none;
+  font-family: 'Nunito', sans-serif; font-weight: 600;
+  color: #1a1a2e; background: #fafafa; transition: border-color .15s;
+}
+.q-inp:focus { border-color: var(--brand); background: #fff; }
+.q-textarea {
+  width: 100%; padding: 12px 14px; font-size: 16px;
+  border: 2px solid #ddd; border-radius: 10px; outline: none;
+  font-family: 'Nunito', sans-serif; font-weight: 600;
+  color: #1a1a2e; background: #fafafa; transition: border-color .15s;
+  resize: vertical; min-height: 80px;
+}
+.q-textarea:focus { border-color: var(--brand); background: #fff; }
+
+.parts-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.part-label { font-size: 14px; font-weight: 800; color: #5a8fa8; flex-shrink: 0; width: 24px; }
+
+/* Submit */
+.submit-btn {
+  width: 100%; padding: 16px; border: none; border-radius: 14px;
+  background: var(--brand); color: #fff; font-size: 1.1rem; font-weight: 800;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  transition: background .15s; margin-top: 8px;
+  box-shadow: 0 4px 16px rgba(23,152,211,.3);
+}
+.submit-btn:hover { background: var(--brand-dk); }
+.submit-btn:active { transform: scale(.98); }
+.submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── Done screen ── */
+#done-screen {
+  display: none; width: 100%; max-width: 680px;
+  text-align: center;
+}
+.done-card {
+  background: #fff; border-radius: 20px; padding: 40px 32px;
+  box-shadow: 0 6px 32px rgba(23,152,211,.13);
+}
+.done-icon { font-size: 3.5rem; margin-bottom: 12px; }
+.done-title { font-size: 1.6rem; font-weight: 800; color: var(--brand); margin-bottom: 8px; }
+.done-sub { font-size: 1rem; color: #6b7280; line-height: 1.6; margin-bottom: 24px; }
+.score-row {
+  display: flex; justify-content: center; gap: 12px; margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.score-chip {
+  background: #f0f8fd; border: 2px solid #b3dff5; border-radius: 12px;
+  padding: 10px 16px; font-size: 14px; font-weight: 700; color: #1a1a2e;
+}
+.score-chip .val { font-size: 1.4rem; font-weight: 800; color: var(--brand); display: block; }
+.next-btn {
+  padding: 14px 36px; border: none; border-radius: 12px;
+  background: var(--brand); color: #fff; font-size: 1rem; font-weight: 800;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+}
+
+/* ── Complete screen ── */
+#complete-screen {
+  display: none; width: 100%; max-width: 680px; text-align: center;
+}
+
+/* ── Error ── */
+.err-banner {
+  background: #fff3cd; border: 1px solid #ffe082; border-radius: 10px;
+  padding: 12px 16px; font-size: 14px; color: #856404;
+  margin-bottom: 12px; display: none;
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <a class="back-link" href="home.html">← Home</a>
+  <div class="page-title">📖 3 in 3 Reading</div>
+  <div class="pupil-name" id="pupil-name-hdr"></div>
+</div>
+
+<!-- Loading -->
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <span>Loading your session…</span>
+</div>
+
+<!-- Session -->
+<div id="session-screen">
+  <div class="session-badge">
+    <span class="dot a" id="session-dot"></span>
+    <span id="session-label">Week 1 · Session A</span>
+  </div>
+
+  <!-- Phase 1: Reading -->
+  <div id="reading-phase">
+    <div class="text-card">
+      <div class="text-card-label">📖 Read the text carefully</div>
+      <p class="passage" id="passage-text"></p>
+    </div>
+    <button class="ready-btn" onclick="showQuestions()">I've read it — show me the questions →</button>
+  </div>
+
+  <!-- Phase 2: Questions -->
+  <div id="questions-phase">
+    <div class="text-card" id="text-card-compact">
+      <div class="text-card-label" style="justify-content:space-between">
+        <span>📖 Text</span>
+        <button class="text-toggle" onclick="toggleText()" id="text-toggle-btn">Hide text ▲</button>
+      </div>
+      <p class="passage compact" id="passage-text-q"></p>
+    </div>
+    <div class="questions-label">Now answer these questions</div>
+    <div class="err-banner" id="err-banner">Please answer all questions before submitting.</div>
+    <div id="questions-container"></div>
+    <button class="submit-btn" id="submit-btn" onclick="submitSession()">Submit answers →</button>
+  </div>
+</div>
+
+<!-- Done -->
+<div id="done-screen">
+  <div class="done-card">
+    <div class="done-icon">🌟</div>
+    <div class="done-title" id="done-title">Well done!</div>
+    <div class="done-sub" id="done-sub"></div>
+    <div class="score-row" id="score-row"></div>
+    <p style="font-size:13px;color:#9ca3af;margin-bottom:20px;">Your teacher will review your answers.</p>
+    <button class="next-btn" onclick="window.location.href='home.html'">Back to Home</button>
+  </div>
+</div>
+
+<!-- All weeks complete -->
+<div id="complete-screen">
+  <div class="done-card">
+    <div class="done-icon">🏆</div>
+    <div class="done-title">All done!</div>
+    <div class="done-sub">You've completed all available 3 in 3 sessions. Fantastic work!</div>
+    <button class="next-btn" onclick="window.location.href='home.html'">Back to Home</button>
+  </div>
+</div>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+
+// ── Content Data ─────────────────────────────────────────────────────────────
+
+const TEXTS = {
+  0: "What do you get if you add a netball team to a string quartet, a married couple, new-born triplets and a football team? Your first thought might be 'a strange party', but if you want a mathematical answer, you need to dig deeper. That's because they are all completely different from each other. In order to add them together, you should first find something they all have in common – the fact that they are groups of people. Once you know how many are in each group, you're away. The same is true when you add fractions – they all need to share the same common thing, their denominator.",
+  1: "Is there anything that frustrates you about writing? Maybe you don't like having to check spellings or meanings in a dictionary. Perhaps you wish that you already had such a great knowledge of words that you didn't need to check a thesaurus to find the one that is most pertinent (it means relevant). You might even dislike having to make notes or plans. But imagine going to visit a professional writer. What do you think you would find? That's right – a dictionary, thesaurus, notes and plans. Like tractors to farmers or thermometers to nurses, those are the tools of the writer's trade.",
+  2: "We often hear about the damage that humans cause to the environment. While this is certainly true, we can also have a positive impact. For example, there is a really cool insect that lives in our country called the stag beetle. These beetles are big – nearly eight centimetres long – with fierce looking 'antlers'. If you're lucky, you might see them flying around on warm evenings. Sadly, they are dying out, however, mostly due to the lack of suitable habitat. If you have the space, why not help to protect them by creating a pile of rotten logs where they can lay their eggs?",
+  3: "You might believe that the Anglo Saxons are long gone and, to a certain extent, you'd be right. As far as Britain is concerned, their time was really between the eighth and eleventh centuries. But there are still traces where they live on, if you know where to look – including your own address. Many of the place names that are so familiar to us today actually come from Anglo Saxon roots. If your home town's name ends in bury, borough, ton or ley, then the Anglo Saxons started a settlement there. Your next question is, what do these roots mean?",
+  4: "If you glance at a map of Britain, with a bit of imagination you might think that it looks like someone sitting down. Scotland is the head; the arms are folded over a very full tummy to make Wales; Devon and Cornwall are the outstretched legs and feet; and East Anglia is, well, what we use to sit on. If that is the case, then the backbone of this craggy figure must be the Pennines – a range of hills, moors and mountains that divides northern England. Large sections of the Pennines are protected as an area of outstanding natural beauty.",
+  5: "So, you've found a musical instrument that you want to play; how long it will take for you to become good at it? This question, you won't be surprised to learn, will have various answers. First, it depends on how good you want to be. If you want to play music professionally, you will probably have to practise for thousands of hours to reach the right standard. But remember, music should be a pleasure, and there is nothing wrong with just getting to a level that gives you enjoyment, providing, of course, that it's not too painful for everyone else!",
+  6: "For a sport with such an English name, badminton has a long and global history. Once called 'battledore and shuttlecock', it dates right back to early Greece, India and China where it was played some two thousand years ago. The word shuttlecock has stuck as the name of the feathered object that gets hit over a net. The sport itself is named after the big country house in the west of England, where it was enjoyed in the nineteenth century. Even though it was played by the ancient Greeks, it is one of the younger sports at the Olympic Games.",
+  7: "Clouds swept over the cold, watchful moon like a cloak shrouding a face. Across the lonely moor, the rising wind started to shake the trees and bushes along the side of the muddy track and unseen animal voices shrieked into the night. Still the coach pressed on, pulled by a tiring team of four anxious horses. Inside, the kindly gentleman softly squeezed his daughter's hand to calm her racing pulse. Meanwhile, less than a mile away, two cruel eyes sprang open, alerted by the sound of approaching hooves. They then narrowed as their owner's mouth stretched into a greedy smile.",
+  8: "In a panicky flurry of feathers, Ferdinand launched himself into the air to escape the vicious broomstick. What was wrong with humans? First, they built these wonderful stone cliffs, so perfect for resting and nesting. Then, they got upset whenever he and his fellow pigeons perched on the ledges to relax their wings and unload their droppings. Madness! Not that he had time to worry about that now. Out here in the space between the tower blocks, he was in serious danger from the hawks. Where had they suddenly arrived from and why had his mother not warned him about them?",
+  9: "Normally, maths and English stay very separate. But, sometimes, they swing towards each other and briefly come together, like acrobats on the trapeze. In fact, a good example is the word trapeze. This comes from the word trapezium – a four-sided, 2D shape with one pair of parallel lines. The circus act got its name from the outline made by the ropes, bar and roof. It was given that title by Jules Leotard, who we can also thank for that item of clothing. And the funny thing is that the word trapezium first came from the Latin for a bench – not very daring at all!",
+  10: "Do you have a favourite author? Perhaps you have more than one. If so, can you explain what it is that you particularly enjoy about their stories? Is it how they describe settings, characters and action with such skill that they capture your interest until the end? Or is it that they are magicians of the unusual, experimenting with language in a way that surprises and delights you? Maybe they just create unforgettable tales. One thing is certain, you couldn't possibly put your hand on your heart and say they are the best authors ever. Why? Because you haven't read them all.",
+  11: "Any skilled worker will tell you that you need the right tools for the job and the same holds true when it comes to teeth. Herbivores – plant-eating animals – need strong teeth with flat surfaces for grinding down grass and leaves and, even then, they need special stomachs to digest it all properly. Carnivores – meat eaters – need sharp teeth to slice and rip the flesh from their prey. But what about omnivores like humans that can eat both animals and vegetables? The answer is to have all the tools, which is why we have blunt molars as well as sharp canines and incisors.",
+  12: "What would you do if a bunch of vicious thugs kept attacking your villages and towns and stealing your money? It was a real problem for the Anglo Saxons when the Vikings were running riot all over England. Although they did have some success on the battlefield, the Saxons really preferred to live and farm in peace. That is why they decided to pay the Vikings not to raid them through a tax called Danegeld. Although it might seem rather a timid thing to do, either way they would lose their money, but at least they wouldn't lose their lives.",
+  13: "Imagine you have been given a totally undiscovered new land and the job of placing ports and harbours around it. Where would you choose? For a start, you'd probably find somewhere that could keep your boats sheltered from the worst storms and roughest waves. If you were clever, you might also think about somewhere inland, so as to reduce the distance your merchants have to transport their goods over the ground. But the sea doesn't go inland, does it? No, but rivers do, so you can see why so many of our biggest ports today are located on wide river estuaries.",
+  14: "If you loved music, what would be the worst thing that could happen to you? Ludwig van Beethoven played the piano to the highest standard, conducted whole orchestras and had a gift for composing. So, imagine how terrible it must have been for him when, before he had even reached his thirtieth birthday, he began to lose his hearing. That's like a painter going blind, or a cook losing the senses of taste and smell. Yet even that failed to hold him back. Although he stopped performing, he continued to write music which is still loved and performed around the world today.",
+  15: "Sport is supposed to get your heart beating faster. That's one of the ways we can make sure that our bodies stay fit and healthy. But there is more than one way to get your chest pounding, and they don't all involve running around getting sweaty. More and more, we are beginning to understand the benefit of adventurous activities. These introduce you to new, exciting experiences. They test your courage and help you to push yourself to new extremes. And whether you find yourself crawling through mud or scaling great heights, they're bound to set your pulse racing.",
+  16: "He knew he should have taken it to the police. In fact, he probably should have left it where he'd found it and alerted the bus driver – you couldn't be too careful these days. Even so, Hashim simply couldn't resist sliding the zip and having a look inside. There, he found a slim, shiny laptop. Glancing around to see if anyone was watching, he opened the lid and was surprised to see that the screen was on, revealing a desktop covered with icons. That was unusual – not even a log-in screen. Suddenly a speech bubble appeared bearing the words, \"Greetings Hashim!\"",
+  17: "No one could quite remember when they had first noticed she was there. It was as if she had appeared by magic. But then, people started to ask questions about the strange woman sitting on the bench in the middle of the traffic island. Unable to find the answers they were seeking, the busy-bodies of the village increased the number of reasons for taking a stroll. Of course, they said that they needed the exercise, or had run out of potatoes, or something. Anything to walk past the stranger without having the good manners to stop and talk to her.",
+  18: "This was only the second occasion in her life that Tamsin had attempted to play tennis. Trying to forget how it had ended last time, she picked up the racket and hit it against her hand. The strings were surprisingly hard and left a pattern of square marks on her skin. 'Ready?' called Jamila from the opposite side of the row of chairs they were using as a net. Tamsin nodded and bent down like she had seen the professional players do on the telly. When the ball approached, she swung her arm, then watched in dismay as the ball disappeared over the fence."
+};
+
+const SESSIONS = [
+  {
+    idx: 1, set: 'A', textIndex: 0,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short_parts', key: 'q1',
+        stem: 'Which two teams are mentioned?',
+        parts: [
+          { label: 'a)', key: 'q1a', answers: ['netball'], guidance: 'Netball team' },
+          { label: 'b)', key: 'q1b', answers: ['football'], guidance: 'Football team' }
+        ],
+        guidance: 'Netball team and football team'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'Which words are used to describe the triplets?',
+        answers: ['new-born', 'new born'],
+        guidance: 'new-born'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: "Why might the reader's first thought have been that it was 'a strange party'?",
+        guidance: 'Because the groups mentioned (netball team, string quartet, married couple, triplets, football team) are all very different from each other and would make an unusual mix of people.'
+      }
+    ]
+  },
+  {
+    idx: 2, set: 'B', textIndex: 0,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        stem: 'In this context, which words are closest in meaning to dig deeper?',
+        quote: '… you need to dig deeper …',
+        options: ['count higher', 'think harder', 'use a spade', 'use a calculator'],
+        answer: 'think harder'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'According to the text, what would be the first thing you would need to do to add them together?',
+        answers: ['find something in common', 'common', 'groups of people'],
+        guidance: 'Find something they all have in common (the fact that they are groups of people).'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What do fractions need to have in common when you add them together?',
+        answers: ['denominator', 'same denominator'],
+        guidance: 'The same denominator.'
+      }
+    ]
+  },
+  {
+    idx: 3, set: 'A', textIndex: 1,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        stem: 'In this context, which word is closest in meaning to frustrates?',
+        quote: 'Is there anything that frustrates you about writing?',
+        options: ['writes', 'excites', 'annoys', 'bends'],
+        answer: 'annoys'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short_parts', key: 'q2',
+        stem: 'According to the text, what two things could you check in a dictionary?',
+        parts: [
+          { label: 'a)', key: 'q2a', answers: ['spelling', 'spellings'], guidance: 'Spellings' },
+          { label: 'b)', key: 'q2b', answers: ['meaning', 'meanings'], guidance: 'Meanings' }
+        ],
+        guidance: 'Spellings and meanings'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'Why does the text explain what pertinent means?',
+        guidance: "Because it is an unusual/difficult word that readers might not know, so the author helpfully defines it in brackets to aid understanding."
+      }
+    ]
+  },
+  {
+    idx: 4, set: 'B', textIndex: 1,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'According to the text, what might you dislike having to do?',
+        answers: ['make notes', 'plans', 'notes or plans'],
+        guidance: 'Make notes or plans (accept: check spellings/meanings, check a thesaurus).'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'Who should you imagine visiting, according to the text?',
+        answers: ['professional writer', 'writer'],
+        guidance: 'A professional writer.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short_parts', key: 'q3',
+        stem: "What does the text suggest are the tools of the writer's trade? Name two.",
+        parts: [
+          { label: 'a)', key: 'q3a', answers: ['dictionary', 'thesaurus', 'notes', 'plans'], guidance: 'Any one of: dictionary, thesaurus, notes, plans' },
+          { label: 'b)', key: 'q3b', answers: ['dictionary', 'thesaurus', 'notes', 'plans'], guidance: 'Any one of the remaining: dictionary, thesaurus, notes, plans' }
+        ],
+        guidance: 'Any two of: dictionary, thesaurus, notes, plans.'
+      }
+    ]
+  },
+  {
+    idx: 5, set: 'A', textIndex: 2,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'find_copy', key: 'q1',
+        stem: 'Find and copy the word in the first sentence that is closest in meaning to harm.',
+        answer: 'damage'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What sort of impact does the text say that humans can have on the environment?',
+        answers: ['positive'],
+        guidance: 'A positive impact.'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: "Why do you think the author believes that stag beetles look 'cool'?",
+        guidance: "The author describes them as big, nearly eight centimetres long, with fierce-looking 'antlers' – these features make them seem impressive and interesting."
+      }
+    ]
+  },
+  {
+    idx: 6, set: 'B', textIndex: 2,
+    questions: [
+      {
+        num: 1, domain: 'inference', type: 'open', key: 'q1',
+        stem: "Why does the author put the word 'antlers' in inverted commas?",
+        guidance: "Because beetles don't really have antlers – the word is borrowed from deer to describe the beetle's pincers/horns, so the inverted commas show it is being used loosely/metaphorically."
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'When might you see stag beetles flying about?',
+        answers: ['warm evening', 'warm evenings', 'evenings'],
+        guidance: 'On warm evenings.'
+      },
+      {
+        num: 3, domain: 'vocabulary', type: 'mc', key: 'q3',
+        stem: 'Which word is closest in meaning to suitable?',
+        options: ['smart', 'tidy', 'wooden', 'appropriate'],
+        answer: 'appropriate'
+      }
+    ]
+  },
+  {
+    idx: 7, set: 'A', textIndex: 3,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        stem: 'In this context, which words are closest in meaning to a certain extent?',
+        quote: '… to a certain extent, you\'d be right.',
+        options: ['totally sure', 'extreme amount', 'without question', 'in some ways'],
+        answer: 'in some ways'
+      },
+      {
+        num: 2, domain: 'vocabulary', type: 'mc', key: 'q2',
+        stem: 'In this context, which word is closest in meaning to concerned?',
+        quote: '… As far as Britain is concerned …',
+        options: ['involved', 'worried', 'extinct', 'invaded'],
+        answer: 'involved'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'According to the text, when did the Anglo Saxons have their time?',
+        answers: ['eighth', 'eleventh', 'eighth and eleventh centuries', 'eighth to eleventh'],
+        guidance: 'Between the eighth and eleventh centuries.'
+      }
+    ]
+  },
+  {
+    idx: 8, set: 'B', textIndex: 3,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short_parts', key: 'q1',
+        stem: 'According to the text, which endings to place names come from Anglo Saxon roots? Find and copy two examples.',
+        parts: [
+          { label: 'a)', key: 'q1a', answers: ['bury', 'borough', 'ton', 'ley'], guidance: 'Any one of: bury, borough, ton, ley' },
+          { label: 'b)', key: 'q1b', answers: ['bury', 'borough', 'ton', 'ley'], guidance: 'Any one of the remaining: bury, borough, ton, ley' }
+        ],
+        guidance: 'Any two of: bury, borough, ton, ley.'
+      },
+      {
+        num: 2, domain: 'inference', type: 'open', key: 'q2',
+        stem: 'How does the author try to make this text feel relevant to you?',
+        guidance: "By mentioning 'your own address' and 'your home town's name' – directly involving the reader and suggesting the Anglo Saxon influence might apply to where they live."
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: "Your next question is, what do these roots mean? Why do you think the author doesn't explain what the roots mean?",
+        guidance: "To create curiosity and encourage the reader to find out for themselves; or the passage is intended as an introduction and the explanation would follow in the next part of the text."
+      }
+    ]
+  },
+  {
+    idx: 9, set: 'A', textIndex: 4,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        stem: 'In this context, which word is closest in meaning to glance?',
+        quote: '… If you glance at a map …',
+        options: ['open', 'look', 'fold', 'colour'],
+        answer: 'look'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What does the text suggest that a map of Britain looks like (with a bit of imagination)?',
+        answers: ['someone sitting down', 'person sitting', 'sitting down'],
+        guidance: 'Someone sitting down.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What are the arms folded over the top of?',
+        answers: ['tummy', 'full tummy', 'wales'],
+        guidance: 'A very full tummy (to make Wales).'
+      }
+    ]
+  },
+  {
+    idx: 10, set: 'B', textIndex: 4,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'According to the text, what are Devon and Cornwall?',
+        answers: ['outstretched legs', 'legs and feet', 'legs'],
+        guidance: 'The outstretched legs and feet.'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'find_copy', key: 'q2',
+        stem: 'Find and copy the name of the place that is described as a range of hills, moors and mountains.',
+        answer: 'Pennines'
+      },
+      {
+        num: 3, domain: 'vocabulary', type: 'find_copy', key: 'q3',
+        stem: 'Find and copy the word in the last sentence that is closest in meaning to looked after.',
+        answer: 'protected'
+      }
+    ]
+  },
+  {
+    idx: 11, set: 'A', textIndex: 5,
+    questions: [
+      {
+        num: 1, domain: 'inference', type: 'open', key: 'q1',
+        stem: "This question, you won't be surprised to learn, will have various answers. Why does the author say you won't be surprised to learn?",
+        guidance: "Because it's obvious/common sense that the time it takes to learn an instrument depends on many factors, so the reader would already expect a range of answers."
+      },
+      {
+        num: 2, domain: 'vocabulary', type: 'find_copy', key: 'q2',
+        stem: 'Find and copy the word in the second sentence that means different.',
+        answer: 'various'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'According to the text, what does the answer to the question in the first sentence depend upon?',
+        answers: ['how good you want to be', 'how good', 'standard'],
+        guidance: 'How good you want to be.'
+      }
+    ]
+  },
+  {
+    idx: 12, set: 'B', textIndex: 5,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        stem: 'In this context, what does professionally mean?',
+        quote: '… If you want to play music professionally …',
+        options: ['badly', 'all the time', 'quite well', 'for a living'],
+        answer: 'for a living'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'For how long will you probably have practised to be able to play professionally?',
+        answers: ['thousands of hours', 'thousands'],
+        guidance: 'Thousands of hours.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'According to the text, music should be what?',
+        answers: ['pleasure', 'a pleasure'],
+        guidance: 'A pleasure.'
+      }
+    ]
+  },
+  {
+    idx: 13, set: 'A', textIndex: 6,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        stem: 'What does the word global mean?',
+        options: ['world-wide', 'English', 'long', 'strange'],
+        answer: 'world-wide'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What was badminton once called?',
+        answers: ['battledore and shuttlecock', 'battledore'],
+        guidance: "Battledore and shuttlecock."
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short_parts', key: 'q3',
+        stem: 'Find and copy the names of two of the countries where badminton was first played.',
+        parts: [
+          { label: 'a)', key: 'q3a', answers: ['greece', 'india', 'china'], guidance: 'Any one of: Greece, India, China' },
+          { label: 'b)', key: 'q3b', answers: ['greece', 'india', 'china'], guidance: 'Any one of the remaining: Greece, India, China' }
+        ],
+        guidance: 'Any two of: Greece, India, China.'
+      }
+    ]
+  },
+  {
+    idx: 14, set: 'B', textIndex: 6,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'How long ago was badminton first played?',
+        answers: ['two thousand years', '2000 years'],
+        guidance: 'Some two thousand years ago.'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What is the name of the feathered object that gets hit over a net?',
+        answers: ['shuttlecock'],
+        guidance: 'Shuttlecock.'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: '… one of the younger sports at the Olympic Games … Explain what this description suggests about the sport of badminton.',
+        guidance: "Even though badminton is very old, it only joined the Olympics relatively recently – so it is 'young' as an Olympic sport compared to others."
+      }
+    ]
+  },
+  {
+    idx: 15, set: 'A', textIndex: 7,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'What swept over the moon?',
+        answers: ['clouds'],
+        guidance: 'Clouds.'
+      },
+      {
+        num: 2, domain: 'vocabulary', type: 'find_copy', key: 'q2',
+        stem: 'Find and copy the word in the first sentence that is closest in meaning to covering.',
+        answer: 'shrouding'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: '… like a cloak, shrouding a face … How do these words create a feeling of danger?',
+        guidance: "A cloak shrouding a face suggests concealment and mystery – something hidden and threatening, like a villain hiding their identity; it creates a sense of menace and the unknown."
+      }
+    ]
+  },
+  {
+    idx: 16, set: 'B', textIndex: 7,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'find_copy', key: 'q1',
+        stem: "Find and copy the words that show that the man's daughter was scared.",
+        answer: 'racing pulse'
+      },
+      {
+        num: 2, domain: 'vocabulary', type: 'mc', key: 'q2',
+        stem: 'Which word is closest in meaning to cruel?',
+        options: ['heartless', 'open', 'blue', 'gentle'],
+        answer: 'heartless'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'What do you predict that the person with the cruel eyes is going to do?',
+        guidance: "The person is likely a highwayman/robber who is going to attack or rob the coach – the description of cruel eyes, greedy smile and alertness to approaching hooves all suggest this."
+      }
+    ]
+  },
+  {
+    idx: 17, set: 'A', textIndex: 8,
+    questions: [
+      {
+        num: 1, domain: 'inference', type: 'open', key: 'q1',
+        stem: 'What evidence in the text is there to suggest that Ferdinand was being attacked?',
+        guidance: "He launched himself into the air to escape the vicious broomstick – the word 'vicious' and the fact he had to escape suggest someone was trying to hit him."
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What sort of creature is Ferdinand?',
+        answers: ['pigeon', 'bird'],
+        guidance: 'A pigeon.'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'What do you think the author means by the wonderful stone cliffs built by humans?',
+        guidance: "The 'stone cliffs' are actually buildings/tower blocks – from a pigeon's perspective, tall buildings resemble cliffs and are used for perching and nesting just as pigeons would use real cliffs."
+      }
+    ]
+  },
+  {
+    idx: 18, set: 'B', textIndex: 8,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        stem: "What does the word 'perched' mean in this context?",
+        quote: '…fellow pigeons perched on ledges.',
+        options: ['flew', 'sang', 'swept', 'sat'],
+        answer: 'sat'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'Name one of the things that the pigeons liked to do on ledges, according to the text.',
+        answers: ['relax their wings', 'relax', 'unload their droppings', 'droppings'],
+        guidance: 'Relax their wings / unload their droppings.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What was Ferdinand in serious danger from?',
+        answers: ['hawks', 'hawk'],
+        guidance: 'The hawks.'
+      }
+    ]
+  },
+  {
+    idx: 19, set: 'A', textIndex: 9,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'What subjects usually stay separate from each other, according to the text?',
+        answers: ['maths and english', 'maths', 'english'],
+        guidance: 'Maths and English.'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What does the text compare these subjects to when they swing towards each other?',
+        answers: ['acrobats', 'acrobats on the trapeze'],
+        guidance: 'Acrobats on the trapeze.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'find_copy', key: 'q3',
+        stem: 'Find and copy the words that describe a trapezium.',
+        answer: 'a four-sided, 2D shape with one pair of parallel lines'
+      }
+    ]
+  },
+  {
+    idx: 20, set: 'B', textIndex: 9,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'Who gave the trapeze its name?',
+        answers: ['jules leotard', 'leotard'],
+        guidance: 'Jules Leotard.'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What item of clothing is the text referring to?',
+        answers: ['leotard'],
+        guidance: 'The leotard.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What did the Latin word trapezium actually mean?',
+        answers: ['bench', 'a bench'],
+        guidance: 'A bench.'
+      }
+    ]
+  },
+  {
+    idx: 21, set: 'A', textIndex: 10,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'What sort of person is mentioned in the first sentence?',
+        answers: ['favourite author', 'author'],
+        guidance: 'A favourite author.'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short_parts', key: 'q2',
+        stem: 'Write two things that might be described to capture your interest.',
+        parts: [
+          { label: 'a)', key: 'q2a', answers: ['settings', 'characters', 'action'], guidance: 'Any one of: settings, characters, action' },
+          { label: 'b)', key: 'q2b', answers: ['settings', 'characters', 'action'], guidance: 'Any one of the remaining: settings, characters, action' }
+        ],
+        guidance: 'Any two of: settings, characters, action.'
+      },
+      {
+        num: 3, domain: 'inference', type: 'find_copy', key: 'q3',
+        stem: 'Find and copy the words that suggest story-tellers play tricks to entertain their readers.',
+        answer: 'magicians of the unusual'
+      }
+    ]
+  },
+  {
+    idx: 22, set: 'B', textIndex: 10,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'According to the text, what do some authors do with language?',
+        answers: ['experimenting', 'experiment with language', 'surprises and delights'],
+        guidance: 'They experiment with language in a way that surprises and delights you.'
+      },
+      {
+        num: 2, domain: 'vocabulary', type: 'mc', key: 'q2',
+        stem: "What does the word 'delights' mean in this context?",
+        quote: '… in a way that surprises and delights you…',
+        options: ['pleases', 'shocks', 'tells', 'tastes'],
+        answer: 'pleases'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: "According to the text, why couldn't you possibly know who the best authors ever are?",
+        answers: ["haven't read them all", "not read them all", "read them all"],
+        guidance: "Because you haven't read them all."
+      }
+    ]
+  },
+  {
+    idx: 23, set: 'A', textIndex: 11,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'According to the text, what do skilled workers need?',
+        answers: ['right tools', 'right tools for the job'],
+        guidance: 'The right tools for the job.'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'find_copy', key: 'q2',
+        stem: 'Find and copy the words that the text uses to describe herbivores.',
+        answer: 'plant-eating animals'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What do herbivores use to grind down grass and leaves?',
+        answers: ['strong teeth', 'flat surfaces', 'teeth with flat surfaces'],
+        guidance: 'Strong teeth with flat surfaces.'
+      }
+    ]
+  },
+  {
+    idx: 24, set: 'B', textIndex: 11,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'find_copy', key: 'q1',
+        stem: 'Find and copy the words that the text uses to describe carnivores.',
+        answer: 'meat eaters'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What does the text use as an example of omnivores?',
+        answers: ['humans'],
+        guidance: 'Humans.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short_parts', key: 'q3',
+        stem: 'Find and copy the names of two of the different types of teeth mentioned in the text.',
+        parts: [
+          { label: 'a)', key: 'q3a', answers: ['molars', 'canines', 'incisors'], guidance: 'Any one of: molars, canines, incisors' },
+          { label: 'b)', key: 'q3b', answers: ['molars', 'canines', 'incisors'], guidance: 'Any one of the remaining: molars, canines, incisors' }
+        ],
+        guidance: 'Any two of: molars, canines, incisors.'
+      }
+    ]
+  },
+  {
+    idx: 25, set: 'A', textIndex: 12,
+    questions: [
+      {
+        num: 1, domain: 'inference', type: 'short', key: 'q1',
+        stem: 'When the text mentions vicious thugs, who is it talking about?',
+        answers: ['vikings'],
+        guidance: 'The Vikings.'
+      },
+      {
+        num: 2, domain: 'vocabulary', type: 'mc', key: 'q2',
+        stem: 'In this context, which words are closest in meaning to running riot?',
+        quote: '… the Vikings were running riot …',
+        options: ['out of control', 'being leaders', 'holding races', 'having fun'],
+        answer: 'out of control'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'Who had some success on the battlefield?',
+        answers: ['saxons', 'anglo saxons'],
+        guidance: 'The Saxons (Anglo Saxons).'
+      }
+    ]
+  },
+  {
+    idx: 26, set: 'B', textIndex: 12,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'What did the Saxons prefer to do?',
+        answers: ['live and farm in peace', 'farm', 'peace'],
+        guidance: 'Live and farm in peace.'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What was the name of the tax that the Saxons paid to the Vikings?',
+        answers: ['danegeld'],
+        guidance: 'Danegeld.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What did the Saxons avoid losing by paying the tax?',
+        answers: ['lives', 'their lives'],
+        guidance: 'Their lives.'
+      }
+    ]
+  },
+  {
+    idx: 27, set: 'A', textIndex: 13,
+    questions: [
+      {
+        num: 1, domain: 'inference', type: 'short', key: 'q1',
+        stem: 'Which word suggests that you couldn\'t really be given a totally undiscovered new land?',
+        answers: ['imagine'],
+        guidance: "The word 'imagine' – it's just a hypothetical scenario."
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What does the text ask you to place around the new land?',
+        answers: ['ports and harbours', 'ports', 'harbours'],
+        guidance: 'Ports and harbours.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What would you need to keep your boats sheltered from?',
+        answers: ['worst storms', 'storms', 'roughest waves', 'waves', 'storms and waves'],
+        guidance: 'The worst storms and roughest waves.'
+      }
+    ]
+  },
+  {
+    idx: 28, set: 'B', textIndex: 13,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'Where would you think about placing your ports and harbours if you were clever?',
+        answers: ['inland', 'somewhere inland'],
+        guidance: 'Somewhere inland.'
+      },
+      {
+        num: 2, domain: 'vocabulary', type: 'mc', key: 'q2',
+        stem: 'Which word is closest in meaning to merchants?',
+        quote: '… reduce the distance your merchants have to transport their goods...',
+        options: ['sailors', 'drivers', 'traders', 'shoppers'],
+        answer: 'traders'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'What do you think would happen if boats were not sheltered from the worst storms and roughest waves?',
+        guidance: 'The boats could be damaged or destroyed/sink; the crew could be in danger; cargo/goods could be lost.'
+      }
+    ]
+  },
+  {
+    idx: 29, set: 'A', textIndex: 14,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'What did Beethoven play to the highest standard?',
+        answers: ['piano'],
+        guidance: 'The piano.'
+      },
+      {
+        num: 2, domain: 'vocabulary', type: 'mc', key: 'q2',
+        stem: 'In this context, what does the word gift mean?',
+        quote: '…had a gift for composing …',
+        options: ['present', 'piano', 'pen', 'talent'],
+        answer: 'talent'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What did Beethoven start to lose?',
+        answers: ['hearing', 'his hearing'],
+        guidance: 'His hearing.'
+      }
+    ]
+  },
+  {
+    idx: 30, set: 'B', textIndex: 14,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'How old was Beethoven when he started to lose his hearing?',
+        answers: ['before his thirtieth', 'under thirty', 'thirtieth', 'under 30', 'before 30'],
+        guidance: 'Before he reached his thirtieth birthday (under thirty years old).'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short_parts', key: 'q2',
+        stem: 'Find and copy the two senses that cooks would not like to lose.',
+        parts: [
+          { label: 'a)', key: 'q2a', answers: ['taste'], guidance: 'Taste' },
+          { label: 'b)', key: 'q2b', answers: ['smell'], guidance: 'Smell' }
+        ],
+        guidance: 'Taste and smell.'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'Why was Beethoven losing his hearing like a painter going blind?',
+        guidance: "Because hearing is the most essential sense for a musician, just as sight is the most essential sense for a painter – losing it would make it seem impossible to continue their work."
+      }
+    ]
+  },
+  {
+    idx: 31, set: 'A', textIndex: 15,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'According to the text, what is sport supposed to do?',
+        answers: ['get your heart beating faster', 'heart beating faster', 'heart beat faster'],
+        guidance: 'Get your heart beating faster.'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'According to the text, what does sport help our bodies to do?',
+        answers: ['stay fit and healthy', 'fit and healthy', 'fit'],
+        guidance: 'Stay fit and healthy.'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'Explain, in your own words, what the text means by get your chest pounding.',
+        guidance: "It means to make your heart beat hard and fast – the physical sensation of your heart thumping in your chest when you are excited or working hard."
+      }
+    ]
+  },
+  {
+    idx: 32, set: 'B', textIndex: 15,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        stem: 'Which word is closest in meaning to adventurous?',
+        options: ['active', 'daring', 'running', 'sweaty'],
+        answer: 'daring'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'According to the text, what do adventurous activities help you to test?',
+        answers: ['courage'],
+        guidance: 'Your courage.'
+      },
+      {
+        num: 3, domain: 'inference', type: 'mc', key: 'q3',
+        stem: 'What do you think the adventurous activities would be making you feel if your pulse was racing?',
+        options: ['excited', 'tired', 'bored', 'rushed'],
+        answer: 'excited'
+      }
+    ]
+  },
+  {
+    idx: 33, set: 'A', textIndex: 16,
+    questions: [
+      {
+        num: 1, domain: 'inference', type: 'short', key: 'q1',
+        stem: 'Where was Hashim?',
+        answers: ['bus', 'on a bus'],
+        guidance: 'On a bus (he should have alerted the bus driver).'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What had Hashim found?',
+        answers: ['laptop', 'slim shiny laptop'],
+        guidance: 'A slim, shiny laptop.'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'How does the text suggest that Hashim had found something that could be dangerous?',
+        guidance: "He knew he should have taken it to the police, and that 'you couldn't be too careful these days' – both suggest the item could be suspicious or dangerous."
+      }
+    ]
+  },
+  {
+    idx: 34, set: 'B', textIndex: 16,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'What did Hashim do to make sure no one was watching?',
+        answers: ['glancing around', 'glanced around', 'looked around'],
+        guidance: 'He glanced around.'
+      },
+      {
+        num: 2, domain: 'inference', type: 'open', key: 'q2',
+        stem: 'What do you think Hashim will do with the laptop?',
+        guidance: "Accept any reasonable prediction with justification – e.g. he might keep it to find out more about who sent the 'Greetings Hashim!' message, or he might take it to the police having seen the strange message."
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: "How do you think Hashim's emotions changed throughout the text?",
+        guidance: "At first he felt curious/tempted (he couldn't resist opening it); then perhaps nervous/guilty (glancing around); then surprised/alarmed (the screen was already on with no login); then shocked/scared when the laptop knew his name."
+      }
+    ]
+  },
+  {
+    idx: 35, set: 'A', textIndex: 17,
+    questions: [
+      {
+        num: 1, domain: 'inference', type: 'open', key: 'q1',
+        stem: 'How does the text suggest that it was strange how the woman suddenly appeared?',
+        guidance: "It says 'no one could quite remember when they had first noticed she was there' and 'it was as if she had appeared by magic' – both suggest her arrival was mysterious and unexplained."
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'find_copy', key: 'q2',
+        stem: 'Find and copy the word used to describe the woman.',
+        answer: 'strange'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'Where was the bench that the woman was sitting on?',
+        answers: ['traffic island', 'middle of the traffic island'],
+        guidance: 'In the middle of the traffic island.'
+      }
+    ]
+  },
+  {
+    idx: 36, set: 'B', textIndex: 17,
+    questions: [
+      {
+        num: 1, domain: 'inference', type: 'find_copy', key: 'q1',
+        stem: 'Which words does the author use to suggest that some of the people of the village were nosy?',
+        answer: 'busy-bodies'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'Name one of the excuses that people used for walking past the stranger.',
+        answers: ['exercise', 'needed the exercise', 'run out of potatoes', 'potatoes'],
+        guidance: "They needed the exercise / had run out of potatoes."
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'Based on what you have read, what do you think the villagers will do next?',
+        guidance: "Accept any reasonable prediction – e.g. someone will eventually pluck up the courage to speak to the woman; the busy-bodies will continue making excuses to walk past; someone will call the police."
+      }
+    ]
+  },
+  {
+    idx: 37, set: 'A', textIndex: 18,
+    questions: [
+      {
+        num: 1, domain: 'vocabulary', type: 'find_copy', key: 'q1',
+        stem: 'Find and copy the word in the first sentence that is closest in meaning to time.',
+        answer: 'occasion'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What game was Tamsin attempting to play?',
+        answers: ['tennis'],
+        guidance: 'Tennis.'
+      },
+      {
+        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What did Tamsin hit against her hand?',
+        answers: ['racket', 'the racket'],
+        guidance: 'The racket.'
+      }
+    ]
+  },
+  {
+    idx: 38, set: 'B', textIndex: 18,
+    questions: [
+      {
+        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'Who was Tamsin playing with?',
+        answers: ['jamila'],
+        guidance: 'Jamila.'
+      },
+      {
+        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What did they use as a net?',
+        answers: ['row of chairs', 'chairs'],
+        guidance: 'A row of chairs.'
+      },
+      {
+        num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'What do you think will happen to the ball?',
+        guidance: "The ball has gone over the fence so it is likely lost/out of reach – Tamsin may have to go and retrieve it, or they may not be able to continue playing."
+      }
+    ]
+  }
+];
+
+
+// ── Year-group SESSIONS map ───────────────────────────────────────────────────
+// Y3 sessions will be added here when content is available
+const SESSIONS_Y3 = [];
+const SESSIONS_Y4 = SESSIONS; // alias — SESSIONS above is Y4 content
+const ALL_SESSIONS = { Y3: SESSIONS_Y3, Y4: SESSIONS_Y4 };
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let pupilName = '';
+let interventionYear = 'Y4';
+let activeSessions = SESSIONS_Y4;
+let currentSession = null;
+let answers = {};
+let startTime = null;
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+(function init() {
+  try {
+    const preload = JSON.parse(localStorage.getItem('ra_preload') || '{}');
+    pupilName = preload.name || 'Unknown';
+    interventionYear = preload.interventionYear || 'Y4';
+    activeSessions = ALL_SESSIONS[interventionYear] || SESSIONS_Y4;
+    document.getElementById('pupil-name-hdr').textContent = pupilName;
+    fetchProgress();
+  } catch(err) {
+    // If anything throws, hide spinner and show session 1 anyway
+    document.getElementById('loading-screen').style.display = 'none';
+    loadSession(1);
+  }
+  // Hard fallback: if spinner still showing after 3s, force session 1
+  setTimeout(function() {
+    const ls = document.getElementById('loading-screen');
+    if (ls && ls.style.display !== 'none') {
+      ls.style.display = 'none';
+      if (!currentSession) loadSession(1);
+    }
+  }, 3000);
+})();
+
+// ── JSONP helper ───────────────────────────────────────────────────────────────
+function jsonpFetch(url, timeout = 12000) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb3in3_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout);
+    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Network error')); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.body.appendChild(script);
+  });
+}
+
+// ── Fetch progress from backend ───────────────────────────────────────────────
+async function fetchProgress() {
+  // Show immediately from localStorage cache (instant) — no spinning
+  const cacheKey = '3in3_idx_' + pupilName;
+  const cached = parseInt(localStorage.getItem(cacheKey) || '0', 10);
+  loadSession(cached || 1);
+
+  // Then verify with backend in the background; update if different
+  try {
+    const data = await jsonpFetch(
+      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName),
+      10000
+    );
+    if (data && data.idx) {
+      localStorage.setItem(cacheKey, String(data.idx));
+      if (data.idx !== (cached || 1)) {
+        // Backend has a different (authoritative) value — reload silently
+        loadSession(data.idx);
+      }
+    }
+  } catch(e) { /* backend unreachable — cached value is fine */ }
+}
+
+// ── Load session ───────────────────────────────────────────────────────────────
+function loadSession(idx) {
+  document.getElementById('loading-screen').style.display = 'none';
+
+  currentSession = activeSessions.find(s => s.idx === idx);
+
+  if (!currentSession) {
+    // Beyond available content
+    document.getElementById('complete-screen').style.display = 'block';
+    return;
+  }
+
+  // Badge: "Text 1 · Set A"
+  const textNum = Math.ceil(idx / 2);
+  document.getElementById('session-label').textContent =
+    'Text ' + textNum + ' · Set ' + currentSession.set;
+  const dot = document.getElementById('session-dot');
+  dot.className = 'dot ' + (currentSession.set === 'A' ? 'a' : '');
+
+  // Passage — shown large in reading phase
+  const passageText = TEXTS[currentSession.textIndex];
+  document.getElementById('passage-text').textContent = passageText;
+  document.getElementById('passage-text-q').textContent = passageText;
+
+  // Questions pre-rendered (hidden until phase 2)
+  renderQuestions(currentSession.questions);
+
+  document.getElementById('reading-phase').style.display = 'block';
+  document.getElementById('questions-phase').style.display = 'none';
+  document.getElementById('session-screen').style.display = 'block';
+  answers = {};
+}
+
+// ── Render questions ───────────────────────────────────────────────────────────
+function renderQuestions(questions) {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+
+  questions.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'qcard-' + q.num;
+
+    let innerHtml = `
+      <div class="q-header">
+        <div class="q-num">${q.num}</div>
+        <div class="q-stem">${q.stem}</div>
+        <div class="q-domain ${q.domain}">${q.domain}</div>
+      </div>`;
+
+    if (q.quote) {
+      innerHtml += `<div class="q-quote">${q.quote}</div>`;
+    }
+
+    if (q.type === 'mc') {
+      innerHtml += `<div class="mc-options" id="mc-${q.key}">` +
+        q.options.map(opt =>
+          `<button class="mc-opt" onclick="selectMC('${q.key}','${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`
+        ).join('') + `</div>`;
+
+    } else if (q.type === 'short') {
+      innerHtml += `<input class="q-inp" id="inp-${q.key}" type="text" placeholder="Write your answer here…"
+        oninput="setAnswer('${q.key}',this.value)" autocomplete="off" autocorrect="off">`;
+
+    } else if (q.type === 'find_copy') {
+      innerHtml += `<input class="q-inp" id="inp-${q.key}" type="text" placeholder="Copy a word from the text…"
+        oninput="setAnswer('${q.key}',this.value)" autocomplete="off" autocorrect="off">`;
+
+    } else if (q.type === 'open') {
+      innerHtml += `<textarea class="q-textarea" id="inp-${q.key}" placeholder="Write your answer here…"
+        oninput="setAnswer('${q.key}',this.value)"></textarea>`;
+
+    } else if (q.type === 'short_parts') {
+      innerHtml += q.parts.map(p =>
+        `<div class="parts-row">
+          <span class="part-label">${p.label}</span>
+          <input class="q-inp" id="inp-${p.key}" type="text" placeholder="Write your answer here…"
+            oninput="setAnswer('${p.key}',this.value)" autocomplete="off" autocorrect="off">
+        </div>`
+      ).join('');
+    }
+
+    card.innerHTML = innerHtml;
+    container.appendChild(card);
+  });
+}
+
+// ── Phase transition ──────────────────────────────────────────────────────────
+function showQuestions() {
+  document.getElementById('reading-phase').style.display = 'none';
+  document.getElementById('questions-phase').style.display = 'block';
+  startTime = Date.now();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+let textVisible = true;
+function toggleText() {
+  textVisible = !textVisible;
+  document.getElementById('passage-text-q').style.display = textVisible ? 'block' : 'none';
+  document.getElementById('text-toggle-btn').textContent = textVisible ? 'Hide text ▲' : 'Show text ▼';
+}
+
+// ── Answer helpers ─────────────────────────────────────────────────────────────
+function setAnswer(key, val) {
+  answers[key] = val;
+  checkCardAnswered();
+}
+
+function selectMC(key, val, btn) {
+  const container = document.getElementById('mc-' + key);
+  container.querySelectorAll('.mc-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[key] = val;
+  checkCardAnswered();
+}
+
+function checkCardAnswered() {
+  currentSession.questions.forEach(q => {
+    const card = document.getElementById('qcard-' + q.num);
+    if (!card) return;
+    const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
+    const allFilled = keys.every(k => answers[k] && answers[k].trim());
+    card.classList.toggle('answered', allFilled);
+  });
+}
+
+// ── Auto-mark ──────────────────────────────────────────────────────────────────
+function matchAnswers(given, acceptedList) {
+  const g = given.toLowerCase().trim();
+  return acceptedList.some(a => g.includes(a.toLowerCase()));
+}
+
+function autoMark(questions) {
+  const scores = {};
+  questions.forEach(q => {
+    if (q.type === 'mc') {
+      const given = (answers[q.key] || '').toLowerCase().trim();
+      scores[q.key] = given === q.answer.toLowerCase() ? 1 : 0;
+    } else if (q.type === 'find_copy') {
+      const given = (answers[q.key] || '').toLowerCase().trim();
+      scores[q.key] = given === q.answer.toLowerCase() ? 1 : 0;
+    } else if (q.type === 'short') {
+      if (q.answers && q.answers.length) {
+        scores[q.key] = matchAnswers(answers[q.key] || '', q.answers) ? 1 : null;
+        // null = didn't match — still send to Claude as fallback
+      } else {
+        scores[q.key] = null;
+      }
+    } else if (q.type === 'short_parts') {
+      q.parts.forEach(p => {
+        if (p.answers && p.answers.length) {
+          scores[p.key] = matchAnswers(answers[p.key] || '', p.answers) ? 1 : null;
+        } else {
+          scores[p.key] = null;
+        }
+      });
+    } else {
+      // open — always Claude
+      scores[q.key] = null;
+    }
+  });
+  return scores;
+}
+
+// ── Build review list for Claude ───────────────────────────────────────────────
+function buildReviewList(questions, scores) {
+  const review = [];
+  questions.forEach(q => {
+    if (q.type === 'mc') return;
+    if (q.type === 'find_copy') return; // fully auto-marked above
+
+    if (q.type === 'short_parts') {
+      q.parts.forEach(p => {
+        if (scores[p.key] === null) {
+          review.push({
+            key: p.key,
+            domain: q.domain,
+            question: q.stem.replace(/<[^>]+>/g, '') + ' [Part ' + p.label + ' — one answer only]',
+            guidance: p.guidance || q.guidance,
+            max: 1
+          });
+        }
+      });
+    } else {
+      if (scores[q.key] === null) {
+        review.push({
+          key: q.key,
+          domain: q.domain,
+          question: q.stem.replace(/<[^>]+>/g, ''),
+          guidance: q.guidance,
+          max: 1
+        });
+      }
+    }
+  });
+  return review;
+}
+
+// ── Submit ─────────────────────────────────────────────────────────────────────
+async function submitSession() {
+  // Validate all answered
+  let allAnswered = true;
+  currentSession.questions.forEach(q => {
+    const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
+    keys.forEach(k => {
+      if (!answers[k] || !answers[k].trim()) allAnswered = false;
+    });
+  });
+  if (!allAnswered) {
+    const banner = document.getElementById('err-banner');
+    banner.style.display = 'block';
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  document.getElementById('err-banner').style.display = 'none';
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  const timeSecs = Math.round((Date.now() - startTime) / 1000);
+  const mins = Math.floor(timeSecs / 60), secs = timeSecs % 60;
+  const timeTaken = mins + ':' + String(secs).padStart(2, '0');
+
+  const scores = autoMark(currentSession.questions);
+  const reviewList = buildReviewList(currentSession.questions, scores);
+
+  const payload = {
+    name: encodeURIComponent(pupilName),
+    idx: currentSession.idx,
+    set: currentSession.set,
+    date: new Date().toLocaleDateString('en-GB'),
+    timeTaken,
+    answers: encodeURIComponent(JSON.stringify(answers)),
+    scores: encodeURIComponent(JSON.stringify(scores)),
+    review: encodeURIComponent(JSON.stringify(reviewList))
+  };
+
+  const url = BACKEND_URL + '?action=save3in3&' +
+    Object.entries(payload).map(([k,v]) => k + '=' + v).join('&');
+
+  // Update local cache immediately so next session loads instantly
+  const nextIdx = currentSession.idx + 1;
+  localStorage.setItem('3in3_idx_' + pupilName, String(nextIdx));
+
+  try {
+    await jsonpFetch(url, 15000);
+  } catch(e) {
+    // Save failed silently — show done screen anyway (data may still have saved)
+  }
+
+  showDone(scores);
+}
+
+// ── Show done screen ───────────────────────────────────────────────────────────
+function showDone(scores) {
+  document.getElementById('session-screen').style.display = 'none';
+  document.getElementById('done-screen').style.display = 'block';
+
+  document.getElementById('done-title').textContent =
+    'Well done, ' + pupilName.split(' ')[0] + '! 🌟';
+
+  const textNum = Math.ceil(currentSession.idx / 2);
+  document.getElementById('done-sub').textContent =
+    "You've finished Text " + textNum + ", Set " + currentSession.set + ". Great reading!";
+
+  document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01l</p>
+</body>
+</html>

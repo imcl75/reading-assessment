@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- 3in3/home.html — Landing page for the 3 in 3 Reading Intervention -->
+<!-- 3in3/home.html — Year-group selector for 3 in 3 Reading Intervention -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3 in 3 Reading Intervention</title>
+<title>3 in 3 Reading — Select Year Group</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root { --brand: #1798d3; --brand-dk: #0a6fa8; }
@@ -18,33 +18,26 @@
   .logo { font-size: 3rem; margin-bottom: 8px; }
   h1 { color: var(--brand); font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 4px; }
   .sub { color: #5a8fa8; font-size: 1rem; margin-bottom: 8px; text-align: center; }
-  .cards { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 420px; }
+  .hint { color: #8aafc4; font-size: 0.82rem; text-align: center; margin-bottom: 32px; }
+  .cards { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 420px; }
   .card {
-    background: #fff; border-radius: 18px; padding: 22px 26px;
+    background: #fff; border-radius: 18px; padding: 20px 24px;
     box-shadow: 0 4px 20px rgba(23,152,211,.12);
-    display: flex; align-items: center; gap: 18px;
+    display: flex; align-items: center; gap: 16px;
     text-decoration: none; color: inherit;
     border: 2px solid transparent;
     transition: border-color .15s, transform .1s, box-shadow .15s;
-    cursor: pointer;
   }
   .card:hover { border-color: var(--brand); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(23,152,211,.18); }
-  .card-icon { font-size: 2.2rem; flex-shrink: 0; }
+  .card-icon { font-size: 2rem; flex-shrink: 0; }
   .card-body { flex: 1; }
-  .card-title { font-size: 1.1rem; font-weight: 800; color: #1a1a2e; margin-bottom: 3px; }
-  .card-desc { font-size: 0.86rem; color: #6b7280; line-height: 1.4; }
+  .card-title { font-size: 1.05rem; font-weight: 800; color: #1a1a2e; margin-bottom: 2px; }
+  .card-desc { font-size: 0.83rem; color: #6b7280; line-height: 1.4; }
   .card-arrow { font-size: 1.3rem; color: #c0d8e8; flex-shrink: 0; }
-
-  .card.start { background: linear-gradient(135deg, #1798d3, #0a6fa8); color: #fff; }
-  .card.start .card-title { color: #fff; }
-  .card.start .card-desc { color: rgba(255,255,255,.8); }
-  .card.start .card-arrow { color: rgba(255,255,255,.5); }
-  .card.start:hover { border-color: #fff; }
-
-  .pin-badge {
-    font-size: 11px; font-weight: 700; background: #eef7fb; color: var(--brand);
-    border: 1px solid #b3dff5; border-radius: 6px; padding: 2px 7px;
-    margin-top: 5px; display: inline-block;
+  .yr-badge {
+    display: inline-block; font-size: 11px; font-weight: 800;
+    background: #e8f5fd; color: var(--brand); border-radius: 6px;
+    padding: 2px 8px; margin-top: 4px;
   }
   .footer { margin-top: 28px; font-size: 12px; color: #8aacbe; text-align: center; }
 </style>
@@ -54,41 +47,53 @@
 <div class="logo">📖</div>
 <h1>3 in 3 Reading</h1>
 <p class="sub">Wallscourt Farm Academy</p>
+<p class="hint">Select your year group to begin</p>
 
 <div class="cards">
 
-  <a class="card start" href="login.html">
-    <div class="card-icon">▶️</div>
+  <a class="card" href="y3/home.html">
+    <div class="card-icon">🌱</div>
     <div class="card-body">
-      <div class="card-title">Start a Session →</div>
-      <div class="card-desc">Find your name and begin today's reading</div>
+      <div class="card-title">Year 3</div>
+      <div class="card-desc">3 in 3 Reading Intervention for Year 3</div>
+      <span class="yr-badge">Y3</span>
     </div>
     <div class="card-arrow">›</div>
   </a>
 
-  <a class="card" href="profile.html">
-    <div class="card-icon">📈</div>
+  <a class="card" href="y4/home.html">
+    <div class="card-icon">📗</div>
     <div class="card-body">
-      <div class="card-title">Profiles</div>
-      <div class="card-desc">View progress and domain scores for each child</div>
-      <span class="pin-badge">🔒 PIN protected</span>
+      <div class="card-title">Year 4</div>
+      <div class="card-desc">3 in 3 Reading Intervention for Year 4</div>
+      <span class="yr-badge">Y4</span>
     </div>
     <div class="card-arrow">›</div>
   </a>
 
-  <a class="card" href="setup.html">
-    <div class="card-icon">⚙️</div>
+  <a class="card" href="y5/home.html">
+    <div class="card-icon">📘</div>
     <div class="card-body">
-      <div class="card-title">Setup</div>
-      <div class="card-desc">Manage the list of children in the intervention</div>
-      <span class="pin-badge">🔒 PIN protected</span>
+      <div class="card-title">Year 5</div>
+      <div class="card-desc">3 in 3 Reading Intervention for Year 5</div>
+      <span class="yr-badge">Y5</span>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+
+  <a class="card" href="y6/home.html">
+    <div class="card-icon">📙</div>
+    <div class="card-body">
+      <div class="card-title">Year 6</div>
+      <div class="card-desc">3 in 3 Reading Intervention for Year 6</div>
+      <span class="yr-badge">Y6</span>
     </div>
     <div class="card-arrow">›</div>
   </a>
 
 </div>
 
-<p class="footer">3 in 3 Reading Intervention · Year 4 · <span style="opacity:.6">v26.06.01l</span></p>
+<p class="footer">3 in 3 Reading Intervention · <span style="opacity:.6">v26.06.01l</span></p>
 
 </body>
 </html>

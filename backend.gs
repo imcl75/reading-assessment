@@ -119,10 +119,22 @@ function doGet(e) {
   } else if (action === 'savegroups') {
     result = saveGroups(e, ss);
   } else if (action === 'get3in3pupils') {
-    result = get3in3Pupils();
+    const classYear = e.parameter.classYear || '';
+    result = get3in3Pupils(classYear);
   } else if (action === 'save3in3pupils') {
-    const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
-    result = save3in3Pupils(names);
+    const classYear = e.parameter.classYear || '';
+    const pupilsParam = e.parameter.pupils || '';
+    if (pupilsParam) {
+      // New format: JSON array of {name, interventionYear}
+      let pupils = [];
+      try { pupils = JSON.parse(decodeURIComponent(pupilsParam)); } catch(err) {}
+      result = save3in3Pupils(classYear, pupils);
+    } else {
+      // Legacy format: newline-separated names
+      const names = (e.parameter.names || '').split('\n').map(n => n.trim()).filter(Boolean);
+      const pupils = names.map(n => ({ name: n, interventionYear: classYear || 'Y4' }));
+      result = save3in3Pupils(classYear, pupils);
+    }
   } else if (action === 'save3in3') {
     result = save3in3(e, ss);
   } else if (action === 'get3in3progress') {
@@ -696,15 +708,65 @@ function saveConfig(texts, names, ss, assessment) {
 
 const SHEET_3IN3 = '3in3 Results';
 
-// ── 3in3 pupil list (separate from main assessment groups) ───────────────────
-function get3in3Pupils() {
-  const raw = PropertiesService.getScriptProperties().getProperty('3IN3_PUPILS') || '[]';
-  try { return JSON.parse(raw); } catch(e) { return []; }
+// ── 3in3 pupil list (per class year) ─────────────────────────────────────────
+// Stored as '3IN3_PUPILS_Y4', '3IN3_PUPILS_Y3', etc.
+// Each value is a JSON array of {name, interventionYear}.
+// Legacy key '3IN3_PUPILS' (no year) is migrated on first read.
+function get3in3Pupils(classYear) {
+  const props = PropertiesService.getScriptProperties();
+  // If a classYear is specified, use the per-year key
+  if (classYear) {
+    const key = '3IN3_PUPILS_' + classYear;
+    const raw = props.getProperty(key);
+    if (raw) {
+      try {
+        const data = JSON.parse(raw);
+        // Normalise: old format was string[], new format is {name, interventionYear}[]
+        return data.map(d => typeof d === 'object' ? d : { name: d, interventionYear: classYear });
+      } catch(e) { return []; }
+    }
+    // Fallback: if no year-specific key exists yet, check legacy key (only for Y4)
+    if (classYear === 'Y4') {
+      const legacy = props.getProperty('3IN3_PUPILS');
+      if (legacy) {
+        try {
+          const names = JSON.parse(legacy);
+          return names.map(n => typeof n === 'object' ? n : { name: n, interventionYear: 'Y4' });
+        } catch(e) {}
+      }
+    }
+    return [];
+  }
+  // No classYear: return all pupils across all years (for profile page fallback)
+  const all = [];
+  ['Y3','Y4','Y5','Y6'].forEach(yr => {
+    const raw = props.getProperty('3IN3_PUPILS_' + yr);
+    if (raw) {
+      try {
+        JSON.parse(raw).forEach(d => {
+          all.push(typeof d === 'object' ? d : { name: d, interventionYear: yr });
+        });
+      } catch(e) {}
+    }
+  });
+  // Legacy fallback
+  if (!all.length) {
+    const legacy = props.getProperty('3IN3_PUPILS');
+    if (legacy) {
+      try { return JSON.parse(legacy); } catch(e) {}
+    }
+  }
+  return all;
 }
 
-function save3in3Pupils(names) {
-  PropertiesService.getScriptProperties().setProperty('3IN3_PUPILS', JSON.stringify(names));
-  return { ok: true, count: names.length };
+function save3in3Pupils(classYear, pupils) {
+  const props = PropertiesService.getScriptProperties();
+  if (classYear) {
+    props.setProperty('3IN3_PUPILS_' + classYear, JSON.stringify(pupils));
+  } else {
+    props.setProperty('3IN3_PUPILS', JSON.stringify(pupils));
+  }
+  return { ok: true, count: pupils.length };
 }
 
 // ── Save a 3in3 session (called via JSONP GET from index.html) ────────────────

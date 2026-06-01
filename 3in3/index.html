@@ -719,21 +719,9 @@ function showDone(scores) {
   document.getElementById('done-sub').textContent =
     "You've finished Text " + textNum + ", Set " + currentSession.set + ". Great reading!";
 
-  // Show auto-marked MC scores
-  const mcQ = currentSession.questions.filter(q => q.type === 'mc');
-  const row = document.getElementById('score-row');
-  row.innerHTML = '';
-  if (mcQ.length > 0) {
-    const correct = mcQ.filter(q => scores[q.key] === 1).length;
-    row.innerHTML = `<div class="score-chip">
-      <span class="val">${correct}/${mcQ.length}</span>
-      Multiple choice
-    </div>`;
-  }
-
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01g</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.01h</p>
 </body>
 </html>

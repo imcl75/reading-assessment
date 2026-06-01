@@ -118,6 +118,15 @@ function doGet(e) {
     result = getGroups(ss);
   } else if (action === 'savegroups') {
     result = saveGroups(e, ss);
+  } else if (action === 'save3in3') {
+    result = save3in3(e, ss);
+  } else if (action === 'get3in3progress') {
+    const name = decodeURIComponent(e.parameter.name || '');
+    result = get3in3Progress(name);
+  } else if (action === 'get3in3data') {
+    result = get3in3Data(ss);
+  } else if (action === 'mark3in3') {
+    result = mark3in3Pending(ss);
   } else {
     result = { error: 'unknown action' };
   }
@@ -674,4 +683,232 @@ function saveConfig(texts, names, ss, assessment) {
   // Also keep the Pupils sheet in sync
   savePupils(ss, names);
   return { ok: true, selectedTexts: texts, pupilCount: names.length };
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// 3 IN 3 INTERVENTION
+// ══════════════════════════════════════════════════════════════════════════════
+
+const SHEET_3IN3 = '3in3 Results';
+
+// ── Save a 3in3 session (called via JSONP GET from index.html) ────────────────
+function save3in3(e, ss) {
+  try {
+    const name     = decodeURIComponent(e.parameter.name    || '');
+    const week     = parseInt(e.parameter.week    || '1', 10);
+    const session  = e.parameter.session  || 'A';
+    const date     = e.parameter.date     || new Date().toLocaleDateString('en-GB');
+    const timeTaken = e.parameter.timeTaken || '';
+    const answers  = JSON.parse(decodeURIComponent(e.parameter.answers  || '{}'));
+    const scores   = JSON.parse(decodeURIComponent(e.parameter.scores   || '{}'));
+    const review   = JSON.parse(decodeURIComponent(e.parameter.review   || '[]'));
+
+    // Persist raw results sheet row
+    save3in3Row(ss, { name, week, session, date, timeTaken, answers, scores, review });
+
+    // Advance progress
+    const nextWeek    = session === 'A' ? week : week + 1;
+    const nextSession = session === 'A' ? 'B' : 'A';
+    update3in3Progress(name, nextWeek, nextSession);
+
+    return { ok: true, nextWeek, nextSession };
+  } catch(err) {
+    console.error('save3in3 error:', err);
+    return { ok: false, error: err.toString() };
+  }
+}
+
+function save3in3Row(ss, data) {
+  let sheet = ss.getSheetByName(SHEET_3IN3);
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_3IN3);
+    sheet.getRange(1, 1, 1, 7).setValues([[
+      'Timestamp', 'Name', 'Week', 'Session', 'Date', 'Time Taken', 'Answers JSON'
+    ]]);
+    sheet.getRange(1, 1, 1, 7).setFontWeight('bold');
+    sheet.setFrozenRows(1);
+  }
+  sheet.appendRow([
+    new Date().toISOString(),
+    data.name,
+    data.week,
+    data.session,
+    data.date,
+    data.timeTaken,
+    JSON.stringify({ answers: data.answers, scores: data.scores, review: data.review })
+  ]);
+}
+
+// ── Get / update progress (stored as Script Property) ────────────────────────
+function get3in3Progress(name) {
+  if (!name) return { week: 1, session: 'A' };
+  const raw = PropertiesService.getScriptProperties().getProperty('3IN3_PROGRESS') || '{}';
+  let progress = {};
+  try { progress = JSON.parse(raw); } catch(e) {}
+  return progress[name] || { week: 1, session: 'A' };
+}
+
+function update3in3Progress(name, week, session) {
+  const raw = PropertiesService.getScriptProperties().getProperty('3IN3_PROGRESS') || '{}';
+  let progress = {};
+  try { progress = JSON.parse(raw); } catch(e) {}
+  progress[name] = { week, session };
+  PropertiesService.getScriptProperties().setProperty('3IN3_PROGRESS', JSON.stringify(progress));
+}
+
+// ── Get all 3in3 session data ─────────────────────────────────────────────────
+function get3in3Data(ss) {
+  const sheet = ss.getSheetByName(SHEET_3IN3);
+  if (!sheet) return [];
+
+  const data = sheet.getDataRange().getValues();
+  if (data.length <= 1) return [];
+
+  const progressRaw = PropertiesService.getScriptProperties().getProperty('3IN3_PROGRESS') || '{}';
+  let allProgress = {};
+  try { allProgress = JSON.parse(progressRaw); } catch(e) {}
+
+  const rows = [];
+  for (let i = 1; i < data.length; i++) {
+    const row = data[i];
+    const name = String(row[1]);
+    let payload = {};
+    try { payload = JSON.parse(row[6] || '{}'); } catch(e) {}
+
+    // Merge answers + scores + review into question array for profile display
+    const questions = [];
+    if (Array.isArray(payload.review)) {
+      payload.review.forEach(rq => {
+        const answer  = (payload.answers || {})[rq.key] || '';
+        const score   = (payload.scores  || {})[rq.key];
+        questions.push({
+          key:      rq.key,
+          domain:   rq.domain,
+          question: rq.question,
+          answer,
+          score:    typeof score === 'number' ? score : null,
+          max:      rq.max || 1,
+          guidance: rq.guidance,
+          reasoning: rq.reasoning || null
+        });
+      });
+    }
+    // Add auto-marked MC answers (score already set, no review entry)
+    if (payload.scores) {
+      Object.entries(payload.scores).forEach(([k, v]) => {
+        if (typeof v === 'number' && !questions.find(q => q.key === k)) {
+          questions.push({
+            key: k, domain: 'vocabulary', question: k,
+            answer: (payload.answers || {})[k] || '',
+            score: v, max: 1, guidance: '', reasoning: null
+          });
+        }
+      });
+    }
+
+    const progress = allProgress[name] || {};
+    rows.push({
+      name,
+      week:        Number(row[2]),
+      session:     String(row[3]),
+      date:        String(row[4]),
+      timeTaken:   String(row[5] || ''),
+      nextWeek:    progress.week    || null,
+      nextSession: progress.session || null,
+      questions
+    });
+  }
+  return rows;
+}
+
+// ── Claude marking for 3in3 pending answers ───────────────────────────────────
+function mark3in3Pending(ss) {
+  const apiKey = PropertiesService.getScriptProperties().getProperty('ANTHROPIC_KEY');
+  if (!apiKey) return { ok: false, error: 'No ANTHROPIC_KEY set' };
+
+  const sheet = ss.getSheetByName(SHEET_3IN3);
+  if (!sheet) return { ok: true, marked: 0 };
+
+  const data = sheet.getDataRange().getValues();
+  let totalMarked = 0;
+
+  for (let i = 1; i < data.length; i++) {
+    let payload = {};
+    try { payload = JSON.parse(data[i][6] || '{}'); } catch(e) { continue; }
+
+    const review  = payload.review   || [];
+    const answers = payload.answers  || {};
+    const scores  = payload.scores   || {};
+
+    // Only process rows with pending (null-score) review questions
+    const pending = review.filter(rq => scores[rq.key] === null || scores[rq.key] === undefined);
+    if (!pending.isEmpty && pending.length === 0) continue;
+
+    let changed = false;
+    pending.forEach(rq => {
+      const answer = answers[rq.key] || '';
+      if (!answer.trim()) {
+        scores[rq.key] = 0;
+        rq.reasoning = 'No answer given.';
+        changed = true;
+        totalMarked++;
+        return;
+      }
+      const promptText = build3in3MarkingPrompt(rq, answer);
+      try {
+        const response = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01'
+          },
+          payload: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 200,
+            messages: [{ role: 'user', content: promptText }]
+          }),
+          muteHttpExceptions: true
+        });
+        const body = JSON.parse(response.getContentText());
+        if (body.content && body.content[0]) {
+          const jsonMatch = body.content[0].text.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            const mark = JSON.parse(jsonMatch[0]);
+            scores[rq.key] = Math.max(0, Math.min(rq.max || 1, Math.round(mark.score)));
+            rq.reasoning = mark.reasoning || '';
+            changed = true;
+            totalMarked++;
+          }
+        }
+      } catch(err) {
+        console.error('3in3 mark error:', err);
+      }
+    });
+
+    if (changed) {
+      payload.scores = scores;
+      payload.review = review;
+      sheet.getRange(i + 1, 7).setValue(JSON.stringify(payload));
+    }
+  }
+
+  return { ok: true, marked: totalMarked };
+}
+
+function build3in3MarkingPrompt(rq, answer) {
+  return `You are marking a KS2 reading comprehension answer for a UK primary school intervention.
+
+Question: ${rq.question}
+Domain: ${rq.domain}
+Worth: ${rq.max || 1} mark
+
+Marking guidance: ${rq.guidance}
+
+Pupil's answer: "${answer}"
+
+Apply the marking guidance strictly but fairly for a primary-age child. Accept reasonable paraphrases.
+
+Respond with ONLY a JSON object:
+{"score": <integer 0-${rq.max || 1}>, "reasoning": "<one clear sentence>"}`;
 }

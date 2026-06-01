@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<!-- 3in3/index.html — 3 in 3 Reading Intervention Tool -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>3 in 3 Reading</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --brand: #1798d3; --brand-dk: #0a6fa8; --green: #2e7d32; --orange: #e65100; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  min-height: 100vh; font-family: 'Nunito', sans-serif;
+  background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%);
+  display: flex; flex-direction: column; align-items: center;
+  padding: 20px 16px 48px;
+}
+
+/* ── Header ── */
+.page-header {
+  width: 100%; max-width: 680px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.back-link { font-size: 13px; color: #5a8fa8; text-decoration: none; font-weight: 700; }
+.back-link:hover { color: var(--brand); }
+.page-title { font-size: 1.1rem; font-weight: 800; color: var(--brand); text-align: center; }
+.pupil-name { font-size: 13px; color: #5a8fa8; font-weight: 700; text-align: right; }
+
+/* ── Spinner ── */
+#loading-screen {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 16px; padding: 60px 16px;
+  color: #5a8fa8; font-size: 15px;
+}
+.spinner {
+  width: 40px; height: 40px; border: 4px solid #ddd;
+  border-top-color: var(--brand); border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Session screen ── */
+#session-screen { display: none; width: 100%; max-width: 680px; }
+
+.session-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--brand); color: #fff;
+  border-radius: 20px; padding: 6px 16px;
+  font-size: 14px; font-weight: 800; margin-bottom: 14px;
+}
+.session-badge .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.5);
+}
+.session-badge .dot.a { background: #fff; }
+
+/* ── Text card ── */
+.text-card {
+  background: #fff; border-radius: 16px; padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(23,152,211,.12);
+  margin-bottom: 16px;
+}
+.text-card-label {
+  font-size: 11px; font-weight: 800; color: var(--brand);
+  text-transform: uppercase; letter-spacing: .6px; margin-bottom: 10px;
+}
+.passage {
+  font-size: 1.05rem; line-height: 1.75; color: #1a1a2e;
+  font-weight: 600;
+}
+
+/* ── Questions ── */
+.questions-label {
+  font-size: 11px; font-weight: 800; color: #6b7280;
+  text-transform: uppercase; letter-spacing: .6px;
+  margin-bottom: 12px; margin-top: 4px;
+}
+
+.q-card {
+  background: #fff; border-radius: 16px; padding: 22px 24px;
+  box-shadow: 0 3px 14px rgba(23,152,211,.1);
+  margin-bottom: 12px; border: 2px solid transparent;
+  transition: border-color .15s;
+}
+.q-card.answered { border-color: #b3dff5; }
+
+.q-header {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 14px;
+}
+.q-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--brand); color: #fff;
+  font-size: 13px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.q-domain {
+  font-size: 11px; font-weight: 700; padding: 2px 8px;
+  border-radius: 10px; flex-shrink: 0; margin-top: 3px;
+}
+.q-domain.retrieval  { background: #e8f5e9; color: #2e7d32; }
+.q-domain.vocabulary { background: #fff3e0; color: #e65100; }
+.q-domain.inference  { background: #f3e5f5; color: #6a1b9a; }
+.q-stem {
+  font-size: 15px; font-weight: 700; color: #1a1a2e;
+  line-height: 1.5; flex: 1;
+}
+.q-quote {
+  font-size: 13px; color: #5a8fa8; font-style: italic;
+  background: #f0f8fd; border-left: 3px solid var(--brand);
+  padding: 6px 12px; border-radius: 0 8px 8px 0;
+  margin-bottom: 10px;
+}
+
+/* MC options */
+.mc-options {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.mc-opt {
+  padding: 13px 12px; border: 2px solid #e5e7eb; border-radius: 10px;
+  background: #fafafa; font-size: 14px; font-weight: 700;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  transition: all .12s; color: #333; text-align: center;
+}
+.mc-opt:hover { border-color: var(--brand); background: #e8f5fd; color: var(--brand); }
+.mc-opt.selected { background: var(--brand); border-color: var(--brand); color: #fff; }
+
+/* Text inputs */
+.q-inp {
+  width: 100%; padding: 12px 14px; font-size: 16px;
+  border: 2px solid #ddd; border-radius: 10px; outline: none;
+  font-family: 'Nunito', sans-serif; font-weight: 600;
+  color: #1a1a2e; background: #fafafa; transition: border-color .15s;
+}
+.q-inp:focus { border-color: var(--brand); background: #fff; }
+.q-textarea {
+  width: 100%; padding: 12px 14px; font-size: 16px;
+  border: 2px solid #ddd; border-radius: 10px; outline: none;
+  font-family: 'Nunito', sans-serif; font-weight: 600;
+  color: #1a1a2e; background: #fafafa; transition: border-color .15s;
+  resize: vertical; min-height: 80px;
+}
+.q-textarea:focus { border-color: var(--brand); background: #fff; }
+
+.parts-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.part-label { font-size: 14px; font-weight: 800; color: #5a8fa8; flex-shrink: 0; width: 24px; }
+
+/* Submit */
+.submit-btn {
+  width: 100%; padding: 16px; border: none; border-radius: 14px;
+  background: var(--brand); color: #fff; font-size: 1.1rem; font-weight: 800;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+  transition: background .15s; margin-top: 8px;
+  box-shadow: 0 4px 16px rgba(23,152,211,.3);
+}
+.submit-btn:hover { background: var(--brand-dk); }
+.submit-btn:active { transform: scale(.98); }
+.submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── Done screen ── */
+#done-screen {
+  display: none; width: 100%; max-width: 680px;
+  text-align: center;
+}
+.done-card {
+  background: #fff; border-radius: 20px; padding: 40px 32px;
+  box-shadow: 0 6px 32px rgba(23,152,211,.13);
+}
+.done-icon { font-size: 3.5rem; margin-bottom: 12px; }
+.done-title { font-size: 1.6rem; font-weight: 800; color: var(--brand); margin-bottom: 8px; }
+.done-sub { font-size: 1rem; color: #6b7280; line-height: 1.6; margin-bottom: 24px; }
+.score-row {
+  display: flex; justify-content: center; gap: 12px; margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.score-chip {
+  background: #f0f8fd; border: 2px solid #b3dff5; border-radius: 12px;
+  padding: 10px 16px; font-size: 14px; font-weight: 700; color: #1a1a2e;
+}
+.score-chip .val { font-size: 1.4rem; font-weight: 800; color: var(--brand); display: block; }
+.next-btn {
+  padding: 14px 36px; border: none; border-radius: 12px;
+  background: var(--brand); color: #fff; font-size: 1rem; font-weight: 800;
+  cursor: pointer; font-family: 'Nunito', sans-serif;
+}
+
+/* ── Complete screen ── */
+#complete-screen {
+  display: none; width: 100%; max-width: 680px; text-align: center;
+}
+
+/* ── Error ── */
+.err-banner {
+  background: #fff3cd; border: 1px solid #ffe082; border-radius: 10px;
+  padding: 12px 16px; font-size: 14px; color: #856404;
+  margin-bottom: 12px; display: none;
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <a class="back-link" href="../home.html">← Home</a>
+  <div class="page-title">📖 3 in 3 Reading</div>
+  <div class="pupil-name" id="pupil-name-hdr"></div>
+</div>
+
+<!-- Loading -->
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <span>Loading your session…</span>
+</div>
+
+<!-- Session -->
+<div id="session-screen">
+  <div class="session-badge">
+    <span class="dot a" id="session-dot"></span>
+    <span id="session-label">Week 1 · Session A</span>
+  </div>
+
+  <!-- Passage -->
+  <div class="text-card">
+    <div class="text-card-label">📖 Read the text</div>
+    <p class="passage" id="passage-text"></p>
+  </div>
+
+  <!-- Questions -->
+  <div class="questions-label">Now answer these questions</div>
+  <div class="err-banner" id="err-banner">Please answer all questions before submitting.</div>
+  <div id="questions-container"></div>
+
+  <button class="submit-btn" id="submit-btn" onclick="submitSession()">Submit answers →</button>
+</div>
+
+<!-- Done -->
+<div id="done-screen">
+  <div class="done-card">
+    <div class="done-icon">🌟</div>
+    <div class="done-title" id="done-title">Well done!</div>
+    <div class="done-sub" id="done-sub"></div>
+    <div class="score-row" id="score-row"></div>
+    <p style="font-size:13px;color:#9ca3af;margin-bottom:20px;">Your teacher will review your answers.</p>
+    <button class="next-btn" onclick="window.location.href='../home.html'">Back to Home</button>
+  </div>
+</div>
+
+<!-- All weeks complete -->
+<div id="complete-screen">
+  <div class="done-card">
+    <div class="done-icon">🏆</div>
+    <div class="done-title">All done!</div>
+    <div class="done-sub">You've completed all available 3 in 3 sessions. Fantastic work!</div>
+    <button class="next-btn" onclick="window.location.href='../home.html'">Back to Home</button>
+  </div>
+</div>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+
+// ── Content Data ─────────────────────────────────────────────────────────────
+
+const TEXTS = {
+  0: 'What do you get if you add a netball team to a string quartet, a married couple, new-born triplets and a football team? Your first thought might be ‘a strange party’, but if you want a mathematical answer, you need to dig deeper. That’s because they are all completely different from each other. In order to add them together, you should first find something they all have in common – the fact that they are groups of people. Once you know how many are in each group, you’re away. The same is true when you add fractions – they all need to share the same common thing, their denominator.',
+  1: 'Is there anything that frustrates you about writing? Maybe you don’t like having to check spellings or meanings in a dictionary. Perhaps you wish that you already had such a great knowledge of words that you didn’t need to check a thesaurus to find the one that is most pertinent (it means relevant). You might even dislike having to make notes or plans. But imagine going to visit a professional writer. What do you think you would find? That’s right – a dictionary, thesaurus, notes and plans. Like tractors to farmers or thermometers to nurses, those are the tools of the writer’s trade.',
+  2: 'We often hear about the damage that humans cause to the environment. While this is certainly true, we can also have a positive impact. For example, there is a really cool insect that lives in our country called the stag beetle. These beetles are big – nearly eight centimetres long – with fierce looking ‘antlers’. If you’re lucky, you might see them flying around on warm evenings. Sadly, they are dying out, however, mostly due to the lack of suitable habitat. If you have the space, why not help to protect them by creating a pile of rotten logs where they can lay their eggs?'
+};
+
+const WEEKS = [
+  { week: 1, session: 'A', textIndex: 0,
+    questions: [
+      { num: 1, domain: 'retrieval', type: 'short_parts',
+        stem: 'Which two teams are mentioned?',
+        parts: [{label: 'a)', key: 'q1a'}, {label: 'b)', key: 'q1b'}],
+        guidance: 'Award 1 mark each for: a) netball (team), b) football (team).' },
+      { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'Which words are used to describe the triplets?',
+        guidance: 'Award 1 mark for “new-born”. Accept “newborn”.' },
+      { num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'Why might the reader’s first thought have been that it was ‘a strange party’?',
+        guidance: 'Award 1 mark for any reasonable explanation, e.g. the groups are very different types of groups to attend a party together, or they seem unrelated to each other.' }
+    ]
+  },
+  { week: 2, session: 'B', textIndex: 0,
+    questions: [
+      { num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        quote: '… you need to dig deeper …',
+        stem: 'In this context, which words are closest in meaning to <strong>dig deeper</strong>? Circle one.',
+        options: ['count higher', 'think harder', 'use a spade', 'use a calculator'],
+        answer: 'think harder',
+        guidance: 'Answer: think harder.' },
+      { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'According to the text, what would be the first thing you would need to do to add them together?',
+        guidance: 'Award 1 mark for finding something they have in common / that they are groups of people. Accept reasonable paraphrase.' },
+      { num: 3, domain: 'retrieval', type: 'short', key: 'q3',
+        stem: 'What do fractions need to have in common when you add them together?',
+        guidance: 'Award 1 mark for the same denominator / their denominator / the same common thing. Accept reasonable paraphrase.' }
+    ]
+  },
+  { week: 3, session: 'A', textIndex: 1,
+    questions: [
+      { num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
+        quote: 'Is there anything that frustrates you about writing?',
+        stem: 'In this context, which word is closest in meaning to <strong>frustrates</strong>? Tick one.',
+        options: ['writes', 'excites', 'annoys', 'bends'],
+        answer: 'annoys',
+        guidance: 'Answer: annoys.' },
+      { num: 2, domain: 'retrieval', type: 'short_parts',
+        stem: 'According to the text, what two things could you check in a dictionary?',
+        parts: [{label: 'a)', key: 'q2a'}, {label: 'b)', key: 'q2b'}],
+        guidance: 'Award 1 mark each for: a) spellings, b) meanings.' },
+      { num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'Why does the text explain what <em>pertinent</em> means?',
+        guidance: 'Award 1 mark for any reasonable inference, e.g. the word is unusual and the author wants the reader to understand it.' }
+    ]
+  },
+  { week: 4, session: 'B', textIndex: 1,
+    questions: [
+      { num: 1, domain: 'retrieval', type: 'short', key: 'q1',
+        stem: 'According to the text, what might you dislike having to do?',
+        guidance: 'Award 1 mark for any item mentioned in the text: check spellings, check meanings in a dictionary, check a thesaurus, make notes, make plans.' },
+      { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'Who should you imagine visiting, according to the text?',
+        guidance: 'Award 1 mark for “a professional writer”. Accept “writer”.' },
+      { num: 3, domain: 'retrieval', type: 'short_parts',
+        stem: 'What does the text suggest are the tools of the writer’s trade? Name two.',
+        parts: [{label: 'a)', key: 'q3a'}, {label: 'b)', key: 'q3b'}],
+        guidance: 'Award 1 mark each for any two of: dictionary, thesaurus, notes, plans.' }
+    ]
+  },
+  { week: 5, session: 'A', textIndex: 2,
+    questions: [
+      { num: 1, domain: 'vocabulary', type: 'find_copy', key: 'q1',
+        stem: 'Find and copy the word in the first sentence that is closest in meaning to <strong>harm</strong>.',
+        answer: 'damage',
+        guidance: 'Award 1 mark for “damage”.' },
+      { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'What sort of impact does the text say that humans can have on the environment?',
+        guidance: 'Award 1 mark for “positive” or “a positive impact”.' },
+      { num: 3, domain: 'inference', type: 'open', key: 'q3',
+        stem: 'Why do you think the author believes that stag beetles look ‘cool’?',
+        guidance: 'Award 1 mark for any reasonable inference about appearance or behaviour, e.g. they are large/impressive, have fierce-looking antlers, or can fly.' }
+    ]
+  },
+  { week: 6, session: 'B', textIndex: 2,
+    questions: [
+      { num: 1, domain: 'inference', type: 'open', key: 'q1',
+        stem: 'Why does the author put the word ‘antlers’ in inverted commas?',
+        guidance: 'Award 1 mark for any reasonable explanation, e.g. they are not real antlers (it is a comparison/metaphor), or the word is used loosely.' },
+      { num: 2, domain: 'retrieval', type: 'short', key: 'q2',
+        stem: 'When might you see stag beetles flying about?',
+        guidance: 'Award 1 mark for “on warm evenings” or “warm evenings”.' },
+      { num: 3, domain: 'vocabulary', type: 'mc', key: 'q3',
+        stem: 'Which word is closest in meaning to <strong>suitable</strong>? Tick one.',
+        options: ['smart', 'tidy', 'wooden', 'appropriate'],
+        answer: 'appropriate',
+        guidance: 'Answer: appropriate.' }
+    ]
+  }
+];
+
+const MAX_WEEK = WEEKS.length > 0 ? Math.max(...WEEKS.map(w => w.week)) : 6;
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let pupilName = '';
+let currentWeekData = null;
+let answers = {};
+let startTime = null;
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+(function init() {
+  const preload = JSON.parse(localStorage.getItem('ra_preload') || '{}');
+  pupilName = preload.name || 'Unknown';
+  document.getElementById('pupil-name-hdr').textContent = pupilName;
+  fetchProgress();
+})();
+
+// ── JSONP helper ───────────────────────────────────────────────────────────────
+function jsonpFetch(url, timeout = 12000) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb3in3_' + Date.now();
+    const script = document.createElement('script');
+    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout);
+    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
+    window[cb] = data => { cleanup(); resolve(data); };
+    script.onerror = () => { cleanup(); reject(new Error('Network error')); };
+    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    document.body.appendChild(script);
+  });
+}
+
+// ── Fetch progress from backend ───────────────────────────────────────────────
+async function fetchProgress() {
+  let week = 1, session = 'A';
+  try {
+    const data = await jsonpFetch(
+      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName)
+    );
+    if (data && data.week) { week = data.week; session = data.session || 'A'; }
+  } catch(e) {
+    // Default to week 1 session A if backend unreachable
+  }
+  loadSession(week, session);
+}
+
+// ── Load session ───────────────────────────────────────────────────────────────
+function loadSession(week, session) {
+  document.getElementById('loading-screen').style.display = 'none';
+
+  currentWeekData = WEEKS.find(w => w.week === week && w.session === session);
+
+  if (!currentWeekData) {
+    // Beyond available content
+    document.getElementById('complete-screen').style.display = 'block';
+    return;
+  }
+
+  // Badge
+  document.getElementById('session-label').textContent =
+    'Week ' + week + ' · Session ' + session;
+  const dot = document.getElementById('session-dot');
+  dot.className = 'dot ' + (session === 'A' ? 'a' : '');
+
+  // Passage
+  document.getElementById('passage-text').textContent = TEXTS[currentWeekData.textIndex];
+
+  // Questions
+  renderQuestions(currentWeekData.questions);
+
+  document.getElementById('session-screen').style.display = 'block';
+  startTime = Date.now();
+  answers = {};
+}
+
+// ── Render questions ───────────────────────────────────────────────────────────
+function renderQuestions(questions) {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+
+  questions.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = 'qcard-' + q.num;
+
+    let innerHtml = `
+      <div class="q-header">
+        <div class="q-num">${q.num}</div>
+        <div class="q-stem">${q.stem}</div>
+        <div class="q-domain ${q.domain}">${q.domain}</div>
+      </div>`;
+
+    if (q.quote) {
+      innerHtml += `<div class="q-quote">${q.quote}</div>`;
+    }
+
+    if (q.type === 'mc') {
+      innerHtml += `<div class="mc-options" id="mc-${q.key}">` +
+        q.options.map(opt =>
+          `<button class="mc-opt" onclick="selectMC('${q.key}','${opt.replace(/'/g,"\\'")}',this)">${opt}</button>`
+        ).join('') + `</div>`;
+
+    } else if (q.type === 'short') {
+      innerHtml += `<input class="q-inp" id="inp-${q.key}" type="text" placeholder="Write your answer here…"
+        oninput="setAnswer('${q.key}',this.value)" autocomplete="off" autocorrect="off">`;
+
+    } else if (q.type === 'find_copy') {
+      innerHtml += `<input class="q-inp" id="inp-${q.key}" type="text" placeholder="Copy a word from the text…"
+        oninput="setAnswer('${q.key}',this.value)" autocomplete="off" autocorrect="off">`;
+
+    } else if (q.type === 'open') {
+      innerHtml += `<textarea class="q-textarea" id="inp-${q.key}" placeholder="Write your answer here…"
+        oninput="setAnswer('${q.key}',this.value)"></textarea>`;
+
+    } else if (q.type === 'short_parts') {
+      innerHtml += q.parts.map(p =>
+        `<div class="parts-row">
+          <span class="part-label">${p.label}</span>
+          <input class="q-inp" id="inp-${p.key}" type="text" placeholder="Write your answer here…"
+            oninput="setAnswer('${p.key}',this.value)" autocomplete="off" autocorrect="off">
+        </div>`
+      ).join('');
+    }
+
+    card.innerHTML = innerHtml;
+    container.appendChild(card);
+  });
+}
+
+// ── Answer helpers ─────────────────────────────────────────────────────────────
+function setAnswer(key, val) {
+  answers[key] = val;
+  checkCardAnswered();
+}
+
+function selectMC(key, val, btn) {
+  const container = document.getElementById('mc-' + key);
+  container.querySelectorAll('.mc-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  answers[key] = val;
+  checkCardAnswered();
+}
+
+function checkCardAnswered() {
+  currentWeekData.questions.forEach(q => {
+    const card = document.getElementById('qcard-' + q.num);
+    if (!card) return;
+    const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
+    const allFilled = keys.every(k => answers[k] && answers[k].trim());
+    card.classList.toggle('answered', allFilled);
+  });
+}
+
+// ── Auto-mark ──────────────────────────────────────────────────────────────────
+function autoMark(questions) {
+  const scores = {};
+  questions.forEach(q => {
+    if (q.type === 'mc') {
+      const given = (answers[q.key] || '').toLowerCase().trim();
+      scores[q.key] = given === q.answer.toLowerCase() ? 1 : 0;
+    } else if (q.type === 'find_copy') {
+      const given = (answers[q.key] || '').toLowerCase().trim();
+      scores[q.key] = given === q.answer.toLowerCase() ? 1 : null; // null = needs review
+    } else if (q.type === 'short_parts') {
+      // Can't auto-mark short parts — set null for Claude
+      q.parts.forEach(p => { scores[p.key] = null; });
+    } else {
+      scores[q.key] = null;
+    }
+  });
+  return scores;
+}
+
+// ── Build review list for Claude ───────────────────────────────────────────────
+function buildReviewList(questions, scores) {
+  const review = [];
+  questions.forEach(q => {
+    if (q.type === 'mc') return; // already marked
+    const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
+    keys.forEach((k, i) => {
+      if (scores[k] === null) {
+        const label = q.type === 'short_parts'
+          ? q.stem + ' (' + q.parts[i].label + ')'
+          : (q.type === 'find_copy' ? '[Find & copy] ' + q.stem : q.stem);
+        review.push({
+          key: k,
+          domain: q.domain,
+          question: label.replace(/<[^>]+>/g, ''),
+          guidance: q.guidance,
+          max: 1
+        });
+      }
+    });
+  });
+  return review;
+}
+
+// ── Submit ─────────────────────────────────────────────────────────────────────
+async function submitSession() {
+  // Validate all answered
+  let allAnswered = true;
+  currentWeekData.questions.forEach(q => {
+    const keys = q.type === 'short_parts' ? q.parts.map(p => p.key) : [q.key];
+    keys.forEach(k => {
+      if (!answers[k] || !answers[k].trim()) allAnswered = false;
+    });
+  });
+  if (!allAnswered) {
+    const banner = document.getElementById('err-banner');
+    banner.style.display = 'block';
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  document.getElementById('err-banner').style.display = 'none';
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+
+  const timeSecs = Math.round((Date.now() - startTime) / 1000);
+  const mins = Math.floor(timeSecs / 60), secs = timeSecs % 60;
+  const timeTaken = mins + ':' + String(secs).padStart(2, '0');
+
+  const scores = autoMark(currentWeekData.questions);
+  const reviewList = buildReviewList(currentWeekData.questions, scores);
+
+  const payload = {
+    name: encodeURIComponent(pupilName),
+    week: currentWeekData.week,
+    session: currentWeekData.session,
+    date: new Date().toLocaleDateString('en-GB'),
+    timeTaken,
+    answers: encodeURIComponent(JSON.stringify(answers)),
+    scores: encodeURIComponent(JSON.stringify(scores)),
+    review: encodeURIComponent(JSON.stringify(reviewList))
+  };
+
+  const url = BACKEND_URL + '?action=save3in3&' +
+    Object.entries(payload).map(([k,v]) => k + '=' + v).join('&');
+
+  try {
+    await jsonpFetch(url, 15000);
+  } catch(e) {
+    // Save failed silently — show done screen anyway (data may still have saved)
+  }
+
+  showDone(scores);
+}
+
+// ── Show done screen ───────────────────────────────────────────────────────────
+function showDone(scores) {
+  document.getElementById('session-screen').style.display = 'none';
+  document.getElementById('done-screen').style.display = 'block';
+
+  document.getElementById('done-title').textContent =
+    'Well done, ' + pupilName.split(' ')[0] + '! 🌟';
+
+  document.getElementById('done-sub').textContent =
+    'You’ve finished Week ' + currentWeekData.week +
+    ' Session ' + currentWeekData.session + '. Great reading!';
+
+  // Show auto-marked MC scores
+  const mcQ = currentWeekData.questions.filter(q => q.type === 'mc');
+  const row = document.getElementById('score-row');
+  row.innerHTML = '';
+  if (mcQ.length > 0) {
+    const correct = mcQ.filter(q => scores[q.key] === 1).length;
+    row.innerHTML = `<div class="score-chip">
+      <span class="val">${correct}/${mcQ.length}</span>
+      Multiple choice
+    </div>`;
+  }
+
+  document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>

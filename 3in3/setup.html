@@ -59,6 +59,14 @@ textarea:focus { border-color: var(--brand); }
   font-family: inherit; transition: color .1s;
 }
 .remove-btn:hover { color: #e53935; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--brand); font-size: 0.88rem; font-weight: 700;
+  text-decoration: none; margin-bottom: 18px;
+  padding: 6px 14px; border-radius: 8px; background: rgba(23,152,211,.08);
+  transition: background .15s;
+}
+.back-link:hover { background: rgba(23,152,211,.15); }
 </style>
 </head>
 <body>
@@ -66,7 +74,7 @@ textarea:focus { border-color: var(--brand); }
 <div class="logo">⚙️</div>
 <h1>3 in 3 Setup</h1>
 <p class="sub">Wallscourt Farm Academy</p>
-<p style="font-size:12px;margin-top:-20px;margin-bottom:28px;"><a href="home.html" style="color:#aaa;text-decoration:none;">← Home</a></p>
+<p style="margin-bottom:20px;"><a class="back-link" href="home.html">← Home</a></p>
 
 <!-- PIN -->
 <div id="pin-screen">
@@ -234,6 +242,6 @@ function removeName(idx) {
   renderCurrentList();
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.02a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.02c</p>
 </body>
 </html>

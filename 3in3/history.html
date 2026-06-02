@@ -236,6 +236,12 @@ const STAFF_PIN  = '2025';  // change here if needed
 // ───── PIN ─────
 let pinEntry = '';
 
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('pin-screen').style.display === 'none') return;
+  if (e.key >= '0' && e.key <= '9') pinKey(e.key);
+  else if (e.key === 'Backspace') pinDel();
+});
+
 function pinKey(k) {
   if (pinEntry.length >= 4) return;
   pinEntry += k;
@@ -568,6 +574,6 @@ function buildDomainSummary(sessions, yr) {
 }
 </script>
 
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.02</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.03</p>
 </body>
 </html>

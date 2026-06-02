@@ -234,7 +234,7 @@ function renderList() {
         ${AVAILABLE_YEARS.map(y => '<option value="' + y + '"' + (y===c.interventionYear?' selected':'') + '>' + y + '</option>').join('')}
       </select>
       <button class="archive-btn" onclick="archiveChild(${realIdx})" title="Archive this child">Archive</button>
-      <button class="remove-btn" onclick="removeChild(${realIdx})" title="Remove permanently">×</button>
+      <button class="remove-btn" onclick="deletePupil(${realIdx})" title="Remove permanently">×</button>
     </div>`;
   }).join('') : '<div class="empty-hint">No active children. Add one above.</div>';
 
@@ -271,7 +271,7 @@ function changeYear(i, yr) {
   renderList();
   showSaveMsg('Unsaved changes — press Save when ready.', '');
 }
-function removeChild(i) {
+function deletePupil(i) {
   children.splice(i, 1);
   renderList();
   showSaveMsg('Unsaved changes — press Save when ready.', '');

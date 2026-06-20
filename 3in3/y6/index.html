@@ -4267,11 +4267,13 @@ const SESSIONS_Y6 = [
 ];
 
 const ALL_SESSIONS = { Y3: SESSIONS_Y3, Y4: SESSIONS_Y4, Y5: SESSIONS_Y5, Y6: SESSIONS_Y6 };
+const ALL_TEXTS    = { Y3: TEXTS_Y3,    Y4: TEXTS_Y4,    Y5: TEXTS_Y5,    Y6: TEXTS_Y6    };
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let pupilName = '';
-let interventionYear = 'Y4';
-let activeSessions = SESSIONS_Y4;
+let interventionYear = 'Y6';
+let activeSessions = SESSIONS_Y6;
+let TEXTS = TEXTS_Y6;
 let currentSession = null;
 let answers = {};
 let startTime = null;
@@ -4283,6 +4285,7 @@ let startTime = null;
     pupilName = preload.name || 'Unknown';
     interventionYear = preload.interventionYear || 'Y6';
     activeSessions = ALL_SESSIONS[interventionYear] || SESSIONS_Y6;
+    TEXTS = ALL_TEXTS[interventionYear] || TEXTS_Y6;
     document.getElementById('pupil-name-hdr').textContent = pupilName;
     fetchProgress();
   } catch(err) {
@@ -4608,6 +4611,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.02e</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y6-20.06.26a</p>
 </body>
 </html>

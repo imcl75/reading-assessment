@@ -1231,11 +1231,13 @@ const SESSIONS_Y3 = [
 ];
 
 const ALL_SESSIONS = { Y3: SESSIONS_Y3 };
+const ALL_TEXTS    = { Y3: TEXTS_Y3 };
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let pupilName = '';
-let interventionYear = 'Y4';
+let interventionYear = 'Y3';
 let activeSessions = SESSIONS_Y3;
+let TEXTS = TEXTS_Y3;
 let currentSession = null;
 let answers = {};
 let startTime = null;
@@ -1247,6 +1249,7 @@ let startTime = null;
     pupilName = preload.name || 'Unknown';
     interventionYear = preload.interventionYear || 'Y3';
     activeSessions = ALL_SESSIONS[interventionYear] || SESSIONS_Y3;
+    TEXTS = ALL_TEXTS[interventionYear] || TEXTS_Y3;
     document.getElementById('pupil-name-hdr').textContent = pupilName;
     fetchProgress();
   } catch(err) {
@@ -1572,6 +1575,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.02e</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-20.06.26a</p>
 </body>
 </html>

@@ -3029,11 +3029,13 @@ const SESSIONS_Y5 = [
 ];
 
 const ALL_SESSIONS = { Y3: SESSIONS_Y3, Y4: SESSIONS_Y4, Y5: SESSIONS_Y5 };
+const ALL_TEXTS    = { Y3: TEXTS_Y3,    Y4: TEXTS_Y4,    Y5: TEXTS_Y5    };
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let pupilName = '';
-let interventionYear = 'Y4';
-let activeSessions = SESSIONS_Y4;
+let interventionYear = 'Y5';
+let activeSessions = SESSIONS_Y5;
+let TEXTS = TEXTS_Y5;
 let currentSession = null;
 let answers = {};
 let startTime = null;
@@ -3045,6 +3047,7 @@ let startTime = null;
     pupilName = preload.name || 'Unknown';
     interventionYear = preload.interventionYear || 'Y5';
     activeSessions = ALL_SESSIONS[interventionYear] || SESSIONS_Y5;
+    TEXTS = ALL_TEXTS[interventionYear] || TEXTS_Y5;
     document.getElementById('pupil-name-hdr').textContent = pupilName;
     fetchProgress();
   } catch(err) {

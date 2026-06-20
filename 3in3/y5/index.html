@@ -234,6 +234,7 @@ html, body {
   <div class="page-title">📖 3 in 3 Reading</div>
   <div class="pupil-name" id="pupil-name-hdr"></div>
 </div>
+<div style="text-align:center;font-size:11px;color:#aaa;margin-top:4px;">Y5-20.06.26a</div>
 
 <!-- Loading -->
 <div id="loading-screen">
@@ -3335,7 +3336,7 @@ async function submitSession() {
     answers: encodeURIComponent(JSON.stringify(answers)),
     scores: encodeURIComponent(JSON.stringify(scores)),
     review: encodeURIComponent(JSON.stringify(reviewList)),
-    classYear: preload.classYear || \'Y5\',
+    classYear: preload.classYear || 'Y5',
     interventionYear: interventionYear
   };
 

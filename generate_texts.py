@@ -480,7 +480,7 @@ def gen_field_mouse():
 def gen_food_chain():
     path = os.path.join(OUTPUT_DIR, "summer-food-chain.pdf")
     c = canvas.Canvas(path, pagesize=A4)
-    pm = PageManager(c, "The Top of the Food Chain", "Fiction")
+    pm = PageManager(c, "The Top of the Food Chain", "Fiction", body_size=11, body_leading=16)
 
     paragraphs = [
         "The pigeon landed in a flurry of feathers and tucked in his wings. Bobbing his head, he strutted "

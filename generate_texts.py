@@ -478,9 +478,16 @@ def gen_field_mouse():
 
 
 def gen_food_chain():
+    import generate_texts as _m
+    # Narrower margins to fit on one A4 page at full 12pt font size
+    _m.MARGIN_L, _m.MARGIN_R = 35, 35
+    _m.CONTENT_W = PAGE_W - 70
+    _m.CONTENT_X = 35
+    _m.CONTENT_RIGHT = PAGE_W - 35
+
     path = os.path.join(OUTPUT_DIR, "summer-food-chain.pdf")
     c = canvas.Canvas(path, pagesize=A4)
-    pm = PageManager(c, "The Top of the Food Chain", "Fiction", body_size=11, body_leading=16)
+    pm = PageManager(c, "The Top of the Food Chain", "Fiction")
 
     paragraphs = [
         "The pigeon landed in a flurry of feathers and tucked in his wings. Bobbing his head, he strutted "
@@ -539,6 +546,11 @@ def gen_food_chain():
         pm.draw_para(para)
 
     pm.save()
+    # Restore global margins
+    _m.MARGIN_L, _m.MARGIN_R = 50, 50
+    _m.CONTENT_W = PAGE_W - 100
+    _m.CONTENT_X = 50
+    _m.CONTENT_RIGHT = PAGE_W - 50
     print(f"  ✓ {path}")
 
 

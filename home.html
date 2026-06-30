@@ -78,7 +78,7 @@
 <body>
 
 <div class="logo">📚</div>
-<h1>Year 4 Reading Assessment</h1>
+<h1>Reading Assessment Hub</h1>
 <p class="sub">Wallscourt Farm Academy</p>
 
 <div class="cards">
@@ -133,6 +133,22 @@
         <div style="font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.4px;margin:6px 0 2px;">KS1 Year 2</div>
         <a href="texts/ks1-history-of-ice-cream.pdf" target="_blank" class="pdf-link">🍦 The History of Ice Cream</a>
         <a href="texts/ks1-new-room-for-william.pdf" target="_blank" class="pdf-link">🦕 A New Room for William</a>
+        <div style="font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.4px;margin:10px 0 2px;">Year 5 — Autumn</div>
+        <a href="texts/y5-autumn-creature-eating-plants.pdf" target="_blank" class="pdf-link">🪴 Creature-Eating Plants</a>
+        <a href="texts/y5-autumn-mysterious-pond.pdf" target="_blank" class="pdf-link">🌊 Mysterious Pond</a>
+        <a href="texts/y5-autumn-heart-soup.pdf" target="_blank" class="pdf-link">🍲 Heart Soup</a>
+        <div style="font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.4px;margin:6px 0 2px;">Year 5 — Summer</div>
+        <a href="texts/y5-summer-smart-farmers.pdf" target="_blank" class="pdf-link">🌾 Smart Farmers of the Past</a>
+        <a href="texts/y5-summer-the-squall.pdf" target="_blank" class="pdf-link">🌬️ The Squall</a>
+        <a href="texts/y5-summer-times-table.pdf" target="_blank" class="pdf-link">⏰ Time's Table</a>
+        <div style="font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.4px;margin:10px 0 2px;">Year 3 — Autumn</div>
+        <a href="texts/y3-autumn-fireworks.pdf" target="_blank" class="pdf-link">🎆 Fireworks</a>
+        <a href="texts/y3-autumn-beached-dreams.pdf" target="_blank" class="pdf-link">🏖️ Beached Dreams</a>
+        <a href="texts/y3-autumn-monkeys-and-trunks.pdf" target="_blank" class="pdf-link">🐒 Monkeys and Trunks</a>
+        <div style="font-size:11px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.4px;margin:6px 0 2px;">Year 3 — Summer</div>
+        <a href="texts/y3-summer-inside-outside.pdf" target="_blank" class="pdf-link">🏕️ Inside? Outside?</a>
+        <a href="texts/y3-summer-two-little-kittens.pdf" target="_blank" class="pdf-link">🐱 Two Little Kittens</a>
+        <a href="texts/y3-summer-sit-down-meal.pdf" target="_blank" class="pdf-link">🛋️ Sit-Down Meal</a>
       </div>
     </div>
     <div class="card-arrow">›</div>
@@ -146,15 +162,19 @@
   <div id="group-status-content"></div>
 </div>
 
-<p class="footer">Wallscourt Farm Academy · Cabot Learning Federation · <span style="opacity:.6">v26.06.29b</span></p>
+<p class="footer">Wallscourt Farm Academy · Cabot Learning Federation · <span style="opacity:.6">v26.06.30c</span></p>
 
 <script>
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
 
 const TEXT_ICONS = {
-  summer: ['🌊 Making Waves','🐭 The Field Mouse','🦅 Top of the Food Chain'],
-  autumn: ['📖 Taking to the Stage','🐕 Lead On','🪆 The Russian Figurine'],
-  ks1:    ['🍦 The History of Ice Cream','🦕 A New Room for William']
+  summer:      ['🌊 Making Waves','🐭 The Field Mouse','🦅 Top of the Food Chain'],
+  autumn:      ['📖 Taking to the Stage','🐕 Lead On','🪆 The Russian Figurine'],
+  ks1:         ['🍦 The History of Ice Cream','🦕 A New Room for William'],
+  'y5-autumn': ['🪴 Creature-Eating Plants','🌊 Mysterious Pond','🍲 Heart Soup'],
+  'y5-summer': ['🌾 Smart Farmers of the Past','🌬️ The Squall','⏰ Time\'s Table'],
+  'y3-autumn': ['🎆 Fireworks','🏖️ Beached Dreams','🐒 Monkeys and Trunks'],
+  'y3-summer': ['🏕️ Inside? Outside?','🐱 Two Little Kittens','🛋️ Sit-Down Meal']
 };
 
 // Load group status silently — show if it works, hide if not

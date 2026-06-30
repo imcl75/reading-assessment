@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Year 3 Reading Assessment – Summer</title>
+<style>
+:root { --brand:#009ae4; --brand-dk:#0080c8; --bg:#faf8f5; --text-bg:#fff9f0; --border:#e0c8a0; }
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;overflow:hidden;font-family:'Georgia',serif;background:var(--bg);color:#222;}
+.screen{display:none;height:100dvh;flex-direction:column;}
+.screen.active{display:flex;}
+#s-login{align-items:center;justify-content:center;background:linear-gradient(160deg,#e8f5fd 0%,#b3dff5 100%);}
+.card{background:#fff;border-radius:20px;padding:36px 40px;max-width:500px;width:92%;box-shadow:0 6px 32px rgba(0,0,0,.12);text-align:center;}
+.card-logo{font-size:2.4rem;margin-bottom:4px;}
+.card h1{color:var(--brand);font-size:1.6rem;margin-bottom:4px;}
+.card .sub{color:#888;font-style:italic;margin-bottom:26px;font-size:.9rem;}
+.fg{margin-bottom:16px;text-align:left;}
+.fg label{display:block;font-weight:bold;margin-bottom:7px;font-size:.9rem;color:#444;font-family:sans-serif;}
+#name-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;max-height:280px;overflow-y:auto;padding:4px;}
+.name-btn{padding:12px 8px;border:2px solid #ddd;border-radius:10px;cursor:pointer;font-size:14px;font-family:sans-serif;background:#fafafa;text-align:center;transition:all .15s;color:#333;font-weight:500;line-height:1.2;}
+.name-btn:hover{border-color:var(--brand);background:#e8f5fd;}
+.name-btn.name-sel{border-color:var(--brand);background:var(--brand);color:#fff;font-weight:bold;}
+.btn{padding:14px 32px;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer;transition:background .15s,transform .1s;font-family:sans-serif;}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--brand);color:#fff;width:100%;}
+.btn-primary:hover{background:var(--brand-dk);}
+.btn-sm{padding:10px 22px;font-size:14px;width:auto;}
+.btn-outline{background:#fff;border:2px solid var(--brand);color:var(--brand);}
+#s-instructions{align-items:center;justify-content:center;background:linear-gradient(160deg,#e8f5fd 0%,#b3dff5 100%);}
+#s-instructions .card{max-width:620px;text-align:left;}
+#s-instructions h2{color:var(--brand);margin-bottom:18px;font-size:1.5rem;}
+#s-instructions p{margin-bottom:11px;line-height:1.65;font-size:15px;}
+#s-instructions .inst-footer{margin-top:24px;display:flex;justify-content:flex-end;}
+#s-assessment{overflow:hidden;}
+.aheader{background:var(--brand);color:#fff;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px;font-family:sans-serif;}
+.aheader .pupil{font-weight:bold;font-size:.95rem;}
+.sec-tabs{display:flex;gap:6px;}
+.sec-tab{padding:5px 13px;border-radius:14px;font-size:13px;font-weight:bold;border:2px solid rgba(255,255,255,.4);color:rgba(255,255,255,.8);cursor:default;background:transparent;font-family:sans-serif;}
+.sec-tab.active{background:#fff;color:var(--brand);border-color:#fff;}
+.sec-tab.done{border-color:rgba(255,255,255,.7);color:#fff;}
+.abody{display:flex;flex:1;overflow:hidden;}
+.tpanel{width:46%;flex-shrink:0;background:var(--text-bg);border-right:3px solid var(--border);overflow-y:auto;padding:20px 22px;}
+.tpanel h2{color:var(--brand-dk);font-size:1.35rem;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+.tpanel .txt{font-size:16px;line-height:1.75;}
+.tpanel .txt h3{font-size:.95rem;font-weight:bold;margin:14px 0 5px;}
+.tpanel .txt p{margin-bottom:10px;}
+.tpanel .txt .poem-line{margin:0;}
+.tpanel .txt .poem-stanza{margin-bottom:14px;}
+.tpanel .txt table{width:100%;border-collapse:collapse;margin:10px 0;font-size:15px;}
+.tpanel .txt table td,.tpanel .txt table th{border:1px solid #ccc;padding:7px 9px;}
+.tpanel .txt table th{background:#f5d5a0;font-weight:bold;}
+.qpanel{flex:1;overflow-y:auto;padding:18px 20px 80px;background:#fff;}
+.qpanel h3{color:var(--brand);font-size:1.05rem;margin-bottom:14px;padding:8px 12px;background:#e8f5fd;border-radius:6px;font-family:sans-serif;}
+.qblock{border-left:4px solid var(--brand);border-radius:0 10px 10px 0;background:#fafafa;padding:15px 18px;margin-bottom:18px;}
+.qnum{color:var(--brand);font-size:1.35rem;font-weight:bold;margin-bottom:6px;font-family:sans-serif;}
+.qprompt{color:#666;font-size:16px;margin-bottom:8px;line-height:1.5;}
+.qtxt{font-size:18px;margin-bottom:12px;line-height:1.55;}
+.qmarks{display:inline-block;background:var(--brand);color:#fff;font-size:11px;padding:2px 9px;border-radius:4px;margin-bottom:11px;font-family:sans-serif;font-weight:bold;}
+.ans-text{width:100%;padding:13px 15px;font-size:18px;border:2px solid #ddd;border-radius:8px;outline:none;font-family:inherit;background:#fff;}
+.ans-text:focus{border-color:var(--brand);}
+.mc-opt{display:flex;align-items:center;padding:13px 16px;margin-bottom:8px;border:2px solid #ddd;border-radius:8px;cursor:pointer;font-size:18px;transition:all .12s;background:#fff;user-select:none;}
+.mc-opt:hover{border-color:var(--brand);background:#e8f5fd;}
+.mc-opt.sel{border-color:var(--brand);background:#cce9f8;}
+.mc-opt input{margin-right:11px;width:18px;height:18px;accent-color:var(--brand);flex-shrink:0;}
+.tf-tbl{width:100%;border-collapse:collapse;font-size:17px;}
+.tf-tbl th{background:var(--brand);color:#fff;padding:9px 12px;text-align:center;font-family:sans-serif;}
+.tf-tbl th:first-child{text-align:left;}
+.tf-tbl td{border:1px solid #ddd;padding:9px 12px;}
+.tf-tbl td:first-child{background:#f8f8f8;}
+.tf-tbl .tfc{text-align:center;}
+.tf-tbl .tfc label{display:inline-flex;align-items:center;gap:4px;cursor:pointer;padding:4px 8px;}
+.tf-tbl .tfc input{width:18px;height:18px;accent-color:var(--brand);}
+.fill-tbl{width:100%;border-collapse:collapse;font-size:17px;}
+.fill-tbl th{background:#f5d5a0;padding:9px 12px;text-align:left;border:1px solid #ccc;font-family:sans-serif;}
+.fill-tbl td{border:1px solid #ccc;padding:7px 10px;}
+.fill-tbl input{width:100%;padding:10px 12px;border:2px solid #ddd;border-radius:6px;font-size:17px;font-family:inherit;outline:none;}
+.fill-tbl input:focus{border-color:var(--brand);}
+.tap-match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.tap-words-col,.tap-meanings-col{display:flex;flex-direction:column;gap:8px;}
+.tap-word-slot{background:#f5d5a0;border:2px solid #ccc;border-radius:8px;padding:12px 14px;min-height:52px;cursor:pointer;font-size:17px;font-weight:bold;transition:border-color .15s,background .15s;user-select:none;}
+.tap-word-slot .slot-word{color:#333;}
+.tap-word-slot .slot-answer{font-size:12px;font-weight:normal;color:#1798d3;margin-top:4px;font-style:italic;}
+.tap-word-slot.selected{border-color:var(--brand);background:#cce9f8;}
+.tap-word-slot.assigned{border-color:#4caf50;background:#e8f5e9;}
+.tap-word-slot.given{border-color:#b2dfdb;background:#e8f5e9;cursor:default;opacity:.8;}
+.tap-meaning-chip{background:#f5f5f5;border:2px solid #ddd;border-radius:8px;padding:12px 14px;min-height:52px;cursor:pointer;font-size:15px;transition:border-color .15s,background .15s;user-select:none;display:flex;align-items:center;}
+.tap-meaning-chip:hover:not(.used):not(.sel-meaning){border-color:var(--brand);background:#e8f5fd;}
+.tap-meaning-chip.sel-meaning{border-color:#ff9800;background:#fff3e0;}
+.tap-meaning-chip.used{opacity:.45;cursor:pointer;font-style:italic;color:#888;border-style:dashed;}
+.match-instructions{font-size:15px;color:#666;margin-bottom:12px;font-family:sans-serif;font-style:italic;}
+.order-rows{display:flex;flex-direction:column;gap:8px;}
+.order-row{display:flex;align-items:center;gap:10px;}
+.order-txt{flex:1;background:#f5f5f5;border:1px solid #ddd;border-radius:7px;padding:12px 16px;font-size:17px;line-height:1.4;}
+.order-inp{width:46px;height:46px;text-align:center;font-size:18px;font-weight:bold;border:2px solid #ddd;border-radius:8px;outline:none;font-family:sans-serif;}
+.order-inp:focus{border-color:var(--brand);}
+.order-inp:disabled{background:#e8f5e9;border-color:#a5d6a7;color:#388e3c;cursor:default;}
+.ans-ext{width:100%;padding:13px 15px;font-size:18px;border:2px solid #ddd;border-radius:8px;outline:none;resize:vertical;min-height:90px;font-family:inherit;background:#fff;}
+.ans-ext:focus{border-color:var(--brand);}
+.spelling-note{font-size:16px;color:#1798d3;margin:6px 0 10px;font-weight:700;background:#e8f4fb;border-left:4px solid #1798d3;padding:6px 10px;border-radius:4px;}
+.qfooter{position:fixed;bottom:0;left:46%;right:0;background:#fff;border-top:2px solid #eee;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;font-family:sans-serif;}
+.qfooter .prog{font-size:13px;color:#888;}
+#s-done{align-items:center;justify-content:center;background:linear-gradient(160deg,#e8f5fd 0%,#b3dff5 100%);}
+#s-done .done-inner{text-align:center;}
+#s-done .done-emoji{font-size:5rem;margin-bottom:18px;}
+#s-done .done-heading{font-size:2.4rem;font-weight:bold;color:var(--brand);margin-bottom:14px;font-family:sans-serif;}
+#s-done .done-sub{font-size:1.05rem;color:#555;line-height:1.6;max-width:420px;margin:0 auto;font-family:sans-serif;}
+#s-results{overflow-y:auto;background:var(--bg);padding:20px;align-items:center;}
+.res-wrap{max-width:900px;width:100%;}
+.res-hdr{background:#fff;border-radius:14px;padding:24px 28px;text-align:center;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.res-hdr h2{color:var(--brand);font-size:1.5rem;margin-bottom:4px;}
+.res-hdr .pname{font-size:1rem;color:#666;margin-bottom:14px;font-family:sans-serif;}
+.score-big{font-size:3.2rem;font-weight:bold;color:#222;line-height:1;}
+.score-denom{font-size:1.3rem;color:#888;}
+.score-pct{font-size:.95rem;color:#aaa;font-family:sans-serif;margin-top:4px;}
+.res-tabs{display:flex;gap:0;margin-bottom:16px;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.res-tab{flex:1;padding:13px;text-align:center;font-family:sans-serif;font-size:14px;font-weight:bold;cursor:pointer;background:#fff;color:#888;border:none;transition:all .15s;}
+.res-tab.active{background:var(--brand);color:#fff;}
+.res-tab:not(.active):hover{background:#e8f5fd;color:var(--brand-dk);}
+.res-pane{display:none;}
+.res-pane.active{display:block;}
+.res-legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;font-size:13px;font-family:sans-serif;color:#555;align-items:center;}
+.leg-dot{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:4px;vertical-align:middle;}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:16px;}
+.rq{background:#fff;border-radius:10px;padding:12px 10px;text-align:center;box-shadow:0 1px 5px rgba(0,0,0,.07);border-top:4px solid #ddd;font-family:sans-serif;cursor:pointer;transition:transform .1s,box-shadow .1s;}
+.rq:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12);}
+.rq.ok{border-top-color:#4caf50;} .rq.bad{border-top-color:#f44336;} .rq.rev{border-top-color:#ff9800;} .rq.spell{border-top-color:#8bc34a;}
+.rq .rq-num{font-size:12px;color:#999;margin-bottom:4px;}
+.rq .rq-score{font-size:1.3rem;font-weight:bold;}
+.rq.ok .rq-score{color:#4caf50;} .rq.bad .rq-score{color:#f44336;} .rq.rev .rq-score{color:#ff9800;} .rq.spell .rq-score{color:#689f38;}
+.rq .rq-max{font-size:11px;color:#bbb;}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal{background:#fff;border-radius:16px;padding:28px;max-width:560px;width:92%;max-height:85vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.2);}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;}
+.modal-head h3{color:var(--brand);font-size:1.2rem;font-family:sans-serif;}
+.modal-close{background:#eee;border:none;border-radius:8px;width:32px;height:32px;font-size:18px;cursor:pointer;flex-shrink:0;}
+.modal .m-qtext{font-size:14px;color:#444;margin-bottom:16px;line-height:1.55;padding:12px;background:#f9f9f9;border-radius:8px;}
+.modal .m-section{margin-bottom:14px;}
+.modal .m-label{font-size:12px;font-family:sans-serif;font-weight:bold;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.modal .m-value{font-size:15px;padding:10px 13px;border-radius:8px;line-height:1.5;}
+.modal .m-pupil{background:#f5f5f5;border-left:3px solid #ddd;}
+.modal .m-pupil.m-ok{border-left-color:#4caf50;background:#f1f8f1;}
+.modal .m-pupil.m-bad{border-left-color:#f44336;background:#fdf3f3;}
+.modal .m-accepted{background:#e8f5e9;color:#2e7d32;font-size:13px;}
+.modal .m-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.modal .m-tag{font-size:12px;font-family:sans-serif;padding:3px 10px;border-radius:12px;background:#eee;color:#555;}
+.modal .m-mark-btns{display:flex;gap:8px;align-items:center;margin-top:12px;font-family:sans-serif;font-size:13px;}
+.modal .m-mark-btns span{color:#888;}
+.mbtn{padding:7px 18px;border-radius:6px;border:2px solid #ddd;cursor:pointer;font-weight:bold;background:#fff;font-size:14px;transition:all .12s;}
+.mbtn:hover{border-color:var(--brand);}
+.mbtn.sel{background:var(--brand);color:#fff;border-color:var(--brand);}
+.review-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:16px;}
+.review-card h3{color:var(--brand);margin-bottom:6px;font-family:sans-serif;}
+.review-card .rev-intro{font-size:13px;color:#888;margin-bottom:18px;font-family:sans-serif;}
+.rev-item{border:1px solid #eee;border-radius:10px;padding:16px;margin-bottom:12px;}
+.rev-item .rlabel{font-weight:bold;color:#555;font-size:13px;margin-bottom:4px;font-family:sans-serif;}
+.rev-item .rq-text{font-size:14px;color:#666;margin-bottom:8px;}
+.rev-item .rans{background:#f5f5f5;border-radius:6px;padding:10px 12px;font-style:italic;margin-bottom:10px;font-size:14px;min-height:36px;line-height:1.5;}
+.rev-guidance{background:#e8f5fd;border-left:3px solid #009ae4;border-radius:6px;padding:10px 13px;font-size:13px;color:#1a5f7a;margin-bottom:10px;line-height:1.5;font-family:sans-serif;}
+.mark-btns{display:flex;gap:8px;align-items:center;font-family:sans-serif;font-size:13px;}
+.mark-btns span{color:#888;}
+.qla-card{background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:16px;}
+.qla-card h3{color:var(--brand);margin-bottom:6px;font-family:sans-serif;}
+.qla-card .qla-intro{font-size:13px;color:#888;margin-bottom:20px;font-family:sans-serif;}
+.qla-section{margin-bottom:26px;}
+.qla-section h4{font-size:13px;font-family:sans-serif;font-weight:bold;text-transform:uppercase;letter-spacing:.5px;color:#999;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid #eee;}
+.qla-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;font-family:sans-serif;}
+.qla-row .qla-label{font-size:13px;color:#444;min-width:180px;flex-shrink:0;}
+.qla-row .qla-bar-wrap{flex:1;background:#f0f0f0;border-radius:6px;height:18px;overflow:hidden;}
+.qla-row .qla-bar{height:100%;border-radius:6px;min-width:2px;}
+.qla-row .qla-pct{font-size:13px;font-weight:bold;min-width:48px;text-align:right;}
+.qla-row .qla-frac{font-size:12px;color:#aaa;min-width:50px;text-align:right;}
+.bar-hi{background:#4caf50;} .bar-mid{background:var(--brand);} .bar-lo{background:#f44336;} .bar-na{background:#ccc;}
+.res-actions{display:flex;gap:12px;justify-content:center;margin-top:8px;margin-bottom:24px;flex-wrap:wrap;}
+@media(max-width:700px){
+  .abody{flex-direction:column;}
+  .tpanel{width:100%;height:38vh;border-right:none;border-bottom:3px solid var(--border);}
+  .qpanel{padding-bottom:90px;}
+  .qfooter{left:0;}
+  .aheader .sec-tabs{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="s-login" class="screen active">
+  <div class="card">
+    <div style="text-align:right;margin-bottom:8px"><a href="../../home.html" style="font-size:12px;color:#aaa;text-decoration:none;">← Home</a></div>
+    <div class="card-logo">📖</div>
+    <h1>Year 3 Reading Assessment</h1>
+    <p class="sub">Summer Term · PiXL Diagnostic</p>
+    <div class="fg">
+      <label>Tap your name</label>
+      <div id="name-loading" style="text-align:center;padding:24px;color:#888;font-size:14px">Loading class list…</div>
+      <div id="name-grid" style="display:none"></div>
+      <div id="name-selected" style="display:none;margin-top:10px;padding:10px 14px;background:#e0f2fe;border-radius:8px;font-weight:600;font-size:15px;color:#0369a1"></div>
+      <div id="name-fallback" style="display:none;margin-top:10px">
+        <p style="font-size:13px;color:#888;margin-bottom:6px">Can't find your name? Type it:</p>
+        <input type="text" id="inp-name" autocomplete="off" placeholder="First name Surname" style="width:100%;padding:10px;border:2px solid #d1d5db;border-radius:8px;font-size:15px">
+      </div>
+    </div>
+    <div class="fg">
+      <label>Today you are completing</label>
+      <div id="text-notice" style="padding:12px 16px;background:#e8f5fd;border-radius:10px;font-size:15px;font-weight:700;color:#0a6fa8;min-height:44px;">Loading…</div>
+    </div>
+    <button class="btn btn-primary" onclick="startInstructions()" style="margin-top:8px;">Start →</button>
+  </div>
+</div>
+
+<div id="s-instructions" class="screen">
+  <div class="card">
+    <h2>Instructions</h2>
+    <p>The reading text is shown on the <strong>left side</strong> of the screen. Read the text carefully and then answer the questions about it.</p>
+    <p><strong>Use the text to help you answer the questions.</strong></p>
+    <p>There are different types of questions. Read the instructions for each one carefully.</p>
+    <p>If you cannot answer a question, move on and come back to it later.</p>
+    <div class="inst-footer">
+      <button class="btn btn-primary btn-sm" onclick="startAssessment()">Begin Assessment →</button>
+    </div>
+  </div>
+</div>
+
+<div id="s-assessment" class="screen">
+  <div class="aheader">
+    <div class="pupil" id="hdr-pupil"></div>
+    <div class="sec-tabs">
+      <div class="sec-tab" id="tab-0">Inside? Outside?</div>
+      <div class="sec-tab" id="tab-1">Two Little Kittens</div>
+      <div class="sec-tab" id="tab-2">Sit-Down Meal</div>
+    </div>
+  </div>
+  <div class="abody">
+    <div class="tpanel" id="text-panel"></div>
+    <div class="qpanel" id="q-panel"></div>
+  </div>
+  <div class="qfooter">
+    <div class="prog" id="q-progress"></div>
+    <button class="btn btn-primary btn-sm" id="sec-next-btn" onclick="nextSection()">Next Text →</button>
+  </div>
+</div>
+
+<div id="s-done" class="screen">
+  <div class="done-inner">
+    <div class="done-emoji" onclick="teacherTap()">🎉</div>
+    <div class="done-heading">Well Done!</div>
+    <div class="done-sub">You've finished the reading assessment. Your teacher will look at your results.</div>
+    <div id="done-sending" style="display:none;margin-top:16px;font-size:13px;color:#009ae4;font-family:sans-serif;"></div>
+  </div>
+</div>
+
+<div id="s-results" class="screen">
+  <div class="res-wrap">
+    <div class="res-hdr">
+      <h2>Assessment Complete</h2>
+      <div class="pname" id="res-name"></div>
+      <div class="score-big" id="res-score">—</div>
+      <div class="score-denom" id="res-denom"></div>
+      <div class="score-pct" id="res-pct"></div>
+    </div>
+    <div class="res-tabs">
+      <button class="res-tab active" onclick="showResTab('overview',this)">📊 Overview</button>
+      <button class="res-tab" onclick="showResTab('review',this)">✏️ Teacher Marking</button>
+      <button class="res-tab" onclick="showResTab('analysis',this)">🎯 Analysis</button>
+      <button class="res-tab" onclick="showResTab('class',this)">📋 Class Data</button>
+    </div>
+    <div class="res-pane active" id="rp-overview">
+      <div class="res-legend">
+        <span><span class="leg-dot" style="background:#4caf50"></span>Correct</span>
+        <span><span class="leg-dot" style="background:#8bc34a"></span>Correct (spelling check)</span>
+        <span><span class="leg-dot" style="background:#f44336"></span>Incorrect</span>
+        <span><span class="leg-dot" style="background:#ff9800"></span>Teacher marking needed</span>
+      </div>
+      <p style="font-size:12px;color:#aaa;font-family:sans-serif;margin-bottom:10px;">Tap any question to see the answer.</p>
+      <div class="res-grid" id="res-grid"></div>
+    </div>
+    <div class="res-pane" id="rp-review">
+      <div class="review-card">
+        <h3>✏️ Teacher Marking</h3>
+        <p class="rev-intro">These questions need teacher review. Award marks using the buttons below each answer.</p>
+        <div id="review-items"></div>
+      </div>
+    </div>
+    <div class="res-pane" id="rp-analysis">
+      <div class="qla-card">
+        <h3>🎯 Question Level Analysis</h3>
+        <p class="qla-intro">Breakdown by reading skill, question format, and text type.</p>
+        <div id="qla-content"></div>
+      </div>
+    </div>
+    <div class="res-pane" id="rp-class"></div>
+    <div class="res-actions">
+      <button class="btn btn-primary btn-sm" onclick="exportCSV()">Export This Pupil</button>
+      <button class="btn btn-outline btn-sm" onclick="restartApp()">New Assessment</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-bg" id="ans-modal" onclick="closeModal(event)">
+  <div class="modal" id="modal-inner">
+    <div class="modal-head">
+      <h3 id="modal-title">Question</h3>
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const BACKEND_URL='https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+
+const TEXTS={
+  0:{
+    title:'Inside? Outside?',
+    html:`<h2>Inside? Outside?</h2>
+<p>Lots of families enjoy camping in the summer holidays. But when it comes to choosing where to sleep, there are two options: a <strong>caravan</strong> or a <strong>tent</strong>. Which is better? Here is what some families think.</p>
+<h3>Caravans</h3>
+<table><tr><th>For</th><th>Against</th></tr>
+<tr><td>Warm and comfortable, whatever the weather</td><td>Very expensive to buy or hire</td></tr>
+<tr><td>Has a proper kitchen, toilet and beds</td><td>Heavy and difficult to tow behind a car</td></tr>
+<tr><td>Safe and weatherproof — great for wet nights</td><td>Takes a long time to set up at the campsite</td></tr></table>
+<h3>Tents</h3>
+<table><tr><th>For</th><th>Against</th></tr>
+<tr><td>Much <strong>cheaper</strong> than a caravan — inexpensive to hire too</td><td>Can be <strong>noisy</strong> in strong wind — very loud at night</td></tr>
+<tr><td>Lightweight and easy to carry on any adventure</td><td>Can feel <strong>miserable</strong> and unpleasant in heavy rain</td></tr>
+<tr><td>Fun and exciting — great for feeling close to nature</td><td>Often cold at night with no proper heating</td></tr></table>
+<h3>Which months are best for camping?</h3>
+<p>Not all summer months are the same! Here is some weather data to help you decide when to go camping.</p>
+<table><tr><th>Month</th><th>Sunshine (hours per day)</th><th>Rainy days</th></tr>
+<tr><td>July</td><td>7</td><td>9</td></tr>
+<tr><td>August</td><td>8</td><td>7</td></tr>
+<tr><td>September</td><td>6</td><td>12</td></tr></table>`
+  },
+  1:{
+    title:'Two Little Kittens',
+    html:`<h2>Two Little Kittens</h2>
+<p style="font-size:13px;color:#888;margin-bottom:16px;font-family:sans-serif;">adapted from a poem by Jane Taylor</p>
+<div class="poem-stanza">
+  <p class="poem-line">Two little kittens, one stormy night,</p>
+  <p class="poem-line">Began to quarrel, and then to fight;</p>
+  <p class="poem-line">One had a mouse, the other had none,</p>
+  <p class="poem-line">And that's the way the quarrel begun.</p>
+</div>
+<div class="poem-stanza">
+  <p class="poem-line">"I'll have that mouse," said the biggest cat;</p>
+  <p class="poem-line">"You'll have no such thing," was the answer to that.</p>
+  <p class="poem-line">"I will have it, I say," and a clatter and clash,</p>
+  <p class="poem-line">Resounded through the kitchen with a bang and a smash.</p>
+</div>
+<div class="poem-stanza">
+  <p class="poem-line">The old woman seized her sweeping broom,</p>
+  <p class="poem-line">And swept the two kittens right out of the room;</p>
+  <p class="poem-line">The ground was covered with frost and snow,</p>
+  <p class="poem-line">And the two little kittens had nowhere to go.</p>
+</div>
+<div class="poem-stanza">
+  <p class="poem-line">So they lay them down on the mat at the door,</p>
+  <p class="poem-line">While the old woman finished her sweeping the floor.</p>
+  <p class="poem-line">Then they crept in again, as quiet as mice,</p>
+  <p class="poem-line">And found it was better to be loving and nice.</p>
+</div>`
+  },
+  2:{
+    title:'Sit-Down Meal',
+    html:`<h2>Sit-Down Meal</h2>
+<p>It started the day Hollie got a brand new Frisbee for her birthday. She brought it inside to show her little brother Ash, and Ash — being Ash — immediately sent it flying across the living room.</p>
+<p>It sailed through the air in a wide arc and landed perfectly inside the old sofa. Not <em>on</em> the sofa. <em>Inside</em> it.</p>
+<p>"Get it out!" Hollie yelled.</p>
+<p>"I can't reach," Ash whispered, lying flat on the floor and peering underneath.</p>
+<p>They looked at each other. Then they looked at the sofa.</p>
+<p>It was old — really old. Their mum said it had belonged to their gran. It had deep cushions, chunky arms, and legs carved like lion's paws. Hollie had always thought it looked a bit like it was crouching.</p>
+<p>"I'll climb in," said Hollie.</p>
+<p>"You can't climb inside a sofa," Ash explained.</p>
+<p>But she could. There was a gap at the back, just wide enough. Hollie squeezed through into the warm, dusty dark inside the sofa — and found her Frisbee immediately.</p>
+<p>She also found a trail of small green shoots growing up through the springs. She found three empty crisp packets. And she found what looked very much like a half-chewed rubbish bag.</p>
+<p>"Something <em>lives</em> in here," she said.</p>
+<p>"Don't be silly," Ash moaned.</p>
+<p>Then the sofa moved.</p>
+<p>It gave a long, slow stretch, like a cat waking up. The cushions rippled. Hollie shot back out through the gap so fast she nearly knocked Ash over.</p>
+<p>They stared at the sofa. The sofa sat very still.</p>
+<p>"Did that just—" Ash started.</p>
+<p>"Yes," said Hollie.</p>
+<p>For a long moment, neither of them spoke.</p>
+<p>"We need to show Mum and Dad," said Ash.</p>
+<p>So they went to get their parents.</p>`
+  }
+};
+
+const QUESTIONS=[
+  // SECTION 0: Inside? Outside?
+  {id:1,sec:0,marks:1,domain:'2b',qtype:'mc',ttype:'NF',
+   type:'mc',
+   q:'What is the text comparing? Tick one.',
+   options:['Two different sports','Two ways of camping','Two types of weather','Two holiday destinations'],
+   correct:'Two ways of camping'},
+
+  {id:2,sec:0,marks:1,domain:'2b',qtype:'sc',ttype:'NF',
+   type:'extended',review:true,
+   q:'Give one reason from the text why a caravan is a good choice for camping.',
+   guidance:'Award 1 mark for any of: warm and comfortable / has a kitchen, toilet and beds / safe and weatherproof / great for wet nights. Accept close paraphrase.'},
+
+  {id:3,sec:0,marks:2,domain:'2b',qtype:'tab',ttype:'NF',
+   type:'fill_table',
+   q:'Give two reasons from the text why a caravan might not be a good choice.',
+   rows:[
+     {label:'1',key:'against1',accepted:['expensive','very expensive','expensive to buy or hire','costs a lot','expensive to buy']},
+     {label:'2',key:'against2',accepted:['heavy','difficult to tow','hard to tow','takes a long time to set up','long time to set up']}
+   ],
+   review:true,
+   guidance:'Award 1 mark each for any two of: very expensive / heavy and difficult to tow / takes a long time to set up.'},
+
+  {id:4,sec:0,marks:1,domain:'2b',qtype:'sc',ttype:'NF',
+   type:'extended',review:true,
+   q:'Give one reason from the text why a tent is a good choice for camping.',
+   guidance:'Award 1 mark for any of: cheaper / lightweight and easy to carry / fun and exciting / close to nature. Accept close paraphrase.'},
+
+  {id:5,sec:0,marks:2,domain:'2b',qtype:'tab',ttype:'NF',
+   type:'fill_table',
+   q:'Give two reasons from the text why a tent might not be a good choice.',
+   rows:[
+     {label:'1',key:'tent1',accepted:['noisy','very loud','noisy in strong wind','loud at night','very loud at night']},
+     {label:'2',key:'tent2',accepted:['miserable','miserable in heavy rain','cold','cold at night','often cold','no proper heating','unpleasant in heavy rain']}
+   ],
+   review:true,
+   guidance:'Award 1 mark each for any two of: noisy / loud in wind / miserable in rain / cold at night / no heating.'},
+
+  {id:6,sec:0,marks:1,domain:'2a',qtype:'match',ttype:'NF',
+   type:'match',
+   q:'Draw lines to match each word from the text to its meaning. One has been done for you.',
+   given:{word:'cheaper',meaning:'inexpensive'},
+   pairs:[
+     {word:'noisy',
+      options:['loud','cold','unpleasant'],
+      correct:'loud'},
+     {word:'miserable',
+      options:['loud','cold','unpleasant'],
+      correct:'unpleasant'}
+   ]},
+
+  {id:7,sec:0,marks:1,domain:'2b',qtype:'sc',ttype:'NF',
+   prompt:'Look at the weather table.',
+   type:'text',
+   q:'How many hours of sunshine per day does August get, according to the table?',
+   accepted:['8','8 hours','8 hours per day']},
+
+  {id:8,sec:0,marks:1,domain:'2b',qtype:'sc',ttype:'NF',
+   prompt:'Look at the weather table.',
+   type:'text',
+   q:'How many rainy days does September have, according to the table?',
+   accepted:['12','12 days','twelve']},
+
+  // SECTION 1: Two Little Kittens
+  {id:9,sec:1,marks:1,domain:'2b',qtype:'mc',ttype:'P',
+   type:'mc',
+   q:'What are the two kittens fighting over? Tick one.',
+   options:['a toy','a mouse','a piece of fish','some milk'],
+   correct:'a mouse'},
+
+  {id:10,sec:1,marks:1,domain:'2a',qtype:'fc',ttype:'P',
+   prompt:'Look at the second verse.',
+   type:'text',
+   q:'Find and copy one word that tells you the fight was noisy.',
+   accepted:['clatter','clash','bang','smash']},
+
+  {id:11,sec:1,marks:1,domain:'2d',qtype:'mc',ttype:'P',
+   type:'mc',
+   q:'What season does the poem take place in? Tick one.',
+   options:['spring','summer','autumn','winter'],
+   correct:'winter'},
+
+  {id:12,sec:1,marks:2,domain:'2d',qtype:'tab',ttype:'P',
+   prompt:'Look at verse three.',
+   type:'fill_table',
+   q:'Give two pieces of evidence from the poem that tell you it is winter.',
+   rows:[
+     {label:'1',key:'winter1',accepted:['frost','the ground was covered with frost','covered with frost','frost and snow']},
+     {label:'2',key:'winter2',accepted:['snow','covered with snow','frost and snow','the ground was covered with frost and snow']}
+   ],
+   review:true,
+   guidance:'Award 1 mark each for: frost / snow (accept "covered with frost and snow" for either).'},
+
+  {id:13,sec:1,marks:1,domain:'2b',qtype:'mc',ttype:'P',
+   type:'mc',
+   q:'Why did the old woman sweep the kittens out? Tick one.',
+   options:['She was scared of them.','They were making too much noise and mess.','She wanted to feed them outside.','She was tidying up for visitors.'],
+   correct:'They were making too much noise and mess.'},
+
+  {id:14,sec:1,marks:1,domain:'2d',qtype:'sc',ttype:'P',
+   type:'extended',review:true,
+   q:'How do you think the kittens felt when they were swept outside into the frost and snow? Use the poem to help you.',
+   guidance:'Award 1 mark for: cold / miserable / they had nowhere to go / they had to sleep at the door. Accept any reasonable inference with reference to the text.'},
+
+  {id:15,sec:1,marks:1,domain:'2b',qtype:'sc',ttype:'P',
+   type:'extended',review:true,
+   q:'What lesson do the kittens learn at the end of the poem?',
+   guidance:'Award 1 mark for: it is better to be kind and loving / sharing is better than fighting / they should not have quarrelled. Accept close paraphrase.'},
+
+  {id:16,sec:1,marks:1,domain:'2g',qtype:'mc',ttype:'P',
+   prompt:'"Then they crept in again, as quiet as mice..."',
+   type:'mc',
+   q:'Why does the poet say the kittens crept in "as quiet as mice"? Tick one.',
+   options:['Because mice are furry like kittens.','Because they were trying not to make any more trouble.','Because the old woman was asleep.','Because mice are very small.'],
+   correct:'Because they were trying not to make any more trouble.'},
+
+  // SECTION 2: Sit-Down Meal
+  {id:17,sec:2,marks:1,domain:'2b',qtype:'mc',ttype:'F',
+   type:'mc',
+   q:'How did the Frisbee end up inside the sofa? Tick one.',
+   options:['Hollie threw it in on purpose.','Ash threw it and it landed inside by accident.','It fell off a shelf.','Their mum put it there.'],
+   correct:'Ash threw it and it landed inside by accident.'},
+
+  {id:18,sec:2,marks:1,domain:'2d',qtype:'fc',ttype:'F',
+   prompt:'Look at the paragraph beginning: "It was old — really old."',
+   type:'text',
+   q:'Which phrase from the text suggests that Hollie thought the sofa looked like a living creature?',
+   accepted:['it looked a bit like it was crouching','looked a bit like it was crouching','it was crouching']},
+
+  {id:19,sec:2,marks:1,domain:'2d',qtype:'sc',ttype:'F',
+   type:'extended',review:true,
+   q:'How do you know that Ash did not believe the sofa was alive? Use evidence from the text.',
+   guidance:'Award 1 mark for: he said "don\'t be silly" / he moaned / he said she couldn\'t climb inside a sofa. Accept direct quote or close paraphrase.'},
+
+  {id:20,sec:2,marks:1,domain:'2b',qtype:'mc',ttype:'F',
+   type:'mc',
+   q:'What did Hollie find inside the sofa? Tick one.',
+   options:['Her Frisbee only.','Her Frisbee, some plants, crisp packets and a chewed rubbish bag.','Her Frisbee and a cat.','Some crisp packets and an old toy.'],
+   correct:'Her Frisbee, some plants, crisp packets and a chewed rubbish bag.'},
+
+  {id:21,sec:2,marks:1,domain:'2a',qtype:'match',ttype:'F',
+   type:'match',
+   q:'Draw lines to match each word from the story to its meaning. One has been done for you.',
+   given:{word:'yelled',meaning:'shouted loudly'},
+   pairs:[
+     {word:'whispered',
+      options:['spoke softly','gave a reason','complained'],
+      correct:'spoke softly'},
+     {word:'explained',
+      options:['spoke softly','gave a reason','complained'],
+      correct:'gave a reason'},
+     {word:'moaned',
+      options:['spoke softly','gave a reason','complained'],
+      correct:'complained'}
+   ]},
+
+  {id:22,sec:2,marks:2,domain:'2b',qtype:'tab',ttype:'F',
+   type:'tf_table',
+   q:'Tick to show whether each statement is true or false.',
+   colLabels:['True','False'],
+   rows:[
+     {txt:'Hollie got a Frisbee for her birthday.',ans:'True'},
+     {txt:'Ash climbed inside the sofa to get the Frisbee.',ans:'False'},
+     {txt:'The sofa had been in the family since their gran.',ans:'True'},
+     {txt:'The children decided to keep the sofa a secret.',ans:'False'}
+   ]},
+
+  {id:23,sec:2,marks:1,domain:'2c',qtype:'order',ttype:'F',
+   type:'order',
+   q:'Number these events 1–5 to show the order in which they happened. The first one has been done for you.',
+   items:[
+     {txt:'Hollie receives her Frisbee.',given:true,value:1},
+     {txt:'Ash accidentally throws the Frisbee into the sofa.',given:false,correct:2},
+     {txt:'Hollie climbs inside the sofa and makes a strange discovery.',given:false,correct:3},
+     {txt:'The sofa moves on its own.',given:false,correct:4},
+     {txt:'The children go to fetch their parents.',given:false,correct:5}
+   ]},
+
+  {id:24,sec:2,marks:2,domain:'2d',qtype:'ext',ttype:'F',
+   type:'extended',review:true,
+   q:'What clues in the story suggest that the sofa might be alive? Give two examples.',
+   guidance:'Award 1 mark each (up to 2) for: green shoots growing through the springs / half-chewed rubbish bag / the sofa moved and stretched like a cat / the cushions rippled. Must give two different examples.'}
+];
+
+const DOMAIN_LABELS={'2a':'Vocabulary (2a)','2b':'Retrieval (2b)','2c':'Summarise (2c)','2d':'Inference (2d)','2f':'Structure (2f)','2g':'Language (2g)'};
+const QTYPE_LABELS={mc:'Multiple choice',fc:'Find & copy',sc:'Short answer',tab:'Table',ext:'Extended response',match:'Matching',order:'Ordering'};
+const TTYPE_LABELS={NF:'Non-fiction',P:'Poetry',F:'Fiction'};
+
+let pupilName='',selectedSections=[0,1,2],currentSection=0,answers={},reviewScores={},markResults=[],startTime=null,timeTaken='';
+
+(function loadConfig(){
+  const preload=JSON.parse(localStorage.getItem('ra_preload')||'null');
+  if(preload&&preload.assessment==='y3-summer'){
+    localStorage.removeItem('ra_preload');
+    pupilName=preload.name;
+    applyTextConfig(Array.isArray(preload.texts)?preload.texts:[0,1,2]);
+    startInstructions();
+    return;
+  }
+  const cb='cfg_'+Date.now();
+  const script=document.createElement('script');
+  const timer=setTimeout(()=>{delete window[cb];if(script.parentNode)document.body.removeChild(script);showNameFallback();},15000);
+  window[cb]=function(config){
+    clearTimeout(timer);delete window[cb];if(script.parentNode)document.body.removeChild(script);
+    const names=config&&Array.isArray(config.pupils)?config.pupils:[];
+    if(names.length)renderNameGrid(names);else showNameFallback();
+    const active=config&&Array.isArray(config.selectedTexts)?config.selectedTexts:[0,1,2];
+    applyTextConfig(active);
+  };
+  script.onerror=()=>{clearTimeout(timer);showNameFallback();};
+  script.src=BACKEND_URL+'?action=getconfig&callback='+cb;
+  document.body.appendChild(script);
+})();
+
+function renderNameGrid(names){
+  document.getElementById('name-loading').style.display='none';
+  const grid=document.getElementById('name-grid');
+  grid.innerHTML=names.map(n=>`<button class="name-btn" data-name="${n.replace(/"/g,'&quot;')}" onclick="selectName(this,'${n.replace(/'/g,"\\'")}'">${n}</button>`).join('')+
+  `<button class="name-btn" style="color:#888;font-size:12px;border-style:dashed;grid-column:1/-1" onclick="document.getElementById('name-fallback').style.display='block'">My name isn't here</button>`;
+  grid.style.display='grid';
+}
+function showNameFallback(){
+  document.getElementById('name-loading').style.display='none';
+  document.getElementById('name-fallback').style.display='block';
+}
+function applyTextConfig(active){
+  const TEXT_NAMES=['🏕️ Inside? Outside?','🐱 Two Little Kittens','🛋️ Sit-Down Meal'];
+  selectedSections=active.length?active:[0,1,2];
+  const names=selectedSections.map(i=>TEXT_NAMES[i]);
+  const el=document.getElementById('text-notice');
+  if(el)el.textContent=names.join(' · ');
+}
+function selectName(btn,name){
+  document.querySelectorAll('.name-btn').forEach(b=>b.classList.remove('name-sel'));
+  btn.classList.add('name-sel');
+  pupilName=name;
+  const d=document.getElementById('name-selected');
+  d.textContent='✓ '+name;d.style.display='block';
+}
+function startInstructions(){
+  if(!pupilName){const t=document.getElementById('inp-name')&&document.getElementById('inp-name').value.trim();if(t)pupilName=t;}
+  if(!pupilName){alert('Please tap your name to select it.');return;}
+  show('s-instructions');
+}
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function startAssessment(){
+  show('s-assessment');startTime=Date.now();
+  document.getElementById('hdr-pupil').textContent=pupilName;
+  [0,1,2].forEach(i=>{const t=document.getElementById('tab-'+i);t.className='sec-tab';if(!selectedSections.includes(i))t.classList.add('skip');});
+  currentSection=selectedSections[0];
+  document.getElementById('tab-'+currentSection).classList.add('active');
+  renderSection(currentSection);
+}
+function nextSection(){
+  const idx=selectedSections.indexOf(currentSection);
+  if(idx<selectedSections.length-1){
+    document.getElementById('tab-'+currentSection).classList.remove('active');
+    document.getElementById('tab-'+currentSection).classList.add('done');
+    currentSection=selectedSections[idx+1];
+    document.getElementById('tab-'+currentSection).classList.add('active');
+    renderSection(currentSection);
+    document.getElementById('q-panel').scrollTop=0;
+    document.getElementById('text-panel').scrollTop=0;
+  } else {
+    submitAssessment();
+  }
+}
+let _tc=0,_tt=null;
+function teacherTap(){_tc++;clearTimeout(_tt);if(_tc>=5){_tc=0;show('s-results');return;}_tt=setTimeout(()=>{_tc=0;},3000);}
+
+function renderSection(sec){
+  document.getElementById('text-panel').innerHTML=`<h2>${TEXTS[sec].title}</h2><div class="txt">${TEXTS[sec].html}</div>`;
+  const sNames=['Inside? Outside?','Two Little Kittens','Sit-Down Meal'];
+  const ranges=[[1,8],[9,16],[17,24]];
+  const[qs,qe]=ranges[sec];
+  let html=`<h3>Questions ${qs}–${qe} are about <em>${sNames[sec]}</em></h3>`;
+  QUESTIONS.filter(q=>q.sec===sec).forEach(q=>{html+=renderQuestion(q);});
+  document.getElementById('q-panel').innerHTML=html;
+  QUESTIONS.filter(q=>q.sec===sec).forEach(q=>restoreAnswer(q));
+  document.querySelectorAll('.mc-opt').forEach(opt=>{
+    opt.addEventListener('click',()=>{
+      const name=opt.querySelector('input').name;
+      document.querySelectorAll(`.mc-opt input[name="${name}"]`).forEach(r=>r.closest('.mc-opt').classList.remove('sel'));
+      opt.classList.add('sel');opt.querySelector('input').checked=true;
+      const qid=opt.querySelector('input').dataset.qid;
+      const val=opt.querySelector('input').value;
+      saveAnswer(qid,val);
+    });
+  });
+  const idx=selectedSections.indexOf(sec);
+  document.getElementById('q-progress').textContent=`Text ${idx+1} of ${selectedSections.length}`;
+  document.getElementById('sec-next-btn').textContent=idx<selectedSections.length-1?'Next Text →':'Submit Assessment ✓';
+}
+
+function renderQuestion(q){
+  const id=q.id;
+  const promptHtml=q.prompt?`<div class="qprompt">${q.prompt}</div>`:'';
+  const marksLabel=q.marks===1?'1 mark':`${q.marks} marks`;
+  let inputHtml='';
+  if(q.type==='text'){
+    inputHtml=`<input type="text" class="ans-text" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)" autocomplete="off">`;
+  } else if(q.type==='mc'){
+    inputHtml=q.options.map(o=>`<label class="mc-opt"><input type="radio" name="q${id}" value="${o}" data-qid="${id}"> ${o}</label>`).join('');
+  } else if(q.type==='tf_table'){
+    const cols=q.colLabels||['True','False'];
+    inputHtml=`<table class="tf-tbl"><thead><tr><th style="width:60%"></th><th>${cols[0]}</th><th>${cols[1]}</th></tr></thead><tbody>`+
+    q.rows.map((r,i)=>`<tr><td>${r.txt}</td>
+      <td class="tfc"><label><input type="radio" name="q${id}_r${i}" value="${cols[0]}" onchange="saveTF('${id}',${i},this.value)"> ${cols[0]}</label></td>
+      <td class="tfc"><label><input type="radio" name="q${id}_r${i}" value="${cols[1]}" onchange="saveTF('${id}',${i},this.value)"> ${cols[1]}</label></td>
+    </tr>`).join('')+'</tbody></table>';
+  } else if(q.type==='fill_table'){
+    inputHtml=`<table class="fill-tbl"><tbody>`+
+    q.rows.map(r=>`<tr><th style="width:44%">${r.label}</th><td><input type="text" class="ans-text" data-qid="${id}" data-key="${r.key}" placeholder="" oninput="saveFill('${id}','${r.key}',this.value)" autocomplete="off"></td></tr>`).join('')+'</tbody></table>';
+  } else if(q.type==='match'){
+    const allMeanings=[...new Set(q.pairs.flatMap(p=>p.options))];
+    const shuffled=[...allMeanings].sort((a,b)=>{
+      const ha=(String(id)+a).split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+      const hb=(String(id)+b).split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+      return ha-hb;
+    });
+    const wordSlots=[
+      `<div class="tap-word-slot given" data-word="${q.given.word}"><div class="slot-word">${q.given.word}</div><div class="slot-answer">→ ${q.given.meaning} (given)</div></div>`,
+      ...q.pairs.map(p=>`<div class="tap-word-slot" id="slot-${id}-${p.word.replace(/\s/g,'_')}" data-qid="${id}" data-word="${p.word}" onclick="tapWord('${id}','${p.word}')"><div class="slot-word">${p.word}</div><div class="slot-answer" id="slotans-${id}-${p.word.replace(/\s/g,'_')}"></div></div>`)
+    ].join('');
+    const meaningChips=shuffled.map(m=>`<div class="tap-meaning-chip" id="chip-${id}-${m.replace(/[\s']/g,'_')}" data-qid="${id}" data-meaning="${m}" onclick="tapMeaning('${id}','${m}')">${m}</div>`).join('');
+    inputHtml=`<p class="match-instructions">Tap a word on the left, then tap its meaning on the right.</p>
+    <div class="tap-match-wrap"><div class="tap-words-col">${wordSlots}</div><div class="tap-meanings-col">${meaningChips}</div></div>`;
+  } else if(q.type==='order'){
+    inputHtml=`<div class="order-rows">`+q.items.map((item,i)=>
+      item.given?`<div class="order-row"><div class="order-txt">${item.txt}</div><input type="number" class="order-inp" value="1" disabled></div>`
+        :`<div class="order-row"><div class="order-txt">${item.txt}</div><input type="number" class="order-inp" min="1" max="5" data-qid="${id}" data-idx="${i}" placeholder="" oninput="saveOrder('${id}',${i},this.value)"></div>`
+    ).join('')+'</div>';
+  } else if(q.type==='extended'){
+    inputHtml=`<textarea class="ans-ext" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)"></textarea>`;
+  }
+  const spellingNote=(q.q||'').toLowerCase().includes('find')&&(q.q||'').toLowerCase().includes('copy')
+    ?`<p class="spelling-note">📋 Copy carefully — spelling counts</p>`:'';
+  return `<div class="qblock" id="qb-${id}"><div class="qnum">${id}.</div>${promptHtml}<div class="qtxt">${q.q}</div>${spellingNote}<div class="qmarks">${marksLabel}</div>${inputHtml}</div>`;
+}
+
+function saveAnswer(qid,val){answers[qid]=val;}
+function saveTF(qid,row,val){if(!answers[qid])answers[qid]={};answers[qid][row]=val;}
+function saveFill(qid,key,val){if(!answers[qid])answers[qid]={};answers[qid][key]=val;}
+function saveMatch(qid,word,val){if(!answers[qid])answers[qid]={};answers[qid][word]=val;}
+function saveOrder(qid,idx,val){if(!answers[qid])answers[qid]={};answers[qid][idx]=parseInt(val)||null;}
+
+const tapMatchState={};
+function getTapState(qid){if(!tapMatchState[qid])tapMatchState[qid]={selectedWord:null,selectedMeaning:null};return tapMatchState[qid];}
+function tapWord(qid,word){
+  const state=getTapState(qid);
+  const slot=document.getElementById('slot-'+qid+'-'+word.replace(/\s/g,'_'));if(!slot)return;
+  const cur=answers[qid]&&answers[qid][word];
+  if(cur){
+    const chip=document.getElementById('chip-'+qid+'-'+cur.replace(/[\s']/g,'_'));
+    if(chip)chip.classList.remove('used');
+    saveMatch(qid,word,'');slot.classList.remove('assigned');
+    document.getElementById('slotans-'+qid+'-'+word.replace(/\s/g,'_')).textContent='';
+    if(state.selectedMeaning){assignMatch(qid,word,state.selectedMeaning);state.selectedMeaning=null;document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c=>c.classList.remove('sel-meaning'));}
+    else{clearWordSelection(qid);state.selectedWord=word;slot.classList.add('selected');}
+    return;
+  }
+  if(state.selectedMeaning){clearWordSelection(qid);assignMatch(qid,word,state.selectedMeaning);state.selectedMeaning=null;document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c=>c.classList.remove('sel-meaning'));return;}
+  if(state.selectedWord===word){slot.classList.remove('selected');state.selectedWord=null;}
+  else{clearWordSelection(qid);state.selectedWord=word;slot.classList.add('selected');}
+}
+function tapMeaning(qid,meaning){
+  const state=getTapState(qid);
+  const chip=document.getElementById('chip-'+qid+'-'+meaning.replace(/[\s']/g,'_'));if(!chip)return;
+  if(chip.classList.contains('used')){
+    const ans=answers[qid]||{};let aw=null;
+    Object.entries(ans).forEach(([w,m])=>{if(m===meaning)aw=w;});
+    if(aw){
+      const slot=document.getElementById('slot-'+qid+'-'+aw.replace(/\s/g,'_'));
+      if(slot){slot.classList.remove('assigned');slot.classList.remove('selected');}
+      document.getElementById('slotans-'+qid+'-'+aw.replace(/\s/g,'_')).textContent='';
+      saveMatch(qid,aw,'');chip.classList.remove('used');
+      clearMeaningSelection(qid);state.selectedMeaning=meaning;chip.classList.add('sel-meaning');
+    }
+    return;
+  }
+  if(state.selectedWord){clearMeaningSelection(qid);assignMatch(qid,state.selectedWord,meaning);const slot=document.getElementById('slot-'+qid+'-'+state.selectedWord.replace(/\s/g,'_'));if(slot)slot.classList.remove('selected');state.selectedWord=null;return;}
+  if(state.selectedMeaning===meaning){chip.classList.remove('sel-meaning');state.selectedMeaning=null;}
+  else{clearMeaningSelection(qid);state.selectedMeaning=meaning;chip.classList.add('sel-meaning');}
+}
+function assignMatch(qid,word,meaning){
+  saveMatch(qid,word,meaning);
+  const slot=document.getElementById('slot-'+qid+'-'+word.replace(/\s/g,'_'));
+  const ansEl=document.getElementById('slotans-'+qid+'-'+word.replace(/\s/g,'_'));
+  const chip=document.getElementById('chip-'+qid+'-'+meaning.replace(/[\s']/g,'_'));
+  if(slot){slot.classList.remove('selected');slot.classList.add('assigned');}
+  if(ansEl)ansEl.textContent='→ '+meaning;
+  if(chip)chip.classList.add('used');
+}
+function clearWordSelection(qid){document.querySelectorAll(`.tap-word-slot[data-qid="${qid}"]`).forEach(s=>s.classList.remove('selected'));getTapState(qid).selectedWord=null;}
+function clearMeaningSelection(qid){document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c=>c.classList.remove('sel-meaning'));getTapState(qid).selectedMeaning=null;}
+
+function restoreAnswer(q){
+  const id=q.id;const saved=answers[id];if(!saved)return;
+  if(q.type==='text'){const el=document.querySelector(`input.ans-text[data-qid="${id}"]`);if(el)el.value=saved;}
+  else if(q.type==='mc'){document.querySelectorAll(`input[name="q${id}"]`).forEach(r=>{if(r.value===saved){r.checked=true;r.closest('.mc-opt').classList.add('sel');}});}
+  else if(q.type==='tf_table'&&typeof saved==='object'){Object.entries(saved).forEach(([row,val])=>{const r=document.querySelector(`input[name="q${id}_r${row}"][value="${val}"]`);if(r)r.checked=true;});}
+  else if(q.type==='fill_table'&&typeof saved==='object'){Object.entries(saved).forEach(([key,val])=>{const el=document.querySelector(`input.ans-text[data-qid="${id}"][data-key="${key}"]`);if(el)el.value=val;});}
+  else if(q.type==='match'&&typeof saved==='object'){Object.entries(saved).forEach(([word,val])=>{if(!val)return;const slot=document.getElementById('slot-'+id+'-'+word.replace(/\s/g,'_'));const ansEl=document.getElementById('slotans-'+id+'-'+word.replace(/\s/g,'_'));const chip=document.getElementById('chip-'+id+'-'+val.replace(/[\s']/g,'_'));if(slot)slot.classList.add('assigned');if(ansEl)ansEl.textContent='→ '+val;if(chip)chip.classList.add('used');});}
+  else if(q.type==='order'&&typeof saved==='object'){Object.entries(saved).forEach(([idx,val])=>{const el=document.querySelector(`.order-inp[data-qid="${id}"][data-idx="${idx}"]`);if(el&&val)el.value=val;});}
+  else if(q.type==='extended'){const el=document.querySelector(`textarea[data-qid="${id}"]`);if(el)el.value=saved;}
+}
+
+function norm(s){return String(s).toLowerCase().trim().replace(/['']/g,"'");}
+function editDist(a,b){
+  const m=a.length,n=b.length;
+  const dp=Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+const STOP=new Set(['the','and','for','that','with','this','from','are','was','they','have','been','will','each','when','into','about','you','their','there','but','not','all','can','one','two','how','why','has','did','what','out','up','at','in','on','of','to','a','an','is','it','be','do','so','we','or','if','by','as','no']);
+function contentWords(s){return norm(s).split(/\s+/).filter(w=>w.length>2&&!STOP.has(w));}
+function keywordOverlap(na,nb){
+  const keys=contentWords(nb);if(!keys.length)return null;
+  const aw=na.split(/\s+/);let matched=0;
+  for(const k of keys){if(aw.includes(k)||na.includes(k)){matched++;continue;}for(const w of aw){if(w.length>2&&editDist(w,k)<=Math.min(2,Math.floor(k.length/4))){matched++;break;}}}
+  const r=matched/keys.length;return r>=0.85?'exact':r>=0.6?'fuzzy':null;
+}
+function fuzzyMatch(answer,acceptedList){
+  const na=norm(answer);
+  for(const acc of acceptedList){
+    const nb=norm(acc);if(na===nb)return 'exact';
+    if(nb.split(' ').length<=3){const thr=Math.min(3,Math.max(1,Math.floor(nb.length/5)));if(editDist(na,nb)<=thr)return 'fuzzy';}
+    const kw=keywordOverlap(na,nb);if(kw)return kw;
+  }
+  return null;
+}
+
+function markQuestion(q){
+  const id=q.id,ans=answers[id];
+  if(q.review)return{score:0,max:q.marks,review:true,fuzzy:false};
+  if(q.type==='text'){
+    if(!ans)return{score:0,max:q.marks,review:false,fuzzy:false};
+    const m=fuzzyMatch(ans,q.accepted);
+    return{score:m?1:0,max:1,review:false,fuzzy:m==='fuzzy'};
+  }
+  if(q.type==='mc'){if(!ans)return{score:0,max:q.marks,review:false,fuzzy:false};return{score:norm(ans)===norm(q.correct)?1:0,max:1,review:false,fuzzy:false};}
+  if(q.type==='tf_table'){
+    if(!ans)return{score:0,max:q.marks,review:false,fuzzy:false};
+    let correct=0;q.rows.forEach((r,i)=>{if(ans[i]&&norm(ans[i])===norm(r.ans))correct++;});
+    const score=correct===q.rows.length?q.marks:correct>=q.rows.length-1?q.marks-1:0;
+    return{score:Math.max(0,score),max:q.marks,review:false,fuzzy:false};
+  }
+  if(q.type==='fill_table'){
+    if(!ans)return{score:0,max:q.marks,review:false,fuzzy:false};
+    let correct=0,anyFuzzy=false;
+    q.rows.forEach(r=>{const v=ans[r.key];if(!v)return;const m=fuzzyMatch(v,r.accepted);if(m){correct++;if(m==='fuzzy')anyFuzzy=true;}});
+    if(q.marks===1)return{score:correct===q.rows.length?1:0,max:1,review:false,fuzzy:anyFuzzy};
+    return{score:Math.min(correct,q.marks),max:q.marks,review:false,fuzzy:anyFuzzy};
+  }
+  if(q.type==='match'){
+    if(!ans)return{score:0,max:q.marks,review:false,fuzzy:false};
+    let correct=0;q.pairs.forEach(p=>{if(ans[p.word]&&norm(ans[p.word])===norm(p.correct))correct++;});
+    return{score:correct===q.pairs.length?1:0,max:1,review:false,fuzzy:false};
+  }
+  if(q.type==='order'){
+    if(!ans)return{score:0,max:q.marks,review:false,fuzzy:false};
+    let correct=0;q.items.forEach((item,i)=>{if(!item.given&&ans[i]===item.correct)correct++;});
+    const ng=q.items.filter(x=>!x.given).length;
+    return{score:correct===ng?1:0,max:1,review:false,fuzzy:false};
+  }
+  return{score:0,max:q.marks,review:false,fuzzy:false};
+}
+
+function submitAssessment(){
+  const elapsed=Date.now()-startTime;
+  timeTaken=Math.floor(elapsed/60000)+'m '+Math.floor((elapsed%60000)/1000)+'s';
+  markResults=QUESTIONS.filter(q=>selectedSections.includes(q.sec)).map(q=>({q,...markQuestion(q)}));
+  show('s-done');
+  document.getElementById('res-name').textContent=pupilName;
+  updateScoreDisplay();buildGrid();buildReview();buildQLA();buildClassTab();
+  saveToClassData();postToBackend();
+}
+
+function saveToClassData(){
+  try{
+    const existing=JSON.parse(localStorage.getItem('ra_class_data_y3_summer')||'[]');
+    const{total,totalMax}=calcTotals();
+    const record={name:pupilName,date:new Date().toISOString(),timeTaken,sections:selectedSections,total,totalMax,scores:{},answers:{}};
+    markResults.forEach(r=>{
+      const sc=r.review?(reviewScores[r.q.id]??null):r.score;
+      record.scores['Q'+r.q.id]={score:sc,max:r.max,domain:r.q.domain,qtype:r.q.qtype,ttype:r.q.ttype,fuzzy:r.fuzzy};
+      const ans=answers[r.q.id];
+      record.answers['Q'+r.q.id]=!ans?'':typeof ans==='object'?Object.entries(ans).map(([k,v])=>k+': '+v).join('; '):String(ans);
+    });
+    existing.push(record);
+    localStorage.setItem('ra_class_data_y3_summer',JSON.stringify(existing));
+  }catch(e){}
+}
+function getClassData(){try{return JSON.parse(localStorage.getItem('ra_class_data_y3_summer')||'[]');}catch(e){return[];}}
+
+function postToBackend(){
+  if(!BACKEND_URL)return;
+  const{total,totalMax}=calcTotals();
+  const scoresP={},answersP={};
+  markResults.forEach(r=>{
+    scoresP['Q'+r.q.id]={score:r.review?(reviewScores[r.q.id]??null):r.score,max:r.max,domain:r.q.domain,qtype:r.q.qtype,ttype:r.q.ttype};
+    const ans=answers[r.q.id];
+    answersP['Q'+r.q.id]=!ans?'':typeof ans==='object'?Object.entries(ans).map(([k,v])=>k+': '+v).join('; '):String(ans);
+  });
+  const reviewQuestions=QUESTIONS.filter(q=>q.review&&selectedSections.includes(q.sec)).map(q=>({id:q.id,question:q.q,prompt:q.prompt||'',guidance:q.guidance||'',max:q.marks}));
+  fetch(BACKEND_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({pupilName,date:new Date().toLocaleDateString('en-GB'),timeTaken,sections:selectedSections,total,totalMax,assessmentId:'Y3-summer-2025',scores:scoresP,answers:answersP,reviewQuestions})})
+    .then(()=>{const el=document.getElementById('done-sending');if(el){el.style.display='block';el.textContent='✓ Answers saved to class spreadsheet';}})
+    .catch(()=>{const el=document.getElementById('done-sending');if(el){el.style.display='block';el.style.color='#f44336';el.textContent='Could not save to spreadsheet.';} });
+}
+
+function calcTotals(){
+  let autoScore=0,autoMax=0,reviewMax=0;
+  markResults.forEach(r=>{if(r.review)reviewMax+=r.max;else{autoScore+=r.score;autoMax+=r.max;}});
+  const revScore=Object.values(reviewScores).reduce((a,b)=>a+b,0);
+  return{autoScore,autoMax,reviewMax,revScore,total:autoScore+revScore,totalMax:autoMax+reviewMax};
+}
+function updateScoreDisplay(){
+  const{total,totalMax}=calcTotals();
+  document.getElementById('res-score').textContent=total;
+  document.getElementById('res-denom').textContent=`out of ${totalMax}`;
+  document.getElementById('res-pct').textContent=`${Math.round(total/totalMax*100)}%`;
+}
+function buildGrid(){
+  document.getElementById('res-grid').innerHTML=markResults.map(r=>{
+    let cls=r.review?'rev':r.score===0?'bad':r.fuzzy?'spell':'ok';
+    const badge=r.review?'?':r.score;
+    return `<div class="rq ${cls}" id="rqcard-${r.q.id}" onclick="openModal('${r.q.id}')"><div class="rq-num">Q${r.q.id}</div><div class="rq-score" id="rqs-${r.q.id}">${badge}</div><div class="rq-max">/ ${r.max}</div></div>`;
+  }).join('');
+}
+function buildReview(){
+  const ri=document.getElementById('review-items');
+  const items=markResults.filter(r=>r.review);
+  if(!items.length){ri.innerHTML='<p style="color:#aaa;font-family:sans-serif;font-size:14px;">No teacher marking required.</p>';return;}
+  ri.innerHTML=items.map(r=>{
+    const ans=answers[r.q.id]||'';
+    const btns=Array.from({length:r.max+1},(_,i)=>`<button class="mbtn${reviewScores[r.q.id]===i?' sel':''}" onclick="setReviewScore('${r.q.id}',${i},${r.max})">${i}</button>`).join('');
+    const guidHtml=r.q.guidance?`<div class="rev-guidance">📋 ${r.q.guidance}</div>`:'';
+    return `<div class="rev-item" id="rev-${r.q.id}">
+      <div class="rlabel">Q${r.q.id} — ${r.max} mark${r.max>1?'s':''}</div>
+      <div class="rq-text">${r.q.prompt?'<em>'+r.q.prompt+'</em><br>':''}${r.q.q}</div>
+      <div class="rans">${typeof ans==='object'?Object.entries(ans).map(([k,v])=>k+': '+v).join(' | '):(ans||'<em style="color:#bbb">No answer</em>')}</div>
+      ${guidHtml}
+      <div class="mark-btns"><span>Award marks:</span>${btns}</div>
+    </div>`;
+  }).join('');
+}
+function setReviewScore(qid,score,max){
+  reviewScores[qid]=score;
+  document.getElementById('rev-'+qid)&&document.getElementById('rev-'+qid).querySelectorAll('.mbtn').forEach((b,i)=>b.classList.toggle('sel',i===score));
+  const card=document.getElementById('rqcard-'+qid);
+  if(card){card.className=`rq ${score===max?'ok':score>0?'rev':'bad'}`;card.onclick=()=>openModal(qid);document.getElementById('rqs-'+qid).textContent=score;}
+  updateScoreDisplay();buildQLA();
+}
+function buildQLA(){
+  const content=document.getElementById('qla-content');
+  const sections=[
+    {title:'By Reading Skill',key:'domain',labels:DOMAIN_LABELS},
+    {title:'By Question Format',key:'qtype',labels:QTYPE_LABELS},
+    {title:'By Text Type',key:'ttype',labels:TTYPE_LABELS}
+  ];
+  content.innerHTML=sections.map(s=>{
+    const groups={};
+    markResults.forEach(r=>{const k=r.q[s.key];if(!groups[k])groups[k]={score:0,max:0};groups[k].score+=(r.review?(reviewScores[r.q.id]??0):r.score);groups[k].max+=r.max;});
+    const rows=Object.entries(groups).map(([k,{score,max}])=>{
+      const pct=max===0?0:Math.round(score/max*100);
+      const bc=pct>=75?'bar-hi':pct>=50?'bar-mid':max===0?'bar-na':'bar-lo';
+      return `<div class="qla-row"><div class="qla-label">${s.labels[k]||k}</div><div class="qla-bar-wrap"><div class="qla-bar ${bc}" style="width:${pct}%"></div></div><div class="qla-pct" style="color:${pct>=75?'#4caf50':pct>=50?'#0080c8':'#f44336'}">${pct}%</div><div class="qla-frac">${score}/${max}</div></div>`;
+    }).join('');
+    return `<div class="qla-section"><h4>${s.title}</h4>${rows}</div>`;
+  }).join('');
+}
+function buildClassTab(){
+  const data=getClassData();const el=document.getElementById('rp-class');
+  if(!data.length){el.innerHTML='<div class="qla-card"><h3>📋 Class Data</h3><p class="qla-intro">No pupils have completed the assessment yet.</p></div>';return;}
+  const rows=data.map(r=>{
+    const pct=r.totalMax?Math.round(r.total/r.totalMax*100):0;
+    const bar=`<div style="display:inline-block;width:${pct}%;height:8px;background:${pct>=75?'#4caf50':pct>=50?'var(--brand)':'#f44336'};border-radius:4px;min-width:2px"></div>`;
+    return `<tr><td style="font-weight:bold">${r.name}</td><td style="color:#888;font-size:12px">${new Date(r.date).toLocaleDateString('en-GB')}</td><td style="font-weight:bold;text-align:right">${r.total}/${r.totalMax}</td><td style="min-width:120px;padding-left:8px">${bar} <span style="font-size:12px;color:#888">${pct}%</span></td></tr>`;
+  }).join('');
+  el.innerHTML=`<div class="qla-card"><h3>📋 Class Data <span style="font-size:13px;color:#aaa;font-weight:normal">(${data.length} pupil${data.length!==1?'s':''})</span></h3>
+    <table style="width:100%;border-collapse:collapse;font-family:sans-serif;font-size:14px;margin-bottom:16px">
+      <thead><tr style="border-bottom:2px solid #eee"><th style="text-align:left;padding:6px 4px">Pupil</th><th style="text-align:left;padding:6px 4px">Date</th><th style="text-align:right;padding:6px 4px">Score</th><th></th></tr></thead>
+      <tbody>${rows}</tbody></table>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary btn-sm" onclick="exportClassCSV()">📊 Export Class Excel</button>
+      <button class="btn btn-outline btn-sm" onclick="clearClassData()" style="color:#f44336;border-color:#f44336">Clear Data</button>
+    </div></div>`;
+}
+function clearClassData(){if(confirm('Clear all class data?')){localStorage.removeItem('ra_class_data_y3_summer');buildClassTab();}}
+function exportClassCSV(){
+  const data=getClassData();if(!data.length){alert('No data yet.');return;}
+  const allQids=QUESTIONS.map(q=>'Q'+q.id);
+  const rows=[['Name','Date','Total Score','Total Marks','Percentage',...allQids.flatMap(q=>[q+' Score',q+' Answer'])]];
+  data.forEach(r=>{
+    const pct=r.totalMax?Math.round(r.total/r.totalMax*100)+'%':'-';
+    rows.push([r.name,new Date(r.date).toLocaleDateString('en-GB'),r.total,r.totalMax,pct,...allQids.flatMap(qid=>{const sc=r.scores[qid];return[sc?(sc.score!==null?sc.score:'?'):'-',r.answers[qid]||''];})]);
+  });
+  const csv='﻿'+rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='y3_summer_reading_results_'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+}
+function openModal(qid){
+  const r=markResults.find(x=>String(x.q.id)===String(qid));if(!r)return;
+  const q=r.q;const ans=answers[q.id];
+  document.getElementById('modal-title').textContent='Question '+q.id;
+  let ansDisplay='';
+  if(!ans||(typeof ans==='object'&&Object.values(ans).every(v=>!v)))ansDisplay='<em style="color:#bbb">No answer given</em>';
+  else if(typeof ans==='object')ansDisplay=Object.entries(ans).map(([k,v])=>`<strong>${k}:</strong> ${v}`).join('<br>');
+  else ansDisplay=String(ans);
+  const scoreNow=r.review?(reviewScores[q.id]??'?'):r.score;
+  const pClass=r.review?'':(r.score===0?'m-bad':'m-ok');
+  let acceptedHtml='';
+  if(q.type==='text'&&q.accepted)acceptedHtml=`<div class="m-section"><div class="m-label">Accepted answers</div><div class="m-value m-accepted">${q.accepted.join(' / ')}</div></div>`;
+  else if(q.type==='mc'&&q.correct)acceptedHtml=`<div class="m-section"><div class="m-label">Correct answer</div><div class="m-value m-accepted">${q.correct}</div></div>`;
+  let markBtnsHtml='';
+  if(r.review){
+    const cur=reviewScores[q.id];
+    const btns=Array.from({length:q.marks+1},(_,i)=>`<button class="mbtn${cur===i?' sel':''}" onclick="setReviewScoreModal('${q.id}',${i},${q.marks})">${i}</button>`).join('');
+    const guidHtml=q.guidance?`<div class="m-section"><div class="m-label">Marking Guidance</div><div class="rev-guidance">${q.guidance}</div></div>`:'';
+    markBtnsHtml=`${guidHtml}<div class="m-section"><div class="m-label">Award marks</div><div class="m-mark-btns"><span>Mark:</span>${btns}</div></div>`;
+  }
+  document.getElementById('modal-body').innerHTML=`
+    <div class="m-section"><div class="m-label">Question</div><div class="m-qtext">${q.prompt?'<em>'+q.prompt+'</em><br><br>':''}${q.q}</div></div>
+    <div class="m-section"><div class="m-label">Pupil's answer · ${scoreNow} / ${q.marks}</div><div class="m-value m-pupil ${pClass}">${ansDisplay}</div></div>
+    ${acceptedHtml}${markBtnsHtml}
+    <div class="m-meta"><span class="m-tag">${DOMAIN_LABELS[q.domain]||q.domain}</span><span class="m-tag">${QTYPE_LABELS[q.qtype]||q.qtype}</span><span class="m-tag">${TTYPE_LABELS[q.ttype]||q.ttype}</span></div>`;
+  document.getElementById('ans-modal').classList.add('open');
+}
+function setReviewScoreModal(qid,score,max){setReviewScore(qid,score,max);openModal(qid);}
+function closeModal(e){if(e.target===document.getElementById('ans-modal'))closeModalBtn();}
+function closeModalBtn(){document.getElementById('ans-modal').classList.remove('open');}
+function showResTab(pane,btn){
+  document.querySelectorAll('.res-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.res-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('rp-'+pane).classList.add('active');btn.classList.add('active');
+  if(pane==='class')buildClassTab();
+}
+function exportCSV(){
+  const rows=[['Pupil',pupilName],['Date',new Date().toLocaleDateString('en-GB')],['Time Taken',timeTaken]];
+  const{total,totalMax}=calcTotals();rows.push(['Total Score',total,'out of',totalMax]);rows.push([]);
+  rows.push(['Question','Text','Domain','Question Type','Score','Max Marks','Answer']);
+  markResults.forEach(r=>{
+    const score=r.review?(reviewScores[r.q.id]??''):r.score;
+    const ans=answers[r.q.id];
+    const ansStr=!ans?'':typeof ans==='object'?Object.entries(ans).map(([k,v])=>k+': '+v).join('; '):String(ans);
+    rows.push(['Q'+r.q.id,TTYPE_LABELS[r.q.ttype]||r.q.ttype,DOMAIN_LABELS[r.q.domain]||r.q.domain,QTYPE_LABELS[r.q.qtype]||r.q.qtype,score,r.max,ansStr]);
+  });
+  const csv='﻿'+rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download=(pupilName||'assessment').replace(/\s+/g,'_')+'_y3_summer_reading.csv';a.click();
+}
+function restartApp(){answers={};reviewScores={};markResults=[];startTime=null;timeTaken='';const inp=document.getElementById('inp-name');if(inp)inp.value='';show('s-login');}
+</script>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.30a</p>
+</body>
+</html>

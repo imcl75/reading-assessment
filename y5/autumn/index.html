@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Year 5 Reading Assessment – Autumn</title>
+<style>
+:root {
+  --brand: #009ae4;
+  --brand-dk: #0080c8;
+  --blue: #1798d3;
+  --bg: #faf8f5;
+  --text-bg: #fff9f0;
+  --border: #e0c8a0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; background: var(--bg); color: #222; }
+
+.screen { display: none; height: 100dvh; flex-direction: column; }
+.screen.active { display: flex; }
+
+/* ===== LOGIN ===== */
+#s-login { align-items: center; justify-content: center; background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%); }
+.card { background: #fff; border-radius: 20px; padding: 36px 40px; max-width: 500px; width: 92%; box-shadow: 0 6px 32px rgba(0,0,0,.12); text-align: center; }
+.card-logo { font-size: 2.4rem; margin-bottom: 4px; }
+.card h1 { color: var(--brand); font-size: 1.6rem; margin-bottom: 4px; }
+.card .sub { color: #888; font-style: italic; margin-bottom: 26px; font-size: .9rem; }
+.fg { margin-bottom: 16px; text-align: left; }
+.fg label { display: block; font-weight: bold; margin-bottom: 7px; font-size: .9rem; color: #444; font-family: sans-serif; }
+.fg input, .fg select { width: 100%; padding: 13px 14px; font-size: 16px; border: 2px solid #ddd; border-radius: 10px; outline: none; font-family: inherit; background: #fafafa; }
+.fg input:focus, .fg select:focus { border-color: var(--brand); background: #fff; }
+.text-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+#name-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 4px;
+}
+.name-btn {
+  padding: 12px 8px; border: 2px solid #ddd; border-radius: 10px;
+  cursor: pointer; font-size: 14px; font-family: sans-serif; background: #fafafa;
+  text-align: center; transition: all .15s; color: #333; font-weight: 500;
+  line-height: 1.2;
+}
+.name-btn:hover { border-color: var(--brand); background: #e8f5fd; }
+.name-btn.name-sel { border-color: var(--brand); background: var(--brand); color: #fff; font-weight: bold; }
+.name-btn-other { color: #888; font-size: 12px; border-style: dashed; grid-column: 1/-1; }
+
+.btn { padding: 14px 32px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background .15s, transform .1s; font-family: sans-serif; }
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--brand); color: #fff; width: 100%; }
+.btn-primary:hover { background: var(--brand-dk); }
+.btn-sm { padding: 10px 22px; font-size: 14px; width: auto; }
+.btn-outline { background: #fff; border: 2px solid var(--brand); color: var(--brand); }
+
+/* ===== INSTRUCTIONS ===== */
+#s-instructions { align-items: center; justify-content: center; background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%); }
+#s-instructions .card { max-width: 620px; text-align: left; }
+#s-instructions h2 { color: var(--brand); margin-bottom: 18px; font-size: 1.5rem; }
+#s-instructions p { margin-bottom: 11px; line-height: 1.65; font-size: 15px; }
+#s-instructions .inst-footer { margin-top: 24px; display: flex; justify-content: flex-end; }
+
+/* ===== ASSESSMENT ===== */
+#s-assessment { overflow: hidden; }
+.aheader { background: var(--brand); color: #fff; padding: 10px 18px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; font-family: sans-serif; }
+.aheader .pupil { font-weight: bold; font-size: .95rem; }
+.sec-tabs { display: flex; gap: 6px; }
+.sec-tab { padding: 5px 13px; border-radius: 14px; font-size: 13px; font-weight: bold; border: 2px solid rgba(255,255,255,.4); color: rgba(255,255,255,.8); cursor: default; background: transparent; font-family: sans-serif; }
+.sec-tab.active { background: #fff; color: var(--brand); border-color: #fff; }
+.sec-tab.done { border-color: rgba(255,255,255,.7); color: #fff; }
+.sec-tab.skip { opacity: .4; }
+.abody { display: flex; flex: 1; overflow: hidden; }
+.tpanel { width: 46%; flex-shrink: 0; background: var(--text-bg); border-right: 3px solid var(--border); overflow-y: auto; padding: 20px 22px; }
+.tpanel h2 { color: var(--brand-dk); font-size: 1.35rem; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.tpanel .txt { font-size: 16px; line-height: 1.75; }
+.tpanel .txt h3 { font-size: .95rem; font-weight: bold; margin: 14px 0 5px; }
+.tpanel .txt h4 { font-style: italic; margin: 12px 0 5px; }
+.tpanel .txt p { margin-bottom: 10px; }
+.tpanel .txt .poem-line { margin: 0; }
+.tpanel .txt .poem-stanza { margin-bottom: 14px; }
+.tpanel .txt table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 16px; }
+.tpanel .txt table td, .tpanel .txt table th { border: 1px solid #ccc; padding: 7px 9px; }
+.tpanel .txt table th { background: #f5d5a0; font-weight: bold; }
+.tpanel .txt .contact { font-size: 13px; }
+.qpanel { flex: 1; overflow-y: auto; padding: 18px 20px 80px; background: #fff; }
+.qpanel h3 { color: var(--brand); font-size: 1.05rem; margin-bottom: 14px; padding: 8px 12px; background: #e8f5fd; border-radius: 6px; font-family: sans-serif; }
+.qblock { border-left: 4px solid var(--brand); border-radius: 0 10px 10px 0; background: #fafafa; padding: 15px 18px; margin-bottom: 18px; }
+.qnum { color: var(--brand); font-size: 1.35rem; font-weight: bold; margin-bottom: 6px; font-family: sans-serif; }
+.qprompt { color: #666; font-size: 16px; margin-bottom: 8px; line-height: 1.5; }
+.qtxt { font-size: 18px; margin-bottom: 12px; line-height: 1.55; }
+.qmarks { display: inline-block; background: var(--brand); color: #fff; font-size: 11px; padding: 2px 9px; border-radius: 4px; margin-bottom: 11px; font-family: sans-serif; font-weight: bold; }
+.ans-text { width: 100%; padding: 13px 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; outline: none; font-family: inherit; background: #fff; }
+.ans-text:focus { border-color: var(--brand); }
+.mc-opt { display: flex; align-items: center; padding: 13px 16px; margin-bottom: 8px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-size: 18px; transition: all .12s; background: #fff; user-select: none; }
+.mc-opt:hover { border-color: var(--brand); background: #e8f5fd; }
+.mc-opt.sel { border-color: var(--brand); background: #cce9f8; }
+.mc-opt input { margin-right: 11px; width: 18px; height: 18px; accent-color: var(--brand); flex-shrink: 0; }
+.tf-tbl { width: 100%; border-collapse: collapse; font-size: 17px; }
+.tf-tbl th { background: var(--brand); color: #fff; padding: 9px 12px; text-align: center; font-family: sans-serif; }
+.tf-tbl th:first-child { text-align: left; }
+.tf-tbl td { border: 1px solid #ddd; padding: 9px 12px; }
+.tf-tbl td:first-child { background: #f8f8f8; }
+.tf-tbl .tfc { text-align: center; }
+.tf-tbl .tfc label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 4px 8px; }
+.tf-tbl .tfc input { width: 18px; height: 18px; accent-color: var(--brand); }
+.fill-tbl { width: 100%; border-collapse: collapse; font-size: 17px; }
+.fill-tbl th { background: #f5d5a0; padding: 9px 12px; text-align: left; border: 1px solid #ccc; font-family: sans-serif; }
+.fill-tbl td { border: 1px solid #ccc; padding: 7px 10px; }
+.fill-tbl input { width: 100%; padding: 10px 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 17px; font-family: inherit; outline: none; }
+.fill-tbl input:focus { border-color: var(--brand); }
+.multi-inp { display: flex; flex-direction: column; gap: 8px; }
+.multi-inp .mi-row { display: flex; align-items: center; gap: 10px; }
+.multi-inp .mi-label { font-weight: bold; color: #888; font-family: sans-serif; min-width: 20px; }
+.order-rows { display: flex; flex-direction: column; gap: 8px; }
+.order-row { display: flex; align-items: center; gap: 10px; }
+.order-txt { flex: 1; background: #f5f5f5; border: 1px solid #ddd; border-radius: 7px; padding: 12px 16px; font-size: 17px; line-height: 1.4; }
+.order-inp { width: 46px; height: 46px; text-align: center; font-size: 18px; font-weight: bold; border: 2px solid #ddd; border-radius: 8px; outline: none; font-family: sans-serif; }
+.order-inp:focus { border-color: var(--brand); }
+.order-inp:disabled { background: #e8f5e9; border-color: #a5d6a7; color: #388e3c; cursor: default; }
+.ans-ext { width: 100%; padding: 13px 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; outline: none; resize: vertical; min-height: 90px; font-family: inherit; background: #fff; }
+.ans-ext:focus { border-color: var(--brand); }
+.spelling-note { font-size: 16px; color: #1798d3; margin: 6px 0 10px; font-weight: 700; background: #e8f4fb; border-left: 4px solid #1798d3; padding: 6px 10px; border-radius: 4px; }
+.qfooter { position: fixed; bottom: 0; left: 46%; right: 0; background: #fff; border-top: 2px solid #eee; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; }
+.qfooter .prog { font-size: 13px; color: #888; }
+
+/* ===== DONE SCREEN ===== */
+#s-done { align-items: center; justify-content: center; background: linear-gradient(160deg, #e8f5fd 0%, #b3dff5 100%); }
+#s-done .done-inner { text-align: center; }
+#s-done .done-emoji { font-size: 5rem; margin-bottom: 18px; }
+#s-done .done-heading { font-size: 2.4rem; font-weight: bold; color: var(--brand); margin-bottom: 14px; font-family: sans-serif; }
+#s-done .done-sub { font-size: 1.05rem; color: #555; line-height: 1.6; max-width: 420px; margin: 0 auto; font-family: sans-serif; }
+
+/* ===== RESULTS ===== */
+#s-results { overflow-y: auto; background: var(--bg); padding: 20px; align-items: center; }
+.res-wrap { max-width: 900px; width: 100%; }
+.res-hdr { background: #fff; border-radius: 14px; padding: 24px 28px; text-align: center; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+.res-hdr h2 { color: var(--brand); font-size: 1.5rem; margin-bottom: 4px; }
+.res-hdr .pname { font-size: 1rem; color: #666; margin-bottom: 14px; font-family: sans-serif; }
+.score-big { font-size: 3.2rem; font-weight: bold; color: #222; line-height: 1; }
+.score-denom { font-size: 1.3rem; color: #888; }
+.score-pct { font-size: .95rem; color: #aaa; font-family: sans-serif; margin-top: 4px; }
+.score-time { font-size: .85rem; color: #bbb; font-family: sans-serif; margin-top: 2px; }
+
+.res-tabs { display: flex; gap: 0; margin-bottom: 16px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.res-tab { flex: 1; padding: 13px; text-align: center; font-family: sans-serif; font-size: 14px; font-weight: bold; cursor: pointer; background: #fff; color: #888; border: none; transition: all .15s; }
+.res-tab.active { background: var(--brand); color: #fff; }
+.res-tab:not(.active):hover { background: #e8f5fd; color: var(--brand-dk); }
+.res-pane { display: none; }
+.res-pane.active { display: block; }
+
+.res-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13px; font-family: sans-serif; color: #555; align-items: center; }
+.leg-dot { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 4px; vertical-align: middle; }
+.res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; margin-bottom: 16px; }
+.rq { background: #fff; border-radius: 10px; padding: 12px 10px; text-align: center; box-shadow: 0 1px 5px rgba(0,0,0,.07); border-top: 4px solid #ddd; font-family: sans-serif; cursor: pointer; transition: transform .1s, box-shadow .1s; }
+.rq:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.12); }
+.rq.ok { border-top-color: #4caf50; }
+.rq.bad { border-top-color: #f44336; }
+.rq.rev { border-top-color: #ff9800; }
+.rq.spell { border-top-color: #8bc34a; }
+.rq .rq-num { font-size: 12px; color: #999; margin-bottom: 4px; }
+.rq .rq-score { font-size: 1.3rem; font-weight: bold; }
+.rq.ok .rq-score { color: #4caf50; }
+.rq.bad .rq-score { color: #f44336; }
+.rq.rev .rq-score { color: #ff9800; }
+.rq.spell .rq-score { color: #689f38; }
+.rq .rq-max { font-size: 11px; color: #bbb; }
+.rq-spell-tag { font-size: 10px; color: #8bc34a; font-style: italic; margin-top: 2px; }
+
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 100; align-items: center; justify-content: center; }
+.modal-bg.open { display: flex; }
+.modal { background: #fff; border-radius: 16px; padding: 28px; max-width: 560px; width: 92%; max-height: 85vh; overflow-y: auto; box-shadow: 0 8px 40px rgba(0,0,0,.2); }
+.modal-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+.modal-head h3 { color: var(--brand); font-size: 1.2rem; font-family: sans-serif; }
+.modal-close { background: #eee; border: none; border-radius: 8px; width: 32px; height: 32px; font-size: 18px; cursor: pointer; flex-shrink: 0; }
+.modal .m-qtext { font-size: 14px; color: #444; margin-bottom: 16px; line-height: 1.55; padding: 12px; background: #f9f9f9; border-radius: 8px; }
+.modal .m-section { margin-bottom: 14px; }
+.modal .m-label { font-size: 12px; font-family: sans-serif; font-weight: bold; color: #888; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 5px; }
+.modal .m-value { font-size: 15px; padding: 10px 13px; border-radius: 8px; line-height: 1.5; }
+.modal .m-pupil { background: #f5f5f5; border-left: 3px solid #ddd; }
+.modal .m-pupil.m-ok { border-left-color: #4caf50; background: #f1f8f1; }
+.modal .m-pupil.m-spell { border-left-color: #8bc34a; background: #f4f9ec; }
+.modal .m-pupil.m-bad { border-left-color: #f44336; background: #fdf3f3; }
+.modal .m-accepted { background: #e8f5e9; color: #2e7d32; font-size: 13px; }
+.modal .m-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.modal .m-tag { font-size: 12px; font-family: sans-serif; padding: 3px 10px; border-radius: 12px; background: #eee; color: #555; }
+.modal .m-mark-btns { display: flex; gap: 8px; align-items: center; margin-top: 12px; font-family: sans-serif; font-size: 13px; }
+.modal .m-mark-btns span { color: #888; }
+.mbtn { padding: 7px 18px; border-radius: 6px; border: 2px solid #ddd; cursor: pointer; font-weight: bold; background: #fff; font-size: 14px; transition: all .12s; }
+.mbtn:hover { border-color: var(--brand); }
+.mbtn.sel { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+.review-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.07); margin-bottom: 16px; }
+.review-card h3 { color: var(--brand); margin-bottom: 6px; font-family: sans-serif; }
+.review-card .rev-intro { font-size: 13px; color: #888; margin-bottom: 18px; font-family: sans-serif; }
+.rev-item { border: 1px solid #eee; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+.rev-item .rlabel { font-weight: bold; color: #555; font-size: 13px; margin-bottom: 4px; font-family: sans-serif; }
+.rev-item .rq-text { font-size: 14px; color: #666; margin-bottom: 8px; }
+.rev-item .rans { background: #f5f5f5; border-radius: 6px; padding: 10px 12px; font-style: italic; margin-bottom: 10px; font-size: 14px; min-height: 36px; line-height: 1.5; }
+.rev-guidance { background: #e8f5fd; border-left: 3px solid #009ae4; border-radius: 6px; padding: 10px 13px; font-size: 13px; color: #1a5f7a; margin-bottom: 10px; line-height: 1.5; font-family: sans-serif; }
+.mark-btns { display: flex; gap: 8px; align-items: center; font-family: sans-serif; font-size: 13px; }
+.mark-btns span { color: #888; }
+
+.qla-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.07); margin-bottom: 16px; }
+.qla-card h3 { color: var(--brand); margin-bottom: 6px; font-family: sans-serif; }
+.qla-card .qla-intro { font-size: 13px; color: #888; margin-bottom: 20px; font-family: sans-serif; }
+.qla-section { margin-bottom: 26px; }
+.qla-section h4 { font-size: 13px; font-family: sans-serif; font-weight: bold; text-transform: uppercase; letter-spacing: .5px; color: #999; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid #eee; }
+.qla-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-family: sans-serif; }
+.qla-row .qla-label { font-size: 13px; color: #444; min-width: 180px; flex-shrink: 0; }
+.qla-row .qla-bar-wrap { flex: 1; background: #f0f0f0; border-radius: 6px; height: 18px; overflow: hidden; }
+.qla-row .qla-bar { height: 100%; border-radius: 6px; transition: width .4s; min-width: 2px; }
+.qla-row .qla-pct { font-size: 13px; font-weight: bold; min-width: 48px; text-align: right; }
+.qla-row .qla-frac { font-size: 12px; color: #aaa; min-width: 50px; text-align: right; }
+.bar-hi { background: #4caf50; }
+.bar-mid { background: var(--brand); }
+.bar-lo { background: #f44336; }
+.bar-na { background: #ccc; }
+
+.res-actions { display: flex; gap: 12px; justify-content: center; margin-top: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+
+@media (max-width: 700px) {
+  .abody { flex-direction: column; }
+  .tpanel { width: 100%; height: 38vh; border-right: none; border-bottom: 3px solid var(--border); }
+  .qpanel { padding-bottom: 90px; }
+  .qfooter { left: 0; }
+  .aheader .sec-tabs { display: none; }
+  .qla-row .qla-label { min-width: 130px; }
+}
+@media print {
+  body { overflow: visible; }
+  .screen { display: block !important; height: auto; }
+  #s-login, #s-instructions, #s-assessment, #s-done { display: none !important; }
+  #s-results { display: block !important; padding: 0; }
+  .res-actions, .res-tabs { display: none; }
+  .res-pane { display: block !important; }
+  .mark-btns, .m-mark-btns { display: none; }
+  .modal-bg { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="s-login" class="screen active">
+  <div class="card">
+    <div style="text-align:right;margin-bottom:8px"><a href="../home.html" style="font-size:12px;color:#aaa;text-decoration:none;">← Home</a></div>
+    <div class="card-logo">📖</div>
+    <h1>Year 5 Reading Assessment</h1>
+    <p class="sub">Autumn Term &nbsp;|&nbsp; PiXL Diagnostic</p>
+    <div class="fg">
+      <label>Tap your name</label>
+      <div id="name-loading" style="text-align:center;padding:24px;color:#888;font-size:14px">Loading class list…</div>
+      <div id="name-grid" style="display:none"></div>
+      <div id="name-selected" style="display:none;margin-top:10px;padding:10px 14px;background:#e0f2fe;border-radius:8px;font-weight:600;font-size:15px;color:#0369a1"></div>
+      <div id="name-fallback" style="display:none;margin-top:10px">
+        <p style="font-size:13px;color:#888;margin-bottom:6px">Can't find your name? Type it:</p>
+        <input type="text" id="inp-name" autocomplete="off" placeholder="First name Surname" style="width:100%;padding:10px;border:2px solid #d1d5db;border-radius:8px;font-size:15px">
+      </div>
+    </div>
+    <div class="fg" id="text-sel-wrap">
+      <label>Today you are completing</label>
+      <div id="text-notice" style="padding:12px 16px;background:#e8f5fd;border-radius:10px;font-size:15px;font-weight:700;color:#0a6fa8;min-height:44px;">Loading…</div>
+    </div>
+    <button class="btn btn-primary" onclick="startInstructions()" style="margin-top:8px;">Start →</button>
+  </div>
+</div>
+
+<!-- ===== INSTRUCTIONS ===== -->
+<div id="s-instructions" class="screen">
+  <div class="card">
+    <h2>Instructions</h2>
+    <p>The reading text is shown on the <strong>left side</strong> of the screen. Read the text and answer the questions about it.</p>
+    <p><strong>You should use the texts to help you answer the questions.</strong></p>
+    <p>There are different types of questions. Read the instructions for each question carefully.</p>
+    <p>If you cannot answer a question, <strong>move on to the next one</strong>. You can always come back to it.</p>
+    <div class="inst-footer">
+      <button class="btn btn-primary btn-sm" onclick="startAssessment()">Begin Assessment →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ASSESSMENT ===== -->
+<div id="s-assessment" class="screen">
+  <div class="aheader">
+    <div class="pupil" id="hdr-pupil"></div>
+    <div class="sec-tabs">
+      <div class="sec-tab" id="tab-0">Creature-Eating Plants</div>
+      <div class="sec-tab" id="tab-1">Mysterious Pond</div>
+      <div class="sec-tab" id="tab-2">Heart Soup</div>
+    </div>
+  </div>
+  <div class="abody">
+    <div class="tpanel" id="text-panel"></div>
+    <div class="qpanel" id="q-panel"></div>
+  </div>
+  <div class="qfooter">
+    <div class="prog" id="q-progress"></div>
+    <button class="btn btn-primary btn-sm" id="sec-next-btn" onclick="nextSection()">Next Text →</button>
+  </div>
+</div>
+
+<!-- ===== DONE SCREEN ===== -->
+<div id="s-done" class="screen">
+  <div class="done-inner">
+    <div class="done-emoji" id="done-emoji" onclick="teacherTap()">🎉</div>
+    <div class="done-heading">Well Done!</div>
+    <div class="done-sub" id="done-sub">You've finished the reading assessment. Your teacher will look at your results.</div>
+    <div id="done-sending" style="display:none;margin-top:16px;font-size:13px;color:#009ae4;font-family:sans-serif;">Sending your answers… ✓</div>
+  </div>
+</div>
+
+<!-- ===== RESULTS ===== -->
+<div id="s-results" class="screen">
+  <div class="res-wrap">
+    <div class="res-hdr">
+      <h2>Assessment Complete</h2>
+      <div class="pname" id="res-name"></div>
+      <div class="score-big" id="res-score">—</div>
+      <div class="score-denom" id="res-denom"></div>
+      <div class="score-pct" id="res-pct"></div>
+      <div class="score-time" id="res-time"></div>
+    </div>
+    <div class="res-tabs">
+      <button class="res-tab active" onclick="showResTab('overview',this)">📊 Overview</button>
+      <button class="res-tab" onclick="showResTab('review',this)">✏️ Teacher Marking</button>
+      <button class="res-tab" onclick="showResTab('analysis',this)">🎯 Analysis</button>
+      <button class="res-tab" onclick="showResTab('class',this)">📋 Class Data</button>
+    </div>
+
+    <div class="res-pane active" id="rp-overview">
+      <div class="res-legend">
+        <span><span class="leg-dot" style="background:#4caf50"></span>Correct</span>
+        <span><span class="leg-dot" style="background:#8bc34a"></span>Correct (spelling — tap to check)</span>
+        <span><span class="leg-dot" style="background:#f44336"></span>Incorrect</span>
+        <span><span class="leg-dot" style="background:#ff9800"></span>Teacher marking needed</span>
+      </div>
+      <p style="font-size:12px;color:#aaa;font-family:sans-serif;margin-bottom:10px;">Tap any question to see the answer.</p>
+      <div class="res-grid" id="res-grid"></div>
+    </div>
+
+    <div class="res-pane" id="rp-review">
+      <div class="review-card">
+        <h3>✏️ Teacher Marking</h3>
+        <p class="rev-intro" id="review-intro">These extended answers are sent to the class spreadsheet for AI marking. You can still award marks manually here if needed — the total score updates automatically.</p>
+        <div id="review-items"></div>
+      </div>
+    </div>
+
+    <div class="res-pane" id="rp-analysis">
+      <div class="qla-card">
+        <h3>🎯 Question Level Analysis</h3>
+        <p class="qla-intro">Breakdown of performance by reading skill, question format, and text type. Helps identify target areas.</p>
+        <div id="qla-content"></div>
+      </div>
+    </div>
+
+    <div class="res-pane" id="rp-class"></div>
+
+    <div class="res-actions">
+      <button class="btn btn-primary btn-sm" onclick="exportCSV()">Export This Pupil</button>
+      <button class="btn btn-outline btn-sm" onclick="restartApp()">New Assessment</button>
+    </div>
+  </div>
+</div>
+
+<!-- ANSWER MODAL -->
+<div class="modal-bg" id="ans-modal" onclick="closeModal(event)">
+  <div class="modal" id="modal-inner">
+    <div class="modal-head">
+      <h3 id="modal-title">Question</h3>
+      <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+
+const TEXTS = {
+  0: {
+    title: 'Creature-Eating Plants',
+    html: `
+<h2>Creature-Eating Plants</h2>
+<p>Most plants make their own food using sunlight, water and air. But some plants live in places where they can't get enough nutrients from the soil, so they have evolved to catch and digest animals – usually insects, but sometimes larger creatures too.</p>
+<h3>Venus Flytraps</h3>
+<p>The Venus flytrap is probably the most famous carnivorous plant. It grows in boggy areas of North and South Carolina in the USA. Each of its leaves has two lobes that snap shut when an insect touches the tiny trigger hairs inside. The trap closes in less than a second.</p>
+<p>Once an insect is trapped, the plant releases digestive juices that break down the creature's soft body over several days. The trap then reopens, ready to catch its next meal. A single trap can catch around three to five insects before it dies and falls off the plant. New traps then grow to replace it.</p>
+<h3>Pitcher Plants</h3>
+<p>Pitcher plants lure insects into a deep, tube-shaped trap filled with liquid. The rim of the pitcher is slippery and often scented to attract insects. Once an insect falls in, it is almost impossible for it to climb back out – tiny downward-pointing hairs line the walls of the pitcher, and the insect eventually drowns and is digested.</p>
+<p>Some pitcher plants are large enough to trap and digest rats and frogs. Scientists have even found pitcher plants in Borneo that are visited by tree shrews, which perch on the rim to eat the nectar produced by the plant. The droppings left by the shrews fall into the pitcher and provide nutrients – a remarkable partnership.</p>
+<h3>Sundews</h3>
+<p>Sundews are covered in sticky, glistening drops that look like dewdrops. These attract insects, which become stuck as soon as they land. The sundew's tentacles then slowly curl around the insect over the course of several hours, bringing more digestive glands into contact with the prey.</p>
+<p>Despite being delicate in appearance, sundews are among the most widespread carnivorous plants in the world and can be found on every continent except Antarctica.</p>
+<h3>Why do they eat animals?</h3>
+<p>All three plants tend to grow in wet, boggy soil where nitrogen – an essential nutrient – is scarce. By digesting insects and other animals, they obtain the nitrogen they need to survive. This is why you should never feed fertiliser to a carnivorous plant: if they get nitrogen from the soil, they stop producing their traps and may even die.</p>`
+  },
+  1: {
+    title: 'The Mysterious Pond',
+    html: `
+<h2>The Mysterious Pond</h2>
+<p>There is a small pond in the village of Thistlebrook that nobody talks about. It sits at the edge of an old orchard, hidden behind two ancient oak trees. People who live near it walk a little faster as they pass, even in the middle of a bright summer afternoon.</p>
+<p>Eleven-year-old Mira had heard the stories, of course. That the pond never froze in winter. That fish found in it were always perfectly still, resting on the surface as though sleeping. That the water had a faint blue glow at dusk that no one could explain.</p>
+<p>One afternoon, curiosity finally won. Mira pushed through the gate in the orchard fence and stood at the edge of the pond. The water was still and perfectly clear. She could see straight down to the smooth grey stones at the bottom, yet the pond looked as though it went on forever.</p>
+<p>"It's just a pond," she said aloud, trying to convince herself.</p>
+<p>She knelt at the edge, reached out, and dipped her fingers into the water. It was warm – much warmer than it should have been. And as soon as her fingers touched the surface, the fish below began to move. Slowly at first, then faster, circling, circling, always in the same direction.</p>
+<p>Mira pulled her hand back sharply. The fish slowed, then stopped, then lay still again.</p>
+<p>She reached out again. The fish circled again.</p>
+<p>"That is very strange," she whispered.</p>
+<p>She sat at the edge of the pond for a long time, watching. Eventually, as the sun moved lower in the sky, she noticed something she hadn't seen before. Just beneath the surface, where the light caught the water at a low angle, there were faint lines – like writing. She leaned closer. Ripples distorted the letters, but she could just make out a single word.</p>
+<p><em>WAIT.</em></p>
+<p>Mira stood up slowly. She looked around the orchard. Nothing moved. She looked back at the pond. The word was gone.</p>
+<p>She went home and said nothing about what she had seen. But the next morning, she was back at the gate.</p>`
+  },
+  2: {
+    title: 'Heart Soup',
+    html: `
+<h2>Heart Soup</h2>
+<p>Nana Rosa always made soup when someone was sad.</p>
+<p>She called it heart soup, though there was nothing unusual in the ingredients. It was just vegetables, stock, a handful of herbs and whatever was left in the fridge. But somehow, without fail, it was always exactly what was needed.</p>
+<p>When ten-year-old Bea arrived at Nana Rosa's house after school, still red-eyed from crying, her grandmother didn't ask questions. She simply pointed at the kitchen chair – the one with the yellow cushion – and began to chop.</p>
+<p>The knife moved steadily. Carrots, celery, a leek. The smell of onion filled the kitchen. Bea watched in silence.</p>
+<p>"Was it Priya?" Nana Rosa asked, without turning round.</p>
+<p>Bea looked up, startled. "How did you know?"</p>
+<p>"Because she is the only one who makes you cry on a Monday."</p>
+<p>Bea almost smiled at this. Almost.</p>
+<p>The soup began to bubble. Nana Rosa added a pinch of something from an unlabelled jar. Bea noticed it but didn't ask – there were certain things about Nana Rosa's kitchen that were better left as mysteries.</p>
+<p>"She said I wasn't invited to her party," Bea said at last. "In front of everyone."</p>
+<p>Nana Rosa was quiet for a moment. Then: "What did you do?"</p>
+<p>"Nothing. I just walked away."</p>
+<p>"Good," said Nana Rosa simply.</p>
+<p>"Is it?" said Bea. "It didn't feel good. It felt terrible."</p>
+<p>"Walking away when you want to fight is one of the bravest things a person can do," Nana Rosa said. She placed two bowls on the table and ladled the soup carefully. "And besides," she added, sitting down opposite Bea, "you are always invited here."</p>
+<p>Bea looked at the bowl in front of her. The steam rose in a slow curl. She picked up the spoon.</p>
+<p>It tasted, somehow, exactly like being home.</p>`
+  }
+};
+
+const QUESTIONS = [
+  // ===== CREATURE-EATING PLANTS =====
+  { id:1,  sec:0, marks:1, domain:'2a', qtype:'fc', ttype:'NF',
+    type:'text',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> from the first paragraph that means \'developed gradually over time\'.',
+    accepted:['evolved'] },
+
+  { id:2,  sec:0, marks:1, domain:'2b', qtype:'mc', ttype:'NF',
+    type:'mc',
+    q:'Where does the Venus flytrap grow naturally? Tick one.',
+    options:['In tropical rainforests','In boggy areas of North and South Carolina','In gardens across the United States','In swamps in South America'],
+    correct:'In boggy areas of North and South Carolina' },
+
+  { id:3,  sec:0, marks:1, domain:'2a', qtype:'fc', ttype:'NF',
+    type:'text',
+    prompt:'Look at the section on Venus flytraps.',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> that shows that insects find it difficult to avoid touching the trigger hairs.',
+    accepted:['tiny'] },
+
+  { id:4,  sec:0, marks:1, domain:'2d', qtype:'mc', ttype:'NF',
+    type:'mc',
+    q:'"The trap closes in less than a second." Why is this important for the Venus flytrap? Tick one.',
+    options:['So that the plant can digest its food quickly','So that the insect cannot escape before the trap shuts','So that more insects can be caught at the same time','So that the trigger hairs are not damaged'],
+    correct:'So that the insect cannot escape before the trap shuts' },
+
+  { id:5,  sec:0, marks:1, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'According to the text, how does the pitcher plant attract insects?',
+    guidance:'Award 1 mark for reference to the rim being scented / the plant producing a scent to attract insects. Accept: "it is scented" / "it produces a scent" or similar.' },
+
+  { id:6,  sec:0, marks:1, domain:'2a', qtype:'mc', ttype:'NF',
+    type:'mc',
+    prompt:'Look at the section about pitcher plants.',
+    q:'Which word is closest in meaning to "lure"? Tick one.',
+    options:['trap','attract','kill','warn'],
+    correct:'attract' },
+
+  { id:7,  sec:0, marks:2, domain:'2b', qtype:'tab', ttype:'NF',
+    type:'fill_table',
+    q:'The tree shrew visits the pitcher plant in Borneo. Describe what each one gets from the relationship.',
+    rows:[
+      { label:'Tree shrew gets:', key:'shrew', accepted:['nectar','the nectar produced by the plant','something to eat','food'] },
+      { label:'Pitcher plant gets:', key:'plant', accepted:['droppings','nutrients from the droppings','nitrogen from droppings','nutrients'] }
+    ],
+    review:true,
+    guidance:'Award 1 mark each. Tree shrew: nectar / food. Pitcher plant: nutrients from the droppings / nitrogen.' },
+
+  { id:8,  sec:0, marks:1, domain:'2a', qtype:'fc', ttype:'NF',
+    type:'text',
+    prompt:'Look at the section on Sundews.',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> that suggests the sticky drops are attractive to look at.',
+    accepted:['glistening'] },
+
+  { id:9,  sec:0, marks:1, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'Why should you never feed fertiliser to a carnivorous plant?',
+    guidance:'Award 1 mark for reference to: if they get nitrogen from soil they stop producing their traps and may die / they no longer need to trap insects. Accept reasonable paraphrase.' },
+
+  { id:10, sec:0, marks:1, domain:'2c', qtype:'mc', ttype:'NF',
+    type:'mc',
+    q:'Which of the following best describes the main purpose of this text? Tick one.',
+    options:['To persuade people to grow carnivorous plants','To explain how three types of carnivorous plant catch their food','To warn people about the dangers of carnivorous plants','To entertain readers with stories about unusual plants'],
+    correct:'To explain how three types of carnivorous plant catch their food' },
+
+  { id:11, sec:0, marks:1, domain:'2b', qtype:'order', ttype:'NF',
+    type:'order',
+    q:'Number these events 1–5 to show what happens when a Venus flytrap catches an insect. Number 1 has been done for you.',
+    items:[
+      { txt:'The insect touches the tiny trigger hairs.', given:true, value:1 },
+      { txt:'The two lobes of the leaf snap shut.', given:false, correct:2 },
+      { txt:'The plant releases digestive juices.', given:false, correct:3 },
+      { txt:'The soft body of the insect is broken down.', given:false, correct:4 },
+      { txt:'The trap reopens ready for the next meal.', given:false, correct:5 }
+    ] },
+
+  { id:12, sec:0, marks:1, domain:'2b', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'According to the text, what do all three carnivorous plants have in common in terms of where they grow?',
+    guidance:'Award 1 mark for reference to growing in wet/boggy soil / soil where nitrogen is scarce / nutrient-poor soil. Accept reasonable paraphrase.' },
+
+  { id:13, sec:0, marks:1, domain:'2d', qtype:'mc', ttype:'NF',
+    type:'mc',
+    q:'Which of these statements about sundews is supported by the text? Tick one.',
+    options:['Sundews are only found in warm climates.','Sundews look fragile but are actually very successful plants.','Sundews are the most effective carnivorous plants.','Sundews are rare and found only in a few locations.'],
+    correct:'Sundews look fragile but are actually very successful plants.' },
+
+  { id:14, sec:0, marks:1, domain:'2d', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'A scientist describes the relationship between the tree shrew and the pitcher plant as "remarkable". Explain why you think they used this word.',
+    guidance:'Award 1 mark for any valid explanation referring to the unusual / surprising nature of the partnership — e.g. it is unusual for an animal to help a plant / surprising that a plant relies on animal droppings for nutrients. Accept reasonable inference.' },
+
+  { id:15, sec:0, marks:1, domain:'2d', qtype:'sc', ttype:'NF',
+    type:'extended', review:true,
+    q:'Having read this text, do you think carnivorous plants are well-named? Explain your answer.',
+    guidance:'Award 1 mark for a clear yes/no with a valid reason. Yes: they eat/digest animals/insects just like carnivores do. No: they do not actively hunt / they are still plants that use sunlight etc. Accept any valid reasoning.' },
+
+  // ===== THE MYSTERIOUS POND =====
+  { id:16, sec:1, marks:1, domain:'2a', qtype:'fc', ttype:'F',
+    type:'text',
+    prompt:'Look at the first paragraph.',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> that means very old.',
+    accepted:['ancient'] },
+
+  { id:17, sec:1, marks:1, domain:'2b', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    q:'Give two reasons why Mira might have felt nervous before entering the orchard.',
+    guidance:'Award 1 mark for any two of: the pond never froze in winter / fish rested perfectly still on the surface / there was a faint blue glow at dusk that could not be explained / people walked faster past it / nobody talked about it. Must give two different reasons for the mark.' },
+
+  { id:18, sec:1, marks:1, domain:'2d', qtype:'mc', ttype:'F',
+    type:'mc',
+    q:'"It\'s just a pond," she said aloud, trying to convince herself." What does this tell us about Mira? Tick one.',
+    options:['She was not scared at all.','She was pretending to be braver than she felt.','She had visited the pond many times before.','She thought the stories were true.'],
+    correct:'She was pretending to be braver than she felt.' },
+
+  { id:19, sec:1, marks:1, domain:'2a', qtype:'fc', ttype:'F',
+    type:'text',
+    prompt:'Look at the paragraph beginning "She knelt at the edge…"',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> that tells us the water temperature was unexpected.',
+    accepted:['warm','warmer'] },
+
+  { id:20, sec:1, marks:1, domain:'2b', qtype:'mc', ttype:'F',
+    type:'mc',
+    q:'How did the fish respond when Mira put her hand in the water? Tick one.',
+    options:['They swam away from her hand.','They swam to the surface.','They began to move in circles.','They moved towards the edge of the pond.'],
+    correct:'They began to move in circles.' },
+
+  { id:21, sec:1, marks:1, domain:'2d', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    q:'Why do you think Mira "said nothing about what she had seen" when she went home?',
+    guidance:'Award 1 mark for any valid inference: she did not think anyone would believe her / she wanted to return alone / she was too shocked to explain. Accept any reasonable inference with implied or stated justification.' },
+
+  { id:22, sec:1, marks:1, domain:'2d', qtype:'mc', ttype:'F',
+    type:'mc',
+    q:'What does the word "WAIT" written in the water most likely suggest? Tick one.',
+    options:['The pond is polluted and dangerous.','Something is trying to communicate with Mira.','Mira is imagining things.','The writing was left by children from the village.'],
+    correct:'Something is trying to communicate with Mira.' },
+
+  { id:23, sec:1, marks:1, domain:'2b', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    q:'What evidence is there that Mira was fascinated by the pond despite being frightened?',
+    guidance:'Award 1 mark for reference to her returning the next morning / sitting at the edge for a long time watching / reaching out a second time after pulling her hand back. Accept any valid textual evidence.' },
+
+  { id:24, sec:1, marks:1, domain:'2d', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    q:'Look at the description of the pond\'s water: "She could see straight down to the smooth grey stones at the bottom, yet the pond looked as though it went on forever." Explain why this description is effective.',
+    guidance:'Award 1 mark for any valid explanation of the contradiction/paradox — e.g. it creates a sense of mystery by describing two opposite things at once / it makes the pond seem otherworldly / the contrast between the clear water and the endless depth creates an eerie feeling. Accept any perceptive comment.' },
+
+  { id:25, sec:1, marks:1, domain:'2d', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    q:'"But the next morning, she was back at the gate." What does this final sentence suggest about Mira\'s character?',
+    guidance:'Award 1 mark for any valid inference about character: she is curious / brave / determined / cannot resist finding out more. Must relate the sentence to character. Accept reasonable inference.' },
+
+  // ===== HEART SOUP =====
+  { id:26, sec:2, marks:1, domain:'2a', qtype:'fc', ttype:'F',
+    type:'text',
+    prompt:'Look at the first two paragraphs.',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> that suggests the soup always worked.',
+    accepted:['fail'] },
+
+  { id:27, sec:2, marks:1, domain:'2b', qtype:'mc', ttype:'F',
+    type:'mc',
+    q:'How did Nana Rosa know that Bea was upset when she arrived? Tick one.',
+    options:['Bea told her straight away.','Bea had been crying.','Nana Rosa received a phone call from the school.','Bea refused to eat anything.'],
+    correct:'Bea had been crying.' },
+
+  { id:28, sec:2, marks:1, domain:'2d', qtype:'mc', ttype:'F',
+    type:'mc',
+    q:'Nana Rosa said, "Because she is the only one who makes you cry on a Monday." What does this tell us about Nana Rosa? Tick one.',
+    options:['She has met Priya before.','She knows Bea very well.','She does not like Priya.','She thinks Mondays are difficult for Bea.'],
+    correct:'She knows Bea very well.' },
+
+  { id:29, sec:2, marks:1, domain:'2a', qtype:'fc', ttype:'F',
+    type:'text',
+    prompt:'Look at the paragraph beginning "The soup began to bubble…"',
+    q:'<strong>Find</strong> and <strong>copy one word</strong> that shows Bea was curious about what Nana Rosa added to the soup.',
+    accepted:['noticed'] },
+
+  { id:30, sec:2, marks:1, domain:'2d', qtype:'mc', ttype:'F',
+    type:'mc',
+    q:'"…there were certain things about Nana Rosa\'s kitchen that were better left as mysteries." What does this suggest about Nana Rosa? Tick one.',
+    options:['She is a trained chef with secret recipes.','She is a somewhat magical or mysterious person.','She prefers to cook alone.','She does not like answering questions.'],
+    correct:'She is a somewhat magical or mysterious person.' },
+
+  { id:31, sec:2, marks:1, domain:'2b', qtype:'sc', ttype:'F',
+    type:'text',
+    q:'What had Priya done to upset Bea?',
+    accepted:['she said bea wasn\'t invited to her party','not invited to her party','told her she wasn\'t invited to her party','said she wasn\'t invited in front of everyone','said bea was not invited to her party'] },
+
+  { id:32, sec:2, marks:2, domain:'2d', qtype:'ext', ttype:'F',
+    type:'extended', review:true,
+    q:'Nana Rosa tells Bea that "Walking away when you want to fight is one of the bravest things a person can do." Do you agree with this? Explain your answer using evidence from the text or your own ideas.',
+    guidance:'Award up to 2 marks. 2 marks: a clear view (agree/disagree/partly) with two valid reasons or one well-developed reason using evidence or personal reasoning. 1 mark: a view stated with one reason, or two reasons without a clear view.' },
+
+  { id:33, sec:2, marks:1, domain:'2a', qtype:'mc', ttype:'F',
+    type:'mc',
+    q:'"The steam rose in a slow curl." Which word from the options below has a similar meaning to "curl"? Tick one.',
+    options:['drop','spiral','stream','wave'],
+    correct:'spiral' },
+
+  { id:34, sec:2, marks:1, domain:'2d', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    q:'"It tasted, somehow, exactly like being home." Explain what you think this means.',
+    guidance:'Award 1 mark for any valid interpretation: the soup made Bea feel safe / comforted / loved / as if she belonged, just like home does. Accept any inference about the emotional comfort provided. Do not accept purely literal answers.' },
+
+  { id:35, sec:2, marks:1, domain:'2d', qtype:'sc', ttype:'F',
+    type:'extended', review:true,
+    q:'What kind of person is Nana Rosa? Use evidence from the text to support your answer.',
+    guidance:'Award 1 mark for any valid character description with textual evidence. E.g. caring/perceptive — she knew who had upset Bea without being told; wise — her advice about walking away; nurturing — she made soup and welcomed Bea. Must include evidence.' },
+];
+
+const DOMAIN_LABELS = {
+  '2a': 'Vocabulary (2a)',
+  '2b': 'Retrieval (2b)',
+  '2c': 'Summarise main ideas (2c)',
+  '2d': 'Inference (2d)',
+  '2g': 'Language / word choice (2g)',
+};
+const QTYPE_LABELS = {
+  'mc':    'Multiple choice',
+  'fc':    'Find & copy',
+  'sc':    'Short answer',
+  'tab':   'Table / tabulated',
+  'ext':   'Extended response',
+  'match': 'Matching',
+  'order': 'Ordering',
+};
+const TTYPE_LABELS = { 'NF':'Non-fiction', 'P':'Poetry', 'F':'Fiction' };
+
+let pupilName = '';
+let selectedSections = [0,1,2];
+let currentSection = 0;
+let answers = {};
+let reviewScores = {};
+let markResults = [];
+let startTime = null;
+let timeTaken = '';
+
+(function loadConfig() {
+  const preload = JSON.parse(localStorage.getItem('ra_preload') || 'null');
+  if (preload && preload.assessment === 'y5-autumn') {
+    localStorage.removeItem('ra_preload');
+    pupilName = preload.name;
+    applyTextConfig(Array.isArray(preload.texts) ? preload.texts : [0,1,2]);
+    startInstructions();
+    return;
+  }
+  if (!BACKEND_URL) { showNameFallback(); return; }
+  const cb = 'config_cb_' + Date.now();
+  const script = document.createElement('script');
+  const timer = setTimeout(() => { showNameFallback(); }, 15000);
+  window[cb] = function(config) {
+    clearTimeout(timer);
+    delete window[cb];
+    if (script.parentNode) document.body.removeChild(script);
+    const names = config && Array.isArray(config.pupils) ? config.pupils : [];
+    if (names.length) renderNameGrid(names); else showNameFallback();
+    const active = config && Array.isArray(config.selectedTexts) ? config.selectedTexts : [0,1,2];
+    applyTextConfig(active);
+  };
+  script.onerror = () => { clearTimeout(timer); showNameFallback(); };
+  script.src = BACKEND_URL + '?action=getconfig&callback=' + cb;
+  document.body.appendChild(script);
+})();
+
+function renderNameGrid(names) {
+  document.getElementById('name-loading').style.display = 'none';
+  const grid = document.getElementById('name-grid');
+  grid.innerHTML = names.map(n =>
+    `<button class="name-btn" data-name="${n.replace(/"/g,'&quot;')}" onclick="selectName(this,this.dataset.name)">${n}</button>`
+  ).join('') +
+  `<button class="name-btn name-btn-other" onclick="document.getElementById('name-fallback').style.display='block'">My name isn't here</button>`;
+  grid.style.display = 'grid';
+}
+
+function showNameFallback() {
+  document.getElementById('name-loading').style.display = 'none';
+  document.getElementById('name-fallback').style.display = 'block';
+}
+
+function applyTextConfig(active) {
+  const TEXT_NAMES = ['🌿 Creature-Eating Plants','🌊 Mysterious Pond','🍲 Heart Soup'];
+  selectedSections = active.length ? active : [0,1,2];
+  const names = selectedSections.map(i => TEXT_NAMES[i]);
+  const notice = document.getElementById('text-notice');
+  if (notice) notice.textContent = names.join(' · ');
+}
+
+function selectName(btn, name) {
+  document.querySelectorAll('.name-btn').forEach(b => b.classList.remove('name-sel'));
+  btn.classList.add('name-sel');
+  pupilName = name;
+  const disp = document.getElementById('name-selected');
+  disp.textContent = '✓ ' + name;
+  disp.style.display = 'block';
+}
+
+function startInstructions() {
+  if (!pupilName) {
+    const typed = document.getElementById('inp-name') && document.getElementById('inp-name').value.trim();
+    if (typed) pupilName = typed;
+  }
+  if (!pupilName) { alert('Please tap your name to select it.'); return; }
+  show('s-instructions');
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startAssessment() {
+  show('s-assessment');
+  startTime = Date.now();
+  document.getElementById('hdr-pupil').textContent = pupilName;
+  [0,1,2].forEach(i => {
+    const t = document.getElementById('tab-'+i);
+    t.className = 'sec-tab';
+    if (!selectedSections.includes(i)) t.classList.add('skip');
+  });
+  currentSection = selectedSections[0];
+  document.getElementById('tab-'+currentSection).classList.add('active');
+  renderSection(currentSection);
+}
+
+function nextSection() {
+  const idx = selectedSections.indexOf(currentSection);
+  if (idx < selectedSections.length - 1) {
+    document.getElementById('tab-'+currentSection).classList.remove('active');
+    document.getElementById('tab-'+currentSection).classList.add('done');
+    currentSection = selectedSections[idx + 1];
+    document.getElementById('tab-'+currentSection).classList.add('active');
+    renderSection(currentSection);
+    document.getElementById('q-panel').scrollTop = 0;
+    document.getElementById('text-panel').scrollTop = 0;
+  } else {
+    submitAssessment();
+  }
+}
+
+function showTeacherResults() { show('s-results'); }
+
+let _tapCount = 0, _tapTimer = null;
+function teacherTap() {
+  _tapCount++;
+  clearTimeout(_tapTimer);
+  if (_tapCount >= 5) { _tapCount = 0; showTeacherResults(); return; }
+  _tapTimer = setTimeout(() => { _tapCount = 0; }, 3000);
+}
+
+function renderSection(sec) {
+  document.getElementById('text-panel').innerHTML =
+    `<h2>${TEXTS[sec].title}</h2><div class="txt">${TEXTS[sec].html}</div>`;
+
+  const sNames = ['Creature-Eating Plants','The Mysterious Pond','Heart Soup'];
+  const ranges = [[1,15],[16,25],[26,35]];
+  const [qs, qe] = ranges[sec];
+  let html = `<h3>Questions ${qs}–${qe} are about <em>${sNames[sec]}</em></h3>`;
+  QUESTIONS.filter(q => q.sec === sec).forEach(q => { html += renderQuestion(q); });
+  document.getElementById('q-panel').innerHTML = html;
+
+  QUESTIONS.filter(q => q.sec === sec).forEach(q => restoreAnswer(q));
+
+  document.querySelectorAll('.mc-opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const name = opt.querySelector('input').name;
+      document.querySelectorAll(`.mc-opt input[name="${name}"]`).forEach(r => r.closest('.mc-opt').classList.remove('sel'));
+      opt.classList.add('sel');
+      opt.querySelector('input').checked = true;
+      const qid = opt.querySelector('input').dataset.qid;
+      const val = opt.querySelector('input').value;
+      saveAnswer(qid, val);
+    });
+  });
+
+  const idx = selectedSections.indexOf(sec);
+  document.getElementById('q-progress').textContent = `Text ${idx+1} of ${selectedSections.length}`;
+  document.getElementById('sec-next-btn').textContent =
+    idx < selectedSections.length - 1 ? 'Next Text →' : 'Submit Assessment ✓';
+}
+
+function renderQuestion(q) {
+  const id = q.id;
+  const promptHtml = q.prompt ? `<div class="qprompt">${q.prompt}</div>` : '';
+  const marksLabel = q.marks === 1 ? '1 mark' : `${q.marks} marks`;
+  let inputHtml = '';
+
+  if (q.type === 'text') {
+    inputHtml = `<input type="text" class="ans-text" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)" autocomplete="off">`;
+  } else if (q.type === 'mc') {
+    inputHtml = q.options.map(o =>
+      `<label class="mc-opt"><input type="radio" name="q${id}" value="${o}" data-qid="${id}"> ${o}</label>`
+    ).join('');
+  } else if (q.type === 'fill_table') {
+    inputHtml = `<table class="fill-tbl"><tbody>` +
+    q.rows.map(r=>`<tr><th style="width:50%">${r.label}</th><td><input type="text" class="ans-text" data-qid="${id}" data-key="${r.key}" placeholder="" oninput="saveFill('${id}','${r.key}',this.value)" autocomplete="off"></td></tr>`
+    ).join('') + '</tbody></table>';
+  } else if (q.type === 'order') {
+    inputHtml = `<div class="order-rows">` +
+    q.items.map((item,i)=>
+      item.given
+        ? `<div class="order-row"><div class="order-txt">${item.txt}</div><input type="number" class="order-inp" value="1" disabled></div>`
+        : `<div class="order-row"><div class="order-txt">${item.txt}</div><input type="number" class="order-inp" min="1" max="5" data-qid="${id}" data-idx="${i}" placeholder="" oninput="saveOrder('${id}',${i},this.value)"></div>`
+    ).join('') + '</div>';
+  } else if (q.type === 'extended') {
+    inputHtml = `<textarea class="ans-ext" data-qid="${id}" placeholder="Write your answer here..." oninput="saveAnswer('${id}',this.value)"></textarea>`;
+  }
+
+  const qTextLower = q.q.toLowerCase();
+  const spellingNote = (qTextLower.includes('find') && qTextLower.includes('copy'))
+    ? `<p class="spelling-note">📋 Copy carefully — spelling counts</p>` : '';
+
+  return `<div class="qblock" id="qb-${id}">
+    <div class="qnum">${id}.</div>
+    ${promptHtml}
+    <div class="qtxt">${q.q}</div>
+    ${spellingNote}
+    <div class="qmarks">${marksLabel}</div>
+    ${inputHtml}
+  </div>`;
+}
+
+function saveAnswer(qid, val)       { answers[qid] = val; }
+function saveFill(qid, key, val)    { if (!answers[qid]) answers[qid] = {}; answers[qid][key] = val; }
+function saveOrder(qid, idx, val)   { if (!answers[qid]) answers[qid] = {}; answers[qid][idx] = parseInt(val) || null; }
+
+function restoreAnswer(q) {
+  const id = q.id; const saved = answers[id]; if (!saved) return;
+  if (q.type === 'text') {
+    const el = document.querySelector(`input.ans-text[data-qid="${id}"]`);
+    if (el) el.value = saved;
+  } else if (q.type === 'mc') {
+    document.querySelectorAll(`input[name="q${id}"]`).forEach(r => {
+      if (r.value === saved) { r.checked = true; r.closest('.mc-opt').classList.add('sel'); }
+    });
+  } else if (q.type === 'fill_table' && typeof saved === 'object') {
+    Object.entries(saved).forEach(([key,val]) => {
+      const el = document.querySelector(`input.ans-text[data-qid="${id}"][data-key="${key}"]`);
+      if (el) el.value = val;
+    });
+  } else if (q.type === 'order' && typeof saved === 'object') {
+    Object.entries(saved).forEach(([idx,val]) => {
+      const el = document.querySelector(`.order-inp[data-qid="${id}"][data-idx="${idx}"]`);
+      if (el && val) el.value = val;
+    });
+  } else if (q.type === 'extended') {
+    const el = document.querySelector(`textarea[data-qid="${id}"]`);
+    if (el) el.value = saved;
+  }
+}
+
+function norm(s) { return String(s).toLowerCase().trim().replace(/['']/g,"'"); }
+
+function editDist(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));
+  for (let i=1;i<=m;i++) for (let j=1;j<=n;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+const STOPWORDS = new Set(['the','and','for','that','with','this','from','are','was','they','have','been','will','each','when','into','about','round','where','would','you','find','their','there','then','than','but','not','all','can','its','one','two','how','why','who','she','her','him','his','has','had','did','what','just','out','up','at','in','on','of','to','a','an','is','it','be','do','so','we','or','if','by','as','no','my','me']);
+
+function contentWords(s) {
+  return norm(s).split(/\s+/).filter(w => w.length > 2 && !STOPWORDS.has(w));
+}
+
+function keywordOverlap(answerNorm, acceptedNorm) {
+  const keys = contentWords(acceptedNorm);
+  if (keys.length === 0) return null;
+  const ansWords = answerNorm.split(/\s+/);
+  let matched = 0;
+  for (const k of keys) {
+    if (ansWords.includes(k) || answerNorm.includes(k)) { matched++; continue; }
+    for (const w of ansWords) {
+      if (w.length > 2 && editDist(w, k) <= Math.min(2, Math.floor(k.length / 4))) { matched++; break; }
+    }
+  }
+  const ratio = matched / keys.length;
+  if (ratio >= 0.85) return 'exact';
+  if (ratio >= 0.6)  return 'fuzzy';
+  return null;
+}
+
+function fuzzyMatch(answer, acceptedList) {
+  const na = norm(answer);
+  for (const acc of acceptedList) {
+    const nb = norm(acc);
+    if (na === nb) return 'exact';
+    if (nb.split(' ').length <= 3) {
+      const threshold = Math.min(3, Math.max(1, Math.floor(nb.length / 5)));
+      if (editDist(na, nb) <= threshold) return 'fuzzy';
+    }
+    const kw = keywordOverlap(na, nb);
+    if (kw) return kw;
+  }
+  return null;
+}
+
+function fuzzyMatchPhrase(answer, acceptedList) {
+  const direct = fuzzyMatch(answer, acceptedList);
+  if (direct) return direct;
+  const na = norm(answer).replace(/^(the|a|an)\s+/, '');
+  for (const acc of acceptedList) {
+    const nb = norm(acc).replace(/^(the|a|an)\s+/, '');
+    if (na === nb) return 'exact';
+    if (nb.split(' ').length <= 3) {
+      const threshold = Math.min(3, Math.max(1, Math.floor(nb.length / 5)));
+      if (editDist(na, nb) <= threshold) return 'fuzzy';
+    }
+    const kw = keywordOverlap(na, nb);
+    if (kw) return kw;
+  }
+  return null;
+}
+
+function markQuestion(q) {
+  const id = q.id, ans = answers[id];
+  if (q.review) return { score:0, max:q.marks, review:true, fuzzy:false };
+
+  if (q.type === 'text') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    const m = fuzzyMatchPhrase(ans, q.accepted);
+    return { score:m?1:0, max:1, review:false, fuzzy:m==='fuzzy' };
+  }
+  if (q.type === 'mc') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    return { score:norm(ans)===norm(q.correct)?1:0, max:1, review:false, fuzzy:false };
+  }
+  if (q.type === 'fill_table') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    let correct = 0, anyFuzzy = false;
+    q.rows.forEach(r => {
+      const v = ans[r.key]; if (!v) return;
+      const m = fuzzyMatchPhrase(v, r.accepted);
+      if (m) { correct++; if (m==='fuzzy') anyFuzzy=true; }
+    });
+    if (q.marks===1) return { score:correct===q.rows.length?1:0, max:1, review:false, fuzzy:anyFuzzy };
+    return { score:Math.min(correct,q.marks), max:q.marks, review:false, fuzzy:anyFuzzy };
+  }
+  if (q.type === 'order') {
+    if (!ans) return { score:0, max:q.marks, review:false, fuzzy:false };
+    let correct = 0;
+    q.items.forEach((item,i) => { if (!item.given && ans[i]===item.correct) correct++; });
+    const ng = q.items.filter(x=>!x.given).length;
+    return { score:correct===ng?1:0, max:1, review:false, fuzzy:false };
+  }
+  return { score:0, max:q.marks, review:false, fuzzy:false };
+}
+
+function submitAssessment() {
+  const elapsedMs = Date.now() - startTime;
+  const elapsedMin = Math.floor(elapsedMs/60000);
+  const elapsedSec = Math.floor((elapsedMs%60000)/1000);
+  timeTaken = elapsedMin + 'm ' + elapsedSec + 's';
+
+  markResults = QUESTIONS
+    .filter(q => selectedSections.includes(q.sec))
+    .map(q => ({ q, ...markQuestion(q) }));
+
+  show('s-done');
+  document.getElementById('res-name').textContent = pupilName;
+  updateScoreDisplay();
+  buildGrid();
+  buildReview();
+  buildQLA();
+  buildClassTab();
+  saveToClassData();
+  postToBackend();
+}
+
+function saveToClassData() {
+  try {
+    const existing = JSON.parse(localStorage.getItem('ra_class_data_y5_autumn') || '[]');
+    const {total, totalMax} = calcTotals();
+    const record = {
+      name: pupilName,
+      date: new Date().toISOString(),
+      timeTaken,
+      sections: selectedSections,
+      total, totalMax,
+      scores: {}, answers: {}
+    };
+    markResults.forEach(r => {
+      const sc = r.review ? (reviewScores[r.q.id] ?? null) : r.score;
+      record.scores['Q'+r.q.id] = { score: sc, max: r.max, domain: r.q.domain, qtype: r.q.qtype, ttype: r.q.ttype, fuzzy: r.fuzzy };
+      const ans = answers[r.q.id];
+      let ansStr = !ans ? '' : Array.isArray(ans) ? ans.filter(v=>v).join('; ') :
+        typeof ans === 'object' ? Object.entries(ans).map(([k,v])=>k+': '+v).join('; ') : String(ans);
+      record.answers['Q'+r.q.id] = ansStr;
+    });
+    existing.push(record);
+    localStorage.setItem('ra_class_data_y5_autumn', JSON.stringify(existing));
+  } catch(e) {}
+}
+
+function getClassData() {
+  try { return JSON.parse(localStorage.getItem('ra_class_data_y5_autumn') || '[]'); }
+  catch(e) { return []; }
+}
+
+function postToBackend() {
+  if (!BACKEND_URL) return;
+  const reviewQuestions = QUESTIONS
+    .filter(q => q.review && selectedSections.includes(q.sec))
+    .map(q => ({
+      id: q.id,
+      question: q.q,
+      prompt: q.prompt || '',
+      guidance: q.guidance || '',
+      max: q.marks
+    }));
+
+  const {total, totalMax} = calcTotals();
+  const scoresPayload = {};
+  markResults.forEach(r => {
+    const sc = r.review ? (reviewScores[r.q.id] ?? null) : r.score;
+    scoresPayload['Q'+r.q.id] = { score: sc, max: r.max, domain: r.q.domain, qtype: r.q.qtype, ttype: r.q.ttype };
+  });
+  const answersPayload = {};
+  markResults.forEach(r => {
+    const ans = answers[r.q.id];
+    answersPayload['Q'+r.q.id] = !ans ? '' :
+      Array.isArray(ans) ? ans.filter(v=>v).join('; ') :
+      typeof ans === 'object' ? Object.entries(ans).map(([k,v])=>k+': '+v).join('; ') :
+      String(ans);
+  });
+
+  const payload = {
+    pupilName,
+    date: new Date().toLocaleDateString('en-GB'),
+    timeTaken,
+    sections: selectedSections,
+    total, totalMax,
+    assessmentId: 'Y5-autumn-2025',
+    scores: scoresPayload,
+    answers: answersPayload,
+    reviewQuestions
+  };
+
+  fetch(BACKEND_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: JSON.stringify(payload)
+  }).then(() => {
+    const el = document.getElementById('done-sending');
+    if (el) { el.style.display = 'block'; el.textContent = '✓ Answers saved to class spreadsheet'; }
+  }).catch(() => {
+    const el = document.getElementById('done-sending');
+    if (el) { el.style.display = 'block'; el.style.color = '#f44336'; el.textContent = 'Could not save to spreadsheet — check internet connection.'; }
+  });
+}
+
+function clearClassData() {
+  if (confirm('Clear all saved class data? This cannot be undone.')) {
+    localStorage.removeItem('ra_class_data_y5_autumn');
+    buildClassTab();
+  }
+}
+
+function exportClassCSV() {
+  const data = getClassData();
+  if (!data.length) { alert('No class data saved yet.'); return; }
+  const allQids = QUESTIONS.map(q => 'Q'+q.id);
+  const rows = [];
+  rows.push(['INDIVIDUAL RESULTS']);
+  rows.push(['Name','Date','Time Taken','Total Score','Total Marks','Percentage',
+    ...allQids.flatMap(qid => [qid+' Score', qid+' Answer'])]);
+  data.forEach(r => {
+    const pct = r.totalMax ? Math.round(r.total/r.totalMax*100)+'%' : '-';
+    const qCells = allQids.flatMap(qid => {
+      const sc = r.scores[qid];
+      const ans = r.answers[qid] || '';
+      return [sc ? (sc.score !== null ? sc.score : '?') : '-', ans];
+    });
+    rows.push([r.name, new Date(r.date).toLocaleDateString('en-GB'), r.timeTaken||'', r.total, r.totalMax, pct, ...qCells]);
+  });
+  rows.push([]);
+  rows.push(['CLASS AGGREGATE — BY READING SKILL (CONTENT DOMAIN)']);
+  rows.push(['Domain','Total Score','Total Marks','Class %']);
+  const domAgg = {};
+  data.forEach(r => {
+    Object.entries(r.scores).forEach(([qid, sc]) => {
+      const d = sc.domain; if (!domAgg[d]) domAgg[d] = {score:0,max:0};
+      if (sc.score !== null) { domAgg[d].score += sc.score; domAgg[d].max += sc.max; }
+    });
+  });
+  Object.entries(domAgg).forEach(([d,{score,max}]) => {
+    rows.push([DOMAIN_LABELS[d]||d, score, max, max ? Math.round(score/max*100)+'%' : '-']);
+  });
+  const csv = '﻿' + rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'y5_autumn_reading_results_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+}
+
+function buildClassTab() {
+  const data = getClassData();
+  const el = document.getElementById('rp-class');
+  if (!data.length) {
+    el.innerHTML = '<div class="qla-card"><h3>📋 Class Data</h3><p class="qla-intro">No pupils have completed the assessment yet. Results will appear here automatically after each submission.</p></div>';
+    return;
+  }
+  const rows = data.map(r => {
+    const pct = r.totalMax ? Math.round(r.total/r.totalMax*100) : 0;
+    const bar = `<div style="display:inline-block;width:${pct}%;height:8px;background:${pct>=75?'#4caf50':pct>=50?'var(--brand)':'#f44336'};border-radius:4px;min-width:2px"></div>`;
+    return `<tr>
+      <td style="font-weight:bold">${r.name}</td>
+      <td style="color:#888;font-size:12px">${new Date(r.date).toLocaleDateString('en-GB')}</td>
+      <td style="color:#888;font-size:12px">${r.timeTaken||'-'}</td>
+      <td style="font-weight:bold;text-align:right">${r.total}/${r.totalMax}</td>
+      <td style="min-width:120px;padding-left:8px">${bar} <span style="font-size:12px;color:#888">${pct}%</span></td>
+    </tr>`;
+  }).join('');
+  el.innerHTML = `<div class="qla-card">
+    <h3>📋 Class Data <span style="font-size:13px;color:#aaa;font-weight:normal">(${data.length} pupil${data.length!==1?'s':''})</span></h3>
+    <p class="qla-intro">Saved automatically after each assessment. Export to Excel for full question-level detail.</p>
+    <table style="width:100%;border-collapse:collapse;font-family:sans-serif;font-size:14px;margin-bottom:16px">
+      <thead><tr style="border-bottom:2px solid #eee">
+        <th style="text-align:left;padding:6px 4px">Pupil</th>
+        <th style="text-align:left;padding:6px 4px">Date</th>
+        <th style="text-align:left;padding:6px 4px">Time</th>
+        <th style="text-align:right;padding:6px 4px">Score</th>
+        <th style="padding:6px 8px"></th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary btn-sm" onclick="exportClassCSV()">📊 Export Class Excel</button>
+      <button class="btn btn-outline btn-sm" onclick="clearClassData()" style="color:#f44336;border-color:#f44336">Clear Data</button>
+    </div>
+  </div>`;
+}
+
+function calcTotals() {
+  let autoScore=0, autoMax=0, reviewMax=0;
+  markResults.forEach(r => {
+    if (r.review) reviewMax += r.max;
+    else { autoScore += r.score; autoMax += r.max; }
+  });
+  const revScore = Object.values(reviewScores).reduce((a,b)=>a+b,0);
+  return { autoScore, autoMax, reviewMax, revScore,
+           total: autoScore+revScore, totalMax: autoMax+reviewMax };
+}
+
+function updateScoreDisplay() {
+  const {total, totalMax, reviewMax, revScore} = calcTotals();
+  document.getElementById('res-score').textContent = total;
+  document.getElementById('res-denom').textContent = `out of ${totalMax}`;
+  const pct = Math.round(total/totalMax*100);
+  const pending = reviewMax > revScore;
+  document.getElementById('res-pct').textContent = `${pct}%${pending?' (teacher marking pending)':''}`;
+  const te = document.getElementById('res-time');
+  if (te && timeTaken) te.textContent = 'Time taken: ' + timeTaken;
+  const reviewBtn = document.querySelector('.res-tab:nth-child(2)');
+  const needsReview = markResults.filter(r=>r.review).length;
+  reviewBtn.textContent = needsReview > 0 ? `✏️ Teacher Marking (${needsReview})` : '✏️ Teacher Marking';
+}
+
+function buildGrid() {
+  const grid = document.getElementById('res-grid');
+  grid.innerHTML = markResults.map(r => {
+    let cls, badge;
+    if (r.review) { cls='rev'; badge='?'; }
+    else if (r.score===0) { cls='bad'; badge=r.score; }
+    else if (r.fuzzy) { cls='spell'; badge=r.score; }
+    else { cls='ok'; badge=r.score; }
+    return `<div class="rq ${cls}" id="rqcard-${r.q.id}" onclick="openModal('${r.q.id}')">
+      <div class="rq-num">Q${r.q.id}</div>
+      <div class="rq-score" id="rqs-${r.q.id}">${badge}</div>
+      <div class="rq-max">/ ${r.max}</div>
+      ${r.fuzzy?'<div class="rq-spell-tag">sp?</div>':''}
+    </div>`;
+  }).join('');
+}
+
+function buildReview() {
+  const reviewItems = markResults.filter(r => r.review);
+  const ri = document.getElementById('review-items');
+  if (reviewItems.length === 0) {
+    ri.innerHTML = '<p style="color:#aaa;font-family:sans-serif;font-size:14px;">No teacher marking required for the selected text(s).</p>';
+    return;
+  }
+  ri.innerHTML = reviewItems.map(r => {
+    const ans = answers[r.q.id] || '';
+    const btns = Array.from({length:r.max+1},(_,i)=>
+      `<button class="mbtn${reviewScores[r.q.id]===i?' sel':''}" onclick="setReviewScore('${r.q.id}',${i},${r.max})">${i}</button>`
+    ).join('');
+    const guidanceHtml = r.q.guidance ? `<div class="rev-guidance">📋 ${r.q.guidance}</div>` : '';
+    return `<div class="rev-item" id="rev-${r.q.id}">
+      <div class="rlabel">Question ${r.q.id} — ${r.max} mark${r.max>1?'s':''}</div>
+      <div class="rq-text">${r.q.prompt ? '<em>'+r.q.prompt.replace(/<[^>]+>/g,'')+'</em><br>' : ''}${r.q.q.replace(/<[^>]+>/g,'')}</div>
+      <div class="rans">${ans || '<em style="color:#bbb">No answer given</em>'}</div>
+      ${guidanceHtml}
+      <div class="mark-btns"><span>Award marks:</span>${btns}</div>
+    </div>`;
+  }).join('');
+}
+
+function setReviewScore(qid, score, max) {
+  reviewScores[qid] = score;
+  document.getElementById(`rev-${qid}`).querySelectorAll('.mbtn').forEach((btn,i) => btn.classList.toggle('sel', i===score));
+  const card = document.getElementById(`rqcard-${qid}`);
+  if (card) {
+    card.className = `rq ${score===max?'ok':score>0?'rev':'bad'}`;
+    card.onclick = () => openModal(qid);
+    document.getElementById(`rqs-${qid}`).textContent = score;
+  }
+  updateScoreDisplay();
+  buildQLA();
+}
+
+function openModal(qid) {
+  const r = markResults.find(x => String(x.q.id) === String(qid));
+  if (!r) return;
+  const q = r.q;
+  const ans = answers[q.id];
+  document.getElementById('modal-title').textContent = `Question ${q.id}`;
+
+  let ansDisplay = '';
+  if (!ans || (Array.isArray(ans) && ans.every(v=>!v)) ||
+      (typeof ans === 'object' && !Array.isArray(ans) && Object.values(ans).every(v=>!v))) {
+    ansDisplay = '<em style="color:#bbb">No answer given</em>';
+  } else if (Array.isArray(ans)) {
+    ansDisplay = ans.filter(v=>v).map((v,i)=>`${i+1}. ${v}`).join('<br>');
+  } else if (typeof ans === 'object') {
+    ansDisplay = Object.entries(ans).map(([k,v])=>`<strong>${k}:</strong> ${v}`).join('<br>');
+  } else {
+    ansDisplay = String(ans);
+  }
+
+  const scoreNow = r.review ? (reviewScores[q.id] ?? '?') : r.score;
+  const pClass = r.review ? '' : (r.score===0?'m-bad':r.fuzzy?'m-spell':'m-ok');
+
+  let acceptedHtml = '';
+  if (q.type==='text' && q.accepted) {
+    acceptedHtml = `<div class="m-section"><div class="m-label">Accepted answers</div>
+      <div class="m-value m-accepted">${q.accepted.join(' / ')}</div></div>`;
+  } else if (q.type==='mc' && q.correct) {
+    acceptedHtml = `<div class="m-section"><div class="m-label">Correct answer</div>
+      <div class="m-value m-accepted">${q.correct}</div></div>`;
+  }
+
+  let markBtnsHtml = '';
+  if (r.review) {
+    const current = reviewScores[q.id];
+    const btns = Array.from({length:q.marks+1},(_,i)=>
+      `<button class="mbtn${current===i?' sel':''}" onclick="setReviewScoreModal('${q.id}',${i},${q.marks})">${i}</button>`
+    ).join('');
+    const guidanceSectionHtml = q.guidance
+      ? `<div class="m-section"><div class="m-label">Marking Guidance</div><div class="rev-guidance">${q.guidance}</div></div>`
+      : '';
+    markBtnsHtml = `${guidanceSectionHtml}<div class="m-section"><div class="m-label">Award marks</div>
+      <div class="m-mark-btns"><span>Mark:</span>${btns}</div></div>`;
+  }
+
+  const domainLabel = DOMAIN_LABELS[q.domain] || q.domain;
+  const qtypeLabel  = QTYPE_LABELS[q.qtype]   || q.qtype;
+  const ttypeLabel  = TTYPE_LABELS[q.ttype]   || q.ttype;
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="m-section">
+      <div class="m-label">Question</div>
+      <div class="m-qtext">${q.prompt?'<em>'+q.prompt+'</em><br><br>':''} ${q.q}</div>
+    </div>
+    <div class="m-section">
+      <div class="m-label">Pupil's answer &nbsp;·&nbsp; ${scoreNow} / ${q.marks}</div>
+      <div class="m-value m-pupil ${pClass}">${ansDisplay}${r.fuzzy?'<br><span style="font-size:12px;color:#8bc34a;font-style:italic">⚠️ Accepted with possible spelling error</span>':''}</div>
+    </div>
+    ${acceptedHtml}
+    ${markBtnsHtml}
+    <div class="m-meta">
+      <span class="m-tag">${domainLabel}</span>
+      <span class="m-tag">${qtypeLabel}</span>
+      <span class="m-tag">${ttypeLabel}</span>
+    </div>`;
+
+  document.getElementById('ans-modal').classList.add('open');
+}
+
+function setReviewScoreModal(qid, score, max) {
+  setReviewScore(qid, score, max);
+  document.querySelectorAll(`#modal-body .m-mark-btns .mbtn`).forEach((btn,i) => btn.classList.toggle('sel', i===score));
+  openModal(qid);
+}
+
+function closeModal(e) { if (e.target===document.getElementById('ans-modal')) closeModalBtn(); }
+function closeModalBtn() { document.getElementById('ans-modal').classList.remove('open'); }
+
+function buildQLA() {
+  const content = document.getElementById('qla-content');
+  const sections = [
+    { title:'By Reading Skill (Content Domain)', key:'domain', labels:DOMAIN_LABELS },
+    { title:'By Question Format',                key:'qtype',  labels:QTYPE_LABELS  },
+    { title:'By Text Type',                      key:'ttype',  labels:TTYPE_LABELS  },
+  ];
+  content.innerHTML = sections.map(s => {
+    const groups = {};
+    markResults.forEach(r => {
+      const k = r.q[s.key];
+      if (!groups[k]) groups[k] = { score:0, max:0 };
+      const sc = r.review ? (reviewScores[r.q.id] ?? 0) : r.score;
+      groups[k].score += sc;
+      groups[k].max   += r.max;
+    });
+    const rows = Object.entries(groups).map(([k, {score, max}]) => {
+      const pct = max===0 ? 0 : Math.round(score/max*100);
+      const barClass = pct>=75 ? 'bar-hi' : pct>=50 ? 'bar-mid' : max===0 ? 'bar-na' : 'bar-lo';
+      const label = s.labels[k] || k;
+      return `<div class="qla-row">
+        <div class="qla-label">${label}</div>
+        <div class="qla-bar-wrap"><div class="qla-bar ${barClass}" style="width:${pct}%"></div></div>
+        <div class="qla-pct" style="color:${pct>=75?'#4caf50':pct>=50?'#0080c8':'#f44336'}">${pct}%</div>
+        <div class="qla-frac">${score}/${max}</div>
+      </div>`;
+    }).join('');
+    return `<div class="qla-section"><h4>${s.title}</h4>${rows}</div>`;
+  }).join('');
+}
+
+function showResTab(pane, btn) {
+  document.querySelectorAll('.res-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.res-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('rp-'+pane).classList.add('active');
+  btn.classList.add('active');
+  if (pane === 'class') buildClassTab();
+}
+
+function exportCSV() {
+  const rows = [];
+  const dateStr = new Date().toLocaleDateString('en-GB');
+  rows.push(['Pupil', pupilName]);
+  rows.push(['Date', dateStr]);
+  rows.push(['Time Taken', timeTaken]);
+  const {total, totalMax} = calcTotals();
+  rows.push(['Total Score', total, 'out of', totalMax]);
+  rows.push([]);
+  rows.push(['Question','Text','Domain','Question Type','Score','Max Marks','Answer Given']);
+  markResults.forEach(r => {
+    const score = r.review ? (reviewScores[r.q.id] ?? '') : r.score;
+    const ans = answers[r.q.id];
+    let ansStr = '';
+    if (!ans) ansStr = '';
+    else if (Array.isArray(ans)) ansStr = ans.filter(v=>v).join('; ');
+    else if (typeof ans === 'object') ansStr = Object.entries(ans).map(([k,v])=>k+': '+v).join('; ');
+    else ansStr = String(ans);
+    rows.push([
+      'Q'+r.q.id,
+      TTYPE_LABELS[r.q.ttype]||r.q.ttype,
+      DOMAIN_LABELS[r.q.domain]||r.q.domain,
+      QTYPE_LABELS[r.q.qtype]||r.q.qtype,
+      score, r.max, ansStr
+    ]);
+  });
+  const csv = '﻿' + rows.map(r=>r.map(c=>'"'+String(c??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = (pupilName||'assessment').replace(/\s+/g,'_')+'_y5_autumn_reading.csv';
+  a.click();
+}
+
+function restartApp() {
+  answers = {}; reviewScores = {}; markResults = [];
+  startTime = null; timeTaken = '';
+  const inp = document.getElementById('inp-name');
+  if (inp) inp.value = '';
+  show('s-login');
+}
+</script>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.30a</p>
+</body>
+</html>

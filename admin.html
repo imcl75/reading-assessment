@@ -662,13 +662,15 @@ function displayMarkingResults(results) {
           title="Override score" id="edit-btn-${i}">✏️</button>
         <span id="override-ui-${i}" style="display:none;margin-top:6px">
           <input type="number" id="override-val-${i}" min="0" max="${r.max}" value="${r.score ?? 0}"
-            style="width:48px;padding:3px 6px;border:2px solid #009ae4;border-radius:4px;font-size:14px;font-weight:bold">
+            style="width:48px;padding:3px 6px;border:2px solid #009ae4;border-radius:4px;font-size:14px;font-weight:bold"
+            onkeydown="if(event.key==='Enter')confirmOverride(${i},'${esc(r.pupil)}','${esc(r.qid)}',${r.max})">
           <span style="font-size:13px;color:#888">/${r.max}</span>
-          <button onclick="confirmOverride(${i},'${esc(r.pupil)}','${esc(r.qid)}',${r.max})"
-            style="margin-left:4px;background:#009ae4;color:#fff;border:none;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:13px">✓</button>
+          <button id="confirm-btn-${i}" onclick="confirmOverride(${i},'${esc(r.pupil)}','${esc(r.qid)}',${r.max})"
+            style="margin-left:4px;background:#009ae4;color:#fff;border:none;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:13px;font-weight:bold">Save</button>
           <button onclick="cancelOverride(${i})"
-            style="background:#f3f4f6;border:none;border-radius:4px;padding:3px 8px;cursor:pointer;font-size:13px;color:#6b7280">✗</button>
+            style="background:#f3f4f6;border:none;border-radius:4px;padding:3px 8px;cursor:pointer;font-size:13px;color:#6b7280">Cancel</button>
         </span>
+        <span id="saved-flash-${i}" style="display:none;color:#16a34a;font-weight:700;font-size:13px;margin-left:8px">✓ Saved</span>
       </td>
       <td><span class="badge ${badgeClass}">${badgeIcon} ${r.confidence}</span></td>
       <td style="font-size:13px;color:var(--muted);max-width:280px">${esc(r.reasoning)}</td>
@@ -698,12 +700,12 @@ function cancelOverride(i) {
 
 async function confirmOverride(i, pupil, qid, max) {
   const inp = document.getElementById('override-val-' + i);
+  const btn = document.getElementById('confirm-btn-' + i);
   let score = parseInt(inp.value, 10);
   if (isNaN(score) || score < 0) score = 0;
   if (score > max) score = max;
 
-  const btn = inp.nextElementSibling.nextElementSibling; // ✓ button
-  btn.textContent = '…';
+  btn.textContent = 'Saving…';
   btn.disabled = true;
 
   try {
@@ -714,18 +716,20 @@ async function confirmOverride(i, pupil, qid, max) {
       document.getElementById('score-disp-' + i).textContent = score + '/' + max;
       cancelOverride(i);
       document.getElementById('score-disp-' + i).style.display = '';
-      // Flash green to confirm
-      const disp = document.getElementById('score-disp-' + i);
-      disp.style.color = '#16a34a';
-      setTimeout(() => { disp.style.color = ''; }, 2000);
+      // Show persistent "Saved" confirmation
+      const flash = document.getElementById('saved-flash-' + i);
+      if (flash) {
+        flash.style.display = 'inline';
+        setTimeout(() => { flash.style.display = 'none'; }, 4000);
+      }
     } else {
       alert('Failed to save: ' + (result.error || 'Unknown error'));
-      btn.textContent = '✓';
+      btn.textContent = 'Save';
       btn.disabled = false;
     }
   } catch (err) {
     alert('Connection error — could not save override.');
-    btn.textContent = '✓';
+    btn.textContent = 'Save';
     btn.disabled = false;
   }
 }
@@ -1334,6 +1338,6 @@ function renderPupilPane() {
   document.getElementById('pupil-detail').innerHTML = html;
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.30d</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v06.07.26a</p>
 </body>
 </html>

@@ -327,6 +327,17 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
   </div>
 </div>
 
+<!-- ===== SUBMIT CONFIRMATION OVERLAY ===== -->
+<div id="s-confirm" style="display:none;position:fixed;inset:0;background:rgba(10,1,1,0.82);z-index:200;justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:20px;padding:36px 32px;max-width:480px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.35);">
+    <div style="font-size:52px;margin-bottom:12px;">📋</div>
+    <h2 style="font-size:22px;color:#0a0101;margin:0 0 12px;">Before you finish…</h2>
+    <p style="font-size:16px;color:#374151;line-height:1.5;margin:0 0 28px;">Have you checked your answers and completed <strong>all</strong> the questions?</p>
+    <button onclick="confirmSubmit()" style="display:block;width:100%;padding:16px;background:#16a34a;color:#fff;font-size:18px;font-weight:700;border:none;border-radius:12px;cursor:pointer;margin-bottom:14px;">Yes — submit my assessment ✓</button>
+    <button onclick="cancelConfirm()" style="display:block;width:100%;padding:14px;background:#f3f4f6;color:#374151;font-size:16px;font-weight:600;border:2px solid #d1d5db;border-radius:12px;cursor:pointer;">← Go back and check</button>
+  </div>
+</div>
+
 <!-- ===== DONE SCREEN ===== -->
 <div id="s-done" class="screen">
   <div class="done-inner">
@@ -900,8 +911,22 @@ function nextSection() {
     document.getElementById('q-panel').scrollTop = 0;
     document.getElementById('text-panel').scrollTop = 0;
   } else {
-    submitAssessment();
+    showConfirm();
   }
+}
+
+function showConfirm() {
+  const el = document.getElementById('s-confirm');
+  el.style.display = 'flex';
+}
+
+function cancelConfirm() {
+  document.getElementById('s-confirm').style.display = 'none';
+}
+
+function confirmSubmit() {
+  document.getElementById('s-confirm').style.display = 'none';
+  submitAssessment();
 }
 
 function showTeacherResults() { show('s-results'); }
@@ -1889,6 +1914,6 @@ function restartApp() {
   show('s-login');
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v06.07.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v06.07.26b</p>
 </body>
 </html>

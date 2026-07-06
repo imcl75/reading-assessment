@@ -70,10 +70,11 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .sec-tabs { display: flex; gap: 6px; }
 .sec-tab { padding: 5px 13px; border-radius: 14px; font-size: 13px; font-weight: bold; border: 2px solid rgba(255,255,255,.4); color: rgba(255,255,255,.8); cursor: default; background: transparent; font-family: sans-serif; }
 .sec-tab.active { background: #fff; color: var(--brand); border-color: #fff; }
-.sec-tab.done { border-color: rgba(255,255,255,.7); color: #fff; }
+.sec-tab.done { border-color: rgba(255,255,255,.7); color: #fff; cursor: pointer; }
+.sec-tab.done:hover { background: rgba(255,255,255,.2); }
 .sec-tab.skip { opacity: .4; }
 .abody { display: flex; flex: 1; overflow: hidden; }
-.tpanel { width: 46%; flex-shrink: 0; background: var(--text-bg); border-right: 3px solid var(--border); overflow-y: auto; padding: 20px 22px; }
+.tpanel { display: none; }
 .tpanel h2 { color: var(--brand-dk); font-size: 1.35rem; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
 .tpanel .txt { font-size: 16px; line-height: 1.75; }
 .tpanel .txt h3 { font-size: .95rem; font-weight: bold; margin: 14px 0 5px; }
@@ -145,7 +146,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .ans-ext { width: 100%; padding: 13px 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; outline: none; resize: vertical; min-height: 90px; font-family: inherit; background: #fff; }
 .ans-ext:focus { border-color: var(--brand); }
 .spelling-note { font-size: 16px; color: #1798d3; margin: 6px 0 10px; font-weight: 700; background: #e8f4fb; border-left: 4px solid #1798d3; padding: 6px 10px; border-radius: 4px; }
-.qfooter { position: fixed; bottom: 0; left: 46%; right: 0; background: #fff; border-top: 2px solid #eee; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; }
+.qfooter { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; border-top: 2px solid #eee; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: sans-serif; }
 .qfooter .prog { font-size: 13px; color: #888; }
 
 /* ===== DONE SCREEN ===== */
@@ -249,10 +250,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 .res-actions { display: flex; gap: 12px; justify-content: center; margin-top: 8px; margin-bottom: 24px; flex-wrap: wrap; }
 
 @media (max-width: 700px) {
-  .abody { flex-direction: column; }
-  .tpanel { width: 100%; height: 38vh; border-right: none; border-bottom: 3px solid var(--border); }
   .qpanel { padding-bottom: 90px; }
-  .qfooter { left: 0; }
   .aheader .sec-tabs { display: none; }
   .qla-row .qla-label { min-width: 130px; }
 }
@@ -299,10 +297,10 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 <div id="s-instructions" class="screen">
   <div class="card">
     <h2>Instructions</h2>
-    <p>The reading text is shown on the <strong>left side</strong> of the screen. Read the text and answer the questions about it.</p>
+    <p>You have a <strong>paper copy</strong> of the reading text. Use it to help you answer the questions on the screen.</p>
     <p><strong>You should use the texts to help you answer the questions.</strong></p>
     <p>There are different types of questions. Read the instructions for each question carefully.</p>
-    <p>If you cannot answer a question, <strong>move on to the next one</strong>. You can always come back to it.</p>
+    <p>If you cannot answer a question, <strong>move on to the next one</strong>. You can tap the tab at the top to go back to a text you have already done.</p>
     <div class="inst-footer">
       <button class="btn btn-primary btn-sm" onclick="startAssessment()">Begin Assessment →</button>
     </div>
@@ -314,9 +312,9 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
   <div class="aheader">
     <div class="pupil" id="hdr-pupil"></div>
     <div class="sec-tabs">
-      <div class="sec-tab" id="tab-0">Making Waves</div>
-      <div class="sec-tab" id="tab-1">The Field Mouse</div>
-      <div class="sec-tab" id="tab-2">Food Chain</div>
+      <div class="sec-tab" id="tab-0" onclick="if(this.classList.contains('done'))goToSection(0)">Making Waves</div>
+      <div class="sec-tab" id="tab-1" onclick="if(this.classList.contains('done'))goToSection(1)">The Field Mouse</div>
+      <div class="sec-tab" id="tab-2" onclick="if(this.classList.contains('done'))goToSection(2)">Food Chain</div>
     </div>
   </div>
   <div class="abody">
@@ -710,6 +708,44 @@ let startTime = null;
 let timeTaken = '';
 
 // ======================================================
+// AUTOSAVE / RESTORE (localStorage)
+// ======================================================
+function autosaveKey() { return 'ra_answers_summer_' + pupilName; }
+
+function persistAnswers() {
+  if (!pupilName) return;
+  try {
+    localStorage.setItem(autosaveKey(), JSON.stringify({ answers, startTime }));
+  } catch(e) {}
+}
+
+function restoreAnswers() {
+  if (!pupilName) return false;
+  try {
+    const saved = JSON.parse(localStorage.getItem(autosaveKey()) || 'null');
+    if (saved && saved.answers && Object.keys(saved.answers).length > 0) {
+      answers = saved.answers;
+      startTime = saved.startTime || Date.now();
+      return true;
+    }
+  } catch(e) {}
+  return false;
+}
+
+function clearAutosave() {
+  if (!pupilName) return;
+  try { localStorage.removeItem(autosaveKey()); } catch(e) {}
+}
+
+// Warn before navigating away mid-assessment
+window.addEventListener('beforeunload', e => {
+  if (document.getElementById('s-assessment').classList.contains('active')) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
+
+// ======================================================
 // LOGIN — name picker
 // ======================================================
 
@@ -724,22 +760,42 @@ let timeTaken = '';
     startInstructions();
     return;
   }
-  if (!BACKEND_URL) { showNameFallback(); return; }
+
+  // Apply cached config immediately so selectedSections is never wrong
+  const cachedConfig = JSON.parse(localStorage.getItem('ra_config_cache') || 'null');
+  if (cachedConfig) {
+    const active = Array.isArray(cachedConfig.selectedTexts) ? cachedConfig.selectedTexts : null;
+    if (active) applyTextConfig(active);
+    const names = Array.isArray(cachedConfig.pupils) ? cachedConfig.pupils : [];
+    if (names.length) renderNameGrid(names); else showNameFallback();
+  }
+
+  if (!BACKEND_URL) { if (!cachedConfig) showNameFallback(); return; }
+
   const cb = 'config_cb_' + Date.now();
   const script = document.createElement('script');
-  const timer = setTimeout(() => { showNameFallback(); }, 15000);
+  const timer = setTimeout(() => {
+    if (script.parentNode) document.body.removeChild(script);
+    if (!cachedConfig) showNameFallback();
+  }, 15000);
+
   window[cb] = function(config) {
     clearTimeout(timer);
     delete window[cb];
     if (script.parentNode) document.body.removeChild(script);
+    // Cache for offline/slow-load resilience
+    try { localStorage.setItem('ra_config_cache', JSON.stringify(config)); } catch(e) {}
     // Pupils
     const names = config && Array.isArray(config.pupils) ? config.pupils : [];
     if (names.length) renderNameGrid(names); else showNameFallback();
-    // Active texts
-    const active = config && Array.isArray(config.selectedTexts) ? config.selectedTexts : [0,1,2];
-    applyTextConfig(active);
+    // Active texts — only override if we get a valid array
+    const active = config && Array.isArray(config.selectedTexts) ? config.selectedTexts : null;
+    if (active) applyTextConfig(active);
   };
-  script.onerror = () => { clearTimeout(timer); showNameFallback(); };
+  script.onerror = () => {
+    clearTimeout(timer);
+    if (!cachedConfig) showNameFallback();
+  };
   script.src = BACKEND_URL + '?action=getconfig&callback=' + cb;
   document.body.appendChild(script);
 })();
@@ -796,17 +852,41 @@ function show(id) {
 
 function startAssessment() {
   show('s-assessment');
-  startTime = Date.now();
+  const restored = restoreAnswers();
+  if (!restored) startTime = Date.now();
   document.getElementById('hdr-pupil').textContent = pupilName;
-  // Style tabs
+  updateTabStyles();
+  currentSection = selectedSections[0];
+  document.getElementById('tab-'+currentSection).classList.add('active');
+  renderSection(currentSection);
+}
+
+function updateTabStyles() {
   [0,1,2].forEach(i => {
     const t = document.getElementById('tab-'+i);
     t.className = 'sec-tab';
     if (!selectedSections.includes(i)) t.classList.add('skip');
   });
-  currentSection = selectedSections[0];
-  document.getElementById('tab-'+currentSection).classList.add('active');
+}
+
+function goToSection(i) {
+  if (!selectedSections.includes(i)) return;
+  document.getElementById('tab-'+currentSection).classList.remove('active');
+  document.getElementById('tab-'+currentSection).classList.add('done');
+  currentSection = i;
+  updateTabStyles();
+  // mark all sections before i as done, current as active
+  selectedSections.forEach(s => {
+    const t = document.getElementById('tab-'+s);
+    t.className = 'sec-tab';
+    if (s === i) t.classList.add('active');
+    else if (selectedSections.indexOf(s) < selectedSections.indexOf(i)) t.classList.add('done');
+  });
+  [0,1,2].forEach(i => {
+    if (!selectedSections.includes(i)) document.getElementById('tab-'+i).classList.add('skip');
+  });
   renderSection(currentSection);
+  document.getElementById('q-panel').scrollTop = 0;
 }
 
 function nextSection() {
@@ -972,11 +1052,11 @@ function renderQuestion(q) {
 // ======================================================
 // ANSWER SAVING & RESTORING
 // ======================================================
-function saveAnswer(qid, val)           { answers[qid] = val; }
-function saveMultiText(qid, idx, val)   { if (!answers[qid]) answers[qid] = []; answers[qid][idx] = val; }
-function saveTF(qid, row, val)          { if (!answers[qid]) answers[qid] = {}; answers[qid][row] = val; }
-function saveFill(qid, key, val)        { if (!answers[qid]) answers[qid] = {}; answers[qid][key] = val; }
-function saveMatch(qid, word, val)      { if (!answers[qid]) answers[qid] = {}; answers[qid][word] = val; }
+function saveAnswer(qid, val)           { answers[qid] = val; persistAnswers(); }
+function saveMultiText(qid, idx, val)   { if (!answers[qid]) answers[qid] = []; answers[qid][idx] = val; persistAnswers(); }
+function saveTF(qid, row, val)          { if (!answers[qid]) answers[qid] = {}; answers[qid][row] = val; persistAnswers(); }
+function saveFill(qid, key, val)        { if (!answers[qid]) answers[qid] = {}; answers[qid][key] = val; persistAnswers(); }
+function saveMatch(qid, word, val)      { if (!answers[qid]) answers[qid] = {}; answers[qid][word] = val; persistAnswers(); }
 
 // Tap-to-select match state
 const tapMatchState = {}; // { qid: { selectedWord: null, selectedMeaning: null } }
@@ -1101,7 +1181,7 @@ function clearMeaningSelection(qid) {
   document.querySelectorAll(`.tap-meaning-chip[data-qid="${qid}"]`).forEach(c => c.classList.remove('sel-meaning'));
   getTapState(qid).selectedMeaning = null;
 }
-function saveOrder(qid, idx, val)       { if (!answers[qid]) answers[qid] = {}; answers[qid][idx] = parseInt(val) || null; }
+function saveOrder(qid, idx, val)       { if (!answers[qid]) answers[qid] = {}; answers[qid][idx] = parseInt(val) || null; persistAnswers(); }
 
 function restoreAnswer(q) {
   const id = q.id; const saved = answers[id]; if (!saved) return;
@@ -1304,6 +1384,7 @@ function submitAssessment() {
     .filter(q => selectedSections.includes(q.sec))
     .map(q => ({ q, ...markQuestion(q) }));
 
+  clearAutosave();
   show('s-done');
   document.getElementById('res-name').textContent = pupilName;
   updateScoreDisplay();
@@ -1799,12 +1880,15 @@ function exportCSV() {
 // RESTART
 // ======================================================
 function restartApp() {
+  clearAutosave();
   answers = {}; reviewScores = {}; markResults = [];
-  startTime = null; timeTaken = '';
+  startTime = null; timeTaken = ''; pupilName = '';
   document.getElementById('inp-name').value = '';
+  document.querySelectorAll('.name-btn').forEach(b => b.classList.remove('name-sel'));
+  document.getElementById('name-selected').style.display = 'none';
   show('s-login');
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.06.30d</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v06.07.26a</p>
 </body>
 </html>

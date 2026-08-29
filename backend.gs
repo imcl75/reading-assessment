@@ -59,8 +59,18 @@ const TYPE_B_QUESTIONS = {
 const TYPE_C_QIDS = ['Q13b', 'Q18', 'Q22', 'Q32b'];
 
 // ── Entry point (POST) ───────────────────────────────────────────────────────
+// Light shared token (see staff-tools/shared-sync/sync-script.gs). The token
+// ships in the public pupil pages, so — like the staff PIN when it lived in
+// the HTML — it raises the bar for scrapers only. The admin gate below is
+// checked server-side, which is where the real control lives.
+function tokenOK(e) {
+  const want = PropertiesService.getScriptProperties().getProperty('SHARED_TOKEN') || '2013';
+  return (((e || {}).parameter || {}).token || '') === want;
+}
+
 function doPost(e) {
   try {
+    if (!tokenOK(e)) return jsonOut_({ ok: false, error: 'unauthorised' });
     const data = JSON.parse(e.postData.contents);
     const ss = SpreadsheetApp.openById(
       '13h2sUXYMUPjoe1OlUzAuOpGvstPg2lQfTlvqJopTT5w'
@@ -75,20 +85,35 @@ function doPost(e) {
 
   } catch (err) {
     console.error(err);
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: false, error: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return jsonOut_({ ok: false, error: err.toString() });
   }
+}
+
+function jsonOut_(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 // ── Entry point (GET) ────────────────────────────────────────────────────────
 function doGet(e) {
   const action   = (e && e.parameter && e.parameter.action)   || 'results';
   const callback = (e && e.parameter && e.parameter.callback) || null;
+  if (!tokenOK(e)) return jsonResponse({ ok: false, error: 'unauthorised' }, callback);
   const ss = SpreadsheetApp.openById('13h2sUXYMUPjoe1OlUzAuOpGvstPg2lQfTlvqJopTT5w');
 
   let result;
-  if (action === 'results') {
+  if (action === 'unlock') {
+    // Staff PIN is stored in Script Properties (STAFF_PIN), never in HTML.
+    const pin = (e.parameter && e.parameter.pin) || '';
+    result = { ok: pin === (PropertiesService.getScriptProperties().getProperty('STAFF_PIN') || '2013') };
+  } else if (action === 'checkpupil') {
+    // Clients confirm a no-cors submission actually landed before deleting
+    // their retry-queue copy.
+    const name = decodeURIComponent((e.parameter && e.parameter.pup) || '');
+    const date = (e.parameter && e.parameter.d) || '';
+    result = checkPupilSaved(ss, name, date);
+  } else if (action === 'results') {
     result = getSubmissionsSummary(ss);
   } else if (action === 'mark') {
     result = markAllPending(ss);
@@ -191,7 +216,10 @@ function getSubmissionsSummary(ss) {
     for (let i = 1; i < aiData.length; i++) {
       // col 0 = Pupil, col 1 = Date, col 2 = Question, col 3 = AI Score
       if (aiData[i][3] !== '' && aiData[i][3] !== null && aiData[i][3] !== '?') {
-        markedPupils.add(aiData[i][0] + '|' + aiData[i][1]);
+        const aiDate = aiData[i][1] instanceof Date
+          ? aiData[i][1].toLocaleDateString('en-GB')
+          : String(aiData[i][1]);
+        markedPupils.add(aiData[i][0] + '|' + aiDate);
       }
     }
   }
@@ -248,6 +276,26 @@ function getSubmissionsSummary(ss) {
   }
 
   return submissions;
+}
+
+// Confirm a submission exists so the client can safely drop its retry copy.
+// Params: pup (pupil name), d (date as DD/MM/YYYY — optional).
+function checkPupilSaved(ss, name, date) {
+  const sheet = ss.getSheetByName(RESULTS_SHEET);
+  if (!sheet || !name) return { ok: false, saved: false };
+  const data = sheet.getDataRange().getValues();
+  if (data.length <= 1) return { ok: true, saved: false };
+  for (let i = 1; i < data.length; i++) {
+    const pupil = String(data[i][1] || '');
+    if (pupil.toLowerCase() !== name.toLowerCase()) continue;
+    if (date) {
+      const d = data[i][2];
+      const dStr = d instanceof Date ? d.toLocaleDateString('en-GB') : String(d || '');
+      if (dStr !== date) continue;
+    }
+    return { ok: true, saved: true };
+  }
+  return { ok: true, saved: false };
 }
 
 // ── Mark all pending submissions ─────────────────────────────────────────────
@@ -334,8 +382,8 @@ function markAllPending(ss) {
     // Save AI marks
     saveAIMarks(ss, rowData2, aiMarks);
 
-    // Update Results sheet with AI scores
-    updateResultsWithAIScores(ss, sub.pupil, sub.date, aiMarks);
+    // Update Results sheet with AI scores (pass exact row to avoid duplicate-row ambiguity)
+    updateResultsWithAIScores(ss, sub.pupil, sub.date, aiMarks, sub.row);
 
     allResults.push({
       pupil: sub.pupil,
@@ -452,16 +500,22 @@ function saveResults(ss, data) {
 }
 
 // ── Update AI scores into Results sheet ─────────────────────────────────────
-function updateResultsWithAIScores(ss, pupilName, date, aiMarks) {
+function updateResultsWithAIScores(ss, pupilName, date, aiMarks, rowNum) {
   if (!Object.keys(aiMarks).length) return;
   const sheet = ss.getSheetByName(RESULTS_SHEET);
   if (!sheet) return;
 
-  // Find the pupil's row (last row matching name)
   const data = sheet.getDataRange().getValues();
   let targetRow = -1;
-  for (let i = data.length - 1; i >= 1; i--) {
-    if (data[i][1] === pupilName) { targetRow = i + 1; break; }
+
+  // Prefer the exact row from the submission if provided
+  if (rowNum && rowNum >= 2 && rowNum <= data.length) {
+    targetRow = rowNum;
+  } else {
+    // Fallback: last row matching pupil name
+    for (let i = data.length - 1; i >= 1; i--) {
+      if (data[i][1] === pupilName) { targetRow = i + 1; break; }
+    }
   }
   if (targetRow < 0) return;
 

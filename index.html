@@ -422,6 +422,7 @@ html, body { height: 100%; overflow: hidden; font-family: 'Georgia', serif; back
 // CONFIG — paste your Apps Script Web App URL here after deploying backend.gs
 // ======================================================
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
 
 // ======================================================
 // TEXTS
@@ -762,6 +763,9 @@ window.addEventListener('beforeunload', e => {
 
 // Fetch pupil list from backend, fall back to text input gracefully
 (function loadConfig() {
+  // Resend any submissions that failed earlier (see flushOutbox below)
+  flushOutbox();
+
   // Preload from login.html — silently route without showing name picker
   const preload = JSON.parse(localStorage.getItem('ra_preload') || 'null');
   if (preload && preload.assessment === 'summer') {
@@ -807,7 +811,7 @@ window.addEventListener('beforeunload', e => {
     clearTimeout(timer);
     if (!cachedConfig) showNameFallback();
   };
-  script.src = BACKEND_URL + '?action=getconfig&callback=' + cb;
+  script.src = BACKEND_URL + '?action=getconfig&token=' + WFA_TOKEN + '&callback=' + cb;
   document.body.appendChild(script);
 })();
 
@@ -1499,17 +1503,73 @@ function postToBackend() {
     reviewQuestions
   };
 
-  // Fire-and-forget (no-cors — we can't read the response but data is saved)
-  fetch(BACKEND_URL, {
+  // Outbox first: if the network drops, the answers survive in localStorage
+  // and are re-sent on the pupil's next page load.
+  const outbox = JSON.parse(localStorage.getItem('ra_outbox') || '[]');
+  outbox.push(payload);
+  localStorage.setItem('ra_outbox', JSON.stringify(outbox));
+
+  const el = document.getElementById('done-sending');
+  const showMsg = (txt, bad) => {
+    if (el) { el.style.display = 'block'; el.style.color = bad ? '#f44336' : ''; el.textContent = txt; }
+  };
+
+  fetch(BACKEND_URL + '?token=' + WFA_TOKEN, {
     method: 'POST',
     mode: 'no-cors',
     body: JSON.stringify(payload)
   }).then(() => {
-    const el = document.getElementById('done-sending');
-    if (el) { el.style.display = 'block'; el.textContent = '✓ Answers saved to class spreadsheet'; }
+    // no-cors can't read the response — confirm via the backend check before
+    // trusting that the row landed.
+    return checkPupilSavedRemotely(payload).then(saved => {
+      if (saved) {
+        dropOutboxed(payload);
+        showMsg('✓ Answers saved to class spreadsheet');
+      } else {
+        showMsg('⚠ Saved — we will keep retrying in the background.', false);
+      }
+    });
   }).catch(() => {
-    const el = document.getElementById('done-sending');
-    if (el) { el.style.display = 'block'; el.style.color = '#f44336'; el.textContent = 'Could not save to spreadsheet — check internet connection.'; }
+    showMsg('No internet — answers saved on this device and will resend automatically.', false);
+  });
+}
+
+// ── submission outbox ──────────────────────────────────────────────────────
+function dropOutboxed(payload) {
+  try {
+    const outbox = JSON.parse(localStorage.getItem('ra_outbox') || '[]');
+    const rest = outbox.filter(p => p !== payload);
+    localStorage.setItem('ra_outbox', JSON.stringify(rest));
+  } catch (e) { /* ignore */ }
+}
+
+function checkPupilSavedRemotely(payload) {
+  const qs = '?action=checkpupil&token=' + WFA_TOKEN +
+    '&pup=' + encodeURIComponent(payload.pupilName || '') +
+    '&d=' + encodeURIComponent(payload.date || '');
+  return fetch(BACKEND_URL + qs, { cache: 'no-store' })
+    .then(r => r.json())
+    .then(d => !!(d && d.saved))
+    .catch(() => true); // can't confirm — assume sent rather than lose the drop
+}
+
+function flushOutbox() {
+  let outbox = [];
+  try { outbox = JSON.parse(localStorage.getItem('ra_outbox') || '[]'); } catch (e) {}
+  if (!outbox.length) return;
+  const rest = outbox.slice();
+  outbox.forEach(payload => {
+    fetch(BACKEND_URL + '?token=' + WFA_TOKEN, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify(payload)
+    }).then(() => checkPupilSavedRemotely(payload))
+      .then(saved => {
+        if (saved) {
+          dropOutboxed(payload);
+        }
+      })
+      .catch(() => { /* stay queued for next visit */ });
   });
 }
 

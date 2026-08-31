@@ -67,16 +67,6 @@
   }
   .add-group-btn:hover { background: #e0f0fa; border-color: var(--brand); }
 
-  /* Pupil assignment */
-  textarea { width: 100%; height: 180px; padding: 12px 14px; border: 2px solid #ddd; border-radius: 10px; font-size: 15px; font-family: inherit; resize: vertical; outline: none; }
-  textarea:focus { border-color: var(--brand); }
-  .load-names-btn {
-    margin-top: 10px; padding: 11px 22px; border: none; border-radius: 8px;
-    background: #e8f5fd; color: var(--brand); font-size: 14px; font-weight: 700;
-    font-family: inherit; cursor: pointer; border: 2px solid #b3dff5;
-    transition: background .15s;
-  }
-  .load-names-btn:hover { background: #cce9f8; }
 
   /* Pupil rows */
   #pupil-assign-rows { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
@@ -147,9 +137,9 @@
   <!-- Pupil assignments -->
   <div class="card">
     <h2>📋 Pupil List &amp; Group Assignments</h2>
-    <p class="hint">Paste all pupil names below (one per line) and click <strong>Load Names</strong>. Everyone defaults to your <strong>first group</strong> — only change the dropdown for the few exceptions. Highlighted rows <span style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:4px;padding:1px 6px;">like this</span> are not in the main group.</p>
-    <textarea id="pupil-textarea" placeholder="Alice&#10;Bob&#10;Charlie&#10;..."></textarea>
-    <button class="load-names-btn" onclick="loadNames()">Load Names →</button>
+    <p class="hint">Search the school roster and click a name to add them. Everyone defaults to your <strong>first group</strong> — only change the dropdown for the few exceptions. Highlighted rows <span style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:4px;padding:1px 6px;">like this</span> are not in the main group.</p>
+    <input type="text" id="roster-search" class="group-name-inp" style="width:100%" placeholder="Type a name…" autocomplete="off" oninput="renderRosterResults()">
+    <div id="roster-results" style="max-height:220px;overflow-y:auto;border:1px solid #ddd;border-radius:8px;margin-top:8px;display:none"></div>
     <div id="pupil-assign-rows"></div>
     <div id="group-summary"></div>
   </div>
@@ -246,6 +236,65 @@ async function loadExistingConfig() {
   }
   renderGroups();
   renderPupilRows();
+  loadRosterCandidates();
+  syncRosterQuiet();
+}
+
+// ── Roster (Bromcom via Roster Import) ─────────────────
+let rosterCandidates = [];
+
+async function loadRosterCandidates() {
+  try {
+    const data = await jsonpFetch(BACKEND_URL + '?action=getassessmentroster', 15000);
+    rosterCandidates = Array.isArray(data) ? data : [];
+  } catch(e) { rosterCandidates = []; }
+}
+
+function renderRosterResults() {
+  const q = document.getElementById('roster-search').value.trim().toLowerCase();
+  const box = document.getElementById('roster-results');
+  if (!q) { box.style.display = 'none'; return; }
+  const matches = rosterCandidates.filter(p => (p.first + ' ' + p.last).toLowerCase().includes(q)).slice(0, 8);
+  box.innerHTML = matches.length
+    ? matches.map(p =>
+        `<div onclick="addRosterPupil('${p.upn}')" style="padding:9px 12px;cursor:pointer;border-bottom:1px solid #f0f0f0;font-size:14px" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">${p.first} ${p.last} <span style="color:#aaa;font-size:12px">${p.yearGroup||''} ${p.class||''}</span></div>`
+      ).join('')
+    : '<div style="padding:10px;color:#aaa;font-size:13px">No matches</div>';
+  box.style.display = 'block';
+}
+
+function addRosterPupil(upn) {
+  const p = rosterCandidates.find(c => c.upn === upn);
+  if (!p) return;
+  const name = p.first + ' ' + p.last;
+  if (pupils.some(x => (x.upn && x.upn === upn) || x.name.toLowerCase() === name.toLowerCase())) return;
+  pupils.push({ name, upn, group: groups[0] ? groups[0].id : '' });
+  rosterCandidates = rosterCandidates.filter(c => c.upn !== upn);
+  document.getElementById('roster-search').value = '';
+  document.getElementById('roster-results').style.display = 'none';
+  renderPupilRows();
+}
+
+function removePupil(idx) {
+  pupils.splice(idx, 1);
+  renderPupilRows();
+}
+
+// Quietly attach upn to existing name-only pupils by exact roster match.
+// Never renames anyone — group assignment and login both key on name.
+async function syncRosterQuiet() {
+  try {
+    const result = await jsonpFetch(BACKEND_URL + '?action=syncassessmentroster', 15000);
+    if (result && result.ok && Array.isArray(result.pupils)) {
+      pupils = result.pupils;
+      renderPupilRows();
+      if (result.unmatched && result.unmatched.length) {
+        document.getElementById('save-msg').textContent =
+          'Could not match on the roster: ' + result.unmatched.join(', ') + ' — check the name matches Bromcom exactly.';
+        document.getElementById('save-msg').className = 'msg err';
+      }
+    }
+  } catch(e) { /* background sync — non-critical */ }
 }
 
 // ── Render groups ─────────────────────────────────────
@@ -338,22 +387,6 @@ function updateGroupTexts(uid, idx, checked) {
 }
 
 // ── Pupil rows ────────────────────────────────────────
-function loadNames() {
-  const raw = document.getElementById('pupil-textarea').value;
-  const names = raw.split('\n').map(n => n.trim()).filter(Boolean);
-  if (!names.length) { alert('Please paste at least one name first.'); return; }
-
-  // Preserve existing group assignments where name matches
-  const existing = {};
-  pupils.forEach(p => { existing[p.name] = p.group; });
-
-  pupils = names.map(name => ({
-    name,
-    group: existing[name] || (groups[0] ? groups[0].id : '')
-  }));
-  renderPupilRows();
-}
-
 function renderPupilRows() {
   const container = document.getElementById('pupil-assign-rows');
   const summary = document.getElementById('group-summary');
@@ -371,6 +404,7 @@ function renderPupilRows() {
       <select class="pupil-group-sel${isException ? ' changed' : ''}" data-idx="${i}" onchange="updatePupilGroup(${i}, this.value)">
         ${opts}
       </select>
+      <button class="del-btn" style="padding:4px 9px;font-size:12px" onclick="removePupil(${i})" title="Remove">×</button>
     </div>`;
   }).join('');
 
@@ -380,11 +414,6 @@ function renderPupilRows() {
   summary.innerHTML = groups.map(g =>
     `<div>👥 <strong>${g.name || '(unnamed)'}</strong>: ${counts[g.id] || 0} pupil${(counts[g.id] || 0) === 1 ? '' : 's'}</div>`
   ).join('');
-
-  // Also populate textarea if it's empty
-  if (!document.getElementById('pupil-textarea').value.trim()) {
-    document.getElementById('pupil-textarea').value = pupils.map(p => p.name).join('\n');
-  }
 }
 
 function updatePupilGroup(idx, groupId) {
@@ -396,7 +425,6 @@ function resetAll() {
   if (!confirm('This will clear all groups and pupils. Are you sure?')) return;
   groups = [{ id: '', name: '', assessment: 'summer', texts: [0,1,2], _uid: ++groupIdCounter }];
   pupils = [];
-  document.getElementById('pupil-textarea').value = '';
   renderGroups();
   renderPupilRows();
   document.getElementById('save-msg').textContent = '';
@@ -414,15 +442,6 @@ async function saveConfig() {
       msg.className = 'msg err';
       return;
     }
-  }
-
-  // Collect any names in textarea that haven't been loaded yet
-  const rawNames = document.getElementById('pupil-textarea').value
-    .split('\n').map(n => n.trim()).filter(Boolean);
-
-  // If pupil-assign-rows is empty but textarea has names, auto-assign to first group
-  if (!pupils.length && rawNames.length) {
-    pupils = rawNames.map(name => ({ name, group: groups[0]?.id || '' }));
   }
 
   // Build clean groups (without _uid)
@@ -447,6 +466,6 @@ async function saveConfig() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v31.08.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v31.08.26c</p>
 </body>
 </html>

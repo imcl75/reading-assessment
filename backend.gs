@@ -143,6 +143,10 @@ function doGet(e) {
     result = getGroups(ss);
   } else if (action === 'savegroups') {
     result = saveGroups(e, ss);
+  } else if (action === 'getassessmentroster') {
+    result = getAssessmentRosterCandidates();
+  } else if (action === 'syncassessmentroster') {
+    result = syncAssessmentRoster();
   } else if (action === 'get3in3pupils') {
     const classYear = e.parameter.classYear || '';
     result = get3in3Pupils(classYear);
@@ -739,6 +743,47 @@ function saveGroups(e, ss) {
   }
 
   return { ok: true, groupCount: groups.length, pupilCount: pupils.length };
+}
+
+// Hub pupils not already in the current groups config — for the "Add
+// Pupils" picker. Not restricted to a single year group: Assessment Setup
+// spans KS1/Y3/Y4/Y5 and staff sometimes deliberately assign a child to a
+// different year's assessment (catch-up), so any active pupil is fair game.
+function getAssessmentRosterCandidates() {
+  const hub = fetchHubPupils_();
+  const config = getGroups(null);
+  const existing = {};
+  (config.pupils || []).forEach(function (p) {
+    if (p.upn) existing[p.upn] = true;
+    existing[normaliseName_(p.name)] = true;
+  });
+  return hub
+    .filter(function (p) { return !existing[p.upn] && !existing[normaliseName_(p.first + ' ' + p.last)]; })
+    .map(function (p) { return { upn: p.upn, first: p.first, last: p.last, class: p.class, yearGroup: p.yearGroup }; });
+}
+
+// Attach upn to existing name-only pupils by exact name match. Never
+// renames or removes anyone — group assignment and assessment routing are
+// both keyed on the name string, and login checks pupils by name too.
+function syncAssessmentRoster() {
+  const hub = fetchHubPupils_();
+  const byName = {};
+  hub.forEach(function (p) { byName[normaliseName_(p.first + ' ' + p.last)] = p; });
+
+  const config = getGroups(null);
+  const pupils = config.pupils || [];
+  let attached = 0;
+  const unmatched = [];
+  pupils.forEach(function (p) {
+    if (p.upn) return;
+    const hit = byName[normaliseName_(p.name)];
+    if (hit) { p.upn = hit.upn; attached++; }
+    else { unmatched.push(p.name); }
+  });
+
+  config.pupils = pupils;
+  PropertiesService.getScriptProperties().setProperty('ASSESSMENT_CONFIG_GROUPS', JSON.stringify(config));
+  return { ok: true, attached: attached, unmatched: unmatched, groups: config.groups, pupils: pupils };
 }
 
 function getConfig(ss, assessment) {

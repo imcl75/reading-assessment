@@ -146,6 +146,12 @@ function doGet(e) {
   } else if (action === 'get3in3pupils') {
     const classYear = e.parameter.classYear || '';
     result = get3in3Pupils(classYear);
+  } else if (action === 'get3in3roster') {
+    const classYear = e.parameter.classYear || '';
+    result = get3in3RosterCandidates(classYear);
+  } else if (action === 'sync3in3roster') {
+    const classYear = e.parameter.classYear || '';
+    result = sync3in3Roster(classYear);
   } else if (action === 'save3in3pupils') {
     const classYear = e.parameter.classYear || '';
     const pupilsParam = e.parameter.pupils || '';
@@ -826,6 +832,68 @@ function save3in3Pupils(classYear, pupils) {
     props.setProperty('3IN3_PUPILS', JSON.stringify(pupils));
   }
   return { ok: true, count: pupils.length };
+}
+
+// ── Roster hub bridge ───────────────────────────────────────────────────────
+//
+// 3in3 pupils are name-keyed (see get3in3Pupils above) and that never
+// changes here — progress/results/history all join on the name string, and
+// renaming a pupil on sync would silently orphan their history. upn is
+// purely an added bridge field: it lets "Add a Child" pick a real pupil off
+// the school roster instead of free-typing a name (no more typos/dupes),
+// and lets existing name-only records get a upn attached retroactively by
+// exact name match. Nothing with a upn already, and no existing name, is
+// ever changed.
+
+const HUB_URL = 'https://script.google.com/macros/s/AKfycbxHg89VK1uqbWAJcqruqJFjEaavdWN74eB1KS-U_cMr75oVsBVZSi2X38l018oOYW7-4w/exec';
+const HUB_TOKEN = '2013';
+const THREE_IN_THREE_YEARS = ['Y3', 'Y4', 'Y5', 'Y6'];
+
+function fetchHubPupils_() {
+  const res = UrlFetchApp.fetch(HUB_URL + '?action=getPupils&token=' + HUB_TOKEN, { muteHttpExceptions: true });
+  const data = JSON.parse(res.getContentText());
+  return (data && data.pupils) || [];
+}
+
+function normaliseName_(s) {
+  return String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+// Hub pupils (Y3-Y6) not yet in this year's 3in3 list — for the "Add a
+// Child" picker. Excludes anyone already present (by upn, or by name for
+// pre-migration rows that don't have one yet).
+function get3in3RosterCandidates(classYear) {
+  const hub = fetchHubPupils_().filter(function (p) { return THREE_IN_THREE_YEARS.indexOf(p.yearGroup) !== -1; });
+  const existing = get3in3Pupils(classYear) || [];
+  const existingUpns = {}, existingNames = {};
+  existing.forEach(function (c) {
+    if (c.upn) existingUpns[c.upn] = true;
+    existingNames[normaliseName_(c.name)] = true;
+  });
+  return hub
+    .filter(function (p) { return !existingUpns[p.upn] && !existingNames[normaliseName_(p.first + ' ' + p.last)]; })
+    .map(function (p) { return { upn: p.upn, first: p.first, last: p.last, class: p.class, yearGroup: p.yearGroup }; });
+}
+
+// Attach upn to existing name-only rows by exact name match. Never renames
+// or removes anyone — unmatched names are reported for manual review only.
+function sync3in3Roster(classYear) {
+  const hub = fetchHubPupils_();
+  const byName = {};
+  hub.forEach(function (p) { byName[normaliseName_(p.first + ' ' + p.last)] = p; });
+
+  const pupils = get3in3Pupils(classYear) || [];
+  let attached = 0;
+  const unmatched = [];
+  pupils.forEach(function (c) {
+    if (c.upn) return;
+    const hit = byName[normaliseName_(c.name)];
+    if (hit) { c.upn = hit.upn; attached++; }
+    else { unmatched.push(c.name); }
+  });
+
+  save3in3Pupils(classYear, pupils);
+  return { ok: true, attached: attached, unmatched: unmatched, pupils: pupils };
 }
 
 // ── Save a 3in3 session (called via JSONP GET from index.html) ────────────────

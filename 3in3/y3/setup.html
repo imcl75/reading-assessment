@@ -104,9 +104,11 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 <div id="setup-panel">
   <div class="card">
     <h2>👧 Add a Child</h2>
-    <p class="hint">Enter the child's name and select which year's intervention content they are working on. A Year 3 child who is reading significantly below age-related expectations may be doing Year 3 content.</p>
-    <div class="add-row">
-      <input type="text" id="inp-name" class="inp-name" placeholder="First name Surname" autocomplete="off">
+    <p class="hint">Search for the child on the school roster, then choose which year's intervention content they'll work on. A Year 3 child who is reading significantly below age-related expectations may be doing Year 3 content.</p>
+    <input type="text" id="roster-search" class="inp-name" style="width:100%" placeholder="Type a name…" autocomplete="off" oninput="renderRosterResults()">
+    <div id="roster-results" style="max-height:200px;overflow-y:auto;border:1px solid #ddd;border-radius:8px;margin-top:8px;display:none"></div>
+    <div class="add-row" id="add-row-picked" style="display:none;margin-top:12px">
+      <span id="picked-name" style="font-weight:800;flex:1;color:#1a1a2e"></span>
       <select id="inp-year" class="yr-select">
         <option value="Y3"  selected>Y3 content</option>
       </select>
@@ -194,25 +196,81 @@ async function loadCurrent() {
     }
   } catch(e) { /* no data yet */ }
   renderList();
+  loadRosterCandidates();
+  syncRosterQuiet();
+}
+
+// ── Roster (Bromcom via Roster Import) ──────────────────────────────────────
+let rosterCandidates = [];
+let rosterPicked = null;
+
+async function loadRosterCandidates() {
+  try {
+    const data = await jsonpFetch(BACKEND_URL + '?action=get3in3roster&classYear=' + CLASS_YEAR, 15000);
+    rosterCandidates = Array.isArray(data) ? data : [];
+  } catch(e) { rosterCandidates = []; }
+}
+
+function renderRosterResults() {
+  const q = document.getElementById('roster-search').value.trim().toLowerCase();
+  const box = document.getElementById('roster-results');
+  pickRosterReset();
+  if (!q) { box.style.display = 'none'; return; }
+  const matches = rosterCandidates.filter(p => (p.first + ' ' + p.last).toLowerCase().includes(q)).slice(0, 8);
+  if (!matches.length) {
+    box.innerHTML = '<div style="padding:10px;color:#aaa;font-size:13px">No matches</div>';
+  } else {
+    box.innerHTML = matches.map(p =>
+      `<div onclick="pickRosterPupil('${p.upn}')" style="padding:9px 12px;cursor:pointer;border-bottom:1px solid #f0f0f0;font-size:14px" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">${p.first} ${p.last} <span style="color:#aaa;font-size:12px">${p.class||''}</span></div>`
+    ).join('');
+  }
+  box.style.display = 'block';
+}
+
+function pickRosterPupil(upn) {
+  rosterPicked = rosterCandidates.find(p => p.upn === upn);
+  if (!rosterPicked) return;
+  document.getElementById('roster-results').style.display = 'none';
+  document.getElementById('roster-search').value = '';
+  document.getElementById('picked-name').textContent = rosterPicked.first + ' ' + rosterPicked.last;
+  document.getElementById('add-row-picked').style.display = 'flex';
+}
+
+function pickRosterReset() {
+  rosterPicked = null;
+  document.getElementById('add-row-picked').style.display = 'none';
+}
+
+// Quietly attach upn to existing name-only rows by exact roster match.
+// Never renames anyone — progress/results are joined on name, not upn.
+async function syncRosterQuiet() {
+  try {
+    const result = await jsonpFetch(BACKEND_URL + '?action=sync3in3roster&classYear=' + CLASS_YEAR, 15000);
+    if (result && result.ok && Array.isArray(result.pupils)) {
+      children = result.pupils;
+      renderList();
+      if (result.unmatched && result.unmatched.length) {
+        showSaveMsg('Could not match on the roster: ' + result.unmatched.join(', ') + ' — check the name matches Bromcom exactly.', 'err');
+      }
+    }
+  } catch(e) { /* background sync — non-critical */ }
 }
 
 // ── Add child ─────────────────────────────────────────────────────────────────
 function addChild() {
-  const name = document.getElementById('inp-name').value.trim();
+  if (!rosterPicked) return;
   const yr = document.getElementById('inp-year').value;
-  if (!name) { document.getElementById('inp-name').focus(); return; }
-  if (children.some(c => c.name.toLowerCase() === name.toLowerCase())) {
-    showAddMsg('That name is already in the list.', 'err'); return;
+  const name = rosterPicked.first + ' ' + rosterPicked.last;
+  if (children.some(c => (c.upn && c.upn === rosterPicked.upn) || c.name.toLowerCase() === name.toLowerCase())) {
+    showAddMsg('That child is already in the list.', 'err'); return;
   }
-  children.push({ name, interventionYear: yr });
+  children.push({ name, upn: rosterPicked.upn, interventionYear: yr });
   children.sort((a, b) => a.name.localeCompare(b.name));
-  document.getElementById('inp-name').value = '';
+  rosterCandidates = rosterCandidates.filter(p => p.upn !== rosterPicked.upn);
+  pickRosterReset();
   renderList();
   showAddMsg('Added — remember to save.', 'ok');
 }
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter' && document.activeElement === document.getElementById('inp-name')) addChild();
-});
 function showAddMsg(t, c) {
   const el = document.getElementById('add-msg');
   el.textContent = t; el.className = 'msg' + (c ? ' ' + c : '');
@@ -313,6 +371,6 @@ function showSaveMsg(t, c) {
   el.textContent = t; el.className = 'msg' + (c ? ' ' + c : '');
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v31.08.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v31.08.26b</p>
 </body>
 </html>

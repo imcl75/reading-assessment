@@ -892,7 +892,6 @@ function save3in3Pupils(classYear, pupils) {
 
 const HUB_URL = 'https://script.google.com/macros/s/AKfycbxHg89VK1uqbWAJcqruqJFjEaavdWN74eB1KS-U_cMr75oVsBVZSi2X38l018oOYW7-4w/exec';
 const HUB_TOKEN = '2013';
-const THREE_IN_THREE_YEARS = ['Y3', 'Y4', 'Y5', 'Y6'];
 
 function fetchHubPupils_() {
   const res = UrlFetchApp.fetch(HUB_URL + '?action=getPupils&token=' + HUB_TOKEN, { muteHttpExceptions: true });
@@ -904,11 +903,15 @@ function normaliseName_(s) {
   return String(s || '').trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
-// Hub pupils (Y3-Y6) not yet in this year's 3in3 list — for the "Add a
-// Child" picker. Excludes anyone already present (by upn, or by name for
-// pre-migration rows that don't have one yet).
+// Hub pupils actually IN this year group, not yet in this year's 3in3 list
+// — for the "Add a Child" picker. The intervention CONTENT level (Y3..
+// classYear, chosen separately per child) can be below the child's real
+// year group, but the child themselves must genuinely be in that year —
+// otherwise every setup page ends up offering the whole school's Y3-Y6
+// roster undifferentiated, which is confusing (a Y5 page showing Y3
+// pupils) and risks adding a child to the wrong year's list entirely.
 function get3in3RosterCandidates(classYear) {
-  const hub = fetchHubPupils_().filter(function (p) { return THREE_IN_THREE_YEARS.indexOf(p.yearGroup) !== -1; });
+  const hub = fetchHubPupils_().filter(function (p) { return p.yearGroup === classYear; });
   const existing = get3in3Pupils(classYear) || [];
   const existingUpns = {}, existingNames = {};
   existing.forEach(function (c) {

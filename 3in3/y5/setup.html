@@ -128,6 +128,7 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 
 <script>
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
 const CORRECT_PIN = '2013';
 const CLASS_YEAR = 'Y5';
 const AVAILABLE_YEARS = ['Y3', 'Y4', 'Y5'];
@@ -174,7 +175,7 @@ function jsonpFetch(url, timeout) {
     function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
     window[cb] = data => { cleanup(); resolve(data); };
     script.onerror = () => { cleanup(); reject(new Error('Network error')); };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    script.src = url + (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN + '&callback=' + cb;
     document.body.appendChild(script);
   });
 }
@@ -314,6 +315,6 @@ function showSaveMsg(t, c) {
   el.textContent = t; el.className = 'msg' + (c ? ' ' + c : '');
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v26.08.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v31.08.26a</p>
 </body>
 </html>

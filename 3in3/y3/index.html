@@ -297,7 +297,7 @@ html, body {
 
 <script>
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
-
+const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
 // ── Content Data ─────────────────────────────────────────────────────────────
 // ── Y3 Content ──────────────────────────────────────────────────────────────
 const TEXTS_Y3 = {
@@ -1276,7 +1276,7 @@ function jsonpFetch(url, timeout = 12000) {
     function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
     window[cb] = data => { cleanup(); resolve(data); };
     script.onerror = () => { cleanup(); reject(new Error('Network error')); };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    script.src = url + (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN + '&callback=' + cb;
     document.body.appendChild(script);
   });
 }
@@ -1540,7 +1540,7 @@ async function submitSession() {
     answers: encodeURIComponent(JSON.stringify(answers)),
     scores: encodeURIComponent(JSON.stringify(scores)),
     review: encodeURIComponent(JSON.stringify(reviewList)),
-    classYear: preload.classYear || \'Y3\',
+    classYear: preload.classYear || 'Y3',
     interventionYear: interventionYear
   };
 
@@ -1575,6 +1575,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-20.06.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-31.08.26a</p>
 </body>
 </html>

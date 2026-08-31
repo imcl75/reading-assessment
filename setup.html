@@ -107,7 +107,7 @@
 
 <div class="logo">⚙️</div>
 <h1>Assessment Setup</h1>
-<p class="sub">Wallscourt Farm Academy — Year 4 Reading</p>
+<p class="sub">Wallscourt Farm Academy — Reading Assessments</p>
 <p style="font-size:12px;margin-top:-20px;margin-bottom:28px;"><a href="home.html" style="color:#aaa;text-decoration:none;">← Home</a></p>
 
 <!-- PIN -->
@@ -164,6 +164,7 @@
 
 <script>
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';
+const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
 const CORRECT_PIN = '2013';
 
 const ASSESSMENTS = {
@@ -222,7 +223,7 @@ function jsonpFetch(url, timeout = 10000) {
     function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
     window[cb] = data => { cleanup(); resolve(data); };
     script.onerror = () => { cleanup(); reject(new Error('Network error')); };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cb;
+    script.src = url + (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN + '&callback=' + cb;
     document.body.appendChild(script);
   });
 }
@@ -446,6 +447,6 @@ async function saveConfig() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v31.08.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v31.08.26b</p>
 </body>
 </html>

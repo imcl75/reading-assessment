@@ -209,6 +209,7 @@ async function loadRosterCandidates() {
     const data = await jsonpFetch(BACKEND_URL + '?action=get3in3roster&classYear=' + CLASS_YEAR, 15000);
     rosterCandidates = Array.isArray(data) ? data : [];
   } catch(e) { rosterCandidates = []; }
+  if (document.getElementById('roster-search').value.trim()) renderRosterResults();
 }
 
 function renderRosterResults() {
@@ -371,6 +372,6 @@ function showSaveMsg(t, c) {
   el.textContent = t; el.className = 'msg' + (c ? ' ' + c : '');
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v31.08.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v01.09.26a</p>
 </body>
 </html>

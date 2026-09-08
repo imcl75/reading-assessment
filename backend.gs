@@ -891,7 +891,7 @@ function save3in3Pupils(classYear, pupils) {
 // ever changed.
 
 const HUB_URL = 'https://script.google.com/macros/s/AKfycbxHg89VK1uqbWAJcqruqJFjEaavdWN74eB1KS-U_cMr75oVsBVZSi2X38l018oOYW7-4w/exec';
-const HUB_TOKEN = '2013';
+const HUB_TOKEN = '050d7ae1a6b52eafa7d19b80c844dea8d20d1f678274fe05'; // rotated 2026-09-08
 
 function fetchHubPupils_() {
   const res = UrlFetchApp.fetch(HUB_URL + '?action=getPupils&token=' + HUB_TOKEN, { muteHttpExceptions: true });

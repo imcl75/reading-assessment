@@ -4272,6 +4272,7 @@ const ALL_TEXTS    = { Y3: TEXTS_Y3,    Y4: TEXTS_Y4,    Y5: TEXTS_Y5,    Y6: TE
 // ── State ─────────────────────────────────────────────────────────────────────
 let pupilName = '';
 let interventionYear = 'Y6';
+let classYear = 'Y6';
 let activeSessions = SESSIONS_Y6;
 let TEXTS = TEXTS_Y6;
 let currentSession = null;
@@ -4284,6 +4285,7 @@ let startTime = null;
     const preload = JSON.parse(localStorage.getItem('ra_preload') || '{}');
     pupilName = preload.name || 'Unknown';
     interventionYear = preload.interventionYear || 'Y6';
+    classYear = preload.classYear || 'Y6';
     activeSessions = ALL_SESSIONS[interventionYear] || SESSIONS_Y6;
     TEXTS = ALL_TEXTS[interventionYear] || TEXTS_Y6;
     document.getElementById('pupil-name-hdr').textContent = pupilName;
@@ -4576,7 +4578,7 @@ async function submitSession() {
     answers: encodeURIComponent(JSON.stringify(answers)),
     scores: encodeURIComponent(JSON.stringify(scores)),
     review: encodeURIComponent(JSON.stringify(reviewList)),
-    classYear: preload.classYear || 'Y6',
+    classYear: classYear,
     interventionYear: interventionYear
   };
 
@@ -4611,6 +4613,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y6-31.08.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y6-09.09.26a</p>
 </body>
 </html>

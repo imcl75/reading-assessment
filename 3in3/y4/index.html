@@ -1210,6 +1210,7 @@ const ALL_SESSIONS = { Y3: SESSIONS_Y3, Y4: SESSIONS_Y4 };
 // ── State ─────────────────────────────────────────────────────────────────────
 let pupilName = '';
 let interventionYear = 'Y4';
+let classYear = 'Y4';
 let activeSessions = SESSIONS_Y4;
 let currentSession = null;
 let answers = {};
@@ -1221,6 +1222,7 @@ let startTime = null;
     const preload = JSON.parse(localStorage.getItem('ra_preload') || '{}');
     pupilName = preload.name || 'Unknown';
     interventionYear = preload.interventionYear || 'Y4';
+    classYear = preload.classYear || 'Y4';
     activeSessions = ALL_SESSIONS[interventionYear] || SESSIONS_Y4;
     document.getElementById('pupil-name-hdr').textContent = pupilName;
     fetchProgress();
@@ -1510,7 +1512,7 @@ async function submitSession() {
     set: currentSession.set,
     date: new Date().toLocaleDateString('en-GB'),
     timeTaken,
-    classYear: preload.classYear || 'Y4',
+    classYear: classYear,
     interventionYear: interventionYear,
     answers: encodeURIComponent(JSON.stringify(answers)),
     scores: encodeURIComponent(JSON.stringify(scores)),
@@ -1548,6 +1550,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v31.08.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-09.09.26a</p>
 </body>
 </html>

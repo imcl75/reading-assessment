@@ -1,0 +1,2288 @@
+[
+ {
+  "id": "32-1",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "The key to the shed.",
+    "guidance": "Accept: the shed key / a key."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "He felt sad or embarrassed about no longer being able to look after the allotment himself, because asking seemed to cost him something.",
+    "guidance": "1 mark for a sensible feeling (sad, reluctant, embarrassed, proud). 1 mark for linking it to leaving the allotment / his knees / “the request had cost him a good deal”."
+   },
+   {
+    "n": 4,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "without the slightest interest in me",
+    "guidance": "Accept “without the slightest interest”."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     3,
+     2,
+     1
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "That it seemed proud, calm and important, as if it knew it was old and wise.",
+    "guidance": "Accept any answer that treats the tree as if it had human pride or dignity."
+   },
+   {
+    "n": 7,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "The narrator was thinking of neighbours who had been kind or were busy: Mrs Okafor had left chutney; the couple with twins had no spare time.",
+    "guidance": "1 mark for kindness / sharing / repaying kindness. 1 mark for evidence (Mrs Okafor’s chutney or the busy couple with twins)."
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Patience in life / how people need to be patient.",
+    "guidance": "Accept: waiting, patience, people, life. Do not accept “fruit”."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "The pear meant a great deal to him and reminded him of the allotment he missed; a letter from a loved one is precious and welcome.",
+    "guidance": "1 mark for the idea that the pear was precious / welcome / a reminder of something he missed. 1 mark for explaining the link to a letter or to missing the allotment."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "Return to care for the tree, because the narrator now understands what it meant to Grandad.",
+    "guidance": "Accept any sensible prediction supported by the text."
+   }
+  ]
+ },
+ {
+  "id": "32-2",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "About a millimetre.",
+    "guidance": "Accept: 1 mm / a millimetre."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     2,
+     1,
+     3
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "Peat holds (locks in) huge amounts of carbon because plants do not rot there; peatlands store more carbon than all of the world’s forests.",
+    "guidance": "1 mark for the idea that carbon is stored / kept locked in the peat. 1 mark for a supporting detail (plants do not rot; more than all the forests)."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The stored carbon is released as carbon dioxide.",
+    "guidance": "Accept any answer about carbon dioxide escaping / rotting starting again."
+   },
+   {
+    "n": 8,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "like enormous sponges",
+    "guidance": "Accept “enormous sponges”."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It soaks up rainwater and slows the flow into rivers, which can reduce flooding.",
+    "guidance": "Accept any answer about reducing flooding."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "They help the reader picture the hairs as wet and shiny (glistening) and as able to trap insects (sticky).",
+    "guidance": "1 mark for each of two sensible points about picturing the plant or its trapping of insects. Max 2."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Peat has little air, so it preserves ancient wooden objects.",
+    "guidance": "Accept any answer about preserving old objects."
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "The bog has been made wet again and moss has started to grow.",
+    "guidance": "Accept: water has backed up / sphagnum moss has grown."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   }
+  ]
+ },
+ {
+  "id": "32-3",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "In the cupboard in Room 6.",
+    "guidance": "Accept: a cupboard / Room 6."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Callum.",
+    "guidance": "Accept Callum only."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "The glittering silver speck on the carpet; the sharp smell (of glue); Callum’s fingertips pressing together and pulling apart as if something sticky clung to them.",
+    "guidance": "1 mark for each of two different clues. Max 2."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "They looked carefully or deliberately innocent, as though they were putting it on.",
+    "guidance": "Accept any answer suggesting looks that seemed put on or practised."
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     2,
+     1,
+     3
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She thought he was embarrassed and had not stolen it; she did not want to shame him.",
+    "guidance": "Accept any answer about kindness, privacy or avoiding embarrassment."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "T",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "He was too embarrassed to admit he had broken it; he is shy and wanted to fix his own mistake.",
+    "guidance": "1 mark for the reason (embarrassed / afraid of being blamed). 1 mark for a suitable character point (shy, responsible, honest in trying to fix it)."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "Callum was very embarrassed; beetroot is a deep red, so the comparison helps the reader picture how red his face was.",
+    "guidance": "1 mark for embarrassment / feeling caught. 1 mark for explaining the comparison (deep red colour)."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "The club will play with the mended queen, because it is drying on the radiator and Mr Adeyemi has forgiven Callum.",
+    "guidance": "Accept any sensible prediction linked to the text."
+   }
+  ]
+ },
+ {
+  "id": "32-4",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Visitors stop at nearby cafés and shops.",
+    "guidance": "Accept: cafés / shops / visitors spend money nearby."
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     2,
+     1,
+     3,
+     4
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 5,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "Any two of: keeping objects at the right temperature; guarding them; cleaning and repairing them by experts; heating, lighting and repairing the building.",
+    "guidance": "1 mark for each. Max 2."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "They do not feel they must see everything to get their money’s worth; they can come back another day.",
+    "guidance": "Accept any answer that links relaxed visits to free entry and returning."
+   },
+   {
+    "n": 8,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Fragile",
+    "guidance": "Accept “Fragile” only."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "Free museums are paid for by taxes, so people pay even if they never go; charging would make the people who use the museum pay more of the cost.",
+    "guidance": "1 mark for the idea that taxes pay for free museums. 1 mark for the point that charging is fairer to those who do not visit / users should pay."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "Something small can spark a big, lasting interest.",
+    "guidance": "Accept any answer about a small experience leading to a long-term interest."
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It gives arguments for both sides / each side has an answer to the other / it ends by inviting readers to decide.",
+    "guidance": "Accept any one relevant example."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "Paragraph 5, because it is a compromise between free entry and charging.",
+    "guidance": "Accept paragraph 5 with a brief reason about a compromise."
+   }
+  ]
+ },
+ {
+  "id": "32-5",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Carrying water; stripping bark from branches; sweeping the floor.",
+    "guidance": "Accept any one."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "so cold that it made his wrists ache",
+    "guidance": "Accept “made his wrists ache”."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It keeps the fibres pure and clean and hides nothing.",
+    "guidance": "Accept any answer linked to purity, cleanness or hiding nothing."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     4,
+     2,
+     1
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "It shows the paper was very thin and see-through; a window is clear, so the reader can picture the thin patch.",
+    "guidance": "1 mark for the paper being very thin / see-through. 1 mark for explaining the effect of comparing it to a window."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "His face burned; he said it was ruined and apologised.",
+    "guidance": "Accept any one relevant piece of evidence."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "F",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "It showed Haru’s thinking / what it was like to be bad at something; he wanted Haru to remember the feeling of being a beginner.",
+    "guidance": "1 mark for reference to remembering how it feels to be bad at something / learning. 1 mark for linking to what the sheet shows (what Haru was thinking)."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "He too once made poor sheets and his own master kept them; he is passing on the lesson.",
+    "guidance": "Accept: he was once a beginner / his master kept his sheets."
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "To give a quiet, calm ending; the lesson has been finished and there is nothing more to say.",
+    "guidance": "Accept any sensible comment about a calm or thoughtful ending."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "Keep it, because Master Sato taught him to remember what it feels like to be bad at something.",
+    "guidance": "Accept any sensible prediction supported by the text."
+   }
+  ]
+ },
+ {
+  "id": "32-6",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Scribes, most of them monks.",
+    "guidance": "Accept: scribes / monks."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "goldsmith",
+    "guidance": "Accept “goldsmith” only."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It could print only the one page it had been carved for.",
+    "guidance": "Accept any answer saying a block could only print its own page / could not be rearranged."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     2,
+     1,
+     4
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "T",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "The letters could be rearranged to make any page; hundreds of identical letters could be cast from one mould; metal letters were tough enough to be used again and again.",
+    "guidance": "1 mark each for two different reasons. Max 2."
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "That it spread quickly and everybody wanted it.",
+    "guidance": "Accept any answer about it spreading fast, being unstoppable or too useful to hold back."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "He used money that belonged to somebody else and had to pay it back.",
+    "guidance": "Accept: he took a loan / owed money to others."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "That Gutenberg could not repay it, so he lost his workshop.",
+    "guidance": "Accept any answer saying he could not pay it back or had to give up his workshop."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "It grew, because more people could afford books and learned to read.",
+    "guidance": "Accept any answer saying more people learned to read."
+   }
+  ]
+ },
+ {
+  "id": "33-1",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Since April.",
+    "guidance": "Accept: since April / from April. Do not accept “for years”."
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "rolled her eyes",
+    "guidance": "Accept “unimpressed” or “rolled her eyes”."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "She suddenly realised the sunflower was standing on a hidden bucket, which would make it seem taller than it really was.",
+    "guidance": "1 mark for the hidden bucket / raised pot. 1 mark for the effect: it would add height so the measurement would be unfair (“what the bucket would do to the measurement”)."
+   },
+   {
+    "n": 5,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "He was disappointed but trying to hide it; the idea of the smile being fetched from far away shows it took great effort.",
+    "guidance": "1 mark for disappointed / sad / pretending. 1 mark for explaining the effect of “fetched from a long way off” (effort, reluctance, slow to arrive)."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "Uncomfortable and guilty; the problem was small but would keep hurting.",
+    "guidance": "Accept: guilty / uneasy / uncomfortable / it would keep bothering her."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She is trying to excuse herself for saying nothing.",
+    "guidance": "Accept any answer about justifying or making it easier to stay silent."
+   },
+   {
+    "n": 9,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     1,
+     3,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "The band is cheerful and unaware of the tension inside the tent.",
+    "guidance": "Accept: it does not know / cannot notice what is happening; contrast between cheerful music and a tense moment."
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 2,
+    "answer": "Tell the judge about the bucket and give up the win; she says “Excuse me” and reaches for the cloth.",
+    "guidance": "1 mark for a sensible prediction (admit / confess). 1 mark for evidence (“Excuse me”, took a step, reached for the corner of the cloth)."
+   },
+   {
+    "n": 14,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   }
+  ]
+ },
+ {
+  "id": "33-2",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Hammered in the wooden posts; stretched out the cable/wire.",
+    "guidance": "Accept either."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "about thirty metres of chart",
+    "guidance": "Accept “thirty metres of chart” / “about thirty metres”."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "She remembered seeing the same mark in the same place before, and she checked her earlier charts to confirm it.",
+    "guidance": "1 mark for remembering the mark had appeared before / in the same place. 1 mark for checking the earlier charts and finding it again."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     2,
+     4,
+     1,
+     3
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "It kept to the stars rather than the clock: it appeared at the same point in the sky each time, whereas human interference followed the working day.",
+    "guidance": "1 mark for the signal appearing at the same point in the sky each time. 1 mark for contrast with the human day / clock."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "The signals are not really speaking; it makes the idea of many civilisations sending messages seem absurd and helps explain why the theory was dropped.",
+    "guidance": "1 mark for: not literal speaking. 1 mark for the effect (shows the idea is unlikely / absurd / supports the argument)."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Bell found several signals in different parts of the sky, all with the same rhythm, which made no sense for messages.",
+    "guidance": "Accept any answer referring to more than one signal keeping the same rhythm."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "How a spinning star sends a beam that sweeps past the Earth at regular intervals.",
+    "guidance": "Accept: the beam sweeps round like a turning light / the pulses come regularly."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2c",
+    "marks": 2,
+    "answer": "She examined every centimetre of chart; she remembered and checked the odd mark; she asked for a faster recording; she kept searching and found more signals; she gave her prize money to students.",
+    "guidance": "1 mark each for two sensible points supported by the text. Max 2."
+   }
+  ]
+ },
+ {
+  "id": "33-3",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Twenty-three.",
+    "guidance": "Accept 23."
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "scarcely larger than a fingernail",
+    "guidance": "Accept “scarcely larger than a fingernail” or “tiny”."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "The mistake seemed very obvious and shameful to her, even though it was small; a drop of ink stands out starkly on a clean page.",
+    "guidance": "1 mark for the mistake seeming very noticeable / making her feel bad. 1 mark for explaining the link with ink on a clean page (small but stands out)."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It reminds her that he examines his work closely, so he would probably notice the mistake.",
+    "guidance": "Accept any answer showing she realises the fault might be noticed / that care matters."
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     2,
+     1,
+     4
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "He does not scold her; he smiles and shows her how to turn the mistake into a new pattern. He is kind, patient and wise.",
+    "guidance": "1 mark for his reaction (smiles / no scolding / offers a solution). 1 mark for a suitable trait supported by evidence."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "That the cloth looked beautiful and glowing, so the mistake had not spoiled it.",
+    "guidance": "Accept: beautiful / glowing / rich in colour."
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She thought nobody would notice one row, and unpicking would take hours.",
+    "guidance": "Accept either reason."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "Not to hurry, because her grandfather said “Hurry, and the cloth remembers” and the mistake came from hurrying.",
+    "guidance": "Accept any sensible answer linked to hurrying."
+   }
+  ]
+ },
+ {
+  "id": "33-4",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "A V shape (narrow and steep-sided).",
+    "guidance": "Accept: V-shaped / narrow with steep sides."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     1,
+     2,
+     3
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 4,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "abrasion",
+    "guidance": "Accept “abrasion” only."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "Meltwater seeps into cracks in the rock and freezes, gripping fragments of stone; when the glacier moves on it drags the stones away.",
+    "guidance": "1 mark for water freezing in cracks and gripping stone. 1 mark for the moving glacier dragging the rocks away."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "A river cuts mainly downwards and winds around obstacles, but a glacier is a huge slab that cannot bend easily and scours the floor and the sides equally.",
+    "guidance": "1 mark for river cutting mainly downwards / winding. 1 mark for glacier scouring floor and sides / being a huge slab that ploughs straight through."
+   },
+   {
+    "n": 7,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "T",
+     "F",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "The glacier pulling pieces of rock out of the ground with force.",
+    "guidance": "Accept: rock being pulled out / gripped and dragged away."
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The smaller glaciers were less powerful, so they cut their valleys less deeply than the main glacier.",
+    "guidance": "Accept any answer about smaller glaciers cutting less deeply."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "Like a conveyor belt, a glacier carries material along and then drops it in a new place.",
+    "guidance": "Accept: it carries things from one place to another."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "It could be an erratic, carried by a glacier and dropped when the ice melted.",
+    "guidance": "Accept any answer that mentions a glacier / ice carrying and dropping it."
+   }
+  ]
+ },
+ {
+  "id": "33-5",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Housesteads Roman Fort.",
+    "guidance": "Accept: Housesteads."
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "AD 122.",
+    "guidance": "Accept 122 / AD 122."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "It is long and huge and rises and falls like a creature’s back; it seems alive but still and powerful.",
+    "guidance": "1 mark for size / length / shape. 1 mark for explaining the effect of a sleeping animal (still, calm, alive, powerful)."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "An enemy would have had to climb the cliff in full view.",
+    "guidance": "Accept any answer about the cliff making approach hard / easily seen."
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     2,
+     1,
+     4
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "He began to count his own steps; he stopped complaining and gazed north; he asked what it would have been like to stand there.",
+    "guidance": "1 mark for each of two pieces of evidence. Max 2."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "T",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "Small white shapes spread widely over the hills.",
+    "guidance": "Accept any answer about small, pale and scattered."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "A work of people and a link to the past, because it was “stitched by careful hands” and the writer has pictured soldiers standing there.",
+    "guidance": "1 mark for the idea that it stands for people / history / effort. 1 mark for evidence (soldiers on the ridge, stones hauled, stitched by careful hands)."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   }
+  ]
+ },
+ {
+  "id": "33-6",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Orange.",
+    "guidance": "Accept orange only."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "cold chips",
+    "guidance": "Accept “cold chips”."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "The crowds moved like streams flowing into a river, in many streams together; it makes them seem like a natural flow of water.",
+    "guidance": "1 mark for the idea of crowds flowing like streams or water. 1 mark for the effect (many separate groups joining together / movement / noise)."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It looks damaged and helpless, moving weakly.",
+    "guidance": "Accept: it looks broken / injured / weak / sad."
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     2,
+     4,
+     1
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "The empty seats and left-behind items suggest the people who had been there, so the stadium still feels as if it holds their memories.",
+    "guidance": "1 mark for the idea that traces of the crowd remain / memories. 1 mark for evidence (scarves, glove, programme, “memory of somebody who had leapt from it”)."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "T",
+     "F",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "He is caring and gentle towards the pitch; it makes the reader feel warmth and see the pitch as something precious.",
+    "guidance": "1 mark for gentle / caring / patient. 1 mark for the effect on the reader (warmth, tenderness, the pitch seen as precious or alive)."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The sound echoes around the huge, empty space and returns a moment late.",
+    "guidance": "Accept: echo."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "It will be busy and full again the next time it is used for a match.",
+    "guidance": "Accept any answer that says it will be used / filled with people again."
+   }
+  ]
+ },
+ {
+  "id": "34-1",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "amber",
+    "guidance": "Accept “amber” only."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Eleven years.",
+    "guidance": "Accept 11."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     1,
+     3,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She is hiding her worry or sadness about a difficult day / trying to stay cheerful and in control.",
+    "guidance": "Accept any answer that shows the voice is a cover for stress, worry or sadness. Do not accept “she is happy”."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "That the family’s presence is already fading from the house now it is empty.",
+    "guidance": "Accept any answer about the house losing signs of the family, or feeling empty or no longer theirs. The idea that the house is treated like a person is worth crediting."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "She is hurt or upset (1) because she believes the marks are important and should not be covered up as if they meant nothing (1).",
+    "guidance": "1 mark for a suitable feeling (hurt, sad, unhappy, protective). 1 mark for explaining that the marks matter to her or that covering them denies this. Max 2."
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "That they hold a private record of Amara’s childhood (1), which only the door (and the family) can read or that outsiders would not understand (1).",
+    "guidance": "1 mark for the idea that the marks record or tell the story of growing up, like a diary. 1 mark for the idea that they are private, personal or not easy for others to understand. Max 2."
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The family’s memories / Amara growing up / what the house and family had meant to them.",
+    "guidance": "Accept any answer about memories, family life, childhood or feelings about leaving. Do not accept an answer only about paint."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 2,
+    "answer": "Yes, she now values the marks and the memories they hold (1), so she is likely to start again / ask her father to make new ones (1).",
+    "guidance": "1 mark for a sensible prediction (yes or a well-reasoned no). 1 mark for a reason based on the story, for example how she now sees the marks or the closeness with her father. Max 2."
+   }
+  ]
+ },
+ {
+  "id": "34-2",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "dull orange-grey haze",
+    "guidance": "Accept “a dull orange-grey haze”. The words must be copied exactly."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "The brightest horizon.",
+    "guidance": "Accept the brightest part of the horizon / the brightest light. Do not accept “the sea” alone."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     2,
+     3,
+     1
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "That the writer is not against all lighting; the problem is careless lighting, which can be fixed.",
+    "guidance": "Accept any answer showing that the writer is not asking for no lights, only better lighting."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "It happened by accident; nobody planned it.",
+    "guidance": "Accept: it was unintentional / we did not realise / we did not set out to do it."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "Nothing useful (such as a path or road) is lit (1); the light goes into the sky, where it is wasted and hides the stars (1).",
+    "guidance": "1 mark for the idea that no useful place or thing is lit. 1 mark for the light being wasted or lost into the sky. Max 2."
+   },
+   {
+    "n": 9,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "inexpensive",
+    "guidance": "Accept “inexpensive” only."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "That light which used to guide them correctly now leads them the wrong way because of artificial lights.",
+    "guidance": "Accept any answer showing that a natural signal has become misleading because of artificial light."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "People are responsible for hiding the stars (1), so people can undo it / the loss can be reversed (1).",
+    "guidance": "1 mark for the idea that humans caused the loss. 1 mark for the idea that it can be put right. Max 2."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "They would disagree: the writer wants well-aimed, lower and sensible lighting, not no lighting.",
+    "guidance": "Accept any answer that shows the writer would not support no lights and would suggest better-aimed or reduced lighting instead."
+   }
+  ]
+ },
+ {
+  "id": "34-3",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Above the launderette on Fenner Street.",
+    "guidance": "Accept above the launderette OR on Fenner Street."
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "puckered",
+    "guidance": "Accept “puckered” only."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     4,
+     2,
+     1
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The narrator did not want to go and expected to be bored, but planned to behave politely or with self-respect.",
+    "guidance": "Accept any answer showing reluctance plus an attempt to hide it or behave well."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "He wanted the narrator to work it out for themself (1) because that is how they would learn to notice problems and understand the craft (1).",
+    "guidance": "1 mark for the idea that he wanted the narrator to think or find the answer. 1 mark for the idea that this helps learning or builds skill or confidence. Max 2."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "Carefully and with interest, trying to work out what the narrator was like.",
+    "guidance": "Accept: thoughtfully / with curiosity / without judging too quickly. Do not accept answers that suggest he disliked the narrator."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "At first “Again” felt like criticism or failure (1); later it felt like a chance to improve or an encouragement to keep trying (1).",
+    "guidance": "1 mark for the earlier feeling of being judged or told off. 1 mark for the later feeling of being encouraged or given a chance. Max 2."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "He respected the work as the narrator’s own / was proud of it and did not want to hide it.",
+    "guidance": "Accept: he valued or respected it / wanted the narrator to feel ownership. Do not accept “he forgot to fix it”."
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "The narrator was too overcome with feeling (1); “bind” links to bookbinding, as if the words would not hold together like pages (1).",
+    "guidance": "1 mark for strong emotion, shyness or being lost for words. 1 mark for linking “bind” to the book-making theme or to words not holding together. Max 2."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Over thirty years.",
+    "guidance": "Accept more than 30 years."
+   }
+  ]
+ },
+ {
+  "id": "34-4",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Dormancy.",
+    "guidance": "Accept “dormancy” only."
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "enzymes",
+    "guidance": "Accept “enzymes” only."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     1,
+     3,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It has not had its weeks of cold, so it stays dormant and avoids growing just before winter frost.",
+    "guidance": "Accept: it is waiting for the cold period to finish; this keeps it safe from frost. Accept any answer that links waiting to being protected."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "They hold little food (1), so they must be near the surface to reach the sun before their supplies run out (1).",
+    "guidance": "1 mark for little stored food. 1 mark for needing to be close to the surface / reach the sun. Max 2."
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "That they are not dead but ready to grow when the time is right, as if they are waiting on purpose.",
+    "guidance": "Accept: they are alive / waiting / prepared. Reward any mention of the seed being treated like a person waiting."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It wears the coat thin so that water can get in.",
+    "guidance": "Accept: the coat is worn down / made thinner / water can enter."
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 2,
+    "answer": "Oxygen (1) and a suitable temperature (1).",
+    "guidance": "1 mark each. Accept air for oxygen, and warmth for a suitable temperature."
+   },
+   {
+    "n": 13,
+    "kind": "find",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "astonishingly long",
+    "guidance": "Accept “astonishingly long” only."
+   },
+   {
+    "n": 14,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   }
+  ]
+ },
+ {
+  "id": "34-5",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "blackened",
+    "guidance": "Accept “blackened” only."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Ticket stubs, sweet wrappers or a single glove.",
+    "guidance": "Accept any one of these."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     3,
+     1,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "It makes the station seem huge, alive and calm/quiet, as if it is asleep.",
+    "guidance": "Accept any answer about size, life, sleep or stillness."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "Slowly, gradually and quietly, spreading out one by one.",
+    "guidance": "Accept: slowly / gradually / steadily / quietly / a few at a time."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "He feels nervous or defensive (1) because a shield protects someone, so the briefcase is something he uses to protect himself from worry (1).",
+    "guidance": "1 mark for a suitable feeling (worried, nervous, tense, guarded). 1 mark for explaining the link to a shield or protection. Max 2."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "They are very close and comfortable together, so they do not need to talk.",
+    "guidance": "Accept: they know each other well / have been together a long time / are at ease in silence."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "They all react together (1) and eagerly or hopefully, drawn towards the board as flowers are drawn to the light (1).",
+    "guidance": "1 mark for the idea of moving or reacting together / at the same moment. 1 mark for the idea of hope, eagerness or being drawn to something. Max 2."
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "That something of the people who left, such as their farewells or feelings, remains in the station.",
+    "guidance": "Accept: memories / goodbyes / the feeling of the people who have gone / a sense of loss. Do not accept a literal answer such as “a train”."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "Changed: it is now lit by the first light of morning / the train and people have gone (1). Same: it is still quiet and almost empty / the cleaner is still there (1).",
+    "guidance": "1 mark for a valid change (light coming, the train or people gone, lamps brighter). 1 mark for a valid similarity (quiet, still, empty, cleaner or pigeon present, echoing calm). Max 2."
+   }
+  ]
+ },
+ {
+  "id": "34-6",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "A poet (Lord Byron).",
+    "guidance": "Accept poet."
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Analytical Engine",
+    "guidance": "Accept “the Analytical Engine”."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     2,
+     4,
+     1,
+     3
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She wanted Ada to be different from her father, who was a poet.",
+    "guidance": "Accept any answer linked to a different upbringing from her father’s. Do not accept “because Ada was clever” alone."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "That she was determined, curious and imaginative and did not give up when something seemed impossible.",
+    "guidance": "Accept any one or two of: determined, curious, imaginative, brave, creative."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "That it could only do what people told it to do / it could not think up anything new itself.",
+    "guidance": "Accept any answer about the machine being unable to think of new things alone."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 2,
+    "answer": "Machines at the time were seen as little more than adding tools (1), yet Ada imagined one could use symbols to make music (1).",
+    "guidance": "1 mark for the idea that machines were only thought of as calculators. 1 mark for the idea that Ada saw further, such as making music. Max 2."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 2,
+    "answer": "Ada did not build machines (1) but she had the rare vision to foresee what machines could become (1).",
+    "guidance": "1 mark for the idea that Ada did not construct machines. 1 mark for the idea of vision or foresight about the future. Max 2."
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The machine was never built and there were no real computers, so people could not see how important her ideas were.",
+    "guidance": "Accept any sensible reason linked to no working machine or no computers at the time."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 14,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "1843",
+    "guidance": "Accept 1843 only."
+   }
+  ]
+ }
+]

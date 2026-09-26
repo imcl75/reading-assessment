@@ -1,0 +1,2096 @@
+[
+ {
+  "id": "21-1",
+  "level": 21,
+  "title": "The Bookshop on Chapel Lane",
+  "type": "Narrative",
+  "text": [
+   "On Saturdays, Ravi helped his aunt in her second-hand bookshop. It was a narrow, crooked little shop, and every wall was piled high with books. Ravi’s job was to dust the shelves and put returned books back in their proper places.",
+   "One rainy afternoon, an elderly man came in, shaking the drops from his umbrella. “I am looking for a book I loved as a boy,” he said, “but I have forgotten the title.” Ravi’s aunt was busy at the till, so Ravi stepped forward. “I could help you look,” he said.",
+   "“What do you remember about it?” asked Ravi. The man frowned and stared at the ceiling. “It had a green cover,” he said slowly. “It was about a boy who sailed across the sea in a small boat. And there was a parrot who could talk.”",
+   "Ravi began to search. He pulled out a green book called Farmer Jack, but the man shook his head. He tried another, about a family of ducks, but that was not right either. The man sighed. “Perhaps it was too long ago,” he said.",
+   "“Wait,” said Ravi. He remembered a shelf near the window where he had been tidying that morning. He hurried over and ran his finger along the spines. Halfway along, he spotted a faded green cover with a tiny picture of a boat. The title was The Boy and the Blue Parrot.",
+   "He carried it back to the man, who took it in both hands as though it were made of glass. He opened the first page and read a few lines. Then his face broke into a huge smile. “This is the very one,” he whispered. “I have not seen it for sixty years.”",
+   "At the door, he turned to Ravi. “Thank you,” he said. “You have a real gift for finding things.”",
+   "When the door had closed, Ravi’s aunt winked at him. “You may just have a job here when you are older,” she said. Ravi grinned and went back to his dusting, feeling ten feet tall."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was Ravi’s job in the bookshop?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What did the man remember about the book?",
+    "options": [
+     "It was very long",
+     "It had a red cover",
+     "It was about a farmer",
+     "It had a talking parrot in it"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 1 that tells you the shop was not wide."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “frowned” suggest the man was doing?",
+    "options": [
+     "Laughing",
+     "Trying hard to remember",
+     "Falling asleep",
+     "Getting angry"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "Ravi found a faded green book.",
+     "The man said he had forgotten the title.",
+     "Ravi’s aunt winked at him.",
+     "Ravi showed the man a book about ducks."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The man was carrying an umbrella.",
+     "Ravi found the book on a shelf near the window.",
+     "The man had read the book last year."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Ravi offer to help the man instead of his aunt?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that the book mattered a great deal to the man?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Ravi went back to his dusting “feeling ten feet tall”. What does this tell you about how he felt?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "What did Ravi’s aunt mean when she said he might have “a job here when you are older”?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What do you think Ravi will do the next Saturday?",
+    "options": [
+     "Stop going to the shop",
+     "Help his aunt in the shop again",
+     "Sell the parrot book",
+     "Move to another town"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "21-2",
+  "level": 21,
+  "title": "From Bean to Bar",
+  "type": "Explanation",
+  "text": [
+   "Chocolate comes from the seeds of a tree called the cacao tree. These trees grow only in warm, wet parts of the world, such as West Africa and South America. It takes a great many steps to turn those seeds into the smooth chocolate that we buy in shops.",
+   "The story begins with the cacao pod. A pod is about the size of a small rugby ball, and it grows straight out of the tree’s trunk and branches. Inside each pod are about forty seeds, called beans, which are covered in a sticky white pulp. Farmers cut the pods open with a large knife and scoop out the beans.",
+   "Next, the beans are piled up and covered with leaves for several days. During this time, they heat up and begin to change. This step is called fermenting. It is very important, because it is what starts to give the beans their rich, chocolate flavour.",
+   "After that, the beans are spread out in the sun to dry. Farmers turn them over regularly so that they dry evenly. When they are dry, the beans are packed into sacks and sent by ship to factories all over the world.",
+   "At the factory, the beans are roasted in large ovens. Roasting makes the flavour stronger and the smell delicious. Then the thin shells are cracked off, and the insides are ground into a thick, dark paste.",
+   "The paste is not yet sweet. To make the chocolate we like to eat, makers mix in sugar. For milk chocolate, they also add milk. The mixture is then stirred slowly for many hours until it is silky smooth.",
+   "Finally, the warm liquid chocolate is poured into moulds and left to cool. As it cools, it becomes hard and shiny. The bars are wrapped and packed, and then they are ready to be taken to shops.",
+   "So the next time you enjoy a piece of chocolate, remember how far it has travelled and how many people helped to make it."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What do cacao trees grow in?",
+    "options": [
+     "Cold, dry places",
+     "Warm, wet places",
+     "Deserts",
+     "Mountains"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "About how many beans are inside each pod?"
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word that names the step when the beans are covered with leaves and heat up."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 6, what does the word “silky” suggest about the chocolate?",
+    "options": [
+     "Very hot",
+     "Smooth and soft",
+     "Sticky",
+     "Crunchy"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how chocolate is made.",
+    "items": [
+     "The beans are roasted in a factory.",
+     "The beans are dried in the sun.",
+     "The liquid chocolate is poured into moulds.",
+     "Farmers scoop the beans out of the pods."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Cacao pods grow on the trunk and branches of the tree.",
+     "The beans are sent to factories by ship.",
+     "Roasting makes the beans taste weaker."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do farmers turn the beans over while they dry in the sun?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "The paste is “not yet sweet”. What is added to make it sweet?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the chocolate becomes hard only after it is poured into moulds?"
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the whole text?",
+    "options": [
+     "Farmers grow cacao trees in Britain.",
+     "Chocolate is only made from milk and sugar.",
+     "Chocolate is made by turning cacao beans through many careful steps.",
+     "Rugby balls are made from cacao pods."
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "The last paragraph says to “remember how far it has travelled”. What does the writer want the reader to think about?"
+   }
+  ]
+ },
+ {
+  "id": "21-3",
+  "level": 21,
+  "title": "Snail Race",
+  "type": "Narrative",
+  "text": [
+   "Every year in Aisha’s school, the Year Threes held a snail race. Aisha had been looking forward to it for weeks. She had found her snail under a flowerpot in the garden, and she had named him Turbo.",
+   "On the morning of the race, Mrs Kelly drew a large circle on the playground with chalk. The snails were to be placed in the middle, and the first snail to reach the edge would be the winner. Aisha set Turbo down carefully and crossed her fingers.",
+   "“Ready, steady, go!” called Mrs Kelly. For a long moment, nothing happened. Then Turbo pulled his head into his shell and stayed exactly where he was. Aisha groaned. The other snails were slowly creeping outwards, leaving shiny silver trails behind them.",
+   "“Oh, Turbo,” Aisha muttered. “Please move.” Her friend Callum leaned over her shoulder. “Mine is nearly at the edge,” he said proudly. “He’s called Lightning.” Aisha sighed. It seemed that Turbo had not been the best choice.",
+   "Then something odd happened. The playground had been warming up in the sun all morning, and Turbo’s head slowly reappeared. He stretched out his long, soft body and began to glide across the ground. He was not fast, but he kept going without stopping.",
+   "Meanwhile, Callum’s snail had wandered off in the wrong direction and was heading back towards the middle. Other snails had stopped to rest, and one had even begun to climb up a boy’s shoe.",
+   "Turbo kept moving steadily. Inch by inch, he crept towards the chalk line, and Aisha held her breath. At last, his front end slid across it. “We have a winner!” cried Mrs Kelly. The whole class cheered.",
+   "Aisha scooped up her snail and held him in her palm. “You were just waiting for the right moment,” she said, laughing. Turbo stayed in his shell, looking quite pleased with himself. Then Aisha carried him carefully back to the flowerpot where she had found him."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where did Aisha find her snail?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How did Mrs Kelly mark out the race?",
+    "options": [
+     "With a rope",
+     "With a chalk circle",
+     "With cones",
+     "With a ruler"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 3 that tells you what the snails left behind on the ground."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “glide” mean?",
+    "options": [
+     "Move smoothly",
+     "Jump high",
+     "Roll over",
+     "Run fast"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "Turbo crossed the chalk line.",
+     "Mrs Kelly shouted “Ready, steady, go!”",
+     "Turbo pulled his head into his shell.",
+     "Turbo began to glide across the ground."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Callum’s snail was called Lightning.",
+     "One snail climbed up a boy’s shoe.",
+     "Aisha kept Turbo as a pet at home."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Turbo began to move after the playground had warmed up in the sun?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Aisha groan when Turbo pulled his head into his shell?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Callum’s snail not win the race, even though it was nearly at the edge?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says Turbo looked “quite pleased with himself”. What does this make you imagine?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "What lesson could Aisha learn from the race? Use the story to explain."
+   }
+  ]
+ },
+ {
+  "id": "21-4",
+  "level": 21,
+  "title": "The Great Swallow Journey",
+  "type": "Information Report",
+  "text": [
+   "Every spring, swallows arrive in Britain from a long way away. These small, graceful birds have shiny blue backs, red throats and long, forked tails. Each swallow weighs less than a slice of bread. Yet, each year, it makes one of the longest journeys of any small bird.",
+   "Swallows spend the winter in southern Africa, where it is warm and there are plenty of insects to eat. When spring comes, they set off north. The journey is more than five thousand miles long, and it takes several weeks. On the way, the birds cross the sea, the Sahara Desert and the mountains of Europe.",
+   "Swallows do almost everything while flying. They catch flies and other insects in mid-air, and they can even drink by skimming low over a pond and scooping up water in their beaks. This means they do not need to land very often, which is useful on such a long trip.",
+   "Amazingly, a swallow often returns to the same place that it left the year before. If it can, it will use the same nest. Swallows build their nests from small balls of mud mixed with grass. They stick them inside barns and sheds, or under the roofs of buildings. The nest is shaped like a little cup.",
+   "A female swallow lays between four and five eggs. Both parents take turns feeding the chicks, and they may make hundreds of trips each day to bring insects to the nest. After about three weeks, the young birds are ready to fly.",
+   "By late summer, swallows gather in large groups. You may see them sitting in a row on a wire, chattering to one another. When autumn arrives, the insects become harder to find. It is then that the swallows leave to make the long journey back to Africa.",
+   "No one knows for certain how swallows find their way. Scientists think they may use the sun, the stars and even the shape of the land below them. Whatever their secret, swallows show that even a tiny bird can travel a very long way."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where do swallows spend the winter?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How long is the swallows’ journey north?",
+    "options": [
+     "More than five hundred miles",
+     "More than five thousand miles",
+     "About fifty miles",
+     "More than fifty thousand miles"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 1 that means “elegant”."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “skimming” mean?",
+    "options": [
+     "Diving deep",
+     "Sitting still",
+     "Moving quickly just above a surface",
+     "Hiding"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the stages from 1 to 4 to show a swallow’s year.",
+    "items": [
+     "The chicks learn to fly.",
+     "The swallows fly back to Africa.",
+     "The swallows arrive in Britain in spring.",
+     "The swallows gather on wires."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Swallows make their nests from mud and grass.",
+     "Only the female swallow feeds the chicks.",
+     "Swallows often use the same nest each year."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do swallows leave Britain in autumn?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why is it useful that swallows can drink while flying?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says a swallow “weighs less than a slice of bread”. What is the writer showing the reader?"
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up paragraph 4?",
+    "options": [
+     "Swallows never build nests.",
+     "Swallows like to return to the same place and build cup-shaped mud nests.",
+     "Barns are dangerous for swallows.",
+     "Swallows lay eggs in the sea."
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer ends by saying that “even a tiny bird can travel a very long way”. Why is the word “even” used?"
+   }
+  ]
+ },
+ {
+  "id": "21-5",
+  "level": 21,
+  "title": "Lantern Night",
+  "type": "Description",
+  "text": [
+   "It was the evening of the Lantern Festival, and the whole town had come out to the park. The sky was turning from pink to deep blue, and the air was crisp and cool. Nobody wanted to go home.",
+   "Along the path, hundreds of paper lanterns hung from the branches of the trees. Some were round and red, like tiny glowing suns. Others were shaped like fish, with orange scales and long tails that swayed in the breeze. A lantern in the shape of a dragon curled around a lamppost, and its eyes flickered gold.",
+   "Children ran between the trees, holding their own lanterns on sticks. Mei carried a white rabbit that she had made at school with her friends. Its ears were made from folded paper, and a small candle glowed inside its round body. She held it high above her head so everyone could see.",
+   "The smells drifted across the grass. There were sweet rice balls from a little stall, and roasted chestnuts that crackled in a paper bag. Someone was selling hot orange juice in tiny cups. A man beside the fountain played a gentle tune on a wooden flute.",
+   "At eight o’clock, a drum began to beat. Boom, boom, boom. The crowd turned towards the lake, where a line of floating lanterns was being lowered on to the water. They bobbed gently, and their reflections wobbled and danced.",
+   "Mei’s grandmother came to stand beside her. “Isn’t it lovely?” she said softly. Mei nodded and squeezed her hand. She thought the lake looked as though someone had scattered stars across it.",
+   "Slowly, the lanterns drifted apart. The drum grew quieter and then stopped altogether. For a moment, the whole park was silent. Then the crowd began to clap, and the sound rolled across the water like a wave.",
+   "Mei walked home slowly, her rabbit lantern still glowing in her hand. She knew that she would remember that night for a very long time."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was the name of the festival?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What animal was Mei’s lantern?",
+    "options": [
+     "A dragon",
+     "A fish",
+     "A rabbit",
+     "A sun"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 2 that tells you the fish lanterns moved gently from side to side."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “crisp” suggest about the air?",
+    "options": [
+     "Warm and damp",
+     "Fresh and cool",
+     "Smoky",
+     "Thick and heavy"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "The crowd clapped.",
+     "A drum began to beat.",
+     "Floating lanterns were lowered on to the lake.",
+     "Mei walked home."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Mei made her lantern at school.",
+     "A man played a flute beside the fountain.",
+     "Mei’s grandfather stood beside her at the lake."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that people enjoyed the festival? Give one clue."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Mei held her lantern high above her head?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Mei thought the lake looked “as though someone had scattered stars across it”. Why is this a good way to describe the floating lanterns?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the word “wobbled” in paragraph 5 tell you about the reflections on the lake?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Mei knew she would remember that night for a very long time?"
+   }
+  ]
+ },
+ {
+  "id": "21-6",
+  "level": 21,
+  "title": "Should We Walk to School?",
+  "type": "Exposition",
+  "text": [
+   "Every morning, the roads outside our school are full of cars. Parents queue at the gates, engines humming, while children hurry in through the traffic. I believe that many more of us should walk to school, and there are three good reasons why.",
+   "First, walking is good for our health. Children need to be active every day, and a walk to school is an easy way to do it. Even a short walk gets our hearts pumping and our legs moving. When we arrive, we are awake and ready to learn. Pupils who have been sitting in a car often feel sleepy and slow.",
+   "Second, walking is better for the environment. Cars burn petrol, and this makes fumes that dirty the air. The air near a busy school gate can be unpleasant to breathe. If fewer families came by car, the air would be cleaner for everyone, and the road outside would be safer too.",
+   "Finally, walking is enjoyable. On foot, we can chat with friends and notice things that we would miss from a car window, such as a squirrel darting up a tree or the first flowers of spring. Some of my best conversations have happened on the way to school.",
+   "Some people argue that walking takes too long, or that the weather is often bad. However, many families live close enough to walk in less than fifteen minutes. And, as the saying goes, there is no such thing as bad weather, only the wrong clothes. A good coat and a pair of boots solve the problem.",
+   "Of course, not every family can walk. Some children live too far away, and some need a car for other reasons. But those who can walk should try it.",
+   "In conclusion, walking to school is healthy, kind to the planet and fun. If we all tried it just one day a week, our school would be a happier, cleaner and safer place."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is the writer trying to persuade the reader to do?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How many good reasons does the writer give at the start?",
+    "options": [
+     "Two",
+     "Four",
+     "Five",
+     "Three"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 3 that means “gases or smoke from engines”."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “queue” mean?",
+    "options": [
+     "Wait in a line",
+     "Park badly",
+     "Race quickly",
+     "Shout loudly"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the points from 1 to 4 to show the order the writer makes them.",
+    "items": [
+     "Walking is fun.",
+     "There are too many cars at the school gate.",
+     "Walking is better for the environment.",
+     "Walking is good for our health."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The writer thinks walking is enjoyable.",
+     "The writer says every family can walk.",
+     "Some families live less than fifteen minutes away."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the writer say children who walk are “awake and ready to learn”?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the writer suggest is the answer to bad weather?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the writer include paragraph 6, which says that not every family can walk?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says walking gets “our hearts pumping”. Why is this a good way to make the reader think about exercise?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the whole text?",
+    "options": [
+     "Cars are always bad.",
+     "Children should never go to school by car in the rain.",
+     "More children should walk to school because it is healthy, kind to the planet and fun.",
+     "Walking takes too long."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "22-1",
+  "level": 22,
+  "title": "The New Girl",
+  "type": "Narrative",
+  "text": [
+   "Maya had sat at the same table since Reception, so when she arrived on Monday morning and noticed an unfamiliar girl beside the window, she stopped in the doorway. The girl had short black hair and a bright yellow backpack, and she was gazing intently at her shoes as though they might offer some escape.",
+   "“Everyone, this is Amara,” announced Mr Hall. “She has just moved here from Nigeria, and I am looking for someone to take care of her today.” Nobody volunteered. The whole class seemed to have become fascinated by the ceiling, because everybody was far too shy to speak.",
+   "Maya felt her stomach flip over. Then she remembered her first day at gym club, when nobody had said a single word to her, and she raised her hand slowly before she could change her mind.",
+   "At break, Maya showed Amara where the water fountain was and which toilets never had a queue, but Amara only nodded politely. At lunch, she merely picked at her sandwich.",
+   "“Don’t you like it?” asked Maya.",
+   "“It is fine,” Amara replied quietly. “I just miss my old school, where everybody knew my name.”",
+   "Maya thought hard. Suddenly, she pulled a felt-tip pen out of her pocket, grabbed a paper napkin and drew a wobbly circle. “Let’s play a game,” she suggested. “I draw a shape, and you add to it until it turns into an animal.”",
+   "Amara took the pen, gave the circle two long ears and a fluffy tail, and then she giggled. “It’s a rabbit!” she exclaimed.",
+   "Next, they drew a giraffe, a snail and a very peculiar fish with legs. By the time the bell rang, the napkin was crammed with scribbles, and the two girls were laughing so loudly that the dinner lady turned round to see what was happening.",
+   "As they walked back to class, Amara stopped. “Thank you, Maya,” she said. “You are the first person who has asked me to play.”",
+   "“Tomorrow, you can choose the game,” Maya replied, “and I will bring more paper.”",
+   "Amara was no longer staring at her shoes. She held her head high, and her yellow backpack bounced cheerfully with every step."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 2 that tells you how the children in the class felt when Mr Hall asked for help."
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where had Amara just moved from?"
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What did Maya remember that made her put up her hand?",
+    "options": [
+     "Her first day at gym club",
+     "Her old teacher",
+     "A game she had played with her brother",
+     "A time she got lost at break"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Amara said thank you.",
+     "Mr Hall asked for someone to look after Amara.",
+     "Maya drew a wobbly circle.",
+     "Maya showed Amara the water fountain."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Amara only picked at her sandwich?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "How do you know that Maya understood how Amara was feeling?"
+   },
+   {
+    "n": 7,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In the story, what does the word “peculiar” mean?",
+    "options": [
+     "Very large",
+     "Colourful",
+     "Strange",
+     "Slippery"
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Amara added ears and a tail to the circle.",
+     "Maya was new to the school.",
+     "The dinner lady laughed loudly.",
+     "Maya said she would bring more paper."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was the first animal that Maya and Amara made from the circle?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "At the end, Amara “held her head high”. What does this tell you about how she was feeling?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says Amara’s backpack “bounced cheerfully”. What does this show about the way Amara was walking?"
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Amara and Maya will do tomorrow?"
+   }
+  ]
+ },
+ {
+  "id": "22-2",
+  "level": 22,
+  "title": "Life in a Pond",
+  "type": "Information Report",
+  "text": [
+   "A pond is a small area of still water, often with plants growing around its edges. From the bank, a pond can look quiet, but it is really a busy habitat. A habitat is the place where a plant or an animal lives and finds everything it needs. Hundreds of small creatures can live in one garden pond.",
+   "A pond has different layers, and each one suits different animals. On the surface, pond skaters glide across the water without sinking. Their bodies are very light, and their long, thin legs spread their weight out, so they do not break the surface.",
+   "Below the surface, in the open water, fish and tadpoles swim about. Tadpoles hatch from the jelly-like eggs that frogs lay in spring. They feed on tiny green plants, and slowly they grow back legs and then front legs.",
+   "At the bottom of the pond, there is thick mud. Snails, worms and dragonfly nymphs live here. A nymph is a young dragonfly that has no wings. It hides in the mud and snaps up tadpoles and other small creatures as they pass by. When it is fully grown, the nymph climbs up the stem of a plant. Its skin splits open, and the adult dragonfly crawls out and flies away.",
+   "Plants are important in a pond too. Water lilies have flat leaves that float on the top. These give shade and hiding places for the animals underneath. Plants that grow under the water make oxygen, which many pond animals need to breathe.",
+   "Some animals visit the pond but do not live there. Birds come to drink and to wash their feathers. A heron may stand very still at the edge for a long time, waiting to catch a fish.",
+   "If you dig a pond in your garden, you can help wildlife by making one side slope gently. Then animals that fall in can climb out safely. Before long, the first visitors will arrive."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is a habitat?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “glide” mean?",
+    "options": [
+     "Jump high",
+     "Move smoothly",
+     "Sink slowly",
+     "Swim fast"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word from paragraph 3 that describes the eggs that frogs lay."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do pond skaters not sink?"
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show how a dragonfly nymph changes into an adult dragonfly.",
+    "items": [
+     "The dragonfly flies away.",
+     "The nymph hides in the mud.",
+     "The nymph’s skin splits open.",
+     "The nymph climbs up a plant stem."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Where do dragonfly nymphs live?",
+    "options": [
+     "On the surface of the pond",
+     "In the mud at the bottom",
+     "In the leaves of water lilies",
+     "At the edge of the pond"
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why might tadpoles need to be careful near the bottom of the pond?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Give one reason why plants are important in a pond."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think a heron stands very still at the edge of the pond?"
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Frogs lay their eggs in autumn.",
+     "Tadpoles feed on tiny green plants.",
+     "Herons live under the water.",
+     "Water lilies have leaves that float."
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best heading for paragraph 4?",
+    "options": [
+     "How to dig a pond",
+     "Birds at the pond",
+     "Life at the bottom of the pond",
+     "Plants that float"
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "The text says a pond is “a busy habitat” even though it can look quiet. Why is this?"
+   }
+  ]
+ },
+ {
+  "id": "22-3",
+  "level": 22,
+  "title": "The Missing Biscuits",
+  "type": "Narrative",
+  "text": [
+   "On Monday, there were ten shortbread biscuits in Nani’s old blue tin. By Tuesday evening only eight remained, and by Wednesday there were just five, which left Nani thoroughly puzzled.",
+   "Ravi and his cousin Ellie were staying for the week. Ellie glanced at Ravi with narrowed eyes. “You had two extra yesterday,” she declared. “I saw you.”",
+   "“I did not!” protested Ravi, his face turning red. “I only ate the one that you gave me.”",
+   "They glared at each other until Nani raised her hand. “Nobody is in trouble,” she said calmly, “but I would very much like to know who is responsible.”",
+   "Ravi resolved to become a detective. He fetched his notebook and searched the kitchen carefully. On the windowsill beside the tin, he discovered a scatter of crumbs, and there were tiny scratches on the lid, one corner of which looked nibbled. Outside, the ledge was dotted with small muddy prints that had thin, pointed toes.",
+   "“Ellie, come and look at this!” he called. “Whoever took the biscuits did not use the door. They climbed in through the window.”",
+   "“Then it must be a burglar,” whispered Ellie nervously.",
+   "Ravi shook his head. “A burglar would have stolen the entire tin, and no burglar has feet as small as these.”",
+   "The following afternoon, the cousins concealed themselves behind the curtain, leaving the window open a crack. They waited for what felt like hours. Just as Ellie’s legs began to ache, a bushy grey tail appeared. A squirrel leapt onto the sill, sniffed the air suspiciously and prised the lid off the tin with its paws. It seized a biscuit, stuffed it into its cheek and scampered away.",
+   "“It’s a squirrel!” hissed Ravi, and Ellie giggled so much that the curtain shook.",
+   "When they explained everything, Nani laughed until she had to wipe her eyes. “Well, that is a relief,” she said. “I was beginning to think I had forgotten how to count!”",
+   "From then on, the tin lived on a high shelf, and a small pile of nuts waited on the windowsill instead. Ellie apologised to Ravi, and he generously shared his last biscuit with her."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "How many biscuits were left in the tin on Wednesday?"
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word that tells you how Nani felt about the biscuits."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Ellie think that Ravi had taken the biscuits?"
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What did Ravi find on the windowsill beside the tin?",
+    "options": [
+     "A note from Nani",
+     "Some crumbs and scratches",
+     "A broken plate",
+     "A trail of sugar"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "What clue showed Ravi that the thief came through the window and not the door?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Ravi said it was not a burglar. Give one reason he gave."
+   },
+   {
+    "n": 7,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In the story, what does the word “scampered” mean?",
+    "options": [
+     "Sat down",
+     "Fell over",
+     "Ate greedily",
+     "Ran quickly with small steps"
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Nani laughed until she wiped her eyes.",
+     "Ravi found crumbs on the windowsill.",
+     "Nani found only five biscuits in the tin.",
+     "The cousins hid behind the curtain."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Ravi and Ellie were brother and sister.",
+     "The squirrel lifted the lid with its paws.",
+     "The squirrel was black.",
+     "Nani left nuts on the windowsill."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Ellie said sorry to Ravi at the end?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think the squirrel will do when it finds the nuts on the windowsill?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the story?",
+    "options": [
+     "Two cousins argue and then discover who had really taken the biscuits.",
+     "Nani forgets how to count.",
+     "Ravi loses his notebook in the kitchen.",
+     "A burglar breaks into Nani’s house."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "22-4",
+  "level": 22,
+  "title": "How a Zip Works",
+  "type": "Explanation",
+  "text": [
+   "Look closely at the zip on a coat or a school bag, and you will see two long rows of tiny teeth. When the zip is closed, the teeth on one side lock into the teeth on the other, holding the two edges of cloth tightly together. Yet all it takes to open or close a zip is one small pull. How does it work?",
+   "The secret is a small part called the slider. The slider is the piece you hold when you pull the zip up or down. Inside it, there is a Y-shaped channel, like a tiny tunnel that splits into two at one end.",
+   "Each tooth in the zip has a bump on one side and a hollow on the other. When two teeth are pressed together, the bump on one tooth fits into the hollow on its partner, like two pieces of a puzzle. This is called interlocking.",
+   "When you pull the slider up, the two rows of teeth enter the wide end of the Y separately. As they travel along the tunnel, the walls squeeze the rows closer and closer together. By the time the teeth leave the narrow end, the bumps and hollows have met and clicked into place. The zip is closed.",
+   "Pulling the slider down does the opposite. Inside the slider, there is a small wedge that pushes between the teeth and forces them apart. The two rows come out through the wide end of the Y separately, and the zip is open again.",
+   "Every zip also has a stop at the top and another at the bottom. These small pieces of metal or plastic make sure that the slider cannot slip off the end of the rows.",
+   "Zips were first made more than a hundred years ago. They soon became popular because they were much quicker to fasten than a long line of buttons or laces. Today, you can find them on coats, bags, tents, sleeping bags and even on the cushions on your sofa."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is the name of the part that you hold to pull a zip up or down?"
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words from paragraph 2 that describe the shape of the tunnel inside the slider."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “interlocking” mean?",
+    "options": [
+     "Breaking apart",
+     "Fitting together",
+     "Getting stuck",
+     "Moving quickly"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how a zip is closed.",
+    "items": [
+     "The walls of the tunnel squeeze the teeth together.",
+     "The bumps click into the hollows.",
+     "The teeth enter the wide end of the Y.",
+     "You pull the slider up."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the zip stay closed after the slider has moved past the teeth?"
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "A zip has two rows of teeth.",
+     "Each tooth has a bump on one side and a hollow on the other.",
+     "The wedge helps to close the zip.",
+     "A zip has a stop at the top and at the bottom."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is the job of the wedge inside the slider?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "What might happen if a zip had no stop at the top?"
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence describes a tooth correctly?",
+    "options": [
+     "It has two bumps.",
+     "It has a hollow on both sides.",
+     "It is made only of metal.",
+     "It has a bump on one side and a hollow on the other."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did zips become more popular than buttons and laces?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 3, the author says the teeth fit together “like two pieces of a puzzle”. Why does the author use this comparison?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best heading for paragraph 5?",
+    "options": [
+     "How a zip opens",
+     "Where zips are used",
+     "Why zips are popular",
+     "Making a zip"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "22-5",
+  "level": 22,
+  "title": "Sports Day",
+  "type": "Recount (Fictional)",
+  "text": [
+   "Yesterday was Sports Day, an event I had been simultaneously looking forward to and dreading for weeks. The sun was shining, the field smelt of freshly cut grass, and every child was wearing the colour of their team. I was in Team Green.",
+   "My first race was the sack race. I hopped as quickly as I could, but halfway down the track my legs became tangled and I toppled onto the grass. My team groaned, and I felt my cheeks burn with embarrassment. Then my friend Ben dashed over from the side of the track and held out his hand. “Up you get!” he said. “You are nearly there.” I finished in fourth place, and, surprisingly, I did not mind at all.",
+   "After lunch came the egg-and-spoon race, which was the one I was most nervous about. I walked as carefully as possible, holding my breath and keeping my eyes fixed on the wobbling egg. Beside me, Ben was doing exactly the same, until his egg suddenly slipped off the spoon and bounced away across the grass.",
+   "I could have carried on. I was in second place, and the finish line was only a few steps ahead. Instead, I stopped and helped him to chase after it. Ben balanced the egg on his spoon once more, and we walked the last few steps side by side. We came last, but nobody in Team Green laughed. They cheered louder than they had cheered all day.",
+   "The final event was the team relay. Team Yellow ran brilliantly, and their last runner crossed the line with her arms in the air. When the afternoon was almost over, Mr Evans, the headteacher, stood up to present the prizes. The trophy for the most points went to Team Yellow, who whooped and clapped enthusiastically.",
+   "Then Mr Evans smiled. “There is one more cup,” he announced. “It is for the team that showed the best sportsmanship. Today, I watched children help each other up, encourage one another and cheer for their rivals, and I am delighted to award this cup to Team Green.”",
+   "I felt as if my chest might burst with pride. I had not won a single race, but it was the best Sports Day I had ever had."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "Which team was the writer in?"
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what the field smelt like."
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Mr Evans gave Team Green a cup.",
+     "The writer fell over in the sack race.",
+     "Ben’s egg fell off his spoon.",
+     "The writer ate lunch."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that the writer felt embarrassed when she fell over?"
+   },
+   {
+    "n": 5,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “nervous” mean?",
+    "options": [
+     "Worried",
+     "Sleepy",
+     "Hungry",
+     "Angry"
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the writer stopped to help Ben when she could have run on?"
+   },
+   {
+    "n": 7,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The writer finished the sack race in fourth place.",
+     "The writer won the egg-and-spoon race.",
+     "Team Yellow won the trophy for most points.",
+     "Mr Evans is the headteacher."
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did nobody in Team Green laugh when the writer and Ben came last?"
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What did Team Green win?",
+    "options": [
+     "The trophy for the most points",
+     "A cup for sportsmanship",
+     "The sack race",
+     "The relay race"
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says she felt as if her chest “might burst with pride”. What does this tell you about how she felt?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the story?",
+    "options": [
+     "A girl wins every race at Sports Day.",
+     "Being kind mattered more than winning at Sports Day.",
+     "Team Yellow is the best team.",
+     "Ben was too slow to finish."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think the writer will do at next year’s Sports Day?"
+   }
+  ]
+ },
+ {
+  "id": "22-6",
+  "level": 22,
+  "title": "How to Explore a Rock Pool",
+  "type": "Procedural",
+  "text": [
+   "A rock pool is a small pool of sea water left behind among the rocks on the seashore. It is a wonderful place to find sea creatures, and you do not need any special equipment to look for them. Follow these steps to explore a rock pool safely and to look after the animals that live there.",
+   "You will need: a bucket, a small net, a pair of shoes with a good grip, and an adult to come with you.",
+   "First, always go with an adult. Ask them to check that the rocks are safe to walk on, and stay where they can see you. Wet rocks and seaweed are slippery, so walk slowly and never run.",
+   "Next, fill your bucket with sea water from the pool. This will be a temporary home for any animals you decide to look at more closely.",
+   "Then sit quietly beside the pool and watch. Many creatures hide when they feel movement, so give them a few minutes to come out. Look for crabs scuttling sideways, small fish darting between the weeds, and limpets, which are shellfish that stick tightly to the rocks.",
+   "After that, look carefully under the seaweed and around the edges of stones. Lift them gently with one hand, and put them back exactly as you found them. Anemones may look like blobs of red or green jelly when they are out of the water, but underwater they open up into a ring of soft, waving tentacles.",
+   "If you spot a small animal you would like to see up close, use the net gently to scoop it into the bucket. Never pull a limpet off a rock, and never pick up a crab by its legs. Look for a minute or two, and then tip the animal back into the pool where you found it.",
+   "Finally, when you have finished exploring, take away everything that you brought with you, and wash your hands when you get home.",
+   "Remember that rock pools are homes, not playgrounds. If you are careful and quiet, you may discover something amazing."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is a rock pool?"
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "Who should you always go with when you explore a rock pool?"
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 4, what does the word “temporary” mean?",
+    "options": [
+     "Lasting only for a short time",
+     "Very large",
+     "Dangerous",
+     "Lasting for ever"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show the order in which you should do them.",
+    "items": [
+     "Use the net to scoop up an animal.",
+     "Fill the bucket with sea water.",
+     "Sit quietly beside the pool and watch.",
+     "Ask an adult to check that the rocks are safe."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why should you walk slowly and never run near a rock pool?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the text tell you to sit quietly and watch for a few minutes?"
+   },
+   {
+    "n": 7,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word from paragraph 5 that tells you how crabs move."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "You need special equipment to explore a rock pool.",
+     "Limpets stick tightly to rocks.",
+     "You should put stones back where you found them.",
+     "You should pick crabs up by their legs."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why must you tip the animal back into the pool where you found it?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The text says, “rock pools are homes, not playgrounds”. What does this mean?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What might an anemone look like when it is out of the water?",
+    "options": [
+     "A ring of soft tentacles",
+     "A hard shell",
+     "A blob of jelly",
+     "A small fish"
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best heading for paragraph 7?",
+    "options": [
+     "Catching an animal and putting it back",
+     "Finding crabs on the beach",
+     "Walking on wet rocks",
+     "What to pack in your bag"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "23-1",
+  "level": 23,
+  "title": "The Piano Tuner",
+  "type": "Narrative",
+  "text": [
+   "Kofi had assumed that his aunt’s job would be dull. When Aunt Efua announced that she would spend Saturday tuning the grand piano in the town hall, he pictured a cluttered room full of clanking tools, rather like a garage. Still, with nothing else planned, he tagged along.",
+   "The hall was cool and echoing. On the stage stood a piano, its black surface polished until it gleamed like a mirror. When Aunt Efua lifted the great lid, Kofi gasped, because inside was a maze of shining strings, more than two hundred of them, stretched tightly across a metal frame.",
+   "“Every string produces a note,” she explained. “The tighter the string, the higher the note, but strings slowly loosen over time, and then the notes drift out of tune.” She slotted a metal lever onto a peg at the end of one string and turned it by the tiniest amount. “You do not tune a piano with your eyes,” she added. “You tune it with your ears.”",
+   "She pressed a single key again and again. Kofi frowned, for at first all he could hear was one steady note, but then he noticed a faint wobble within it, like a distant wah-wah-wah. “That is two strings that ought to sound identical,” said Aunt Efua. “When they disagree, you hear that pulsing. My job is to make it slow down until it disappears altogether.”",
+   "To Kofi’s surprise, she let him help. He pressed the key while she turned the peg, and he called out the instant the wobble melted away. “Stop!” he shouted. “There! It has gone.” Aunt Efua grinned. “You have remarkably good ears, Kofi.”",
+   "By lunchtime, his neck ached and his ears were tingling, yet he could hear differences that he had never noticed before. When Aunt Efua finally played a tune to test the piano, the notes rang out through the hall, clear and rich, and Kofi felt a surge of pride, as if he had helped to build the instrument himself.",
+   "On the way home, he asked whether it bothered her that nobody ever saw what she did. Aunt Efua laughed. “That is the best part,” she said. “If I do my job properly, nobody notices me at all; they only notice the music.”",
+   "Kofi gazed out of the window. Perhaps a job did not have to be noisy to be important, and perhaps the quietest work was sometimes the hardest to see."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Where was the piano that Aunt Efua tuned?",
+    "options": [
+     "In a school",
+     "In the town hall",
+     "In Kofi’s house",
+     "In a music shop"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “dull” mean?",
+    "options": [
+     "Boring",
+     "Dangerous",
+     "Difficult",
+     "Noisy"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "According to Aunt Efua, what happens to the notes when the strings slowly loosen?"
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Kofi “tagged along” to the town hall. What does this tell you about why he went?"
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Kofi called “Stop!” when the wobble had gone.",
+     "Aunt Efua played a tune to test the piano.",
+     "Aunt Efua lifted the lid of the piano.",
+     "Aunt Efua explained that tighter strings make higher notes."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Aunt Efua says, “You tune it with your ears.” What does she mean?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer describes the piano’s surface as “polished until it gleamed like a mirror”. What does this tell you about the piano?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "How do you know that Kofi’s opinion of his aunt’s job changed during the day? Give one piece of evidence from the text."
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The piano has more than two hundred strings.",
+     "Aunt Efua used a lever to turn the pegs.",
+     "Kofi was not allowed to help.",
+     "A faint wobble means two strings are not matching."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Kofi feel “a surge of pride” when the notes rang out?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is the main message of the last two paragraphs?",
+    "options": [
+     "Quiet jobs can be important even if people do not notice them.",
+     "Pianos are too difficult to tune.",
+     "Kofi should learn to play the piano.",
+     "Noisy jobs are the best."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Kofi might ask Aunt Efua the next time he sees her? Give a reason."
+   }
+  ]
+ },
+ {
+  "id": "23-2",
+  "level": 23,
+  "title": "How a Canal Lock Works",
+  "type": "Explanation",
+  "text": [
+   "A canal is a waterway dug by people, and its water lies almost flat. The land it crosses, however, is not flat at all. Hills and valleys mean that the ground rises and falls, and a boat cannot simply sail uphill. To solve this problem, canal builders invented the lock, a clever device that lifts boats up and lowers them down.",
+   "A lock is a long, narrow chamber with a heavy gate at each end. On one side of the lock, the canal is higher, and on the other side, it is lower. Each gate has a small opening in it called a paddle, which can be opened and closed to let water flow through. No pumps are needed. The water moves by itself, because water always flows from a higher level to a lower level.",
+   "Imagine that a boat is heading uphill. First, the boat enters the lock through the lower gate, which is open. The lock is full only up to the lower level. Next, the lock keeper closes the lower gate behind the boat and opens the paddles in the upper gate. Water from the higher canal begins to rush into the chamber, and the boat slowly rises with the water.",
+   "Eventually, the water inside the lock reaches the same height as the canal ahead. Water stops flowing once both sides are level. Only now can the upper gate be pushed open, because before that, the weight of the water on the other side held it firmly shut. The boat can then sail out and continue on its way at the higher level.",
+   "When a boat is heading downhill, everything happens in reverse. The boat enters the full lock through the upper gate, and the gate is closed behind it. Then the paddles in the lower gate are opened, and water drains out of the chamber into the lower canal. The boat sinks lower and lower until it is level with the water on the far side, and then the lower gate can be opened.",
+   "Many of Britain’s canals were built more than two hundred years ago, and some are still used today, mainly by narrowboats. A steep hill may need a whole staircase of locks, one after another, so that a boat can climb a great height in easy steps. The idea is simple, but it lets boats travel across hills without any engine doing the lifting."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Why did canal builders invent the lock?",
+    "options": [
+     "To stop boats from sinking",
+     "So that boats could travel across land that rises and falls",
+     "To make canals deeper",
+     "To keep the water clean"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “chamber” mean?",
+    "options": [
+     "A small boat",
+     "A gate",
+     "An enclosed space",
+     "A pipe"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is a paddle?"
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how a boat goes uphill through a lock.",
+    "items": [
+     "The upper gate is opened.",
+     "The boat enters through the lower gate.",
+     "Water flows in and the boat rises.",
+     "The lower gate is closed."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do locks not need pumps?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why can the upper gate not be opened until the water in the lock is level?"
+   },
+   {
+    "n": 7,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "A lock has a gate at each end.",
+     "A lock keeper opens the paddles in the lower gate to lift a boat.",
+     "Boats travelling downhill enter the lock through the upper gate.",
+     "All British canals are less than a hundred years old."
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "A boat is going downhill. What happens to the water in the lock after the lower paddles are opened?"
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up paragraph 4?",
+    "options": [
+     "The boat has to sail faster.",
+     "Water stops flowing when both sides are level, so the gate can then be opened.",
+     "Canals are always flat.",
+     "The lock keeper goes home."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why might a steep hill need a staircase of locks?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author calls the lock “a clever device”. Why do you think the author chose the word “clever”?"
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the last sentence suggest about how locks lift boats?"
+   }
+  ]
+ },
+ {
+  "id": "23-3",
+  "level": 23,
+  "title": "The Glasshouse",
+  "type": "Description",
+  "text": [
+   "Outside, the rain hammered on the roof, but inside the glasshouse it was quiet and warm. Grandpa Joe pushed open the door for me and a wave of damp air rolled out to meet us, thick and sweet and smelling of soil. I stepped in, and the door clicked shut behind me, leaving the grey winter afternoon on the other side of the glass.",
+   "Every pane was fogged with tiny beads of water, so the whole world outside had melted into a soft, blurry green. Drops gathered on the glass, swelled and then slid down in shining trails. Above my head, a tangle of vines climbed the metal frame, their curling tendrils reaching out like small, searching fingers.",
+   "Along the benches sat rows of clay pots, each one crowded with plants. There were tomatoes, hanging in heavy red clusters, and pale green lettuces frilled like ballgowns. At the far end, a single orchid stood in a blue pot, its petals a deep purple, as if it had been dipped in ink. Grandpa Joe said that it had taken him three years to persuade it to flower.",
+   "I walked slowly along the narrow path, and the gravel crunched beneath my boots. A watering can dripped steadily in one corner, and each drop landed with a tiny plink. Somewhere near the roof, a bumblebee was buzzing lazily from flower to flower. It seemed to think that it was summer.",
+   "It was so warm that I unzipped my coat. The air felt heavy, almost like a blanket, and my glasses misted over. Grandpa Joe laughed and handed me a cloth. “That is the price you pay,” he said. “It is worth it, though, isn’t it?”",
+   "I picked a ripe cherry tomato and dropped it into my palm. It was still warm from the air, and its skin was smooth and shiny. When I bit into it, it burst, sweet and sharp, on my tongue. Beyond the glass, the rain drummed on and on, but in there, among the leaves, it felt like a secret place where winter could not reach."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was the weather like outside the glasshouse?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “tendrils” mean?",
+    "options": [
+     "Thin, curling stems that plants use to climb",
+     "Large flat leaves",
+     "Drops of water",
+     "Metal supports"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the phrase that tells you how long it took Grandpa Joe to persuade the orchid to flower."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author writes that the tendrils were “like small, searching fingers”. What does this description help you to imagine?"
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Look at paragraph 4. Why did the bumblebee seem to think it was summer?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did the narrator’s glasses mist over?"
+   },
+   {
+    "n": 7,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the description.",
+    "items": [
+     "The narrator ate a cherry tomato.",
+     "The narrator unzipped her coat.",
+     "Grandpa Joe opened the door.",
+     "The narrator walked along the gravel path."
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The orchid was purple.",
+     "The lettuces looked like ballgowns.",
+     "The glasshouse felt cold.",
+     "The tomatoes were hanging in red clusters."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "The author describes the orchid as “dipped in ink”. What does this suggest about its colour?",
+    "options": [
+     "Pale and faint",
+     "Rich and dark",
+     "Bright yellow",
+     "Spotted"
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the phrase “a secret place where winter could not reach” tell you about how the narrator felt in the glasshouse?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up paragraph 3?",
+    "options": [
+     "Grandpa Joe grows many kinds of plants, including an unusual orchid.",
+     "The glasshouse has a leaking roof.",
+     "The narrator dislikes tomatoes.",
+     "Grandpa Joe is going to sell his plants."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "Grandpa Joe says, “It is worth it, though, isn’t it?” What does he think is worth it?"
+   }
+  ]
+ },
+ {
+  "id": "23-4",
+  "level": 23,
+  "title": "The Sound Makers",
+  "type": "Information Report",
+  "text": [
+   "When you watch a film, you hear footsteps on a path, a door creaking open or a horse galloping across a field. You might think that these sounds were recorded while the film was being made, but most of them were not. They were added afterwards by a Foley artist, who has one of the most unusual jobs in the film industry.",
+   "The job is named after Jack Foley, a sound pioneer who worked in films almost a hundred years ago. A Foley artist works in a special studio. They watch the film on a screen and make each sound at exactly the right moment. If a character steps on to gravel, the Foley artist walks on a tray of real gravel in perfect time with the picture.",
+   "Why are the sounds not simply recorded when the film is made? One reason is that the microphones on a film set are aimed at the actors’ voices. Other noises are often too quiet, too muddled or drowned out by the crew nearby. Also, some things you see on screen make no sound at all, or do not exist in real life, such as a dragon flapping its wings.",
+   "So Foley artists collect strange objects and use them in surprising ways. The clip-clop of a horse can be made by knocking two coconut shell halves together. Crumpling a sheet of cellophane sounds very like a crackling fire. A pair of leather gloves, flapped quickly, makes the sound of a bird’s wings. Even the crunch of footsteps in snow can be created by squeezing a packet of cornflour.",
+   "To be good at the job, a Foley artist needs sharp ears, good timing and a lot of imagination. They listen carefully to the sounds around them and think, “What could I use to copy that?” Often the real thing does not sound right on film, and something quite different works far better. A real fire, for instance, may sound flat and quiet, while the cellophane sounds lively.",
+   "Many of the noises we think of as real are actually cleverly disguised props. The next time you watch a film, listen closely. Somewhere behind the screen, a Foley artist may have been waving a pair of gloves in a quiet studio."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is a Foley artist?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “muddled” mean?",
+    "options": [
+     "Mixed up and unclear",
+     "Very loud",
+     "Perfectly clear",
+     "Far away"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what is used to make the sound of a horse’s hooves."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "What can be used to make the sound of a crackling fire?"
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why are the sounds in a film not simply recorded on set? Give one reason."
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how a sound gets into a film.",
+    "items": [
+     "The Foley artist makes the sound in time with the picture.",
+     "The film is shot on set.",
+     "The Foley artist watches the film on a screen.",
+     "The sound is added to the film."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Foley artists are named after Jack Foley.",
+     "A Foley artist uses a tray of gravel to make footsteps.",
+     "Foley artists work on the film set while the film is shot.",
+     "Cornflour can be squeezed to sound like footsteps in snow."
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think a Foley artist might prefer cellophane to a real fire?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The text says that a Foley artist needs “a lot of imagination”. Why?"
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In the last paragraph, why does the author call the sounds “cleverly disguised props”?",
+    "options": [
+     "They are made with everyday objects that pretend to be something else.",
+     "They are hidden in the studio.",
+     "They are very loud.",
+     "They are recorded by the actors."
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best heading for paragraph 4?",
+    "options": [
+     "Where to buy coconuts",
+     "Everyday objects that make film sounds",
+     "Jack Foley’s life",
+     "How to make a film"
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "A film shows a bird flying past. Using the text, how might a Foley artist make the sound of its wings?"
+   }
+  ]
+ },
+ {
+  "id": "23-5",
+  "level": 23,
+  "title": "The Sandcastle Contest",
+  "type": "Narrative",
+  "text": [
+   "The whole beach seemed to be buzzing. Flags fluttered above a long table, and families were already marking out squares in the sand with sticks and spades. It was the day of the Sandcastle Contest, and twins Idris and Halima had been planning for weeks.",
+   "“We will build the tallest castle anyone has ever seen,” declared Idris, dragging a bucket to the water’s edge. “With four towers and a moat.”",
+   "“And a drawbridge,” added Halima. “Made from a lolly stick.”",
+   "They worked for nearly two hours. Idris packed the wet sand into the bucket and tipped out perfect towers, while Halima carved windows with the edge of a shell and lined the walls with tiny pebbles. The castle rose until it stood almost as high as their knees. The sun beat down on their backs, and their fingers were wrinkled and gritty, but neither of them noticed.",
+   "At last, Halima stepped back and clapped. “It is perfect,” she breathed.",
+   "Just then, a golden retriever came bounding down the beach after a ball. With a single great leap, it crashed through the north tower and skidded straight across the middle of the castle, spraying sand in all directions.",
+   "The dog’s owner ran up, apologising. “I am so sorry!” she gasped. “I will help you rebuild it.” But the judges were already walking along the row, with only ten minutes left.",
+   "Idris stared at the heap of sand. His eyes stung, and he swallowed hard. Halima was not upset. She was studying the wreckage with her head on one side, as if she were reading a map.",
+   "“Look,” she said slowly. “It has gone all crumbly and mysterious. What if it is not a new castle any more? What if it is a ruin, thousands of years old?”",
+   "Idris blinked. Then his face split into a grin. Together, they scooped out a tunnel and stuck the lolly-stick drawbridge in at a slanting angle. They sprinkled seaweed on top of the fallen towers and stuck a shell on the highest pile of sand, like a flag.",
+   "When the judges reached them, Halima put on her grandest voice. “Welcome to the Lost City of Sandalia,” she said. “It was destroyed long ago by a mighty golden beast.”",
+   "The judges laughed out loud. That afternoon, a ribbon was pinned to the ruin, and it was not for the tallest castle. It said Most Imaginative."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was the special event on the beach?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “buzzing” suggest about the beach?",
+    "options": [
+     "It was full of insects.",
+     "It was silent.",
+     "It was full of excitement.",
+     "It was empty."
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what Halima used to carve the windows."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that the twins had worked very hard on their castle? Give one piece of evidence."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "The judges laughed and gave a ribbon.",
+     "A dog crashed through the castle.",
+     "The twins built the towers.",
+     "Halima suggested that the castle was an ancient ruin."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "How did Idris feel when he saw the wrecked castle? Use evidence from the text to explain."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Halima was studying the wreckage “as if she were reading a map”. What does this suggest about her?"
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The twins planned to make a drawbridge from a lolly stick.",
+     "The dog knocked down the whole castle including the moat.",
+     "The dog’s owner offered to help rebuild the castle.",
+     "The judges gave the twins a prize for the tallest castle."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says the dog “crashed through the north tower and skidded straight across”. What does this choice of words show about the dog?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the judges laughed out loud at the end?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is the main message of the story?",
+    "options": [
+     "Dogs should not be allowed on beaches.",
+     "Winning is all that matters.",
+     "Sandcastles should be built far from the sea.",
+     "Clever thinking can turn a disaster into something good."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "What might Idris and Halima do next year? Give a reason from the story."
+   }
+  ]
+ },
+ {
+  "id": "23-6",
+  "level": 23,
+  "title": "Mary Anning, Fossil Hunter",
+  "type": "Recount (Historical)",
+  "text": [
+   "Mary Anning was born in 1799 in Lyme Regis, a small seaside town on the south coast of England. Her family was poor, and her father made furniture. In his spare time, he searched the nearby cliffs and beaches for fossils, which are the remains of animals and plants that lived long ago and have turned to stone. He sold the best ones to visitors to earn extra money.",
+   "When Mary’s father died, the family had very little money. Mary and her brother Joseph carried on searching for fossils to sell. The cliffs near their home were crumbling, and after heavy storms, new fossils were often left lying on the beach. Mary learned to spot them among the stones. She had to keep a sharp eye out, for the sea could wash them away.",
+   "When Mary was about twelve, Joseph found a strange skull sticking out of the cliff. It was long and narrow, with a great many sharp teeth. Over the next year, Mary carefully dug out the rest of the skeleton with a small hammer and brush. It took her months, and she had to work in bad weather. Scientists later decided that it belonged to a huge sea reptile called an ichthyosaur, which had lived millions of years before.",
+   "The find made Mary well known. Even so, it was hard for her to be taken seriously. She was a girl from a poor family, and at that time, most scientists were wealthy men. Many of them bought her fossils and wrote about them, but they did not always mention her name.",
+   "In 1823, Mary made another great discovery. She unearthed the first complete skeleton of a plesiosaur, another sea reptile, which had a small head and a very long neck. Some experts could not believe that an animal so odd had ever existed, and at first they thought the skeleton must be a fake. However, other scientists examined it closely and agreed that it was real.",
+   "Mary spent the rest of her working life hunting for fossils and selling them from a little shop in Lyme Regis. Visitors came from far away to see her collection and to learn from her. Today, her discoveries are on display in museums, and she is remembered as one of the most important fossil hunters in history."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where was Mary Anning born?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what are fossils?",
+    "options": [
+     "Old coins",
+     "The remains of animals or plants that lived long ago and have turned to stone",
+     "Tools used to dig",
+     "Rocks that glow"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "What did Mary’s father do in his spare time?"
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Mary and Joseph continue to search for fossils after their father died?"
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened.",
+    "items": [
+     "Mary found the first complete plesiosaur skeleton.",
+     "Joseph found a strange skull in the cliff.",
+     "Mary’s father died.",
+     "Mary dug out the rest of the skeleton."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Mary have to “keep a sharp eye out” when she searched the beach?"
+   },
+   {
+    "n": 7,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that describe the skull that Joseph found."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Paragraph 4 says it was hard for Mary to be taken seriously. Give one reason why."
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Mary was born in 1799.",
+     "Mary found a plesiosaur skeleton in 1823.",
+     "The plesiosaur had a very short neck.",
+     "Mary sold fossils from a shop in Lyme Regis."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think some experts thought the plesiosaur skeleton was a fake?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, the author says Mary “carefully dug out the rest of the skeleton”. Why is the word “carefully” important?",
+    "options": [
+     "Because it shows the skeleton was fragile and could easily be damaged",
+     "Because it shows she was afraid",
+     "Because it shows she was bored",
+     "Because it shows she worked fast"
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the whole text?",
+    "options": [
+     "Mary Anning’s father built furniture.",
+     "Mary Anning became an important fossil hunter even though she came from a poor family.",
+     "Ichthyosaurs lived in the sea.",
+     "Lyme Regis is on the south coast."
+    ]
+   }
+  ]
+ }
+]

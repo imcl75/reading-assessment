@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Year 4 Reading Assessment — Wallscourt Farm Academy</title>
+<title>Reading Assessment — Wallscourt Farm Academy</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root { --brand: #1798d3; --brand-dk: #0a6fa8; }
@@ -73,17 +73,89 @@
     text-decoration:none; transition:background .12s;
   }
   .pdf-link:hover { background:#daeef8; }
+
+  html { scroll-behavior: smooth; }
+  .subnav { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+    width: 100%; max-width: 640px; padding: 10px 0 14px; margin: -20px 0 22px; background: linear-gradient(#e8f5fd 70%, rgba(232,245,253,0)); }
+  .subnav a { font-size: .88rem; font-weight: 700; color: var(--brand-dk); background: #fff; border: 2px solid #b3dff5;
+    border-radius: 99px; padding: 7px 14px; text-decoration: none; }
+  .subnav a:hover { border-color: var(--brand); }
+  .section { width: 100%; max-width: 600px; margin-bottom: 30px; scroll-margin-top: 70px; }
+  .section h2 { font-size: 1.05rem; font-weight: 800; color: var(--brand-dk); margin: 0 0 4px; }
+  .section .intro { font-size: .85rem; color: #5a8fa8; margin-bottom: 12px; line-height: 1.4; }
+  .section .cards { max-width: 600px; }
+  .tag { font-size: 11px; font-weight: 700; background: #eef7fb; color: #0a6fa8; border: 1px solid #b3dff5; border-radius: 6px; padding: 2px 7px; margin-top: 5px; display: inline-block; }
+  details.print-texts summary { list-style: none; cursor: pointer; }
+  details.print-texts summary::-webkit-details-marker { display: none; }
 </style>
 </head>
 <body>
 
 <div class="logo">📚</div>
-<h1>Reading Assessment Hub</h1>
+<h1>Reading Assessment</h1>
 <p class="sub">Wallscourt Farm Academy</p>
 
-<div class="cards">
+<nav class="subnav" aria-label="Reading assessment sections">
+  <a href="#fluency">Fluency</a>
+  <a href="#phonics">Phonics (KS1)</a>
+  <a href="#comprehension">Comprehension by level</a>
+  <a href="#papers">Year group papers</a>
+  <a href="#texts">Print texts</a>
+</nav>
 
-  <!-- Pupil — unified login -->
+<div class="section" id="fluency">
+  <h2>Reading fluency</h2>
+  <p class="intro">Termly speed and fluency check: one text of exactly 100 words for each book level, so words per minute is quick to work out.</p>
+  <div class="cards">
+  <a class="card" href="fluency/">
+    <div class="card-icon">⏱️</div>
+    <div class="card-body">
+      <div class="card-title">Fluency passages</div>
+      <div class="card-desc">Levels 18 to F4. Pupil copy, teacher copy with the 100th word marked, plus a timer and words-correct-per-minute calculator.</div>
+      <span class="tag">Teacher tool</span>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+  </div>
+</div>
+
+<div class="section" id="phonics">
+  <h2>Phonics reading comprehension (KS1)</h2>
+  <p class="intro">Short decodable texts with three questions, for every Unlocking Letters and Sounds phase. Six different texts per phase, so children can&rsquo;t copy a neighbour&rsquo;s answers.</p>
+  <div class="cards">
+  <a class="card" href="phonics/">
+    <div class="card-icon">🔤</div>
+    <div class="card-body">
+      <div class="card-title">Phonics comprehension</div>
+      <div class="card-desc">Phase 2 to Phase 5c. Print pupil or teacher copies and score each question.</div>
+      <span class="tag">Teacher tool</span>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+  </div>
+</div>
+
+<div class="section" id="comprehension">
+  <h2>Reading comprehension by book level</h2>
+  <p class="intro">A pupil takes the test for their book level, whatever their year group. Six tests at every level from 18 to F4 (Free Reader), each with a mark scheme.</p>
+  <div class="cards">
+  <a class="card" href="comprehension/">
+    <div class="card-icon">📘</div>
+    <div class="card-body">
+      <div class="card-title">Comprehension by level</div>
+      <div class="card-desc">Levels 18 to F4. Pupil copy on paper, mark scheme, and an on-screen scorer that shows secure, developing or below.</div>
+      <span class="tag">Teacher tool</span>
+    </div>
+    <div class="card-arrow">›</div>
+  </a>
+  </div>
+</div>
+
+<div class="section" id="papers">
+  <h2>Year group reading papers (on screen)</h2>
+  <p class="intro">The full Year 2 to Year 5 reading papers that pupils complete on a device, marked with Claude.</p>
+  <div class="cards">
+<!-- Pupil — unified login -->
   <a class="card pupil" href="login.html">
     <div class="card-icon">📖</div>
     <div class="card-body">
@@ -93,7 +165,7 @@
     <div class="card-arrow">›</div>
   </a>
 
-  <!-- Setup -->
+<!-- Setup -->
   <a class="card" href="setup.html">
     <div class="card-icon">⚙️</div>
     <div class="card-body">
@@ -104,7 +176,7 @@
     <div class="card-arrow">›</div>
   </a>
 
-  <!-- Admin -->
+<!-- Admin -->
   <a class="card" href="admin.html">
     <div class="card-icon">📊</div>
     <div class="card-body">
@@ -115,7 +187,13 @@
     <div class="card-arrow">›</div>
   </a>
 
-  <!-- Print texts -->
+  </div>
+</div>
+
+<div class="section" id="texts">
+  <h2>Print reading texts</h2>
+  <div class="cards">
+<!-- Print texts -->
   <div class="card" style="cursor:default;">
     <div class="card-icon">🖨️</div>
     <div class="card-body">
@@ -153,7 +231,7 @@
     </div>
     <div class="card-arrow">›</div>
   </div>
-
+  </div>
 </div>
 
 <!-- Teacher-only group status (subtle, loads silently) -->
@@ -162,7 +240,7 @@
   <div id="group-status-content"></div>
 </div>
 
-<p class="footer">Wallscourt Farm Academy · Cabot Learning Federation · <span style="opacity:.6">v31.08.26a</span></p>
+<p class="footer">Wallscourt Farm Academy · Cabot Learning Federation · <span style="opacity:.6">v26.09.26a</span></p>
 
 <script>
 const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxQxxaRnYIz4VlRhzy55a2Et5FjERErpuJTQi6nV8aom5UCxv0D13WvPKkBLAlwkyskBA/exec';

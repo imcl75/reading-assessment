@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reading Fluency Assessment</title>
+<style>
+:root{--brand:#1798d3;--dark:#0a0101;--soft:#eaf6fc;--line:#cfe3ee;--bad:#c0392b;--good:#1e8449;--amber:#b9770e}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:var(--dark);background:#f6fafd;-webkit-text-size-adjust:100%}
+header{background:var(--brand);color:#fff;padding:14px 16px}
+header h1{margin:0;font-size:1.25rem}
+header p{margin:2px 0 0;font-size:.85rem;opacity:.9}
+main{max-width:900px;margin:0 auto;padding:14px 16px 40px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+h2{font-size:1rem;margin:0 0 8px}
+.levels{display:flex;flex-wrap:wrap;gap:8px}
+.lv{font-size:16px;min-width:52px;padding:10px 8px;border:2px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-weight:700}
+.lv[aria-pressed=true]{border-color:var(--dark);box-shadow:0 0 0 2px var(--dark)}
+.band{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid #0004;vertical-align:-2px;margin-right:4px}
+.meta{font-size:.9rem;color:#345}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+button.act{font-size:16px;padding:10px 14px;border-radius:10px;border:0;background:var(--brand);color:#fff;font-weight:700;cursor:pointer}
+button.alt{background:#fff;color:var(--dark);border:2px solid var(--line)}
+button.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.passage{font-size:1.25rem;line-height:2.1;margin:0}
+.passage .w{padding:1px 2px;border-radius:4px}
+.teacher .w{cursor:pointer}
+.w sup{font-size:.6em;color:#5b6b75;margin-left:1px}
+.w.err{background:#f7c6c0;text-decoration:line-through}
+.w.stop{background:#fdebb5;outline:2px solid var(--amber)}
+.w.hundred{font-weight:700;border-bottom:3px solid var(--dark)}
+.mark100{display:inline-block;font-size:.72rem;font-weight:700;color:#fff;background:var(--dark);border-radius:6px;padding:1px 6px;margin-left:4px;vertical-align:middle}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+label{font-size:.85rem;display:block;font-weight:600;margin-bottom:3px}
+input[type=number],input[type=text]{font-size:16px;width:100%;padding:8px;border:2px solid var(--line);border-radius:8px}
+.result{font-size:1.5rem;font-weight:800}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.85rem;font-weight:700;color:#fff}
+.timer{font-size:2rem;font-variant-numeric:tabular-nums;font-weight:800}
+footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
+.print-only{display:none}
+/* Print sheets */
+.sheet{display:none}
+@media print{
+  header,main,footer{display:none!important}
+  body{background:#fff}
+  .sheet.active{display:block!important}
+  .sheet{padding:0}
+  @page{size:A4;margin:14mm}
+}
+.sheet .head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--brand);padding-bottom:6px;margin-bottom:12px}
+.sheet .head h1{margin:0;font-size:1.5rem}
+.sheet .head small{color:#456}
+.sheet .fields{display:flex;gap:18px;margin:10px 0 16px;font-size:.95rem}
+.sheet .fields span{flex:1;border-bottom:1px solid #000;padding-bottom:2px}
+.sheet .passage{font-size:20pt;line-height:2.1}
+.sheet.tsheet .passage{font-size:15pt;line-height:2.3}
+.sheet .foot{margin-top:14px;font-size:.75rem;color:#567;display:flex;justify-content:space-between}
+.tbl{width:100%;border-collapse:collapse;margin-top:14px;font-size:.95rem}
+.tbl td,.tbl th{border:1px solid #000;padding:8px;text-align:left}
+.key{font-size:.8rem;color:#345;margin-top:8px}
+.toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
+</style>
+</head>
+<body>
+<header>
+  <h1>Reading Fluency Assessment</h1>
+  <p>Wallscourt Farm Academy &middot; Cabot Learning Federation</p>
+<nav class="toolnav"><a href="../home.html">&#8962; Reading assessment home</a><a href="../fluency/" aria-current="page">Reading fluency</a><a href="../phonics/">Phonics comprehension</a><a href="../comprehension/">Comprehension by level</a></nav></header>
+
+<main>
+  <section class="card">
+    <h2>1. Choose the pupil's current reading level</h2>
+    <div class="levels" id="levels"></div>
+    <p class="meta" id="lvmeta"></p>
+    <div class="actions">
+      <button class="act" id="printPupil">Print pupil copy</button>
+      <button class="act alt" id="printTeacher">Print teacher copy</button>
+      <button class="act alt" id="printAllPupil">Print all pupil copies</button>
+    </div>
+  </section>
+
+  <section class="card teacher" id="scoreCard">
+    <h2>2. Score it here (tap or print)</h2>
+    <p class="meta">Tap a word to mark an error. Switch to &ldquo;Set stopping point&rdquo; if the child did not finish in one minute, then tap the last word they reached. The 100th word is underlined.</p>
+    <div class="actions" style="margin:0 0 8px">
+      <button class="act alt on" id="modeErr">Mark errors</button>
+      <button class="act alt" id="modeStop">Set stopping point</button>
+      <button class="act alt" id="clearMarks">Clear marks</button>
+    </div>
+    <p class="passage" id="tpassage"></p>
+  </section>
+
+  <section class="card">
+    <h2>3. Timer and result</h2>
+    <div class="grid">
+      <div><div class="timer" id="clock">0:00</div>
+        <div class="actions" style="margin-top:6px"><button class="act" id="tStart">Start</button><button class="act alt" id="tStop">Stop</button><button class="act alt" id="tReset">Reset</button></div></div>
+      <div><label for="secs">Seconds taken</label><input type="number" id="secs" inputmode="numeric" min="1" max="600" value="60"></div>
+      <div><label>Words attempted</label><div class="result" id="attempted">100</div></div>
+      <div><label>Errors</label><div class="result" id="errors">0</div></div>
+    </div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+    <div class="grid">
+      <div><label>Words correct per minute</label><div class="result" id="wcpm">&ndash;</div><div id="wcpmTag"></div></div>
+      <div><label>Accuracy</label><div class="result" id="acc">&ndash;</div><div id="accTag"></div></div>
+    </div>
+    <p class="key">Target: 90&ndash;100 words correct per minute at the pupil's current level. Accuracy: above 95% independent, 90&ndash;95% instructional, below 90% difficult.</p>
+  </section>
+</main>
+<footer>Fluency Assessment &middot; Version <span id="ver">26.09.26a</span></footer>
+
+<div id="sheets"></div>
+
+<script>
+const TEXTS = /*TEXTS*/;
+const VERSION = "26.09.26a";
+const BANDS = [[17,18,"Turquoise","#00e5c8"],[19,20,"Purple","#800080"],[21,22,"Gold","#ffc000"],[23,24,"White","#ffffff"],[25,26,"Lime","#00ee00"],[27,28,"Ruby","#c00000"],[29,30,"Sapphire","#000080"],[31,34,"Free Reader","#f2b705"]];
+const band = l => BANDS.find(b => l >= b[0] && l <= b[1]);
+const lv = l => l > 30 ? 'F' + (l - 30) : l;   // levels end at 30; above that the levels are F1-F4 (Free Reader)
+const $ = id => document.getElementById(id);
+const esc = s => s.replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+let cur = TEXTS[0], mode = "err", errs = new Set(), stopAt = 100;
+
+function words(t){ return t.text.trim().split(/\s+/); }
+function passageHTML(t, teacher){
+  return words(t).map((w,i)=>{
+    const n = i+1;
+    let h = '<span class="w'+(n===100?' hundred':'')+'" data-i="'+n+'">'+esc(w)+'</span>';
+    if (teacher && n===100) h += '<span class="mark100">100 words</span>';
+    return h;
+  }).join(' ');
+}
+function sheetHTML(t, teacher){
+  const b = band(t.level);
+  const n = words(t).length;
+  let h = '<section class="sheet'+(teacher?' tsheet':'')+'"><div class="head"><h1>'+esc(t.title)+'</h1><small>Level '+lv(t.level)+' &middot; '+b[2]+' &middot; '+esc(t.type)+(teacher?' &middot; '+n+' words':'')+'</small></div>';
+  if (teacher) {
+    h += '<div class="fields"><span>Name:</span><span>Class:</span><span>Date:</span></div>';
+    h += '<p class="passage">'+passageHTML(t,true)+'</p>';
+    h += '<p class="key">Cross out or circle each error. The 100th word is underlined and marked. Stop the child at one minute and mark the last word reached. Total text length: '+n+' words.</p>';
+    h += '<table class="tbl"><tr><th>Words attempted</th><th>Errors</th><th>Seconds</th><th>Words correct per minute</th><th>Accuracy %</th></tr><tr><td>&nbsp;<br>&nbsp;</td><td></td><td></td><td></td><td></td></tr></table>';
+    h += '<p class="key">Words correct per minute = (words attempted &minus; errors) &times; 60 &divide; seconds. Accuracy = (words attempted &minus; errors) &divide; words attempted &times; 100. Target: 90&ndash;100 wcpm at current level.</p>';
+  } else {
+    h += '<div class="fields"><span>Name:</span></div>';
+    h += '<p class="passage">'+esc(t.text.trim())+'</p>';
+  }
+  h += '<div class="foot"><span>Wallscourt Farm Academy</span><span>Fluency &middot; Level '+lv(t.level)+' &middot; v'+VERSION+'</span></div></section>';
+  return h;
+}
+function buildSheets(){
+  const holder = $("sheets");
+  holder.innerHTML = TEXTS.map(t => sheetHTML(t,false).replace('<section class="sheet','<section data-p="'+t.level+'" class="sheet')).join('') +
+                     TEXTS.map(t => sheetHTML(t,true).replace('<section class="sheet','<section data-t="'+t.level+'" class="sheet')).join('');
+}
+function printSheets(sel){
+  document.querySelectorAll(".sheet.active").forEach(e=>e.classList.remove("active"));
+  document.querySelectorAll(sel).forEach(e=>e.classList.add("active"));
+  window.print();
+}
+function renderLevels(){
+  $("levels").innerHTML = TEXTS.map(t=>{
+    const b=band(t.level);
+    return '<button class="lv" data-l="'+t.level+'" aria-pressed="'+(t.level===cur.level)+'"><span class="band" style="background:'+b[3]+'"></span>'+lv(t.level)+'</button>';
+  }).join('');
+  $("lvmeta").innerHTML = '<b>'+esc(cur.title)+'</b> &middot; Level '+lv(cur.level)+' ('+band(cur.level)[2]+') &middot; '+esc(cur.type)+' &middot; '+words(cur).length+' words';
+}
+function renderScore(){
+  $("tpassage").innerHTML = passageHTML(cur,true);
+  errs = new Set(); stopAt = words(cur).length; refresh();
+}
+function refresh(){
+  document.querySelectorAll("#tpassage .w").forEach(el=>{
+    const n=+el.dataset.i;
+    el.classList.toggle("err", errs.has(n));
+    el.classList.toggle("stop", n===stopAt && stopAt<words(cur).length);
+  });
+  const attempted = stopAt, e = [...errs].filter(n=>n<=attempted).length;
+  $("attempted").textContent = attempted; $("errors").textContent = e;
+  const s = +$("secs").value;
+  if (s>0){
+    const wc = Math.round((attempted-e)*60/s), acc = Math.round((attempted-e)/attempted*1000)/10;
+    $("wcpm").textContent = wc; $("acc").textContent = acc+"%";
+    $("wcpmTag").innerHTML = wc>=90 ? '<span class="tag" style="background:var(--good)">On target (90+)</span>' : '<span class="tag" style="background:var(--amber)">Below 90</span>';
+    $("accTag").innerHTML = acc>95 ? '<span class="tag" style="background:var(--good)">Independent</span>' : acc>=90 ? '<span class="tag" style="background:var(--amber)">Instructional</span>' : '<span class="tag" style="background:var(--bad)">Difficult</span>';
+  }
+}
+function choose(l){ cur = TEXTS.find(t=>t.level===l); renderLevels(); renderScore(); }
+
+$("levels").addEventListener("click", e=>{ const b=e.target.closest(".lv"); if(b) choose(+b.dataset.l); });
+$("tpassage").addEventListener("click", e=>{
+  const w=e.target.closest(".w"); if(!w) return; const n=+w.dataset.i;
+  if(mode==="err"){ errs.has(n)?errs.delete(n):errs.add(n); } else { stopAt=n; }
+  refresh();
+});
+function setMode(m){ mode=m; $("modeErr").classList.toggle("on",m==="err"); $("modeStop").classList.toggle("on",m==="stop"); }
+$("modeErr").onclick=()=>setMode("err"); $("modeStop").onclick=()=>setMode("stop");
+$("clearMarks").onclick=()=>{ errs=new Set(); stopAt=words(cur).length; setMode("err"); refresh(); };
+$("secs").addEventListener("input", refresh);
+$("printPupil").onclick=()=>printSheets('.sheet[data-p="'+cur.level+'"]');
+$("printTeacher").onclick=()=>printSheets('.sheet[data-t="'+cur.level+'"]');
+$("printAllPupil").onclick=()=>printSheets('.sheet[data-p]');
+let tm=null, t0=0;
+function tick(){ const s=Math.floor((Date.now()-t0)/1000); $("clock").textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }
+$("tStart").onclick=()=>{ clearInterval(tm); t0=Date.now(); tick(); tm=setInterval(tick,250); };
+$("tStop").onclick=()=>{ if(!tm) return; clearInterval(tm); tm=null; const s=Math.max(1,Math.round((Date.now()-t0)/1000)); $("secs").value=s; refresh(); };
+$("tReset").onclick=()=>{ clearInterval(tm); tm=null; $("clock").textContent="0:00"; };
+$("ver").textContent = VERSION;
+buildSheets(); choose(TEXTS[0].level);
+</script>
+</body>
+</html>

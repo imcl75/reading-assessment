@@ -1,0 +1,2 @@
+PATCHES = {}
+TEXT_PATCHES = {}

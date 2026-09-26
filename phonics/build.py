@@ -29,6 +29,6 @@ for lv in sorted(B):
         items.append(dict(title=title,text=text,focus=focus,image=image,qs=[dict(t=t,q=q,a=a) for t,q,a in qs]))
     data.append(dict(level=lv,name=NAMES[lv],sounds=cum_sounds,cew=", ".join(sorted(cew,key=str.lower)),texts=items))
 if errors: sys.exit("not built: %d problem(s)"%errors)
-html=(here/"template.html").read_text().replace("/*DATA*/",json.dumps(data,ensure_ascii=False))
+html=(here/"template.html").read_text().replace("/*DATA*/",json.dumps(data,ensure_ascii=False)).replace("/*SAVE_RESULTS*/",(here.parent/"shared"/"save_results.js").read_text())
 (here/"index.html").write_text(html)
 print("built index.html:",sum(len(d["texts"]) for d in data),"texts across",len(data),"phases, all decodable at their level")

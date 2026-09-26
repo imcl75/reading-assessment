@@ -1,0 +1,156 @@
+/* Save-to-pupil panel shared by the three teacher tools (fluency, phonics, comprehension).
+   Inlined into each tool's index.html by its build.py (the SAVE_RESULTS placeholder in template.html).
+   Talks to /_api/planning/... on this same site: a Cloudflare Worker checks the staff sign-in and adds the
+   API token, so no token lives in this page. Off unless the page is opened with ?results=on, until it is proven. */
+const SaveResults = (function(){
+  const ON = /[?&]results=on\b/.test(location.search) || false;   // flip the `false` to true to switch on for everyone
+  const API = '/_api/planning', PENDING_KEY = 'ra_pending', CLASS_KEY = 'ra_last_class', PUPIL_KEY = 'ra_last_pupil';
+  let cfg = null, roster = null, current = null, lastSaved = null, saving = false, card = null;
+  const $q = id => document.getElementById(id);
+  const h = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const store = {
+    get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+    set(k,v){ try { localStorage.setItem(k, v); } catch(e){} },
+    del(k){ try { localStorage.removeItem(k); } catch(e){} },
+  };
+  const uuid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'ra-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+  const today = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); };
+
+  async function call(method, path, params, body){
+    const qs = new URLSearchParams(Object.assign({token: '__hub__'}, params || {}));
+    let res;
+    try {
+      res = await fetch(API + path + '?' + qs, {
+        method, headers: Object.assign({'X-WFA-Proxy': '1'}, body ? {'Content-Type': 'application/json'} : {}),
+        body: body ? JSON.stringify(body) : undefined, cache: 'no-store'});
+    } catch(e){ return {error: 'Could not reach the school server. Check the wifi and try again.', network: true}; }
+    if (res.status === 401) return {error: 'Your staff sign-in has ended. Open this page in a new tab, sign in, then come back here and press Save again. Your marks are still here.', signin: true};
+    let data = null;
+    try { data = await res.json(); } catch(e){}
+    if (!data) return {error: 'The school server did not answer properly. Your result is kept: try again in a minute.', network: true};
+    return data;
+  }
+
+  const css = '#saveCard .sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0}'
+    + '#saveCard label{display:block;font-size:.8rem;font-weight:700;margin-bottom:3px}'
+    + '#saveCard select,#saveCard input{width:100%;font-size:16px;padding:9px;border:1px solid #c9d3dc;border-radius:8px;background:#fff}'
+    + '#saveCard .st{margin:10px 0 4px;font-weight:700}#saveCard .st.ok{color:#146c2e}#saveCard .st.bad{color:#b3261e}'
+    + '#saveCard .hist{font-size:.85rem;color:#4b5563;margin:6px 0 0;padding-left:18px}'
+    + '#saveCard .link{background:none;border:0;color:#0a6fa8;text-decoration:underline;font:inherit;cursor:pointer;padding:0 4px}'
+    + '#saveCard .pend{background:#fff7e0;border:1px solid #f2d27a;border-radius:8px;padding:8px 10px;margin-bottom:8px}';
+
+  function build(){
+    const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+    card = document.createElement('section'); card.className = 'card'; card.id = 'saveCard';
+    card.innerHTML = '<h2>Save this result to the pupil</h2><div id="srPend"></div>'
+      + '<div class="sr"><div><label for="srClass">Class</label><select id="srClass"><option value="">Loading classes…</option></select></div>'
+      + '<div><label for="srPupil">Pupil</label><select id="srPupil" disabled><option value="">Choose a class first</option></select></div>'
+      + '<div><label for="srDate">Date taken</label><input type="date" id="srDate"></div>'
+      + '<div><label for="srTerm">Term</label><select id="srTerm">' + [1,2,3,4,5,6].map(n => '<option value="'+n+'">Term '+n+'</option>').join('') + '</select></div></div>'
+      + '<div class="actions"><button class="act" id="srSave" disabled>Save result</button><button class="link" id="srUndo" hidden>Undo</button></div>'
+      + '<p class="st" id="srStatus"></p><ul class="hist" id="srHist"></ul>';
+    (document.querySelector('main') || document.body).appendChild(card);
+    $q('srDate').value = today();
+    $q('srClass').onchange = onClass; $q('srPupil').onchange = onPupil;
+    $q('srSave').onclick = save; $q('srUndo').onclick = undo;
+    $q('srDate').oninput = $q('srTerm').onchange = () => refresh();
+    showPending(); loadRoster();
+  }
+
+  async function loadRoster(){
+    const d = await call('GET', '/pupils');
+    if (!d.pupils) { status(d.error || 'Could not load the class lists.', false); $q('srClass').innerHTML = '<option value="">Class lists unavailable</option>'; return; }
+    roster = {};
+    d.pupils.forEach(p => { const c = p.class || p.code || '?'; (roster[c] = roster[c] || []).push(p); });
+    Object.values(roster).forEach(a => a.sort((x, y) => (x.last + x.first).localeCompare(y.last + y.first)));
+    const names = Object.keys(roster).sort((a, b) => (roster[a][0].yearGroup || '').localeCompare(roster[b][0].yearGroup || '', undefined, {numeric: true}) || a.localeCompare(b));
+    $q('srClass').innerHTML = '<option value="">Choose a class</option>' + names.map(n => '<option value="'+h(n)+'">'+h(n)+'</option>').join('');
+    const last = store.get(CLASS_KEY);
+    if (last && roster[last]) { $q('srClass').value = last; onClass(); const lp = store.get(PUPIL_KEY); if (lp) { $q('srPupil').value = lp; onPupil(); } }
+    const c = await call('GET', '/readingresults-db', {limit: 1});
+    if (c && c.current) { current = c.current; $q('srTerm').value = String(c.current.term); }
+    refresh();
+  }
+  function onClass(){
+    const c = $q('srClass').value, list = roster && roster[c] || [];
+    store.set(CLASS_KEY, c);
+    $q('srPupil').disabled = !c;
+    $q('srPupil').innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => '<option value="'+h(p.upn)+'">'+h(p.first+' '+p.last)+'</option>').join('');
+    $q('srHist').innerHTML = ''; refresh();
+  }
+  async function onPupil(){
+    const upn = $q('srPupil').value; store.set(PUPIL_KEY, upn); refresh();
+    $q('srHist').innerHTML = '';
+    if (!upn) return;
+    const d = await call('GET', '/readingresults-db', {upn: upn, tool: cfg.tool, limit: 5});
+    if (upn !== $q('srPupil').value || !d.results) return;
+    $q('srHist').innerHTML = d.results.length ? '<li><b>Earlier results for this pupil</b></li>' + d.results.map(r => '<li>' + h(r.taken_on) + ' &middot; ' + h(describe(r)) + '</li>').join('') : '<li>No results saved for this pupil yet.</li>';
+  }
+  function describe(r){
+    const bands = {greater_depth: 'greater depth', on_track: 'on track', not_yet: 'not yet on track', secure: 'secure', nearly: 'nearly there', on_target: 'on target', below_target: 'below target'};
+    const b = bands[r.band] || r.band;
+    if (r.tool === 'fluency') return 'Level ' + r.level + ': ' + r.detail.wcpm + ' words correct per minute, ' + r.detail.accuracy + '% accurate (' + b + ')';
+    if (r.tool === 'phonics') return r.level + ': ' + r.score + '/3 (' + b + ')';
+    return 'Level ' + r.level + ' test ' + r.test_id + ': ' + r.score + '/' + r.total + ', ' + r.percent + '% (' + b + ')';
+  }
+  function sig(){ const s = cfg.get(); return JSON.stringify([$q('srPupil').value, s.body, $q('srDate').value, $q('srTerm').value]); }
+  function status(msg, ok){ const e = $q('srStatus'); e.textContent = msg || ''; e.className = 'st' + (ok === true ? ' ok' : ok === false ? ' bad' : ''); }
+
+  function refresh(msg){
+    if (!card) return;
+    const s = cfg.get(), pupil = $q('srPupil').value, btn = $q('srSave');
+    const done = lastSaved && lastSaved.sig === sig();
+    btn.disabled = saving || !s.ready || !pupil || !!done;
+    btn.textContent = done ? 'Saved' : 'Save result';
+    if (msg !== false && !saving && !done) status(!pupil ? 'Choose the class and pupil to save this result.' : !s.ready ? s.hint : 'Ready to save: ' + s.summary);
+    $q('srUndo').hidden = !done;
+  }
+
+  async function save(){
+    const s = cfg.get(), sel = $q('srPupil'); if (!s.ready || !sel.value || saving) return;
+    saving = true; refresh();
+    const payload = Object.assign({action: 'save', client_id: uuid(), upn: sel.value, tool: cfg.tool, source: 'paper',
+      taken_on: $q('srDate').value, term: +$q('srTerm').value}, s.body);
+    const name = sel.options[sel.selectedIndex].text;
+    await send(payload, name, s.summary);
+    saving = false; refresh(false);
+  }
+  async function send(payload, name, summary){
+    status('Saving…');
+    const d = await call('POST', '/readingresults-db', {}, payload);
+    if (d.ok) {
+      dropPending(payload.client_id);
+      lastSaved = {id: d.result.id, sig: sig(), name: name};
+      status('Saved for ' + name + ': ' + (summary || describe(d.result)) + ' (Term ' + d.result.term + ')' + (d.duplicate ? ' – already saved' : ''), true);
+      onPupilHistoryOnly();
+    } else {
+      if (d.network || d.signin) keepPending(payload, name, summary);
+      status(d.error || 'Could not save. Try again.', false);
+    }
+  }
+  async function onPupilHistoryOnly(){ const u = $q('srPupil').value; if (u) { const d = await call('GET', '/readingresults-db', {upn: u, tool: cfg.tool, limit: 5});
+    if (d.results && u === $q('srPupil').value) $q('srHist').innerHTML = d.results.length ? '<li><b>Earlier results for this pupil</b></li>' + d.results.map(r => '<li>' + h(r.taken_on) + ' &middot; ' + h(describe(r)) + '</li>').join('') : '<li>No results saved for this pupil yet.</li>'; } }
+  async function undo(){
+    if (!lastSaved) return; const id = lastSaved.id, name = lastSaved.name;
+    const d = await call('POST', '/readingresults-db', {}, {action: 'void', id: id});
+    if (d.ok) { lastSaved = null; status('Removed the result for ' + name + '.', true); onPupilHistoryOnly(); refresh(false); }
+    else status(d.error || 'Could not remove it.', false);
+  }
+
+  // A save that failed (wifi, or sign-in ended) is kept with its own id so a retry can never add it twice.
+  function pendingList(){ try { return JSON.parse(store.get(PENDING_KEY) || '[]'); } catch(e){ return []; } }
+  function keepPending(payload, name, summary){ const l = pendingList().filter(x => x.payload.client_id !== payload.client_id); l.push({payload: payload, name: name, summary: summary}); store.set(PENDING_KEY, JSON.stringify(l)); showPending(); }
+  function dropPending(id){ store.set(PENDING_KEY, JSON.stringify(pendingList().filter(x => x.payload.client_id !== id))); showPending(); }
+  function showPending(){
+    const l = pendingList(), box = $q('srPend'); if (!box) return;
+    box.innerHTML = l.length ? '<div class="pend"><b>' + l.length + ' result' + (l.length > 1 ? 's' : '') + ' not saved yet:</b> ' + l.map(x => h(x.name) + ' (' + h(x.summary) + ')').join('; ')
+      + ' <button class="link" id="srRetry">Try again</button><button class="link" id="srDrop">Discard</button></div>' : '';
+    if (l.length) { $q('srRetry').onclick = async () => { for (const x of pendingList()) await send(x.payload, x.name, x.summary); refresh(false); };
+      $q('srDrop').onclick = () => { store.del(PENDING_KEY); showPending(); }; }
+  }
+
+  return {
+    init(c){ cfg = c; if (ON) build(); },
+    refresh(){ if (ON && card) refresh(); },
+  };
+})();

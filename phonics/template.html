@@ -88,8 +88,9 @@ body.nopics .pic{display:none}
 <footer>KS1 Phonics Comprehension &middot; Version <span id="ver"></span></footer>
 <div id="sheets"></div>
 <script>
+/*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "26.09.26k";
+const VERSION = "26.09.26l";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
@@ -134,6 +135,7 @@ function renderTexts(){
 }
 function score(){
   const s = marks.filter(m=>m===1).length;
+  SaveResults.refresh();
   $("score").textContent = "Score: "+s+" / 3";
   $("scoreNote").textContent = marks.includes(null) ? "Tap a tick or cross for each question." : (s===3 ? "Secure at this level." : s===2 ? "Nearly there: check the 'why' answer and try another text at this level." : "Not yet secure: try another text at this level or a lower level.");
 }
@@ -146,6 +148,9 @@ $("pTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"]
 $("pAllPupil").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="p"]');
 $("pAllTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="t"]');
 $("picToggle").onchange = e => document.body.classList.toggle("nopics", !e.target.checked);
+SaveResults.init({tool:"phonics", get:()=>{ const s=marks.filter(m=>m===1).length;
+  return {ready:!marks.includes(null), hint:"Tap a tick or cross for each question first, then save.", summary:s+"/3, "+L.name,
+          body:{test_id:"phonics-"+L.level+"-"+(T+1), level:L.name, marks:marks.map(m=>m?1:0)}}; }});
 $("ver").textContent=VERSION;
 buildSheets(); renderLevels(); renderTexts();
 </script>

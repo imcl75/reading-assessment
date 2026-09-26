@@ -89,7 +89,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <div id="sheets"></div>
 <script>
 const DATA = /*DATA*/;
-const VERSION = "26.09.26f";
+const VERSION = "26.09.26g";
 const PASS_PC = 0.8, DEV_PC = 0.6;   // secure at 80%+, developing 60-79% (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};

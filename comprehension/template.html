@@ -72,7 +72,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
       <button class="act" id="pPupil">Print pupil copy</button>
       <button class="act alt" id="pTeacher">Print mark scheme</button>
     </div>
-    <p class="note">Pupil copy: page 1 is the text, page 2 the questions. Each test shows its number of questions and total marks. Secure = 80% or more.</p>
+    <p class="note">Pupil copy: page 1 is the text, page 2 the questions. Each test shows its number of questions and total marks. On track = 60% or more; greater depth = 80% or more.</p>
   </section>
   <section class="card">
     <h2 id="tt"></h2>
@@ -89,8 +89,8 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <div id="sheets"></div>
 <script>
 const DATA = /*DATA*/;
-const VERSION = "26.09.26j";
-const PASS_PC = 0.8, DEV_PC = 0.6;   // secure at 80%+, developing 60-79% (edit here to change thresholds)
+const VERSION = "26.09.26k";
+const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};
 const BANDS = [[17,18,"Turquoise","#00e5c8"],[19,20,"Purple","#800080"],[21,22,"Gold","#ffc000"],[23,24,"White","#ffffff"],[25,26,"Lime","#00ee00"],[27,28,"Ruby","#c00000"],[29,30,"Sapphire","#000080"],[31,34,"Free Reader","#f2b705"]];
@@ -121,7 +121,7 @@ function sheets(l,i){
   let p1='<section class="sheet" '+key+' data-k="p"><div class="fields"><span>Name:</span><span>Date:</span></div>'+head('')+'<div class="passage'+(t.text.join(" ").split(/\s+/).length>390?' long':'')+(t.text.join(" ").split(/\s+/).length>480?' xlong':'')+'">'+t.text.map(x=>'<p>'+esc(x)+'</p>').join('')+'</div>'+foot+'</section>';
   let p2='<section class="sheet" '+key+' data-k="p"><div class="fields"><span>Name:</span><span>Date:</span></div>'+head(' &middot; Questions')+t.qs.map((q,n)=>qHTML(q,n,false)).join('')+'<div class="foot"><span>Total: ____ / '+tot(t)+'</span><span>v'+VERSION+'</span></div></section>';
   let p3='<section class="sheet" '+key+' data-k="t"><div class="fields"><span>Name:</span><span>Class:</span><span>Date:</span></div>'+head(' &middot; Mark scheme')+t.qs.map((q,n)=>qHTML(q,n,true)).join('')+
-    (()=>{const [P,D]=thr(t),N=tot(t);return '<table><tr><th>Total</th><th>Result</th></tr><tr><td>____ / '+N+'</td><td>'+P+'&ndash;'+N+' secure at this level &nbsp;|&nbsp; '+D+'&ndash;'+(P-1)+' developing: retest at this level &nbsp;|&nbsp; 0&ndash;'+(D-1)+' try the level below</td></tr></table>';})()+foot+'</section>';
+    (()=>{const [P,D]=thr(t),N=tot(t);return '<table><tr><th>Total</th><th>Result</th></tr><tr><td>____ / '+N+'</td><td>'+P+'&ndash;'+N+' greater depth at this level &nbsp;|&nbsp; '+D+'&ndash;'+(P-1)+' on track at this level &nbsp;|&nbsp; 0&ndash;'+(D-1)+' not yet on track: retest with a different text or try the level below</td></tr></table>';})()+foot+'</section>';
   return p1+p2+p3;
 }
 function buildSheets(){ $("sheets").innerHTML = DATA.map(l=>l.texts.map((_,i)=>sheets(l,i)).join('')).join(''); }
@@ -149,7 +149,7 @@ function renderTexts(){
 function score(){
   const t=L.texts[T], s=marks.reduce((a,b)=>a+(b||0),0), done=!marks.includes(null), [P,D]=thr(t);
   $("scoreLine").textContent = "Score: "+s+" / "+tot(t)+" ("+Math.round(100*s/tot(t))+"%)";
-  $("scoreNote").textContent = !done ? "Tap a mark for every question." : s>=P ? "Secure at this level." : s>=D ? "Developing: retest at this level with a different text." : "Below: try the level beneath.";
+  $("scoreNote").textContent = !done ? "Tap a mark for every question." : s>=P ? "Greater depth at this level." : s>=D ? "On track at this level." : "Not yet on track: retest at this level with a different text, or try the level beneath.";
 }
 $("levels").onclick=e=>{const b=e.target.closest(".lv");if(!b||b.disabled)return;L=DATA.find(l=>l.level==b.dataset.l);T=0;renderLevels();renderTexts();};
 $("texts").onclick=e=>{const b=e.target.closest(".tx");if(!b)return;T=+b.dataset.i;renderTexts();};

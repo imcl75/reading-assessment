@@ -1,0 +1,168 @@
+[
+ {
+  "phase": 7,
+  "idx": 4,
+  "title": "The Dolphin",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 7,
+  "idx": 5,
+  "title": "The Blue Cat",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 8,
+  "idx": 0,
+  "title": "The Cake",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 8,
+  "idx": 1,
+  "title": "The Kite",
+  "verdict": "redo",
+  "problems": [
+   "Kite is shown flying high in the air on its string, giving away that the kite went up (Q3 answer)."
+  ],
+  "new_prompt": "A cheerful cartoon boy standing on green grass holding a diamond-shaped kite down by his side, string wound in his hand, kite not flying, pale blue sky with a few soft clouds. No trees, no adults.",
+  "has_children": true
+ },
+ {
+  "phase": 8,
+  "idx": 2,
+  "title": "The Snake",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 8,
+  "idx": 3,
+  "title": "The Bike",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 8,
+  "idx": 4,
+  "title": "The Lake",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 8,
+  "idx": 5,
+  "title": "The Stone",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 9,
+  "idx": 0,
+  "title": "The Snow",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 9,
+  "idx": 1,
+  "title": "The Mouse",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 9,
+  "idx": 2,
+  "title": "The Rope",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 9,
+  "idx": 3,
+  "title": "The Farm Trip",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 9,
+  "idx": 4,
+  "title": "The Baby",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 9,
+  "idx": 5,
+  "title": "Mr Cole",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 10,
+  "idx": 0,
+  "title": "The Present",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 10,
+  "idx": 1,
+  "title": "The Match",
+  "verdict": "redo",
+  "problems": [
+   "Boy stands in the centre circle of a pitch with pitch markings, contradicting the text that he was in goal."
+  ],
+  "new_prompt": "A cheerful cartoon boy in a football kit standing on a plain green grass field with no line markings, his dad in a coat smiling beside him. No goal, no ball, no gloves, no other people.",
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 2,
+  "title": "The Bridge",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 10,
+  "idx": 3,
+  "title": "The Pet Lamb",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 10,
+  "idx": 4,
+  "title": "The Picture",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 10,
+  "idx": 5,
+  "title": "The Gnat",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ }
+]

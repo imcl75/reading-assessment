@@ -1,0 +1,172 @@
+[
+ {
+  "phase": 4,
+  "idx": 2,
+  "title": "The Coin",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 4,
+  "idx": 3,
+  "title": "The Chick",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 4,
+  "idx": 4,
+  "title": "The Haircut",
+  "verdict": "redo",
+  "problems": [
+   "Picture shows a child, not a grown-up dad; cap hides the hair"
+  ],
+  "new_prompt": "A friendly cartoon grown-up man, a tall adult dad, in a jumper standing on a pavement outside a plain shop doorway, waving cheerfully with a warm smile. Simple bright street background. No signs, no tools, no chairs.",
+  "has_children": false
+ },
+ {
+  "phase": 4,
+  "idx": 5,
+  "title": "The Shower",
+  "verdict": "redo",
+  "problems": [
+   "Boy is in a dry bathrobe out of the shower, contradicting 'in the shower'; bathroom setting hints at the where-question"
+  ],
+  "new_prompt": "A cheerful cartoon boy in a T-shirt and shorts standing in a plain, bright hallway holding a folded towel, relaxed smile. Simple uncluttered picture. No bathroom, no shower, no soap, no mat, no mop.",
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 0,
+  "title": "The Frog",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 5,
+  "idx": 1,
+  "title": "The Shop",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 5,
+  "idx": 2,
+  "title": "The Bus",
+  "verdict": "redo",
+  "problems": [
+   "Bus windows show several passenger silhouettes, hinting at the 'packed' answer"
+  ],
+  "new_prompt": "A friendly cartoon boy and his grandmother standing side by side at a bus stop, both smiling gently, a red bus behind them with plain dark tinted windows and nobody visible inside. Sunny street, simple background. No other people.",
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 3,
+  "title": "The Crab",
+  "verdict": "redo",
+  "problems": [
+   "Only one child shown but text has Pam and Jim (two)",
+   "Beach setting instead of a rock pool"
+  ],
+  "new_prompt": "Two friendly cartoon children, a girl and a boy, walking side by side on a sunny seaside path with wide blue sky, smiling, hands empty. Simple bright background. No rocks, no pools, no sea creatures, no buckets.",
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 4,
+  "title": "The Flag",
+  "verdict": "redo",
+  "problems": [
+   "Only one child shown but text has Stan and Jess (two)"
+  ],
+  "new_prompt": "Two friendly cartoon children, a boy and a girl, walking side by side along a path through green countryside towards a small village, cheerful faces, empty hands, sunny day with calm still air. No hill, no flag, no wind lines.",
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 5,
+  "title": "The Net",
+  "verdict": "redo",
+  "problems": [
+   "Only one child shown but text has Fred and Beth (two)",
+   "Single child holding the net, unclear who is who"
+  ],
+  "new_prompt": "Two friendly cartoon children, a girl and a boy, walking side by side through a sunny meadow with wildflowers, the girl carrying a long-handled net over her shoulder, both smiling. No water, no pond, no animals, nothing in the net.",
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 0,
+  "title": "The Dentist",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 6,
+  "idx": 1,
+  "title": "The Elf",
+  "verdict": "redo",
+  "problems": [
+   "Elf is wearing a hat, but the text says he lost his hat and questions ask what he lost"
+  ],
+  "new_prompt": "A friendly cartoon elf with pointed ears and a bare head, in a plain green tunic and pointed shoes, standing in a garden beside a small wooden shed, mildly puzzled face. No hat, no cap, no bag.",
+  "has_children": false
+ },
+ {
+  "phase": 6,
+  "idx": 2,
+  "title": "The Picnic",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 6,
+  "idx": 3,
+  "title": "The Rocket",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 6,
+  "idx": 4,
+  "title": "The Hamster",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 6,
+  "idx": 5,
+  "title": "The Market",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 7,
+  "idx": 0,
+  "title": "A Wet Day",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 7,
+  "idx": 1,
+  "title": "The Bird",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 7,
+  "idx": 2,
+  "title": "The Lost Boy",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 7,
+  "idx": 3,
+  "title": "The New Pup",
+  "verdict": "ok",
+  "problems": []
+ }
+]

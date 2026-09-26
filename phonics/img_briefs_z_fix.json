@@ -110,5 +110,19 @@
   "title": "The Match",
   "prompt": "A cheerful cartoon boy in a football kit standing on a plain green grass field with no line markings, his dad in a coat smiling beside him. No goal, no ball, no gloves, no other people.",
   "has_children": true
+ },
+ {
+  "phase": 1,
+  "idx": 2,
+  "title": "The Bus",
+  "prompt": "A friendly cartoon boy standing at a bus stop beside a plain red bus, looking up at it with a calm smile, hands empty. Bus windows dark and empty. Sunny street, simple background. No other people.",
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 3,
+  "title": "The Rocket",
+  "prompt": "Exactly two friendly cartoon children sitting side by side on one picnic blanket in a sunny park, both smiling, an empty plate beside them, trees behind. Simple bright background. No rocket, no flag, no craft items, no adults.",
+  "has_children": true
  }
 ]

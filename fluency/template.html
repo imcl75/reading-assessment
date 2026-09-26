@@ -108,13 +108,13 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
     <p class="key">Target: 90&ndash;100 words correct per minute at the pupil's current level. Accuracy: above 95% independent, 90&ndash;95% instructional, below 90% difficult.</p>
   </section>
 </main>
-<footer>Fluency Assessment &middot; Version <span id="ver">26.09.26c</span></footer>
+<footer>Fluency Assessment &middot; Version <span id="ver">26.09.26d</span></footer>
 
 <div id="sheets"></div>
 
 <script>
 const TEXTS = /*TEXTS*/;
-const VERSION = "26.09.26c";
+const VERSION = "26.09.26d";
 const BANDS = [[17,18,"Turquoise","#00e5c8"],[19,20,"Purple","#800080"],[21,22,"Gold","#ffc000"],[23,24,"White","#ffffff"],[25,26,"Lime","#00ee00"],[27,28,"Ruby","#c00000"],[29,30,"Sapphire","#000080"],[31,36,"Free Reader","#f2b705"]];
 const band = l => BANDS.find(b => l >= b[0] && l <= b[1]);
 const lv = l => l > 30 ? 'F' + (l - 30) : l;   // levels end at 30; above that the levels are F1-F4 (Free Reader)

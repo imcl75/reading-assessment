@@ -1,6 +1,6 @@
 """Checks every text is decodable at its level (and uses its own phase without being ALL new-phase words),
 then builds a single self-contained index.html."""
-import json, pathlib, sys
+import json, pathlib, sys, hashlib
 from levels import ADD, NAMES, check_text, cum, mix_problems, phase_mix
 from texts_src import B
 here = pathlib.Path(__file__).parent
@@ -23,7 +23,9 @@ for lv in sorted(B):
             errors+=1; print("FAIL",lv,NAMES[lv],"|",title,"|",bad,mix)
         toks,fl=phase_mix(text,lv)
         focus=[] if lv==1 else list(dict.fromkeys(t.lower() for t,f in zip(toks,fl) if f==lv))
-        image=f'img/p{lv}-{len(items)}.jpg' if (here/'img'/f'p{lv}-{len(items)}.jpg').exists() else None
+        pic=here/'img'/f'p{lv}-{len(items)}.jpg'
+        # the address changes whenever the picture changes, so a stale copy held by a cache is never shown
+        image=f'img/{pic.name}?v={hashlib.md5(pic.read_bytes()).hexdigest()[:8]}' if pic.exists() else None
         items.append(dict(title=title,text=text,focus=focus,image=image,qs=[dict(t=t,q=q,a=a) for t,q,a in qs]))
     data.append(dict(level=lv,name=NAMES[lv],sounds=cum_sounds,cew=", ".join(sorted(cew,key=str.lower)),texts=items))
 if errors: sys.exit("not built: %d problem(s)"%errors)

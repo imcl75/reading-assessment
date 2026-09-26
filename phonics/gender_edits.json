@@ -1,0 +1,584 @@
+{
+ "phonics": [
+  {
+   "phase": 1,
+   "idx": 2,
+   "text": "At ten, Ben and Mum got in a cab. Ben had a nap. Mum did not nap. Mum had to get the cab up a hill.",
+   "questions": [
+    {
+     "type": "when",
+     "question": "When did Ben and Mum get in the cab?",
+     "answer": "At ten."
+    },
+    {
+     "type": "who",
+     "question": "Who had a nap?",
+     "answer": "Ben."
+    },
+    {
+     "type": "why",
+     "question": "Why did Mum not nap?",
+     "answer": "She was driving the cab."
+    }
+   ],
+   "reason": "Dad was the default driver; now Mum drives."
+  },
+  {
+   "phase": 1,
+   "idx": 4,
+   "text": "Bob is in bed. It is ten. Dad ran in. Dad got Bob up. Bob is not mad. Bob had a hug.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who is in bed?",
+     "answer": "Bob."
+    },
+    {
+     "type": "when",
+     "question": "When did Dad get Bob up?",
+     "answer": "At ten."
+    },
+    {
+     "type": "why",
+     "question": "Why did Dad get Bob up?",
+     "answer": "It was ten / it was late / time to get up."
+    }
+   ],
+   "reason": "Getting a child up and the hug were default Mum; now Dad."
+  },
+  {
+   "phase": 2,
+   "idx": 3,
+   "text": "Vin is in bed. He is hot and red. Dad got him a wet rag. It is on his chin. Vin is not sad.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who is in bed?",
+     "answer": "Vin."
+    },
+    {
+     "type": "what",
+     "question": "What did Dad get for Vin?",
+     "answer": "A wet rag."
+    },
+    {
+     "type": "why",
+     "question": "Why is Vin in bed?",
+     "answer": "He is ill."
+    }
+   ],
+   "reason": "Caring for a sick child was Mum by default; now Dad."
+  },
+  {
+   "phase": 2,
+   "idx": 5,
+   "text": "Beth and Ben had buns with jam. Beth got jam on the chin. Ben had a rag. He got it off.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Beth get on the chin?",
+     "answer": "Jam."
+    },
+    {
+     "type": "who",
+     "question": "Who had a rag?",
+     "answer": "Ben."
+    },
+    {
+     "type": "why",
+     "question": "Why did Ben use the rag?",
+     "answer": "To get the jam off Beth's chin."
+    }
+   ],
+   "reason": "The girl did the cleaning-up and looking after; now the boy does, and the girl is the messy one."
+  },
+  {
+   "phase": 4,
+   "idx": 1,
+   "text": "Kim sat on a chair in the park. It had jam on it. Kim got up and her top had jam on it. Her hair had jam in it as well! Kim is sad.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Kim sit?",
+     "answer": "On a chair in the park."
+    },
+    {
+     "type": "what",
+     "question": "What was on the chair?",
+     "answer": "Jam."
+    },
+    {
+     "type": "why",
+     "question": "Why is Kim sad?",
+     "answer": "Her top and hair have jam on them."
+    }
+   ],
+   "reason": "Removes Mum as the one who gets cross over a child's mess."
+  },
+  {
+   "phase": 4,
+   "idx": 4,
+   "text": "Dad had a haircut. He sat in a chair. The barber cut and cut. Now Dad has no hair on top!",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Dad have?",
+     "answer": "A haircut."
+    },
+    {
+     "type": "where",
+     "question": "Where did Dad sit?",
+     "answer": "In a chair."
+    },
+    {
+     "type": "why",
+     "question": "Why has Dad no hair on top?",
+     "answer": "The barber cut it all off."
+    }
+   ],
+   "reason": "'The man' was a needlessly gendered noun."
+  },
+  {
+   "phase": 4,
+   "idx": 5,
+   "text": "Josh is in the shower. He got soap in his hair. The soap fell on the mat. Dad got a mop. The mat is wet now.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where is Josh?",
+     "answer": "In the shower."
+    },
+    {
+     "type": "what",
+     "question": "What fell on the mat?",
+     "answer": "The soap."
+    },
+    {
+     "type": "why",
+     "question": "Why did Dad get a mop?",
+     "answer": "The mat was wet."
+    }
+   ],
+   "reason": "Teacher's example: 'Mum got her mop' tied mopping to Mum; now 'Dad got a mop'."
+  },
+  {
+   "phase": 5,
+   "idx": 1,
+   "text": "Fran went to the shop to get milk. The shop was shut. A clerk said the shop is shut till ten. Fran sat on a step and waited.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Fran go to get?",
+     "answer": "Milk."
+    },
+    {
+     "type": "where",
+     "question": "Where did Fran sit?",
+     "answer": "On a step."
+    },
+    {
+     "type": "why",
+     "question": "Why did Fran wait?",
+     "answer": "The shop was shut."
+    }
+   ],
+   "reason": "Varies the passer-by (was 'a man')."
+  },
+  {
+   "phase": 5,
+   "idx": 3,
+   "text": "Pam and Jim went to a rock pool. They spotted a crab. Jim bent down to pat it. The crab pinched his hand! Jim yelped and jumped back.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Pam and Jim go?",
+     "answer": "A rock pool."
+    },
+    {
+     "type": "what",
+     "question": "What did they spot?",
+     "answer": "A crab."
+    },
+    {
+     "type": "why",
+     "question": "Why did Jim yelp?",
+     "answer": "The crab pinched his hand."
+    }
+   ],
+   "reason": "Girl was the timid one who yelped; now the boy."
+  },
+  {
+   "phase": 5,
+   "idx": 5,
+   "text": "Fred and Beth went to the pond with a net. Beth got a frog and a crab in the net. Fred said they must not keep them. They let the frog and the crab go in the pond.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Beth get in the net?",
+     "answer": "A frog and a crab."
+    },
+    {
+     "type": "where",
+     "question": "Where did they let the frog and the crab go?",
+     "answer": "In the pond."
+    },
+    {
+     "type": "why",
+     "question": "Why did Fred say they must not keep them?",
+     "answer": "The animals belong in the pond / they should be free."
+    }
+   ],
+   "reason": "Was two boys; adds a girl doing the catching, a boy doing the caring."
+  },
+  {
+   "phase": 6,
+   "idx": 2,
+   "text": "Ben and his sister had a picnic in the garden. Ben's basket had a blanket and six muffins in it. But an ant had got in the basket, and Ben didn't like it. His sister picked it out.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where was the picnic?",
+     "answer": "In the garden."
+    },
+    {
+     "type": "what",
+     "question": "What did Ben's basket have in it?",
+     "answer": "A blanket and six muffins."
+    },
+    {
+     "type": "why",
+     "question": "Why didn't Ben like it?",
+     "answer": "An ant had got in the basket."
+    }
+   ],
+   "reason": "Girl was squeamish about an ant; now the boy is, and his sister deals with it."
+  },
+  {
+   "phase": 6,
+   "idx": 3,
+   "text": "Josh and Jess had a rocket for the contest. They painted it red and stuck a flag on top. It didn't win, but the boss said it was the smartest rocket in the contest.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Josh and Jess have for the contest?",
+     "answer": "A rocket."
+    },
+    {
+     "type": "what",
+     "question": "What did they stick on top?",
+     "answer": "A flag."
+    },
+    {
+     "type": "why",
+     "question": "Why do you think Josh and Jess were still proud?",
+     "answer": "The boss said it was the smartest rocket."
+    }
+   ],
+   "reason": "Rocket builders were two boys and 'the man' judged; now a mixed pair and a neutral 'boss'."
+  },
+  {
+   "phase": 6,
+   "idx": 5,
+   "text": "Dad took Josh to the market. Josh had the basket. Dad got a pumpkin and some mushrooms and dropped them in it. Soon the basket was packed, and Josh's arms started to hurt. “It's my turn to have it,” said Dad.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who had the basket at first?",
+     "answer": "Josh."
+    },
+    {
+     "type": "what",
+     "question": "What did Dad get at the market?",
+     "answer": "A pumpkin and some mushrooms."
+    },
+    {
+     "type": "why",
+     "question": "Why did Dad say it was his turn to have the basket?",
+     "answer": "It was packed and Josh's arms hurt."
+    }
+   ],
+   "reason": "Food shopping was Mum by default; now Dad."
+  },
+  {
+   "phase": 7,
+   "idx": 1,
+   "text": "A bird sat on the ground. It had a hurt wing. A boy found it. He called Gran and they got a box. Soon the bird was well and flew away.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What was wrong with the bird?",
+     "answer": "It had a hurt wing."
+    },
+    {
+     "type": "who",
+     "question": "Who found the bird?",
+     "answer": "A boy."
+    },
+    {
+     "type": "why",
+     "question": "Why did the boy call Gran?",
+     "answer": "To help the bird (it was hurt)."
+    }
+   ],
+   "reason": "Girl rescued the animal and called Mum; now a boy calls Gran."
+  },
+  {
+   "phase": 7,
+   "idx": 2,
+   "text": "Roy was at the fair. He looked round but Dad was not there. Roy called out. A clerk found him and took him to a shop. Dad was at the shop!",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where was Roy?",
+     "answer": "At the fair."
+    },
+    {
+     "type": "who",
+     "question": "Who found Roy?",
+     "answer": "A clerk."
+    },
+    {
+     "type": "why",
+     "question": "Why did Roy call out?",
+     "answer": "He could not see Dad / he was lost."
+    }
+   ],
+   "reason": "Mum was the default parent; helper was 'a man'; now Dad and a clerk."
+  },
+  {
+   "phase": 7,
+   "idx": 3,
+   "text": "Mr Brown had a new pup. The pup chewed a rug. It chewed a chair. It chewed a hat. Mr Brown was cross. He got a toy for the pup to chew.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who had a new pup?",
+     "answer": "Mr Brown."
+    },
+    {
+     "type": "what",
+     "question": "What did the pup chew?",
+     "answer": "A rug, a chair and a hat."
+    },
+    {
+     "type": "why",
+     "question": "Why did Mr Brown get the pup a toy?",
+     "answer": "So it would chew the toy, not his things."
+    }
+   ],
+   "reason": "Cross, house-proud adult was female; now male."
+  },
+  {
+   "phase": 8,
+   "idx": 1,
+   "text": "Mike went up the hill with his kite. The wind was strong. Mike ran and the kite went up. Then it got stuck in a tree. Mum came and got it down.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Mike go?",
+     "answer": "Up the hill."
+    },
+    {
+     "type": "who",
+     "question": "Who got the kite down?",
+     "answer": "Mum."
+    },
+    {
+     "type": "why",
+     "question": "Why did Mike run?",
+     "answer": "To get the kite up in the air."
+    }
+   ],
+   "reason": "Fixing/rescuing was Dad; now Mum."
+  },
+  {
+   "phase": 8,
+   "idx": 4,
+   "text": "It was a hot day in June. Luke and Kate ran to the lake. Kate jumped in. Luke stayed on the bank. He had left his swim kit at home.",
+   "questions": [
+    {
+     "type": "when",
+     "question": "When was it?",
+     "answer": "A hot day in June."
+    },
+    {
+     "type": "where",
+     "question": "Where did Luke and Kate run?",
+     "answer": "To the lake."
+    },
+    {
+     "type": "why",
+     "question": "Why did Luke stay on the bank?",
+     "answer": "He had left his swim kit at home."
+    }
+   ],
+   "reason": "Girl was the forgetful one who stayed out; roles swapped."
+  },
+  {
+   "phase": 9,
+   "idx": 4,
+   "text": "Ted had a new baby sister. The baby cried and cried. Ted tried to help. He sang a song. Soon the baby was fast asleep.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who cried and cried?",
+     "answer": "The baby."
+    },
+    {
+     "type": "what",
+     "question": "What did Ted do?",
+     "answer": "He sang a song."
+    },
+    {
+     "type": "why",
+     "question": "Why did Ted sing?",
+     "answer": "To help the baby stop crying."
+    }
+   ],
+   "reason": "Removes Mum as default baby carer while keeping the boy who soothes the baby."
+  },
+  {
+   "phase": 10,
+   "idx": 2,
+   "text": "Bridget stood on the bridge and looked down. The river was far below. Her knees did not shake. She held the rail and leaned out to look for a fish.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Bridget stand?",
+     "answer": "On the bridge."
+    },
+    {
+     "type": "what",
+     "question": "What was far below?",
+     "answer": "The river."
+    },
+    {
+     "type": "why",
+     "question": "Why did Bridget hold the rail?",
+     "answer": "To stay safe while she leaned out to look for a fish."
+    }
+   ],
+   "reason": "Girl was fearful with weak knees; now curious and confident."
+  },
+  {
+   "phase": 10,
+   "idx": 4,
+   "text": "Kim painted a picture for Dad. She used red, blue and green. Dad hung it in the kitchen. Kim smiled when she saw it on the wall.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Kim paint?",
+     "answer": "A picture."
+    },
+    {
+     "type": "where",
+     "question": "Where did Dad hang it?",
+     "answer": "In the kitchen (on the wall)."
+    },
+    {
+     "type": "why",
+     "question": "Why did Kim smile?",
+     "answer": "Dad hung her picture up / she was proud."
+    }
+   ],
+   "reason": "Rebalances Mum/Dad; kitchen no longer tied to Mum."
+  },
+  {
+   "phase": 10,
+   "idx": 5,
+   "text": "A gnat bit Mum on the wrist. It itched and itched. Mum scratched it. Dad got a cream to stop the itch. Soon Mum felt fine.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What bit Mum?",
+     "answer": "A gnat."
+    },
+    {
+     "type": "where",
+     "question": "Where did it bite her?",
+     "answer": "On the wrist."
+    },
+    {
+     "type": "why",
+     "question": "Why did Dad get the cream?",
+     "answer": "To stop the itch."
+    }
+   ],
+   "reason": "Mum was the one getting the medicine; now Dad does."
+  },
+  {
+   "phase": 4,
+   "idx": 2,
+   "text": "Beth had a coin. It fell in the soil near a rock. Beth dug and dug. Now Beth has the coin. Beth is not sad.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Beth have?",
+     "answer": "A coin."
+    },
+    {
+     "type": "where",
+     "question": "Where did it fall?",
+     "answer": "In the soil near a rock."
+    },
+    {
+     "type": "why",
+     "question": "Why did Beth dig?",
+     "answer": "To get / find the coin."
+    }
+   ],
+   "reason": "Adds a girl doing the digging and persisting (was all-boy)."
+  },
+  {
+   "phase": 8,
+   "idx": 3,
+   "text": "Pat rode her bike to the shop. She left it next to the gate. When she came back, the bike was on the ground. The wind had made it drop. Pat picked it up and rode home.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Pat ride?",
+     "answer": "Her bike."
+    },
+    {
+     "type": "where",
+     "question": "Where did Pat leave her bike?",
+     "answer": "Next to the gate."
+    },
+    {
+     "type": "why",
+     "question": "Why was the bike on the ground?",
+     "answer": "The wind made it drop."
+    }
+   ],
+   "reason": "Rebalances he/she: girl now rides and copes."
+  }
+ ],
+ "fluency": [
+  {
+   "level": 20,
+   "text": "Kai was nervous. It was his first day at the swimming club, and he did not know anyone there. He stood at the edge of the pool and looked at the deep water. \"Come on in,\" called a girl with a blue hat. \"I'm Priya. The water is not as cold as it looks.\" Kai took a deep breath and stepped down the ladder. The water was cool but not freezing. Soon he was kicking his legs and laughing. By the end of the lesson, he had learned to float on his back and had made a brand new friend.",
+   "reason": "The nervous newcomer was a girl; now a boy (Priya stays as the friendly swimmer)."
+  },
+  {
+   "level": 22,
+   "text": "Yasmin's grandfather had promised to teach her how to fish. They rose before dawn and carried their rods down to the quiet lake. Mist floated over the water like a soft, grey blanket. \"The secret is patience,\" whispered Grandad, passing Yasmin a wriggling worm. Yasmin threaded it onto the hook and cast her line. Minutes slowly ticked by. Nothing happened. Yasmin was beginning to feel bored when the float suddenly bobbed under the surface. She gripped her rod tightly and reeled as fast as she could. At the end of her line, a silver fish flashed in the morning sunlight.",
+   "reason": "Fishing cast was all male; the learner is now a girl."
+  },
+  {
+   "level": 28,
+   "text": "Eleanor gazed at the letter in her trembling hands, unsure whether to laugh or cry. For months, she had rehearsed what she would say if she ever won the scholarship, yet now all her carefully chosen words had completely vanished. Her father watched silently from the doorway, hardly daring to breathe. \"Well?\" he asked eventually. \"Don't keep me in suspense.\" Eleanor looked up, her eyes shining. \"I got it,\" she whispered, and then, louder, \"I actually got it!\" Her father rushed across the room and swept her into a hug so tight that the letter fluttered gently to the floor.",
+   "reason": "The watching, hugging parent was the mother; now the father."
+  },
+  {
+   "level": 30,
+   "text": "Tentatively, Amira pushed open the heavy classroom door, expecting a reprimand for being late. Instead, the room fell silent. Twenty-eight faces swivelled towards her, and Mr Okafor put down his red marker pen with deliberate slowness. \"Amira,\" he said, \"would you care to explain why you are wearing one green sock and one orange one?\" She glanced down in dismay. In her frantic rush that morning, she had failed to notice the mismatch. A ripple of giggles spread across the room. Amira felt her ears burning, yet somehow she found herself smiling. \"It's a new fashion trend,\" she announced proudly.",
+   "reason": "Messy, late boy is now a girl, and the teacher is now Mr Okafor."
+  },
+  {
+   "level": 34,
+   "text": "By the time the storm reached the headland, Elsa had already secured every rattling shutter. Wind screamed around the lantern room, and the ancient stone tower shuddered as waves pounded the rocks below. She tightened her grip on the rail, gazing out at the churning darkness. Somewhere out there, beyond the reef, a ship was struggling. Without hesitation, she relit the great brass lamp, its beam slicing through the driving rain. For hours she stayed grimly at her post, weary but unyielding, until at first light a small fishing boat limped safely into the harbour, its exhausted crew waving gratefully.",
+   "reason": "The heroic lighthouse keeper was male; now female."
+  }
+ ],
+ "report": "PATTERNS: Mum was the default carer/fixer/cross adult (25 Mum vs 15 Dad in phonics): getting a child up, sick child, thorn removal, hair mess, mopping, market shop, baby, medicine, hanging pictures, and \"her mop\". Other patterns: girls timid/squeamish/forgetful (Pam yelps, Kate stays on bank, Bridget's weak knees, Ben's sister dislikes ant), boys messy/brave, men as helpers (\"a man\"), Dad as default driver/fixer, Mrs Brown cross, boys-only pairs (Josh and Sam, Fred and Bill), and 'the man' as needlessly gendered noun. Fluency: nervous/tearful girls, messy late boy, male lighthouse hero, mother as hugger, all-male fishing.\nCOUNTS phonics (whole set of 60): Mum 25 -> 17, Dad 15 -> 20 (Mum now drives, gets bitten, rescues the kite; Dad mops, nurses, shops; Mum still kept in 1-2 driving, 2-2 jogging, 3-3 rescue with the car, 4-0 driving, 8-0 cake, 10-5 bitten). he/him/his 65 -> 64, she/her 30 -> 26 (roles now balanced: girls dig, ride, dive in, rescue; boys are nervous, squeamish, forgetful, soothe a baby). 24 phonics texts changed; all pass check_text and mix_problems; each still has 3 questions incl. a why question. Fluency: 5 passages changed, all still exactly 100 words, same vocabulary difficulty (names and pronouns only, plus mother->father and Mrs->Mr).\nGran and Grandad added only once (7-1 Gran) because most phases cannot decode them; named adults and neutral nouns (barber, clerk, boss) used instead.\nLEFT ALONE: 3-0 and 3-4 (Dad with child on outing, fine), 4-0 and 3-3 Mum driving/rescuing (counter-stereotype), 6-0 female dentist (already counter-stereotype), 6-4 Nan's hamster, 8-2 Zane runs and Jade brave (already counter-stereotype), 9-2 Cindy rope, 9-5 kind old Mr Cole, 10-1 Mitch in goal with Dad, 7-5 Sue draws (praised by Mr Grey; kept as neutral), 4-3 farmer already neutral, hen/chick 'her' (animal biology), fluency 18, 19, 21, 23, 24 (Zara; one nervous girl kept, balanced by Kai), 25, 26 (Josh brave, girl calm reader), 27 (worker bees are female), 29, 31, 32, 33, 35, 36 (history).\nNOTE on 4-5: teacher's example fixed (\"Dad got a mop\"). 6-3 changed 'the man' to 'the boss' since 'judge' is not decodable at Phase 6 and 'teacher' fails too.\nREDRAW ILLUSTRATIONS (phase-idx, using the JSON's phase field): 1-2 (Ben and Mum in the cab), 1-4 (Dad not Mum), 2-3 (Dad not Mum), 2-5 (girl has jam, boy holds rag), 4-1 (Mum gone from scene if drawn), 4-2 (Beth digging), 4-4 (barber), 4-5 (Dad with mop), 5-1 (clerk for a man), 5-3 (Jim yelping not Pam), 5-5 (Fred and Beth), 6-2 (sister picks out the ant, Ben looks put off), 6-3 (Josh and Jess), 6-5 (Dad at market), 7-1 (boy and Gran), 7-2 (Dad, and a clerk), 7-3 (Mr Brown), 8-1 (Mum gets kite), 8-3 (Pat a girl), 8-4 (Kate jumps in, Luke stays), 9-4 (baby is Ted's sister, no Mum), 10-2 (Bridget leaning out looking for a fish, not scared), 10-4 (Dad hangs picture), 10-5 (Mum bitten, Dad with cream). Note the fluency texts have no illustrations in scope."
+}

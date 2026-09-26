@@ -17,7 +17,7 @@
   "level": 20,
   "title": "The Swimming Club",
   "type": "Narrative",
-  "text": "Mia was nervous. It was her first day at the swimming club, and she did not know anyone there. She stood at the edge of the pool and looked at the deep water. \"Come on in,\" called a girl with a blue hat. \"I'm Priya. The water is not as cold as it looks.\" Mia took a deep breath and stepped down the ladder. The water was cool but not freezing. Soon she was kicking her legs and laughing. By the end of the lesson, she had learned to float on her back and had made a brand new friend.",
+  "text": "Kai was nervous. It was his first day at the swimming club, and he did not know anyone there. He stood at the edge of the pool and looked at the deep water. \"Come on in,\" called a girl with a blue hat. \"I'm Priya. The water is not as cold as it looks.\" Kai took a deep breath and stepped down the ladder. The water was cool but not freezing. Soon he was kicking his legs and laughing. By the end of the lesson, he had learned to float on his back and had made a brand new friend.",
   "words": 100
  },
  {
@@ -31,7 +31,7 @@
   "level": 22,
   "title": "Fishing at Dawn",
   "type": "Narrative",
-  "text": "Omar's grandfather had promised to teach him how to fish. They rose before dawn and carried their rods down to the quiet lake. Mist floated over the water like a soft, grey blanket. \"The secret is patience,\" whispered Grandad, passing Omar a wriggling worm. Omar threaded it onto the hook and cast his line. Minutes slowly ticked by. Nothing happened. Omar was beginning to feel bored when the float suddenly bobbed under the surface. He gripped his rod tightly and reeled as fast as he could. At the end of his line, a silver fish flashed in the morning sunlight.",
+  "text": "Yasmin's grandfather had promised to teach her how to fish. They rose before dawn and carried their rods down to the quiet lake. Mist floated over the water like a soft, grey blanket. \"The secret is patience,\" whispered Grandad, passing Yasmin a wriggling worm. Yasmin threaded it onto the hook and cast her line. Minutes slowly ticked by. Nothing happened. Yasmin was beginning to feel bored when the float suddenly bobbed under the surface. She gripped her rod tightly and reeled as fast as she could. At the end of her line, a silver fish flashed in the morning sunlight.",
   "words": 100
  },
  {
@@ -73,7 +73,7 @@
   "level": 28,
   "title": "The Letter",
   "type": "Narrative",
-  "text": "Eleanor gazed at the letter in her trembling hands, unsure whether to laugh or cry. For months, she had rehearsed what she would say if she ever won the scholarship, yet now all her carefully chosen words had completely vanished. Her mother watched silently from the doorway, hardly daring to breathe. \"Well?\" she asked eventually. \"Don't keep me in suspense.\" Eleanor looked up, her eyes shining. \"I got it,\" she whispered, and then, louder, \"I actually got it!\" Her mother rushed across the room and swept her into a hug so tight that the letter fluttered gently to the floor.",
+  "text": "Eleanor gazed at the letter in her trembling hands, unsure whether to laugh or cry. For months, she had rehearsed what she would say if she ever won the scholarship, yet now all her carefully chosen words had completely vanished. Her father watched silently from the doorway, hardly daring to breathe. \"Well?\" he asked eventually. \"Don't keep me in suspense.\" Eleanor looked up, her eyes shining. \"I got it,\" she whispered, and then, louder, \"I actually got it!\" Her father rushed across the room and swept her into a hug so tight that the letter fluttered gently to the floor.",
   "words": 100
  },
  {
@@ -87,7 +87,7 @@
   "level": 30,
   "title": "The Odd Socks",
   "type": "Narrative",
-  "text": "Tentatively, Marcus pushed open the heavy classroom door, expecting a reprimand for being late. Instead, the room fell silent. Twenty-eight faces swivelled towards him, and Mrs Okafor put down her red marker pen with deliberate slowness. \"Marcus,\" she said, \"would you care to explain why you are wearing one green sock and one orange one?\" He glanced down in dismay. In his frantic rush that morning, he had failed to notice the mismatch. A ripple of giggles spread across the room. Marcus felt his ears burning, yet somehow he found himself smiling. \"It's a new fashion trend,\" he announced proudly.",
+  "text": "Tentatively, Amira pushed open the heavy classroom door, expecting a reprimand for being late. Instead, the room fell silent. Twenty-eight faces swivelled towards her, and Mr Okafor put down his red marker pen with deliberate slowness. \"Amira,\" he said, \"would you care to explain why you are wearing one green sock and one orange one?\" She glanced down in dismay. In her frantic rush that morning, she had failed to notice the mismatch. A ripple of giggles spread across the room. Amira felt her ears burning, yet somehow she found herself smiling. \"It's a new fashion trend,\" she announced proudly.",
   "words": 100
  },
  {
@@ -108,14 +108,28 @@
   "level": 33,
   "title": "Should Zoos Exist?",
   "type": "Discussion",
-  "text": "Zoos have long divided public opinion. Supporters argue that they protect endangered species by breeding rare animals that might otherwise vanish forever. Educational displays, they claim, inspire young visitors to care about nature. Critics, however, insist that keeping wild animals in enclosures is cruel, however spacious the enclosures may be. They point out that many animals show signs of stress, such as pacing endlessly, when they are deprived of their natural habitats. Also, very few captive-bred animals are ever returned to the wild. Ultimately, each person must weigh the conservation benefits against the welfare concerns and decide where they stand.",
+  "text": "Zoos have long divided public opinion. Supporters argue that they protect endangered species by breeding rare animals that might otherwise vanish forever. They say that visiting a zoo helps young people to care about wildlife. Critics disagree. They believe that wild animals should not live in enclosures, however large, and they point out that many captive animals pace up and down, which suggests they are unhappy. Very few zoo-bred animals are ever returned to the wild, so critics ask whether zoos really help. In the end, each person must weigh the benefits against the concerns and decide where they stand.",
   "words": 100
  },
  {
   "level": 34,
   "title": "The Storm",
   "type": "Narrative",
-  "text": "By the time the storm reached the headland, Elias had already secured every rattling shutter. Wind screamed around the lantern room, and the ancient stone tower shuddered as waves pounded the rocks below. He tightened his grip on the rail, gazing out at the churning darkness. Somewhere out there, beyond the reef, a ship was struggling. Without hesitation, he relit the great brass lamp, its beam slicing through the driving rain. For hours he stayed grimly at his post, weary but unyielding, until at first light a small fishing boat limped safely into the harbour, its exhausted crew waving gratefully.",
+  "text": "By the time the storm reached the headland, Elsa had already secured every rattling shutter. Wind screamed around the lantern room, and the ancient stone tower shuddered as waves pounded the rocks below. She tightened her grip on the rail, gazing out at the churning darkness. Somewhere out there, beyond the reef, a ship was struggling. Without hesitation, she relit the great brass lamp, its beam slicing through the driving rain. For hours she stayed grimly at her post, weary but unyielding, until at first light a small fishing boat limped safely into the harbour, its exhausted crew waving gratefully.",
+  "words": 100
+ },
+ {
+  "level": 35,
+  "title": "The Envelope",
+  "type": "Narrative",
+  "text": "The letter arrived on the coldest morning of the whole year, wedged between an unpaid gas bill and a takeaway menu. Nora recognised the spidery handwriting at once, and her stomach tightened. For three years, her grandfather’s silence had hung over the family like a stubborn fog, and nobody would explain why. She slid a trembling finger beneath the flap, hesitating. What if the words inside only made everything worse? Then, before she could change her mind, she tore the envelope open and began to read, her breath clouding the frosty window as the house creaked and settled around her.",
+  "words": 100
+ },
+ {
+  "level": 36,
+  "title": "The Rosetta Stone",
+  "type": "Information Report",
+  "text": "In 1799, French soldiers repairing an old fort in Egypt uncovered a slab of dark grey stone covered in strange writing. The Rosetta Stone, as it became known, carried the same message in three different scripts: hieroglyphs, a simpler Egyptian script and ancient Greek. Scholars could easily read Greek, so they compared the three versions line by line. Even so, it took more than twenty years for a French linguist, Jean-François Champollion, to work out how hieroglyphs worked. His discovery, announced in 1822, allowed people to read thousands of years of Egyptian history for the first time in many centuries.",
   "words": 100
  }
 ]

@@ -1,0 +1,309 @@
+[
+ {
+  "phase": 4,
+  "idx": 0,
+  "title": "The Cow",
+  "prompt": "Friendly cartoon boy sitting in the back seat of a small car, looking out of the side window with a calm, curious face. Quiet country lane, green hedges and fields outside. Nothing animal in view. Soft sunny colours.",
+  "shows": [
+   "boy in a car",
+   "country lane",
+   "calm mood"
+  ],
+  "hides": [
+   "Q1 what got on the road: no cow or any animal drawn",
+   "Q2 who waited: no driver or adult drawn, so Mum is not shown",
+   "Q3 why waited: road is clear, no blockage or reason to stop"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 1,
+  "title": "The Chair",
+  "prompt": "Friendly cartoon girl standing on a grassy green space with trees and a path, gentle smile, hands by her sides, wearing a plain top. Bright sunny day, simple background. No furniture, no food, no stains.",
+  "shows": [
+   "girl",
+   "grassy outdoor space with trees",
+   "cheerful mood"
+  ],
+  "hides": [
+   "Q1 where she sat: no chair or seat, and the space is only loosely park-like",
+   "Q2 what was on the chair: no jam, no chair, no mess",
+   "Q3 why Mum is mad: no Mum, no stains on clothes, mild smile"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 2,
+  "title": "The Coin",
+  "prompt": "Friendly cartoon boy standing in a sunny garden with flowerbeds and a low wall, empty open hands, relaxed happy face. Simple bright background, one clear focal point. No tools, no rocks, no bare earth patches.",
+  "shows": [
+   "boy",
+   "sunny garden",
+   "happy mood"
+  ],
+  "hides": [
+   "Q1 what Ben had: hands empty, no coin or object",
+   "Q2 where it fell: no rock, no soil patch drawn",
+   "Q3 why he dug: no spade, no digging, no hole"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 3,
+  "title": "The Chick",
+  "prompt": "Friendly cartoon hen standing in a sunny farmyard with a wooden fence and green grass behind, calm neutral face. Just the one hen, centred, soft bright colours. No other animals, no buildings.",
+  "shows": [
+   "hen",
+   "farmyard",
+   "calm mood"
+  ],
+  "hides": [
+   "Q1 who has the hen and chick: no farmer drawn",
+   "Q2 where the chick was: no barn, no chick",
+   "Q3 why hen was sad: neutral expression, nothing missing shown"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 4,
+  "idx": 4,
+  "title": "The Haircut",
+  "prompt": "Friendly cartoon dad in a jumper standing on a pavement outside a plain shop doorway, waving cheerfully, head and shoulders framed nicely. Simple bright street background. No signs, no tools, no chairs.",
+  "shows": [
+   "dad",
+   "street outside a shop",
+   "cheerful mood"
+  ],
+  "hides": [
+   "Q1 what Dad had: no barber setting, tools or cape; plain doorway",
+   "Q2 where he sat: no chair drawn",
+   "Q3 why no hair on top: the head is not the focus and no cutting is shown"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 4,
+  "idx": 5,
+  "title": "The Shower",
+  "prompt": "Friendly cartoon boy wrapped in a fluffy towel, standing in a bright tiled bathroom doorway, smiling. Simple uncluttered picture, one clear focal point. No shower, no soap, no floor mat, no mop, no puddles.",
+  "shows": [
+   "boy in a towel",
+   "bathroom",
+   "cheerful mood"
+  ],
+  "hides": [
+   "Q1 where Josh is: no shower drawn, only a general bathroom",
+   "Q2 what fell on the mat: no soap, no mat",
+   "Q3 why Mum got the mop: no Mum, no mop, no wet floor"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 0,
+  "title": "The Frog",
+  "prompt": "A peaceful green meadow with wildflowers and a few trees under a pale sky. Nothing else: no animals, no water, no logs.",
+  "shows": [
+   "frog",
+   "meadow",
+   "calm mood"
+  ],
+  "hides": [
+   "Q1 what sat on the log: no log; the frog itself is the main character so it stays, unavoidably",
+   "Q2 where it jumped: no pond or water drawn",
+   "Q3 why it jumped: soft mild sky, no hot sun or heat"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 5,
+  "idx": 1,
+  "title": "The Shop",
+  "prompt": "Friendly cartoon girl walking along a quiet village street of small houses, mild neutral expression, hands empty. Soft morning light, simple uncluttered background. No shop front, no bottles, no steps, no other people.",
+  "shows": [
+   "girl",
+   "quiet village street",
+   "mild mood"
+  ],
+  "hides": [
+   "Q1 what Fran went to get: hands empty, nothing carried",
+   "Q2 where she sat: no step or seat",
+   "Q3 why she waited: no shop, closed door or man"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 2,
+  "title": "The Bus",
+  "prompt": "Friendly cartoon boy and his grandmother standing side by side at a bus stop, red bus parked behind them with plain tinted windows, both smiling gently. Sunny street, simple background. No other people visible.",
+  "shows": [
+   "boy and grandmother",
+   "bus and bus stop",
+   "friendly mood"
+  ],
+  "hides": [
+   "Q1 what the bus was like: bus windows tinted, no crowd inside or outside",
+   "Q2 who let Josh sit: no man drawn",
+   "Q3 why the man got up: no seats or standing scene shown"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 3,
+  "title": "The Crab",
+  "prompt": "Two friendly cartoon children standing on a sunny sandy beach, smiling, small blue sea behind them, wide blue sky. Simple bright background. No rocks, no pools, no sea creatures, no buckets.",
+  "shows": [
+   "two children",
+   "beach",
+   "happy mood"
+  ],
+  "hides": [
+   "Q1 where they went: only a general beach, no rock pool",
+   "Q2 what they spotted: no crab or animal",
+   "Q3 why Pam yelped: no pinch, no hurt, both smiling"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 4,
+  "title": "The Flag",
+  "prompt": "Two friendly cartoon children walking side by side along a path towards a small village, cheerful faces, empty hands, sunny day with calm still air. Simple flat green countryside. No hill, no flag, no wind lines.",
+  "shows": [
+   "two children",
+   "path and village",
+   "cheerful mood"
+  ],
+  "hides": [
+   "Q1 what they got at the shop: hands empty, no flag",
+   "Q2 where they stuck it: no hill, no crack drawn",
+   "Q3 why it fell: still air, no wind or gust shown"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 5,
+  "title": "The Net",
+  "prompt": "Two friendly cartoon children walking through a sunny meadow with wildflowers, one holding a long-handled net over a shoulder, both smiling. Simple bright background. No water, no pond, no animals, nothing in the net.",
+  "shows": [
+   "two children",
+   "meadow",
+   "net carried",
+   "happy mood"
+  ],
+  "hides": [
+   "Q1 what Fred got in the net: net is empty, no frog or crab",
+   "Q2 where they let them go: no pond or water",
+   "Q3 why they must not keep them: no animals or reason drawn"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 0,
+  "title": "The Dentist",
+  "prompt": "Friendly cartoon boy in a coat with a small rucksack, standing at a front door ready to go out, mild neutral expression, looking ahead. Simple bright hallway background. No mouth-holding, no medical items, no toothbrush.",
+  "shows": [
+   "boy ready to go out",
+   "hallway",
+   "mild mood"
+  ],
+  "hides": [
+   "Q1 who Sam went to see: no dentist or surgery",
+   "Q2 what the dentist got him: no toothbrush or gift",
+   "Q3 why he went: no hand on cheek, no sign of pain, neutral face"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 1,
+  "title": "The Elf",
+  "prompt": "Friendly cartoon elf with pointed ears in a plain green tunic and pointed shoes, standing in a garden beside a small wooden shed, calm curious face. Simple bright background. No hat, no bag, no worried look.",
+  "shows": [
+   "elf",
+   "garden with shed",
+   "curious mood"
+  ],
+  "hides": [
+   "Q1 what he lost: no hat drawn, nothing held",
+   "Q2 where the hat was: no bag anywhere in the picture",
+   "Q3 why he was upset: calm expression, not sad"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 6,
+  "idx": 2,
+  "title": "The Picnic",
+  "prompt": "A friendly cartoon boy and his younger sister standing on a sunny grassy patch with trees and a few flowers, both smiling, holding hands. Simple bright background. No basket, no food, no rug, no insects.",
+  "shows": [
+   "boy and sister",
+   "sunny grassy outdoors",
+   "happy mood"
+  ],
+  "hides": [
+   "Q1 where the picnic was: only loose green space, no garden features or fence",
+   "Q2 what the basket had: no basket, blanket or muffins",
+   "Q3 why sister did not like it: happy faces, no ant or insect"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 3,
+  "title": "The Rocket",
+  "prompt": "Two friendly cartoon children standing side by side at a lively outdoor event with colourful bunting strung overhead, excited smiles, hands behind their backs. Simple bright background. No rocket, no flag, no painting, no prizes.",
+  "shows": [
+   "two children",
+   "event with bunting",
+   "excited mood"
+  ],
+  "hides": [
+   "Q1 what they had for the contest: no rocket or object shown",
+   "Q2 what they stuck on top: no flag, no craft items",
+   "Q3 why they were proud: no winner, prize or judge, just general excitement"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 4,
+  "title": "The Hamster",
+  "prompt": "Friendly cartoon girl standing in a cosy bedroom with a bed and a shelf, wearing a jumper, gentle curious expression, looking around. Simple bright background. No jacket, no animal, no cage, no basket.",
+  "shows": [
+   "girl",
+   "cosy bedroom",
+   "curious mood"
+  ],
+  "hides": [
+   "Q1 whose hamster: no hamster or cage drawn",
+   "Q2 where it was found: no jacket or pocket",
+   "Q3 why she checked places: no basket, no searching action"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 5,
+  "title": "The Market",
+  "prompt": "Friendly cartoon mum and young boy walking hand in hand along a busy market street with plain striped awnings on stalls, both smiling. Sunny morning, simple background. No basket, no produce close up, no bags, no signs.",
+  "shows": [
+   "mum and boy",
+   "market street",
+   "cheerful mood"
+  ],
+  "hides": [
+   "Q1 who had the basket: no basket drawn",
+   "Q2 what Mum got: no pumpkins or mushrooms, stalls plain",
+   "Q3 why it was her turn: no heavy load, no sore arms, both smiling"
+  ],
+  "has_children": true
+ }
+]

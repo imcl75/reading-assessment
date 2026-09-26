@@ -1,0 +1,386 @@
+[
+ {
+  "phase": 7,
+  "idx": 0,
+  "title": "A Wet Day",
+  "prompt": "Friendly cartoon boy sitting on a cosy living room rug at home, chin resting on his hands, looking a little bored. Warm lamp light, soft toys on a shelf behind him. Plain walls, no window, uncluttered.",
+  "shows": [
+   "boy at home indoors",
+   "cosy, slightly bored mood"
+  ],
+  "hides": [
+   "Q1 weather: no window, rain or clouds shown",
+   "Q2 where boat played: no bath and no boat",
+   "Q3 why he stayed in: nothing shown outside"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 7,
+  "idx": 1,
+  "title": "The Bird",
+  "prompt": "Small friendly cartoon bird sitting on green grass, wings neatly folded, head tilted, soft morning light, a few daisies. One clear focal point, plain uncluttered background, no people.",
+  "shows": [
+   "small bird on the ground",
+   "gentle calm mood"
+  ],
+  "hides": [
+   "Q1 what was wrong: wings folded, no injury or bandage",
+   "Q2 who found it: no girl or any person",
+   "Q3 why Mum was called: no Mum, no box, no help"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 7,
+  "idx": 2,
+  "title": "The Lost Boy",
+  "prompt": "Friendly cartoon boy standing still with a neutral, curious face, outdoors in an open sunny space, soft blurred crowd of grown-ups in the far background. No fairground rides, no other named person close by.",
+  "shows": [
+   "boy outdoors among people",
+   "calm curious mood"
+  ],
+  "hides": [
+   "Q1 where Roy was: no fairground rides, stalls or signs",
+   "Q2 who found him: no man near him",
+   "Q3 why he called out: neutral face, no Mum, no sign he is lost"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 7,
+  "idx": 3,
+  "title": "The New Pup",
+  "prompt": "Cute cartoon puppy sitting on a plain wooden floor in a bright room, head tilted, tail wagging, looking up at the viewer. Nothing else in the room, no furniture, no people, uncluttered.",
+  "shows": [
+   "a puppy indoors",
+   "playful friendly mood"
+  ],
+  "hides": [
+   "Q1 who had the pup: no owner shown",
+   "Q2 what it chewed: no rug, chair, hat or chewing",
+   "Q3 why a toy was bought: no toy and no mess"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 7,
+  "idx": 4,
+  "title": "The Dolphin",
+  "prompt": "Friendly cartoon girl and her dad standing side by side on a sunny sandy beach, seen from a three-quarter back view, looking out over calm blue sea. Both dry, relaxed. No boats, no sea animals.",
+  "shows": [
+   "girl and dad by the sea",
+   "sunny happy mood"
+  ],
+  "hides": [
+   "Q1 where they went: no boat, they stand on a beach",
+   "Q2 what Sue saw: no dolphin or any sea creature",
+   "Q3 why she was wet: calm sea, no splash, both dry"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 7,
+  "idx": 5,
+  "title": "The Blue Cat",
+  "prompt": "Friendly cartoon girl sitting at a table with a sheet of paper and crayons, the paper seen from the back so the drawing is hidden. Concentrating with a calm smile. Plain bright classroom wall, no other people.",
+  "shows": [
+   "girl drawing at a table",
+   "quiet, focused mood"
+  ],
+  "hides": [
+   "Q1 what she drew: paper faces away, no cat or hat",
+   "Q2 who saw it: no teacher or other person",
+   "Q3 why proud: neutral calm smile, no praise"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 8,
+  "idx": 0,
+  "title": "The Cake",
+  "prompt": "Friendly cartoon boy wearing an apron, standing at a kitchen table holding a wooden spoon over a mixing bowl, cheerful. Clean tidy floor and mat, no jam, no finished cake, no grown-ups.",
+  "shows": [
+   "boy baking in a kitchen",
+   "busy cheerful mood"
+  ],
+  "hides": [
+   "Q1 who made it: only the boy, no finished cake to show the maker",
+   "Q2 what was on the mat: floor spotless, no jam",
+   "Q3 why Mum smiled: no Mum, no cake presented"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 8,
+  "idx": 1,
+  "title": "The Kite",
+  "prompt": "Friendly cartoon boy standing on flat green grass holding a plain kite in his hands, sky pale blue with a few soft clouds. No hill, no trees, no adults, still air.",
+  "shows": [
+   "boy with a kite outdoors",
+   "bright hopeful mood"
+  ],
+  "hides": [
+   "Q1 where he went: flat grass, no hill",
+   "Q2 who got the kite down: no dad, no tree",
+   "Q3 why he ran: kite held not flying, no wind or running"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 8,
+  "idx": 2,
+  "title": "The Snake",
+  "prompt": "Two friendly cartoon children walking side by side along a sunny grassy path, both with calm curious faces, looking ahead. Bushes and trees in the background. No animals, no gates, no signs.",
+  "shows": [
+   "two children on a walk",
+   "curious, cheerful mood"
+  ],
+  "hides": [
+   "Q1 where they went: no zoo gates, cages or animals",
+   "Q2 where the snake hid: no snake, no hole",
+   "Q3 why Zane ran: calm faces, no threat"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 8,
+  "idx": 3,
+  "title": "The Bike",
+  "prompt": "A cheerful cartoon boy walking along a quiet sunny street of small houses, smiling, hands in his pockets.",
+  "shows": [
+   "boy walking on a street",
+   "calm, cheerful mood"
+  ],
+  "hides": [
+   "Q1 what he rode: no bike or helmet",
+   "Q2 where he left it: no gate",
+   "Q3 why it fell: still air, nothing on the ground"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 8,
+  "idx": 4,
+  "title": "The Lake",
+  "prompt": "Two friendly cartoon children running together along a grassy path between trees, smiling, light summer clothes, hands free and nothing carried. No water, no bags, no sun glare.",
+  "shows": [
+   "two children running outdoors",
+   "playful mood"
+  ],
+  "hides": [
+   "Q1 when it was: no date, no clear hot-day or season clue",
+   "Q2 where they ran: no lake or water",
+   "Q3 why Kate stayed: no swim kit, both look the same"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 8,
+  "idx": 5,
+  "title": "The Stone",
+  "prompt": "Friendly cartoon girl crouching on grass in a sunny garden, one hand on her knee, looking down at something out of shot with a curious face. Flowers around. No path, no stones, no paint.",
+  "shows": [
+   "girl in a garden looking at the ground",
+   "curious, gentle mood"
+  ],
+  "hides": [
+   "Q1 where she found it: no path, and the object is out of shot",
+   "Q2 what she painted: no paint or stone",
+   "Q3 why she took it home: no reaction shown beyond curiosity"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 9,
+  "idx": 0,
+  "title": "The Snow",
+  "prompt": "Three friendly cartoon children in coats, hats and scarves standing in a big snowy field, smiling, bare trees behind, soft grey-white sky. Untouched snow, no snowman, no sun.",
+  "shows": [
+   "children in winter clothes in snow",
+   "cold, happy mood"
+  ],
+  "hides": [
+   "Q1 what they made: no snowman, no snow shapes",
+   "Q2 when it melted: no sun in the sky",
+   "Q3 why it melted: still cold, no warmth or melting"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 9,
+  "idx": 1,
+  "title": "The Mouse",
+  "prompt": "Small friendly cartoon mouse sitting upright on a dark wooden floor, ears up, whiskers forward, looking curious. Warm soft light. No furniture, no food, no stairs, no house walls.",
+  "shows": [
+   "a mouse indoors on the floor",
+   "curious, sneaky-cute mood"
+  ],
+  "hides": [
+   "Q1 where it lived: no house, room or mouse hole",
+   "Q2 what it found: no cake or food",
+   "Q3 why it crept up: no stairs, no smell cues, neutral face"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 9,
+  "idx": 2,
+  "title": "The Rope",
+  "prompt": "Friendly cartoon girl in a t-shirt, shorts and trainers standing with two friends in a bright plain room with pale walls, all looking up-and-ahead with calm interested faces. No equipment, no ropes, no mats.",
+  "shows": [
+   "girl and friends in sports clothes",
+   "determined, friendly mood"
+  ],
+  "hides": [
+   "Q1 where she went: no gym equipment or signs",
+   "Q2 what she wanted to climb: no rope",
+   "Q3 why friends were proud: neutral faces, no climbing"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 9,
+  "idx": 3,
+  "title": "The Farm Trip",
+  "prompt": "Group of three friendly cartoon children in school clothes standing by a wooden farm fence in the sunshine, watching a cow and two sheep in a field. No goat, no hats on anyone, calm smiles.",
+  "shows": [
+   "children looking at farm animals",
+   "sunny, happy mood"
+  ],
+  "hides": [
+   "Q1 when they went: no day, calendar or clues",
+   "Q2 what the goat ate: no goat, no hats",
+   "Q3 why Ben laughed: calm smiles, no funny moment"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 9,
+  "idx": 4,
+  "title": "The Baby",
+  "prompt": "Friendly cartoon boy sitting on a sofa in a cosy living room, hands in lap, head tilted as if listening, mouth closed and calm. Warm lamp, cushions. No baby, no cot, no adults.",
+  "shows": [
+   "boy at home in a cosy room",
+   "quiet, thoughtful mood"
+  ],
+  "hides": [
+   "Q1 who cried: no baby, no crying",
+   "Q2 what Ted did: not singing, mouth closed",
+   "Q3 why he sang: nothing shown that needs helping"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 9,
+  "idx": 5,
+  "title": "Mr Cole",
+  "prompt": "Kind cartoon elderly man in a flat cap and cardigan, smiling gently, standing with hands behind his back against a soft green blurred background. No birds, no bench, no food, no park features.",
+  "shows": [
+   "kind old man",
+   "gentle, warm mood"
+  ],
+  "hides": [
+   "Q1 who feeds the birds: no birds or food shown, just a kind man",
+   "Q2 where: blurred plain background, no park",
+   "Q3 why birds were hungry: no illness, no birds"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 10,
+  "idx": 0,
+  "title": "The Present",
+  "prompt": "Friendly cartoon boy sitting at a table holding a pencil, thinking with a small smile, looking up at the ceiling. Sheet of paper seen from behind. Bright simple room. No string, no parcel, no other people.",
+  "shows": [
+   "boy at a table thinking",
+   "quiet, thoughtful mood"
+  ],
+  "hides": [
+   "Q1 who the note was for: no gran",
+   "Q2 what he tied: no string, paper or wrapped gift",
+   "Q3 why Gran was pleased: no present or reaction"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 1,
+  "title": "The Match",
+  "prompt": "Friendly cartoon boy in a football kit standing on a wide grassy field, hands by his sides, cheerful ready face, with his dad in a coat standing at the edge of the field. No goal, no ball, no gloves.",
+  "shows": [
+   "boy in football kit with dad",
+   "sporty, excited mood"
+  ],
+  "hides": [
+   "Q1 where he played: no goal posts, no gloves",
+   "Q2 what he caught: no ball anywhere",
+   "Q3 why Dad shouted: Dad calm, nothing happening"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 2,
+  "title": "The Bridge",
+  "prompt": "Friendly cartoon girl standing on a grassy path among trees, hands at her sides, looking straight ahead with a calm, neutral face. Soft sky and distant hills. No bridge, no water, no rail, nothing to look down at.",
+  "shows": [
+   "girl outdoors on a walk",
+   "calm, quiet mood"
+  ],
+  "hides": [
+   "Q1 where she stood: no bridge",
+   "Q2 what was far below: no river or drop",
+   "Q3 why she held the rail: neutral face, no rail"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 3,
+  "title": "The Pet Lamb",
+  "prompt": "Friendly cartoon boy in school uniform with a school bag, walking along a country lane with green farm fields behind him, cheerful. Only him in the picture. No animals, no gates, no school building.",
+  "shows": [
+   "schoolboy in the countryside",
+   "happy, rural mood"
+  ],
+  "hides": [
+   "Q1 what his pet is: no lamb or any animal",
+   "Q2 where it waits: no school gate",
+   "Q3 why it waits: nothing else in shot to explain"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 4,
+  "title": "The Picture",
+  "prompt": "Friendly cartoon girl in a smock sitting at a table with pots of paint and a brush in her hand, concentrating calmly. Her paper faces away from the viewer. Plain wall behind. No other people, no kitchen.",
+  "shows": [
+   "girl with paints at a table",
+   "busy, creative mood"
+  ],
+  "hides": [
+   "Q1 what she painted: paper hidden, nothing on show",
+   "Q2 where it was hung: no kitchen, no wall display",
+   "Q3 why she smiled: calm face, no Mum, no finished picture"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 5,
+  "title": "The Gnat",
+  "prompt": "Friendly cartoon dad in a long-sleeved shirt sitting in a garden chair, relaxed with a mild smile, in a sunny garden with flowers. Arms resting in his lap. No insects, no cream, no other people.",
+  "shows": [
+   "dad in a garden",
+   "relaxed, summery mood"
+  ],
+  "hides": [
+   "Q1 what bit him: no insect",
+   "Q2 where it bit him: sleeves cover wrists, no scratching",
+   "Q3 why Mum got cream: no Mum, no cream"
+  ],
+  "has_children": false
+ }
+]

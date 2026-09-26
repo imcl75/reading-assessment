@@ -48,6 +48,11 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .sheet .ta{font-size:.95rem;margin:8px 0}
 .sheet .box{display:inline-block;width:26px;height:26px;border:2px solid #000;vertical-align:middle;margin:0 4px}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
+.pic{display:block;max-width:100%;border-radius:12px;margin:0 auto 12px;border:2px solid var(--line)}
+#pic{max-width:420px}
+.sheet .pic{width:105mm;max-width:none;margin:6px auto 2px;border-radius:8px;border:1px solid #cfe3ee}
+body.nopics .pic{display:none}
+.opt{font-size:.9rem;margin-top:8px}
 </style>
 </head>
 <body>
@@ -67,10 +72,12 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
       <button class="act alt" id="pAllPupil">Print all 6 pupil copies</button>
       <button class="act alt" id="pAllTeacher">Print all 6 teacher copies</button>
     </div>
+    <label class="opt"><input type="checkbox" id="picToggle" checked> Show the picture on printed sheets</label>
     <p class="note">Adults read the questions aloud and the child answers out loud (or writes if they can). The child reads the text themselves.</p>
   </section>
   <section class="card">
     <h2 id="tt"></h2>
+    <img class="pic" id="pic" alt="" hidden>
     <p class="passage" id="passage"></p>
     <p class="note" id="focus"></p>
     <div id="qs"></div>
@@ -82,7 +89,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <div id="sheets"></div>
 <script>
 const DATA = /*DATA*/;
-const VERSION = "26.09.26a";
+const VERSION = "26.09.26b";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
@@ -90,6 +97,7 @@ function sheet(l, i, teacher){
   const t = l.texts[i];
   let h = '<section class="sheet" data-l="'+l.level+'" data-i="'+i+'" data-k="'+(teacher?"t":"p")+'"><div class="head"><h1>'+esc(t.title)+'</h1><small>Unlocking Letters and Sounds &middot; '+esc(l.name)+(teacher?' &middot; Teacher copy':'')+'</small></div>';
   h += '<div class="fields"><span>Name:</span>'+(teacher?'<span>Class:</span><span>Date:</span>':'')+'</div>';
+  if (t.image) h += '<img class="pic" src="'+t.image+'" alt="">';
   h += '<p class="passage">'+esc(t.text)+'</p>';
   if (teacher && t.focus && t.focus.length) h += '<p class="ta"><b>Words that check this phase:</b> '+esc(t.focus.join(", "))+'</p>';
   t.qs.forEach((q,n)=>{
@@ -118,6 +126,7 @@ function renderTexts(){
   const t = L.texts[T];
   $("tt").textContent = t.title+' ('+t.text.split(/\s+/).length+' words)';
   $("passage").textContent = t.text;
+  const pic = $("pic"); if (t.image) { pic.src = t.image; pic.hidden = false; } else { pic.hidden = true; }
   $("focus").textContent = t.focus && t.focus.length ? "Words that check this phase: "+t.focus.join(", ") : "";
   marks = t.qs.map(()=>null);
   $("qs").innerHTML = t.qs.map((q,n)=>'<div class="q"><span class="tag">'+q.t+'</span><b>'+(n+1)+'. '+esc(q.q)+'</b><div class="ans">Accept: '+esc(q.a)+'</div><div class="m"><button data-n="'+n+'" data-v="1">&#10003;</button><button data-n="'+n+'" data-v="0">&#10007;</button></div></div>').join("");
@@ -136,6 +145,7 @@ $("pPupil").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"][d
 $("pTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"][data-k="t"]');
 $("pAllPupil").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="p"]');
 $("pAllTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="t"]');
+$("picToggle").onchange = e => document.body.classList.toggle("nopics", !e.target.checked);
 $("ver").textContent=VERSION;
 buildSheets(); renderLevels(); renderTexts();
 </script>

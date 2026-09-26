@@ -1,0 +1,290 @@
+[
+ {
+  "phase": 1,
+  "idx": 2,
+  "title": "The Van",
+  "prompt": "A friendly cartoon mum and young boy standing beside a small yellow taxi cab at the foot of a green grassy hill, both awake and calm, soft daylight, no clock.",
+  "hides": [
+   "the time (no clock)",
+   "who naps (boy awake)",
+   "who drives (mum outside the cab, not at the wheel)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 1,
+  "idx": 4,
+  "title": "Bob in Bed",
+  "prompt": "A cosy child's bedroom with an unmade bed, rumpled blue duvet, teddy on the pillow and a toy shelf, soft light through curtains, calm quiet mood, nobody in the room.",
+  "hides": [
+   "Bob in bed (room empty)",
+   "the time (no clock, no Dad)",
+   "why he is got up (no Dad, no clock)"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 2,
+  "idx": 3,
+  "title": "Vin in Bed",
+  "prompt": "A cosy child's bedroom with a neat bed, toy rabbit on the pillow, small bedside table and curtains partly drawn, soft quiet light, nobody in the room.",
+  "hides": [
+   "Vin in bed (room empty)",
+   "the wet rag (none shown, no Dad)",
+   "why he is in bed (no ill child)"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 2,
+  "idx": 5,
+  "title": "Jam on the Chin",
+  "prompt": "A friendly cartoon girl and boy sitting side by side on a garden bench in the sunshine, smiling, faces clean, hands empty, flowers behind them.",
+  "hides": [
+   "jam (no food, clean faces)",
+   "the rag (hands empty)",
+   "the jam being wiped off (nothing to wipe)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 1,
+  "title": "The Chair",
+  "prompt": "Friendly cartoon girl standing on a grassy green space with trees and a path, gentle smile, hands by her sides, wearing a plain top. Bright sunny day, simple background. No furniture, no food, no stains.",
+  "hides": [
+   "the chair (no furniture)",
+   "jam (no food or stains)",
+   "why she is sad (she is smiling, clean)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 2,
+  "title": "The Coin",
+  "prompt": "Friendly cartoon girl standing in a sunny garden with flowerbeds and a low wall, empty open hands, relaxed happy face. Simple bright background, one clear focal point. No tools, no rocks, no bare earth patches.",
+  "hides": [
+   "the coin (hands empty)",
+   "soil and rock (none shown)",
+   "digging (no tools or holes)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 4,
+  "title": "The Haircut",
+  "prompt": "Friendly cartoon dad in a jumper and a cap standing on a pavement outside a plain shop doorway, waving cheerfully, head and shoulders framed nicely. Simple bright street background. No signs, no tools, no chairs.",
+  "hides": [
+   "the haircut (cap on, no scissors)",
+   "the chair (none shown)",
+   "the barber cutting his hair (no barber, no tools)"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 4,
+  "idx": 5,
+  "title": "The Shower",
+  "prompt": "Friendly cartoon boy wrapped in a fluffy towel, standing in a bright tiled bathroom doorway, smiling. Simple uncluttered picture, one clear focal point. No shower, no soap, no floor mat, no mop, no puddles.",
+  "hides": [
+   "the shower (not shown)",
+   "the soap and mat (not shown)",
+   "the mop and wet mat (no Dad, no mop, no puddles)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 1,
+  "title": "The Shop",
+  "prompt": "Friendly cartoon girl walking along a quiet village street of small houses, mild neutral expression, hands empty. Soft morning light, simple uncluttered background. No shop front, no bottles, no steps, no other people.",
+  "hides": [
+   "the milk (hands empty)",
+   "the step (none shown)",
+   "the shut shop (no shop, no clerk)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 3,
+  "title": "The Crab",
+  "prompt": "A friendly cartoon girl and boy standing on a sunny sandy beach, smiling, small blue sea behind them, wide blue sky. Simple bright background. No rocks, no pools, no sea creatures, no buckets.",
+  "hides": [
+   "the rock pool (not shown)",
+   "the crab (no sea creatures)",
+   "the pinch and yelp (both smiling, hands fine)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 5,
+  "title": "The Net",
+  "prompt": "A friendly cartoon girl and boy walking through a sunny meadow with wildflowers, the girl holding a long-handled net over her shoulder, both smiling. Simple bright background. No water, no pond, no animals, nothing in the net.",
+  "hides": [
+   "frog and crab (net empty, no animals)",
+   "the pond (no water)",
+   "why they must not keep them (no animals, no pond)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 2,
+  "title": "The Picnic",
+  "prompt": "A friendly cartoon boy and his younger sister standing on a sunny grassy patch with trees and a few flowers, both smiling, holding hands. Simple bright background. No basket, no food, no rug, no insects.",
+  "hides": [
+   "the picnic setting is only a lawn (no basket, no food)",
+   "basket contents (no basket)",
+   "the ant (no insects)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 3,
+  "title": "The Rocket",
+  "prompt": "A friendly cartoon boy and girl standing side by side at a lively outdoor event with colourful bunting strung overhead, excited smiles, hands behind their backs. Simple bright background. No rocket, no flag, no painting, no prizes.",
+  "hides": [
+   "the rocket (none shown)",
+   "the flag (none shown)",
+   "the boss's praise (no adult, no prize)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 5,
+  "title": "The Market",
+  "prompt": "Friendly cartoon dad and young boy walking hand in hand along a busy market street with plain striped awnings on stalls, both smiling. Sunny morning, simple background. No basket, no produce close up, no bags, no signs.",
+  "hides": [
+   "who has the basket (none shown)",
+   "pumpkin and mushrooms (no produce)",
+   "why it is Dad's turn (no basket, no tired arms)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 7,
+  "idx": 1,
+  "title": "The Bird",
+  "prompt": "Small friendly cartoon bird sitting on green grass, wings neatly folded, head tilted, soft morning light, a few daisies. One clear focal point, plain uncluttered background, no people.",
+  "hides": [
+   "the hurt wing (wings neatly folded, no injury)",
+   "who found it (no people)",
+   "calling Gran (no people, no box)"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 7,
+  "idx": 2,
+  "title": "The Lost Boy",
+  "prompt": "Friendly cartoon boy standing still with a neutral, curious face, outdoors in an open sunny space, soft blurred crowd of grown-ups in the far background. No fairground rides, no other named person close by.",
+  "hides": [
+   "the fair (no rides)",
+   "who found him (no adult close by, no clerk)",
+   "why he calls out (no Dad, calm face)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 7,
+  "idx": 3,
+  "title": "The New Pup",
+  "prompt": "Cute cartoon puppy sitting on a plain wooden floor in a bright room, head tilted, tail wagging, looking up at the viewer. Nothing else in the room, no furniture, no people, uncluttered.",
+  "hides": [
+   "Mr Brown (no people)",
+   "rug, chair, hat (nothing in room)",
+   "the toy (no toy)"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 8,
+  "idx": 1,
+  "title": "The Kite",
+  "prompt": "Friendly cartoon boy standing on flat green grass holding a plain kite in his hands, sky pale blue with a few soft clouds. No hill, no trees, no adults, still air.",
+  "hides": [
+   "the hill (flat grass)",
+   "Mum (no adults)",
+   "running to fly it (standing still, kite in hands)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 8,
+  "idx": 3,
+  "title": "The Bike",
+  "prompt": "A cheerful cartoon girl walking along a quiet sunny street of small houses, smiling, hands in her pockets. No bike, no gate, no shop.",
+  "hides": [
+   "the bike (not shown)",
+   "the gate (none)",
+   "the fallen bike and wind (no bike, calm air)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 8,
+  "idx": 4,
+  "title": "The Lake",
+  "prompt": "Two friendly cartoon children, a boy and a girl, running together along a grassy path between trees, smiling, light summer clothes, hands free and nothing carried. No water, no bags, no sun glare.",
+  "hides": [
+   "the hot June day (mild, no sun glare)",
+   "the lake (no water)",
+   "the missing swim kit (nothing carried, no bags)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 9,
+  "idx": 4,
+  "title": "The Baby",
+  "prompt": "Friendly cartoon boy sitting on a sofa in a cosy living room, hands in lap, head tilted as if listening, mouth closed and calm. Warm lamp, cushions. No baby, no cot, no adults.",
+  "hides": [
+   "who cries (no baby)",
+   "singing (mouth closed)",
+   "why he sings (no baby, no crying)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 2,
+  "title": "The Bridge",
+  "prompt": "Friendly cartoon girl standing on a grassy path among trees, hands at her sides, looking straight ahead with a calm, neutral face. Soft sky and distant hills. No bridge, no water, no rail, nothing to look down at.",
+  "hides": [
+   "the bridge (none)",
+   "the river (no water)",
+   "the rail (none)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 4,
+  "title": "The Picture",
+  "prompt": "Friendly cartoon girl in a paint-splashed smock standing in a bright plain room, smiling, hands empty at her sides. No easel, no paper, no paintings, no wall art, no other people.",
+  "hides": [
+   "the picture (no painting shown)",
+   "the kitchen and wall (plain room, no kitchen)",
+   "why she smiles (no picture, no Dad)"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 5,
+  "title": "The Gnat",
+  "prompt": "Friendly cartoon mum in a long-sleeved top sitting in a garden chair, relaxed with a mild smile, in a sunny garden with flowers. Arms resting in her lap, sleeves down. No insects, no cream, no other people.",
+  "hides": [
+   "the gnat (no insects)",
+   "the wrist (sleeves cover it)",
+   "the cream and Dad (no cream, no other people)"
+  ],
+  "has_children": false
+ }
+]

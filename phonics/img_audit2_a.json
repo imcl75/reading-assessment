@@ -1,0 +1,17 @@
+[
+{"phase":1,"idx":1,"title":"The Bun","verdict":"ok","problems":[],"new_prompt":""},
+{"phase":1,"idx":2,"title":"The Bus","verdict":"ok","problems":[],"new_prompt":""},
+{"phase":1,"idx":3,"title":"The Hen","verdict":"ok","problems":[],"new_prompt":""},
+{"phase":1,"idx":4,"title":"Bob in Bed","verdict":"ok","problems":[],"new_prompt":""},
+{"phase":1,"idx":5,"title":"Tim in the Sun","verdict":"ok","problems":[],"new_prompt":""},
+{"phase":2,"idx":0,"title":"Chip the Dog","verdict":"ok","problems":[],"new_prompt":""},
+{"phase":2,"idx":2,"title":"The Jog","verdict":"redo","problems":["Mum is shown bare-headed but text says Mum has a big hat and a cap","Showing both bare-headed also gives away Q1 (who has no hat) and Q3","Child looks very young and no path is shown"],"new_prompt":"A hot, bright sunny park with a big yellow sun, a shady tree, green grass and a small stream of empty path curving through it. No people, no hats, calm cheerful colours.","has_children":false},
+{"phase":2,"idx":3,"title":"Vin in Bed","verdict":"ok","problems":[],"new_prompt":""},
+{"phase":2,"idx":4,"title":"Zeb the Cat","verdict":"ok","problems":["Mild: cat looks content though Zeb ends sad; acceptable as a general scene"],"new_prompt":""},
+{"phase":3,"idx":0,"title":"The Moon","verdict":"redo","problems":["Bright daytime light contradicts 'It was night'","Child shown awake and smiling in the car, contradicting the nap and giving away Q1","Answers Q2/Q3 wrongly"],"new_prompt":"A small cartoon family car seen from the side, driving along a quiet country road, a tall calm man at the wheel, warm dashboard glow. No child visible, sky mostly out of frame.","has_children":false},
+{"phase":3,"idx":1,"title":"Rain","verdict":"redo","problems":["Text says Ben had a big coat on, but neither boy wears a coat","Cloudy but no sign of rain; both boys shown equally, with no coat difference"],"new_prompt":"One cartoon boy standing in a village lane wearing a big blue coat with the collar up, grey heavy sky above, wet shiny road, calm face. Only one child in the picture.","has_children":true},
+{"phase":3,"idx":2,"title":"The Goat","verdict":"ok","problems":[],"new_prompt":""},
+{"phase":3,"idx":3,"title":"The Torch","verdict":"ok","problems":[],"new_prompt":""},
+{"phase":4,"idx":1,"title":"The Chair","verdict":"ok","problems":["Mild: gentle smile, but the picture is a clean pre-event scene"],"new_prompt":""},
+{"phase":4,"idx":3,"title":"The Chick","verdict":"ok","problems":[],"new_prompt":""}
+]

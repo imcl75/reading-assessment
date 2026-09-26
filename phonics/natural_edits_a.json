@@ -1,0 +1,478 @@
+{
+ "phonics": [
+  {
+   "phase": 1,
+   "idx": 1,
+   "title": "The Bun",
+   "text": "Meg has a bun. A pup ran up to Meg. The pup got the bun and ran off. Meg is mad.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who has a bun?",
+     "answer": "Meg."
+    },
+    {
+     "type": "what",
+     "question": "What did the pup do?",
+     "answer": "Got the bun and ran off."
+    },
+    {
+     "type": "why",
+     "question": "Why is Meg mad?",
+     "answer": "The pup took her bun."
+    }
+   ],
+   "reason": "'sat at Meg' is a wrong preposition and 'sat' does not lead to stealing; now the pup ran up to Meg."
+  },
+  {
+   "phase": 1,
+   "idx": 2,
+   "title": "The Bus",
+   "text": "Ben and Nan got on a bus. Ben had a nap. Nan did not nap. Nan pats Ben. Ben is up. Ben and Nan get off.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who got on the bus with Ben?",
+     "answer": "Nan."
+    },
+    {
+     "type": "who",
+     "question": "Who had a nap?",
+     "answer": "Ben."
+    },
+    {
+     "type": "why",
+     "question": "Why did Nan pat Ben?",
+     "answer": "To get him up (so they could get off the bus)."
+    }
+   ],
+   "reason": "'had to get Ben up to get off' is an odd verb phrase; simpler wake-up sequence."
+  },
+  {
+   "phase": 1,
+   "idx": 3,
+   "title": "The Hen",
+   "text": "Nan has a hen. The hen ran off. It ran in the mud. Nan ran and got it. Nan got it in a pen.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did the hen run in?",
+     "answer": "The mud."
+    },
+    {
+     "type": "where",
+     "question": "Where did Nan put the hen?",
+     "answer": "In a pen."
+    },
+    {
+     "type": "why",
+     "question": "Why did Nan run?",
+     "answer": "To get the hen (it had run off)."
+    }
+   ],
+   "reason": "'ran off in the mud' was muddled; split into two clear sentences; 'got the hen in a pen' now 'put it in a pen'."
+  },
+  {
+   "phase": 1,
+   "idx": 4,
+   "title": "Bob in Bed",
+   "text": "Bob is in bed. The sun is up. Dad is in. Dad pats Bob and Bob is up. Bob had a hug.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who is in bed?",
+     "answer": "Bob."
+    },
+    {
+     "type": "what",
+     "question": "What did Bob have?",
+     "answer": "A hug."
+    },
+    {
+     "type": "why",
+     "question": "Why did Bob get up?",
+     "answer": "The sun was up (and Dad woke him)."
+    }
+   ],
+   "reason": "'Dad ran in' / 'got Bob up' and unexplained 'not mad' removed; kept wake-up idea."
+  },
+  {
+   "phase": 1,
+   "idx": 5,
+   "title": "Tim in the Sun",
+   "text": "Tim has a rug. Tim sat on it in the sun. Tim got hot. Tim ran to a hut. Tim is not hot.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Tim sit?",
+     "answer": "On a rug in the sun."
+    },
+    {
+     "type": "what",
+     "question": "What did Tim run to?",
+     "answer": "A hut."
+    },
+    {
+     "type": "why",
+     "question": "Why did Tim run to the hut?",
+     "answer": "He was hot / to get out of the sun."
+    }
+   ],
+   "reason": "'It got hot' was ambiguous (the rug?); 'ran in a hut' now 'ran to a hut'."
+  },
+  {
+   "phase": 2,
+   "idx": 0,
+   "title": "Chip the Dog",
+   "text": "Josh has a dog. It is Chip. Chip ran in the mud and got wet. Josh got Chip in the bath. Chip sat in the bath. Josh got wet as well.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Chip run in?",
+     "answer": "The mud."
+    },
+    {
+     "type": "where",
+     "question": "Where did Josh put Chip?",
+     "answer": "In the bath."
+    },
+    {
+     "type": "why",
+     "question": "Why did Josh put Chip in the bath?",
+     "answer": "He was wet and muddy."
+    }
+   ],
+   "reason": "Josh appeared from nowhere; now he owns Chip."
+  },
+  {
+   "phase": 2,
+   "idx": 2,
+   "title": "The Jog",
+   "text": "Quin and Mum jog on the path. The sun is hot. Quin has no hat. Mum has a big hat and a cap. Mum got the cap on Quin.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who has no hat?",
+     "answer": "Quin."
+    },
+    {
+     "type": "where",
+     "question": "Where do Quin and Mum jog?",
+     "answer": "On the path."
+    },
+    {
+     "type": "why",
+     "question": "Why did Mum get the cap on Quin?",
+     "answer": "The sun is hot / Quin had no hat."
+    }
+   ],
+   "reason": "'got it on Quin' odd and 'it' had no clear referent; Mum now has a spare cap."
+  },
+  {
+   "phase": 2,
+   "idx": 3,
+   "title": "Vin in Bed",
+   "text": "Vin is in bed. He is hot and red. Dad got a wet rag. Vin is not as hot. Vin is not sad.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who is in bed?",
+     "answer": "Vin."
+    },
+    {
+     "type": "what",
+     "question": "What did Dad get for Vin?",
+     "answer": "A wet rag."
+    },
+    {
+     "type": "why",
+     "question": "Why is Vin in bed?",
+     "answer": "He is ill (hot and red)."
+    }
+   ],
+   "reason": "Rag 'on his chin' was odd; now put on Vin, and he cools down."
+  },
+  {
+   "phase": 2,
+   "idx": 4,
+   "title": "Zeb the Cat",
+   "text": "Zeb is a cat. Zeb hid in the bin and had a nap. Jen shut the lid. Zeb is in the bin! Zeb is sad.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Zeb have a nap?",
+     "answer": "In the bin."
+    },
+    {
+     "type": "what",
+     "question": "What did Jen shut?",
+     "answer": "The lid."
+    },
+    {
+     "type": "why",
+     "question": "Why is Zeb sad?",
+     "answer": "He is shut in the bin."
+    }
+   ],
+   "reason": "Story gap: why would Jen shut the lid on a cat; now she did not see him."
+  },
+  {
+   "phase": 3,
+   "idx": 0,
+   "title": "The Moon",
+   "text": "Jess and Dad sat in the car. It was night and the moon was high. Jess had a nap. Dad had to keep on going.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who sat in the car with Dad?",
+     "answer": "Jess."
+    },
+    {
+     "type": "when",
+     "question": "When was it?",
+     "answer": "At night."
+    },
+    {
+     "type": "why",
+     "question": "Why did Jess have a nap?",
+     "answer": "It was night."
+    }
+   ],
+   "reason": "'why' had no clue; added tired. 'had to keep on going' reworded."
+  },
+  {
+   "phase": 3,
+   "idx": 1,
+   "title": "Rain",
+   "text": "It was raining. Ben had a big coat on. Sam had no coat and got wet. Ben let Sam get in the coat with him. Then Sam was not wet.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who had no coat?",
+     "answer": "Sam."
+    },
+    {
+     "type": "what",
+     "question": "What was the weather like?",
+     "answer": "It was raining."
+    },
+    {
+     "type": "why",
+     "question": "Why did Ben let Sam get in his coat?",
+     "answer": "Sam was wet / he had no coat."
+    }
+   ],
+   "reason": "Two in one coat needed to be plausible: big coat."
+  },
+  {
+   "phase": 3,
+   "idx": 2,
+   "title": "The Goat",
+   "text": "Mark has a goat and a hen. The goat got in the barn and had the food for the hen. The hen is sad. Mark got the goat off. Then the hen had the food.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did the goat have?",
+     "answer": "The hen's food."
+    },
+    {
+     "type": "where",
+     "question": "Where did the goat go?",
+     "answer": "In the barn."
+    },
+    {
+     "type": "why",
+     "question": "Why is the hen sad?",
+     "answer": "The goat had her food."
+    }
+   ],
+   "reason": "'the hen food' -> 'the hen's food'; 'got the goat off' -> 'out'."
+  },
+  {
+   "phase": 3,
+   "idx": 3,
+   "title": "The Torch",
+   "text": "It was dark. Tim had a torch but it had no light. Tim sat on a log. Mum ran to Tim with a big torch. Mum had a hug for Tim.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Tim have?",
+     "answer": "A torch."
+    },
+    {
+     "type": "where",
+     "question": "Where did Tim sit?",
+     "answer": "On a log."
+    },
+    {
+     "type": "why",
+     "question": "Why did Mum run to Tim with a big torch?",
+     "answer": "It was dark and Tim's torch had no light."
+    }
+   ],
+   "reason": "Boy sitting on a road in the dark was unsafe/odd and 'light on the car' confusing."
+  },
+  {
+   "phase": 4,
+   "idx": 1,
+   "title": "The Chair",
+   "text": "Kim sat on a chair in the park. It had jam on it! Kim got up and the jam was on her top and in her hair. Kim was sad.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Kim sit?",
+     "answer": "On a chair in the park."
+    },
+    {
+     "type": "what",
+     "question": "What was on the chair?",
+     "answer": "Jam."
+    },
+    {
+     "type": "why",
+     "question": "Why was Kim sad?",
+     "answer": "She had jam on her top and in her hair."
+    }
+   ],
+   "reason": "'her top had jam on it' clumsy; tense fixed."
+  },
+  {
+   "phase": 4,
+   "idx": 3,
+   "title": "The Chick",
+   "text": "The farmer had a hen and a chick. The chick ran off. The hen was sad. The farmer had to look for the chick. It was in the barn. The farmer got the chick back.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who had a hen and a chick?",
+     "answer": "The farmer."
+    },
+    {
+     "type": "where",
+     "question": "Where was the chick?",
+     "answer": "In the barn."
+    },
+    {
+     "type": "why",
+     "question": "Why was the hen sad?",
+     "answer": "Her chick ran off."
+    }
+   ],
+   "reason": "tense mix 'has'/'was'."
+  },
+  {
+   "phase": 4,
+   "idx": 5,
+   "title": "The Shower",
+   "text": "Josh is in the shower. He got soap in his hair. The soap fell on the mat. The mat is wet now. Dad got a mop.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where was Josh?",
+     "answer": "In the shower."
+    },
+    {
+     "type": "what",
+     "question": "What fell on the mat?",
+     "answer": "The soap."
+    },
+    {
+     "type": "why",
+     "question": "Why did Dad get a mop?",
+     "answer": "The mat was wet."
+    }
+   ],
+   "reason": "Sequence made no sense (soap fell, then mat 'wet now'); tense unified."
+  },
+  {
+   "phase": 5,
+   "idx": 2,
+   "title": "The Bus",
+   "text": "Josh and Nan went on a bus. The bus had men and kids on it. Nan sat down. Josh had to stand. A man got up and let Josh sit. Josh said thanks.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who was on the bus with Josh and Nan?",
+     "answer": "Men and kids."
+    },
+    {
+     "type": "who",
+     "question": "Who let Josh sit?",
+     "answer": "A man."
+    },
+    {
+     "type": "why",
+     "question": "Why did the man get up?",
+     "answer": "Josh had to stand / had no seat."
+    }
+   ],
+   "reason": "'why' had no clue: now Josh has no seat."
+  },
+  {
+   "phase": 5,
+   "idx": 3,
+   "title": "The Crab",
+   "text": "Pam and Jim went to a rock pool. They had a look at a crab. Jim bent down to pick it up. The crab pinched his hand! Jim yelped and jumped back.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Pam and Jim go?",
+     "answer": "A rock pool."
+    },
+    {
+     "type": "what",
+     "question": "What did they look at?",
+     "answer": "A crab."
+    },
+    {
+     "type": "why",
+     "question": "Why did Jim yelp?",
+     "answer": "The crab pinched his hand."
+    }
+   ],
+   "reason": "Nobody pats a crab."
+  },
+  {
+   "phase": 5,
+   "idx": 4,
+   "title": "The Flag",
+   "text": "Stan and Jess got a flag at the shop. They ran up the hill and stuck it in a crack in a rock. A strong wind hit the flag and it fell down.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Stan and Jess get at the shop?",
+     "answer": "A flag."
+    },
+    {
+     "type": "where",
+     "question": "Where did they stick the flag?",
+     "answer": "In a crack in a rock on the hill."
+    },
+    {
+     "type": "why",
+     "question": "Why did the flag fall down?",
+     "answer": "A strong wind blew."
+    }
+   ],
+   "reason": "crack in a hill is odd; 'wind hit the flag' reworded."
+  }
+ ],
+ "redraw": [
+  "1-1",
+  "1-2",
+  "1-3",
+  "1-4",
+  "2-0",
+  "2-2",
+  "2-3",
+  "2-4",
+  "3-1",
+  "3-3",
+  "4-1",
+  "4-5",
+  "5-2",
+  "5-3",
+  "5-4"
+ ],
+ "report": "Patterns: wrong prepositions and odd verbs (sat at Meg, got Ben up, ran in a hut, got the thorn/goat off), story-logic gaps (why Jen shuts the lid, soap/mat/mop order, a torch-less boy on a road, no seat on the bus, a 'who is Josh' with no link to Chip), vague 'it' referents, and unnatural phrases (pat a crab, the hen food). Tense clashes fixed only where the phase allowed. Left alone: P1-0, P2-1, P2-5, P3-4, P3-5, P4-0, P4-2, P4-4, P5-0, P5-1, P5-5 (read acceptably, or the natural fix was not decodable at that phase, e.g. 'her chin', 'were', 'out')."
+}

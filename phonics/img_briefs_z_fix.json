@@ -1,0 +1,114 @@
+[
+ {
+  "phase": 1,
+  "idx": 0,
+  "title": "Sam and the Cat",
+  "prompt": "A sad-looking cartoon boy sitting alone on a cosy sofa in a warm living room, downcast face, shoulders slumped, hands resting in his empty lap, soft light.",
+  "has_children": true
+ },
+ {
+  "phase": 1,
+  "idx": 4,
+  "title": "Bob in Bed",
+  "prompt": "A cosy child's bedroom with a bed, the blue duvet pulled up with a small sleeping-sized lump under it as if someone is lying there, only a bit of hair visible on the pillow, no face, nothing else in bed. Calm, quiet mood, no letters or blocks.",
+  "has_children": false
+ },
+ {
+  "phase": 3,
+  "idx": 0,
+  "title": "The Moon",
+  "prompt": "Inside a small cartoon family car: a tall adult man in his forties with short hair and a calm, gentle face, both hands on the steering wheel, seen from the side. Dashboard glow. No child in the front seat, no sky visible.",
+  "has_children": true
+ },
+ {
+  "phase": 3,
+  "idx": 1,
+  "title": "Rain",
+  "prompt": "Two cartoon boys standing side by side in a village lane in matching plain jumpers, grey cloudy sky, calm mild faces, no coats, no rain, no umbrellas.",
+  "has_children": true
+ },
+ {
+  "phase": 3,
+  "idx": 3,
+  "title": "The Torch",
+  "prompt": "A cartoon boy in a warm coat standing at the edge of a field beside a lone tree at night, deep dark blue starry sky, hands empty, calm neutral face.",
+  "has_children": true
+ },
+ {
+  "phase": 3,
+  "idx": 5,
+  "title": "The Thorn",
+  "prompt": "A gently sad-looking cartoon boy sitting on a doormat in a hallway, downcast face, hands on his knees, coat hooks behind him.",
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 0,
+  "title": "The Cow",
+  "prompt": "A cartoon boy sitting as a passenger in the back seat of a car, seatbelt on, looking calmly out of the side window at green fields; front seats seen from behind, no steering wheel visible, no animals.",
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 4,
+  "title": "The Haircut",
+  "prompt": "A friendly cartoon grown-up man, a tall adult dad, in a jumper standing on a pavement outside a plain shop doorway, waving cheerfully with a warm smile. Simple bright street background. No signs, no tools, no chairs.",
+  "has_children": false
+ },
+ {
+  "phase": 4,
+  "idx": 5,
+  "title": "The Shower",
+  "prompt": "A cheerful cartoon boy in a T-shirt and shorts standing in a plain, bright hallway holding a folded towel, relaxed smile. Simple uncluttered picture. No bathroom, no shower, no soap, no mat, no mop.",
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 2,
+  "title": "The Bus",
+  "prompt": "A friendly cartoon boy and his grandmother standing side by side at a bus stop, both smiling gently, a red bus behind them with plain dark tinted windows and nobody visible inside. Sunny street, simple background. No other people.",
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 3,
+  "title": "The Crab",
+  "prompt": "Two friendly cartoon children, a girl and a boy, walking side by side on a sunny seaside path with wide blue sky, smiling, hands empty. Simple bright background. No rocks, no pools, no sea creatures, no buckets.",
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 4,
+  "title": "The Flag",
+  "prompt": "Two friendly cartoon children, a boy and a girl, walking side by side along a path through green countryside towards a small village, cheerful faces, empty hands, sunny day with calm still air. No hill, no flag, no wind lines.",
+  "has_children": true
+ },
+ {
+  "phase": 5,
+  "idx": 5,
+  "title": "The Net",
+  "prompt": "Two friendly cartoon children, a girl and a boy, walking side by side through a sunny meadow with wildflowers, the girl carrying a long-handled net over her shoulder, both smiling. No water, no pond, no animals, nothing in the net.",
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 1,
+  "title": "The Elf",
+  "prompt": "A friendly cartoon elf with pointed ears and a bare head, in a plain green tunic and pointed shoes, standing in a garden beside a small wooden shed, mildly puzzled face. No hat, no cap, no bag.",
+  "has_children": false
+ },
+ {
+  "phase": 8,
+  "idx": 1,
+  "title": "The Kite",
+  "prompt": "A cheerful cartoon boy standing on green grass holding a diamond-shaped kite down by his side, string wound in his hand, kite not flying, pale blue sky with a few soft clouds. No trees, no adults.",
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 1,
+  "title": "The Match",
+  "prompt": "A cheerful cartoon boy in a football kit standing on a plain green grass field with no line markings, his dad in a coat smiling beside him. No goal, no ball, no gloves, no other people.",
+  "has_children": true
+ }
+]

@@ -1,0 +1,186 @@
+[
+ {
+  "phase": 1,
+  "idx": 0,
+  "title": "Sam and the Cat",
+  "verdict": "redo",
+  "problems": [
+   "Boy smiles clearly but text says Sam is sad"
+  ],
+  "new_prompt": "A sad-looking cartoon boy sitting alone on a cosy sofa in a warm living room, downcast face, shoulders slumped, hands resting in his empty lap, soft light.",
+  "has_children": true
+ },
+ {
+  "phase": 1,
+  "idx": 1,
+  "title": "The Bun",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 1,
+  "idx": 2,
+  "title": "The Van",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 1,
+  "idx": 3,
+  "title": "The Hen",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 1,
+  "idx": 4,
+  "title": "Bob in Bed",
+  "verdict": "redo",
+  "problems": [
+   "Teddy lies in the bed instead of a child, confusing 'who is in bed'",
+   "Toy blocks show garbled letters"
+  ],
+  "new_prompt": "A cosy child's bedroom with an unmade bed, rumpled blue duvet and pillow, curtains, and a toy shelf holding plain soft toys, calm quiet mood, nobody in the room, no letters or blocks.",
+  "has_children": false
+ },
+ {
+  "phase": 1,
+  "idx": 5,
+  "title": "Tim in the Sun",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 2,
+  "idx": 0,
+  "title": "Chip the Dog",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 2,
+  "idx": 1,
+  "title": "The Chips",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 2,
+  "idx": 2,
+  "title": "The Jog",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 2,
+  "idx": 3,
+  "title": "Vin in Bed",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 2,
+  "idx": 4,
+  "title": "Zeb the Cat",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 2,
+  "idx": 5,
+  "title": "Jam on the Chin",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 3,
+  "idx": 0,
+  "title": "The Moon",
+  "verdict": "redo",
+  "problems": [
+   "Bright daytime scene contradicts text (night, moon high)",
+   "Only shows Dad"
+  ],
+  "new_prompt": "Close-up inside a small cartoon family car: a calm dad's hands on the steering wheel and his gentle face, cosy dashboard glow, windows cropped out so no sky is visible, quiet mood.",
+  "has_children": false
+ },
+ {
+  "phase": 3,
+  "idx": 1,
+  "title": "Rain",
+  "verdict": "redo",
+  "problems": [
+   "Dry, bright sky contradicts rain",
+   "Coat detail from text not respected; second child ambiguous gender (text names Ben and Sam, both boys)"
+  ],
+  "new_prompt": "Two cartoon boys standing side by side in a village lane in matching plain jumpers, grey cloudy sky, calm mild faces, no coats, no rain, no umbrellas.",
+  "has_children": true
+ },
+ {
+  "phase": 3,
+  "idx": 2,
+  "title": "The Goat",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 3,
+  "idx": 3,
+  "title": "The Torch",
+  "verdict": "redo",
+  "problems": [
+   "Bright pale daytime contradicts text (it was dark)"
+  ],
+  "new_prompt": "A cartoon boy in a warm coat standing at the edge of a field beside a lone tree at night, deep dark blue starry sky, hands empty, calm neutral face.",
+  "has_children": true
+ },
+ {
+  "phase": 3,
+  "idx": 4,
+  "title": "The Book",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ },
+ {
+  "phase": 3,
+  "idx": 5,
+  "title": "The Thorn",
+  "verdict": "redo",
+  "problems": [
+   "Boy smiles clearly but text says Ben is sad and hurt"
+  ],
+  "new_prompt": "A gently sad-looking cartoon boy sitting on a doormat in a hallway, downcast face, hands on his knees, coat hooks behind him.",
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 0,
+  "title": "The Cow",
+  "verdict": "redo",
+  "problems": [
+   "Boy is shown in the driver's seat holding the steering wheel; text says Mum drives"
+  ],
+  "new_prompt": "A cartoon boy sitting as a passenger in the back seat of a car, seatbelt on, looking calmly out of the side window at green fields; front seats seen from behind, no steering wheel visible, no animals.",
+  "has_children": true
+ },
+ {
+  "phase": 4,
+  "idx": 1,
+  "title": "The Chair",
+  "verdict": "ok",
+  "problems": [],
+  "new_prompt": ""
+ }
+]

@@ -1,0 +1,123 @@
+[
+ {
+  "phase": 4,
+  "idx": 5,
+  "title": "The Shower",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 5,
+  "idx": 2,
+  "title": "The Bus",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 5,
+  "idx": 3,
+  "title": "The Crab",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 5,
+  "idx": 4,
+  "title": "The Flag",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 6,
+  "idx": 0,
+  "title": "The Dentist",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 6,
+  "idx": 3,
+  "title": "The Rocket",
+  "verdict": "redo",
+  "problems": [
+   "Both children look like boys, but Jess is a girl's name in the text; picture does not show a boy and a girl."
+  ],
+  "new_prompt": "A boy and a girl sitting side by side on one picnic blanket in a sunny park, both with big happy smiles, an empty plate beside them, trees behind. Simple bright background, no craft items, no adults.",
+  "has_children": true
+ },
+ {
+  "phase": 6,
+  "idx": 4,
+  "title": "The Hamster",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 7,
+  "idx": 1,
+  "title": "The Bird",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 8,
+  "idx": 3,
+  "title": "The Bike",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 9,
+  "idx": 0,
+  "title": "The Snow",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 9,
+  "idx": 2,
+  "title": "The Rope",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 9,
+  "idx": 5,
+  "title": "Mr Cole",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 10,
+  "idx": 0,
+  "title": "The Present",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 10,
+  "idx": 1,
+  "title": "The Match",
+  "verdict": "redo",
+  "problems": [
+   "Shirt carries readable lettering ('Mat'), which is text in the picture.",
+   "Dad's beaming smile hints at the happy outcome."
+  ],
+  "new_prompt": "A boy in a plain football kit with no writing on it, standing on a plain green grass field, his dad in a coat standing beside him with a calm, interested look. No goal, no ball, no other people.",
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 2,
+  "title": "The Bridge",
+  "verdict": "ok",
+  "problems": []
+ },
+ {
+  "phase": 10,
+  "idx": 3,
+  "title": "The Pet Lamb",
+  "verdict": "ok",
+  "problems": []
+ }
+]

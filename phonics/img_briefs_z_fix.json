@@ -15,20 +15,6 @@
  },
  {
   "phase": 3,
-  "idx": 0,
-  "title": "The Moon",
-  "prompt": "Inside a small cartoon family car: a tall adult man in his forties with short hair and a calm, gentle face, both hands on the steering wheel, seen from the side. Dashboard glow. No child in the front seat, no sky visible.",
-  "has_children": true
- },
- {
-  "phase": 3,
-  "idx": 1,
-  "title": "Rain",
-  "prompt": "Two cartoon boys standing side by side in a village lane in matching plain jumpers, grey cloudy sky, calm mild faces, no coats, no rain, no umbrellas.",
-  "has_children": true
- },
- {
-  "phase": 3,
   "idx": 3,
   "title": "The Torch",
   "prompt": "A cartoon boy in a warm coat standing at the edge of a field beside a lone tree at night, deep dark blue starry sky, hands empty, calm neutral face.",
@@ -105,13 +91,6 @@
   "has_children": true
  },
  {
-  "phase": 10,
-  "idx": 1,
-  "title": "The Match",
-  "prompt": "A cheerful cartoon boy in a football kit standing on a plain green grass field with no line markings, his dad in a coat smiling beside him. No goal, no ball, no gloves, no other people.",
-  "has_children": true
- },
- {
   "phase": 1,
   "idx": 2,
   "title": "The Bus",
@@ -119,10 +98,38 @@
   "has_children": true
  },
  {
+  "phase": 2,
+  "idx": 2,
+  "title": "",
+  "prompt": "A calm green park with a few trees and grass under a plain pale sky, empty, nobody in sight. No sun, no hats, no path markings.",
+  "has_children": false
+ },
+ {
+  "phase": 3,
+  "idx": 0,
+  "title": "",
+  "prompt": "A small cartoon family car seen from the side on a quiet country road, a tall calm man at the wheel, warm glow from the dashboard. No child visible, sky mostly out of frame.",
+  "has_children": false
+ },
+ {
+  "phase": 3,
+  "idx": 1,
+  "title": "",
+  "prompt": "One cartoon boy standing in a village lane wearing a big blue coat with the hood up, calm face, plain pale sky, dry road. Only one child in the picture.",
+  "has_children": true
+ },
+ {
   "phase": 6,
   "idx": 3,
-  "title": "The Rocket",
-  "prompt": "Exactly two friendly cartoon children sitting side by side on one picnic blanket in a sunny park, both smiling, an empty plate beside them, trees behind. Simple bright background. No rocket, no flag, no craft items, no adults.",
+  "title": "",
+  "prompt": "A boy and a girl sitting side by side on one picnic blanket in a sunny park, both with big happy smiles, an empty plate beside them, trees behind. Simple bright background, no craft items, no adults.",
+  "has_children": true
+ },
+ {
+  "phase": 10,
+  "idx": 1,
+  "title": "",
+  "prompt": "A boy in a plain football kit with no writing on it, standing on a plain green grass field, his dad in a coat standing beside him with a calm, interested look. No goal, no ball, no other people.",
   "has_children": true
  }
 ]

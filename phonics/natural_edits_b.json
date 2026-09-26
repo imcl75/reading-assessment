@@ -1,0 +1,301 @@
+{
+ "phonics": [
+  {
+   "phase": 6,
+   "idx": 0,
+   "title": "The Dentist",
+   "text": "Sam had a bad tooth. He went to the dentist. She had a look, then she handed Sam a red toothbrush. Now Sam will brush his teeth with the toothbrush a lot.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who did Sam go to see?",
+     "answer": "The dentist."
+    },
+    {
+     "type": "what",
+     "question": "What did the dentist give Sam?",
+     "answer": "A red toothbrush."
+    },
+    {
+     "type": "why",
+     "question": "Why did Sam go to the dentist?",
+     "answer": "He had a bad tooth."
+    }
+   ],
+   "reason": "Removed 'got Sam' (odd for a dentist), unexplained 'Sam was sad', and the tense jump to 'will'."
+  },
+  {
+   "phase": 6,
+   "idx": 3,
+   "title": "The Rocket",
+   "text": "Josh and Jess had a box at the picnic. It was a rocket! They painted it red and stuck a flag on top. It was not big, but Gran said it was the best rocket at the picnic. Josh and Jess sat on the blanket with big smiles.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Josh and Jess paint red?",
+     "answer": "The box (the rocket)."
+    },
+    {
+     "type": "what",
+     "question": "What did they stick on top?",
+     "answer": "A flag."
+    },
+    {
+     "type": "why",
+     "question": "Why did Josh and Jess have big smiles?",
+     "answer": "Gran said it was the best rocket."
+    }
+   ],
+   "reason": "'Had a rocket' then 'painted it' did not make sense; now a box becomes a rocket."
+  },
+  {
+   "phase": 6,
+   "idx": 4,
+   "title": "The Hamster",
+   "text": "Nan's hamster got out. It was not in its box. Nan looked in the basket and in her jacket. Then she felt a bump in her pocket. It was the hamster!",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Whose hamster got out?",
+     "answer": "Nan's."
+    },
+    {
+     "type": "where",
+     "question": "Where did Nan find the hamster?",
+     "answer": "In her pocket (in her jacket)."
+    },
+    {
+     "type": "why",
+     "question": "Why did Nan look in the basket and in her jacket?",
+     "answer": "She was looking for the hamster / it had got out."
+    }
+   ],
+   "reason": "Fixed tense jump ('isn't')."
+  },
+  {
+   "phase": 7,
+   "idx": 1,
+   "title": "The Bird",
+   "text": "A bird sat on the ground. It had a hurt wing. A boy found it. He called Gran and they got a box for it. Soon the bird was well and flew away.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What was wrong with the bird?",
+     "answer": "It had a hurt wing."
+    },
+    {
+     "type": "who",
+     "question": "Who found the bird?",
+     "answer": "A boy."
+    },
+    {
+     "type": "why",
+     "question": "Why did the boy call Gran?",
+     "answer": "To help the bird (it was hurt)."
+    }
+   ],
+   "reason": "Box now has a purpose ('for it')."
+  },
+  {
+   "phase": 8,
+   "idx": 3,
+   "title": "The Bike",
+   "text": "Pat rode her bike to the shop. She left it next to the gate. When she came back, the bike was on the ground. The wind had pushed it down. Pat picked it up and rode home.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Pat ride?",
+     "answer": "Her bike."
+    },
+    {
+     "type": "where",
+     "question": "Where did Pat leave her bike?",
+     "answer": "Next to the gate."
+    },
+    {
+     "type": "why",
+     "question": "Why was the bike on the ground?",
+     "answer": "The wind pushed it down."
+    }
+   ],
+   "reason": "'Made it drop' is not what wind does to a bike."
+  },
+  {
+   "phase": 9,
+   "idx": 0,
+   "title": "The Snow",
+   "text": "It was very cold and snow fell all day. Kim and her friends made a big snowman. Next day the sun came out and it got warm. The snowman melted.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Kim and her friends make?",
+     "answer": "A snowman."
+    },
+    {
+     "type": "when",
+     "question": "When did the snowman melt?",
+     "answer": "When the sun came out."
+    },
+    {
+     "type": "why",
+     "question": "Why did the snowman melt?",
+     "answer": "It got warm / the sun came out."
+    }
+   ],
+   "reason": "Cold day to 'hot' was a jump; the melt now follows the next day."
+  },
+  {
+   "phase": 9,
+   "idx": 2,
+   "title": "The Rope",
+   "text": "Cindy went to the gym with her friends. She wanted to go up the rope. It was hard at first. Cindy kept trying and got to the top. Her friends were proud.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Cindy go?",
+     "answer": "The gym."
+    },
+    {
+     "type": "what",
+     "question": "What did Cindy want to go up?",
+     "answer": "The rope."
+    },
+    {
+     "type": "why",
+     "question": "Why were her friends proud?",
+     "answer": "She kept trying and got to the top."
+    }
+   ],
+   "reason": "Friends appeared from nowhere; now they come to the gym."
+  },
+  {
+   "phase": 9,
+   "idx": 5,
+   "title": "Mr Cole",
+   "text": "Mr Cole was old and kind. Each day he fed the birds in the park. One day he was ill and could not come. The birds were hungry. They waited and waited for Mr Cole.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who fed the birds?",
+     "answer": "Mr Cole."
+    },
+    {
+     "type": "where",
+     "question": "Where did he feed the birds?",
+     "answer": "In the park."
+    },
+    {
+     "type": "why",
+     "question": "Why were the birds hungry?",
+     "answer": "Mr Cole was ill and did not come."
+    }
+   ],
+   "reason": "Present/past tense mix fixed."
+  },
+  {
+   "phase": 10,
+   "idx": 0,
+   "title": "The Present",
+   "text": "Wes wrapped a book for his gran. He wrote a note on it and tied a knot in the string. Gran was so pleased.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who did Wes wrap a book for?",
+     "answer": "His gran."
+    },
+    {
+     "type": "what",
+     "question": "What did Wes tie a knot in?",
+     "answer": "The string."
+    },
+    {
+     "type": "why",
+     "question": "Why was Gran pleased?",
+     "answer": "She got a book from Wes."
+    }
+   ],
+   "reason": "Wrapping a note as a present was odd; now a wrapped book with a note."
+  },
+  {
+   "phase": 10,
+   "idx": 1,
+   "title": "The Match",
+   "text": "Mitch had a football match. Dad came to watch. Mitch was in goal. A big kick sent the ball at him. Mitch jumped and caught it! Dad shouted with joy.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where was Mitch in the match?",
+     "answer": "In goal."
+    },
+    {
+     "type": "what",
+     "question": "What did Mitch catch?",
+     "answer": "The ball."
+    },
+    {
+     "type": "why",
+     "question": "Why did Dad shout with joy?",
+     "answer": "Mitch caught the ball / saved a goal."
+    }
+   ],
+   "reason": "Went to a match then was in goal; 'a kick came at him' fixed."
+  },
+  {
+   "phase": 10,
+   "idx": 2,
+   "title": "The Bridge",
+   "text": "Bridget stood on the bridge and looked down. The river was far below. Her knees did not shake. She held the rail and looked for a fish.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Bridget stand?",
+     "answer": "On the bridge."
+    },
+    {
+     "type": "what",
+     "question": "What was far below?",
+     "answer": "The river."
+    },
+    {
+     "type": "why",
+     "question": "Why did Bridget hold the rail?",
+     "answer": "To stay safe."
+    }
+   ],
+   "reason": "Removed unsafe leaning out over the rail."
+  },
+  {
+   "phase": 10,
+   "idx": 3,
+   "title": "The Pet Lamb",
+   "text": "Nick has a pet lamb. It follows him to the school gate. The lamb waits there till home time. Then the lamb follows Nick back to the farm.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What is Nick's pet?",
+     "answer": "A lamb."
+    },
+    {
+     "type": "where",
+     "question": "Where does the lamb wait?",
+     "answer": "At the school gate."
+    },
+    {
+     "type": "why",
+     "question": "Why does the lamb wait till home time?",
+     "answer": "Nick is at school / it wants to go home with him."
+    }
+   ],
+   "reason": "Removed 'butts his knee' (odd, not decodable-friendly)."
+  }
+ ],
+ "redraw": [
+  "6-3",
+  "7-1",
+  "10-0",
+  "10-1",
+  "10-2",
+  "9-0"
+ ],
+ "report": "Patterns: wrong verbs ('had a rocket then painted it', 'made it drop', 'dropped'), tense jumps (isn't, feeds/was), unexplained sad/friends, unsafe or odd actions (lean over rail, wrap a note, butt a knee), cold-to-hot jump. Left alone: 6-1,6-2,6-5,7-0,7-2,7-3,7-4,7-5,8-0,8-1,8-2,8-4,8-5,9-1,9-3,9-4,10-4,10-5 which read naturally. 6-5 'put' and 8-3 'over/blown/knocked' were not decodable so alternatives chosen."
+}

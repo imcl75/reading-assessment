@@ -1,0 +1,2343 @@
+[
+ {
+  "id": "27-1",
+  "level": 27,
+  "title": "Fog on Carrow Ridge",
+  "type": "Narrative",
+  "text": [
+   "Amara had been looking forward to the hike for weeks, ever since her dad had promised that at the top of Carrow Ridge there stood a stone hut where they could eat hot soup and gaze across three valleys. She, her dad and her little brother Kwame set off early, when the morning was still clear and bright, and the path wound steadily upwards between bracken and silver birch trees. Kwame, who had far more energy than sense, ran on ahead, pretending to be a mountain goat.",
+   "After an hour, the trees thinned and the ground turned rocky, and a cold wind began to push at their backs. Dad glanced up towards the ridge, and Amara noticed a small frown crease his forehead. A grey cloud was sliding down the hillside towards them, as slowly and softly as a wave rolling up a beach. “Stay close,” he said. “Both of you.”",
+   "Within minutes the fog had wrapped itself around them, so thick that Amara could see no further than her own outstretched arm. The path had vanished, and every rock looked exactly like the next. Kwame slipped his hand into hers. “Are we lost?” he whispered. Although her heart was thumping, Amara answered as calmly as she could. “Dad will know what to do.”",
+   "Dad stood very still for a moment, thinking. “We do not need to see the summit,” he said at last. “Remember the blue paint on the stones? The rangers mark the path with blue dots, so all we have to do is find the next one.” They formed a line, holding hands, and stretched out as far as they dared, searching the ground on every side. A few steps away, Amara spotted a small blue circle on a flat grey stone. “Here!” she called.",
+   "They crept forward from dot to dot, sometimes finding the marks close together and sometimes having to spread out and feel their way across the damp rock. Kwame turned it into a game, counting each dot aloud, and Amara noticed that the fear that had knotted her stomach was slowly loosening. It was difficult to feel afraid when the three of them were working together so well.",
+   "After what seemed an age, the ground levelled off and a square shape appeared in the murk. It was the stone hut, its wooden door painted exactly the same blue as the dots. Inside, a small wood stove glowed, and a friendly couple in bobble hats poured them each a mug of tomato soup, which Amara held in both hands while the warmth crept into her frozen fingers.",
+   "An hour later, the wind changed direction and the fog began to tear apart into ragged strips. Sunlight poured through the gaps, and below them lay three green valleys, shining as if somebody had polished them. Kwame pressed his nose against the window. “It was worth it,” he said. Dad grinned at Amara. “It was, wasn’t it?” he said quietly. “And you led us wonderfully well, you know.” Amara felt taller than the ridge itself."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Where were Amara, Kwame and Dad hoping to have hot soup?",
+    "options": [
+     "In a stone hut at the top of the ridge",
+     "In a café in the valley",
+     "In a car at the bottom of the hill",
+     "At a picnic table beside the path"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 3 that tells you the fog was very dense."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “crept” suggest about how they moved?",
+    "options": [
+     "Very quickly",
+     "Noisily",
+     "Slowly and carefully",
+     "Without any care"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "What tells you that Dad was worried when he looked up at the ridge in paragraph 2?"
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says the fog had “wrapped itself around them”. What does this word choice suggest about the fog?"
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Amara found the first blue dot.",
+     "Fog rolled down the hillside.",
+     "The family drank tomato soup.",
+     "The fog cleared to show three valleys."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Amara answered Kwame “as calmly as she could”. How was she really feeling?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Amara’s fear start to loosen as they followed the dots?"
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The rangers marked the path with blue paint.",
+     "Kwame found the first blue dot.",
+     "The stone hut had a blue door.",
+     "The family walked in silence."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two ways that Dad helped his children to stay safe in the fog."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Amara feel “taller than the ridge itself” at the end?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the story?",
+    "options": [
+     "A family gets lost and never reaches the top.",
+     "A family follows a trail through fog to reach a hut and a lovely view.",
+     "A boy discovers a hut in the mountains.",
+     "A ranger rescues a family in bad weather."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "The valleys are described as “shining as if somebody had polished them”. What effect does this have on the reader?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "Do you think Amara will want to go hiking again? Explain your answer."
+   }
+  ]
+ },
+ {
+  "id": "27-2",
+  "level": 27,
+  "title": "The Pond at Bramble Lane",
+  "type": "Recount (Fictional)",
+  "text": [
+   "For as long as anyone could remember, the corner behind the old bus shelter on Bramble Lane had been a dumping ground for shopping trolleys, broken chairs and crisp packets. Then, one spring, Mrs Osei from number 12 pinned a notice to the shelter: “Let’s turn this into a wildlife pond! Meet here on Saturday. Bring gloves.” Jaswinder, who was eleven, thought it sounded silly. Nevertheless, on Saturday morning he turned up, mostly because his mum insisted.",
+   "To his surprise, nearly thirty people were there, including a builder with a digger, a group of Brownies and Mr Chen, who was eighty and carried a folding stool. The first job was rubbish. By lunchtime, the neighbours had filled ten sacks and pulled out four trolleys, a bicycle wheel and something that nobody could identify. Jaswinder discovered that it was rather satisfying to see the corner appear from underneath the mess.",
+   "The following weekend, the builder’s digger scooped out a wide dip in the earth, deep in the middle and gently sloping at the sides. “Frogs and hedgehogs need a shallow edge,” Mrs Osei explained. “Otherwise, they cannot climb out.” Jaswinder helped to spread a thick black liner across the hole, and the Brownies covered its edges with soil and stones. Then a hosepipe was fetched, and everyone watched the water creep upwards, inch by inch.",
+   "Over the next few weeks, the pond was planted. Mr Chen donated a bucketful of water mint from his garden, and the school gave them a box of marsh marigolds. Jaswinder built a log pile for beetles and a small ramp made from an old plank. He also painted a sign that read, “Bramble Lane Pond: Look, but don’t lean.”",
+   "For a while, nothing seemed to happen. The water stayed still and clear, and Jaswinder wondered if all the effort had been wasted. Then, one warm evening in June, he saw a tiny ripple. A pond skater was skating across the surface on its long, spindly legs. The following week, there were dragonfly larvae in the weeds, and a small blackbird was bathing in the shallows.",
+   "By September, the pond had become the most popular spot on the lane. Children counted tadpoles on their way to school, and Mr Chen sat beside it every afternoon on his stool. One morning, Jaswinder found a little frog sitting on the plank ramp, blinking at the sunshine. He held his breath and did not move for a full five minutes.",
+   "That evening, he wrote in his notebook: “At first I thought this was a silly idea. Now I think it is the best thing on our road. Everybody helped, and there was a job for everyone.” He read it over twice, and then he added one more line: “Next year, we plant the wildflowers.”"
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was the corner behind the bus shelter used for before the pond was built?"
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word from paragraph 3 that describes the sides of the pond."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “Nevertheless” mean?",
+    "options": [
+     "Because of this",
+     "In spite of that",
+     "At the same time",
+     "In the end"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Jaswinder go to the first meeting even though he thought the idea was silly?"
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did the pond need a shallow edge?"
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "A pond skater appeared.",
+     "The rubbish was cleared away.",
+     "The pond was planted.",
+     "The digger dug a dip."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Jaswinder wonder if the effort had been wasted in paragraph 5?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "The pond skater is described as skating “on its long, spindly legs”. What does “spindly” suggest about its legs?"
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Nearly thirty people came to the first meeting.",
+     "Mr Chen was the youngest person there.",
+     "The school gave the group some plants.",
+     "Jaswinder wrote in his notebook that the pond was silly."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two things that show the pond had become popular by September."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "How had Jaswinder’s feelings about the project changed by the end? Use the text to explain."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the whole text?",
+    "options": [
+     "A pond was dug by a builder and a digger.",
+     "A neighbourhood works together to make a wildlife pond and Jaswinder changes his mind.",
+     "Frogs and hedgehogs move into a garden.",
+     "A boy writes a notebook about wildlife."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says the water crept “upwards, inch by inch”. What effect does this have?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think will happen to the pond next year? Give a reason."
+   }
+  ]
+ },
+ {
+  "id": "27-3",
+  "level": 27,
+  "title": "The Attic at Nana Joy’s",
+  "type": "Description",
+  "text": [
+   "The ladder to Nana Joy’s attic creaks on every single rung, as if it resents being woken from a long sleep. At the top, a small wooden hatch swings open, and out drifts the smell of the past: dust, old paper and a faint, sweet trace of lavender. I clamber through carrying a torch, although I do not really need it, because a round window at the far end lets in a long beam of afternoon light, and within it thousands of dust specks drift like tiny sparkling planets.",
+   "The attic is a crowded place. Boxes are stacked all the way up to the rafters, each labelled in Nana’s loopy handwriting: “Christmas”, “Mum’s books”, “Cables (do not throw)”. In one corner stands a rocking horse with a single glass eye, and it seems to follow me wherever I move. Above my head, a row of coats hangs from a beam, their sleeves swaying gently in the draught, and I half expect one of them to reach out and wave.",
+   "I kneel beside a trunk with brass corners that generations of hands have polished to a soft glow. The lid opens with a satisfying groan, and inside lies a bundle of silk scarves in ruby, emerald and gold, folded as precisely as envelopes. Beneath them rests a pair of tiny ballet shoes, their ribbons faded to the colour of weak tea. I lift one to my nose, and it smells of chalk and of a very long time ago.",
+   "At the very bottom of the trunk I discover a photograph in a cardboard frame. A young woman in a sparkling costume is laughing at the camera, one leg lifted and both arms flung wide as though she is about to take flight. On the back, in faded pencil, someone has written: “Joy, opening night, 1968.” I turn the picture over again and study the face properly. The nose is the same, and so are the crinkles around the eyes.",
+   "From below, a voice calls up the ladder. “Have you found anything interesting?” Nana Joy pokes her head through the hatch, her cheeks pink from the climb, and then she sees the photograph in my hands and stops. For a moment the attic is completely silent, and the dust hangs motionless in the light.",
+   "“Ah,” she says, with a small, astonished laugh. “I wondered where that had gone.” She lowers herself onto a box and takes the photograph as tenderly as if it were a butterfly. “I had forgotten how much I loved that stage,” she murmurs. “Shall I tell you about it?”",
+   "I nod. Outside, the light is slowly turning from white to honey. The rocking horse keeps its glass eye fixed on us, and I settle down among the scarves to listen, thinking that an attic is not a place for old things at all. It is a place where stories wait."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is the main thing that lights the attic?",
+    "options": [
+     "A round window",
+     "A lamp on the ceiling",
+     "Candles",
+     "A torch left by Nana Joy"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “polished” suggest about the trunk?",
+    "options": [
+     "It was rusty",
+     "It was shiny and cared for",
+     "It was brand new",
+     "It was very heavy"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what colour the ballet shoe ribbons had faded to."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says the dust drifted “like tiny sparkling planets”. What does this comparison suggest about the dust?"
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "The ladder creaks “as if it resents being woken from a long sleep”. What does this suggest about the attic?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "What clues in paragraph 4 suggest that the woman in the photograph was Nana Joy?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "The rocking horse “seems to follow me wherever I move”. What feeling does this create?"
+   },
+   {
+    "n": 8,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the text.",
+    "items": [
+     "Nana Joy took the photograph.",
+     "The narrator climbed the ladder.",
+     "The narrator found the photograph.",
+     "The narrator opened the trunk."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The scarves were folded neatly.",
+     "The photograph was taken in 1968.",
+     "Nana Joy was cross with the narrator.",
+     "The rocking horse had two glass eyes."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two details that show Nana Joy was surprised and moved by the photograph."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the narrator does not “really need” the torch?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the text?",
+    "options": [
+     "A child finds a photograph in an attic and learns something new about a grandmother.",
+     "A child is frightened of a rocking horse.",
+     "A grandmother clears out her attic.",
+     "A child loses a torch in the dark."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "The narrator ends by saying an attic is “a place where stories wait”. What does this mean?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Nana Joy will do next? Give a reason."
+   }
+  ]
+ },
+ {
+  "id": "27-4",
+  "level": 27,
+  "title": "Should Our Valley Have a Wind Farm?",
+  "type": "Discussion",
+  "text": [
+   "A company has asked to build twelve wind turbines on the hills above Little Marlow, and the valley is divided. Some people think the plan is a good one. Others are firmly against it. Before you decide what you think, it helps to look at both sides.",
+   "Supporters point out that wind turbines make electricity without burning coal, oil or gas. Burning fuels releases gases that warm the planet, but a spinning turbine releases none. Wind is also a source that never runs out, unlike fuels, which take millions of years to form. Twelve turbines could make enough electricity for several thousand homes. The company has also promised that some of the money it earns would help to pay for a new village hall.",
+   "Supporters also say that turbines are a sensible use of a windy place. The hills above Little Marlow are exposed and breezy for much of the year, so the blades would turn on most days. A wind farm can be built in months, while a power station may take years. A farmer who lets the company use a field is paid rent for it. If the turbines were ever removed, the land could go back to farming, because they stand on small concrete bases and do not damage the soil.",
+   "Opponents, however, worry about how the hills would look. Turbines can be over a hundred metres tall, and they can be seen from many kilometres away. People who love the view fear that the peaceful skyline would be spoilt. Walkers and tourists might stop visiting, and local cafés and B&Bs could lose customers.",
+   "Some neighbours are also concerned about noise. When turbines turn, the blades make a soft whooshing sound. The people who live nearest say it might disturb them, especially at night. Others worry about wild birds, which can be harmed if they fly into the blades. However, experts say that careful planning of where to put the turbines can reduce this risk.",
+   "Finally, there is the question of reliability. Turbines produce electricity only when the wind blows at the right speed. On a calm day they produce very little, so the valley would still need other sources of power to keep the lights on. Opponents say this shows that turbines cannot be the whole answer. They believe the money might be better spent on other ideas, such as covering roofs with solar panels.",
+   "In conclusion, the wind farm would help to reduce pollution and bring money to the village. However, it would change the landscape, and it may bother some of the people who live nearby. Each person has to weigh up how much they value cleaner energy against the beauty and quiet of the hills. Whatever the outcome, everyone in the valley deserves the chance to have their say."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How many turbines does the company want to build?",
+    "options": [
+     "Six",
+     "Ten",
+     "Twelve",
+     "Twenty"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “divided” mean?",
+    "options": [
+     "Sharing the same view",
+     "Split into groups with different opinions",
+     "Quiet and calm",
+     "Joined together"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word from paragraph 4 that means “worried”."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do supporters say wind is better than coal, oil or gas?"
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "What might the company’s promise about the village hall be trying to do?"
+   },
+   {
+    "n": 6,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which of these is the best heading for paragraph 5?",
+    "options": [
+     "Noise and birds",
+     "How to build a turbine",
+     "Money for the village",
+     "Why walkers visit"
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Turbines can be more than a hundred metres tall.",
+     "Wind turbines produce a lot of power on calm days.",
+     "The turbines stand on small concrete bases.",
+     "All the people of the valley agree about the plan."
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why might cafés and B&Bs lose customers if the turbines are built?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the writer mention that experts say careful planning can reduce the risk to birds?"
+   },
+   {
+    "n": 10,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the sections from 1 to 4 to show the order they appear in the text.",
+    "items": [
+     "The conclusion",
+     "Arguments for the wind farm",
+     "The question of reliability",
+     "Arguments against the wind farm about the view"
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer describes the sound of turbines as “a soft whooshing sound”. Does the writer make the noise seem loud or gentle? Explain."
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two problems with turbines that opponents mention."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is the writer’s purpose in this text?",
+    "options": [
+     "To force readers to agree with the plan",
+     "To set out both sides so that readers can make up their own minds",
+     "To explain how a turbine works",
+     "To tell a story about a village"
+    ]
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why might some people change their minds after reading both sides?"
+   }
+  ]
+ },
+ {
+  "id": "27-5",
+  "level": 27,
+  "title": "The Discovery of Penicillin",
+  "type": "Recount (Historical)",
+  "text": [
+   "In the summer of 1928, a Scottish scientist named Alexander Fleming packed a bag and went on holiday. He worked in a laboratory at St Mary’s Hospital in London, where he was studying germs called bacteria. Before he left, he had spread bacteria onto several small glass dishes so they could grow, and he left the dishes stacked on his workbench.",
+   "When Fleming came back in September, he began to sort through the dishes. Most of them looked as he expected, but one caught his eye. A fuzzy patch of blue-green mould had grown on it. Moulds are common, and a scientist might easily have thrown the dish away. Fleming, however, looked closer and noticed something odd. All around the mould, the bacteria had disappeared. The dish was clear in a small ring, while the rest of it was cloudy with bacteria.",
+   "“That’s funny,” he is said to have murmured. He guessed that the mould must be making a substance that killed the bacteria. He carefully grew more of the mould, which turned out to be a kind called Penicillium, and found that a liquid taken from it could stop many harmful bacteria from growing. He named the liquid penicillin.",
+   "Fleming knew that his discovery might be important, because bacteria cause many illnesses, some of which doctors could do little to treat at that time. He was careful, too, to test his liquid on many different kinds of bacteria, so that he could tell which ones it stopped. In 1929, he wrote about it in a science journal. Still, making penicillin was difficult. Fleming could grow only a tiny amount of the liquid, and it was not pure enough to be used as medicine. He tried to interest other scientists, but for years little happened.",
+   "In the late 1930s, a group of scientists at Oxford University, led by Howard Florey and Ernst Chain, read Fleming’s work with interest. They decided to try to make penicillin in larger amounts. It took long hours in the laboratory, and they had to work out how to purify the liquid so it would be safe. Slowly, they succeeded.",
+   "By the 1940s, factories were producing penicillin, and doctors began to use it to treat people with serious infections. It was the first of a group of medicines called antibiotics. In 1945, Fleming, Florey and Chain shared a famous prize for their work.",
+   "Alexander Fleming’s story shows how important it is to notice small things. A dish that others might have thrown away led to a medicine that has helped millions of people. Fleming had the patience to look twice, and the Oxford team had the determination to turn a curious mould into a cure."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Where did Alexander Fleming work?",
+    "options": [
+     "A school in Scotland",
+     "A laboratory at St Mary’s Hospital in London",
+     "A factory in Oxford",
+     "A farm in the countryside"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the two words in paragraph 2 that describe the colour of the mould."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “purify” mean?",
+    "options": [
+     "Make it stronger",
+     "Make it clean by removing other things",
+     "Make it colder",
+     "Make it cheaper"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why might a scientist “easily have thrown the dish away”?"
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "What did Fleming notice that made him look closer at the dish?"
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened.",
+    "items": [
+     "Fleming named the liquid penicillin.",
+     "Fleming came back from holiday.",
+     "Factories began producing penicillin.",
+     "Fleming saw a ring around the mould."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The discovery was made in 1928.",
+     "Fleming could make lots of pure penicillin himself.",
+     "Florey and Chain worked at Oxford University.",
+     "Penicillin was the first antibiotic."
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did little happen for years after Fleming wrote about his discovery?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why was the work of the Oxford scientists needed after Fleming’s discovery?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says Fleming “is said to have murmured”, “That’s funny.” What does the phrase “is said to have” tell the reader?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which of these is the best summary of paragraph 5?",
+    "options": [
+     "Oxford scientists worked to make penicillin in larger amounts.",
+     "Fleming retired from his work.",
+     "Doctors stopped using penicillin.",
+     "A factory closed down."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two reasons why Fleming’s discovery mattered."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is the main lesson of the last paragraph?",
+    "options": [
+     "Noticing small things can lead to great discoveries.",
+     "Scientists should go on holiday more often.",
+     "Mould is always dangerous.",
+     "Bacteria are easy to grow."
+    ]
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What might have happened if Fleming had thrown the dish away without looking closely? Use the text to help you."
+   }
+  ]
+ },
+ {
+  "id": "27-6",
+  "level": 27,
+  "title": "The Arctic Tern: Champion Traveller",
+  "type": "Information Report",
+  "text": [
+   "The Arctic tern is a slim seabird, weighing about as much as a bar of chocolate. It has a black cap, a bright red beak, and long, forked tail feathers that flutter like ribbons. Yet this small bird makes the longest journey of any animal on Earth.",
+   "In the northern summer, Arctic terns nest in the far north, in places such as Greenland, Iceland and northern Britain. When the northern autumn approaches, the days shorten and the fish become harder to find. The terns then fly all the way south to the seas around Antarctica, which are just entering their summer. In the spring, they fly back again. Some birds travel more than seventy thousand kilometres in a single year, which is well over one and a half times the distance around the Earth.",
+   "Because they move from one summer to the next, Arctic terns see more daylight than any other creature. They do not fly in a straight line. Instead, they take a winding path that lets them use the winds to help them, and they save energy by gliding. Birds tracked with tiny devices strapped to their legs have shown that they often zigzag across the ocean instead of flying in a straight line.",
+   "The terns are excellent fishers. They hover above the water, watching for small fish, and then plunge headfirst to grab them. Before they set off on their journey south, they must eat plenty of fish to store energy. During the journey, they rest on the sea or catch food while flying.",
+   "The terns are noisy and defiant nesters. They make shallow scrapes on open ground, usually on beaches or on rocky islands. Each pair lays one to three eggs, and both parents take turns keeping them warm. If any intruder wanders near, the terns will swoop down and peck it on the head. This behaviour is very effective at protecting the chicks, and even large animals and human visitors are wise to wear hats.",
+   "Young terns learn to fly about three weeks after hatching. Until then, the parents bring them small fish, carrying each one carefully in the beak and dropping it beside the chick. They then follow their parents south on their first big journey. An Arctic tern can live for about thirty years, and over its lifetime, it may fly a distance equal to several trips to the Moon and back.",
+   "Scientists are keen to keep learning about these travellers. Small tracking devices are now so light that a bird can carry one without noticing. This is important, because changes in the sea and in the weather may affect where fish are found. If the fish move, the terns will need to find them. Protecting nesting places and keeping the oceans healthy will help these remarkable birds to keep making their long journeys for many years to come."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What colour is the Arctic tern’s beak?",
+    "options": [
+     "Yellow",
+     "Black",
+     "Orange",
+     "Bright red"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where do Arctic terns spend the northern winter?"
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “defiant” mean?",
+    "options": [
+     "Boldly standing up to threats",
+     "Very shy",
+     "Rather sleepy",
+     "Easy to please"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you how the terns catch fish after hovering."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do Arctic terns see more daylight than any other creature?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do the terns fly south when autumn approaches?"
+   },
+   {
+    "n": 7,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order in an Arctic tern’s year.",
+    "items": [
+     "The tern flies to Antarctica.",
+     "The tern flies back north.",
+     "The tern nests in the far north.",
+     "The tern eats plenty of fish."
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Arctic terns are heavy birds.",
+     "Some terns fly more than seventy thousand kilometres a year.",
+     "Terns nest in trees.",
+     "Both parents keep the eggs warm."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the writer say that “human visitors are wise to wear hats”?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says the tail feathers “flutter like ribbons”. What does this comparison suggest?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two ways that Arctic terns protect their chicks or prepare for flights."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which of these is the best heading for paragraph 3?",
+    "options": [
+     "The ways terns choose their route",
+     "How terns make nests",
+     "Why terns are afraid of ships",
+     "Foods that terns like"
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is the main idea of the whole text?",
+    "options": [
+     "The Arctic tern is a small bird that makes an incredible journey each year.",
+     "Terns are the biggest seabirds.",
+     "Terns never rest.",
+     "Fish are harder to find in the north."
+    ]
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What might happen to the terns if the fish moved to different places? Use the last paragraph to help you."
+   }
+  ]
+ },
+ {
+  "id": "28-1",
+  "level": 28,
+  "title": "The Lantern Stairs",
+  "type": "Narrative",
+  "text": [
+   "When Mika stepped off the sky-ferry, she discovered two things about Hollowmere that nobody had thought to mention. The first was that the town hung from the underside of a floating rock, its crooked houses dangling downwards like icicles. The second was that the stairs hummed, so that every step trembled faintly beneath her boots, as though the entire island were purring.",
+   "“You will grow accustomed to it,” said a tall man who was waiting at the landing, wearing a long coat fastened with brass buttons and carrying a pole tipped with a hook. “I am Mr Adeyemi, Keeper of the Lantern Stairs, and you must be my new apprentice.” Mika nodded, unable to speak; she had dreamed of this position for three weeks, and now that it had finally arrived, her mouth had turned as dry as chalk.",
+   "There were nine hundred lanterns in Hollowmere, and by tradition every one of them was lit by hand at the appearance of the first star. Mr Adeyemi passed her a small glass jar in which a single glow-moth fluttered, its wings flickering like a candle flame. “Hold the jar to the wick and ask the lantern to wake,” he explained. “Nothing more is required.” “Ask it?” said Mika. “Politely,” he replied, with the faintest twinkle.",
+   "She climbed to the first lantern and did precisely as she had been instructed, but nothing happened. She tried again, more loudly. By the tenth lantern her cheeks were burning; although she had a steady hand and had learned the lamplighting rhyme by heart, the lanterns stubbornly refused to obey her. Behind her, Mr Adeyemi said nothing at all, which was somehow far worse than any scolding could have been.",
+   "As dusk deepened, neighbours lingered on their doorsteps. Mika sank onto a step and rested her chin on her knees, and it was then that she noticed a small creature, no bigger than a teapot, huddled in the corner of the landing. Its fur was the silver-grey of rain clouds, and it was trembling. Forgetting her embarrassment, she broke her bread roll in half and held out a piece, murmuring as gently as she would to a nervous kitten. The creature sniffed, nibbled, and then crept into her lap, where it began to hum in exactly the same note as the stairs.",
+   "Something warm brushed her fingers. The nearest lantern had begun to glow, and one after another, all the way up the winding staircase, the rest bloomed into life like a slow tide of gold rising towards the sky. Mr Adeyemi stepped out of the shadows. “Lanterns have never listened to orders, and they care nothing for rhymes,” he said. “They wake only for someone who is calm and kind, and I could not be certain that you possessed that gift.” “Why didn’t you tell me?” asked Mika. “Had I done so, you would merely have pretended,” he said.",
+   "Mika looked down at the creature, which had fallen asleep with its nose tucked beneath its tail. “What shall I call him?” she whispered. “A stair-sprite chooses its own name,” said Mr Adeyemi, “but I rather suspect that he has already chosen you.”"
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the phrase “grow accustomed to it” mean?",
+    "options": [
+     "Become angry about it",
+     "Become curious about it",
+     "Become used to it",
+     "Become afraid of it"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what Mr Adeyemi’s coat was fastened with."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "How many lanterns were there in Hollowmere?"
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The lanterns were lit when the first star appeared.",
+     "Mika lit the tenth lantern successfully.",
+     "The creature on the landing was trembling.",
+     "Mr Adeyemi scolded Mika when the lanterns stayed dark."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "The lanterns began to glow.",
+     "Mika arrived on the sky-ferry.",
+     "Mika shared her bread roll with a creature.",
+     "Mika failed to wake the first ten lanterns."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Mr Adeyemi’s silence was “somehow far worse than any scolding could have been”. Why did Mika find his silence so hard to bear?"
+   },
+   {
+    "n": 7,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What does paragraph 4 suggest about how Mika was feeling?",
+    "options": [
+     "Proud of how well she was doing",
+     "Angry with Mr Adeyemi",
+     "Bored with her new job",
+     "Embarrassed and worried that she was failing"
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says the lanterns “bloomed into life like a slow tide of gold”. What does this description suggest about the way the lanterns lit up?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two clues from paragraph 5 that show the creature needed care."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the lanterns lit for Mika only after she had helped the creature?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the message of the story?",
+    "options": [
+     "Kindness matters more than following instructions perfectly.",
+     "Lanterns are difficult to light.",
+     "It is best to keep secrets from other people.",
+     "Apprentices should never ask questions."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 5 that means shaking slightly."
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Mika will do when the first star appears tomorrow? Give a reason from the story."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Mr Adeyemi not tell Mika the secret of the lanterns at the start?"
+   }
+  ]
+ },
+ {
+  "id": "28-2",
+  "level": 28,
+  "title": "How a Compass Works",
+  "type": "Explanation",
+  "text": [
+   "Explorers, sailors and hikers have all trusted a small tool that always points the same way, even in thick fog. It is called a compass, and it works because of magnetism. To understand how it works, it helps to know a few facts about magnets.",
+   "Every magnet has two ends, called poles. One is the north pole and the other is the south pole. If you bring the north pole of one magnet close to the south pole of another, they pull together. This pull is called attraction. If you bring two north poles close together, they push apart instead. This is called repulsion, and it happens with two south poles as well. Magnets attract only certain materials, such as iron, nickel and cobalt. Wood, plastic and glass are not affected at all, however strong the magnet may be.",
+   "Earth itself behaves like an enormous magnet. Deep inside our planet, a vast region of hot, liquid metal swirls around a solid centre. Scientists believe that this movement creates a magnetic field, an invisible force that surrounds the whole Earth and stretches far out into space. The field runs between two places close to the North Pole and the South Pole.",
+   "A compass takes advantage of this field. Inside it is a thin needle that is itself a small magnet. The needle is balanced on a tiny pin so that it can spin freely, and one end is usually painted red. When you hold the compass still, Earth’s magnetic field pulls on the needle until the red end swings round and points towards the north. Once you know where north is, you can work out which way is south, east and west as well.",
+   "The first compasses were made in China, using lodestone, a rock that is a natural magnet. Later designs used a magnetised needle floating in a bowl of water. Over many centuries, the compass improved, and it helped sailors to cross oceans that had never been mapped. Even with no land in sight, a captain could check which way the ship was heading.",
+   "A compass is not perfect, however. Its needle can be fooled by anything with a strong magnetic pull nearby, such as another magnet or a large piece of iron. A hiker who kept a compass next to a heavy metal tool could easily end up walking in the wrong direction. Also, a compass points to magnetic north, which is close to, but not exactly at, the true North Pole. Careful travellers know about this and allow for it.",
+   "Even so, the compass remains a trusted tool. It needs no batteries and no signal, and it works in mist, in darkness and in places where nothing else can help. For a device so small and simple, that is a remarkable achievement indeed."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What happens when two north poles are brought close together?",
+    "options": [
+     "They pull together",
+     "They lose their magnetism",
+     "They push apart",
+     "They stick to the ground"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 4, what does the word “freely” mean?",
+    "options": [
+     "Without any cost",
+     "Without anything holding it back",
+     "Without making a noise",
+     "Without being seen"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what the compass needle is balanced on."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Magnets attract wood and plastic.",
+     "Earth behaves like an enormous magnet.",
+     "A compass needle is fixed firmly in place.",
+     "Lodestone is a natural magnet."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how a compass shows the way.",
+    "items": [
+     "The needle swings until one end points north.",
+     "The traveller works out south, east and west.",
+     "The compass is held still.",
+     "Earth’s magnetic field pulls on the needle."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is the scientific word for the pull between the north pole of one magnet and the south pole of another?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where were the first compasses made?"
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best heading for paragraph 3?",
+    "options": [
+     "How Earth acts like a giant magnet",
+     "Why metals are hot inside",
+     "Where the North Pole is found",
+     "How magnets are made"
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “vast” mean?",
+    "options": [
+     "Hot",
+     "Hidden",
+     "Slow",
+     "Enormous"
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Two magnets are pushed together and they spring apart. What can you tell about the poles that were brought close together?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "A hiker keeps a compass in the same pocket as a strong magnet. Why might the compass show the wrong direction?"
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two things that can fool a compass needle."
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "The text begins with “Explorers, sailors and hikers”. Why do you think the author begins by naming these people?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says a compass “needs no batteries and no signal”. Why is this an advantage for travellers?"
+   }
+  ]
+ },
+ {
+  "id": "28-3",
+  "level": 28,
+  "title": "The Grandad Decision",
+  "type": "Narrative",
+  "text": [
+   "The letter from school arrived on Monday morning, and Marcus read it three times before he could believe it. He had been selected for the chess team that would compete in the county final on Saturday. For two years he had practised on the bus, at lunchtime and beneath his bedcovers with a torch, and at last all that quiet determination had been noticed.",
+   "Then Mum came in from the kitchen, drying her hands on a tea towel. “Don’t forget Saturday, Marcus. It’s Grandad’s eightieth birthday, and we’re all meeting at the restaurant at twelve; Auntie Grace is even travelling up from Cornwall for it.” Marcus’s stomach lurched with dismay. The final began at ten and might well continue until after one o’clock, so there was no possible way of attending both.",
+   "That night he lay awake, staring at the ceiling. Mrs Okafor, his teacher, had told him that the team could not manage without him, for there were only five players and he was the strongest of them. Yet Grandad was the person who had first taught him to play, on a wobbly board where two missing pawns had been replaced by buttons. Every Sunday afternoon they had sat at the kitchen table while the kettle whistled, and Grandad had never once allowed him to win.",
+   "On Tuesday he tried to banish the problem from his mind, and on Wednesday he tried again. Then he compiled a list. In one column he wrote his reasons for playing: the trophy, the team, the chance to prove himself. In the other he wrote a single word: Grandad. He studied the two columns for a long while. One was long and one was short, and yet, oddly, the short one seemed to weigh far more.",
+   "On Thursday he went to Mrs Okafor’s classroom, his palms sticky. “I can’t play on Saturday,” he blurted. “It’s my grandad’s birthday.” She was silent for a moment, and Marcus braced himself. “I am disappointed, and I won’t pretend otherwise,” she said at last. “But I would think less of you if you had chosen differently. We shall ask Jin to take your place; he has been progressing steadily all term.” Relief and sadness swirled together inside Marcus like paint in water.",
+   "At the restaurant on Saturday, Grandad’s face crinkled into a smile when Marcus walked in, then slowly into a frown. “Shouldn’t you be at the tournament?” he asked. “I swapped with someone,” said Marcus, handing over a small parcel. Grandad shook his head. “You gave up your final for an old man’s lunch?” “It isn’t just lunch,” said Marcus. “You taught me everything I know.” Grandad cleared his throat and studied the tablecloth. When at last he spoke, his voice was gruff. “Best present I’ve ever had,” he said, “and I haven’t even opened it.”",
+   "At half past two, a message buzzed on Mum’s phone: the team had finished third, and Jin had won his final game. Marcus read it twice and smiled, surprised to find that it did not feel like losing. Grandad, meanwhile, had already set up a small travelling chess set beside the birthday cake. “Now,” he said, with a twinkle, “shall we discover whether you have improved?”"
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "When was the county final going to be played?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the phrase “braced himself” mean?",
+    "options": [
+     "Held onto the desk",
+     "Got ready for bad news",
+     "Stood up straight to leave",
+     "Started to feel proud"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you where Marcus practised chess at night."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The final started at ten o’clock.",
+     "Auntie Grace lived very close to the restaurant.",
+     "Grandad was the person who first taught Marcus to play chess.",
+     "Marcus was the weakest player on the team."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Marcus gave Grandad a present.",
+     "Mum reminded Marcus about the birthday.",
+     "Marcus told Mrs Okafor his decision.",
+     "Marcus opened the letter from school."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Marcus’s stomach lurch when Mum spoke about Saturday?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "One column of Marcus’s list was long and one was short, but “the short one seemed to weigh far more”. What does this tell you about how Marcus felt?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says relief and sadness “swirled together … like paint in water”. What does this show about Marcus’s feelings?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that Mrs Okafor respected Marcus’s decision even though she was disappointed?"
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How did Grandad feel when he heard why Marcus was at the restaurant?",
+    "options": [
+     "Cross that Marcus had missed the final",
+     "Annoyed with Mum",
+     "Deeply touched",
+     "Bored of chess"
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two things that Marcus and Grandad did together when Marcus was learning to play chess."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the story?",
+    "options": [
+     "Marcus chooses his grandfather’s birthday over an important chess final.",
+     "Marcus wins the county chess final.",
+     "Marcus is angry with his teacher.",
+     "Grandad forgets his own birthday."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Marcus and Grandad will do next? Use the text to help you."
+   },
+   {
+    "n": 14,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the two words that show how Marcus’s hands felt when he went to see Mrs Okafor."
+   }
+  ]
+ },
+ {
+  "id": "28-4",
+  "level": 28,
+  "title": "The Smiling Axolotl",
+  "type": "Information Report",
+  "text": [
+   "Deep beneath the surface of a cool, murky lake, an odd creature glides past the reeds. It has a wide, flat head, tiny black eyes and a mouth that seems to curl into a permanent smile. Feathery frills sprout from each side of its head like a pink or red crown. This is an axolotl, a kind of salamander, and it is one of the most unusual animals on Earth.",
+   "Axolotls come from the lakes and canals of Xochimilco, near Mexico City. A fully grown axolotl is usually about twenty to thirty centimetres long, and its skin is soft and smooth, with no scales or fur. Its tail is long and flat, like a fin, which helps it to swim. It has four short legs with tiny, delicate toes, but it spends most of its time gliding through the water rather than walking.",
+   "Most amphibians change dramatically as they grow. A young frog, for example, loses its gills, develops lungs and hops out onto dry land. The axolotl is different. It keeps its gills and its tail fin, and it remains in the water for its whole life. Scientists say that it never completely grows up, although it is able to breed like an adult. The feathery frills on its head are its gills, and they take oxygen from the water.",
+   "Axolotls are skilful hunters. They live in dim, cloudy water where it is hard to see, so they depend on smell and on sensing movement rather than on their eyesight. When a worm, a small fish or a snail drifts close by, the axolotl senses it, opens its mouth wide and sucks the prey in whole, together with a gulp of water.",
+   "The axolotl’s most astonishing talent is regrowth. If it loses a leg or part of its tail, its body can grow a new one, complete with bones, muscles and nerves, and it can even repair parts of its heart. A human being cannot do this. Scientists around the world study axolotls in the hope that their secrets might one day help to heal human injuries.",
+   "In the wild, most axolotls are dark brown or olive, speckled with gold, which helps them to hide among the mud and plants. Some that are bred in laboratories and homes are pale pink or white, with bright red gills. With good care, an axolotl can live for more than ten years. A female can lay hundreds of eggs at a time, which she attaches to underwater plants.",
+   "Sadly, wild axolotls are now extremely rare. The lakes where they live have shrunk, and the water has been polluted by the growing city nearby. Many people are working hard to clean the canals and to create safe places where axolotls can live and breed. Meanwhile, thousands of axolotls are cared for in tanks around the world, so this smiling salamander is not forgotten."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Where do axolotls come from?",
+    "options": [
+     "Rivers in Mexico City",
+     "Ponds in a forest",
+     "Lakes and canals near Mexico City",
+     "The sea near Mexico"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do the feathery frills on an axolotl’s head do?"
+   },
+   {
+    "n": 3,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "An axolotl leaves the water when it grows up.",
+     "An axolotl sucks its prey in whole.",
+     "Axolotls mainly use their eyesight to find food.",
+     "Wild axolotls are usually dark brown or olive."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “murky” mean?",
+    "options": [
+     "Very cold",
+     "Deep and calm",
+     "Cloudy and dark",
+     "Full of fish"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how an axolotl catches its food.",
+    "items": [
+     "It sucks the prey in whole.",
+     "A worm drifts close by.",
+     "It opens its mouth wide.",
+     "It senses the prey."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what the axolotl’s mouth seems to do."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Explain how an axolotl’s life is different from a frog’s."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think axolotls depend on smell and movement rather than eyesight?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why are scientists interested in axolotls?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "How does being dark brown or olive with gold speckles help wild axolotls?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two body parts that an axolotl can regrow or repair."
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author calls regrowth the axolotl’s “most astonishing talent”. Why has the author chosen the word “astonishing”?"
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best heading for paragraph 7?",
+    "options": [
+     "How to keep an axolotl as a pet",
+     "Why axolotls are in trouble in the wild",
+     "The colours of axolotls",
+     "How lakes are formed"
+    ]
+   },
+   {
+    "n": 14,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 7 that means “uncommon”."
+   }
+  ]
+ },
+ {
+  "id": "28-5",
+  "level": 28,
+  "title": "The Glass Workshop",
+  "type": "Description",
+  "text": [
+   "The workshop door was so heavy that Uncle Femi had to lean his whole weight against it, and when it finally swung open, a wave of heat rolled over me as though someone had pressed a hot palm against my face. Inside, the room was dim except for a round furnace at its centre, which glowed a fierce, dazzling orange and roared with a deep, steady sound like a lion purring in its sleep. Somewhere in the gloom a radio was playing, though I could hardly hear it above the noise.",
+   "“Stay behind the yellow line, Amara,” said Uncle Femi, pulling on a pair of thick leather gloves. Shelves lined every wall, crowded with glass animals, twisted bottles and jugs in the colours of sea and sunset, and wherever the light from the furnace touched them, they shimmered as though they were alive. The air smelt of hot metal and something sweet, like burnt sugar.",
+   "He lowered a long steel pipe into the furnace, twirled it slowly like a spoon in a jar of honey, and lifted out a blob of molten glass that sagged and stretched, so luminous that I had to squint. Uncle Femi never stopped turning the pipe, not even for a moment. “If I stop, it will droop and fall,” he said. “Glass is patient, but it isn’t kind.”",
+   "He rolled the blob through a tray of crushed blue glass until it glittered like frost, then raised the pipe to his lips and blew. I held my breath as the glass swelled into a bubble, as delicate as a soap bubble yet glowing like a small sun. He pressed a wad of wet newspaper against it to coax it into shape, and the paper hissed and puffed out clouds of steam. His hands, which looked so rough and clumsy at home, moved with the sure, steady precision of a surgeon’s.",
+   "Next, he took a pair of long tweezers and pinched the bubble to make a neck, then tugged out a thin curl for a tail, and slowly a bird emerged, with a small round body, a lifted head and a tail that swept like a feather. Every few moments he returned it to a smaller furnace, which he called the glory hole, to keep it pliable; the name made me smile. He worked without hurrying and without speaking, as composed as a cat watching a window.",
+   "At last he tapped the bird gently from the pipe and set it inside a long oven. “It has to cool slowly, overnight,” he explained, “because if it cools too quickly, it will crack.” Through the little window I watched the bird glow dull red, then orange, then fade to a deep, clear blue, with a single tiny bubble trapped in its chest like a heart.",
+   "The workshop grew quiet. Sweat trickled down Uncle Femi’s face, and he wiped it away with his sleeve and grinned. “Come back in the morning,” he said. “It’s yours.” The glass animals on the shelves seemed to watch me leave, their eyes glinting in the firelight, and I could hardly sleep that night for wondering what the morning would bring."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “fierce” suggest about the glow of the furnace?",
+    "options": [
+     "Faint and flickering",
+     "Strong and intense",
+     "Cool and calm",
+     "Blue and cold"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Amara was told to stay behind the yellow line?"
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that describe what the air smelt of in the workshop."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The furnace was in the centre of the workshop.",
+     "Uncle Femi stopped turning the pipe while he was talking.",
+     "The glass bird was cooled quickly in cold water.",
+     "Wet newspaper was used to shape the glass."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened.",
+    "items": [
+     "He blew into the pipe.",
+     "He set the bird in an oven to cool.",
+     "He lifted out a blob of molten glass.",
+     "He pinched a neck and pulled out a tail."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Uncle Femi twirled the pipe “like a spoon in a jar of honey”. What does this tell you about the molten glass?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Uncle Femi have to keep turning the pipe?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Amara says her uncle’s hands moved with “the sure, steady precision of a surgeon’s”. What does this tell you about him?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two pieces of evidence that Amara admired her uncle’s work."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did the bird have to cool slowly overnight?"
+   },
+   {
+    "n": 11,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 3 that means “melted”."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up paragraph 5?",
+    "options": [
+     "Uncle Femi gets tired and stops work.",
+     "Uncle Femi shapes the glass into a bird and warms it again when needed.",
+     "Amara asks how glass is made.",
+     "The bird falls and breaks on the floor."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "Uncle Femi says, “Glass is patient, but it isn’t kind.” What do you think he means?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Amara will do in the morning? Give a reason."
+   }
+  ]
+ },
+ {
+  "id": "28-6",
+  "level": 28,
+  "title": "The First Flight",
+  "type": "Recount (Historical)",
+  "text": [
+   "On the morning of 17 December 1903, five people stood on a windswept beach near Kitty Hawk, North Carolina, in the United States. A cold wind was blowing hard across the sand. In front of them stood an odd-looking machine made of spruce wood and cloth, with two long wings, one above the other. It had been built by two brothers, Wilbur and Orville Wright, and they hoped it would carry a person through the air.",
+   "The brothers were not soldiers or famous scientists. They ran a bicycle shop in Dayton, Ohio. They had been fascinated by flight ever since they were boys, and they had spent years studying how birds twist their wings to turn. They built kites and gliders, tested many wing shapes in a wooden wind tunnel that they made themselves, and even designed their own lightweight engine, because no company could supply one that was suitable.",
+   "They chose Kitty Hawk because it had strong, steady winds and soft sand to land on. The beach was also far from any town, so they could work without being disturbed. Three days earlier, they had tried to fly, but the machine, which they called the Flyer, had failed to rise properly and needed repairs. Now it was ready again, and this time it was Orville’s turn to pilot.",
+   "At about half past ten, Orville lay flat on the lower wing, next to the engine, and released the wire that held the machine back. The Flyer rolled along a wooden rail, lifted off, wobbled, and rose into the air. It flew for only twelve seconds and covered about thirty-seven metres. Yet it was the first time in history that a machine carrying a person had taken off by its own power, flown steadily and landed safely.",
+   "Three more flights followed that morning, and each was better than the one before. Every time, the machine rose a little further and stayed up a little longer before settling gently back onto the sand. The brothers took turns, and Wilbur made the fourth and final flight. It lasted fifty-nine seconds and covered about two hundred and sixty metres. The little group on the beach cheered.",
+   "The celebrations did not last long. While the men were talking, a sudden gust of wind caught the parked Flyer, tumbled it across the sand and damaged it badly. It never flew again. But that hardly mattered. The brothers had shown that people could fly, and they soon sent a telegram home to tell their family the news. Within a few years, they were building aeroplanes that could stay in the air for over half an hour.",
+   "Today the original Flyer is displayed in a museum in Washington, D.C. Visitors can gaze at its wooden frame and its cloth wings and wonder how such a fragile machine changed the world."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Where did the first flights take place?",
+    "options": [
+     "Dayton, Ohio",
+     "Washington, D.C.",
+     "A field near a bicycle shop",
+     "Kitty Hawk, North Carolina"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was the brothers’ job?"
+   },
+   {
+    "n": 3,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The Flyer had two wings, one above the other.",
+     "The first flight lasted twelve seconds.",
+     "Wilbur made the first flight of the day.",
+     "The Flyer flew many more times after that day."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “fascinated” mean?",
+    "options": [
+     "Frightened",
+     "Very interested",
+     "Tired",
+     "Confused"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened.",
+    "items": [
+     "A gust of wind damaged the Flyer.",
+     "The brothers built kites and gliders.",
+     "Orville made the first flight.",
+     "The brothers chose Kitty Hawk."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what the Flyer was made from."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Orville’s flight lasted only twelve seconds. Why is it still seen as so important?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the way the brothers prepared for flying tell you about them?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The text says it “hardly mattered” that the Flyer was damaged. Why did it hardly matter?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two reasons why the brothers chose Kitty Hawk."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author describes the Flyer as “odd-looking”. Why might it have looked odd to the people watching?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best summary of the text?",
+    "options": [
+     "Two bicycle sellers were given a museum.",
+     "Two brothers built and flew the first aeroplane that carried a person.",
+     "Strong winds are dangerous for machines.",
+     "A wooden machine was built and then thrown away."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "How long did the fourth flight last?"
+   },
+   {
+    "n": 14,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 6 that means “a sudden strong rush of wind”."
+   }
+  ]
+ },
+ {
+  "id": "29-1",
+  "level": 29,
+  "title": "Painting the Sky",
+  "type": "Explanation",
+  "text": [
+   "Rainbows seem like magic. One moment there is nothing but grey rain, and the next, a vast arch of colour glows against the dark clouds. Yet there is nothing magical about it. A rainbow is the result of sunlight meeting water, and the explanation begins with a surprising fact: the sunlight that looks white is actually a blend of many colours.",
+   "The scientist Isaac Newton proved this more than three hundred years ago. He shone a narrow beam of sunlight through a triangular block of glass called a prism. On the other side, the white light spread out into a band of colours: red, orange, yellow, green, blue, indigo and violet.",
+   "The glass separates the colours because light changes direction slightly when it passes from one substance into another, such as from air into glass. This bending is known as refraction. Each colour bends by a different amount. Red light bends the least and violet light bends the most, so the colours fan out from one another instead of staying together.",
+   "A raindrop can behave like a tiny prism. When sunlight enters a drop, it bends and begins to split into its colours. The light then travels to the back of the drop, where it bounces off the inside surface, rather like light bouncing off a curved mirror. This is called reflection. Finally, the light leaves through the front of the drop, bending a second time as it passes back into the air, which spreads the colours even further apart.",
+   "Millions of raindrops do this at the same moment. Every drop sends all its colours off in different directions, but your eye can catch only one colour from each drop, depending on the angle at which the light arrives. Light from higher drops reaches you as red, while light from lower drops reaches you as violet. That is why red is always on the outer edge of a rainbow and violet on the inner edge.",
+   "To see a rainbow, you need both sun and rain, with the sun behind you and the falling rain in front. If the sun climbs too high in the sky, the rainbow sinks below the horizon and vanishes from view. This explains why rainbows are usually seen in the early morning or late afternoon, when the sun is low.",
+   "Although we call them arches, rainbows are really complete circles. The ground simply gets in the way and hides the lower part. Passengers in aeroplanes, who look down on the rain from above, sometimes see the whole glowing circle.",
+   "Finally, a rainbow is not an object sitting in one place. Two people standing side by side each see their own slightly different rainbow, made by different raindrops. In a sense, every rainbow belongs to just one pair of eyes."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “blend” mean?",
+    "options": [
+     "A mixture",
+     "A shadow",
+     "A small piece",
+     "A bright flash"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the name of the triangular block of glass that Newton used."
+   },
+   {
+    "n": 3,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Red light bends the most.",
+     "Light bends when it passes from one substance into another.",
+     "Two people standing side by side see exactly the same rainbow.",
+     "To see a rainbow, the sun should be behind you."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show what happens to light inside a raindrop.",
+    "items": [
+     "The light bounces off the back of the drop.",
+     "The light leaves the front of the drop and bends again.",
+     "Sunlight enters the drop and bends.",
+     "The light begins to split into colours."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "When are rainbows usually seen?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 2,
+    "question": "Explain why red is on the outer edge of a rainbow. Use evidence from paragraph 5 to support your answer."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the author begins the text with “Rainbows seem like magic”?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says a raindrop “can behave like a tiny prism”. Why is this comparison helpful to the reader?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why can two people never see exactly the same rainbow?"
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence is the best summary of the whole text?",
+    "options": [
+     "Isaac Newton discovered the colours of the rainbow.",
+     "Rainbows can only be seen from aeroplanes.",
+     "Rainbows form when sunlight is bent and reflected by raindrops, splitting into colours.",
+     "Red light is the most important colour."
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word in paragraph 4 that describes light bouncing off the back of a raindrop."
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do we usually see only the top half of a rainbow?"
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 2,
+    "question": "Imagine it is midday in summer, with the sun high in the sky and a shower of rain falling. Would you expect to see a rainbow? Explain your answer using the text."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you need in order to see a rainbow?"
+   }
+  ]
+ },
+ {
+  "id": "29-2",
+  "level": 29,
+  "title": "The Slow River",
+  "type": "Narrative",
+  "text": [
+   "Kofi dug his paddle into the water as though he were trying to leave the river behind him. In the middle of the canoe, his sister Efua sat with a map spread across her knees, humming quietly to herself, while ahead the river slid between banks of bending willows, brown and glossy as melted chocolate. They had been travelling since dawn, and Kofi had been counting the minutes ever since.",
+   "“Steady, Kofi,” called Aunt Yaa from the stern, where she steered. She was a river ranger who had spent months planning this three-day trip, and she knew every bend of the water. “We aren’t racing anyone.” “But we’re supposed to reach the lake by evening,” Kofi protested. “We shall get there when we get there,” said his aunt, and he could hear from her voice that she was smiling. The morning mist had long since lifted, and the water glittered in the sunshine.",
+   "Kofi did not answer. For the next hour he paddled harder than ever, jaw set, ignoring the blisters that stung his palms and the ache that crept across his shoulders. Spray splashed his face, and twice the canoe scraped against a hidden stone, but he was so intent on speed that he failed to notice the hush settling over the water until Efua laid a hand on his shoulder. “Kofi. Stop paddling. Look.”",
+   "He turned, scowling. On a branch that overhung the water, barely an arm’s length away, perched a small bird with a back the colour of a summer sky and a chest like a glowing ember. A kingfisher. It regarded them with perfect composure, quite unafraid, and then it plunged, a flash of blue, and rose again with a silver fish glittering in its beak.",
+   "Kofi’s mouth fell open. He would have swept straight past it. All morning, he realised, he had been so preoccupied with getting somewhere that he had never once noticed where he was. Now that the canoe drifted, the river came alive around him: dragonflies hovered like tiny helicopters, a heron stood as motionless as a statue in the shallows, and the reeds whispered and rustled with hidden things.",
+   "“The river keeps its secrets,” said Aunt Yaa, resting her paddle across her knees, “for those who travel slowly enough to discover them.” Efua raised an eyebrow. “You knew he would rush.” “Everyone rushes at first,” said Aunt Yaa. “I did. Some lessons are worth far more when you find them out for yourself.” Kofi felt his ears grow hot, but he found, to his surprise, that he was grinning.",
+   "They reached the lake long after sunset, when the sky had turned the colour of plums and the first stars were pricking through the darkness. Kofi did not mind in the slightest. He sat on the shore with a torch and his notebook, in which he had drawn, for the very first time, a kingfisher, and beneath it, in careful letters, he wrote: Arrived late. Worth it."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “preoccupied” mean?",
+    "options": [
+     "Frightened",
+     "Mainly thinking about one thing",
+     "Very tired",
+     "Pleased with himself"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is Aunt Yaa’s job?"
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that describe the colour of the kingfisher’s back."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The trip was planned to last three days.",
+     "Aunt Yaa steered from the stern of the canoe.",
+     "Efua was holding the map.",
+     "The kingfisher flew away as soon as it saw the canoe."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "The kingfisher caught a fish.",
+     "Kofi paddled harder and harder.",
+     "The family reached the lake after sunset.",
+     "Efua told Kofi to stop and look."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why was Kofi paddling so hard?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 2,
+    "question": "How can you tell that Kofi was in a bad mood before he saw the kingfisher? Give a point and support it with evidence from the text."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "The kingfisher “plunged, a flash of blue”. Why has the author chosen the word “flash”?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The dragonflies “hovered like tiny helicopters”. What does this simile show about the dragonflies?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 5, what did Kofi realise about the way he had been travelling?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Aunt Yaa let Kofi discover the kingfisher for himself, instead of simply telling him to slow down?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the message of the story?",
+    "options": [
+     "Canoes are faster than walking.",
+     "The journey can matter as much as arriving.",
+     "Younger children always know best.",
+     "Fish are easy to catch."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "What colour was the sky when they reached the lake?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "How do you think Kofi will paddle for the rest of the trip? Give a reason from the story."
+   }
+  ]
+ },
+ {
+  "id": "29-3",
+  "level": 29,
+  "title": "Room for Everyone",
+  "type": "Exposition",
+  "text": [
+   "Somewhere in your town there is a building where anyone can walk in, borrow almost anything they like and walk out again without paying a penny. It is not a shop, and it has no shareholders or advertisements. It is a library, and I firmly believe that it is one of the most valuable places a community can possess. Information is now available on every phone, so some people wonder whether libraries are still necessary. I intend to show that they are.",
+   "First, a library gives everybody an equal chance to read. Books are expensive, and a family that must count every pound cannot always afford a shelf of them. A library removes that barrier entirely. A child who borrows an adventure story on Saturday has exactly the same choice as a child whose parents buy new books every week. Studies have often found that pupils who read for pleasure tend to do better in school across all subjects, not simply in English.",
+   "Second, libraries offer far more than books. Many lend newspapers, audiobooks, films and computers, and most run clubs, workshops and story sessions for people of every age. Some provide a quiet desk for a student who has no space to study at home, and others help elderly visitors to send their first email. A library is, in short, a shared classroom that welcomes every newcomer.",
+   "Third, libraries are staffed by people who know how to find things out. A librarian can guide a reluctant reader towards a book that suddenly makes reading enjoyable, or show a researcher how to judge whether a website can be trusted. On the internet, anybody may publish anything, and the truth is often buried beneath rumour. Skilled guidance in sorting reliable facts from careless claims is more useful now than ever.",
+   "Fourth, a library is a place where people meet. Neighbours who might never otherwise speak sit at adjoining tables, and a shy child may make a first friend over a shared love of dragons. We spend more and more time alone with our screens. A welcoming public space that asks nothing in return is therefore rare, and it strengthens the bonds that hold a community together.",
+   "Some people object that libraries cost taxpayers money and that everything can be found online. It is true that running a library is not free. However, the cost is small when it is shared among everyone. The return is enormous, because each book may be borrowed dozens of times. Moreover, not every household has a reliable internet connection, and a screen cannot recommend a book or greet a visitor with a smile.",
+   "In conclusion, a library offers fairness, learning, trustworthy guidance and friendship, all beneath a single roof. If we allow such places to fade away, we will lose something that is hard to rebuild. Surely a community that values its children should protect the one building that opens its doors to every one of them? Let us use our libraries, defend them and, above all, keep them busy."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “barrier” mean?",
+    "options": [
+     "A cheap price",
+     "A helpful rule",
+     "Something that blocks the way",
+     "A kind of shelf"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the author say they intend to show?"
+   },
+   {
+    "n": 3,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The author says libraries lend more than books.",
+     "The author says a library charges a small fee to borrow a book.",
+     "The author says a librarian can help people judge whether a website can be trusted.",
+     "The author says every household has a reliable internet connection."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the three words in paragraph 6 that show the author accepts that people who disagree have a fair point."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the points from 1 to 4 to show the order in which the author makes them.",
+    "items": [
+     "Libraries are places where people meet.",
+     "Libraries give everyone an equal chance to read.",
+     "Librarians help people to find things out.",
+     "Libraries offer more than books."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 2,
+    "question": "Why does the author think a library is fairer than buying books? Use evidence from paragraph 2."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the author begins by describing a building where anyone can “borrow almost anything they like” without paying?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two things, other than books, that many libraries lend."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author ends with a question: “Surely a community that values its children should protect the one building that opens its doors to every one of them?” What is the effect of this question?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why might a library be especially helpful to a student with no space to study at home?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up paragraph 4?",
+    "options": [
+     "Librarians help people to find good books and reliable facts.",
+     "Librarians work only with young children.",
+     "The internet contains no useful information.",
+     "Researchers should avoid websites."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 4 that means “unwilling”."
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give one objection to libraries from paragraph 6 and explain how the author answers it."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think the author would say to someone who wanted to close the local library?"
+   }
+  ]
+ },
+ {
+  "id": "29-4",
+  "level": 29,
+  "title": "The Lemon Battery",
+  "type": "Recount (Fictional)",
+  "text": [
+   "By half past eight on the morning of the Science Fair, my hands were already trembling. I stood behind my table in the school hall, surrounded by cardboard rockets and wobbling papier-mâché planets, staring at my project, which bore a very long title that I had copied out in my best handwriting: “Can Fruit Make Electricity?” I had spent two weeks preparing it, and I was quite convinced that it was brilliant.",
+   "The idea was simple. I had pushed a zinc-coated nail and a strip of copper into each of four lemons, then joined them in a chain with crocodile clips and wires. The juice inside a lemon is acidic, and when it touches two different metals, it produces a tiny electric current; four lemons together, I had read, should generate enough to light a small LED bulb. At home the experiment had worked perfectly, and my little brother had cheered so loudly that the dog next door began to bark.",
+   "But at ten o’clock, with the judges due at any minute, I connected the final wire and … nothing. The bulb stayed dark. I checked every clip, squeezed each lemon and even whispered encouragement. My best friend, Callum, wandered over from the next table and peered doubtfully at my display. “Maybe they’re not ripe,” he suggested. “Lemons aren’t ripe or unripe, Callum,” I hissed. “They’re just sour.”",
+   "Panic turned my fingers icy. The judges had already reached the table two along, where a boy was demonstrating a robot arm made from cardboard, when Mr Brennan, my teacher, strolled past and glanced at my display, at the dark bulb and at my face. “Problem?” he asked. I explained everything in one long breath. He did not touch a single wire. “Electricity is a bit like some people, Ines,” he said thoughtfully. “It can be very particular about which way round it likes to go.” And off he wandered, whistling.",
+   "I stared at the bulb. Then, slowly, a fact from my research surfaced from the back of my mind: an LED has two legs, and current will flow through it in one direction only. The evening before, when I had packed up my display, I must have disconnected the bulb and later replaced it the wrong way round. With shaking fingers I unclipped it and swapped its legs over, and it burst into a bright, steady glow. I gasped so loudly that Callum dropped his pencil case.",
+   "The judges arrived a minute later, and this time I explained everything calmly: the metals, the acid, the chain of lemons and the LED. When one of them asked what I had learned, I told her the truth. “That a project not working is only a problem until you find out why.” She smiled and wrote something on her clipboard.",
+   "I did not win; first prize went to Aisha, whose fan was powered by the sun. But before I left, Mr Brennan pinned a certificate to my display that read Best Problem Solver. As I carried my lemons home in a carrier bag, I decided that, in some ways, it was even better."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “convinced” mean?",
+    "options": [
+     "Worried",
+     "Bored",
+     "Surprised",
+     "Completely sure"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "How many lemons did Ines use in her project?"
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the title of Ines’s project."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The judges had already visited Ines’s table when the bulb failed.",
+     "An LED will only work when current flows through it one way.",
+     "Callum suggested that the lemons were not ripe.",
+     "Ines won first prize."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened.",
+    "items": [
+     "Ines swapped the legs of the bulb.",
+     "The judges arrived at Ines’s table.",
+     "Ines connected the last wire and nothing happened.",
+     "Mr Brennan gave Ines a hint about electricity."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why had Ines expected her project to work at the Science Fair?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Ines “hissed” her reply to Callum?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 2,
+    "question": "What was wrong with Ines’s circuit? Use evidence from paragraph 5 to support your answer."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Mr Brennan gave Ines a hint instead of fixing the problem himself?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The bulb “burst into a bright, steady glow”. What does the word “burst” suggest about the way the light came on?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the story?",
+    "options": [
+     "Ines’s experiment fails until she works out why, and she learns from it.",
+     "Ines wins the Science Fair with a fan.",
+     "Callum ruins Ines’s project.",
+     "Lemons cannot make electricity."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 4 that means “walked in a relaxed way”."
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 2,
+    "question": "What do you think Ines learned from the Science Fair? Explain using evidence from the text."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "If another project stopped working, what do you think Ines would do first? Give a reason."
+   }
+  ]
+ },
+ {
+  "id": "29-5",
+  "level": 29,
+  "title": "Thunder on the Moor",
+  "type": "Description",
+  "text": [
+   "All afternoon the moor had lain beneath a heavy, breathless heat, its heather faded to the dull purple of an old bruise. Not a breath of wind stirred the bracken. Skylarks that had sung since morning fell silent one by one, and even the sheep, scattered like grey pebbles across the slope, huddled together beside the crumbling wall. From the doorway of the old stone barn, where Dad and I had stopped to shelter, I watched the horizon turn from blue to slate.",
+   "The clouds arrived slowly, piling upon one another like dark mountains and swallowing the sun in a single, silent gulp. Their edges glowed a sickly yellow, and beneath them the light thinned to a strange green-grey that turned every rock and gorse bush flat and colourless. The air smelt of hot dust and something metallic, as if the whole sky were a coin held against the tongue.",
+   "Then, without warning, the first gust swept across the heather, and the whole hillside shivered. Grass flattened in long, rippling waves. A carrier bag, snatched from nowhere, tumbled past the barn and vanished over the wall. The temperature dropped so suddenly that I pulled my sleeves down over my hands, and a low, grumbling rumble rolled across the valley, like furniture being dragged across a distant floor.",
+   "A fork of lightning split the horizon, so vivid that for an instant every stone and stalk stood out in sharp white detail, printed on my eyes long after the light had gone. I began to count, as Dad had taught me: one, two, three, four, five. The thunder cracked overhead, so loud that I felt it in my ribs, and then it rolled away, muttering, into the hills. “Five seconds,” said Dad quietly. “About a mile off. It’s still coming.”",
+   "The rain followed at once. It began with a few heavy drops that struck the dry earth and raised little puffs of dust, then thickened into a roaring curtain that hid the far hills completely. Water hammered on the barn roof, ran in silver ropes from the slates and swelled the ruts of the track into brown, chattering streams. The smell of wet earth and crushed heather rose all around us, rich and sweet, and I breathed it in until my chest ached.",
+   "For a quarter of an hour the storm circled the moor as though it had lost something and was searching for it. Lightning flickered, thunder muttered, and the sheep bleated in protest. Then, gradually, the gaps between flash and rumble stretched longer, the rain softened to a whisper, and the great clouds began to slide eastwards, trailing grey veils behind them.",
+   "A last shaft of sunlight broke through and lit the wet heather so that it blazed with purple fire, and every blade of grass was strung with drops, like beads of glass. Somewhere above us a skylark tried one uncertain note, then another, and at last poured out its song. “Come on,” said Dad, smiling and shaking the water from his hair. “Let’s see what the moor looks like now.”"
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “breathless” suggest about the heat?",
+    "options": [
+     "Fast and noisy",
+     "Still and airless",
+     "Cold and damp",
+     "Sudden and violent"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that compare the sheep to something on the slope."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where were the narrator and Dad sheltering?"
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The skylarks kept singing as the clouds gathered.",
+     "The temperature dropped suddenly when the first gust arrived.",
+     "The narrator counted five seconds after the lightning flash.",
+     "The storm passed over the moor in a few moments without circling."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened.",
+    "items": [
+     "Rain fell in a roaring curtain.",
+     "Clouds swallowed the sun.",
+     "The narrator counted after a flash of lightning.",
+     "A gust of wind swept across the heather."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two clues in paragraph 1 that the weather was about to change."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says the air smelt as if “the whole sky were a coin held against the tongue”. What does this suggest about the air?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "The thunder rolled away, “muttering, into the hills”. Why is “muttering” an effective word choice?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Dad says, “It’s still coming.” Why does he say this?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 2,
+    "question": "How does the author show that the rain was very heavy? Give a point and support it with evidence from paragraph 5."
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up paragraph 6?",
+    "options": [
+     "The storm ended at once when the rain began.",
+     "The sheep ran away across the moor.",
+     "The storm stayed over the moor for a while and then slowly moved away.",
+     "The narrator and Dad walked home in the rain."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that the narrator enjoyed the smell of the rain?"
+   },
+   {
+    "n": 13,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 4 that means “very clear and bright”."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Dad and the narrator will do next? Give a reason from the text."
+   }
+  ]
+ },
+ {
+  "id": "29-6",
+  "level": 29,
+  "title": "A Penny for a Letter",
+  "type": "Recount (Historical)",
+  "text": [
+   "Today, sending a letter is simple and cheap. Two hundred years ago, though, letters were the only way to send news over long distances, and the post was so costly that many families could hardly afford to use it. Before 1840, the price of a letter depended on how far it travelled and on how many sheets of paper it contained. Even worse, it was usually the person receiving the letter who had to pay, not the person who sent it.",
+   "This system caused all kinds of trouble. Poor families sometimes could not afford to collect the letters that had been sent to them. Some people invented clever tricks to avoid paying. They marked secret signs on the outside of the envelope, so that the person it was meant for could read the message without ever opening it, and then politely refuse to accept the letter.",
+   "A social reformer named Rowland Hill, who had once been a schoolteacher, believed that this had to change. In 1837, he published a pamphlet arguing for a simple new system. Every letter weighing up to half an ounce, he suggested, should cost just one penny to send anywhere in Britain, however far it went. And the sender, not the receiver, should pay in advance, by sticking a small label on the envelope.",
+   "Not everybody liked the idea. Many officials in the Post Office were convinced that a cheaper service would lose money. Ordinary people, however, were enthusiastic. Merchants, newspapers and thousands of families signed petitions in support of the plan, and in 1839 Parliament agreed to try it out.",
+   "On 1 May 1840, the first adhesive postage stamp in the world went on sale. It was printed in black ink and showed a small portrait of the young Queen Victoria, so it became known as the Penny Black. It could officially be used from 6 May. The stamps had no perforated edges, so clerks and customers had to cut them apart from the sheet with scissors. Each stamp cost one penny, and a sheet held two hundred and forty of them, the same number of pennies as there were in a pound.",
+   "The change was dramatic. Within a year, the number of letters posted in Britain had more than doubled, and it kept on rising for years afterwards. Families could write to relatives who had moved far away, and businesses could send bills and orders cheaply. People began to send cards, invitations and news that they might never have posted before. Post offices were soon busier than ever. Within a few years, other countries had copied the idea.",
+   "The Penny Post made it easier than ever for ordinary people to keep in touch. Nearly two centuries later, stamps are still used all over the world, and it all began with a small black square showing a young queen."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Before 1840, who usually paid for a letter?",
+    "options": [
+     "The sender",
+     "The person receiving it",
+     "The Post Office",
+     "The Queen"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "What two things decided the price of a letter before 1840?"
+   },
+   {
+    "n": 3,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Rowland Hill suggested that a letter should cost one penny anywhere in Britain.",
+     "Hill thought the receiver should pay in advance.",
+     "The first stamp showed Queen Victoria.",
+     "The stamps had perforated edges."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 4, what does the word “enthusiastic” mean?",
+    "options": [
+     "Worried",
+     "Puzzled",
+     "Keen and eager",
+     "Angry"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened.",
+    "items": [
+     "The Penny Black went on sale.",
+     "The number of letters more than doubled.",
+     "Parliament agreed to try the plan.",
+     "Rowland Hill published his pamphlet."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the name given to the first postage stamp."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did some people write secret signs on the outside of their envelopes?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "What evidence in the text shows that ordinary people wanted Hill’s plan to succeed?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did the new system need the sender to pay in advance with a stamp?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says, “The change was dramatic.” What does the word “dramatic” suggest about the change?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best summary of the text?",
+    "options": [
+     "A queen invented the stamp.",
+     "Rowland Hill’s idea for a cheap, prepaid post led to the first stamp and changed how people communicated.",
+     "Letters before 1840 were never delivered.",
+     "Stamps were first used in other countries."
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 1 that means “expensive”."
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 2,
+    "question": "How did the Penny Post change people’s lives? Give a point and support it with evidence from paragraph 6."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author ends by describing the stamp as “a small black square showing a young queen”. Why do you think the author ends in this way?"
+   }
+  ]
+ }
+]

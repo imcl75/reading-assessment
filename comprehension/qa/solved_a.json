@@ -1,0 +1,32 @@
+{"answers": {
+"18-1":{"1":"soft","3":[4,1,2,3],"4":["T","F","F"],"7":"C"},
+"18-2":{"1":"B","2":"shaky","4":[4,3,1,2],"6":"D","8":["T","F","T"]},
+"18-3":{"1":"C","2":"golden","3":[4,1,3,2],"4":"A","10":["T","F","F"]},
+"18-4":{"1":"B","2":"a little water","3":[3,1,4,2],"4":"C","8":["F","T","F"],"10":"B"},
+"18-5":{"1":"A","2":"breeze","3":"D","9":["F","T","T"]},
+"18-6":{"1":"B","2":"fresh water","4":"C","9":["T","F","F"],"10":"B"},
+"19-1":{"1":"B","2":"greedy","3":[3,4,1,2],"4":"A","10":["F","T","F"]},
+"19-2":{"1":"B","2":"C","5":[3,1,4,2],"10":["F","T","F"]},
+"19-3":{"1":"B","2":"A","3":"wobbly","5":[3,2,4,1],"10":["F","T","T"]},
+"19-4":{"1":"D","2":"tiny insects","3":"B","4":[3,4,1,2],"9":["F","T","T"],"10":"D"},
+"19-5":{"1":"B","2":"large, dry","3":"C","4":[3,4,2,1],"9":["F","F","T"]},
+"19-6":{"1":"C","2":"kneads","3":"A","4":[4,3,1,2],"9":"B","10":["F","T","T"]},
+"20-1":{"2":"B","3":"raced","5":[4,2,3,1],"6":["F","T","F"],"8":"B"},
+"20-2":{"2":"C","3":"talons","4":"A","5":["T","F","T"],"9":[4,3,2,1],"10":"B"},
+"20-3":{"2":"C","3":"chuckled","5":[4,2,3,1],"6":["T","F","T"],"8":"B","10":"B"},
+"20-4":{"2":"C","3":"your hands","4":"B","5":[4,2,1,3],"9":"equal"},
+"20-5":{"2":"A","3":"hiss","5":[2,3,1,4],"6":["T","F","F"],"8":"B"},
+"20-6":{"2":"D","3":"diyas","4":["T","F","F"],"6":"B","7":"C","10":[4,2,1,3]}
+},
+"notes": {
+"18-1":{"1":"'deep' and 'soft' both describe the snow; only 'soft' is about how it felt (deep is depth) - marginal"},
+"18-5":{"8":"Umbrella inside out is listed under 'strong wind'; gale is 'very strong' - pupils might say gale"},
+"19-4":{"2":"Find-and-copy wording is loose: 'tiny insects' vs 'tiny insects called aphids'"},
+"19-5":{"1":"Text says about twenty minutes but Step 2 needs fat left in a warm room for an hour - contradiction","2":"Unclear how much to copy: 'large, dry' or 'large, dry pine cone'"},
+"19-6":{"2":"'kneads' and 'kneading' both appear in paragraph 2; accept both"},
+"20-1":{"3":"'raced' and 'fast' both tell you she ran quickly; two defensible answers"},
+"20-2":{"7":"Answer is stated word for word in paragraph 3 and duplicates Q6"},
+"20-4":{"10":"The 'quick to make' claim is in the introduction, not the method; several parts of the method could be cited"},
+"20-5":{"3":"'hiss' vs 'rattled': hiss fits 'when it stopped'","4":"Answer is stated word for word ('for the very first time') - retrieval not inference"},
+"20-6":{"11":"'joy', 'happy' and 'happiness' all appear; only 'joy' is in the quoted phrase"}
+}}

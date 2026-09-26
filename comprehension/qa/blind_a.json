@@ -1,0 +1,1851 @@
+[
+ {
+  "id": "18-1",
+  "level": 18,
+  "title": "The Lost Mitten",
+  "type": "Narrative",
+  "text": [
+   "It was the first snowy morning of winter, and Lily could not wait to go outside. She pulled on her boots, her scarf and her bright red mittens. Then she ran into the garden with her little brother, Sam.",
+   "The snow was deep and soft, and it sparkled in the sunshine. Lily made a snowball and threw it at the fence. Sam laughed and tried to catch it. Soon they were both covered in snow from head to toe.",
+   "Next, they decided to build a snowman. Lily rolled a big ball for the body, and Sam rolled a smaller one for the head. Sam ran into the kitchen and came back with a carrot for the nose. Lily found two round pebbles for the eyes.",
+   "After a while, Lily looked down at her hands. One of her mittens was missing! “Oh no,” she said. “I must have dropped it.”",
+   "Lily and Sam searched all over the garden. They looked under the bench and behind the shed. Lily’s fingers were getting very cold, and she began to feel sad. That mitten had been a present from her gran.",
+   "At last, Sam saw something red poking out of the snow beside the gate. “Found it!” he shouted, and he pulled it out. It was wet and cold, but it was not lost any more.",
+   "Lily was so pleased. She gave Sam a big hug and said thank you. Then Mum called from the back door. “Come in, you two! Your cheeks are as red as apples.” Soon they were inside, drinking hot chocolate."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word that tells you what the snow felt like."
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "What did Sam fetch from the kitchen for the snowman’s nose?"
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Sam found the mitten.",
+     "Lily threw a snowball.",
+     "Lily and Sam built a snowman.",
+     "Lily saw that a mitten was missing."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Lily rolled the big ball for the snowman’s body.",
+     "Sam rolled the big ball for the snowman’s head.",
+     "Lily lost her scarf in the garden."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Lily and Sam were “covered in snow from head to toe”. What does this tell you?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Lily begin to feel sad while they searched for the mitten?"
+   },
+   {
+    "n": 7,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In the story, what does “poking out” mean?",
+    "options": [
+     "Falling down",
+     "Blowing away",
+     "Sticking out",
+     "Melting"
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Lily gave Sam a big hug?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that Lily and Sam enjoyed playing in the snow? Give one piece of evidence."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Mum said, “Your cheeks are as red as apples.” What does this tell you about Lily’s and Sam’s cheeks?"
+   }
+  ]
+ },
+ {
+  "id": "18-2",
+  "level": 18,
+  "title": "The New Climbing Frame",
+  "type": "Narrative",
+  "text": [
+   "On Monday morning, a big new climbing frame stood in the school playground. It was red and yellow, with a tall slide and a rope bridge. All the children stared at it. Amara had never seen anything so exciting.",
+   "At playtime, everyone ran to the climbing frame. Amara climbed up the ladder, but she stopped at the top. The rope bridge wobbled in the wind. Her legs felt shaky, and she looked down at the ground far below.",
+   "“I can’t do it,” she whispered. She climbed back down and sat on a bench. She watched the other children cross the bridge, one by one. Her friend Tomasz waved from the top, but Amara pretended not to see him.",
+   "Soon Tomasz came and sat beside her. “The bridge is scary at first,” he said. “It was scary for me, too. Shall we try it together? I will go first, and you can hold the rope.”",
+   "Amara took a deep breath. Slowly, she climbed the ladder again. Step by step, she crept across the bridge, holding the rope tightly. It wobbled, but Tomasz was right in front of her, and he kept saying, “Nearly there!”",
+   "At the end, Amara jumped onto the platform and laughed. “I did it!” she shouted. Then she whooshed down the slide with her arms in the air. When the bell rang, she did not want to go in. “Can we do it again tomorrow?” she asked."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What colours was the new climbing frame?",
+    "options": [
+     "Blue and green",
+     "Red and yellow",
+     "Black and white",
+     "Orange and purple"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word that tells you how Amara’s legs felt at the top of the ladder."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "Who came and sat beside Amara on the bench?"
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Amara crossed the rope bridge.",
+     "Tomasz said he would go first.",
+     "Amara stopped at the top of the ladder.",
+     "Amara sat on the bench."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Amara pretended not to see Tomasz wave?"
+   },
+   {
+    "n": 6,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In the story, what does the word “crept” mean?",
+    "options": [
+     "Ran very fast",
+     "Jumped high",
+     "Fell over",
+     "Moved slowly and carefully"
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that Tomasz is a kind friend? Give one piece of evidence."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The new climbing frame had a tall slide.",
+     "Amara crossed the bridge on her own.",
+     "Tomasz said the bridge was scary for him too."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "How did Amara feel at the end of the story? How can you tell?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Amara will do at playtime tomorrow?"
+   }
+  ]
+ },
+ {
+  "id": "18-3",
+  "level": 18,
+  "title": "Breakfast in Bed",
+  "type": "Narrative",
+  "text": [
+   "Kofi woke up early on Saturday. The house was quiet. His mum had been working late all week, and she was still fast asleep. “Let’s help her today,” Kofi whispered to his little sister, Abena.",
+   "First, they tiptoed downstairs to the kitchen. Kofi took out the bread, and Abena found the butter. Kofi put two slices of bread in the toaster and waited. Pop! The toast jumped up, golden and warm.",
+   "Next, Abena picked a flower from the garden and put it in a small glass of water. “Mum loves yellow flowers,” she said. Kofi filled the kettle, and he was very careful with the hot water. He made a cup of tea just the way Mum liked it, with a little milk and no sugar.",
+   "Then they put everything on a tray. Kofi carried it up the stairs very slowly. One step, two steps, three steps. The cup rattled, and a little tea spilled onto the tray. “Oh dear,” said Kofi. Abena quickly wiped it up with a tissue.",
+   "They pushed open Mum’s door. She opened one eye and then the other. When she saw the tray, she sat up and smiled. “Is that breakfast in bed for me?” she asked. “Yes!” said the children.",
+   "Mum ate the toast and drank the tea. “This is the best breakfast ever,” she said. “I feel so lucky.” Then she gave them both a big hug. Kofi felt warm inside."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Why was Mum still fast asleep?",
+    "options": [
+     "She was ill.",
+     "She had lost her keys.",
+     "She had been working late all week.",
+     "She had been to a party."
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word that tells you what colour the toast was."
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Tea spilled on the tray.",
+     "Kofi made the toast.",
+     "Kofi made a cup of tea.",
+     "Abena put a flower in a glass."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In the story, what does the word “tiptoed” mean?",
+    "options": [
+     "Walked very quietly",
+     "Ran quickly",
+     "Jumped up and down",
+     "Fell over"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "How did Mum like her tea?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Kofi and Abena tiptoe downstairs?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Kofi carried the tray up the stairs very slowly?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that Mum was pleased with her breakfast? Give one piece of evidence."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The story says, “Kofi felt warm inside.” How was Kofi feeling?"
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Abena picked a flower from the garden.",
+     "Kofi dropped the whole tray.",
+     "The children made cereal for breakfast."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "18-4",
+  "level": 18,
+  "title": "How to Grow Cress",
+  "type": "Procedural",
+  "text": [
+   "Cress is a small plant that grows very quickly. You do not need a garden, because you can grow it on a window sill in about a week. It is fun to grow, and you can eat it in a sandwich. All you need is a few things from around the house.",
+   "You will need a small plastic tub, some cotton wool, a packet of cress seeds, and a jug of water.",
+   "Step 1. Put the cotton wool in the bottom of the tub. Make sure that it fills the tub and lies flat.",
+   "Step 2. Pour a little water onto the cotton wool until it is damp. It should not be dripping wet.",
+   "Step 3. Sprinkle the seeds over the top. Spread them out so that they are not all in one pile. Do not cover them up.",
+   "Step 4. Put the tub on a bright window sill, where the cress can get plenty of light. Add a little water each day to keep the cotton wool damp.",
+   "After two or three days, you will see tiny white roots and green shoots. After about a week, your cress will be as tall as your finger. Now it is ready to eat.",
+   "To pick your cress, ask an adult to help you cut the stems with scissors. Then rinse the cress under the tap. It is delicious on bread and butter, or in a salad. You can start again with fresh cotton wool and new seeds."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "About how long does cress take to grow?",
+    "options": [
+     "One day",
+     "A week",
+     "A month",
+     "A year"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you how much water to pour onto the cotton wool in Step 2."
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show the order to do them in.",
+    "items": [
+     "Spread the seeds on top.",
+     "Put the cotton wool in the tub.",
+     "Put the tub on a window sill.",
+     "Pour water onto the cotton wool."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In Step 2, what does the word “damp” mean?",
+    "options": [
+     "Very hot",
+     "Dripping wet",
+     "Slightly wet",
+     "Completely dry"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "What should you use to cut the cress stems?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the writer say, “ask an adult to help you” cut the stems?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Ben puts his tub in a dark cupboard. Why is this not a good idea?"
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Cress grows very slowly.",
+     "You need a packet of cress seeds.",
+     "You should cover the seeds with cotton wool."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "After two days, Mia can see tiny white roots. What does the text tell you will happen next?"
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is this text mainly about?",
+    "options": [
+     "Why cress is good for you",
+     "How to grow cress at home",
+     "Which seeds grow biggest",
+     "How to make a sandwich"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "18-5",
+  "level": 18,
+  "title": "All About Wind",
+  "type": "Information Report",
+  "text": [
+   "Wind is air that is moving. We cannot see it, but we can feel it on our faces, and we can see what it does. Wind makes the leaves on trees shake, and it makes flags flap.",
+   "Some winds are very gentle. A soft wind is called a breeze. A breeze feels cool on a hot day. It can blow the fluffy seeds of a dandelion away.",
+   "Other winds are much stronger. A strong wind can blow hats off heads, and it can make umbrellas turn inside out. A very strong wind is called a gale. In a gale, big branches can snap off trees, so it is best to stay indoors.",
+   "Wind is useful, too. Sailing boats have big sails that catch the wind and push the boat across the water. A windmill has long blades that spin round when the wind blows. Long ago, people used windmills to grind grain into flour. Nowadays, tall wind turbines turn in the wind to make electricity.",
+   "How can we tell how strong the wind is? Look at the trees. If only the leaves are moving, the wind is gentle. If the small branches are moving, the wind is stronger. If whole trees are swaying, the wind is very strong.",
+   "So the next time you go outside on a windy day, stop and look around. What can you see the wind doing?"
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is wind?",
+    "options": [
+     "Moving air",
+     "A kind of cloud",
+     "Falling rain",
+     "Warm sunshine"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word for a soft, gentle wind."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “swaying” mean?",
+    "options": [
+     "Falling down",
+     "Standing still",
+     "Growing tall",
+     "Moving gently from side to side"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "What did people use windmills for long ago?"
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do wind turbines make?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says we cannot see wind. How do we know that wind is there?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Sam looks out of the window and sees whole trees swaying. What can he tell about the wind?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Priya’s umbrella turned inside out. What kind of wind was it most likely to be?"
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "A breeze is a very strong wind.",
+     "Wind is air that is moving.",
+     "A windmill has long blades."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer asks, “How can we tell how strong the wind is?” Why do you think the writer asks a question here?"
+   }
+  ]
+ },
+ {
+  "id": "18-6",
+  "level": 18,
+  "title": "Rabbits as Pets",
+  "type": "Information Report",
+  "text": [
+   "Rabbits are soft, furry animals, and many families keep them as pets. A rabbit can live for eight years or more if it is looked after well.",
+   "A pet rabbit needs a safe home. A hutch is a wooden house for a rabbit. It needs a warm place to sleep, and it needs a run joined to it so that the rabbit can hop about. Rabbits need lots of space to run and jump every day.",
+   "A rabbit’s most important food is hay or grass. A rabbit’s teeth never stop growing, so chewing hay keeps them from getting too long. Rabbits also like fresh vegetables, such as cabbage and carrots, but they should only have a small amount. A rabbit must have fresh water every day.",
+   "Rabbits are friendly animals, and they do not like to be lonely. In the wild, they live in big family groups. A pet rabbit is happiest with another rabbit for company. If it has to live on its own, its owner should spend lots of time with it every day.",
+   "Some rabbits have long fur that needs to be brushed gently each day. Their hutch should be cleaned often, too, so that it stays fresh and dry. A tidy hutch keeps a rabbit happy.",
+   "Rabbits can make lovely pets. They need time and space, but they give a lot back to a family who look after them well."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How long can a pet rabbit live if it is looked after well?",
+    "options": [
+     "Two years",
+     "Eight years or more",
+     "Fifty years",
+     "Only one year"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the two words that tell you what a rabbit must have every day to drink."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is a hutch?"
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 4, what does the word “lonely” mean?",
+    "options": [
+     "Very hungry",
+     "Very sleepy",
+     "On your own without company",
+     "Full of energy"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does a rabbit need to chew hay?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why is it a good idea to keep two rabbits together?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Aisha has one rabbit that lives on its own. What should Aisha do?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says rabbits “give a lot back” to a family. What do you think rabbits give back?"
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Rabbits live in big family groups in the wild.",
+     "A rabbit’s teeth stop growing.",
+     "Rabbits should eat lots of carrots."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up paragraph 3?",
+    "options": [
+     "Rabbits should only eat carrots.",
+     "Rabbits need the right food and water to stay healthy.",
+     "Rabbits do not need to drink.",
+     "Rabbits have very small teeth."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "19-1",
+  "level": 19,
+  "title": "A Day at the Farm Park",
+  "type": "Recount (Fictional)",
+  "text": [
+   "On Sunday, our family went to Hillside Farm Park. Dad packed sandwiches and drinks, and my little cousin Yusuf came with us. I sat in the back of the car and counted the sheep in the fields.",
+   "As soon as we arrived, we went to see the animals. In the big barn, a woman showed us how to feed the lambs with bottles of milk. The lambs pulled so hard on the bottles that Yusuf nearly fell over. Everyone laughed, and Yusuf laughed loudest of all.",
+   "After that, we walked to the pond to feed the ducks. There was a sign that said, “Please give the ducks only the special duck food.” Dad bought a small bag, and we threw it in little handfuls. A very greedy white duck pushed to the front and ate most of it.",
+   "At lunchtime, we ate our sandwiches at a wooden picnic table. It was a windy day, and half of Mum’s crisps blew away. A small brown hen strutted over to see if any had landed near her. She pecked at them, one by one.",
+   "In the afternoon, we went on a tractor ride around the farm. The trailer bumped over the grass, and we held on tight to the sides. The farmer pointed out the pigs, who were rolling in a muddy puddle. “They are keeping cool,” he told us. Yusuf held his nose and giggled.",
+   "Before we left, we visited the gift shop. I chose a rubber pig for my desk, and Yusuf picked a woolly toy lamb. On the way home, we were all so tired that Dad turned the radio off. Yusuf fell asleep before we had even reached the main road, still holding his lamb."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Who came to the farm park with the writer’s family?",
+    "options": [
+     "A friend called Hillside",
+     "A cousin called Yusuf",
+     "A grandad",
+     "A neighbour"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 3 that tells you the white duck wanted lots of food."
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "They ate their sandwiches.",
+     "They went on a tractor ride.",
+     "They fed the lambs.",
+     "They fed the ducks."
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does “pointed out” mean?",
+    "options": [
+     "Showed them where something was",
+     "Told them to be quiet",
+     "Took them away",
+     "Was cross with them"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "What did the sign at the pond say?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that Yusuf enjoyed feeding the lambs?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the hen came over to the picnic table?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Dad turned the radio off on the way home?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says the lambs “pulled so hard” on the bottles. What does this tell you about the lambs?"
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The family travelled to the farm park by bus.",
+     "Yusuf chose a toy lamb in the gift shop.",
+     "The tractor ride happened before lunch."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "19-2",
+  "level": 19,
+  "title": "The Missing Counter",
+  "type": "Narrative",
+  "text": [
+   "It was raining hard, so Ben and his sister Lola had to stay indoors. They had already read their comics and built a tower out of cushions. Now they were bored. “Let’s play Space Race,” said Lola, pulling a dusty box from under the sofa.",
+   "They spread the board on the carpet. It showed a winding path of stars that led to a shiny silver rocket at the end. Lola chose the green counter, and Ben chose the blue one. Then they rolled the dice to see who would go first.",
+   "The game was close. First Lola was ahead, then Ben zoomed past her with a lucky six. Just as Ben was about to land on the last star, he reached for his counter. It was gone.",
+   "“Where is it?” he cried. “It was right here!” They searched under the sofa and behind the cushions. Lola lifted up the box and shook it. Nothing fell out. Ben was sure that Lola had hidden it as a trick, but she promised that she had not.",
+   "Just then, Biscuit, their little brown dog, wandered in from the kitchen. He was wagging his tail and looking very pleased with himself. Lola knelt down and peered into his basket. There, between a chewed bone and a soggy sock, sat the blue counter.",
+   "“Biscuit!” they groaned together. Lola wiped the counter on her jumper, and Ben put it back on the board. This time, Ben rolled a five and reached the silver rocket first. “I win!” he cheered. Lola shrugged. “Fine,” she said, “but I’m going to beat you in the next game.” Biscuit yawned and went back to sleep."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Why did Ben and Lola have to stay indoors?",
+    "options": [
+     "They were ill.",
+     "It was raining hard.",
+     "It was very late.",
+     "They had to tidy up."
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “zoomed” mean?",
+    "options": [
+     "Moved very slowly",
+     "Stopped suddenly",
+     "Went very fast",
+     "Fell behind"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "Which counter did Lola choose?"
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was the aim of the game Space Race?"
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "Lola found the counter in Biscuit’s basket.",
+     "Ben rolled a lucky six.",
+     "Ben won the game.",
+     "Ben’s counter went missing."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "How do you know that Biscuit had taken the counter? Give one piece of evidence."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Lola says, “Fine.” What does this tell you about how she felt when Ben won?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Biscuit was “looking very pleased with himself”. What does this suggest?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Ben and Lola will do next?"
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Ben chose the green counter.",
+     "The game was close.",
+     "Biscuit is a cat."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "19-3",
+  "level": 19,
+  "title": "Show and Tell Friday",
+  "type": "Narrative",
+  "text": [
+   "On Friday morning, Kai walked into class holding a small cardboard box very carefully. It was Show and Tell day, and inside the box was something special. His friends crowded round, but Kai shook his head. “You will have to wait,” he said with a grin.",
+   "After the register, Mrs Osei asked who wanted to go first. Kai’s hand stayed by his side. His tummy felt as if it was full of butterflies. Instead, Chloe showed the class a blue feather that she had found in the park, and Hamza told a joke about a penguin, which made everybody groan and giggle.",
+   "Then it was Kai’s turn. His legs felt wobbly as he walked to the front of the class. He stood the box on the table and took a deep breath. “This is my grandad’s old compass,” he began quietly.",
+   "He lifted out a round brass compass with a shiny glass top. A thin red needle trembled inside it. “Grandad used it when he went walking in the hills,” Kai explained. “The needle always points north, so he never got lost.” He turned slowly on the spot, and everyone watched the needle swing round and settle again.",
+   "“Can I have a go?” asked Hamza. “Please may I try?” said Chloe. Soon a line of children had formed beside the table. Mrs Osei let each child hold the compass for a moment and find north, and she reminded them all to be gentle.",
+   "By the end of the lesson, Kai’s worries had melted away. “That was the best Show and Tell we have had all year,” said Mrs Osei. Kai carefully put the compass back in its box. He could not wait to tell Grandad how much everybody had liked it."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What special day was it in Kai’s class?",
+    "options": [
+     "Sports Day",
+     "Show and Tell day",
+     "Book Week",
+     "Photo day"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 4, what does the word “trembled” mean?",
+    "options": [
+     "Shook a little",
+     "Stopped completely",
+     "Shone brightly",
+     "Grew bigger"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 3 that tells you how Kai’s legs felt."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "What did Chloe show the class?"
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "Kai showed the compass.",
+     "Hamza told a joke.",
+     "Children lined up for a go.",
+     "Kai walked in with a box."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that Kai felt nervous about going to the front? Give one piece of evidence."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the other children wanted a go with the compass?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Mrs Osei reminded the children to be gentle?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The story says that Kai’s worries had “melted away”. What does this mean?"
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Kai was the first to show something.",
+     "Hamza told a joke about a penguin.",
+     "The compass belonged to Kai’s grandad."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "19-4",
+  "level": 19,
+  "title": "Ladybirds",
+  "type": "Information Report",
+  "text": [
+   "Ladybirds are small, round beetles. Many are red with black spots. Some are yellow or orange. A few are black with red spots. A ladybird has six legs and two pairs of wings. The hard outer wings keep the thin inner wings safe. The inner wings are the ones it uses to fly.",
+   "The bright colours are a warning. Birds see the colours and learn to stay away. A ladybird can also give out a yellow liquid that tastes nasty when it is in danger.",
+   "Gardeners like ladybirds. They eat tiny insects called aphids. Aphids feed on plants and can harm flowers and vegetables. One ladybird can eat lots of aphids in a day. That helps the plants to grow well. This is why some gardeners buy ladybirds and set them free in the garden.",
+   "A ladybird starts life as a tiny yellow egg. The eggs are laid on leaves, near aphids. After a few days, a larva comes out of each egg. The larva looks nothing like a ladybird. It is long and spiky and has no wings. It eats lots of aphids and grows bigger and bigger. Then it turns into a pupa. Inside the pupa, its body changes. After about a week, an adult ladybird comes out.",
+   "In autumn, the weather gets cold. Ladybirds look for a safe place to spend the winter. Lots of them gather together under bark, in cracks in walls or inside dry plant stems. They stay there and hardly move. When spring comes and the weather is warm, they wake up and fly away."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How many legs does a ladybird have?",
+    "options": [
+     "Four",
+     "Eight",
+     "Ten",
+     "Six"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what aphids are."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “gather” mean?",
+    "options": [
+     "Fly away",
+     "Come together in a group",
+     "Fall asleep",
+     "Look for food"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the stages from 1 to 4 to show the life of a ladybird.",
+    "items": [
+     "Pupa",
+     "Adult ladybird",
+     "Egg",
+     "Larva"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where do ladybirds lay their eggs?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think ladybirds lay their eggs near aphids?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why are gardeners pleased to see ladybirds?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why might a bird decide not to eat a ladybird?"
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "All ladybirds are red.",
+     "A ladybird larva has no wings.",
+     "In winter, ladybirds hide in safe places."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best heading for paragraph 5?",
+    "options": [
+     "How ladybirds catch food",
+     "Where ladybirds lay eggs",
+     "Why ladybirds have spots",
+     "How ladybirds spend the winter"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "19-5",
+  "level": 19,
+  "title": "How to Make a Bird Feeder",
+  "type": "Procedural",
+  "text": [
+   "Do you like to watch birds in the garden? Wild birds often find it hard to get food in the cold months, so you can help them by making a bird feeder. It only takes about twenty minutes, and you can hang it outside for the birds to enjoy.",
+   "You will need: a large, dry pine cone; a piece of string about thirty centimetres long; some solid vegetable fat, called suet or lard; a bag of wild bird seed; a spoon; and a tray.",
+   "Step 1. Tie the string tightly around the top of the pine cone. Make a big loop at the end so that you can hang the feeder up later.",
+   "Step 2. Pour the bird seed onto the tray and spread it out. Ask an adult to soften the fat by leaving it in a warm room for an hour. It should be soft, but not runny.",
+   "Step 3. Use the spoon to push the fat between the scales of the pine cone. Be sure to fill every gap, and cover the outside of the cone as well.",
+   "Step 4. Roll the sticky pine cone in the bird seed until it is coated all over. Press the seeds on gently so that they stick.",
+   "Step 5. Hang your feeder from a branch outside, in a place where you can see it from a window. Then wait and watch. It may take a few days before the birds find it. Once they do, you will have lots of hungry visitors.",
+   "Remember to wash your hands well when you have finished."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "About how long does it take to make the bird feeder?",
+    "options": [
+     "Two hours",
+     "Twenty minutes",
+     "Two days",
+     "Twenty seconds"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words that tell you what kind of pine cone you need."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In Step 4, what does “coated all over” mean?",
+    "options": [
+     "Broken into pieces",
+     "Hidden away",
+     "Covered on every side",
+     "Tied up tightly"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show the order to do them in.",
+    "items": [
+     "Roll the cone in bird seed.",
+     "Hang the feeder from a branch.",
+     "Push fat between the scales.",
+     "Tie string around the cone."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "What should you use to push the fat into the pine cone?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the writer suggest hanging the feeder where you can see it from a window?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Sam hangs his feeder on Monday but sees no birds on Tuesday. What should he do?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "In Step 5, the writer says, “you will have lots of hungry visitors.” Who are the “visitors”?"
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The string is tied around the bottom of the pine cone.",
+     "The fat should be runny.",
+     "The bird seed is spread on a tray."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The fat should be “soft, but not runny”. Why do you think it should not be runny?"
+   }
+  ]
+ },
+ {
+  "id": "19-6",
+  "level": 19,
+  "title": "How Bread Is Made",
+  "type": "Explanation",
+  "text": [
+   "Every day, people around the world eat bread. A loaf of bread might seem simple, but making one takes several steps and a tiny helper called yeast. Yeast is a living thing so small that you cannot see one.",
+   "First, the baker mixes flour, water, salt and yeast in a large bowl. The ingredients stick together to make a soft, sticky lump called dough. Next, the baker kneads the dough. This means pressing, stretching and folding it again and again for about ten minutes. Kneading makes the dough smooth and stretchy.",
+   "Then the dough is left in a warm place to rest. While it rests, the yeast begins to feed on the sugars in the flour. As it feeds, it makes lots of tiny bubbles of gas. The bubbles get trapped inside the stretchy dough and push it upwards, so the dough slowly grows bigger and bigger. Bakers say that the dough is rising.",
+   "Next, the baker shapes the dough into a loaf and puts it on a tray. It is left for a little longer to rise again. Finally, the loaf goes into a very hot oven.",
+   "In the oven, the heat makes the bubbles grow even bigger, and the dough rises a little more. Then the heat turns the soft dough into a firm loaf. The outside of the loaf turns golden brown and crispy, and this is called the crust. The inside stays soft and full of small holes, where the bubbles used to be.",
+   "After about half an hour, the baker takes the loaf out of the oven. It is best to let it cool before you cut it. Then the bread is ready to eat."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is yeast?",
+    "options": [
+     "A kind of flour",
+     "A hot oven",
+     "A tiny living thing",
+     "A type of salt"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word from paragraph 2 that means pressing, stretching and folding the dough."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “rising” mean?",
+    "options": [
+     "Growing bigger",
+     "Getting colder",
+     "Turning brown",
+     "Breaking apart"
+    ]
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how bread is made.",
+    "items": [
+     "The dough is baked in a hot oven.",
+     "The dough is left to rise.",
+     "The baker mixes the ingredients.",
+     "The baker kneads the dough."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do the tiny bubbles of gas do to the dough?"
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the dough is left in a warm place to rest?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "What might happen to a loaf if the baker forgot to add yeast?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the writer says it is best to let the loaf cool before you cut it?"
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best heading for paragraph 5?",
+    "options": [
+     "How to shape a loaf",
+     "What happens in the oven",
+     "Why yeast is small",
+     "How to eat bread"
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Kneading takes about an hour.",
+     "Yeast makes bubbles of gas.",
+     "The crust is on the outside of the loaf."
+    ]
+   }
+  ]
+ },
+ {
+  "id": "20-1",
+  "level": 20,
+  "title": "The Last Two Minutes",
+  "type": "Narrative",
+  "text": [
+   "Zainab pulled on her goalkeeper gloves and tapped them together. It was the last game of the season, and the Riverside Rovers were playing Oakfield. The score was two goals each. There were only two minutes left on the clock.",
+   "“Stay calm, Zainab,” called her coach, Mr Bell. “You can do this.” Zainab nodded, but her tummy felt as if it was full of butterflies.",
+   "Suddenly, an Oakfield player raced down the pitch with the ball at her feet. She was fast, and the Rovers’ defenders could not catch her. Zainab crouched low and stared at the ball. The girl swung her leg back and kicked as hard as she could.",
+   "Zainab leapt to her left. She stretched out her arms as far as they would go, and the ball smacked into her gloves. She held on tightly, even though it stung her hands. “Well saved!” shouted the crowd.",
+   "Zainab jumped to her feet and threw the ball out to Kofi, who was waiting near the halfway line. Kofi dribbled past one player, then another. He looked up and saw Priya running towards the goal all on her own. He passed the ball to her at just the right moment.",
+   "Priya did not stop to think. She kicked the ball into the corner of the net, and the goalkeeper could only watch it fly past. The Rovers had scored! A moment later, the referee blew her whistle three times. The match was over.",
+   "The team cheered and hugged one another. Mr Bell shook Zainab’s hand. “That save won us the game,” he said, smiling. Zainab looked down at her sore fingers and grinned. She did not mind the sting one little bit."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was the score at the start of the story?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What is Zainab’s job in the team?",
+    "options": [
+     "Referee",
+     "Goalkeeper",
+     "Coach",
+     "Defender"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 3 that tells you the Oakfield player ran quickly."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Zainab’s tummy “felt as if it was full of butterflies”. How was she feeling?"
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "Priya scored a goal.",
+     "Zainab saved the shot.",
+     "Kofi dribbled past two players.",
+     "The Oakfield player kicked the ball hard."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Mr Bell was the referee.",
+     "Kofi passed the ball to Priya.",
+     "The Rovers lost the match."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "How do you know the ball was kicked very hard? Give one clue."
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 4, what does the word “leapt” mean?",
+    "options": [
+     "Walked slowly",
+     "Jumped",
+     "Fell over",
+     "Turned round"
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Mr Bell say, “That save won us the game”?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says the ball “smacked” into Zainab’s gloves. Why is “smacked” a good word to use?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "At the end, Zainab “did not mind the sting one little bit”. Why not?"
+   }
+  ]
+ },
+ {
+  "id": "20-2",
+  "level": 20,
+  "title": "Owls at Night",
+  "type": "Information Report",
+  "text": [
+   "Owls are birds that hunt at night. During the day, most owls rest in trees, barns or old buildings. When the sun goes down, they wake up and look for food. Owls live in many parts of the world, and there are more than two hundred kinds.",
+   "An owl has very large eyes. They help it to see in the dark. The eyes cannot move around like ours, so an owl turns its whole head instead. It can turn its head a long way round to look behind it. Owls also have excellent hearing. Their ears are hidden under the feathers on the sides of their heads. An owl can hear a tiny mouse moving in the grass.",
+   "Owls have soft, fluffy feathers. The edges of their wings are soft too. This means an owl makes almost no sound when it flies. A mouse cannot hear it coming until it is too late.",
+   "Owls eat small animals such as mice, voles and beetles. They have sharp claws, called talons, for catching their food. Then they use a strong, curved beak to tear it up. Some owls swallow small animals whole. Later, the owl coughs up a small pellet of the parts it cannot digest, such as fur and tiny bones. Scientists collect these pellets to find out what an owl has been eating.",
+   "Most owls make their nests in holes in trees. Some use old nests that other birds have left behind. The mother owl lays her eggs, and she sits on them to keep them warm. After a few weeks, the chicks hatch. Both parents bring food to the nest until the young owls are big enough to fly."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "When do most owls hunt for food?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How does an owl look behind it?",
+    "options": [
+     "It moves its eyes",
+     "It flies backwards",
+     "It turns its whole head",
+     "It hops around"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word in paragraph 4 that means the sharp claws of an owl."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “excellent” mean?",
+    "options": [
+     "Very good",
+     "Rather quiet",
+     "Not good",
+     "Quite small"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Owls have soft feathers.",
+     "Owls only eat fish.",
+     "Owl chicks are fed by both parents."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does an owl make almost no sound when it flies?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think a mouse cannot hear an owl coming?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do scientists collect owl pellets?"
+   },
+   {
+    "n": 9,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the parts of the text from 1 to 4 in the order they appear.",
+    "items": [
+     "How owls make nests",
+     "What owls eat",
+     "How owls fly quietly",
+     "Owls’ eyes and ears"
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which is the best heading for paragraph 4?",
+    "options": [
+     "How owls look",
+     "What owls eat",
+     "Where owls sleep",
+     "How owls fly"
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why might an owl use an old nest that another bird has left?"
+   }
+  ]
+ },
+ {
+  "id": "20-3",
+  "level": 20,
+  "title": "Grandad's Shell Box",
+  "type": "Narrative",
+  "text": [
+   "Every summer, Kavi visited his grandad by the sea. Grandad had a wooden box that sat on the shelf in his front room, and it was full of shells. Kavi loved that box more than anything.",
+   "“Where did they all come from?” Kavi asked one evening, as he lifted out a spiral shell that was as pale as cream.",
+   "“From beaches all over the world,” said Grandad. “I found that one in Portugal. And this striped one came from a beach in Kenya. Your gran and I collected them on our travels.” Grandad ran a finger along each shell as if it were made of glass.",
+   "“I want to start a collection,” said Kavi. “Will you help me?” Grandad chuckled. “There’s no better place to start than right outside the door.”",
+   "The next morning, they took two buckets and walked down to the beach. The tide had gone out, and the sand was wet and shiny. Kavi bent over and soon found a tiny pink shell, then a flat white one, then a curly grey one. Grandad showed him how to pick out the whole shells and leave the broken ones.",
+   "By lunchtime, Kavi’s bucket was heavy. Back at the cottage, he washed each shell in warm water and laid them out on a towel to dry. Grandad gave him a small cardboard box with sections inside, like an egg carton.",
+   "That evening, Kavi wrote a label for every shell. He wrote where it was found and the date. His handwriting was rather wobbly, but he did his best. Then he put the box on the shelf, right next to Grandad’s wooden one.",
+   "“You know,” said Grandad quietly, “that is the best-looking shelf in the whole house.” Kavi smiled all the way to bedtime."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where did Grandad keep his box of shells?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which country did the striped shell come from?",
+    "options": [
+     "Portugal",
+     "India",
+     "Kenya",
+     "England"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 4 that tells you Grandad laughed quietly."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Grandad ran his finger along each shell “as if it were made of glass”. What does this tell you about how he felt about his shells?"
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "Kavi wrote labels for his shells.",
+     "Kavi and Grandad went to the beach.",
+     "Kavi washed the shells.",
+     "Kavi asked about Grandad’s shells."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Kavi and Grandad took two buckets to the beach.",
+     "The tide was coming in.",
+     "Kavi put his shells in a box with sections."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Grandad tell Kavi to leave the broken shells on the beach?"
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 6, what does the word “sections” mean?",
+    "options": [
+     "Colours",
+     "Separate parts",
+     "Holes",
+     "Lids"
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell Kavi was proud of his collection? Give one clue."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What do you think Kavi will do when he visits next summer?",
+    "options": [
+     "Throw his shells away",
+     "Add more shells to his collection",
+     "Stay away from the beach",
+     "Give his shells to the shop"
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Grandad say Kavi’s shelf was “the best-looking shelf in the whole house”?"
+   }
+  ]
+ },
+ {
+  "id": "20-4",
+  "level": 20,
+  "title": "How to Make Flatbreads",
+  "type": "Procedural",
+  "text": [
+   "Flatbreads are soft, warm and very tasty. You can eat them with soup, roll them around a filling or dip them into hummus. They are quick to make, and you do not need to wait for the dough to rise. Ask an adult to help you, because you will be using a hot pan.",
+   "You will need:",
+   "• 300 grams of plain flour, plus a little extra for rolling\n• half a teaspoon of salt\n• 150 grams of plain yoghurt\n• two tablespoons of olive oil\n• a rolling pin, a large bowl and a frying pan",
+   "Method",
+   "First, wash your hands. Tip the flour and the salt into the bowl and stir them together with a spoon. Next, add the yoghurt and the oil. Mix everything until it starts to come together in one lump.",
+   "Now use your hands to squeeze and knead the dough for about five minutes. It should feel soft and smooth, and it should not stick to your fingers. If it is too sticky, add a sprinkle of flour. If it is too dry, add a spoonful of yoghurt.",
+   "Cover the bowl with a clean tea towel and leave the dough for twenty minutes. This makes it easier to roll out.",
+   "After that, cut the dough into six equal pieces. Roll each piece into a ball. Dust your table with flour and roll each ball into a flat circle about as thick as a coin.",
+   "Ask your adult to heat the frying pan until it is hot. Cook one flatbread at a time. After about a minute, small bubbles will appear on top. Flip the bread over and cook the other side for a minute too. Stack the cooked flatbreads under a clean tea towel to keep them warm.",
+   "Serve your flatbreads while they are still warm. They are best eaten on the same day."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why should you ask an adult to help you?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How much flour do you need?",
+    "options": [
+     "150 grams",
+     "200 grams",
+     "300 grams",
+     "600 grams"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the two words that tell you what you must wash before you start."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In the method, what does the word “knead” mean?",
+    "options": [
+     "To cut into pieces",
+     "To squeeze and push dough with your hands",
+     "To heat in a pan",
+     "To pour into a bowl"
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show the correct order.",
+    "items": [
+     "Cook each flatbread in a hot pan.",
+     "Leave the dough to rest for twenty minutes.",
+     "Mix the flour, salt, yoghurt and oil.",
+     "Roll each ball into a flat circle."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "What should you do if the dough is too dry?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that the first side of a flatbread is cooked and ready to turn over?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the cooked flatbreads are stacked under a tea towel?"
+   },
+   {
+    "n": 9,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from the method that means “the same size”."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The text says flatbreads are “quick to make”. Which part of the method shows why they are quick?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the writer uses the words “First”, “Next” and “Now” at the start of some sentences?"
+   }
+  ]
+ },
+ {
+  "id": "20-5",
+  "level": 20,
+  "title": "The Train to the Sea",
+  "type": "Recount (Fictional)",
+  "text": [
+   "On Saturday morning, my dad woke me up before the sun was out. “Come on, Mia,” he whispered. “We have a train to catch.” I sat up straight. We were going to the seaside for the very first time.",
+   "At the station, the platform was full of people with bags and buckets. I held Dad’s hand tightly as the train rattled in. It was long and green, and it let out a loud hiss when it stopped. We climbed aboard and found two seats by the window.",
+   "The train began to move slowly, then faster and faster. Houses and gardens flashed past. I counted seven horses in one field, and then a tractor, and then a tiny church on a hill. Dad gave me a cheese sandwich, and I ate it while I watched the world zoom by.",
+   "After an hour, we went through a long tunnel. Everything went dark, and the windows turned into mirrors. I could see my own face looking back at me. I squeezed Dad’s arm, but he only laughed. “Wait for it,” he said.",
+   "Then we shot out into the light, and there it was. The sea stretched out flat and shining, as far as I could see. It was bluer than my school jumper. White birds circled above it, and their cries sounded like laughing.",
+   "“Is that really the sea?” I asked. “It’s so big!” Dad nodded and smiled.",
+   "A few minutes later, the train slowed down and stopped. The doors slid open, and a salty breeze rushed in. I jumped down onto the platform and pulled Dad towards the sand. It had been a long journey, but I did not feel tired at all."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "What time of day was it when Dad woke Mia?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What did Dad give Mia to eat on the train?",
+    "options": [
+     "A cheese sandwich",
+     "An apple",
+     "A biscuit",
+     "Some crisps"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 2 that tells you the train made a loud sound when it stopped."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "How do you know this was Mia’s first visit to the seaside?"
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "The train went through a tunnel.",
+     "Mia saw the sea.",
+     "Mia and Dad waited on the platform.",
+     "The train stopped and the doors opened."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Mia counted seven horses in a field.",
+     "The tunnel was bright inside.",
+     "Mia was tired at the end of the journey."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why did Mia squeeze Dad’s arm in the tunnel?"
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “stretched” mean?",
+    "options": [
+     "Bent",
+     "Spread out",
+     "Splashed",
+     "Shrank"
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Mia says the sea was “bluer than my school jumper”. Why does she make this comparison?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "What tells you Mia was excited at the end of the story?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Dad laughed and said “Wait for it” in the tunnel?"
+   }
+  ]
+ },
+ {
+  "id": "20-6",
+  "level": 20,
+  "title": "Diwali, the Festival of Lights",
+  "type": "Information Report",
+  "text": [
+   "Diwali is a festival. Millions of people all over the world celebrate it. It is often called the Festival of Lights. Hindu, Sikh and Jain people all celebrate Diwali, but they may do so for different reasons. It happens in autumn, in October or November.",
+   "Diwali lasts for five days. The main night is the third day. On that night there is no moon, so the sky is very dark. This makes the lights shine even more brightly.",
+   "Lamps are a big part of Diwali. Families light little clay lamps called diyas. They put them on windowsills, on doorsteps and along garden walls. Some people hang up strings of coloured lights too. The whole street can glow. Lighting the lamps is a way of welcoming happiness into the home.",
+   "Before the festival, people clean their homes from top to bottom. They also make patterns called rangoli on the floor by the front door. A rangoli can be made from coloured powder, rice or flower petals. The bright shapes are there to welcome visitors.",
+   "Food is important at Diwali too. Families cook special meals and make sweets to share. Laddoos are little round sweets. Barfi is cut into small squares. People give boxes of sweets to friends and neighbours. Sharing food with others is a very happy part of the festival.",
+   "Many people wear their best or new clothes for Diwali. Families visit each other, send cards and give gifts. Children often enjoy this part of the festival very much. In some places, there are fireworks at night that fill the sky with colour.",
+   "Diwali is a time for family and friends to come together. Lighting a lamp, making a rangoli or sharing a sweet are all ways to spread joy and kindness."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "short",
+    "marks": 1,
+    "question": "How many days does Diwali last?"
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In which season does Diwali happen?",
+    "options": [
+     "Spring",
+     "Summer",
+     "Winter",
+     "Autumn"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the name of the small clay lamps used at Diwali."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Rangoli patterns are made near the front door.",
+     "Laddoos are cut into small squares.",
+     "Only Hindu people celebrate Diwali."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do the lights shine “even more brightly” on the main night?"
+   },
+   {
+    "n": 6,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 4, what does the word “patterns” mean?",
+    "options": [
+     "Meals",
+     "Designs made of shapes and colours",
+     "Clothes",
+     "Gifts"
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which of these is the best heading for paragraph 5?",
+    "options": [
+     "Lamps and lights",
+     "Cleaning the home",
+     "Food and sweets",
+     "Fireworks"
+    ]
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think people clean their homes before Diwali?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that sharing is an important part of Diwali? Give one example from the text."
+   },
+   {
+    "n": 10,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the parts of the text from 1 to 4 in the order they appear.",
+    "items": [
+     "Sweets and special meals",
+     "Lamps called diyas",
+     "How long the festival lasts",
+     "Rangoli patterns"
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says Diwali is about “joy and kindness”. Which word tells us that the festival is happy?"
+   }
+  ]
+ }
+]

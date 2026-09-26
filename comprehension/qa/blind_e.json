@@ -1,0 +1,1598 @@
+[
+ {
+  "id": "30-1",
+  "level": 30,
+  "title": "The Last Bus",
+  "type": "Narrative",
+  "text": [
+   "Nadia checked her watch for the third time in as many minutes. The bus shelter was empty except for a crumpled newspaper that skittered across the pavement whenever the wind gusted. Above her, the streetlight flickered and buzzed like a trapped insect. The air smelt of wet stone, as if it might rain at any moment. It was almost half past nine, and the last bus to Wickford was already late.",
+   "She tugged her coat tighter and glanced at the small suitcase by her feet. Inside, wrapped carefully in tissue paper, was the birthday present she had spent three months saving for: a silver locket, engraved with her grandmother’s initials. Nadia had rehearsed her words all week, yet now they seemed to have deserted her.",
+   "At last, headlights swept around the corner and the bus wheezed to a halt. The doors folded open with a hiss. The driver, a stocky man with a bristling moustache, drummed his fingers on the steering wheel and peered at her over his glasses. “Where to, love?” he asked. “Wickford, please,” Nadia replied, her voice barely above a whisper.",
+   "She found a seat by the window and pressed her forehead against the cool glass. Street lamps blurred into streaks of amber as the bus rumbled through the sleeping town. The only other passengers, a sleepy man and a woman with a shopping trolley, barely looked up. Nadia thought about the locket again. She had washed cars, walked the neighbours’ dogs and sold her old books to save enough money. Her mum had warned her that the journey would be long and lonely, but Nadia had insisted. Nothing was going to spoil this surprise.",
+   "Halfway through the journey, the woman leaned across the aisle. “Visiting family?” she asked, not unkindly. Nadia hesitated. “My grandmother,” she said at last. “It’s her seventieth birthday tomorrow, and she thinks I’m at home revising for my exams.” The woman chuckled. “Then you’re in for a treat, love, and so is she.”",
+   "The bus shuddered to a stop in Wickford, and Nadia stepped down into the cold night air. The village was silent except for the distant hoot of an owl. She hauled her suitcase along a lane fringed with dripping hedges. Her feet ached, and the suitcase seemed heavier with every step. At last the cottage appeared, a single lamp glowing in its window like a beacon.",
+   "Nadia hesitated at the gate. What if her grandmother was already asleep? What if she was cross at being disturbed so late? Then the front door swung open, and there, silhouetted against the lamplight, stood her grandmother in her dressing gown, peering out into the darkness. “Nadia?” she whispered. “Is that really you?” Her voice trembled, and in the lamplight Nadia could see that her eyes were shining.",
+   "All the words Nadia had rehearsed so carefully evaporated once more, but this time it did not matter. She dropped her suitcase and ran. Behind them, the lamplight spilled across the path, warm and golden."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “skittered” suggest the newspaper did?",
+    "options": [
+     "Scurried along",
+     "Floated slowly",
+     "Dropped straight down",
+     "Stayed still"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was inside Nadia’s suitcase?"
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "How long had Nadia spent saving for the present?"
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "How can you tell that Nadia felt nervous at the start of the story? Give one piece of evidence from the text."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "marks": 1,
+    "question": "The bus “wheezed to a halt”. What does the word “wheezed” suggest about the bus?"
+   },
+   {
+    "n": 6,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up paragraph 2?",
+    "options": [
+     "Nadia is cold and wants to go home.",
+     "Nadia has lost her suitcase.",
+     "Nadia has a special present and is worried about what to say.",
+     "Nadia cannot remember her grandmother’s name."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 2,
+    "question": "Do you think Nadia’s grandmother knew Nadia was coming? Explain your answer using the text."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "The driver “peered at her over his glasses”. What might he be thinking?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 2,
+    "question": "The woman says, “you’re in for a treat, love, and so is she.” Explain what she means."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 2,
+    "question": "The cottage has “a single lamp glowing in its window like a beacon”. What impression does this give of the cottage? Explain your answer."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 2,
+    "question": "Nadia “hesitated at the gate”. Give two reasons why she felt unsure."
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 2,
+    "question": "“All the words Nadia had rehearsed so carefully evaporated once more, but this time it did not matter.” Why did it not matter this time?"
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 2,
+    "question": "What do you think will happen next? Give a prediction and a reason from the story."
+   },
+   {
+    "n": 14,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which two words best describe Nadia?",
+    "options": [
+     "Careless and rude",
+     "Bored and lazy",
+     "Bossy and loud",
+     "Determined and caring"
+    ]
+   }
+  ]
+ },
+ {
+  "id": "30-2",
+  "level": 30,
+  "title": "The Secret Gardener",
+  "type": "Narrative",
+  "text": [
+   "Throughout June, Zara had studied the derelict plot behind Elm Court from her bedroom window, though she would never have admitted to being curious. For as long as she could remember it had been a wilderness of nettles and corroded wheelbarrow parts, and its guardian, the caretaker Mr Hendry, defended it with a ferocity out of all proportion to its worth. “Keep out,” he would growl whenever a football strayed over the fence. “That ground isn’t for children, and it isn’t for anybody.”",
+   "It was therefore a considerable surprise when, one Saturday, she noticed a row of green shoots pushing through the soil beside the shed. The nettles had been cut back, and someone had dug a neat trench and set bean canes into it, lashed together at the top like a small wigwam. By Sunday the earth was dark and damp, although not a drop of rain had fallen, and on Monday a scarecrow, fashioned from a broom and a moth-eaten cardigan, presided over the end of the row.",
+   "“Somebody’s been busy,” said her friend Tobi, peering through a gap in the fence. “Perhaps it’s a secret society.” “Or a ghost with a watering can,” Zara replied, only half joking. What troubled her was not who was responsible but why anyone would labour so carefully in secret, as if being seen might spoil something.",
+   "On Tuesday she set her alarm, packed a torch and a flask of squash, and settled behind the recycling bins. At half past five the sky was the colour of dishwater and even the pigeons had not yet begun to complain. Zara crouched with aching knees, watching the plot, while the only movement came from a snail crossing the path with enormous dignity.",
+   "She was on the point of abandoning her vigil when a door clicked and footsteps crunched across the gravel. A stooped figure in a flat cap rounded the corner of the flats, a full watering can in each hand. He set them down, knelt with a small grunt and began to loosen the soil around the beans with his bare fingers, as tenderly as if he were smoothing a child’s hair.",
+   "It was Mr Hendry. The man who bellowed at footballs was humming quietly to himself. Then Zara shifted her weight, a bin lid clanged, and he spun round, his face folding back into its habitual scowl. “You,” he said. “What possible reason have you for being out here at this hour?”",
+   "Zara stood up slowly. “I was looking for the gardener,” she said. “I think I’ve found him.”",
+   "For a moment neither of them spoke. Then the old man exhaled, and his shoulders slackened. “My wife’s at her sister’s until August,” he said gruffly. “She has grown beans on this plot every summer for forty years, but this spring her knees refused. I want it looking right when she comes home. Not a word to anyone.”",
+   "Zara grinned. “Can I help?” Mr Hendry regarded her for a long moment, then held out one of the watering cans. “Mind the shoots,” he said. “And next time your football comes over, knock first.”"
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “derelict” mean?",
+    "options": [
+     "Recently planted",
+     "Neglected and abandoned",
+     "Very small",
+     "Carefully guarded"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 1 that shows how Mr Hendry spoke to children."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "What was standing at the end of the row of beans on Monday?"
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The plot had been overgrown for as long as Zara could remember.",
+     "It rained on Sunday.",
+     "Tobi suggested that the gardener might be a ghost.",
+     "Zara waited behind the recycling bins."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Mr Hendry explained why he was gardening.",
+     "Zara noticed green shoots beside the shed.",
+     "Mr Hendry arrived carrying two watering cans.",
+     "Zara settled behind the recycling bins."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says Mr Hendry defended the plot “with a ferocity out of all proportion to its worth”. What does this suggest about the way he behaved?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraphs 5 and 6, how can you tell that Mr Hendry is gentler than he first seems? Give one piece of evidence."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two things the text tells you about why Mr Hendry was looking after the beans."
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What does Zara’s question, “Can I help?”, show about how she feels now?",
+    "options": [
+     "She is worried she will be in trouble.",
+     "She wants to be paid for helping.",
+     "She is friendly and glad to share his secret.",
+     "She is planning to tell Tobi."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 5, Zara is “on the point of abandoning her vigil”. What is a vigil?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 2,
+    "question": "The author says Mr Hendry worked “as tenderly as if he were smoothing a child’s hair”. What impression does this give of him, and why is it surprising?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the story?",
+    "options": [
+     "A girl finds out that a bad-tempered caretaker is secretly tending a garden.",
+     "A girl is scared of a caretaker who shouts at her.",
+     "A girl builds a scarecrow to protect her garden.",
+     "A boy and girl plant beans in secret."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 2,
+    "question": "How do you think Mr Hendry will treat Zara from now on? Give a prediction and a reason from the story."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says Mr Hendry’s face folded “back into its habitual scowl”. What does this suggest about how he felt at being discovered?"
+   }
+  ]
+ },
+ {
+  "id": "30-3",
+  "level": 30,
+  "title": "Meerkats: Life in the Mob",
+  "type": "Information Report",
+  "text": [
+   "Meerkats are slender, sociable mammals that inhabit the arid grasslands and semi-deserts of southern Africa. An adult weighs less than a kilogram and stands barely as tall as a school ruler, yet it is a remarkably resourceful animal. It is best known for its habit of rearing up on its hind legs, balanced by its tail like a tripod, to survey the landscape.",
+   "Meerkats live in cooperative groups called mobs, which typically number between twenty and fifty individuals. Each member contributes to the survival of the mob. Together they dig a large network of burrows with many entrances. These shelter them from the fierce midday heat and offer refuge whenever danger threatens. Because the food around a burrow eventually runs short, a mob may occupy several burrows in turn. After the chill of the desert night, its members gather outside each morning, warming their thinly furred bellies in the sun.",
+   "Since eagles, hawks, jackals and snakes all prey on meerkats, the mob cannot afford to forage carelessly. While most members search for food, one or more act as sentries, climbing onto a rock, a termite mound or a low bush to scan the sky and the ground. The dark patches of fur around a sentry’s eyes reduce the glare of the sun, rather like sunglasses. Sentries take turns, so that no individual goes hungry for long.",
+   "When a sentry detects a threat, it gives an alarm call, and the calls are far from identical. A sharp, urgent bark signals a bird of prey overhead, and the entire mob dives for cover at once. A lower, more drawn-out call indicates a predator on the ground, in which case the meerkats may gather to watch the intruder before withdrawing. Researchers have established that mob members respond differently to each type of call, which suggests that the sounds carry precise information. They are not simply cries of fear.",
+   "Foraging occupies most of the day. Meerkats possess an acute sense of smell and sharp hearing, allowing them to locate prey that other animals overlook. Their diet consists chiefly of insects, spiders and small lizards, although they also eat scorpions. Using long, curved claws, they scratch at the sand and dig out prey concealed beneath the surface. Adults also instruct their young: they bring pups scorpions whose stings have been removed, and with repeated practice the youngsters learn to handle live prey safely.",
+   "Newborn pups, whose eyes are shut at birth, remain in the burrow for their first three weeks. While the mothers are away foraging, other members of the mob take turns as babysitters. A babysitter guards the pups throughout the day and frequently forgoes breakfast in the process. Even meerkats that are not the pups’ parents share this responsibility.",
+   "Life in the desert is unforgiving, yet meerkats endure it through cooperation. Sentries keep watch, babysitters protect the young and adults teach the pups, so the survival of the mob depends on every member playing a part."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Where do meerkats live?",
+    "options": [
+     "In the cold forests of northern Africa",
+     "On the wet plains of South America",
+     "In the mountains of Asia",
+     "In the dry grasslands and semi-deserts of southern Africa"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “scan” mean?",
+    "options": [
+     "Search by looking carefully",
+     "Dig into",
+     "Hide from",
+     "Call out to"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word from paragraph 2 that means “a group of meerkats”."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "A meerkat weighs more than a kilogram.",
+     "The burrows help protect meerkats from the midday heat.",
+     "A mob stays in the same burrow for ever.",
+     "Sentries take turns."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show what happens when a sentry sees an eagle.",
+    "items": [
+     "The whole mob dives for cover.",
+     "The sentry climbs onto a rock.",
+     "The sentry gives a sharp, urgent bark.",
+     "The sentry spots a threat in the sky."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do the dark patches around a meerkat’s eyes help a sentry?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two reasons why a mob of meerkats needs sentries."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do the researchers think that alarm calls are more than a simple expression of fear?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "The text says a babysitter “frequently forgoes breakfast”. What does this tell you about being a babysitter?"
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which of these is the best heading for paragraph 5?",
+    "options": [
+     "How meerkats build burrows",
+     "The dangers of scorpions",
+     "Finding food and teaching the young",
+     "Why meerkats stand upright"
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says meerkats stand “balanced by [their] tail like a tripod”. Why is this comparison helpful?"
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "What is the most important idea in the last paragraph?"
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "A pup is left alone in a burrow with no babysitter. What could go wrong, according to the text?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 6, what does the word “forgoes” mean?"
+   }
+  ]
+ },
+ {
+  "id": "30-4",
+  "level": 30,
+  "title": "The Substitute",
+  "type": "Narrative",
+  "text": [
+   "When Mr Abernathy-Clough marched into Class 5B on Monday morning, clutching a briefcase the size of a small suitcase and wearing a tie speckled with tiny penguins, twenty-eight children held their breath. Miss Baker had lost her voice, and all weekend a rumour had been racing along the corridor: substitute teachers could be tricked.",
+   "“It’s foolproof,” Dev had assured them in the cloakroom. “He doesn’t know any of us, so if we swap names, he’ll never get the register right.” Nobody had thought to ask what would happen if the scheme went wrong. Dev’s plans generally combined a great deal of enthusiasm with very little forethought.",
+   "“Good morning, Class 5B,” boomed Mr Abernathy-Clough, peering at the register through enormous spectacles. “When I read your name, please answer ‘present’. Amira Hussain?”",
+   "There was a pause. Then Callum, who was sitting at the front, raised his hand. “Present,” he squeaked, in what he believed was a convincing girl’s voice. Several children snorted into their sleeves.",
+   "Mr Abernathy-Clough blinked once, made a note and carried on. “Callum Reid?” At the back of the room, Amira lifted a hand and growled, “Present, sir,” as deeply as she could manage, which sounded like a frog with a head cold. Tobias had to bury his whole face in his lunchbox.",
+   "The rest of the register was a triumph, or so it seemed. Priya answered to “Dev”, Dev answered to “Priya”, and Ellis, who was exceptionally tall, answered to “Little Sam”, an achievement that very nearly ended in helpless giggling. Throughout, Mr Abernathy-Clough nodded gravely, as though children exchanged identities every day of the week.",
+   "“Splendid,” he said at last, closing the register with a snap. “A full house. Now, Priya, would you kindly distribute the books?” Dev leapt up and dashed round the room, delighted. “And Little Sam,” the teacher added, “please open the window. It has become rather warm in here.” Ellis, who had to duck beneath the light, obeyed.",
+   "All morning the substitute treated them precisely as they had asked. He praised “Callum’s” beautiful handwriting, which was really Amira’s. He invited “Amira” to read aloud, and Callum, who could not manage a sentence without stumbling, was obliged to trip his way through a page about Roman roads. By break time, the class was no longer certain who was fooling whom.",
+   "At lunchtime, Mr Abernathy-Clough tapped a folded sheet of paper on the desk. “I ought to confess,” he said, “that Miss Baker left me a seating plan. It has photographs.” The silence was so complete that they could hear the penguin tie rustling. “I have known exactly who you are since five to nine. However, I have not enjoyed a register so much in thirty years, and I would be sorry to have spoiled it.” He smiled. “Now, would the real Dev kindly tie his shoelaces before he trips over them?”"
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, Dev says the plan is “foolproof”. What does “foolproof” mean?",
+    "options": [
+     "Too silly to work",
+     "Very difficult to do",
+     "Certain to work whatever happens",
+     "Something only a fool would try"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy one word from paragraph 3 that describes Mr Abernathy-Clough’s spectacles."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why was there a substitute teacher in Class 5B?"
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in the story.",
+    "items": [
+     "Mr Abernathy-Clough admitted he had a seating plan.",
+     "Dev explained his plan in the cloakroom.",
+     "Callum answered to Amira’s name.",
+     "Callum read aloud about Roman roads."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Miss Baker left the substitute a seating plan with photographs.",
+     "Amira answered the register in a squeaky voice.",
+     "Ellis was exceptionally tall.",
+     "Mr Abernathy-Clough was surprised by the children’s trick."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "Amira’s deep voice “sounded like a frog with a head cold”. Why is this a funny description?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the author mean by “Dev’s plans generally combined a great deal of enthusiasm with very little forethought”?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two clues in paragraphs 6 and 7 that Mr Abernathy-Clough was not fooled at all."
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Why was Callum “obliged to trip his way through a page”?",
+    "options": [
+     "He was nervous of the substitute teacher.",
+     "He had not been given a book.",
+     "He was reading a very short page.",
+     "He was pretending to be Amira and had to read aloud, though he found reading hard."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the story?",
+    "options": [
+     "Children try to trick a substitute teacher, but he already knows and plays along.",
+     "A teacher is cross with a class for lying.",
+     "A class learns about Roman roads.",
+     "A teacher gets lost on his first day."
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 9, what does “confess” mean?"
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "The silence was “so complete that they could hear the penguin tie rustling”. What does this tell you about how the children felt?"
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 2,
+    "question": "Why do you think Mr Abernathy-Clough went along with the children’s trick instead of stopping it? Use the text to help you."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think the class will do the next time Mr Abernathy-Clough teaches them? Give a reason."
+   }
+  ]
+ },
+ {
+  "id": "30-5",
+  "level": 30,
+  "title": "Raising the Iron Tower",
+  "type": "Recount (Historical)",
+  "text": [
+   "On 31 March 1889, a small procession of officials began to climb the stairs of a tower that had not existed two years earlier. At its head was Gustave Eiffel, the engineer whose company had built it, and the climb was long and slow. At the summit, high above the rooftops of Paris, he raised the French flag. The tallest structure in the world was finished. More than two years of work had come to an end.",
+   "The tower had been designed for the World’s Fair of 1889, an enormous exhibition held in Paris to mark a hundred years since the French Revolution. The organisers wanted a spectacular entrance to the fairground, and a competition was held to find one. A plan for a tower of iron, taller than anything ever built, was prepared by engineers working for Eiffel’s company, and it was chosen. Work began in January 1887. Nobody knew whether such a tall tower of iron would stand firm, and many people watched the site with doubt.",
+   "Building the tower was less like ordinary construction than like assembling a gigantic puzzle. Nearly all of the pieces were made in Eiffel’s factory on the edge of Paris, where each one was cut and drilled with great accuracy. The tower needed about eighteen thousand separate iron parts, and every one had to fit its neighbours exactly. Carts then carried them to the site, where around three hundred workers joined them together with about two and a half million rivets.",
+   "The four enormous legs rose first, held steady by temporary scaffolding until a platform could join them at the first level. Once that was in place, the tower climbed faster, with cranes lifting each section into position. Many of the workers laboured at heights that would have unnerved most people, yet the whole project took just over two years, and it was ready in time for the opening of the fair. Visitors could now climb to the platforms and look out across the whole city.",
+   "Not everyone admired the result. Soon after work began, a group of well-known artists and writers published a letter protesting against what they called a useless and monstrous tower that would disfigure the city. Eiffel replied calmly and did not change his plans. He argued that the tower would have a beauty of its own, because its shape had been governed by the need to withstand the wind.",
+   "At about three hundred metres, the tower held the record as the tallest structure in the world until 1930. Its permit allowed it to stand for only twenty years, and it might have been taken down in 1909. But Eiffel had encouraged scientists to carry out experiments there, and its height made it ideal for a radio aerial. The tower proved so useful that the city let it stay, and it has since become the most recognisable landmark in France."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Why was the tower originally designed?",
+    "options": [
+     "As a lookout over Paris",
+     "As a place for Eiffel to live",
+     "As a radio aerial",
+     "As an entrance to the World’s Fair"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the words from paragraph 3 that tell you how many rivets were used."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "Where were most of the pieces of the tower made?"
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "Eiffel raised the flag at the top.",
+     "Work on the tower began.",
+     "A platform joined the four legs.",
+     "The four legs rose from the ground."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The tower was designed for the World’s Fair.",
+     "Most of the parts were made at the building site.",
+     "The artists and writers welcomed the tower.",
+     "The tower was the tallest structure in the world until 1930."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “disfigure” mean?",
+    "options": [
+     "Light up",
+     "Surround",
+     "Spoil the appearance of",
+     "Protect"
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 2, the organisers wanted a “spectacular entrance”. What does “spectacular” mean?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 3, the author says building the tower was “like assembling a gigantic puzzle”. What does this comparison show about the work?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think the pieces were made in a factory rather than at the site?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 2,
+    "question": "Explain why the tower was not taken down in 1909. Use the text to help you."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 5, Eiffel says the tower’s shape was governed by the wind. What point is he making in reply to the artists?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which of these is the best heading for paragraph 6?",
+    "options": [
+     "The tower’s record and lasting future",
+     "How the legs were built",
+     "The flag on the summit",
+     "A letter from the artists"
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "The text begins with the opening day, before explaining how the tower was built. Why might the author have begun this way?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What would probably have happened to the tower in 1909 if it had not been useful for radio and experiments?"
+   }
+  ]
+ },
+ {
+  "id": "30-6",
+  "level": 30,
+  "title": "How a Vacuum Flask Works",
+  "type": "Explanation",
+  "text": [
+   "A hot chocolate poured from a vacuum flask on a winter walk can still be steaming hours after it was made, and on a summer day the same flask can keep a drink pleasantly icy. This apparent feat of magic depends entirely on the way the flask is constructed and on the way heat behaves.",
+   "Heat always moves from a warmer place to a cooler one, and it does so by three distinct routes. In conduction, heat is passed through solid materials from particle to particle, which is why the handle of a metal spoon soon warms up in a hot mug. In convection, heat is carried by moving liquids or gases, as when warm air rises above a radiator. In radiation, heat travels as invisible rays, which is how the Sun’s warmth reaches us across empty space.",
+   "A vacuum flask is engineered to obstruct all three. It is essentially two containers, one nested inside the other and joined only at the neck. Almost all of the air has been pumped out of the gap between the inner and outer walls, leaving a vacuum: a space containing next to nothing. Since conduction and convection both depend on particles to pass heat along or carry it away, they are very nearly ruled out, and the two most important routes for heat to escape are blocked.",
+   "Radiation remains, because heat rays are able to cross empty space. To combat it, the surfaces facing the vacuum are coated with a thin, shiny layer, much like the silver on a mirror. This coating reflects the rays back towards the drink rather than allowing them to pass through, so a hot drink keeps its warmth. By the same principle, the coating turns heat from the outside away from a cold drink, which therefore stays cool.",
+   "The weakest point is the top, where heat could escape through the opening. A flask therefore has a tightly fitting stopper made of plastic or cork. These materials are poor conductors, and the stopper also traps the air above the drink, restricting convection. Every time the flask is opened, some heat is lost, so it is sensible to keep the lid on for as long as possible.",
+   "The vacuum flask was invented in 1892 by a Scottish scientist named James Dewar, who had no thought of picnics. He needed a means of storing extremely cold liquids for his experiments. Within a few years, others realised that the same design could keep drinks hot, and the idea spread around the world.",
+   "Even the finest flask cannot keep a drink hot indefinitely, because a little heat always escapes through the stopper and the neck. Nevertheless, by defeating every route that heat can take, the flask keeps hot things hot and cold things cold for many hours."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which of these is a way heat can travel, according to the text?",
+    "options": [
+     "Evaporation",
+     "Reflection",
+     "Condensation",
+     "Radiation"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 3, what does the word “vacuum” mean?",
+    "options": [
+     "A space with almost nothing in it",
+     "A very cold liquid",
+     "A thick plastic wall",
+     "A tightly fitting lid"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word in paragraph 1 that tells you what the hot chocolate is doing hours after it was made."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Who invented the vacuum flask, and in what year?"
+   },
+   {
+    "n": 5,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "A vacuum flask is made of two containers, one inside the other.",
+     "Heat can pass through a vacuum by conduction.",
+     "The stopper is made from a good conductor of heat.",
+     "The flask can keep cold drinks cold as well as hot drinks hot."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how the flask keeps a hot drink hot.",
+    "items": [
+     "Shiny coatings reflect heat rays back towards the drink.",
+     "Air is pumped out from the gap between the walls.",
+     "A stopper closes the top to stop heat escaping.",
+     "Conduction and convection are almost stopped."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 2,
+    "question": "Explain why a vacuum stops heat travelling by conduction and convection. Use the text to help you."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why is the inside of a flask coated with a shiny layer?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why is the stopper made from plastic or cork?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 1, the author calls the flask’s effect an “apparent feat of magic”. Why does the author begin this way?"
+   },
+   {
+    "n": 11,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which of these is the best heading for paragraph 6?",
+    "options": [
+     "How to pack a picnic",
+     "Why heat is invisible",
+     "The Scottish scientist who needed to keep liquids very cold",
+     "Different ways of making cork"
+    ]
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the whole text?",
+    "options": [
+     "A flask keeps drinks hot because it is very heavy.",
+     "Scientists have made a flask that never loses heat.",
+     "A flask works by blocking all the ways heat can travel.",
+     "Heat always travels from cold to warm."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does a drink in a flask still cool down eventually?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "A cook wants to keep soup hot for a picnic. According to the text, what should she do once the soup is in the flask?"
+   }
+  ]
+ },
+ {
+  "id": "31-1",
+  "level": 31,
+  "title": "Agnes Pryce, Postwoman of Cwm Derwen",
+  "type": "Recount (Fictional)",
+  "text": [
+   "Agnes Pryce was born in 1893 in Cwm Derwen, a scattering of farms wedged into a steep Welsh valley where the nearest town lay eleven miles away, over a mountain pass. Her father was a shepherd and her mother a seamstress, and it was said that Agnes learned to read from the labels on her mother’s reels of thread. By the age of nine, she could recite every price in the village shop’s ledger, a talent the shopkeeper found impressive and faintly alarming.",
+   "When Agnes was seventeen, the valley’s postman retired, and nobody could be persuaded to replace him. The round covered twenty-two miles of rough track, crossing two rivers and a bog that had swallowed more than one boot. Agnes applied, to general astonishment. Told that a young woman could not possibly manage it, she promptly walked the entire route in a single afternoon, arriving back at the post office before closing time. She was given the job that evening.",
+   "For the next forty-nine years, Agnes carried far more than letters. The valley had no doctor’s surgery and no telephone, so she also carried messages, medicine and news. She learned which households would welcome a cup of tea and a chat, and which preferred a nod over the gate. In a battered notebook she recorded every family’s name and one thing she had noticed about them: a birthday, a lame sheepdog, a stubborn hip. A letter delivered by Agnes, people joked, arrived with a weather report and the latest local opinion attached.",
+   "Her most celebrated feat came in the winter of 1947, when heavy snow closed the pass for six weeks. Agnes refused to let the valley feel cut off. She built a sledge from an old farm gate and, dragging it behind her, delivered the post on foot as usual. She also organised the farms into a chain, so that a sack of flour or a bottle of medicine could be passed from door to door faster than any one person could carry it. Nobody was ever quite sure who had first suggested the idea, but everybody knew who had made it work.",
+   "In 1959, when a new road allowed the Post Office to send a van, Agnes retired at the age of sixty-six. The valley presented her with a clock, a bunch of flowers and, at her own request, a sturdy new pair of boots, which she promised to wear out. She did not rest for long. She turned the empty room behind the old post office into a lending library, filled with books donated by her neighbours. People came for the books, although, they admitted, they came mostly for the conversation.",
+   "The library stayed open for more than twenty years. Agnes’s notebook is now kept in a museum in the nearest town. Its final entry, written in her careful hand, consists of just two words: “All delivered.”"
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 1, what does the word “wedged” suggest about the farms?",
+    "options": [
+     "They were stretched across the whole valley.",
+     "They were fixed tightly into a narrow space.",
+     "They were hidden from view.",
+     "They were scattered over a wide plain."
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the two words from paragraph 2 that tell you how long the postman’s round was."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "How did Agnes prove she could do the postman’s job?"
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The valley had a doctor’s surgery.",
+     "Agnes wrote something about every family in her notebook.",
+     "Agnes retired when a van could be used for the post round.",
+     "Agnes’s father was the village shopkeeper."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "Agnes opened a lending library.",
+     "The valley’s postman retired.",
+     "Snow closed the pass for six weeks.",
+     "Agnes walked the round in one afternoon."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 2,
+    "question": "In paragraph 3, the author says Agnes carried “far more than letters”. Give two other things she carried."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says the shopkeeper found Agnes’s talent “impressive and faintly alarming”. Why might he have found it alarming?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 2,
+    "question": "What does paragraph 2 show you about Agnes’s character? Give one quality and support it with evidence."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do you think Agnes kept a notebook about every family?"
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What does the sentence “Nobody was ever quite sure who had first suggested the idea, but everybody knew who had made it work” suggest about Agnes?",
+    "options": [
+     "She disliked working with others.",
+     "She was jealous of other people’s ideas.",
+     "She refused to accept help.",
+     "She was the person who organised everyone and got things done."
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 4, what does the word “feat” mean?"
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author says a letter from Agnes “arrived with a weather report and the latest local opinion attached”. What does this joke tell you about Agnes?"
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the text?",
+    "options": [
+     "A young woman gets lost in the mountains and is rescued.",
+     "A shopkeeper trains a girl to remember prices.",
+     "A shepherd’s daughter builds a sledge and a library.",
+     "A determined postwoman serves her valley for many years and finds new ways to help."
+    ]
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do the words “All delivered” suggest about how Agnes felt about her work?"
+   }
+  ]
+ },
+ {
+  "id": "31-2",
+  "level": 31,
+  "title": "A Field Worth Keeping",
+  "type": "Exposition",
+  "text": [
+   "Dear Councillor Hargreaves,",
+   "I am writing on behalf of the Willowbrook Residents’ Group to urge the council to reconsider its plan to sell Tanner’s Field for car parking. For eleven years, this field has stood unused at the end of Mill Lane, and I understand entirely why it looks like an opportunity. I would argue, however, that it is a far greater opportunity than a car park could ever be.",
+   "We propose to plant a community orchard: forty apple, pear and plum trees, with a mown path, a few benches and a small shed for tools. A young fruit tree begins to bear fruit within a few years, and after that it will feed a neighbourhood for generations. Every autumn, the fruit would be free to anyone who lives nearby, and any surplus could be shared with the food bank on Church Street.",
+   "The benefits reach well beyond the fruit itself. In spring, the blossom would give bees and other insects an early meal, while the branches would shelter birds all year round. On hot days, the trees would cast shade in a town that has too little of it. Most importantly, an orchard is a place where people meet. At present, a resident of Mill Lane may live beside a neighbour for years without exchanging more than a nod. Working alongside one another, we believe, would change that.",
+   "I anticipate your objection. Parking is a genuine problem, and the council’s budget is limited. But consider the costs. A car park would need to be surfaced, lit and drained at considerable expense, and it would serve only those who drive into the town centre for an hour or two. Our orchard would cost far less. A local nursery has offered the trees at a reduced price, and more than sixty volunteers, of all ages, have already promised to give up their weekends to plant and tend it. The primary school has even offered to help with the planting. I would also point out that the High Street car park regularly has empty spaces before noon.",
+   "Consider, too, the children of Willowbrook. Many of them have never seen fruit growing on a tree, and an orchard would become a living classroom in which they could watch the seasons turn, from the first blossom to the last apple. It would also offer a shaded bench and a gentle walk to older residents, who currently have nowhere to sit between the shops and the bus stop.",
+   "There is a further difference. A car park, once built, is unlikely ever to be undone. An orchard, by contrast, grows more valuable with every year that passes.",
+   "I would be delighted to show you the field and our plans in person. I hope you will give the residents of Willowbrook the chance to prove what we can do.",
+   "Yours sincerely,",
+   "Yasmin Farooqui",
+   "Chair, Willowbrook Residents’ Group"
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What does the Residents’ Group want to plant on Tanner’s Field?",
+    "options": [
+     "A wildflower meadow",
+     "A community orchard",
+     "Rows of vegetables",
+     "A small wood"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 4, what does the word “anticipate” mean?",
+    "options": [
+     "Dislike",
+     "Forget",
+     "Expect in advance",
+     "Ignore"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the two words from paragraph 1 that tell you how long the field has been unused."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The council plans to sell the field for car parking.",
+     "The orchard would have forty trees.",
+     "No volunteers have offered to help.",
+     "The writer says the High Street car park is always full."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the ideas from 1 to 4 to show the order they appear in the letter.",
+    "items": [
+     "The writer answers an objection about parking and cost.",
+     "The writer explains what the group wants to plant.",
+     "The writer describes benefits beyond the fruit.",
+     "The writer offers to show the councillor the field."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 1, why does the writer say she “understands entirely” why the field looks like an opportunity?"
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 2,
+    "question": "How does the writer try to show that the orchard is better value than a car park? Give two points from paragraph 4."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the writer mean when she says a neighbour may live beside someone “for years without exchanging more than a nod”?"
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Why does the writer point out that the High Street car park “regularly has empty spaces before noon”?",
+    "options": [
+     "To suggest that the council should close it",
+     "To say that the High Street is unpleasant",
+     "To complain about the price of parking",
+     "To suggest that the parking problem is not as serious as it seems"
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why has the writer mentioned the sixty volunteers and the school’s offer?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “surplus” mean?"
+   },
+   {
+    "n": 12,
+    "kind": "short",
+    "marks": 2,
+    "question": "In paragraph 5, the writer compares a car park with an orchard. What difference does she want the councillor to notice? Explain in your own words."
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the writer’s argument?",
+    "options": [
+     "The council must not build any car parks in Willowbrook.",
+     "The town needs more volunteers.",
+     "A community orchard would benefit the town more than a car park and cost less.",
+     "Fruit trees are easy to look after."
+    ]
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "If Councillor Hargreaves is persuaded, what might he do next?"
+   }
+  ]
+ },
+ {
+  "id": "31-3",
+  "level": 31,
+  "title": "The Beech Wood in October",
+  "type": "Description",
+  "text": [
+   "By the middle of October, the beech wood has stopped pretending to be green. The leaves, which in summer made a roof so dense that hardly a fern could grow beneath it, have turned the colour of copper pennies and toasted bread, and the whole wood glows as though lit from within. Walking beneath them, you feel less like a visitor than like someone who has stepped inside a lantern.",
+   "The trunks rise smooth and grey, unmarked by the deep furrows of oak or ash, like the legs of enormous elephants, and the air between them is cool, carrying the first faint bite of winter. High above, the branches spread in a lattice so fine that the sky appears in the gaps as pieces of a blue jigsaw. The light that filters down is low and slanting. It lays long bars of gold across the ground and turns each drifting leaf, for a moment, into a flake of fire.",
+   "Underfoot, the fallen leaves have gathered ankle-deep. They rustle, crackle and sigh at every step, and in the still air the sound carries far ahead of you, so that nothing in the wood can be surprised by your arrival. Beneath the top layer, the older leaves have darkened and softened into a damp brown blanket that smells of earth and mushrooms and rain. It is a smell that seems to hold the whole year inside it. Now and then a breeze combs through the canopy, and a shower of leaves spins down like slow, silent rain.",
+   "Everywhere there are signs of a wood preparing itself. Beech nuts, gathered in prickly cases the size of a thumbnail, lie scattered among the leaves, some split open to show their small, three-cornered seeds. A squirrel streaks up a trunk with a nut in its mouth, pausing halfway to scold the intruder before vanishing into the branches. Somewhere beyond, a wood pigeon clatters out of a tree, and the noise of its wings echoes for a long time. Far off, a jay gives one harsh cry, and the silence closes behind it like water.",
+   "On a rotting stump, a cluster of pale fungi has appeared overnight, their caps packed together like a crowd pressed against a window. Their sudden arrival is a reminder that the wood’s real work goes on out of sight, in the soil, where threads of fungus feed on fallen leaves and slowly turn them back into earth.",
+   "As the afternoon fades, the gold deepens to amber and the shadows lengthen between the trunks. A single leaf lets go of its twig and turns over and over on its way down, taking so long that you almost expect it to change its mind. It lands without a sound. The wood does not hurry, and after a while you find that you have stopped hurrying too."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “filters” mean?",
+    "options": [
+     "Bounces off",
+     "Blazes fiercely",
+     "Passes through gradually",
+     "Stays still"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the two words from paragraph 1 that tell you what the leaves look like when they have turned."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the squirrel do halfway up the trunk?"
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Beech trunks are rough and deeply furrowed.",
+     "The fallen leaves are ankle-deep.",
+     "The fungi on the stump have been growing for months.",
+     "A wood pigeon flies noisily out of a tree."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the things the writer notices from 1 to 4 in the order they appear in the text.",
+    "items": [
+     "A single leaf falls without a sound.",
+     "A cluster of fungi on a stump.",
+     "The leaves glowing overhead.",
+     "Fallen leaves rustling underfoot."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 2,
+    "question": "The writer says walking under the leaves feels like “stepping inside a lantern”. What does this comparison suggest? Give two ideas."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the writer compare the fungi to “a crowd pressed against a window”?"
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the writer say that “nothing in the wood can be surprised by your arrival”?"
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What does the writer mean by “the wood’s real work goes on out of sight”?",
+    "options": [
+     "Most of the trees are hidden in the fog.",
+     "Important changes happen in the soil, unseen by visitors.",
+     "The wood is busy with visitors.",
+     "The squirrels work in secret."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “lattice” tell you about how the branches look?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 2,
+    "question": "Give two ways in which the writer makes the end of the text feel calm and peaceful."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up paragraph 4?",
+    "options": [
+     "A squirrel and a wood pigeon frighten a visitor.",
+     "Beech nuts are dangerous to walk on.",
+     "There are signs of animals and seeds getting ready for the coming season.",
+     "The wood is silent."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "If the writer stayed in the wood until the evening, what do you think would happen to the light? Use the text to help you."
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do the writer’s words “you find that you have stopped hurrying too” suggest about the wood?"
+   }
+  ]
+ },
+ {
+  "id": "31-4",
+  "level": 31,
+  "title": "How Light Carries Messages",
+  "type": "Explanation",
+  "text": [
+   "Every time you watch a video or send a message to a friend on the other side of the world, the information may travel for part of its journey as flashes of light inside a strand of glass. These strands, known as optical fibres, are so thin that a single one is little wider than a human hair, yet together they form a network that stretches across continents and beneath the oceans.",
+   "An optical fibre has two main layers. At the centre is the core, a thread of exceptionally pure glass. Around it lies a second layer called the cladding, which is made from a different type of glass. A plastic coat covers the outside, protecting the delicate strand from scratches and from being bent too sharply. The crucial detail is that the two glasses are not identical: light travels a little more slowly through the core than through the cladding.",
+   "This difference is what keeps the light trapped. When a beam inside the core meets the boundary with the cladding at a shallow angle, it does not escape. Instead, it bounces back into the core, rather like a ball ricocheting off a wall. This effect is known as total internal reflection. The light zigzags along the fibre from side to side, and it can follow gentle bends and curves without leaking out.",
+   "To send a message, the information must first be turned into a code. A tiny laser or lamp at one end switches on and off many millions of times each second, producing pulses of light. A pattern of pulses can stand for letters, sounds or pictures, in much the same way that a pattern of dots and dashes can spell words in Morse code. At the far end, a detector notices the flashes and changes them back into the original message.",
+   "Fibres have several advantages over older copper cables. Light can carry far more information than electricity, so a single fibre can handle thousands of conversations at once. The signals are not disturbed by interference from nearby electrical equipment, and they weaken more slowly, which means they can travel much further before needing a boost. Even so, over very long distances the light gradually dims, so devices called amplifiers are placed along the cable at regular intervals to strengthen it.",
+   "Fibres also have drawbacks. Glass is brittle, so a cable must be handled with care, and a cable on the seabed can be damaged by a ship’s anchor, interrupting the messages it carries. Repairing a break demands skilled engineers, who must join the two tiny cores so precisely that no light leaks out at the join.",
+   "Despite these difficulties, a simple discovery about how light bends and bounces has become the invisible backbone of modern communication. Most of the time, we never notice it, which is exactly how the engineers would like it."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "How wide is a single optical fibre?",
+    "options": [
+     "As wide as a pencil",
+     "As wide as a finger",
+     "Thicker than a rope",
+     "A little wider than a human hair"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “exceptionally” mean?",
+    "options": [
+     "Unusually",
+     "Slightly",
+     "Rarely",
+     "Roughly"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word from paragraph 2 for the layer of glass that surrounds the core."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "What protects the delicate glass strand from scratches?"
+   },
+   {
+    "n": 5,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "The core and the cladding are made from identical glass.",
+     "Light travels more slowly through the core than through the cladding.",
+     "Copper cables can carry more information than optical fibres.",
+     "Amplifiers are placed along a long cable to strengthen the signal."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how a message is sent along a fibre.",
+    "items": [
+     "A detector changes the flashes back into a message.",
+     "A laser or lamp produces pulses of light.",
+     "The light zigzags along the core.",
+     "The message is turned into a code."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 2,
+    "question": "Explain why light stays inside the core of a fibre. Use the text to help you."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why does the author compare the pulses of light with Morse code?"
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why do the cables need amplifiers?"
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "marks": 1,
+    "question": "According to the text, which is the best reason for using optical fibres instead of copper cables?",
+    "options": [
+     "They are cheaper to repair.",
+     "They are made of plastic.",
+     "They carry far more information and are not disturbed by electrical interference.",
+     "They do not need a detector."
+    ]
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 5, what does the word “interference” mean?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which of these is the best heading for paragraph 6?",
+    "options": [
+     "How to mend a fibre with glue",
+     "Why glass is heavier than plastic",
+     "Problems with fibres",
+     "The history of Morse code"
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "A ship’s anchor damages a cable on the seabed. What might happen to the messages travelling through it?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "The author calls optical fibres “the invisible backbone of modern communication”. What does the word “backbone” suggest?"
+   }
+  ]
+ },
+ {
+  "id": "31-5",
+  "level": 31,
+  "title": "The Crows of New Caledonia",
+  "type": "Information Report",
+  "text": [
+   "Among the forested islands of the South Pacific, New Caledonia is home to a bird whose behaviour has challenged an old belief. Scientists once thought that making tools was a talent confined to humans and their closest relatives. The New Caledonian crow, a glossy black bird with a heavy, straight beak, would scarcely earn a second glance on a woodland path. Yet how it finds its food has drawn researchers from around the world, who have spent decades watching, filming and testing it.",
+   "The crow’s principal prey is a plump grub that burrows into rotting timber, safely beyond the reach of even the longest beak. To extract it, the bird selects a slender twig and snaps it to a suitable length. It strips away the leaves and side shoots that would get in the way, pushes the twig into the tunnel and waits until the grub clamps its jaws on the tip. Then the crow draws out its meal. Some individuals refine the technique, breaking a twig off at a fork so that a small hook remains at one end, which they trim with meticulous care. Others tear strips from the serrated leaves of a pandanus plant, making narrow tools whose edges are lined with tiny barbs.",
+   "Perhaps more striking is the crows’ regard for their equipment. Individuals have been seen carrying a favoured tool from one feeding site to the next, rather than making a new one each time. Such conduct is rare, because it implies foresight: a bird that saves a tool for later seems to recognise that the object is worth keeping.",
+   "Tool-making is not an instinct that arrives fully formed. Young crows remain close to their parents for many months, and during that time they observe the adults at work with close attention. Youngsters can be seen handling twigs long before they are skilful, and it takes them a considerable time to master the craft. Biologists therefore regard the skill as largely learned rather than inherited.",
+   "A famous experiment at a university in Oxford showed how flexible this ability can be. Researchers placed a tiny bucket of food at the bottom of a narrow, upright tube and offered a crow a length of straight wire, which was useless for lifting the bucket by its handle. The bird wedged one end of the wire into a gap and tugged the other end with its beak until it bent, then hooked the bucket out. Because crows in the wild have no access to wire, the bird had not repeated a habit; it had solved a problem it had never met.",
+   "How much the crows truly comprehend remains contested. Some researchers argue that the birds reason about cause and effect, whereas others maintain that trial and error, together with a good memory, can account for the results. Whichever view eventually prevails, the crows have already forced scientists to reconsider what a small brain is capable of."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "According to paragraph 1, what did scientists once think about making tools?",
+    "options": [
+     "That crows were the best at it",
+     "That only humans and their closest relatives could do it",
+     "That it could only be done on islands",
+     "That it was too dangerous to try"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “meticulous” mean?",
+    "options": [
+     "Hurried and careless",
+     "Gentle and slow",
+     "Extremely careful and precise",
+     "Reluctant and unwilling"
+    ]
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the single word from paragraph 2 that describes the edges of the pandanus leaves."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "marks": 1,
+    "question": "Why can a crow not simply use its beak to reach its favourite food?"
+   },
+   {
+    "n": 5,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "A hooked tool can be made by breaking a twig off at a fork.",
+     "Crows in the wild use wire to hunt for grubs.",
+     "Young crows learn by watching adults for many months.",
+     "Scientists all agree about how crows think."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the steps from 1 to 4 to show how a crow catches a grub.",
+    "items": [
+     "The crow draws out the grub.",
+     "The crow snaps a twig to a suitable length.",
+     "The crow pushes the twig into the tunnel.",
+     "The crow strips away the leaves and side shoots."
+    ]
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 2,
+    "question": "How do we know that crows learn to make tools rather than being born knowing how? Give two pieces of evidence from paragraph 4."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the writer suggest about a crow that saves a tool for later?"
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Why was it important that crows in the wild have no access to wire?",
+    "options": [
+     "It proved that the crow had faced a new problem and worked out a solution.",
+     "It meant the crow could not have been hungry.",
+     "It showed that crows dislike metal.",
+     "It meant the experiment could not be repeated."
+    ]
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "The writer says the crows have “forced scientists to reconsider”. What does the word “forced” suggest about the evidence?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 6, what does the word “contested” mean in “remains contested”?"
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the whole text?",
+    "options": [
+     "Crows are the cleverest animals in the world.",
+     "Grubs are hard to find in rotting wood.",
+     "Scientists cannot explain anything about crows.",
+     "New Caledonian crows make and use tools, which challenges what we thought birds could do."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which phrase best describes the writer’s attitude to the crows?",
+    "options": [
+     "Bored",
+     "Impressed",
+     "Frightened",
+     "Amused"
+    ]
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "If the crow in the experiment had been given a thin strip of card that was too short to reach the bucket, what do you think it might have done? Use what you have read to help you."
+   }
+  ]
+ },
+ {
+  "id": "31-6",
+  "level": 31,
+  "title": "A Key in the Lining",
+  "type": "Narrative",
+  "text": [
+   "The coat had hung on the rail for three weeks before Ines finally carried it to the till, a long bottle-green thing with cuffs rubbed thin and a faint smell of lavender and old paper. “Four pounds,” said the woman behind the counter, not lifting her eyes from a half-finished crossword. “Nobody else wanted it.” Ines, who was saving every spare coin for trainers and could scarcely afford a bus fare, paid anyway, without being able to say why.",
+   "It was on the bus home that her fingers, wandering idly along the hem, found something hard beneath a small tear in the lining: a brass key no longer than her thumb, knotted to a faded blue ribbon, with a card folded around it. The handwriting was so slanted and old-fashioned that she had to tilt the card towards the window to decipher it. “If you have found this,” it read, “ask at number 9, Coldharbour Lane.”",
+   "She read it four times and then rang the bell two stops early. Coldharbour Lane proved to be a narrow street of tall terraced houses whose doors had faded over the years to tired shades of red and green, and number 9, the last of them, had a crooked gate and lace at the window. Ines hesitated on the pavement, her imagination sprinting through every story she had ever read, before she pushed the gate open.",
+   "The door was opened by a small, upright woman with silver hair and a pencil tucked behind one ear, whose glance travelled from the coat to the key and back again as something in her face loosened. “Three weeks,” she said. “I had begun to fear that nobody was curious any more.”",
+   "Ines stared, for she had seen that pencil before, and that habit of tilting the head to one side. “You were at the till,” she said, “and you told me nobody else wanted it.” “And nobody did,” said the woman. “That was rather the point.”",
+   "She led Ines along a hall crowded with photographs of children squinting into the sun, each clutching a recorder or a trumpet, and into a front room where an upright piano stood beneath a knitted shawl, its lid shut. “I am Mrs Bhatt,” she said, “and this street was a good deal noisier in my time. These days my fingers ignore my instructions, and since the spring the piano has stayed closed. It is a poor thing for an instrument to be locked away with nobody to play it.” She nodded at the key. “I hoped someone might come and turn it.”",
+   "“So the coat was a trick,” said Ines, but Mrs Bhatt corrected her gently: “An invitation. A trick means I set out to fool you.”",
+   "Ines looked at the key, then at the piano, then at the key again, and found that the trainers she had been saving for mattered a little less than they had that morning. She knelt, fitted the key into the lock and turned it. The lid rose with a sigh, and the first note she pressed rang out through the room, low and true, as if the piano had been waiting for her all along."
+  ],
+  "questions": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "marks": 1,
+    "question": "In paragraph 2, what does the word “decipher” mean?",
+    "options": [
+     "Copy out neatly",
+     "Throw away",
+     "Work out with some effort",
+     "Read aloud"
+    ]
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "marks": 1,
+    "question": "Find and copy the word from paragraph 1 that tells you the colour of the coat."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "marks": 1,
+    "question": "What did the card tell the finder of the key to do?"
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "marks": 1,
+    "question": "Tick True or False for each sentence.",
+    "items": [
+     "Ines paid four pounds for the coat.",
+     "The key was found in the coat’s pocket.",
+     "The woman at the till was doing a crossword.",
+     "Ines got off the bus at her usual stop."
+    ]
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "marks": 1,
+    "question": "Number the events from 1 to 4 to show the order they happened in.",
+    "items": [
+     "Ines stood outside number 9.",
+     "Mrs Bhatt explained why she had left the key.",
+     "Ines bought the coat.",
+     "Ines found a key in the lining."
+    ]
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "marks": 1,
+    "question": "What clue in paragraph 5 tells Ines that the woman at the door was the woman from the till? Give one."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "marks": 2,
+    "question": "What clues in paragraph 6 suggest that Mrs Bhatt used to teach music? Give two."
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "marks": 1,
+    "question": "What does Mrs Bhatt mean when she says “That was rather the point”?",
+    "options": [
+     "She wanted the coat to be cheap.",
+     "She wanted to hide the key from the customers.",
+     "She was angry that nobody had bought the coat.",
+     "She hoped that someone curious, whom others overlooked, would be the one to find the key."
+    ]
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "marks": 1,
+    "question": "Mrs Bhatt says the coat was “an invitation”, not “a trick”. Why does she choose the word “invitation”?"
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "marks": 1,
+    "question": "In paragraph 6, Mrs Bhatt says it is “a poor thing” for an instrument to be locked away. What does she mean by “a poor thing”?"
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "marks": 2,
+    "question": "The last sentence says the note rang out “as if the piano had been waiting for her all along”. What does this make you think about the piano and about Ines? Give two ideas."
+   },
+   {
+    "n": 12,
+    "kind": "mc",
+    "marks": 1,
+    "question": "Which sentence best sums up the story?",
+    "options": [
+     "A girl buys a coat and finds treasure hidden in its lining.",
+     "A girl follows a note hidden in a coat and discovers a retired music teacher who wants someone to play her piano.",
+     "A girl gets lost on her way to buy trainers.",
+     "A shop assistant tricks a girl into paying too much."
+    ]
+   },
+   {
+    "n": 13,
+    "kind": "short",
+    "marks": 1,
+    "question": "What does the phrase “mattered a little less than they had that morning” tell you about how Ines is feeling?"
+   },
+   {
+    "n": 14,
+    "kind": "short",
+    "marks": 1,
+    "question": "What do you think Ines and Mrs Bhatt might do next? Give a reason."
+   }
+  ]
+ }
+]

@@ -1,0 +1,1728 @@
+[
+ {
+  "id": "18-1",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "soft",
+    "guidance": "Accept “soft” only (“deep” describes how much snow, not how it felt)."
+   },
+   {
+    "n": 2,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "A carrot.",
+    "guidance": "Accept carrot."
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     1,
+     2,
+     3
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "They were very snowy / they had snow all over them.",
+    "guidance": "Accept any answer that shows snow was all over their bodies."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Her fingers were getting cold / the mitten was a present from her gran.",
+    "guidance": "Accept either reason (or both)."
+   },
+   {
+    "n": 7,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Because he found her mitten / she was pleased with him.",
+    "guidance": "Accept any answer linked to Sam finding the mitten or Lily feeling pleased or thankful."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Any one of: Sam laughed; Lily could not wait to go outside; they built a snowman; they were covered in snow.",
+    "guidance": "Accept any one relevant piece of evidence from the text."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "They were very red (because they were cold).",
+    "guidance": "Accept red / rosy / cold."
+   }
+  ]
+ },
+ {
+  "id": "18-2",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "shaky",
+    "guidance": "Accept “shaky” only."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Tomasz.",
+    "guidance": "Accept Tomasz."
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     3,
+     1,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She felt scared or embarrassed because she could not cross the bridge.",
+    "guidance": "Accept any answer about feeling scared, upset or embarrassed, or not wanting to be asked to cross the bridge."
+   },
+   {
+    "n": 6,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "He sat beside Amara / he said it was scary for him too / he went first / he kept saying “Nearly there!”.",
+    "guidance": "Accept any one relevant piece of evidence."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Happy / proud / excited, because she laughed, shouted “I did it!” and wanted to do it again.",
+    "guidance": "Accept a positive feeling with one piece of evidence (laughed, shouted, did not want to go in, wanted to do it again)."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "Play on the climbing frame again / cross the bridge again.",
+    "guidance": "Accept any sensible prediction linked to the climbing frame."
+   }
+  ]
+ },
+ {
+  "id": "18-3",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "golden",
+    "guidance": "Accept “golden” only."
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     1,
+     3,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "With a little milk and no sugar.",
+    "guidance": "Accept a little milk and no sugar. Both parts are needed."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "So they would not wake Mum up.",
+    "guidance": "Accept any answer about keeping quiet or not waking Mum."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "He did not want to spill the tea / drop the tray.",
+    "guidance": "Accept any answer about being careful or not spilling."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She smiled / she said it was the best breakfast ever / she gave them a hug.",
+    "guidance": "Accept any one relevant piece of evidence."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "Happy / proud / pleased.",
+    "guidance": "Accept any happy feeling. Do not accept “hot”."
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   }
+  ]
+ },
+ {
+  "id": "18-4",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "a little water",
+    "guidance": "Accept “a little water”."
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     1,
+     4,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Scissors (with an adult’s help).",
+    "guidance": "Accept scissors."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Scissors can be dangerous / so you do not hurt yourself.",
+    "guidance": "Accept any answer about safety or scissors being sharp."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The cress needs plenty of light to grow.",
+    "guidance": "Accept any answer that says cress needs light or a bright place."
+   },
+   {
+    "n": 8,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Green shoots will appear / the cress will keep growing and be ready to eat after about a week.",
+    "guidance": "Accept green shoots, or the cress getting taller, or being ready to eat in about a week."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   }
+  ]
+ },
+ {
+  "id": "18-5",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "breeze",
+    "guidance": "Accept “breeze” only."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "To grind grain into flour.",
+    "guidance": "Accept: to make flour / to grind grain."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Electricity.",
+    "guidance": "Accept electricity."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "We can feel it on our faces and we can see what it does (leaves shake, flags flap).",
+    "guidance": "Accept feeling it or seeing what it moves."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It is very strong.",
+    "guidance": "Accept: very strong / a strong wind / a gale."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "A strong wind / a gale.",
+    "guidance": "Accept strong wind or gale. Do not accept breeze."
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "To make the reader think / to introduce the next part that answers it.",
+    "guidance": "Accept any answer about getting the reader interested or leading into the answer."
+   }
+  ]
+ },
+ {
+  "id": "18-6",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "fresh water",
+    "guidance": "Accept “fresh water”."
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "A wooden house for a rabbit.",
+    "guidance": "Accept: a wooden home / house for a rabbit."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "It keeps its teeth from getting too long.",
+    "guidance": "Accept any answer about keeping its teeth short or from growing too long."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Rabbits do not like to be lonely / they live in groups in the wild.",
+    "guidance": "Accept either idea."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Spend lots of time with it every day.",
+    "guidance": "Accept: spend lots of time with it / play with it or keep it company. Accept getting a second rabbit."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Friendship / fun / love / happiness.",
+    "guidance": "Accept any sensible idea about enjoyment or company."
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   }
+  ]
+ },
+ {
+  "id": "19-1",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "greedy",
+    "guidance": "Accept “greedy” only."
+   },
+   {
+    "n": 3,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     4,
+     1,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Please give the ducks only the special duck food.",
+    "guidance": "Accept: only give the ducks the special (duck) food."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "He laughed loudest of all.",
+    "guidance": "Accept: he laughed / everyone laughed."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She wanted to eat the crisps that had blown away.",
+    "guidance": "Accept any answer about wanting the crisps or food."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Everyone was tired and Yusuf was asleep / so they could rest.",
+    "guidance": "Accept any answer about tiredness, sleeping or quiet."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "They were very hungry / strong.",
+    "guidance": "Accept hungry, eager, strong."
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   }
+  ]
+ },
+ {
+  "id": "19-2",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "The green one.",
+    "guidance": "Accept green."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "To reach the silver rocket at the end.",
+    "guidance": "Accept: to get to the rocket / the end of the path of stars first."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     1,
+     4,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The counter was in his basket / he looked very pleased with himself.",
+    "guidance": "Accept either piece of evidence."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She was a little disappointed but she took it well / she wants to win next time.",
+    "guidance": "Accept disappointed, or a good loser, or determined to win next time."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "He knew he had done something cheeky / he was proud of taking the counter.",
+    "guidance": "Accept any answer suggesting he seemed proud or knew what he had done."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "Play another game.",
+    "guidance": "Accept any sensible prediction, e.g. play again, Lola tries to win, they put the game away."
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   }
+  ]
+ },
+ {
+  "id": "19-3",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "wobbly",
+    "guidance": "Accept “wobbly” only."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "A blue feather.",
+    "guidance": "Accept feather. Do not accept a compass or a joke."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     2,
+     4,
+     1,
+     3
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "His tummy felt full of butterflies / his legs felt wobbly / his hand stayed by his side / he spoke quietly.",
+    "guidance": "Accept any one relevant piece of evidence."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "They thought it was interesting / special / they liked it.",
+    "guidance": "Accept any answer about finding the compass interesting or exciting."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The compass was old and special / it might break.",
+    "guidance": "Accept any answer about the compass being old, precious or easy to break."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "He stopped feeling nervous / worried.",
+    "guidance": "Accept any answer saying his worries had gone."
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   }
+  ]
+ },
+ {
+  "id": "19-4",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "tiny insects",
+    "guidance": "Accept “tiny insects”."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     4,
+     1,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "On leaves, near aphids.",
+    "guidance": "Accept: on leaves. Extra detail about aphids is not needed."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "So the larvae have food to eat as soon as they hatch.",
+    "guidance": "Accept any answer about the young having food nearby."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Ladybirds eat the aphids that harm plants.",
+    "guidance": "Accept: they eat aphids / pests. Accept eating aphids alone."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The bright colours warn it to stay away / ladybirds taste nasty.",
+    "guidance": "Accept bright colours as a warning, or the nasty taste."
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   }
+  ]
+ },
+ {
+  "id": "19-5",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "a large, dry pine cone",
+    "guidance": "Accept “large, dry pine cone” (with or without “a”)."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     3,
+     4,
+     2,
+     1
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "A spoon.",
+    "guidance": "Accept spoon."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "So you can watch the birds that come to it.",
+    "guidance": "Accept any answer about watching or seeing the birds."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Wait: it may take a few days for the birds to find it.",
+    "guidance": "Accept be patient / wait / keep watching. Do not accept taking it down."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "The birds.",
+    "guidance": "Accept birds / wild birds."
+   },
+   {
+    "n": 9,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It would drip off / it would not stay between the scales of the pine cone.",
+    "guidance": "Accept any answer about it dripping, not staying in place or being messy."
+   }
+  ]
+ },
+ {
+  "id": "19-6",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 2,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "kneads",
+    "guidance": "Accept “kneads” only."
+   },
+   {
+    "n": 3,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 4,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     3,
+     1,
+     2
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "They push it upwards / make it grow bigger.",
+    "guidance": "Accept: make it rise / grow bigger."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "So the yeast works and the dough can rise.",
+    "guidance": "Accept any answer about helping the yeast to work or the dough to rise."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The dough would not rise / the bread would be flat and heavy.",
+    "guidance": "Accept any answer saying there would be no bubbles, no rising or a flat loaf."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It will be very hot / you could burn yourself.",
+    "guidance": "Accept any answer about heat or safety."
+   },
+   {
+    "n": 9,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 10,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   }
+  ]
+ },
+ {
+  "id": "20-1",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Two goals each / 2-2.",
+    "guidance": "Accept 2-2, two all or two goals each."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "raced",
+    "guidance": "Accept “raced” or “fast”."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Nervous / worried.",
+    "guidance": "Accept nervous, worried, anxious or scared. Do not accept “hungry”."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     2,
+     3,
+     1
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "F",
+     "T",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It smacked into her gloves / it stung her hands.",
+    "guidance": "Accept either clue."
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Because if Zainab had not stopped the ball, Oakfield would have scored / the Rovers could not have scored their winning goal.",
+    "guidance": "Accept any answer that shows the save stopped Oakfield going ahead and gave the Rovers the chance to win."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "It sounds loud and hard, so we can hear how fast the ball was.",
+    "guidance": "Accept any answer about the noise, force or speed of the ball."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She was so happy that her team had won / she was proud of her save.",
+    "guidance": "Accept any answer about being happy, proud or pleased with the win."
+   }
+  ]
+ },
+ {
+  "id": "20-2",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "At night.",
+    "guidance": "Accept: in the dark / after the sun goes down."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "talons",
+    "guidance": "Accept “talons” only."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 5,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Its feathers and wing edges are soft.",
+    "guidance": "Accept any answer about soft feathers or soft wings."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The owl flies silently.",
+    "guidance": "Accept any answer about the owl making no sound."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "To find out what the owl has been eating.",
+    "guidance": "Accept any answer about finding out the owl’s food."
+   },
+   {
+    "n": 9,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     3,
+     2,
+     1
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It saves the owl building a new nest.",
+    "guidance": "Accept any sensible answer, such as: it is easier, quicker or already made."
+   }
+  ]
+ },
+ {
+  "id": "20-3",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "On a shelf in his front room.",
+    "guidance": "Accept on the shelf / in the front room."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "chuckled",
+    "guidance": "Accept “chuckled” only (it is in paragraph 4)."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "He treated them with great care; they were precious to him.",
+    "guidance": "Accept any answer about being careful, gentle or valuing the shells."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     2,
+     3,
+     1
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "T"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Only whole shells are good for a collection / broken shells would not look good.",
+    "guidance": "Accept any sensible reason about wanting whole, perfect shells."
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "He put it next to Grandad’s box / he did his best with the labels / he smiled all the way to bedtime.",
+    "guidance": "Accept any one sensible clue from the last two paragraphs."
+   },
+   {
+    "n": 10,
+    "kind": "mc",
+    "domain": "2e",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "To make Kavi feel proud / because he was pleased Kavi had started his own collection.",
+    "guidance": "Accept any answer about praise, encouragement or being pleased with Kavi."
+   }
+  ]
+ },
+ {
+  "id": "20-4",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "You will be using a hot pan.",
+    "guidance": "Accept: the pan is hot / to be safe."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "your hands",
+    "guidance": "Accept “hands”. The answer must be from the first paragraph of the method."
+   },
+   {
+    "n": 4,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     2,
+     1,
+     3
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Add a spoonful of yoghurt.",
+    "guidance": "Accept: add some yoghurt. Do not accept “add flour”."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Small bubbles appear on top.",
+    "guidance": "Accept bubbles."
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "To keep them warm.",
+    "guidance": "Accept: keeps them warm / stops them going cold."
+   },
+   {
+    "n": 9,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "equal",
+    "guidance": "Accept “equal” only."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "You do not need to wait for the dough to rise / you only leave the dough for twenty minutes.",
+    "guidance": "Accept either idea."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "To show the order of the steps.",
+    "guidance": "Accept any answer about order, sequence or helping the reader follow the steps."
+   }
+  ]
+ },
+ {
+  "id": "20-5",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Very early / before the sun was out.",
+    "guidance": "Accept early morning or before sunrise."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "A",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "hiss",
+    "guidance": "Accept “hiss” only."
+   },
+   {
+    "n": 4,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "The text says they were going to the seaside for the very first time / she asks “Is that really the sea?”",
+    "guidance": "Accept either clue."
+   },
+   {
+    "n": 5,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     2,
+     3,
+     1,
+     4
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 6,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 7,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "It was dark and she felt a bit nervous / unsure.",
+    "guidance": "Accept any answer linked to the dark or feeling nervous."
+   },
+   {
+    "n": 8,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "To show how bright and deep the blue was, using something she knows well.",
+    "guidance": "Accept any answer about showing how blue the sea was."
+   },
+   {
+    "n": 10,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "She jumped down and pulled Dad towards the sand / she did not feel tired at all.",
+    "guidance": "Accept either clue."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "He knew the tunnel would end soon and the sea would appear.",
+    "guidance": "Accept any answer about a surprise coming or the tunnel ending."
+   }
+  ]
+ },
+ {
+  "id": "20-6",
+  "keys": [
+   {
+    "n": 1,
+    "kind": "short",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "Five days.",
+    "guidance": "Accept 5."
+   },
+   {
+    "n": 2,
+    "kind": "mc",
+    "domain": "2b",
+    "marks": 1,
+    "answer": "D",
+    "guidance": ""
+   },
+   {
+    "n": 3,
+    "kind": "find",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "diyas",
+    "guidance": "Accept “diyas” (or “diya”)."
+   },
+   {
+    "n": 4,
+    "kind": "tf",
+    "domain": "2b",
+    "marks": 1,
+    "answer": [
+     "T",
+     "F",
+     "F"
+    ],
+    "guidance": "1 mark for all statements correct."
+   },
+   {
+    "n": 5,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "Because the sky is very dark (no moon).",
+    "guidance": "Accept any answer about the dark sky or no moon."
+   },
+   {
+    "n": 6,
+    "kind": "mc",
+    "domain": "2a",
+    "marks": 1,
+    "answer": "B",
+    "guidance": ""
+   },
+   {
+    "n": 7,
+    "kind": "mc",
+    "domain": "2c",
+    "marks": 1,
+    "answer": "C",
+    "guidance": ""
+   },
+   {
+    "n": 8,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "To get the house ready for visitors / to welcome happiness.",
+    "guidance": "Accept any sensible reason about getting ready, visitors or a fresh start."
+   },
+   {
+    "n": 9,
+    "kind": "short",
+    "domain": "2d",
+    "marks": 1,
+    "answer": "People give boxes of sweets to friends and neighbours / cook meals to share / give gifts.",
+    "guidance": "Accept any one example."
+   },
+   {
+    "n": 10,
+    "kind": "order",
+    "domain": "2c",
+    "marks": 1,
+    "answer": [
+     4,
+     2,
+     1,
+     3
+    ],
+    "guidance": "1 mark for all four correct."
+   },
+   {
+    "n": 11,
+    "kind": "short",
+    "domain": "2g",
+    "marks": 1,
+    "answer": "joy",
+    "guidance": "Accept “joy”."
+   }
+  ]
+ }
+]

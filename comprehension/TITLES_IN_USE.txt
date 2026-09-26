@@ -1,0 +1,102 @@
+18-1  Narrative  The Lost Mitten
+18-2  Narrative  The New Climbing Frame
+18-3  Narrative  Breakfast in Bed
+18-4  Procedural  How to Grow Cress
+18-5  Information Report  All About Wind
+18-6  Information Report  Rabbits as Pets
+19-1  Recount (Fictional)  A Day at the Farm Park
+19-2  Narrative  The Missing Counter
+19-3  Narrative  Show and Tell Friday
+19-4  Information Report  Ladybirds
+19-5  Procedural  How to Make a Bird Feeder
+19-6  Explanation  How Bread Is Made
+20-1  Narrative  The Last Two Minutes
+20-2  Information Report  Ladybirds in the Garden
+20-3  Narrative  Grandad's Shell Box
+20-4  Procedural  How to Make Flatbreads
+20-5  Recount (Fictional)  The Train to the Sea
+20-6  Information Report  Diwali, the Festival of Lights
+21-1  Narrative  The Bookshop on Chapel Lane
+21-2  Explanation  From Bean to Bar
+21-3  Narrative  Snail Race
+21-4  Information Report  The Great Swallow Journey
+21-5  Description  Lantern Night
+21-6  Exposition  Should We Walk to School?
+22-1  Narrative  The New Girl
+22-2  Information Report  Life in a Pond
+22-3  Narrative  The Missing Biscuits
+22-4  Explanation  How a Zip Works
+22-5  Recount (Fictional)  Sports Day
+22-6  Procedural  How to Explore a Rock Pool
+23-1  Narrative  The Piano Tuner
+23-2  Explanation  How a Canal Lock Works
+23-3  Description  The Glasshouse
+23-4  Information Report  The Sound Makers
+23-5  Narrative  The Sandcastle Contest
+23-6  Recount (Historical)  Mary Anning, Fossil Hunter
+24-1  Explanation  How Bats Find Their Way
+24-2  Narrative  The Pea That Did Not Matter
+24-3  Information Report  Our Neighbours in Space
+24-4  Narrative  The New Girl
+24-5  Explanation  A River’s Journey
+24-6  Recount (Fictional)  Mum’s Saturday Secret
+25-1  Narrative  The Final Leg
+25-2  Information Report  The Human Heart
+25-3  Recount (Historical)  A Day at a Victorian School
+25-4  Description  The Greenhouse at Dawn
+25-5  Exposition  Why Every School Needs a Garden
+25-6  Narrative  Through the Lock
+26-1  Narrative  The Canoe on Crane Lake
+26-2  Narrative  The Mill at the Bottom of the Sea
+26-3  Narrative  Dumplings for the New Year
+26-4  Information Report  Orangutans: Rainforest Rangers in Danger
+26-5  Explanation  How Rain Is Made
+26-6  Recount (Historical)  Louis Braille and the Dots
+27-1  Narrative  Fog on Carrow Ridge
+27-2  Recount (Fictional)  The Pond at Bramble Lane
+27-3  Description  The Attic at Nana Joy’s
+27-4  Discussion  Should Our Valley Have a Wind Farm?
+27-5  Recount (Historical)  The Discovery of Penicillin
+27-6  Information Report  The Arctic Tern: Champion Traveller
+28-1  Narrative  The Lantern Stairs
+28-2  Explanation  How a Compass Works
+28-3  Narrative  The Grandad Decision
+28-4  Information Report  The Smiling Axolotl
+28-5  Description  The Glass Workshop
+28-6  Recount (Historical)  The First Flight
+29-1  Explanation  Painting the Sky
+29-2  Narrative  The Slow River
+29-3  Exposition  Digging for Good
+29-4  Recount (Fictional)  The Lemon Battery
+29-5  Description  The Attic
+29-6  Recount (Historical)  A Penny for a Letter
+30-1  Narrative  The Last Bus
+30-2  Narrative  The Secret Gardener
+30-3  Information Report  Meerkats: Life in the Mob
+30-4  Narrative  The Substitute
+30-5  Recount (Historical)  Twelve Seconds at Kitty Hawk
+30-6  Explanation  How a Vacuum Flask Works
+31-1  Recount (Fictional)  Agnes Pryce, Postwoman of Cwm Derwen
+31-2  Exposition  A Field Worth Keeping
+31-3  Description  The Beech Wood in October
+31-4  Explanation  How Light Carries Messages
+31-5  Information Report  Crows That Make Tools
+31-6  Narrative  The Coat from the Charity Shop
+32-1  Recount (Fictional)  The Pear Tree
+32-2  Explanation  Bogs That Breathe
+32-3  Narrative  The Missing Queen
+32-4  Discussion  Should Museums Be Free?
+32-5  Narrative  The Paper-Maker’s Apprentice
+32-6  Recount (Historical)  The Mould That Fought Back
+33-1  Narrative  The Measure of a Sunflower
+33-2  Recount (Historical)  A Signal in the Static
+33-3  Narrative  The Last Strip
+33-4  Explanation  Where Has the Night Gone?
+33-5  Recount (Historical)  Along the Wall
+33-6  Description  The Tuner
+34-1  Narrative  The Height Marks
+34-2  Exposition  Give Us Back the Night
+34-3  Recount (Fictional)  Saturdays at Mr Iqbal’s
+34-4  Explanation  How a Seed Knows When to Sprout
+34-5  Description  Platform Four, Before Dawn
+34-6  Recount (Historical)  Ada and the Thinking Machine

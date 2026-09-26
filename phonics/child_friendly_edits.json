@@ -1,0 +1,349 @@
+{
+ "phonics": [
+  {
+   "phase": 1,
+   "idx": 2,
+   "title": "The Bus",
+   "text": "Ben and Nan got on a bus. Ben had a nap. Nan did not nap. Nan had to get Ben up to get off.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who got on the bus with Ben?",
+     "answer": "Nan."
+    },
+    {
+     "type": "who",
+     "question": "Who had a nap?",
+     "answer": "Ben."
+    },
+    {
+     "type": "why",
+     "question": "Why did Nan not nap?",
+     "answer": "She had to get Ben up to get off the bus."
+    }
+   ],
+   "reason": "Removed clock time 'At ten' and American 'cab'; title said Van but phase 2 cannot spell van, so now a bus; Mum driving removed."
+  },
+  {
+   "phase": 1,
+   "idx": 4,
+   "title": "Bob in Bed",
+   "text": "Bob is in bed. The sun is up. Dad ran in. Dad got Bob up. Bob is not mad. Bob had a hug.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who is in bed?",
+     "answer": "Bob."
+    },
+    {
+     "type": "what",
+     "question": "What did Bob have?",
+     "answer": "A hug."
+    },
+    {
+     "type": "why",
+     "question": "Why did Dad get Bob up?",
+     "answer": "The sun was up / it was time to get up."
+    }
+   ],
+   "reason": "Clock time 'It is ten' replaced by 'The sun is up'; when-question swapped for a what-question."
+  },
+  {
+   "phase": 2,
+   "idx": 4,
+   "title": "Zeb the Cat",
+   "text": "Zeb is a cat. Zeb sat in the bin and had a nap. Jen shut the lid. Zeb is in the bin! Zeb is sad.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Zeb have a nap?",
+     "answer": "In the bin."
+    },
+    {
+     "type": "what",
+     "question": "What did Jen shut?",
+     "answer": "The lid."
+    },
+    {
+     "type": "why",
+     "question": "Why is Zeb sad?",
+     "answer": "He is shut in the bin."
+    }
+   ],
+   "reason": "'check the bin' is an idiom; now 'look in the bin'."
+  },
+  {
+   "phase": 5,
+   "idx": 1,
+   "title": "The Shop",
+   "text": "Fran went to the shop to get milk. The shop was shut. A man said, \"Back soon.\" Fran sat on a step and waited.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Fran go to get?",
+     "answer": "Milk."
+    },
+    {
+     "type": "where",
+     "question": "Where did Fran sit?",
+     "answer": "On a step."
+    },
+    {
+     "type": "why",
+     "question": "Why did Fran wait?",
+     "answer": "The shop was shut."
+    }
+   ],
+   "reason": "Removed 'shut till ten' clock time and adult word 'clerk'."
+  },
+  {
+   "phase": 5,
+   "idx": 2,
+   "title": "The Bus",
+   "text": "Josh and Nan went on a bus. The bus had men and kids on it. Nan sat down. A man got up and let Josh sit. Josh said thanks.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who was on the bus with Josh and Nan?",
+     "answer": "Men and kids."
+    },
+    {
+     "type": "who",
+     "question": "Who let Josh sit?",
+     "answer": "A man."
+    },
+    {
+     "type": "why",
+     "question": "Why did the man get up?",
+     "answer": "So Josh could sit (Josh had no seat)."
+    }
+   ],
+   "reason": "'packed' and 'a spot' are ambiguous; now the bus has men and kids on it and Nan sat down."
+  },
+  {
+   "phase": 5,
+   "idx": 3,
+   "title": "The Crab",
+   "text": "Pam and Jim went to a rock pool. They had a look at a crab. Jim bent down to pat it. The crab pinched his hand! Jim yelped and jumped back.",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where did Pam and Jim go?",
+     "answer": "A rock pool."
+    },
+    {
+     "type": "what",
+     "question": "What did they look at?",
+     "answer": "A crab."
+    },
+    {
+     "type": "why",
+     "question": "Why did Jim yelp?",
+     "answer": "The crab pinched his hand."
+    }
+   ],
+   "reason": "'spotted' (could mean dotted) replaced with 'had a look at'."
+  },
+  {
+   "phase": 5,
+   "idx": 4,
+   "title": "The Flag",
+   "text": "Stan and Jess got a flag at the shop. They ran up the hill with it and stuck it in a crack. A strong wind hit the flag and it fell down.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Stan and Jess get at the shop?",
+     "answer": "A flag."
+    },
+    {
+     "type": "where",
+     "question": "Where did they stick the flag?",
+     "answer": "In a crack on the hill."
+    },
+    {
+     "type": "why",
+     "question": "Why did the flag fall down?",
+     "answer": "A strong wind hit it."
+    }
+   ],
+   "reason": "'gust' replaced with 'wind'."
+  },
+  {
+   "phase": 6,
+   "idx": 0,
+   "title": "The Dentist",
+   "text": "Sam had a bad tooth. He went to the dentist. She looked at it and got Sam a red toothbrush. Sam was sad, but he will brush his teeth with the toothbrush a lot.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who did Sam go to see?",
+     "answer": "The dentist."
+    },
+    {
+     "type": "what",
+     "question": "What did the dentist get Sam?",
+     "answer": "A red toothbrush."
+    },
+    {
+     "type": "why",
+     "question": "Why did Sam go to the dentist?",
+     "answer": "He had a bad tooth."
+    }
+   ],
+   "reason": "'checked', 'upset', 'from now on' replaced with plain words."
+  },
+  {
+   "phase": 6,
+   "idx": 1,
+   "title": "The Elf",
+   "text": "An elf lost his hat. He looked in the shed, in the dustbin and under his blanket. The elf was sad. Then he felt a bump in his bag. The hat was in the bag!",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did the elf lose?",
+     "answer": "His hat."
+    },
+    {
+     "type": "where",
+     "question": "Where was the hat?",
+     "answer": "In his bag."
+    },
+    {
+     "type": "why",
+     "question": "Why was the elf sad?",
+     "answer": "He lost his hat."
+    }
+   ],
+   "reason": "'checked' and 'upset' replaced."
+  },
+  {
+   "phase": 6,
+   "idx": 3,
+   "title": "The Rocket",
+   "text": "Josh and Jess had a rocket at the picnic. They painted it red and stuck a flag on top. It was not big, but Gran said it was the best rocket at the picnic. Josh and Jess had big smiles.",
+   "questions": [
+    {
+     "type": "what",
+     "question": "What did Josh and Jess have at the picnic?",
+     "answer": "A rocket."
+    },
+    {
+     "type": "what",
+     "question": "What did they stick on top?",
+     "answer": "A flag."
+    },
+    {
+     "type": "why",
+     "question": "Why did Josh and Jess have big smiles?",
+     "answer": "Gran said it was the best rocket."
+    }
+   ],
+   "reason": "Removed 'contest' and 'boss'; simple family praise instead."
+  },
+  {
+   "phase": 6,
+   "idx": 4,
+   "title": "The Hamster",
+   "text": "Nan's hamster got out. It isn't in its box. Nan looked in the basket and in her jacket. Then she felt a bump in her pocket. It was the hamster!",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Whose hamster got out?",
+     "answer": "Nan's."
+    },
+    {
+     "type": "where",
+     "question": "Where did Nan find the hamster?",
+     "answer": "In her pocket (in her jacket)."
+    },
+    {
+     "type": "why",
+     "question": "Why did Nan look in the basket and in her jacket?",
+     "answer": "She was looking for the hamster / it had got out."
+    }
+   ],
+   "reason": "'checked' replaced with 'looked'."
+  },
+  {
+   "phase": 6,
+   "idx": 5,
+   "title": "The Market",
+   "text": "Dad took Josh to the market. Josh had the basket. Dad got a pumpkin and some mushrooms and dropped them in it. Soon the basket had lots in it, and Josh's arms started to hurt. “It's my turn to have it,” said Dad.",
+   "questions": [
+    {
+     "type": "who",
+     "question": "Who had the basket at first?",
+     "answer": "Josh."
+    },
+    {
+     "type": "what",
+     "question": "What did Dad get at the market?",
+     "answer": "A pumpkin and some mushrooms."
+    },
+    {
+     "type": "why",
+     "question": "Why did Dad say it was his turn to have the basket?",
+     "answer": "It had lots in it and Josh's arms hurt."
+    }
+   ],
+   "reason": "'packed' replaced with 'lots in it'."
+  },
+  {
+   "phase": 7,
+   "idx": 2,
+   "title": "The Lost Boy",
+   "text": "Roy was at the fair. He looked round but Dad was not there. Roy called out. A helper found him and took him to a tent. Dad was in the tent!",
+   "questions": [
+    {
+     "type": "where",
+     "question": "Where was Roy?",
+     "answer": "At the fair."
+    },
+    {
+     "type": "who",
+     "question": "Who found Roy?",
+     "answer": "A helper."
+    },
+    {
+     "type": "why",
+     "question": "Why did Roy call out?",
+     "answer": "He could not see Dad / he was lost."
+    }
+   ],
+   "reason": "Adult word 'clerk' and shop replaced with a helper and a tent."
+  },
+  {
+   "phase": 8,
+   "idx": 4,
+   "title": "The Lake",
+   "text": "It was a hot day. Luke and Kate ran to the lake. Kate jumped in. Luke stayed on the sand. He had left his swim kit at home.",
+   "questions": [
+    {
+     "type": "when",
+     "question": "When did Luke and Kate run to the lake?",
+     "answer": "On a hot day."
+    },
+    {
+     "type": "where",
+     "question": "Where did Luke and Kate run?",
+     "answer": "To the lake."
+    },
+    {
+     "type": "why",
+     "question": "Why did Luke stay on the sand?",
+     "answer": "He had left his swim kit at home."
+    }
+   ],
+   "reason": "Removed date 'in June' and confusing 'bank' (now sand)."
+  }
+ ],
+ "redraw": [
+  "1-2",
+  "1-4",
+  "5-1",
+  "6-3",
+  "7-2",
+  "8-4"
+ ],
+ "report": "14 of 60 texts changed, all pass check_text and mix_problems. Patterns: clock times/dates 4 (1-2 'At ten', 1-4 'It is ten', 5-1 'shut till ten', 8-4 'in June'); Americanism 1 (cab, 1-2, now a bus because van cannot be spelled at phase 2 and Mum-driving removed); adult words 3 (clerk in 5-1 and 7-2, contest/boss in 6-3); idioms/ambiguous words 9 (checked in 2-4, 6-0, 6-1, 6-4; packed in 5-2, 6-5; spotted 5-3; gust 5-4; upset and 'from now on' in 6-0; 'bank' in 8-4). Two when-questions with clock answers were swapped to who/what (1-2, 1-4); 8-4 keeps a when question answered 'On a hot day'. Redraw: 1-2 (bus, Nan), 1-4 (sun up), 5-1 (no clerk), 6-3 (no contest, Gran, picnic), 7-2 (helper, tent), 8-4 (sand). Left alone: 'mad' meaning cross in 1-1 and 1-4 (standard UK phonics usage, no decodable phase-2 alternative that reads better), 'On Monday' (9-3), 'till home time' (10-3), dentist, basket, garden, hamster, market, match, gym, barber, muffins and the rest, which are within a 5-7 year old's experience."
+}

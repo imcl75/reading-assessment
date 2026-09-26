@@ -1,0 +1,308 @@
+[
+ {
+  "phase": 1,
+  "idx": 0,
+  "title": "Sam and the Cat",
+  "prompt": "A friendly cartoon boy sitting alone on a cosy sofa in a warm living room, hands resting in his empty lap, calm neutral expression, soft light.",
+  "shows": [
+   "boy on sofa",
+   "cosy living room",
+   "quiet calm mood"
+  ],
+  "hides": [
+   "Q1 who got on lap: no cat drawn, lap empty",
+   "Q2 what Sam did to cat: no cat, no patting",
+   "Q3 why not sad: neutral face, no reason shown"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 1,
+  "idx": 1,
+  "title": "The Bun",
+  "prompt": "A friendly cartoon girl standing on a sunny park path beside a bench and trees, relaxed neutral expression, hands by her sides, nothing in them.",
+  "shows": [
+   "girl in park",
+   "bench and trees",
+   "sunny calm mood"
+  ],
+  "hides": [
+   "Q1 who has a bun: no food drawn, hands empty",
+   "Q2 what pup did: no animal drawn",
+   "Q3 why Meg mad: neutral face, no cause shown"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 1,
+  "idx": 2,
+  "title": "The Van",
+  "prompt": "A friendly cartoon dad and young boy standing beside a small yellow taxi cab at the foot of a green grassy hill, both awake and calm, soft daylight, no clock.",
+  "shows": [
+   "dad and boy",
+   "taxi cab",
+   "green hill"
+  ],
+  "hides": [
+   "Q1 when: no clock, no time cue",
+   "Q2 who napped: both standing awake, nobody asleep",
+   "Q3 why Dad not nap: nobody at the wheel or driving"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 1,
+  "idx": 3,
+  "title": "The Hen",
+  "prompt": "A friendly cartoon grandmother standing on green grass in a farmyard, a brown hen standing calmly near her feet, a red barn softly in the background.",
+  "shows": [
+   "woman",
+   "hen calm beside her",
+   "farmyard"
+  ],
+  "hides": [
+   "Q1 what hen ran off in: dry grass, no mud",
+   "Q2 where put the hen: no pen or fence enclosure",
+   "Q3 why Nan ran: nobody running, hen not escaping"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 1,
+  "idx": 4,
+  "title": "Bob in Bed",
+  "prompt": "A cosy child's bedroom with an unmade bed, rumpled blue duvet, teddy on the pillow and a toy shelf, soft light through curtains, calm quiet mood, nobody in the room.",
+  "shows": [
+   "bedroom",
+   "unmade bed",
+   "calm mood"
+  ],
+  "hides": [
+   "Q1 who is in bed: bed empty, no person",
+   "Q2 when: no clock, no time cue",
+   "Q3 why Mum got him up: no Mum, no reason shown"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 1,
+  "idx": 5,
+  "title": "Tim in the Sun",
+  "prompt": "A friendly cartoon boy standing in a wide grassy meadow under a clear blue sky, hands empty, mild relaxed expression, no rug, no buildings.",
+  "shows": [
+   "boy in meadow",
+   "blue sky",
+   "calm mood"
+  ],
+  "hides": [
+   "Q1 where Tim sat: standing, no rug, no sun disc",
+   "Q2 what he ran in: no hut or building",
+   "Q3 why he ran: no heat cues, no sweat or red face"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 2,
+  "idx": 0,
+  "title": "Chip the Dog",
+  "prompt": "A friendly cartoon boy standing on a tidy green lawn beside a clean, fluffy, happy dog, both looking cheerful, garden fence behind.",
+  "shows": [
+   "boy and dog",
+   "garden lawn",
+   "cheerful mood"
+  ],
+  "hides": [
+   "Q1 what Chip ran in: dog clean, no mud",
+   "Q2 where Josh put Chip: no bath or water",
+   "Q3 why bath: no dirt or wetness shown"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 2,
+  "idx": 1,
+  "title": "The Chips",
+  "prompt": "Two friendly cartoon children, a girl and a boy, standing side by side on a sunny seafront promenade with blue sea behind, hands empty, mild calm expressions.",
+  "shows": [
+   "girl and boy",
+   "seafront",
+   "sunny mood"
+  ],
+  "hides": [
+   "Q1 what they had: hands empty, no food",
+   "Q2 where gull sat: no bird, no shed or hut",
+   "Q3 why sad: mild expressions, no cause shown"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 2,
+  "idx": 2,
+  "title": "The Jog",
+  "prompt": "A friendly cartoon mum and young child in sports clothes jogging across a wide green park with trees, bare-headed, light bright sky, no path visible.",
+  "shows": [
+   "mum and child jogging",
+   "green park",
+   "active mood"
+  ],
+  "hides": [
+   "Q1 who has no hat: both bare-headed, no hat drawn",
+   "Q2 where they jog: on open grass, no path",
+   "Q3 why hat: no strong sun, no heat cues"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 2,
+  "idx": 3,
+  "title": "Vin in Bed",
+  "prompt": "A cosy child's bedroom with a neat bed, toy rabbit on the pillow, small bedside table and curtains partly drawn, soft quiet light, nobody in the room.",
+  "shows": [
+   "bedroom",
+   "bed",
+   "quiet mood"
+  ],
+  "hides": [
+   "Q1 who is in bed: bed empty, no person",
+   "Q2 what Mum got: no cloth, no Mum",
+   "Q3 why in bed: no illness cues, no thermometer or medicine"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 2,
+  "idx": 4,
+  "title": "Zeb the Cat",
+  "prompt": "A friendly cartoon girl sitting on a garden step in a back garden, a small grey cat sitting on the grass beside her, both calm, flowers and fence behind.",
+  "shows": [
+   "girl",
+   "cat",
+   "back garden"
+  ],
+  "hides": [
+   "Q1 where Zeb napped: cat awake on grass, no bin",
+   "Q2 what Jen shut: no lid or bin",
+   "Q3 why Zeb sad: cat calm, nothing trapped"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 2,
+  "idx": 5,
+  "title": "Jam on the Chin",
+  "prompt": "A friendly cartoon girl and boy sitting side by side on a garden bench in the sunshine, smiling, faces clean, hands empty, flowers behind them.",
+  "shows": [
+   "girl and boy",
+   "garden bench",
+   "happy mood"
+  ],
+  "hides": [
+   "Q1 what on chin: clean chin, no jam",
+   "Q2 who had a rag: no cloth or food drawn",
+   "Q3 why rag used: no mess to clean"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 3,
+  "idx": 0,
+  "title": "The Moon",
+  "prompt": "A friendly small cartoon family car with a smiling dad at the wheel driving along a quiet winding country road past green hills, soft pale sky, back seat not visible.",
+  "shows": [
+   "dad and car",
+   "country road",
+   "quiet travelling mood"
+  ],
+  "hides": [
+   "Q1 who sat with Dad: no passenger visible",
+   "Q2 when: pale neutral sky, no moon or stars",
+   "Q3 why nap: nobody sleeping, no night cue"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 3,
+  "idx": 1,
+  "title": "Rain",
+  "prompt": "Two friendly cartoon boys standing side by side on a village pavement outside a house, in plain T-shirts, bright neutral sky, mild calm expressions.",
+  "shows": [
+   "two boys",
+   "village pavement",
+   "calm mood"
+  ],
+  "hides": [
+   "Q1 who had no coat: neither shown with a coat",
+   "Q2 weather: no rain, no clouds, no umbrellas",
+   "Q3 why share coat: no wetness, no sharing"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 3,
+  "idx": 2,
+  "title": "The Goat",
+  "prompt": "A friendly cartoon farmer standing in a green meadow with a wooden fence and trees, a white goat and a brown hen standing quietly nearby, calm mood.",
+  "shows": [
+   "farmer",
+   "goat and hen",
+   "meadow"
+  ],
+  "hides": [
+   "Q1 what goat had: no food drawn",
+   "Q2 where goat went: no barn, meadow only",
+   "Q3 why hen sad: hen calm, no cause shown"
+  ],
+  "has_children": false
+ },
+ {
+  "phase": 3,
+  "idx": 3,
+  "title": "The Torch",
+  "prompt": "A friendly cartoon boy in a warm coat standing at the edge of a quiet field beside a lone tree, hands empty, pale even sky, mild neutral expression.",
+  "shows": [
+   "boy",
+   "field and tree",
+   "quiet mood"
+  ],
+  "hides": [
+   "Q1 what Tim had: hands empty, no torch",
+   "Q2 where Tim sat: standing on grass, no road or car",
+   "Q3 why Mum got him: no darkness, no Mum"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 3,
+  "idx": 4,
+  "title": "The Book",
+  "prompt": "A friendly cartoon girl sitting alone in a small wooden rowing boat on a calm lake, hands resting in her lap, pale clear sky, reeds on the bank.",
+  "shows": [
+   "girl in boat",
+   "calm lake",
+   "peaceful mood"
+  ],
+  "hides": [
+   "Q1 who sat with Joan: girl alone, no Dad",
+   "Q2 what Joan had: hands empty, no book",
+   "Q3 why sad: neutral face, no rain or wet"
+  ],
+  "has_children": true
+ },
+ {
+  "phase": 3,
+  "idx": 5,
+  "title": "The Thorn",
+  "prompt": "A friendly cartoon boy in shoes sitting on a small doormat in a bright hallway, calm neutral expression, hands on his knees, coat hooks behind him.",
+  "shows": [
+   "boy on mat",
+   "hallway",
+   "calm mood"
+  ],
+  "hides": [
+   "Q1 where thorn: no foot focus, shoes on, no thorn",
+   "Q2 who got it off: no Mum or helper",
+   "Q3 why sad: neutral face, no pain shown"
+  ],
+  "has_children": true
+ }
+]

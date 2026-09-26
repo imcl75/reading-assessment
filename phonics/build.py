@@ -23,7 +23,8 @@ for lv in sorted(B):
             errors+=1; print("FAIL",lv,NAMES[lv],"|",title,"|",bad,mix)
         toks,fl=phase_mix(text,lv)
         focus=[] if lv==1 else list(dict.fromkeys(t.lower() for t,f in zip(toks,fl) if f==lv))
-        items.append(dict(title=title,text=text,focus=focus,qs=[dict(t=t,q=q,a=a) for t,q,a in qs]))
+        image=f'img/p{lv}-{len(items)}.jpg' if (here/'img'/f'p{lv}-{len(items)}.jpg').exists() else None
+        items.append(dict(title=title,text=text,focus=focus,image=image,qs=[dict(t=t,q=q,a=a) for t,q,a in qs]))
     data.append(dict(level=lv,name=NAMES[lv],sounds=cum_sounds,cew=", ".join(sorted(cew,key=str.lower)),texts=items))
 if errors: sys.exit("not built: %d problem(s)"%errors)
 html=(here/"template.html").read_text().replace("/*DATA*/",json.dumps(data,ensure_ascii=False))

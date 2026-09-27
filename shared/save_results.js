@@ -49,7 +49,10 @@ const SaveResults = (function(){
       + '<div><label for="srTerm">Term</label><select id="srTerm">' + [1,2,3,4,5,6].map(n => '<option value="'+n+'">Term '+n+'</option>').join('') + '</select></div></div>'
       + '<div class="actions"><button class="act" id="srSave" disabled>Save result</button><button class="link" id="srUndo" hidden>Undo</button></div>'
       + '<p class="st" id="srStatus"></p><ul class="hist" id="srHist"></ul>';
-    (document.querySelector('main') || document.body).appendChild(card);
+    const main = document.querySelector('main') || document.body;
+    const firstSection = main.querySelector('section.card');
+    if (firstSection && firstSection.nextSibling) firstSection.parentNode.insertBefore(card, firstSection.nextSibling);
+    else main.appendChild(card);
     $q('srDate').value = today();
     $q('srClass').onchange = onClass; $q('srPupil').onchange = onPupil;
     $q('srSave').onclick = save; $q('srUndo').onclick = undo;

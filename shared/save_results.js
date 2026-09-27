@@ -89,7 +89,7 @@ const SaveResults = (function(){
   function describe(r){
     const bands = {greater_depth: 'greater depth', on_track: 'on track', not_yet: 'not yet on track', secure: 'secure', nearly: 'nearly there', on_target: 'on target', below_target: 'below target'};
     const b = bands[r.band] || r.band;
-    if (r.tool === 'fluency') return 'Level ' + r.level + ': ' + r.detail.wcpm + ' words correct per minute, ' + r.detail.accuracy + '% accurate (' + b + ')';
+    if (r.tool === 'fluency') return 'Level ' + r.level + ': ' + r.detail.wcpm + ' words correct per minute, ' + r.detail.accuracy + '% accurate (' + b + ')' + (r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
     if (r.tool === 'phonics') return r.level + ': ' + r.score + '/3 (' + b + ')';
     return 'Level ' + r.level + ' test ' + r.test_id + ': ' + r.score + '/' + r.total + ', ' + r.percent + '% (' + b + ')';
   }

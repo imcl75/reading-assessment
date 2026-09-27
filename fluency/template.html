@@ -46,6 +46,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
   body{background:#fff}
   .sheet.active{display:block!important}
   .sheet{padding:0}
+  .sheet.active ~ .sheet.active{break-before:page}
   @page{size:A4;margin:14mm}
 }
 .sheet .head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--brand);padding-bottom:6px;margin-bottom:12px}
@@ -127,7 +128,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
     <p class="rtotal" id="rubricTotal"></p>
   </section>
 </main>
-<footer>Fluency Assessment &middot; Version <span id="ver">27.09.26f</span></footer>
+<footer>Fluency Assessment &middot; Version <span id="ver">27.09.26h</span></footer>
 
 <div id="sheets"></div>
 

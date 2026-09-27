@@ -152,5 +152,8 @@ const SaveResults = (function(){
   return {
     init(c){ cfg = c; if (ON) build(); },
     refresh(){ if (ON && card) refresh(); },
+    isOn(){ return ON; },
+    call,   // exposed so other shared modules (e.g. scan_marking.js) reuse the same authed /_api call + 401 handling, instead of duplicating it
+    uuid, today,
   };
 })();

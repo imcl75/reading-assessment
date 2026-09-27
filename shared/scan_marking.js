@@ -66,6 +66,7 @@ const ScanMarking = (function(){
       const sec = document.createElement('section');
       sec.className = 'sheet scansheet active';
       sec.innerHTML = '<div class="head"><h1>'+h(p.first+' '+p.last)+'</h1><small>'+h(cls)+' &middot; '+h(meta.title)+' &middot; Marking sheet</small></div>'
+        + '<p class="hint" style="margin:2px 0 8px">Colour in ONE circle per row with a highlighter. Marked the wrong one? Scribble solidly over it in pen, then colour the right one.</p>'
         + t.qs.map((q,i)=>'<div class="qrow"><b>Q'+(i+1)+'</b><span class="circ">'+
             Array.from({length:q.m+1},(_,v)=>'<span>'+v+'</span>').join('')+'</span></div>').join('')
         + '<div class="foot"><span>Wallscourt Farm Academy</span><span>Colour in one circle per row</span></div>';

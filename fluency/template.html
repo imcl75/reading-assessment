@@ -59,6 +59,18 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .tbl{width:100%;border-collapse:collapse;margin-top:14px;font-size:.95rem}
 .tbl td,.tbl th{border:1px solid #000;padding:8px;text-align:left}
 .key{font-size:.8rem;color:#345;margin-top:8px}
+.rtbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.85rem}
+.rtbl th,.rtbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+.rtbl th{background:var(--soft);font-size:.8rem}
+.rtbl td.rlabel{font-weight:700;background:var(--soft);white-space:nowrap}
+.rtbl td.rcell{cursor:pointer}
+.rtbl td.rcell:hover{background:var(--soft)}
+.rtbl td.rcell.on{background:var(--dark);color:#fff;font-weight:600}
+.rtotal{font-size:1.1rem;font-weight:800;margin-top:8px}
+.sheet .rtbl{font-size:.8rem}
+.sheet .rtbl th,.sheet .rtbl td{border:1px solid #000;padding:5px 6px}
+.sheet .rtbl .rcirc{display:inline-block;width:20px;height:20px;border:1.5px solid #000;border-radius:50%;text-align:center;line-height:18px;font-size:.75rem}
+@media (max-width:640px){.rtbl{display:block;overflow-x:auto;white-space:nowrap}}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
 </style>
 </head>
@@ -107,21 +119,36 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
     </div>
     <p class="key">Target: 90&ndash;100 words correct per minute at the pupil's current level. Accuracy: above 95% independent, 90&ndash;95% instructional, below 90% difficult.</p>
   </section>
+
+  <section class="card">
+    <h2>4. Fluency rubric (optional)</h2>
+    <p class="meta">Listen to the reading and judge each row 1&ndash;4. Tap the cell that best fits.</p>
+    <div id="rubric"></div>
+    <p class="rtotal" id="rubricTotal"></p>
+  </section>
 </main>
-<footer>Fluency Assessment &middot; Version <span id="ver">26.09.26l</span></footer>
+<footer>Fluency Assessment &middot; Version <span id="ver">27.09.26a</span></footer>
 
 <div id="sheets"></div>
 
 <script>
 /*SAVE_RESULTS*/
 const TEXTS = /*TEXTS*/;
-const VERSION = "26.09.26l";
+const VERSION = "27.09.26a";
 const BANDS = [[17,18,"Turquoise","#00e5c8"],[19,20,"Purple","#800080"],[21,22,"Gold","#ffc000"],[23,24,"White","#ffffff"],[25,26,"Lime","#00ee00"],[27,28,"Ruby","#c00000"],[29,30,"Sapphire","#000080"],[31,36,"Free Reader","#f2b705"]];
 const band = l => BANDS.find(b => l >= b[0] && l <= b[1]);
 const lv = l => l > 30 ? 'F' + (l - 30) : l;   // levels end at 30; above that the levels are F1-F4 (Free Reader)
 const $ = id => document.getElementById(id);
 const esc = s => s.replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let cur = TEXTS[0], mode = "err", errs = new Set(), stopAt = 100;
+const RUBRIC = [
+  {key:"volume",     label:"Volume",     d:["Quiet – hard to hear","Quiet","Good volume","Excellent volume"]},
+  {key:"expression", label:"Expression", d:["None","Some natural expression","Good expression","Conversational expression"]},
+  {key:"phrasing",   label:"Phrasing",   d:["Word by word","Short phrase groups, little or no attention to punctuation","Some good rhythm, some punctuation awareness","Good rhythm, attending to punctuation"]},
+  {key:"smoothness", label:"Smoothness", d:["Sounds out many words, lots of hesitation","Pauses or hesitation. Continued rough spots","Occasional rough spots, generally with more complex words or sentences","Smooth throughout, corrects challenging words and structure"]},
+  {key:"pace",       label:"Pace",       d:["Slow and with great effort","Moderately slowly","Fast and slow throughout, less natural","Conversational pace"]},
+];
+let rubricScores = {};
 
 function words(t){ return t.text.trim().split(/\s+/); }
 function passageHTML(t, teacher){
@@ -142,12 +169,29 @@ function sheetHTML(t, teacher){
     h += '<p class="key">Cross out or circle each error. The 100th word is underlined and marked. Stop the child at one minute and mark the last word reached. Total text length: '+n+' words.</p>';
     h += '<table class="tbl"><tr><th>Words attempted</th><th>Errors</th><th>Seconds</th><th>Words correct per minute</th><th>Accuracy %</th></tr><tr><td>&nbsp;<br>&nbsp;</td><td></td><td></td><td></td><td></td></tr></table>';
     h += '<p class="key">Words correct per minute = (words attempted &minus; errors) &times; 60 &divide; seconds. Accuracy = (words attempted &minus; errors) &divide; words attempted &times; 100. Target: 90&ndash;100 wcpm at current level.</p>';
+    h += rubricTableHTML();
   } else {
     h += '<div class="fields"><span>Name:</span></div>';
     h += '<p class="passage">'+esc(t.text.trim())+'</p>';
   }
   h += '<div class="foot"><span>Wallscourt Farm Academy</span><span>Fluency &middot; Level '+lv(t.level)+' &middot; v'+VERSION+'</span></div></section>';
   return h;
+}
+function rubricTableHTML(){
+  let h = '<table class="rtbl"><tr><th>Fluency rubric</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>';
+  RUBRIC.forEach(r=>{
+    h += '<tr><td class="rlabel">'+esc(r.label)+'</td>'+r.d.map(d=>'<td>'+esc(d)+' <span class="rcirc"></span></td>').join('')+'</tr>';
+  });
+  h += '</table><p class="key">Circle the score 1&ndash;4 that best fits each row. Total: ____ / 20.</p>';
+  return h;
+}
+function renderRubric(){
+  $("rubric").innerHTML = '<table class="rtbl"><tr><th>Category</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>'+
+    RUBRIC.map(r=>'<tr><td class="rlabel">'+esc(r.label)+'</td>'+r.d.map((d,i)=>
+      '<td class="rcell'+(rubricScores[r.key]===i+1?' on':'')+'" data-k="'+r.key+'" data-v="'+(i+1)+'">'+esc(d)+'</td>').join('')+'</tr>').join('')+
+    '</table>';
+  const done = RUBRIC.filter(r=>rubricScores[r.key]).length, total = RUBRIC.reduce((a,r)=>a+(rubricScores[r.key]||0),0);
+  $("rubricTotal").textContent = done===0 ? '' : done<RUBRIC.length ? 'Score so far: '+total+' ('+done+'/5 rows done)' : 'Total: '+total+' / 20';
 }
 function buildSheets(){
   const holder = $("sheets");
@@ -168,7 +212,7 @@ function renderLevels(){
 }
 function renderScore(){
   $("tpassage").innerHTML = passageHTML(cur,true);
-  errs = new Set(); stopAt = words(cur).length; refresh();
+  errs = new Set(); stopAt = words(cur).length; rubricScores = {}; renderRubric(); refresh();
 }
 function refresh(){
   document.querySelectorAll("#tpassage .w").forEach(el=>{
@@ -206,10 +250,18 @@ function tick(){ const s=Math.floor((Date.now()-t0)/1000); $("clock").textConten
 $("tStart").onclick=()=>{ clearInterval(tm); t0=Date.now(); tick(); tm=setInterval(tick,250); };
 $("tStop").onclick=()=>{ if(!tm) return; clearInterval(tm); tm=null; const s=Math.max(1,Math.round((Date.now()-t0)/1000)); $("secs").value=s; refresh(); };
 $("tReset").onclick=()=>{ clearInterval(tm); tm=null; $("clock").textContent="0:00"; };
+$("rubric").addEventListener("click", e=>{
+  const c=e.target.closest(".rcell"); if(!c) return;
+  rubricScores[c.dataset.k] = +c.dataset.v; renderRubric(); SaveResults.refresh();
+});
 SaveResults.init({tool:"fluency", get:()=>{ const a=stopAt, e=[...errs].filter(n=>n<=a).length, sec=+$("secs").value, ok=sec>0;
   const wc=ok?Math.round((a-e)*60/sec):0, acc=ok?Math.round((a-e)/a*1000)/10:0;
-  return {ready:ok, hint:"Enter the seconds taken first, then save.", summary:wc+" words correct per minute, "+acc+"% accurate, level "+lv(cur.level),
-          body:{test_id:"fluency-"+cur.level, level:String(lv(cur.level)), attempted:a, errors:e, seconds:sec}}; }});
+  const rDone = RUBRIC.filter(r=>rubricScores[r.key]).length, rComplete = rDone===RUBRIC.length;
+  const rSummary = rComplete ? ", rubric "+RUBRIC.reduce((a,r)=>a+rubricScores[r.key],0)+"/20" : "";
+  const body = {test_id:"fluency-"+cur.level, level:String(lv(cur.level)), attempted:a, errors:e, seconds:sec};
+  if (rComplete) body.rubric = Object.assign({}, rubricScores);
+  return {ready:ok, hint:"Enter the seconds taken first, then save.", summary:wc+" words correct per minute, "+acc+"% accurate, level "+lv(cur.level)+rSummary,
+          body:body}; }});
 $("ver").textContent = VERSION;
 buildSheets(); choose(TEXTS[0].level);
 </script>

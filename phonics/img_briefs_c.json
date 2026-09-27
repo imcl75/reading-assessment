@@ -192,7 +192,7 @@
   "has_children": true
  },
  {
-  "phase": 9,
+  "phase": 10,
   "idx": 0,
   "title": "The Snow",
   "prompt": "Three friendly cartoon children in coats, hats and scarves standing in a big snowy field, smiling, bare trees behind, soft grey-white sky. Untouched snow, no snowman, no sun.",
@@ -208,7 +208,7 @@
   "has_children": true
  },
  {
-  "phase": 9,
+  "phase": 10,
   "idx": 1,
   "title": "The Mouse",
   "prompt": "Small friendly cartoon mouse sitting upright on a dark wooden floor, ears up, whiskers forward, looking curious. Warm soft light. No furniture, no food, no stairs, no house walls.",
@@ -224,7 +224,7 @@
   "has_children": false
  },
  {
-  "phase": 9,
+  "phase": 10,
   "idx": 2,
   "title": "The Rope",
   "prompt": "Friendly cartoon girl in a t-shirt, shorts and trainers standing with two friends in a bright plain room with pale walls, all looking up-and-ahead with calm interested faces. No equipment, no ropes, no mats.",
@@ -240,7 +240,7 @@
   "has_children": true
  },
  {
-  "phase": 9,
+  "phase": 10,
   "idx": 3,
   "title": "The Farm Trip",
   "prompt": "Group of three friendly cartoon children in school clothes standing by a wooden farm fence in the sunshine, watching a cow and two sheep in a field. No goat, no hats on anyone, calm smiles.",
@@ -256,7 +256,7 @@
   "has_children": true
  },
  {
-  "phase": 9,
+  "phase": 10,
   "idx": 4,
   "title": "The Baby",
   "prompt": "Friendly cartoon boy sitting on a sofa in a cosy living room, hands in lap, head tilted as if listening, mouth closed and calm. Warm lamp, cushions. No baby, no cot, no adults.",
@@ -272,7 +272,7 @@
   "has_children": true
  },
  {
-  "phase": 9,
+  "phase": 10,
   "idx": 5,
   "title": "Mr Cole",
   "prompt": "Kind cartoon elderly man in a flat cap and cardigan, smiling gently, standing with hands behind his back against a soft green blurred background. No birds, no bench, no food, no park features.",
@@ -288,7 +288,7 @@
   "has_children": false
  },
  {
-  "phase": 10,
+  "phase": 11,
   "idx": 0,
   "title": "The Present",
   "prompt": "Friendly cartoon boy sitting at a table holding a pencil, thinking with a small smile, looking up at the ceiling. Sheet of paper seen from behind. Bright simple room. No string, no parcel, no other people.",
@@ -304,7 +304,7 @@
   "has_children": true
  },
  {
-  "phase": 10,
+  "phase": 11,
   "idx": 1,
   "title": "The Match",
   "prompt": "Friendly cartoon boy in a football kit standing on a wide grassy field, hands by his sides, cheerful ready face, with his dad in a coat standing at the edge of the field. No goal, no ball, no gloves.",
@@ -320,7 +320,7 @@
   "has_children": true
  },
  {
-  "phase": 10,
+  "phase": 11,
   "idx": 2,
   "title": "The Bridge",
   "prompt": "Friendly cartoon girl standing on a grassy path among trees, hands at her sides, looking straight ahead with a calm, neutral face. Soft sky and distant hills. No bridge, no water, no rail, nothing to look down at.",
@@ -336,7 +336,7 @@
   "has_children": true
  },
  {
-  "phase": 10,
+  "phase": 11,
   "idx": 3,
   "title": "The Pet Lamb",
   "prompt": "Friendly cartoon boy in school uniform with a school bag, walking along a country lane with green farm fields behind him, cheerful. Only him in the picture. No animals, no gates, no school building.",
@@ -352,7 +352,7 @@
   "has_children": true
  },
  {
-  "phase": 10,
+  "phase": 11,
   "idx": 4,
   "title": "The Picture",
   "prompt": "Friendly cartoon girl in a smock sitting at a table with pots of paint and a brush in her hand, concentrating calmly. Her paper faces away from the viewer. Plain wall behind. No other people, no kitchen.",
@@ -368,7 +368,7 @@
   "has_children": true
  },
  {
-  "phase": 10,
+  "phase": 11,
   "idx": 5,
   "title": "The Gnat",
   "prompt": "Friendly cartoon dad in a long-sleeved shirt sitting in a garden chair, relaxed with a mild smile, in a sunny garden with flowers. Arms resting in his lap. No insects, no cream, no other people.",

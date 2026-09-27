@@ -9,8 +9,9 @@ SOUND_ORDER = {1:"s a t p i n m d g o c k ck e u r h b f ff l ll ss",2:"j v w x 
  5:"adjacent consonants in one-syllable words (CVCC, CCVC, CCVCC, CCCVC); -ed endings",
  6:"polysyllabic words, longer consonant clusters and all graphemes so far; -es, -er, -est, un-; contractions",
  7:"ay ou ie ea oy ir ue aw wh ph ew oe au ey",8:"split digraphs a-e e-e i-e o-e u-e",
- 9:"alternative pronunciations (e.g. snow, chief, head, find, cold, soft c and g, y as in by / very)",
- 10:"alternative spellings (e.g. tch, dge, kn, wr, mb, ture, tion)"}
+ 9:"no new graphemes — consolidates the whole of Phase 5a",
+ 10:"alternative pronunciations (e.g. snow, chief, head, find, cold, soft c and g, y as in by / very)",
+ 11:"alternative spellings (e.g. tch, dge, kn, wr, mb, ture, tion)"}
 DECODABLE={"a","an","and","as","at","in","is","it","on","up","his","has"}   # ordinary decodable words, not ULS common exception words
 data=[]; errors=0
 for lv in sorted(B):

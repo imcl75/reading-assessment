@@ -3,7 +3,7 @@
    Talks to /_api/planning/... on this same site: a Cloudflare Worker checks the staff sign-in and adds the
    API token, so no token lives in this page. Off unless the page is opened with ?results=on, until it is proven. */
 const SaveResults = (function(){
-  const ON = /[?&]results=on\b/.test(location.search) || false;   // flip the `false` to true to switch on for everyone
+  const ON = true;   // switched on for everyone 27.09.26 — proven live end to end (real sign-in, real class/pupil, save + undo)
   const API = '/_api/planning', PENDING_KEY = 'ra_pending', CLASS_KEY = 'ra_last_class', PUPIL_KEY = 'ra_last_pupil';
   let cfg = null, roster = null, current = null, lastSaved = null, saving = false, card = null;
   const $q = id => document.getElementById(id);

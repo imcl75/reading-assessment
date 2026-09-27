@@ -1,0 +1,20 @@
+[
+{"phase": 9, "idx": 0, "title": "The Boat Ride",
+ "prompt": "A small boat on a calm sea containing exactly two children, both must be visible in the finished picture. In the front half of the boat, a cartoon girl is actively rowing, gripping an oar with both hands, mid-stroke. In the back half of the boat, sitting well behind her, a cartoon boy is calmly watching her row, hands resting in his lap, not touching an oar. A coiled rope rests on the floor of the boat between them. Both children wear orange life jackets. Gentle daytime sky, calm neutral mood.",
+ "has_children": true},
+{"phase": 9, "idx": 1, "title": "The Bake Sale",
+ "prompt": "A cheerful cartoon girl standing behind a table at a school bake sale, a plate of small lemon cakes and one cake shaped like a rose on the table, bunting strung above, bright daytime setting.",
+ "has_children": true},
+{"phase": 9, "idx": 2, "title": "The Loud Owl",
+ "prompt": "A cartoon girl sitting up awake in bed at night, looking towards a window where an owl perches on a branch outside, soft moonlight, calm bedroom, no other people visible.",
+ "has_children": true},
+{"phase": 9, "idx": 3, "title": "The Phone Call",
+ "prompt": "A cartoon boy sitting on a sofa at home, smiling and holding a telephone to his ear, a school bag resting on the floor nearby, cosy living room, daytime.",
+ "has_children": true},
+{"phase": 9, "idx": 4, "title": "The New Bike",
+ "prompt": "A cheerful cartoon boy riding a blue bicycle with a bell, up a house driveway, birthday balloons tied to the porch behind him, bright daytime, no other people visible.",
+ "has_children": true},
+{"phase": 9, "idx": 5, "title": "The Lost Coin",
+ "prompt": "Two cartoon children crouching down and looking closely at the ground near a garden gate, searching expressions, a quiet street setting, daytime, calm neutral mood.",
+ "has_children": true}
+]

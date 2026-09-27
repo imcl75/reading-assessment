@@ -240,7 +240,7 @@
   "has_children": true
  },
  {
-  "phase": 9,
+  "phase": 10,
   "idx": 4,
   "title": "The Baby",
   "prompt": "Friendly cartoon boy sitting on a sofa in a cosy living room, hands in lap, head tilted as if listening, mouth closed and calm. Warm lamp, cushions. No baby, no cot, no adults.",
@@ -252,7 +252,7 @@
   "has_children": true
  },
  {
-  "phase": 10,
+  "phase": 11,
   "idx": 2,
   "title": "The Bridge",
   "prompt": "Friendly cartoon girl standing on a grassy path among trees, hands at her sides, looking straight ahead with a calm, neutral face. Soft sky and distant hills. No bridge, no water, no rail, nothing to look down at.",
@@ -264,7 +264,7 @@
   "has_children": true
  },
  {
-  "phase": 10,
+  "phase": 11,
   "idx": 4,
   "title": "The Picture",
   "prompt": "Friendly cartoon girl in a paint-splashed smock standing in a bright plain room, smiling, hands empty at her sides. No easel, no paper, no paintings, no wall art, no other people.",
@@ -276,7 +276,7 @@
   "has_children": true
  },
  {
-  "phase": 10,
+  "phase": 11,
   "idx": 5,
   "title": "The Gnat",
   "prompt": "Friendly cartoon mum in a long-sleeved top sitting in a garden chair, relaxed with a mild smile, in a sunny garden with flowers. Arms resting in her lap, sleeves down. No insects, no cream, no other people.",

@@ -14,11 +14,12 @@ ADD = {
  6: dict(g=[], cew=[]),      # Phase 4 Mastery: polysyllabic words, longer clusters, -es -er -est un-, contractions, possessives
  7: dict(g="ay ou ie ea oy ir ue aw wh ph ew oe au ey".split(), cew="oh their people Mr Mrs looked called asked Monday Tuesday Wednesday Thursday Friday Saturday Sunday".split()),
  8: dict(g=[], cew=[], split=True),
- 9: dict(g=["y!any"], cew="water where who again thought through mouse work many laughed because different any eyes friends once please".split()),
- 10: dict(g="tch dge kn gn wr mb ture tion ci sion augh".split(), cew=[]),
+ 9: dict(g=[], cew=[]),      # Phase 5a (all): no new graphemes/CEW \u2014 consolidates the whole of Phase 5a, same decodability as level 8
+ 10: dict(g=["y!any"], cew="water where who again thought through mouse work many laughed because different any eyes friends once please".split()),
+ 11: dict(g="tch dge kn gn wr mb ture tion ci sion augh".split(), cew=[]),
 }
 NAMES = {1:"Phase 2",2:"Phase 3 (Weeks 1\u20133)",3:"Phase 3 (Weeks 4\u20136)",4:"Phase 3 (Weeks 7\u20138)",5:"Phase 4",6:"Phase 4 Mastery",
-         7:"Phase 5a (Weeks 1\u20134)",8:"Phase 5a (Weeks 5\u20136)",9:"Phase 5b",10:"Phase 5c"}
+         7:"Phase 5a (Weeks 1\u20134)",8:"Phase 5a (Weeks 5\u20136)",9:"Phase 5a (all)",10:"Phase 5b",11:"Phase 5c"}
 NOADJ_MAX = 4          # levels 1-4: no adjacent consonant graphemes (CVC-type words)
 SUFFIX_FROM = {"s":1,"ing":3,"ed":5,"es":6,"er":6,"est":6}   # -ed and -ing are Phase 4; -es -er -est un- come with Phase 4 Mastery (Y1 revision)
 CONTRACTIONS = {"it's","i'm","don't","can't","isn't","didn't","let's","that's","he's","she's","i'll","we'll","they're","we're"}  # from Phase 4 Mastery
@@ -28,26 +29,26 @@ TRAPS = {}
 def trap(level, words):
     for w in words.split(): TRAPS[w] = level
 trap(99,"of put push pull full bull bush to do so no go he she we me be you your said all they")  # only via CEW list
-trap(9,"snow low show know slow grow blow flow own row yellow window follow tomorrow elbow pillow below bow throw")
-trap(9,"bread head dead ready heavy breath great break steak bear pear wear heart learn earth early tear read weather feather")
-trap(9,"field chief thief brief believe piece niece")
-trap(9,"soup touch young four tough country journey group route")
-trap(9,"fast last past after grass class plant ask master castle want wash watch swan wasp swap wallet was")
-trap(9,"mother son ton month other brother love glove done none above wonder monkey money honey front dozen")
-trap(9,"both gold cold old most post told hold host roll bolt colt jolt ghost only open over zero hello photo ago also potato")
-trap(9,"find kind mind wild child blind behind mild climb pint")
-trap(9,"unit music human pupil sugar")
-trap(9,"give live gem gentle giant giraffe age page cage huge large orange change gym")
-trap(9,"key donkey money valley monkey turkey")
-trap(9,"shoe canoe warm warn war ward swarm quarter blown grown shown known thrown comb tomb answer")
-trap(9,"pass glass brass cast mask task")
-trap(10,"listen castle whistle ball tall fall wall small hall call stall picture nature future treasure measure pleasure special station action nation caught taught daughter thought word world worm work")
+trap(10,"snow low show know slow grow blow flow own row yellow window follow tomorrow elbow pillow below bow throw")
+trap(10,"bread head dead ready heavy breath great break steak bear pear wear heart learn earth early tear read weather feather")
+trap(10,"field chief thief brief believe piece niece")
+trap(10,"soup touch young four tough country journey group route")
+trap(10,"fast last past after grass class plant ask master castle want wash watch swan wasp swap wallet was")
+trap(10,"mother son ton month other brother love glove done none above wonder monkey money honey front dozen")
+trap(10,"both gold cold old most post told hold host roll bolt colt jolt ghost only open over zero hello photo ago also potato")
+trap(10,"find kind mind wild child blind behind mild climb pint")
+trap(10,"unit music human pupil sugar")
+trap(10,"give live gem gentle giant giraffe age page cage huge large orange change gym")
+trap(10,"key donkey money valley monkey turkey")
+trap(10,"shoe canoe warm warn war ward swarm quarter blown grown shown known thrown comb tomb answer")
+trap(10,"pass glass brass cast mask task")
+trap(11,"listen castle whistle ball tall fall wall small hall call stall picture nature future treasure measure pleasure special station action nation caught taught daughter thought word world worm work")
 
 def cum(level):
     g=set(); cew=set(); split=False
     for l in range(1,level+1):
         g|=set(x for x in ADD[l]["g"] if "!" not in x); cew|=set(ADD[l]["cew"]); split|=ADD[l].get("split",False)
-    if level>=9: g|={"y"}
+    if level>=10: g|={"y"}
     return g,cew,split
 
 def segs(word,g,split,level):
@@ -65,7 +66,7 @@ def segs(word,g,split,level):
                     acc.append(word[i]+"-e:"+c); rec(n,acc); acc.pop()
         for gr in ordered:
             if word.startswith(gr,i):
-                if gr=="y" and i>0 and level<9: continue
+                if gr=="y" and i>0 and level<10: continue
                 acc.append(gr); rec(i+len(gr),acc); acc.pop()
     rec(0,[])
     return out
@@ -85,7 +86,7 @@ def word_ok(word,level):
     cewl={c.lower() for c in cew}
     if w in cewl: return True,""
     if w in TRAPS and TRAPS[w]>level: return False,"taught later / irregular (phase %s)"%TRAPS[w]
-    if level<10 and ("tch" in w or "dge" in w or re.match(r"(kn|gn|wr)",w) or w.endswith("mb")): return False,"alternative spelling taught at Phase 5c"
+    if level<11 and ("tch" in w or "dge" in w or re.match(r"(kn|gn|wr)",w) or w.endswith("mb")): return False,"alternative spelling taught at Phase 5c"
     # silent-e dropped before a suffix (hoping, baking, hoped): reads as a different word
     pat = r"(?<![aeiou])[aeiou][bcdfghjklmnpqrstvxz]" + (r"(ing|ed|er|est)$" if level<8 else r"ing$")
     if re.search(pat,w) and not (w in cewl): return False,"silent-e drop before suffix"
@@ -113,9 +114,9 @@ def word_ok(word,level):
                 if bad: continue
             if level==5 and sum(1 for x in s if is_vowel_g(x))>1: continue   # Phase 4: one-syllable words only
             # soft c before e/i/y (cell, city) not taught until 5b
-            if level<9 and re.search(r"c[eiy]",base): continue
+            if level<10 and re.search(r"c[eiy]",base): continue
             # vowel digraph + r that makes a different sound (chair, deer, board, door) is taught later
-            if any(s[k+1]=="r" and (k+2==len(s) or s[k+2][0] not in "aeiouy") and ((s[k]=="ai" and level<4) or (s[k] in ("ee","oa","oo") and level<10)) for k in range(len(s)-1)): continue
+            if any(s[k+1]=="r" and (k+2==len(s) or s[k+2][0] not in "aeiouy") and ((s[k]=="ai" and level<4) or (s[k] in ("ee","oa","oo") and level<11)) for k in range(len(s)-1)): continue
             # o+w, a+w, e+w are the digraphs ow / aw / ew, not two separate sounds (cow, saw, few)
             if any((s[k],s[k+1]) in (("o","w"),) for k in range(len(s)-1)) and level<4: continue
             if any((s[k],s[k+1]) in (("a","w"),("e","w")) for k in range(len(s)-1)) and level<7: continue
@@ -138,8 +139,8 @@ def check_text(text,level):
 def word_count(text): return len(text.split())
 
 
-def first_level(word, top=10):
-    """The first level (1-10) at which a word is decodable/taught, or None."""
+def first_level(word, top=11):
+    """The first level (1-11) at which a word is decodable/taught, or None."""
     for l in range(1, top+1):
         if word_ok(word, l)[0]: return l
     return None
@@ -156,9 +157,13 @@ def mix_problems(text, level):
     toks, fl = phase_mix(text, level)
     new = sum(1 for f in fl if f == level); n = len(toks)
     out = []
-    if new < 3: out.append(f"only {new} word(s) taught at this phase (need 3+)")
+    # Phase 5a (all) is deliberately a pure consolidation phase (ADD[9] adds no grapheme/CEW, and
+    # no suffix threshold lands on exactly 9 either — see cum()), so no word can ever be "new to
+    # this phase". Skip the new-word-count check there; the earlier-phase-mix check below still
+    # applies, so a text still has to draw on real content, just none of it introduced at level 9.
+    if level != 9 and new < 3: out.append(f"only {new} word(s) taught at this phase (need 3+)")
     if new > 0.4*n: out.append(f"{new} of {n} words are new to this phase (max 40%)")
     earlier = {f for f in fl if f and 2 <= f < level}
-    need = 3 if level >= 9 else 2 if level >= 5 else 1 if level >= 3 else 0
+    need = 3 if level >= 10 else 2 if level >= 5 else 1 if level >= 3 else 0
     if len(earlier) < need: out.append(f"draws on only {len(earlier)} earlier phase(s) after Phase 2 (need {need}+)")
     return out

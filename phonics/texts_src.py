@@ -179,8 +179,30 @@ B[8] = [
  [("where","Where did Rose find the stone?","On the path."),("what","What did Rose paint on the stone?","A smile."),("why","Why did Rose take the stone home?","She liked it.")]),
 ]
 
-# ---- Phase 5b
+# ---- Phase 5a (all)
 B[9] = [
+("The Boat Ride",
+ "Joy and Roy went out in a boat. Joy held the rope and Roy sat at the back. The sea was calm at first, but then the wind blew hard. Joy felt scared. Roy said it would soon stop. Soon the wind died down and the sea went calm again. They came home safe and had toast for tea.",
+ [("who","Who went out in the boat?","Joy and Roy."),("what","What did Joy hold?","The rope."),("why","Why did Joy feel scared?","The wind blew hard and the sea got rough.")]),
+("The Bake Sale",
+ "Kate and Jane made cakes for the school bake sale. Jane made lemon cakes on a plate and Kate made a cake shaped like a rose. A boy called Blake came to get one. He gave Kate his coins and took the rose cake home. Kate felt so proud.",
+ [("who","Who made a cake shaped like a rose?","Kate."),("what","What did Blake take home?","The rose cake."),("why","Why did Kate feel proud?","Blake chose the cake she had made.")]),
+("The Loud Owl",
+ "Zoe woke up in the night. An owl outside kept hooting. She could not sleep, so she went to Dad. Dad said owls hoot at night to talk. He gave Zoe a hug and she went back to bed. Soon the hooting stopped and Zoe fell asleep.",
+ [("who","Who woke Zoe up?","An owl."),("what","What did Dad give Zoe?","A hug."),("why","Why could Zoe not sleep at first?","The owl kept hooting outside.")]),
+("The Phone Call",
+ "Gran rang Wes on the phone for a chat. Wes said all about his day at school. He had played a game outside with his friends. Gran laughed at his tale and said she was proud. Wes said he would ring her again the next day.",
+ [("who","Who rang Wes?","Gran."),("what","What did Wes play at school?","A game outside with his friends."),("why","Why did Gran laugh?","She liked hearing about Wes's tale of his day.")]),
+("The New Bike",
+ "Dean got a new bike for his birthday. It had a blue frame and a loud bell. He rode it up and down the drive all day. His feet slid off the pedals and he had a bump, but he was fine. In the end, Dean could ride the whole way without help.",
+ [("who","Whose birthday was it?","Dean's."),("what","What happened while he rode?","His feet slid off the pedals and he had a bump."),("why","Why do you think Dean kept riding after his bump?","He wanted to learn to ride well / he liked his new bike.")]),
+("The Lost Coin",
+ "May lost a coin on her way home. She looked all along the road but could not see it. A boy named Jude saw her looking and came to help. They searched near the gate and there it was, stuck in the mud. May was so pleased and thanked Jude for his help.",
+ [("who","Who helped May look for the coin?","Jude."),("where","Where was the coin stuck?","In the mud near the gate."),("why","Why was May pleased?","She found her lost coin.")]),
+]
+
+# ---- Phase 5b
+B[10] = [
 ("The Snow",
  "It was very cold and snow fell all day. Kim and her friends made a big snowman. Next day the sun came out and it got warm. The snowman melted.",
  [("what","What did Kim and her friends make?","A snowman."),("when","When did the snowman melt?","When the sun came out."),("why","Why did the snowman melt?","It got warm / the sun came out.")]),
@@ -202,7 +224,7 @@ B[9] = [
 ]
 
 # ---- Phase 5c
-B[10] = [
+B[11] = [
 ("The Present",
  "Wes wrapped a book for his gran. He wrote a note on it and tied a knot in the string. Gran was so pleased.",
  [("who","Who did Wes wrap a book for?","His gran."),("what","What did Wes tie a knot in?","The string."),("why","Why was Gran pleased?","She got a book from Wes.")]),

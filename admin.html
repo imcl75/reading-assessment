@@ -24,41 +24,7 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-/* ===== PIN SCREEN ===== */
-#pin-screen {
-  display: flex; align-items: center; justify-content: center;
-  min-height: 100vh; background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-}
-.pin-card {
-  background: #fff; border-radius: 20px; padding: 48px 40px; max-width: 400px;
-  width: 92%; box-shadow: 0 8px 40px rgba(0,0,0,.12); text-align: center;
-}
-.pin-logo { font-size: 3rem; margin-bottom: 8px; }
-.pin-card h1 { color: var(--brand); font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
-.pin-card .subtitle { color: var(--muted); font-size: .9rem; margin-bottom: 32px; }
-.pin-input-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
-.pin-digit {
-  width: 56px; height: 64px; text-align: center; font-size: 1.8rem; font-weight: 700;
-  border: 2px solid var(--border); border-radius: 12px; outline: none;
-  transition: border-color .15s; background: #f9fafb;
-}
-.pin-digit:focus { border-color: var(--brand); background: #fff; }
-.pin-btn {
-  width: 100%; padding: 14px; background: var(--brand); color: #fff;
-  border: none; border-radius: 10px; font-size: 16px; font-weight: 600;
-  cursor: pointer; transition: background .15s;
-}
-.pin-btn:hover { background: var(--brand-dk); }
-.pin-error { color: var(--red); font-size: 14px; margin-top: 12px; min-height: 20px; }
-@keyframes shake {
-  0%,100% { transform: translateX(0); }
-  20%,60% { transform: translateX(-8px); }
-  40%,80% { transform: translateX(8px); }
-}
-.pin-card.shake { animation: shake .4s ease; }
-
 /* ===== MAIN INTERFACE ===== */
-#main { display: none; }
 .header {
   background: var(--brand); color: #fff; padding: 16px 24px;
   display: flex; align-items: center; gap: 16px;
@@ -202,28 +168,10 @@ tr:hover td { background: #f9fafb; }
   .stats-row { flex-direction: column; }
   .card { padding: 18px 16px; }
   .container { padding: 16px 12px; }
-  .pin-card { padding: 36px 24px; }
 }
 </style>
 </head>
 <body>
-
-<!-- ===== PIN SCREEN ===== -->
-<div id="pin-screen">
-  <div class="pin-card" id="pin-card">
-    <div class="pin-logo">🔐</div>
-    <h1>Teacher Marking Panel</h1>
-    <p class="subtitle">Enter your PIN to access the marking panel</p>
-    <div class="pin-input-row">
-      <input type="password" class="pin-digit" id="pin1" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
-      <input type="password" class="pin-digit" id="pin2" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
-      <input type="password" class="pin-digit" id="pin3" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
-      <input type="password" class="pin-digit" id="pin4" maxlength="1" inputmode="numeric" pattern="[0-9]" autocomplete="off">
-    </div>
-    <button class="pin-btn" onclick="checkPin()">Unlock →</button>
-    <div class="pin-error" id="pin-error"></div>
-  </div>
-</div>
 
 <!-- ===== MAIN INTERFACE ===== -->
 <div id="main">
@@ -387,63 +335,14 @@ tr:hover td { background: #f9fafb; }
 <script>
 const BACKEND_URL = 'https://api.wallscourt-farm-academy.co.uk/planning/readassess-db';
 const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
-const WFA_UNLOCK_URL = pin => BACKEND_URL + '?action=unlock&pin=' + encodeURIComponent(pin) + '&token=' + WFA_TOKEN;
-// The staff PIN is NOT kept in this file — it is checked server-side
-// (?action=unlock against Script Properties STAFF_PIN).
 
-// ===== PIN =====
+// No PIN: this page is its own Cloudflare Access app (WFA Staff policy),
+// so a staff sign-in already happened before anyone reaches this HTML.
+// The `unlock`/STAFF_PIN action this used to call was removed 27.09.26.
 document.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('adminUnlocked')) {
-    unlockPanel();
-  } else {
-    document.getElementById('pin1').focus();
-    // Auto-advance digits
-    ['pin1','pin2','pin3','pin4'].forEach((id, idx, arr) => {
-      const el = document.getElementById(id);
-      el.addEventListener('input', () => {
-        if (el.value.length === 1 && idx < arr.length - 1) {
-          document.getElementById(arr[idx + 1]).focus();
-        }
-        if (idx === arr.length - 1 && el.value.length === 1) checkPin();
-      });
-      el.addEventListener('keydown', e => {
-        if (e.key === 'Backspace' && !el.value && idx > 0) {
-          document.getElementById(arr[idx - 1]).focus();
-        }
-        if (e.key === 'Enter') checkPin();
-      });
-    });
-  }
-});
-
-async function checkPin() {
-  const pin = ['pin1','pin2','pin3','pin4'].map(id => document.getElementById(id).value).join('');
-  let ok = false;
-  try {
-    const res = await fetch(WFA_UNLOCK_URL(pin), { cache: 'no-store' });
-    const d = await res.json();
-    ok = !!d.ok;
-  } catch (e) {
-    ok = false;
-  }
-  if (ok) {
-    sessionStorage.setItem('adminUnlocked', Date.now());
-    unlockPanel();
-  } else {
-    const card = document.getElementById('pin-card');
-    card.classList.add('shake');
-    setTimeout(() => card.classList.remove('shake'), 400);
-    document.getElementById('pin-error').textContent = 'Incorrect PIN — try again.';
-    ['pin1','pin2','pin3','pin4'].forEach(id => { document.getElementById(id).value = ''; });
-    document.getElementById('pin1').focus();
-  }
-}
-
-function unlockPanel() {
-  document.getElementById('pin-screen').style.display = 'none';
   document.getElementById('main').style.display = 'block';
   loadSubmissions();
-}
+});
 
 // ===== JSONP helper (bypasses CORS on Apps Script) =====
 function jsonpFetch(url, timeoutMs) {
@@ -1374,6 +1273,6 @@ function renderPupilPane() {
   document.getElementById('pupil-detail').innerHTML = html;
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v06.07.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v27.09.26a</p>
 </body>
 </html>

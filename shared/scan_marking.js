@@ -30,7 +30,7 @@ const ScanMarking = (function(){
     const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
     card = document.createElement('section'); card.className = 'card'; card.id = 'scanCard';
     card.innerHTML = '<h2>Print &amp; scan marking sheets</h2>'
-      + '<p class="hint">A compact sheet per pupil for this test: their name, and a row of circles per question. Colour in the ONE circle that shows the mark each question earned, with a highlighter. Scan the stack, upload it below, and check the readings before saving.</p>'
+      + '<p class="hint">A compact sheet per pupil for this test: their name, and a row of circles per question. Colour in the ONE circle that shows the mark each question earned, with a highlighter. Marked the wrong one? Scribble solidly over it in pen, then colour the right one — a scribbled-out circle is read as not chosen. Scan the stack, upload it below, and check the readings before saving.</p>'
       + '<div class="row"><label for="scClass">Class</label><select id="scClass"><option value="">Loading classes…</option></select>'
       + '<button class="act alt" id="scPrint" disabled>Print marking sheets for this class</button></div>'
       + '<div class="row"><label for="scFile">Scanned file (PDF, or a single photo)</label><input type="file" id="scFile" accept="application/pdf,image/*">'

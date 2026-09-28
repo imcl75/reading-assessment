@@ -47,10 +47,21 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .sheet .foot{margin-top:16px;font-size:.75rem;color:#567;display:flex;justify-content:space-between}
 .sheet .ta{font-size:.95rem;margin:8px 0}
 .sheet .box{display:inline-block;width:26px;height:26px;border:2px solid #000;vertical-align:middle;margin:0 4px}
+/* Longer phases (Phase 5a (all)/5b/5c) get smaller print sizing so every sheet still fits on one A4 page — see the sizeCls logic in sheet(). */
+.sheet.med .head{margin-bottom:6px}.sheet.med .fields{margin:6px 0 8px}
+.sheet.med .passage{font-size:22pt;line-height:1.6;margin:10px 0 14px;padding:10px}
+.sheet.med .qq{margin:12px 0;font-size:14pt}
+.sheet.med .line{height:28px;margin-top:4px}
+.sheet.long .head{margin-bottom:6px}.sheet.long .fields{margin:6px 0 8px}
+.sheet.long .passage{font-size:21pt;line-height:1.55;margin:12px 0 14px;padding:10px}
+.sheet.long .qq{margin:12px 0;font-size:14pt}
+.sheet.long .line{height:26px;margin-top:4px}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
 .pic{display:block;max-width:100%;border-radius:12px;margin:0 auto 12px;border:2px solid var(--line)}
 #pic{max-width:420px}
 .sheet .pic{width:105mm;max-width:none;margin:6px auto 2px;border-radius:8px;border:1px solid #cfe3ee}
+.sheet.med .pic{width:90mm}
+.sheet.long .pic{width:90mm}
 body.nopics .pic{display:none}
 .opt{font-size:.9rem;margin-top:8px}
 </style>
@@ -93,13 +104,17 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "28.09.26a";
+const VERSION = "28.09.26b";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
 function sheet(l, i, teacher){
   const t = l.texts[i];
-  let h = '<section class="sheet" data-l="'+l.level+'" data-i="'+i+'" data-k="'+(teacher?"t":"p")+'"><div class="head"><h1>'+esc(t.title)+'</h1><small>Unlocking Letters and Sounds &middot; '+esc(l.name)+(teacher?' &middot; Teacher copy':'')+'</small></div>';
+  // Longer phases (Phase 5a (all)/5b/5c) need smaller print sizing to keep every sheet on one page — see the
+  // .sheet.med/.sheet.long print rules. Word count is the same thing shown as "(N words)" on screen.
+  const wc = t.text.trim().split(/\s+/).length;
+  const sizeCls = wc > 50 ? ' long' : wc > 35 ? ' med' : '';
+  let h = '<section class="sheet'+sizeCls+'" data-l="'+l.level+'" data-i="'+i+'" data-k="'+(teacher?"t":"p")+'"><div class="head"><h1>'+esc(t.title)+'</h1><small>Unlocking Letters and Sounds &middot; '+esc(l.name)+(teacher?' &middot; Teacher copy':'')+'</small></div>';
   h += '<div class="fields"><span>Name:</span>'+(teacher?'<span>Class:</span><span>Date:</span>':'')+'</div>';
   if (t.image) h += '<img class="pic" src="'+t.image+'" alt="">';
   h += '<p class="passage">'+esc(t.text)+'</p>';

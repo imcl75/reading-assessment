@@ -60,7 +60,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .sheet .line{border-bottom:1.5px solid #000;height:22px;margin-top:3px}
 .sheet .opt{display:inline-block;margin:4px 16px 0 0}
 .sheet .box{display:inline-block;width:20px;height:20px;border:2px solid #000;vertical-align:middle;margin-right:6px}
-.sheet .foot{margin-top:12px;font-size:.75rem;color:#567;display:flex;justify-content:space-between}
+.sheet .foot{margin-top:12px;font-size:.75rem;color:#567;display:flex;justify-content:space-between;page-break-before:avoid;break-before:avoid-page;page-break-inside:avoid}
 .sheet .ta{font-size:10.5pt;margin:2px 0 8px;color:#123}
 .sheet table{border-collapse:collapse;width:100%;margin-top:10px;font-size:10.5pt}
 .sheet td,.sheet th{border:1px solid #000;padding:6px;text-align:left}
@@ -104,7 +104,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "28.09.26l";
+const VERSION = "28.09.26m";
 const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};
@@ -202,7 +202,14 @@ function paginateQuestions(t){
   // right up to the edge — a bigger buffer is cheap insurance against that. Widened again the
   // same day after folding the page-marker into the fields row shaved ~8mm off every sheet's
   // chrome, which had quietly clawed back most of that margin for this exact benchmark case.
-  const budget = A4_BUDGET_MM - 30;
+  // Widened a THIRD time, same day, after a completely different real test (Level 25, "The
+  // Final Leg", 13 questions) measured at 232.6mm — 6.4mm under that 239mm budget — and still
+  // spilled its footer onto its own near-blank physical page. Two independent real prints have
+  // now overflowed despite a comfortable-looking on-screen margin, so the gap between measured
+  // and real usable print area is bigger than a few mm of polish can fix; erring hard toward
+  // "wastes paper" over "silently wrong" per Innes, 28.09.26 ("not an issue to go onto a second
+  // page if it's needed, it just needs to work as expected").
+  const budget = A4_BUDGET_MM - 55;
   const pages = []; let cur = []; let used = chromeH;
   heightsMm.forEach((h, n) => {
     const withFoot = used + h + footH;   // always keep room for the footer, in case this ends up the last page

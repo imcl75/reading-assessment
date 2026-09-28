@@ -22,21 +22,28 @@ const ScanMarking = (function(){
     + '#scanCard .qm button.unclear{border-color:#b9770e;box-shadow:0 0 0 2px #f2d27a55}'
     + '#scanCard .rtotal{font-weight:700}'
     + '#scanCard .badrow{background:#fff7e0}'
-    + '#scanCard .st{margin:8px 0;font-weight:700}#scanCard .st.ok{color:#146c2e}#scanCard .st.bad{color:#b3261e}';
+    + '#scanCard .st{margin:8px 0;font-weight:700}#scanCard .st.ok{color:#146c2e}#scanCard .st.bad{color:#b3261e}'
+    + '#scanCard .plist{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0 4px;max-height:160px;overflow-y:auto;padding:8px;border:1px solid #dbe4ec;border-radius:8px}'
+    + '#scanCard .plist label{display:flex;align-items:center;gap:5px;font-size:.9rem;white-space:nowrap}'
+    + '#scanCard .plink{background:none;border:0;color:#0a6fa8;text-decoration:underline;font:inherit;cursor:pointer;padding:0}';
 
   function build(){
     const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
     card = document.createElement('section'); card.className = 'card'; card.id = 'scanCard';
     card.innerHTML = '<h2>Print &amp; scan marking sheets</h2>'
       + '<p class="hint">This is the sheet the children write their answers on — their name is pre-printed, one per pupil. After marking each question in the usual way, colour in the ONE circle under it that shows the mark it earned, with a highlighter. Marked the wrong one? Scribble solidly over it in pen, then colour the right one — a scribbled-out circle is read as not chosen. Scan the marked stack, upload it below, and check the readings before saving.</p>'
-      + '<div class="row"><label for="scClass">Class</label><select id="scClass"><option value="">Loading classes…</option></select>'
-      + '<button class="act alt" id="scPrint" disabled>Print answer sheets for this class</button></div>'
+      + '<div class="row"><label for="scClass">Class</label><select id="scClass"><option value="">Loading classes…</option></select></div>'
+      + '<div id="scPupilsWrap" hidden><p class="hint" style="margin:0 0 4px">Untick anyone sitting a different test at a different level — print and scan them separately, after choosing their level above. <button class="plink" id="scAll">Select all</button> &middot; <button class="plink" id="scNone">Select none</button></p>'
+      + '<div class="plist" id="scPupils"></div></div>'
+      + '<div class="row"><button class="act alt" id="scPrint" disabled>Print answer sheets for the ticked pupils</button></div>'
       + '<div class="row"><label for="scFile">Scanned file (PDF, or a single photo)</label><input type="file" id="scFile" accept="application/pdf,image/*">'
       + '<button class="act" id="scRead" disabled>Read scan</button></div>'
       + '<p class="st" id="scStatus"></p><div id="scReview"></div>'
       + '<div class="row" id="scSaveRow" hidden><button class="act" id="scSaveAll">Save all checked rows</button></div>';
     (document.querySelector('main') || document.body).appendChild(card);
     $q('scPrint').onclick = printSheets;
+    $q('scAll').onclick = () => setAllTicked(true);
+    $q('scNone').onclick = () => setAllTicked(false);
     $q('scFile').onchange = () => { $q('scRead').disabled = !$q('scFile').files.length; };
     $q('scRead').onclick = readScan;
     $q('scSaveAll').onclick = saveAll;
@@ -48,18 +55,31 @@ const ScanMarking = (function(){
     if (!d.pupils) { $q('scClass').innerHTML = '<option value="">Class lists unavailable</option>'; return; }
     roster = {};
     d.pupils.forEach(p => { const c = p.class || p.code || '?'; (roster[c] = roster[c] || []).push(p); });
+    Object.values(roster).forEach(list => list.sort((a,b) => (a.last+a.first).localeCompare(b.last+b.first)));
     const names = Object.keys(roster).sort();
     $q('scClass').innerHTML = '<option value="">Choose a class</option>' + names.map(n => '<option value="'+h(n)+'">'+h(n)+'</option>').join('');
-    $q('scClass').onchange = () => { $q('scPrint').disabled = !$q('scClass').value; };
+    $q('scClass').onchange = renderPupilList;
   }
+
+  function renderPupilList(){
+    const cls = $q('scClass').value, pool = roster[cls] || [];
+    $q('scPupilsWrap').hidden = !cls;
+    $q('scPrint').disabled = !cls;
+    $q('scPupils').innerHTML = pool.map(p => '<label><input type="checkbox" class="scpu" value="'+h(p.upn)+'" checked>'+h(p.first+' '+p.last)+'</label>').join('');
+  }
+  function setAllTicked(on){ $q('scPupils').querySelectorAll('.scpu').forEach(cb => cb.checked = on); }
 
   // ---- Print ----
   // Each pupil gets the SAME sheet they'd normally write their answers on (passage + questions), just with their
   // name pre-printed instead of a blank field, and a row of marking circles under each question — Innes, 28.09.26:
   // one sheet, written on by the child then marked and scanned by the teacher, not a separate marking-only sheet.
+  // Only the TICKED pupils print, so a pupil sitting a different level's test can be left out here and done
+  // separately (untick, pick their level above, tick just them, print again).
   let printedSheets = [];
   function printSheets(){
-    const cls = $q('scClass').value, pupils = (roster[cls] || []);
+    const cls = $q('scClass').value;
+    const ticked = new Set([...$q('scPupils').querySelectorAll('.scpu:checked')].map(cb => cb.value));
+    const pupils = (roster[cls] || []).filter(p => ticked.has(p.upn));
     if (!pupils.length) return;
     printedSheets.forEach(e => e.remove()); printedSheets = [];
     document.querySelectorAll('.sheet.active').forEach(e => e.classList.remove('active'));

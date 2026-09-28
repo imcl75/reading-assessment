@@ -10,6 +10,14 @@ const ScanMarking = (function(){
   const $q = id => document.getElementById(id);
   const h = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const norm = s => String(s || '').normalize('NFC').toLowerCase().replace(/[-–—_']/g, ' ').replace(/[^a-z0-9 ]/g, '').replace(/ +/g, ' ').trim();
+  // "Save as PDF" takes its default filename from document.title — the static <title> tag left
+  // every save as the generic "Reading Comprehension by Level" regardless of what was actually
+  // printed (Innes, 28.09.26). Set it just for the print, then put it back.
+  function printWithTitle(name, fn){
+    const old = document.title;
+    document.title = name;
+    try { fn(); } finally { document.title = old; }
+  }
 
   const css = '#scanCard .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:8px 0}'
     + '#scanCard select,#scanCard input[type=file]{font-size:16px;padding:8px;border:1px solid #c9d3dc;border-radius:8px;background:#fff}'
@@ -120,7 +128,9 @@ const ScanMarking = (function(){
     const wrap = document.createElement('div');
     wrap.innerHTML = html;
     [...wrap.children].forEach(el => { holder.appendChild(el); printedSheets.push(el); });
-    window.print();
+    const meta = cfg.getMeta();
+    const kind = builderName === 'buildPupilPassageHTML' ? 'Texts' : 'Answers';
+    printWithTitle('Reading Comprehension - Level ' + meta.level + ' - ' + meta.title + ' - ' + kind, () => window.print());
     printedSheets.forEach(e => e.remove()); printedSheets = [];
   }
 

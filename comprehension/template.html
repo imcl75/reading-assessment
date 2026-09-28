@@ -104,7 +104,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "28.09.26m";
+const VERSION = "28.09.26n";
 const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};
@@ -176,7 +176,7 @@ function measureQuestionHeights(t){
   document.body.appendChild(probe);
   probe.innerHTML = '<div class="head"><h1>'+esc(t.title)+'</h1><small>placeholder</small></div>'
     + '<div class="fields"><span>Name</span><span>Class</span><span class="pg">Page 1 of 1</span></div>'
-    + '<p class="markhint">Marking: highlight a circle if that mark was earned, leave it blank if not.</p>';
+    + '<p class="markhint">Marking: colour a circle GREEN if that mark was earned; leave it blank, or cancel in a different colour, if not.</p>';
   const chromeH = probe.getBoundingClientRect().height / PX_PER_MM;
   const footEl = document.createElement('div'); footEl.className = 'foot'; footEl.innerHTML = '<span>a</span><span>b</span>';
   probe.appendChild(footEl);
@@ -226,14 +226,21 @@ function scanAnswerHTML(t,l,pupilName,className){
   return pages.map((idxs,pi) => {
     const fields='<div class="fields"><span>'+esc(pupilName)+'</span><span>'+esc(className)+'</span>'+(N>1?'<span class="pg">Page '+(pi+1)+' of '+N+'</span>':'')+'</div>';
     const head='<div class="head"><h1>'+esc(t.title)+'</h1><small>Level '+lv(l.level)+' &middot; '+b[2]+' &middot; Questions</small></div>';
-    const hint='<p class="markhint">Marking: highlight a circle if that mark was earned, leave it blank if not.</p>';
+    const hint='<p class="markhint">Marking: colour a circle GREEN if that mark was earned; leave it blank, or cancel in a different colour, if not.</p>';
     const body=idxs.map(n=>qHTML(t.qs[n],n,false,true)).join('');
     const lastFoot = pi===N-1 ? '<div class="foot"><span>Total: ____ / '+tot(t)+'</span><span>v'+VERSION+'</span></div>' : foot;
     return '<section class="sheet active">'+fields+head+hint+body+lastFoot+'</section>';
   }).join('');
 }
 function buildSheets(){ $("sheets").innerHTML = DATA.map(l=>l.texts.map((_,i)=>sheets(l,i)).join('')).join(''); }
-function printSel(sel){ document.querySelectorAll(".sheet.active").forEach(e=>e.classList.remove("active")); document.querySelectorAll(sel).forEach(e=>e.classList.add("active")); window.print(); }
+function printSel(sel, name){
+  document.querySelectorAll(".sheet.active").forEach(e=>e.classList.remove("active"));
+  document.querySelectorAll(sel).forEach(e=>e.classList.add("active"));
+  const old = document.title;
+  if (name) document.title = name;
+  window.print();
+  document.title = old;
+}
 function renderLevels(){
   $("levels").innerHTML = ALL.map(l=>{ const d=DATA.find(x=>x.level===l), b=band(l);
     return '<button class="lv" data-l="'+l+'" '+(d?'':'disabled ')+'aria-pressed="'+(d===L)+'"><span class="band" style="background:'+b[3]+'"></span>'+lv(l)+'</button>'; }).join("");
@@ -263,8 +270,8 @@ function score(){
 $("levels").onclick=e=>{const b=e.target.closest(".lv");if(!b||b.disabled)return;L=DATA.find(l=>l.level==b.dataset.l);T=0;renderLevels();renderTexts();};
 $("texts").onclick=e=>{const b=e.target.closest(".tx");if(!b)return;T=+b.dataset.i;renderTexts();};
 $("qs").onclick=e=>{const b=e.target.closest("button");if(!b)return;const n=+b.dataset.n;marks[n]=+b.dataset.v;b.parentNode.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");score();};
-$("pPupil").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"][data-k="p"]');
-$("pTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"][data-k="t"]');
+$("pPupil").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"][data-k="p"]', 'Reading Comprehension - Level '+lv(L.level)+' - '+L.texts[T].title+' - Pupil Copy');
+$("pTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"][data-k="t"]', 'Reading Comprehension - Level '+lv(L.level)+' - '+L.texts[T].title+' - Mark Scheme');
 SaveResults.init({tool:"comprehension", get:()=>{ const t=L.texts[T], s=marks.reduce((a,b)=>a+(b||0),0), n=tot(t);
   return {ready:!marks.includes(null), hint:"Mark every question first, then save.", summary:s+"/"+n+" ("+Math.round(100*s/n)+"%), level "+lv(L.level),
           body:{test_id:t.id, level:String(lv(L.level)), marks:marks.map(m=>m||0), total:n,

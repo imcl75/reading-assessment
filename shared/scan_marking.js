@@ -16,7 +16,8 @@ const ScanMarking = (function(){
     + '#scanCard .hint{font-size:.85rem;color:#4b5563;margin:4px 0 10px}'
     + '#scanCard table.rev{width:100%;border-collapse:collapse;margin-top:10px;font-size:.85rem}'
     + '#scanCard table.rev th,#scanCard table.rev td{border:1px solid #dbe4ec;padding:6px 8px;text-align:left;vertical-align:top}'
-    + '#scanCard .qm{display:inline-flex;gap:3px;margin:2px 4px 2px 0}'
+    + '#scanCard .qm{display:inline-flex;align-items:center;gap:3px;margin:2px 10px 6px 0;padding-right:9px;border-right:1px solid #e5ebf1}'
+    + '#scanCard .qm .qn{font-size:.75rem;color:#456;font-weight:700;margin-right:1px}'
     + '#scanCard .qm button{width:24px;height:24px;border-radius:50%;border:1.5px solid #c9d3dc;background:#fff;font-size:.75rem;font-weight:700;cursor:pointer;padding:0}'
     + '#scanCard .qm button.on{background:var(--dark,#0a0101);color:#fff;border-color:var(--dark,#0a0101)}'
     + '#scanCard .qm button.unclear{border-color:#b9770e;box-shadow:0 0 0 2px #f2d27a55}'
@@ -213,7 +214,7 @@ const ScanMarking = (function(){
           + '<td>' + r.pages.map(p=>p+1).join(', ') + '</td>'
           + '<td><select class="rpupil"' + (r.saved?' disabled':'') + '><option value="">' + (r.upn ? '' : 'Not matched — choose') + '</option>' + pupilOpts + '</select>'
           + (r.name ? '<div class="hint">read as: ' + h(r.name) + '</div>' : '') + '</td>'
-          + '<td>' + t.qs.map((q,qi) => '<span class="qm" data-q="'+qi+'">' +
+          + '<td>' + t.qs.map((q,qi) => '<span class="qm" data-q="'+qi+'"><b class="qn">'+(qi+1)+')</b> ' +
               Array.from({length:q.m+1},(_,v)=>'<button data-v="'+v+'" class="'+(r.marks[qi]===v?'on':'')+(r.marks[qi]==null&&v===0?' unclear':'')+'"'+(r.saved?' disabled':'')+'>'+v+'</button>').join('') + '</span>').join('') + '</td>'
           + '<td class="rtotal">' + score + ' / ' + max + '</td>'
           + '<td>' + (r.saved ? 'Saved' : '<button class="act alt rsave">Save</button>') + '</td></tr>';

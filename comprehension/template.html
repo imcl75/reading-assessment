@@ -56,13 +56,12 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .sheet .passage.xlong p{font-size:10.5pt;line-height:1.45;margin:0 0 6pt}
 .sheet .qq{margin:0 0 9pt;font-size:11pt;page-break-inside:avoid}
 .sheet .qq .mk{float:right;font-size:10pt;color:#345}
+.sheet .qq .mk .circ{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border:1.3px solid #000;border-radius:50%;margin-left:4px;vertical-align:middle}
 .sheet .line{border-bottom:1.5px solid #000;height:22px;margin-top:3px}
 .sheet .opt{display:inline-block;margin:4px 16px 0 0}
 .sheet .box{display:inline-block;width:20px;height:20px;border:2px solid #000;vertical-align:middle;margin-right:6px}
 .sheet .foot{margin-top:12px;font-size:.75rem;color:#567;display:flex;justify-content:space-between}
 .sheet .ta{font-size:10.5pt;margin:2px 0 8px;color:#123}
-.sheet .markrow{margin-top:5px;font-size:9.5pt;color:#345}
-.sheet .markrow .circ{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border:1.3px solid #000;border-radius:50%;font-size:8.5pt;margin-left:4px}
 .sheet table{border-collapse:collapse;width:100%;margin-top:10px;font-size:10.5pt}
 .sheet td,.sheet th{border:1px solid #000;padding:6px;text-align:left}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
@@ -105,7 +104,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "28.09.26k";
+const VERSION = "28.09.26l";
 const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};
@@ -117,19 +116,19 @@ const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"
 let L = DATA[0], T = 0, marks = [];
 const ALL = []; for (let l=18;l<=34;l++) ALL.push(l);
 function qHTML(q,n,teacher,marking){
-  let h='<div class="qq"><span class="mk">'+q.m+' mark'+(q.m>1?'s':'')+'</span><b>'+(n+1)+'.</b> '+esc(q.q);
+  // Marking circles (Innes, 28.09.26): live on the SAME sheet the child writes on. ONE independent
+  // circle per mark point — highlight it if that mark was earned, leave it blank if not — never a
+  // labelled row to choose between (a real scan showed the old "pick which of these labelled
+  // circles is filled" version got misread almost every time; this is the exact convention already
+  // proven reliable in Word Assessment). Placed up in the mark-value corner, not down by the child's
+  // own answer space (Innes, 28.09.26: too easy for a child to reach and mess with down there).
+  const circles = marking ? ' '+Array.from({length:q.m},()=>'<span class="circ"></span>').join('') : '';
+  let h='<div class="qq"><span class="mk">'+q.m+' mark'+(q.m>1?'s':'')+circles+'</span><b>'+(n+1)+'.</b> '+esc(q.q);
   if(!teacher){
     if(q.k==="mc") h+='<div>'+q.opts.map(o=>'<span class="opt"><span class="box"></span>'+esc(o)+'</span>').join('')+'</div>';
     else if(q.k==="tf") h+='<table><tr><th>Sentence</th><th>True</th><th>False</th></tr>'+q.items.map(o=>'<tr><td>'+esc(o)+'</td><td><span class="box"></span></td><td><span class="box"></span></td></tr>').join('')+'</table>';
     else if(q.k==="order") h+='<div>'+q.items.map(o=>'<div class="opt"><span class="box"></span>'+esc(o)+'</div>').join('<br>')+'</div>';
     else h+='<div class="line"></div>'+(q.m>1?'<div class="line"></div>':'');
-    // Marking circles (Innes, 28.09.26): live on the SAME sheet the child writes on, right under their answer —
-    // colour in a circle with a highlighter when marking, then scan this sheet.
-    // Rebuilt 28.09.26 (second pass): ONE independent circle per mark point — highlight it if that
-    // mark was earned, leave it blank if not — never a labelled row to choose between. A real scan
-    // showed the old "pick which of these labelled circles is filled" version got misread almost
-    // every time; this is the exact convention already proven reliable in Word Assessment.
-    if(marking) h+='<div class="markrow">Mark'+(q.m>1?'s':'')+': '+Array.from({length:q.m},()=>'<span class="circ"></span>').join('')+'</div>';
   } else {
     let a=q.a; if(q.k==="mc") a=q.a+": "+q.opts["ABCD".indexOf(q.a)]; if(q.k==="order") a=q.items.map((it,i)=>q.a[i]+" = "+it).join("; "); if(q.k==="tf") a=q.items.map((it,i)=>(q.a[i]==="T"?"True":"False")+": "+it).join("; ");
     h+='<div class="ta"><i>['+DOM[q.d]+']</i> <b>Answer:</b> '+esc(a)+(q.g?'<br><i>'+esc(q.g)+'</i>':'')+'<br>Mark: &nbsp;<span class="box"></span> of '+q.m+'</div>';

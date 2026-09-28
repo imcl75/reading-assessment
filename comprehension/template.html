@@ -35,7 +35,14 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 @media print{
   header,main,footer{display:none!important}
   body{background:#fff}
-  .sheet.active{display:block!important;page-break-after:always}
+  .sheet.active{display:block!important}
+  /* break-BEFORE every active sheet that follows another one, not break-AFTER every sheet —
+     page-break-after:always on the very last sheet forces a trailing blank page in Chrome/
+     Safari (Innes, 28.09.26, spotted a genuine blank 3rd page). This never adds a break after
+     the true last sheet, since nothing follows it to trigger the rule. General sibling (~), not
+     adjacent (+), so it still works if a non-active sheet ever sits between two active ones —
+     same fix already proven in fluency/template.html's bulk-print flow. */
+  .sheet.active ~ .sheet.active{break-before:page}
   @page{size:A4;margin:14mm}
 }
 .sheet .head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--brand);padding-bottom:6px;margin-bottom:10px}
@@ -97,7 +104,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "28.09.26h";
+const VERSION = "28.09.26i";
 const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};

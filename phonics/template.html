@@ -34,7 +34,11 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 @media print{
   header,main,footer{display:none!important}
   body{background:#fff}
-  .sheet.active{display:block!important;page-break-after:always}
+  .sheet.active{display:block!important}
+  /* break-BEFORE, not break-AFTER — page-break-after:always on the last active sheet forces a
+     trailing blank page in Chrome/Safari; same fix as comprehension/template.html and the
+     already-proven pattern in fluency/template.html's bulk-print flow, 28.09.26. */
+  .sheet.active ~ .sheet.active{break-before:page}
   @page{size:A4;margin:14mm}
 }
 .sheet .head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid var(--brand);padding-bottom:6px;margin-bottom:10px}
@@ -104,7 +108,7 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "28.09.26h";
+const VERSION = "28.09.26i";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];

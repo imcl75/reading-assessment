@@ -22,17 +22,15 @@ const ScanMarking = (function(){
     + '#scanCard .qm button.unclear{border-color:#b9770e;box-shadow:0 0 0 2px #f2d27a55}'
     + '#scanCard .rtotal{font-weight:700}'
     + '#scanCard .badrow{background:#fff7e0}'
-    + '#scanCard .st{margin:8px 0;font-weight:700}#scanCard .st.ok{color:#146c2e}#scanCard .st.bad{color:#b3261e}'
-    + '.scansheet{width:420px}.scansheet .qrow{border-top:1px solid var(--line,#cfe3ee);padding:6px 0;display:flex;justify-content:space-between;align-items:center}'
-    + '.scansheet .circ{display:inline-flex;gap:6px}.scansheet .circ span{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border:1.5px solid #000;border-radius:50%;font-size:.75rem}';
+    + '#scanCard .st{margin:8px 0;font-weight:700}#scanCard .st.ok{color:#146c2e}#scanCard .st.bad{color:#b3261e}';
 
   function build(){
     const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
     card = document.createElement('section'); card.className = 'card'; card.id = 'scanCard';
     card.innerHTML = '<h2>Print &amp; scan marking sheets</h2>'
-      + '<p class="hint">A compact sheet per pupil for this test: their name, and a row of circles per question. Colour in the ONE circle that shows the mark each question earned, with a highlighter. Marked the wrong one? Scribble solidly over it in pen, then colour the right one — a scribbled-out circle is read as not chosen. Scan the stack, upload it below, and check the readings before saving.</p>'
+      + '<p class="hint">This is the sheet the children write their answers on — their name is pre-printed, one per pupil. After marking each question in the usual way, colour in the ONE circle under it that shows the mark it earned, with a highlighter. Marked the wrong one? Scribble solidly over it in pen, then colour the right one — a scribbled-out circle is read as not chosen. Scan the marked stack, upload it below, and check the readings before saving.</p>'
       + '<div class="row"><label for="scClass">Class</label><select id="scClass"><option value="">Loading classes…</option></select>'
-      + '<button class="act alt" id="scPrint" disabled>Print marking sheets for this class</button></div>'
+      + '<button class="act alt" id="scPrint" disabled>Print answer sheets for this class</button></div>'
       + '<div class="row"><label for="scFile">Scanned file (PDF, or a single photo)</label><input type="file" id="scFile" accept="application/pdf,image/*">'
       + '<button class="act" id="scRead" disabled>Read scan</button></div>'
       + '<p class="st" id="scStatus"></p><div id="scReview"></div>'
@@ -56,24 +54,22 @@ const ScanMarking = (function(){
   }
 
   // ---- Print ----
+  // Each pupil gets the SAME sheet they'd normally write their answers on (passage + questions), just with their
+  // name pre-printed instead of a blank field, and a row of marking circles under each question — Innes, 28.09.26:
+  // one sheet, written on by the child then marked and scanned by the teacher, not a separate marking-only sheet.
+  let printedSheets = [];
   function printSheets(){
-    const t = cfg.getTest(), meta = cfg.getMeta(), cls = $q('scClass').value, pupils = (roster[cls] || []);
+    const cls = $q('scClass').value, pupils = (roster[cls] || []);
     if (!pupils.length) return;
-    document.querySelectorAll('.scansheet').forEach(e => e.remove());
+    printedSheets.forEach(e => e.remove()); printedSheets = [];
     document.querySelectorAll('.sheet.active').forEach(e => e.classList.remove('active'));
     const holder = document.getElementById('sheets') || document.body;
-    pupils.forEach(p => {
-      const sec = document.createElement('section');
-      sec.className = 'sheet scansheet active';
-      sec.innerHTML = '<div class="head"><h1>'+h(p.first+' '+p.last)+'</h1><small>'+h(cls)+' &middot; '+h(meta.title)+' &middot; Marking sheet</small></div>'
-        + '<p class="hint" style="margin:2px 0 8px">Colour in ONE circle per row with a highlighter. Marked the wrong one? Scribble solidly over it in pen, then colour the right one.</p>'
-        + t.qs.map((q,i)=>'<div class="qrow"><b>Q'+(i+1)+'</b><span class="circ">'+
-            Array.from({length:q.m+1},(_,v)=>'<span>'+v+'</span>').join('')+'</span></div>').join('')
-        + '<div class="foot"><span>Wallscourt Farm Academy</span><span>Colour in one circle per row</span></div>';
-      holder.appendChild(sec);
-    });
+    const html = pupils.map(p => cfg.buildPupilSheetHTML(p.first + ' ' + p.last, cls)).join('');
+    const wrap = document.createElement('div');
+    wrap.innerHTML = html;
+    [...wrap.children].forEach(el => { holder.appendChild(el); printedSheets.push(el); });
     window.print();
-    document.querySelectorAll('.scansheet').forEach(e => e.remove());
+    printedSheets.forEach(e => e.remove()); printedSheets = [];
   }
 
   // ---- Read scan ----

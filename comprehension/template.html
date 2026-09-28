@@ -52,6 +52,8 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .sheet .box{display:inline-block;width:20px;height:20px;border:2px solid #000;vertical-align:middle;margin-right:6px}
 .sheet .foot{margin-top:12px;font-size:.75rem;color:#567;display:flex;justify-content:space-between}
 .sheet .ta{font-size:10.5pt;margin:2px 0 8px;color:#123}
+.sheet .markrow{margin-top:5px;font-size:9.5pt;color:#345}
+.sheet .markrow .circ{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border:1.3px solid #000;border-radius:50%;font-size:8.5pt;margin-left:4px}
 .sheet table{border-collapse:collapse;width:100%;margin-top:10px;font-size:10.5pt}
 .sheet td,.sheet th{border:1px solid #000;padding:6px;text-align:left}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
@@ -94,7 +96,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "28.09.26b";
+const VERSION = "28.09.26c";
 const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};
@@ -105,13 +107,16 @@ const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
 const ALL = []; for (let l=18;l<=34;l++) ALL.push(l);
-function qHTML(q,n,teacher){
+function qHTML(q,n,teacher,marking){
   let h='<div class="qq"><span class="mk">'+q.m+' mark'+(q.m>1?'s':'')+'</span><b>'+(n+1)+'.</b> '+esc(q.q);
   if(!teacher){
     if(q.k==="mc") h+='<div>'+q.opts.map(o=>'<span class="opt"><span class="box"></span>'+esc(o)+'</span>').join('')+'</div>';
     else if(q.k==="tf") h+='<table><tr><th>Sentence</th><th>True</th><th>False</th></tr>'+q.items.map(o=>'<tr><td>'+esc(o)+'</td><td><span class="box"></span></td><td><span class="box"></span></td></tr>').join('')+'</table>';
     else if(q.k==="order") h+='<div>'+q.items.map(o=>'<div class="opt"><span class="box"></span>'+esc(o)+'</div>').join('<br>')+'</div>';
     else h+='<div class="line"></div>'+(q.m>1?'<div class="line"></div>':'');
+    // Marking circles (Innes, 28.09.26): live on the SAME sheet the child writes on, right under their answer —
+    // colour in one with a highlighter when marking, then scan this sheet. Same convention as Word Assessment.
+    if(marking) h+='<div class="markrow">Mark: '+Array.from({length:q.m+1},(_,v)=>'<span class="circ">'+v+'</span>').join('')+'</div>';
   } else {
     let a=q.a; if(q.k==="mc") a=q.a+": "+q.opts["ABCD".indexOf(q.a)]; if(q.k==="order") a=q.items.map((it,i)=>q.a[i]+" = "+it).join("; "); if(q.k==="tf") a=q.items.map((it,i)=>(q.a[i]==="T"?"True":"False")+": "+it).join("; ");
     h+='<div class="ta"><i>['+DOM[q.d]+']</i> <b>Answer:</b> '+esc(a)+(q.g?'<br><i>'+esc(q.g)+'</i>':'')+'<br>Mark: &nbsp;<span class="box"></span> of '+q.m+'</div>';
@@ -128,6 +133,18 @@ function sheets(l,i){
   let p3='<section class="sheet" '+key+' data-k="t"><div class="fields"><span>Name:</span><span>Class:</span><span>Date:</span></div>'+head(' &middot; Mark scheme')+t.qs.map((q,n)=>qHTML(q,n,true)).join('')+
     (()=>{const [P,D]=thr(t),N=tot(t);return '<table><tr><th>Total</th><th>Result</th></tr><tr><td>____ / '+N+'</td><td>'+P+'&ndash;'+N+' greater depth at this level &nbsp;|&nbsp; '+D+'&ndash;'+(P-1)+' on track at this level &nbsp;|&nbsp; 0&ndash;'+(D-1)+' not yet on track: retest with a different text or try the level below</td></tr></table>';})()+foot+'</section>';
   return p1+p2+p3;
+}
+function scanSheetHTML(t,l,pupilName,className){
+  // A personalised copy of p1+p2 (passage + questions) with the pupil's name pre-printed (so the scan can read it
+  // reliably, same as the child's usual sheet) and marking circles added under each question — Innes, 28.09.26:
+  // "the circles need to go on the sheet where the children will write their answers", same setup as Word Assessment.
+  const b=band(l.level);
+  const head=(sub)=>'<div class="head"><h1>'+esc(t.title)+'</h1><small>Level '+lv(l.level)+' &middot; '+b[2]+' &middot; '+esc(t.type)+sub+'</small></div>';
+  const foot='<div class="foot"><span>Wallscourt Farm Academy</span><span>Comprehension &middot; Level '+lv(l.level)+' &middot; v'+VERSION+'</span></div>';
+  const fields='<div class="fields"><span>'+esc(pupilName)+'</span><span>'+esc(className)+'</span></div>';
+  let p1='<section class="sheet active">'+fields+head('')+'<div class="passage'+(t.text.join(" ").split(/\s+/).length>390?' long':'')+(t.text.join(" ").split(/\s+/).length>480?' xlong':'')+'">'+t.text.map(x=>'<p>'+esc(x)+'</p>').join('')+'</div>'+foot+'</section>';
+  let p2='<section class="sheet active">'+fields+head(' &middot; Questions')+t.qs.map((q,n)=>qHTML(q,n,false,true)).join('')+'<div class="foot"><span>Total: ____ / '+tot(t)+'</span><span>v'+VERSION+'</span></div></section>';
+  return p1+p2;
 }
 function buildSheets(){ $("sheets").innerHTML = DATA.map(l=>l.texts.map((_,i)=>sheets(l,i)).join('')).join(''); }
 function printSel(sel){ document.querySelectorAll(".sheet.active").forEach(e=>e.classList.remove("active")); document.querySelectorAll(sel).forEach(e=>e.classList.add("active")); window.print(); }
@@ -166,7 +183,8 @@ SaveResults.init({tool:"comprehension", get:()=>{ const t=L.texts[T], s=marks.re
   return {ready:!marks.includes(null), hint:"Mark every question first, then save.", summary:s+"/"+n+" ("+Math.round(100*s/n)+"%), level "+lv(L.level),
           body:{test_id:t.id, level:String(lv(L.level)), marks:marks.map(m=>m||0), total:n,
                 domains:t.qs.map(q=>q.d), maxes:t.qs.map(q=>q.m)}}; }});
-ScanMarking.init({getTest:()=>L.texts[T], getMeta:()=>({title:L.texts[T].title, test_id:L.texts[T].id, level:String(lv(L.level))})});
+ScanMarking.init({getTest:()=>L.texts[T], getMeta:()=>({title:L.texts[T].title, test_id:L.texts[T].id, level:String(lv(L.level))}),
+  buildPupilSheetHTML:(pupilName,className)=>scanSheetHTML(L.texts[T],L,pupilName,className)});
 document.querySelector("main").appendChild($("markCard"));   // now that the Save and Scan cards exist, move manual marking below both — it's used less now
 $("markToggle").onclick=()=>{ const on=$("markBody").hidden; $("markBody").hidden=!on; $("markToggle").textContent=on?"Hide":"Show"; };
 $("ver").textContent=VERSION;

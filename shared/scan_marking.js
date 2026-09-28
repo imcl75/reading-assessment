@@ -6,7 +6,7 @@
    handwritten answer itself. Nothing about the scan is stored anywhere; only the confirmed marks are,
    via the normal /readingresults-db save, once the teacher has checked them here. */
 const ScanMarking = (function(){
-  let cfg = null, roster = null, card = null, rows = [], tableCache = {};
+  let cfg = null, roster = null, card = null, rows = [], tableCache = {}, historyCache = {};
   const $q = id => document.getElementById(id);
   const h = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const norm = s => String(s || '').normalize('NFC').toLowerCase().replace(/[-–—_']/g, ' ').replace(/[^a-z0-9 ]/g, '').replace(/ +/g, ' ').trim();
@@ -47,6 +47,7 @@ const ScanMarking = (function(){
       + '<div class="row"><button class="act alt" id="scPrintTexts" disabled>Print texts for the ticked pupils</button>'
       + '<button class="act alt" id="scPrintAnswers" disabled>Print answer sheets for the ticked pupils</button></div>'
       + '<p class="hint" style="margin:2px 0 10px">Two separate print jobs — the texts and the answer sheets come out as their own documents, easier to print and staple separately. An answer sheet that runs to more than one page repeats the pupil’s name on every page.</p>'
+      + '<p class="hint" id="scTextNote" style="margin:2px 0 10px"></p>'
       + '<div class="row"><label for="scFile">Scanned file (PDF, or a single photo)</label><input type="file" id="scFile" accept="application/pdf,image/*">'
       + '<button class="act" id="scRead" disabled>Read scan</button></div>'
       + '<p class="st" id="scStatus"></p><div id="scReview"></div>'
@@ -56,6 +57,7 @@ const ScanMarking = (function(){
     $q('scPrintAnswers').onclick = () => printSheets('buildPupilAnswerHTML');
     $q('scAll').onclick = () => setAllTicked(true);
     $q('scNone').onclick = () => setAllTicked(false);
+    $q('scPupils').addEventListener('change', e => { if (e.target.classList.contains('scpu')) reconcileText(); });
     $q('scFile').onchange = () => { $q('scRead').disabled = !$q('scFile').files.length; };
     $q('scRead').onclick = readScan;
     $q('scSaveAll').onclick = saveAll;
@@ -82,6 +84,43 @@ const ScanMarking = (function(){
     const d = await SaveResults.call('GET', '/classtable/' + encodeURIComponent(cls));
     return (tableCache[cls] = (d && d.ok) ? (d.table || {}) : {});
   }
+
+  // Text-history avoidance (Innes, 28.09.26): a re-test at the same level should default to a text
+  // none of the ticked pupils have already done. One fetch per class (any attempt counts, voided or
+  // not — a voided save still means the pupil saw that text), cached and filtered client-side by
+  // level/test id, so ticking/unticking pupils or changing level doesn't need a fresh request each time.
+  async function loadHistory(cls){
+    if (historyCache[cls]) return historyCache[cls];
+    const d = await SaveResults.call('GET', '/readingresults-db', {class: cls, tool: 'comprehension', include_voided: 1, limit: 2000});
+    return (historyCache[cls] = (d && d.results) || []);
+  }
+  function setTextNote(msg, warn){
+    const el = $q('scTextNote'); if (!el) return;
+    el.textContent = msg || ''; el.style.color = warn ? 'var(--amber,#b9770e)' : '';
+  }
+  function reconcileText(){
+    if (!card) return;
+    const cls = $q('scClass').value;
+    const ticked = [...$q('scPupils').querySelectorAll('.scpu:checked')].map(cb => cb.value);
+    if (!cls || !ticked.length) { setTextNote(''); return; }
+    const rows = historyCache[cls] || [];
+    const meta = cfg.getMeta(), texts = cfg.listTexts();
+    const seenBy = upn => new Set(rows.filter(r => r.upn === upn && String(r.level) === String(meta.level)).map(r => r.test_id));
+    const doneAlready = i => ticked.some(upn => seenBy(upn).has(texts[i].id));
+    const cur = cfg.getIndex();
+    if (!doneAlready(cur)) { setTextNote(''); return; }
+    const alt = texts.findIndex((t, i) => !doneAlready(i));
+    if (alt !== -1) {
+      const pool = roster[cls] || [];
+      const offender = ticked.find(upn => seenBy(upn).has(texts[cur].id));
+      const found = pool.find(p => p.upn === offender);
+      const name = found ? (found.first + ' ' + found.last) : 'a ticked pupil';
+      cfg.selectText(alt);
+      setTextNote('Switched to "' + texts[alt].title + '" — ' + name + ' has already done "' + texts[cur].title + '" at this level.');
+    } else {
+      setTextNote('Everyone ticked has already done every text at this level. Untick some and print them separately, or accept a repeat.', true);
+    }
+  }
   function sortByTable(pool, table){
     return [...pool].sort((a, b) => {
       const ta = table[a.upn], tb = table[b.upn];
@@ -101,12 +140,13 @@ const ScanMarking = (function(){
     const cls = $q('scClass').value, pool = roster[cls] || [];
     $q('scPupilsWrap').hidden = !cls;
     $q('scPrintTexts').disabled = $q('scPrintAnswers').disabled = !cls;
+    setTextNote('');
     if (!cls) return;
     renderPupilRows(pool, {});   // show names immediately; re-render once table order has loaded
-    const table = await loadTable(cls);
-    if ($q('scClass').value === cls) renderPupilRows(pool, table);
+    const [table] = await Promise.all([loadTable(cls), loadHistory(cls)]);
+    if ($q('scClass').value === cls) { renderPupilRows(pool, table); reconcileText(); }
   }
-  function setAllTicked(on){ $q('scPupils').querySelectorAll('.scpu').forEach(cb => cb.checked = on); }
+  function setAllTicked(on){ $q('scPupils').querySelectorAll('.scpu').forEach(cb => cb.checked = on); reconcileText(); }
 
   // ---- Print ----
   // Each pupil gets the SAME sheet they'd normally write their answers on (passage + questions), just with their
@@ -257,5 +297,10 @@ const ScanMarking = (function(){
     for (const r of rows) if (!r.saved) await saveRow(r, t);
   }
 
-  return { init(c){ cfg = c; if (SaveResults.isOn()) build(); } };
+  return {
+    init(c){ cfg = c; if (SaveResults.isOn()) build(); },
+    // Called by the host page when the level/text selection changes (steps 1-2), so a class
+    // already ticked below gets re-checked against the newly chosen text — Innes, 28.09.26.
+    onSelectionChanged(){ reconcileText(); },
+  };
 })();

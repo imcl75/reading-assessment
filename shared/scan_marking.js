@@ -190,6 +190,10 @@ const ScanMarking = (function(){
       rows.push(row);
     }
     row.pages.push(ev.page);
+    row.pages.sort((a, b) => a - b);   // pages of the same test are scanned concurrently and can complete
+                                        // out of order (Innes, 28.09.26: saw "2, 1" instead of "1, 2") — the
+                                        // marks merge is already order-independent, this just keeps the
+                                        // displayed page list reading naturally
     t.qs.forEach((q, i) => {
       const v = ev.marks[String(i + 1)];
       if (v !== null && v !== undefined) row.marks[i] = v;

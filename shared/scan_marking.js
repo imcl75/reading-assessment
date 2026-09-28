@@ -35,13 +35,16 @@ const ScanMarking = (function(){
       + '<div class="row"><label for="scClass">Class</label><select id="scClass"><option value="">Loading classes…</option></select></div>'
       + '<div id="scPupilsWrap" hidden><p class="hint" style="margin:0 0 4px">Untick anyone sitting a different test at a different level — print and scan them separately, after choosing their level above. <button class="plink" id="scAll">Select all</button> &middot; <button class="plink" id="scNone">Select none</button></p>'
       + '<div class="plist" id="scPupils"></div></div>'
-      + '<div class="row"><button class="act alt" id="scPrint" disabled>Print answer sheets for the ticked pupils</button></div>'
+      + '<div class="row"><button class="act alt" id="scPrintTexts" disabled>Print texts for the ticked pupils</button>'
+      + '<button class="act alt" id="scPrintAnswers" disabled>Print answer sheets for the ticked pupils</button></div>'
+      + '<p class="hint" style="margin:2px 0 10px">Two separate print jobs — the texts and the answer sheets come out as their own documents, easier to print and staple separately. An answer sheet that runs to more than one page repeats the pupil’s name on every page.</p>'
       + '<div class="row"><label for="scFile">Scanned file (PDF, or a single photo)</label><input type="file" id="scFile" accept="application/pdf,image/*">'
       + '<button class="act" id="scRead" disabled>Read scan</button></div>'
       + '<p class="st" id="scStatus"></p><div id="scReview"></div>'
       + '<div class="row" id="scSaveRow" hidden><button class="act" id="scSaveAll">Save all checked rows</button></div>';
     (document.querySelector('main') || document.body).appendChild(card);
-    $q('scPrint').onclick = printSheets;
+    $q('scPrintTexts').onclick = () => printSheets('buildPupilPassageHTML');
+    $q('scPrintAnswers').onclick = () => printSheets('buildPupilAnswerHTML');
     $q('scAll').onclick = () => setAllTicked(true);
     $q('scNone').onclick = () => setAllTicked(false);
     $q('scFile').onchange = () => { $q('scRead').disabled = !$q('scFile').files.length; };
@@ -88,7 +91,7 @@ const ScanMarking = (function(){
   async function renderPupilList(){
     const cls = $q('scClass').value, pool = roster[cls] || [];
     $q('scPupilsWrap').hidden = !cls;
-    $q('scPrint').disabled = !cls;
+    $q('scPrintTexts').disabled = $q('scPrintAnswers').disabled = !cls;
     if (!cls) return;
     renderPupilRows(pool, {});   // show names immediately; re-render once table order has loaded
     const table = await loadTable(cls);
@@ -103,7 +106,7 @@ const ScanMarking = (function(){
   // Only the TICKED pupils print, so a pupil sitting a different level's test can be left out here and done
   // separately (untick, pick their level above, tick just them, print again).
   let printedSheets = [];
-  async function printSheets(){
+  async function printSheets(builderName){
     const cls = $q('scClass').value;
     const ticked = new Set([...$q('scPupils').querySelectorAll('.scpu:checked')].map(cb => cb.value));
     const table = await loadTable(cls);
@@ -112,7 +115,7 @@ const ScanMarking = (function(){
     printedSheets.forEach(e => e.remove()); printedSheets = [];
     document.querySelectorAll('.sheet.active').forEach(e => e.classList.remove('active'));
     const holder = document.getElementById('sheets') || document.body;
-    const html = pupils.map(p => cfg.buildPupilSheetHTML(p.first + ' ' + p.last, cls)).join('');
+    const html = pupils.map(p => cfg[builderName](p.first + ' ' + p.last, cls)).join('');
     const wrap = document.createElement('div');
     wrap.innerHTML = html;
     [...wrap.children].forEach(el => { holder.appendChild(el); printedSheets.push(el); });
@@ -173,10 +176,24 @@ const ScanMarking = (function(){
   }
 
   function addRow(ev, t){
+    // A question page can run to more than one physical page (see comprehension/template.html's
+    // paginateQuestions) — every page repeats the pupil's name, and a page only ever shows circles
+    // for the questions printed on it, so pages for the same pupil are merged into ONE row here
+    // rather than becoming separate, partial results. Matched by the name as read, since that's
+    // printed identically on every page of the same pupil's sheet.
     const cls = $q('scClass').value;
-    const row = {id: SaveResults.uuid(), page: ev.page, name: ev.name, upn: matchPupil(ev.name, cls),
-                 marks: t.qs.map((q,i) => ev.marks[String(i+1)]), saved: false};
-    rows.push(row);
+    const key = norm(ev.name);
+    let row = key ? rows.find(r => r.nameKey === key && !r.saved) : null;
+    if (!row) {
+      row = {id: SaveResults.uuid(), pages: [], name: ev.name, nameKey: key, upn: matchPupil(ev.name, cls),
+             marks: t.qs.map(() => null), saved: false};
+      rows.push(row);
+    }
+    row.pages.push(ev.page);
+    t.qs.forEach((q, i) => {
+      const v = ev.marks[String(i + 1)];
+      if (v !== null && v !== undefined) row.marks[i] = v;
+    });
     renderReview(t);
   }
 
@@ -189,7 +206,7 @@ const ScanMarking = (function(){
       rows.map((r,ri) => {
         const score = r.marks.reduce((a,b)=>a+(b||0),0), max = t.qs.reduce((a,q)=>a+q.m,0);
         return '<tr data-row="'+ri+'"' + (r.saved ? ' style="opacity:.5"' : '') + '>'
-          + '<td>' + (r.page+1) + '</td>'
+          + '<td>' + r.pages.map(p=>p+1).join(', ') + '</td>'
           + '<td><select class="rpupil"' + (r.saved?' disabled':'') + '><option value="">' + (r.upn ? '' : 'Not matched — choose') + '</option>' + pupilOpts + '</select>'
           + (r.name ? '<div class="hint">read as: ' + h(r.name) + '</div>' : '') + '</td>'
           + '<td>' + t.qs.map((q,qi) => '<span class="qm" data-q="'+qi+'">' +
@@ -209,8 +226,8 @@ const ScanMarking = (function(){
   }
 
   async function saveRow(row, t){
-    if (!row.upn) { status('Page ' + (row.page+1) + ': choose which pupil this is before saving.', false); return; }
-    if (!rowMarksComplete(row)) { status('Page ' + (row.page+1) + ': one or more marks could not be read — tap the missing ones before saving.', false); return; }
+    if (!row.upn) { status('Page ' + row.pages.map(p=>p+1).join(', ') + ': choose which pupil this is before saving.', false); return; }
+    if (!rowMarksComplete(row)) { status('Page ' + row.pages.map(p=>p+1).join(', ') + ': one or more marks could not be read — tap the missing ones before saving.', false); return; }
     const meta = cfg.getMeta(), total = t.qs.reduce((a,q)=>a+q.m,0);
     const body = {action: 'save', client_id: row.id, upn: row.upn, tool: 'comprehension', source: 'paper',
       taken_on: SaveResults.today(), test_id: meta.test_id, level: meta.level, marks: row.marks, total: total,

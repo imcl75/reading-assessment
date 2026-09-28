@@ -96,7 +96,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "28.09.26e";
+const VERSION = "28.09.26f";
 const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};
@@ -134,17 +134,75 @@ function sheets(l,i){
     (()=>{const [P,D]=thr(t),N=tot(t);return '<table><tr><th>Total</th><th>Result</th></tr><tr><td>____ / '+N+'</td><td>'+P+'&ndash;'+N+' greater depth at this level &nbsp;|&nbsp; '+D+'&ndash;'+(P-1)+' on track at this level &nbsp;|&nbsp; 0&ndash;'+(D-1)+' not yet on track: retest with a different text or try the level below</td></tr></table>';})()+foot+'</section>';
   return p1+p2+p3;
 }
-function scanSheetHTML(t,l,pupilName,className){
-  // A personalised copy of p1+p2 (passage + questions) with the pupil's name pre-printed (so the scan can read it
-  // reliably, same as the child's usual sheet) and marking circles added under each question — Innes, 28.09.26:
-  // "the circles need to go on the sheet where the children will write their answers", same setup as Word Assessment.
+function scanPassageHTML(t,l,pupilName,className){
+  // The text only, personalised — printed as its own document (Innes, 28.09.26: a separate texts
+  // document from the answer sheets, for easier printing and stapling).
   const b=band(l.level);
   const head=(sub)=>'<div class="head"><h1>'+esc(t.title)+'</h1><small>Level '+lv(l.level)+' &middot; '+b[2]+' &middot; '+esc(t.type)+sub+'</small></div>';
   const foot='<div class="foot"><span>Wallscourt Farm Academy</span><span>Comprehension &middot; Level '+lv(l.level)+' &middot; v'+VERSION+'</span></div>';
   const fields='<div class="fields"><span>'+esc(pupilName)+'</span><span>'+esc(className)+'</span></div>';
-  let p1='<section class="sheet active">'+fields+head('')+'<div class="passage'+(t.text.join(" ").split(/\s+/).length>390?' long':'')+(t.text.join(" ").split(/\s+/).length>480?' xlong':'')+'">'+t.text.map(x=>'<p>'+esc(x)+'</p>').join('')+'</div>'+foot+'</section>';
-  let p2='<section class="sheet active">'+fields+head(' &middot; Questions')+t.qs.map((q,n)=>qHTML(q,n,false,true)).join('')+'<div class="foot"><span>Total: ____ / '+tot(t)+'</span><span>v'+VERSION+'</span></div></section>';
-  return p1+p2;
+  return '<section class="sheet active">'+fields+head('')+'<div class="passage'+(t.text.join(" ").split(/\s+/).length>390?' long':'')+(t.text.join(" ").split(/\s+/).length>480?' xlong':'')+'">'+t.text.map(x=>'<p>'+esc(x)+'</p>').join('')+'</div>'+foot+'</section>';
+}
+
+// A question page can genuinely overflow one A4 sheet (some tests have 14 questions with full
+// answer space + marking circles) — Innes, 28.09.26 found only page 1 had the pupil's name on it,
+// so a scan of page 2 couldn't be matched to anyone and its marks would have been lost. Fixed by
+// MEASURING every question's real printed height and splitting into pages that are guaranteed to
+// fit, repeating the pupil's name and a "Page X of Y" marker on every page, keeping the true
+// question numbers throughout so Claude's per-question marks still line up when saving.
+const A4_BUDGET_MM = 269;   // 297mm A4 minus the 14mm top+bottom @page margin
+const PX_PER_MM = 96 / 25.4;
+let _pageCache = {};   // test id -> array of question-index arrays (same test = same pagination for every pupil)
+function measureQuestionHeights(t){
+  // A throwaway, invisible copy of the print sheet's chrome (head/fields/page-note) and every question,
+  // at the real print width — the .sheet ... rules aren't print-gated, so forcing display:block here
+  // measures the exact same layout that ends up on paper.
+  const probe = document.createElement('div');
+  probe.style.cssText = 'position:fixed;top:0;left:-9999px;width:182mm;visibility:hidden;display:block';
+  probe.className = 'sheet';
+  document.body.appendChild(probe);
+  probe.innerHTML = '<div class="head"><h1>'+esc(t.title)+'</h1><small>placeholder</small></div>'
+    + '<div class="fields"><span>Name</span><span>Class</span></div>'
+    + '<p class="note">Page 1 of 1</p>';
+  const chromeH = probe.getBoundingClientRect().height / PX_PER_MM;
+  const footEl = document.createElement('div'); footEl.className = 'foot'; footEl.innerHTML = '<span>a</span><span>b</span>';
+  probe.appendChild(footEl);
+  const footH = footEl.getBoundingClientRect().height / PX_PER_MM;
+  t.qs.forEach((q,n) => {
+    const wrap = document.createElement('div');
+    wrap.innerHTML = qHTML(q,n,false,true);
+    probe.insertBefore(wrap.firstChild, footEl);
+  });
+  const heightsMm = [...probe.querySelectorAll(':scope > .qq')].map(el => el.getBoundingClientRect().height / PX_PER_MM);
+  document.body.removeChild(probe);
+  return {chromeH, footH, heightsMm};
+}
+function paginateQuestions(t){
+  const key = t.id;
+  if (_pageCache[key]) return _pageCache[key];
+  const {chromeH, footH, heightsMm} = measureQuestionHeights(t);
+  const budget = A4_BUDGET_MM - 4;   // small safety margin
+  const pages = []; let cur = []; let used = chromeH;
+  heightsMm.forEach((h, n) => {
+    const withFoot = used + h + footH;   // always keep room for the footer, in case this ends up the last page
+    if (cur.length && withFoot > budget) { pages.push(cur); cur = []; used = chromeH; }
+    cur.push(n); used += h;
+  });
+  if (cur.length) pages.push(cur);
+  return (_pageCache[key] = pages);
+}
+function scanAnswerHTML(t,l,pupilName,className){
+  const b=band(l.level);
+  const pages = paginateQuestions(t), N = pages.length;
+  const fields='<div class="fields"><span>'+esc(pupilName)+'</span><span>'+esc(className)+'</span></div>';
+  const foot='<div class="foot"><span>Wallscourt Farm Academy</span><span>Comprehension &middot; Level '+lv(l.level)+' &middot; v'+VERSION+'</span></div>';
+  return pages.map((idxs,pi) => {
+    const head='<div class="head"><h1>'+esc(t.title)+'</h1><small>Level '+lv(l.level)+' &middot; '+b[2]+' &middot; Questions</small></div>';
+    const pageNote='<p class="note">Page '+(pi+1)+' of '+N+(N>1?' — this pupil’s name is repeated on every page so a scan of any page can be matched':'')+'</p>';
+    const body=idxs.map(n=>qHTML(t.qs[n],n,false,true)).join('');
+    const lastFoot = pi===N-1 ? '<div class="foot"><span>Total: ____ / '+tot(t)+'</span><span>v'+VERSION+'</span></div>' : foot;
+    return '<section class="sheet active">'+fields+head+pageNote+body+lastFoot+'</section>';
+  }).join('');
 }
 function buildSheets(){ $("sheets").innerHTML = DATA.map(l=>l.texts.map((_,i)=>sheets(l,i)).join('')).join(''); }
 function printSel(sel){ document.querySelectorAll(".sheet.active").forEach(e=>e.classList.remove("active")); document.querySelectorAll(sel).forEach(e=>e.classList.add("active")); window.print(); }
@@ -184,7 +242,8 @@ SaveResults.init({tool:"comprehension", get:()=>{ const t=L.texts[T], s=marks.re
           body:{test_id:t.id, level:String(lv(L.level)), marks:marks.map(m=>m||0), total:n,
                 domains:t.qs.map(q=>q.d), maxes:t.qs.map(q=>q.m)}}; }});
 ScanMarking.init({getTest:()=>L.texts[T], getMeta:()=>({title:L.texts[T].title, test_id:L.texts[T].id, level:String(lv(L.level))}),
-  buildPupilSheetHTML:(pupilName,className)=>scanSheetHTML(L.texts[T],L,pupilName,className)});
+  buildPupilPassageHTML:(pupilName,className)=>scanPassageHTML(L.texts[T],L,pupilName,className),
+  buildPupilAnswerHTML:(pupilName,className)=>scanAnswerHTML(L.texts[T],L,pupilName,className)});
 document.querySelector("main").appendChild($("markCard"));   // now that the Save and Scan cards exist, move manual marking below both — it's used less now
 $("markToggle").onclick=()=>{ const on=$("markBody").hidden; $("markBody").hidden=!on; $("markToggle").textContent=on?"Hide":"Show"; };
 $("ver").textContent=VERSION;

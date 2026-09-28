@@ -80,9 +80,11 @@ const SaveResults = (function(){
     $q('srPupil').disabled = !c;
     $q('srPupil').innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => '<option value="'+h(p.upn)+'">'+h(p.first+' '+p.last)+'</option>').join('');
     $q('srHist').innerHTML = ''; refresh();
+    if (cfg.onPupilChange) cfg.onPupilChange('');
   }
   async function onPupil(){
     const upn = $q('srPupil').value; store.set(PUPIL_KEY, upn); refresh();
+    if (cfg.onPupilChange) cfg.onPupilChange(upn);
     $q('srHist').innerHTML = '';
     if (!upn) return;
     const d = await call('GET', '/readingresults-db', {upn: upn, tool: cfg.tool, limit: 5});

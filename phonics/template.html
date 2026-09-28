@@ -81,6 +81,7 @@ body.nopics .pic{display:none}
   <section class="card">
     <h2>2. Choose a text (six per level, so neighbours can't copy)</h2>
     <div class="row" id="texts"></div>
+    <p class="note" id="txNote"></p>
     <div class="actions">
       <button class="act" id="pPupil">Print this pupil copy</button>
       <button class="act alt" id="pTeacher">Print this teacher copy</button>
@@ -108,10 +109,33 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "28.09.26n";
+const VERSION = "28.09.26o";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
+// Text-history avoidance (Innes, 28.09.26): a re-test at the same phase should default to a text
+// this pupil hasn't already done. pupilRows holds the signed-in pupil's own phonics results
+// (any attempt, voided or not — a voided save still means the pupil saw that text); seenSet is
+// just those results' text indices AT THE CURRENT PHASE, recomputed whenever the phase or pupil
+// changes. It only auto-picks on those two triggers — a text clicked by hand is left alone even
+// if it's one the pupil has done, just flagged via txNote, so a deliberate repeat is still one click away.
+let pupilRows = [], curPupil = '', seenSet = new Set();
+function seenIndicesForLevel(){
+  const prefix = 'phonics-'+L.level+'-';
+  return new Set(pupilRows.filter(r=>r.test_id && r.test_id.indexOf(prefix)===0).map(r=>+r.test_id.slice(prefix.length)-1));
+}
+function autoPickText(){
+  seenSet = seenIndicesForLevel();
+  if (seenSet.has(T)) { const alt = L.texts.findIndex((_,i)=>!seenSet.has(i)); if (alt !== -1) T = alt; }
+}
+async function loadPupilHistory(upn){
+  curPupil = upn;
+  if (!upn) { pupilRows = []; autoPickText(); renderTexts(); return; }
+  const d = await SaveResults.call('GET', '/readingresults-db', {upn: upn, tool: 'phonics', include_voided: 1, limit: 2000});
+  if (upn !== curPupil) return;
+  pupilRows = (d && d.results) || [];
+  autoPickText(); renderTexts();
+}
 function sheet(l, i, teacher){
   const t = l.texts[i];
   // Longer phases (Phase 5a (all)/5b/5c) need smaller print sizing to keep every sheet on one page — see the
@@ -157,6 +181,7 @@ function renderTexts(){
   $("focus").textContent = t.focus && t.focus.length ? "Words that check this phase: "+t.focus.join(", ") : "";
   marks = t.qs.map(()=>null);
   $("qs").innerHTML = t.qs.map((q,n)=>'<div class="q"><span class="tag">'+q.t+'</span><b>'+(n+1)+'. '+esc(q.q)+'</b><div class="ans">Accept: '+esc(q.a)+'</div><div class="m"><button data-n="'+n+'" data-v="1">&#10003;</button><button data-n="'+n+'" data-v="0">&#10007;</button></div></div>').join("");
+  $("txNote").textContent = !curPupil || !seenSet.has(T) ? '' : (seenSet.size >= L.texts.length ? 'This pupil has already done every text at this phase.' : 'This pupil has already done this text at this phase.');
   score();
 }
 function score(){
@@ -165,7 +190,7 @@ function score(){
   $("score").textContent = "Score: "+s+" / 3";
   $("scoreNote").textContent = marks.includes(null) ? "Tap a tick or cross for each question." : (s===3 ? "Secure at this level." : s===2 ? "Nearly there: check the 'why' answer and try another text at this level." : "Not yet secure: try another text at this level or a lower level.");
 }
-$("levels").onclick = e => { const b=e.target.closest(".lv"); if(!b) return; L=DATA.find(l=>l.level==b.dataset.l); T=0; renderLevels(); renderTexts(); };
+$("levels").onclick = e => { const b=e.target.closest(".lv"); if(!b) return; L=DATA.find(l=>l.level==b.dataset.l); T=0; autoPickText(); renderLevels(); renderTexts(); };
 $("texts").onclick = e => { const b=e.target.closest(".tx"); if(!b) return; T=+b.dataset.i; renderTexts(); };
 $("qs").onclick = e => { const b=e.target.closest("button"); if(!b) return; const n=+b.dataset.n; marks[n]=+b.dataset.v;
   b.parentNode.querySelectorAll("button").forEach(x=>x.className=""); b.className = marks[n]?"yes":"no"; score(); };
@@ -175,7 +200,7 @@ $("pAllPupil").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="p"]', 
 $("pAllTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="t"]', 'Phonics - '+L.name+' - All Texts - Marking Copies');
 $("pEveryPupil").onclick=()=>printSel('.sheet[data-k="p"]', 'Phonics - Every Phase - Pupil Copies');
 $("picToggle").onchange = e => document.body.classList.toggle("nopics", !e.target.checked);
-SaveResults.init({tool:"phonics", get:()=>{ const s=marks.filter(m=>m===1).length;
+SaveResults.init({tool:"phonics", onPupilChange:loadPupilHistory, get:()=>{ const s=marks.filter(m=>m===1).length;
   return {ready:!marks.includes(null), hint:"Tap a tick or cross for each question first, then save.", summary:s+"/3, "+L.name,
           body:{test_id:"phonics-"+L.level+"-"+(T+1), level:L.name, marks:marks.map(m=>m?1:0)}}; }});
 $("ver").textContent=VERSION;

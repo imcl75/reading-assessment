@@ -6,7 +6,7 @@
    handwritten answer itself. Nothing about the scan is stored anywhere; only the confirmed marks are,
    via the normal /readingresults-db save, once the teacher has checked them here. */
 const ScanMarking = (function(){
-  let cfg = null, roster = null, card = null, rows = [];
+  let cfg = null, roster = null, card = null, rows = [], tableCache = {};
   const $q = id => document.getElementById(id);
   const h = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const norm = s => String(s || '').normalize('NFC').toLowerCase().replace(/[-–—_']/g, ' ').replace(/[^a-z0-9 ]/g, '').replace(/ +/g, ' ').trim();
@@ -61,11 +61,38 @@ const ScanMarking = (function(){
     $q('scClass').onchange = renderPupilList;
   }
 
-  function renderPupilList(){
+  // Table (seating group) order — Innes, 28.09.26: "the spelling tool has a 'table order' function
+  // which helps with handing out the papers". Pulled read-only from the spelling tools' own Class
+  // Manager data (see reading_results_db.py's sibling spelling_class_table.py); a class with no table
+  // data just falls back to name order, so this never blocks printing.
+  async function loadTable(cls){
+    if (tableCache[cls]) return tableCache[cls];
+    const d = await SaveResults.call('GET', '/classtable/' + encodeURIComponent(cls));
+    return (tableCache[cls] = (d && d.ok) ? (d.table || {}) : {});
+  }
+  function sortByTable(pool, table){
+    return [...pool].sort((a, b) => {
+      const ta = table[a.upn], tb = table[b.upn];
+      if (ta && tb && ta !== tb) return ta.localeCompare(tb, undefined, {numeric: true});
+      if (ta && !tb) return -1;
+      if (tb && !ta) return 1;
+      return (a.last + a.first).localeCompare(b.last + b.first);
+    });
+  }
+  function renderPupilRows(pool, table){
+    $q('scPupils').innerHTML = sortByTable(pool, table).map(p =>
+      '<label><input type="checkbox" class="scpu" value="'+h(p.upn)+'" checked>'+h(p.first+' '+p.last)
+      + (table[p.upn] ? ' <span style="color:#789">(Table '+h(table[p.upn])+')</span>' : '') + '</label>'
+    ).join('');
+  }
+  async function renderPupilList(){
     const cls = $q('scClass').value, pool = roster[cls] || [];
     $q('scPupilsWrap').hidden = !cls;
     $q('scPrint').disabled = !cls;
-    $q('scPupils').innerHTML = pool.map(p => '<label><input type="checkbox" class="scpu" value="'+h(p.upn)+'" checked>'+h(p.first+' '+p.last)+'</label>').join('');
+    if (!cls) return;
+    renderPupilRows(pool, {});   // show names immediately; re-render once table order has loaded
+    const table = await loadTable(cls);
+    if ($q('scClass').value === cls) renderPupilRows(pool, table);
   }
   function setAllTicked(on){ $q('scPupils').querySelectorAll('.scpu').forEach(cb => cb.checked = on); }
 
@@ -76,10 +103,11 @@ const ScanMarking = (function(){
   // Only the TICKED pupils print, so a pupil sitting a different level's test can be left out here and done
   // separately (untick, pick their level above, tick just them, print again).
   let printedSheets = [];
-  function printSheets(){
+  async function printSheets(){
     const cls = $q('scClass').value;
     const ticked = new Set([...$q('scPupils').querySelectorAll('.scpu:checked')].map(cb => cb.value));
-    const pupils = (roster[cls] || []).filter(p => ticked.has(p.upn));
+    const table = await loadTable(cls);
+    const pupils = sortByTable(roster[cls] || [], table).filter(p => ticked.has(p.upn));
     if (!pupils.length) return;
     printedSheets.forEach(e => e.remove()); printedSheets = [];
     document.querySelectorAll('.sheet.active').forEach(e => e.classList.remove('active'));

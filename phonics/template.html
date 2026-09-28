@@ -72,6 +72,9 @@ body.nopics .pic{display:none}
       <button class="act alt" id="pAllPupil">Print all 6 pupil copies</button>
       <button class="act alt" id="pAllTeacher">Print all 6 teacher copies</button>
     </div>
+    <div class="actions">
+      <button class="act alt" id="pEveryPupil">Print every pupil copy, every phase (66 pages)</button>
+    </div>
     <label class="opt"><input type="checkbox" id="picToggle" checked> Show the picture on printed sheets</label>
     <p class="note">Adults read the questions aloud and the child answers out loud (or writes if they can). The child reads the text themselves.</p>
   </section>
@@ -90,7 +93,7 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "27.09.26i";
+const VERSION = "28.09.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
@@ -147,6 +150,7 @@ $("pPupil").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"][d
 $("pTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"][data-k="t"]');
 $("pAllPupil").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="p"]');
 $("pAllTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="t"]');
+$("pEveryPupil").onclick=()=>printSel('.sheet[data-k="p"]');
 $("picToggle").onchange = e => document.body.classList.toggle("nopics", !e.target.checked);
 SaveResults.init({tool:"phonics", get:()=>{ const s=marks.filter(m=>m===1).length;
   return {ready:!marks.includes(null), hint:"Tap a tick or cross for each question first, then save.", summary:s+"/3, "+L.name,

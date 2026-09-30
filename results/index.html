@@ -228,7 +228,7 @@ const SaveResults = (function(){
   };
 })();
 
-const VERSION = "30.09.26e";
+const VERSION = "30.09.26f";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -301,7 +301,7 @@ function renderComprehension(rows){
   $("compEmpty").hidden = rows.length > 0;
   if (!rows.length) { $("compTbl").innerHTML = ''; return; }
   const domainKeys = [...new Set(rows.flatMap(r => Object.keys((r.detail && r.detail.domains) || {})))].sort();
-  const head = ['Date','Term / Week','Level','Test','Score','%','Band', ...domainKeys.map(k => DOM[k] || k)];
+  const head = ['Date','Term / Week','Level','Test','Score','%','Attainment', ...domainKeys.map(k => DOM[k] || k)];
   const rowsHtml = rows.map(r => {
     const d = r.detail || {}, domains = d.domains || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
@@ -333,7 +333,7 @@ function renderFluency(rows){
   $("fluEmpty").hidden = rows.length > 0;
   if (!rows.length) { $("fluTbl").innerHTML = ''; return; }
   const RKEYS = [['volume','Volume'],['expression','Expression'],['phrasing','Phrasing'],['smoothness','Smoothness'],['pace','Pace']];
-  const head = ['Date','Term / Week','Level','WPM','Accuracy','Band', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
+  const head = ['Date','Term / Week','Level','WPM','Accuracy','Attainment', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
   const rowsHtml = rows.map(r => {
     const d = r.detail || {}, rub = d.rubric || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),

@@ -64,7 +64,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <footer>Reading Assessment Results &middot; Version <span id="ver"></span></footer>
 <script>
 /*SAVE_RESULTS*/
-const VERSION = "30.09.26i";
+const VERSION = "30.09.26j";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -192,7 +192,7 @@ function renderComprehension(rows, classRows){
     const d = r.detail || {}, domains = d.domains || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
       esc(r.test_id), r.score+'/'+r.total, gradedCell('comprehension', r.percent, r.percent+'%'),
-      ...domainKeys.map(k => domains[k] ? domains[k].score+'/'+domains[k].total+' ('+domains[k].percent+'%)' : '–')];
+      ...domainKeys.map(k => domains[k] ? gradedCell('comprehension', domains[k].percent, domains[k].score+'/'+domains[k].total+' ('+domains[k].percent+'%)') : '–')];
     return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
   }).join('');
   $("compTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;

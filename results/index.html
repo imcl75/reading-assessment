@@ -228,7 +228,7 @@ const SaveResults = (function(){
   };
 })();
 
-const VERSION = "30.09.26j";
+const VERSION = "30.09.26k";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -238,16 +238,36 @@ const bandName = l => { const n = +l.replace('F','') + (String(l).startsWith('F'
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2f":"Structure","2g":"Language","2h":"Comparison"};
 
 // Score colouring (Innes, 30.09.26): DOOYA-aligned bands, highest threshold met wins — D (greater
-// depth) down to A (well below). Comprehension thresholds given 30.09.26; other tools' thresholds
-// not given yet, so they're left uncoloured until Innes supplies them (add a "phonics"/"fluency"
-// key here, same [minPercent, background, text] shape, once he does).
+// depth) down to A (well below). Comprehension thresholds given 30.09.26 and hold all year (a
+// flat tier array below). Other metrics' targets change term by term (Innes, 30.09.26: "the other
+// metrics' targets will change throughout the year... term 1 X, term 6 Y"), so this also accepts
+// a per-term shape — keyed by term number (1-6) instead of a flat array — for whenever those
+// numbers arrive. Every saved result already carries its own term (ra_result.term), so no new
+// data capture is needed: just add e.g. fluency_wpm: {1:[[...]], 2:[[...]], ..., 6:[[...]]} here,
+// same tier shape, and pass that row's r.term into gradedCell.
+// Each tier is [minValue, vividBg, vividFg, mutedBg, mutedFg] — the overall score cell uses the
+// vivid pair so it reads as the headline number; the domain/rubric breakdown cells pass muted:true
+// (Innes, 30.09.26: those were competing with the overall % for attention) for a softer tint.
 const GRADE_THRESHOLDS = {
-  comprehension: [[80,'#1e8449','#fff'],[60,'#6fbf73','#0a2e13'],[54,'#f2d27a','#4a3b00'],[40,'#f2a154','#4a2600'],[0,'#c0392b','#fff']],
+  comprehension: [
+    [80,'#1e8449','#fff','#eaf7ee','#1e8449'],
+    [60,'#6fbf73','#0a2e13','#eef8ec','#3f7a43'],
+    [54,'#f2d27a','#4a3b00','#fdf6e3','#8a6d1f'],
+    [40,'#f2a154','#4a2600','#fdeee0','#8a4b1f'],
+    [0,'#c0392b','#fff','#fbe9e7','#a13327'],
+  ],
 };
-function gradedCell(tool, pc, text){
-  const tiers = GRADE_THRESHOLDS[tool];
-  const tier = tiers && pc != null ? tiers.find(t => pc >= t[0]) : null;
-  return tier ? '<td style="background:'+tier[1]+';color:'+tier[2]+';font-weight:700">'+text+'</td>' : '<td>'+text+'</td>';
+function gradeTiers(tool, term){
+  const cfg = GRADE_THRESHOLDS[tool];
+  if (!cfg) return null;
+  return Array.isArray(cfg) ? cfg : (cfg[term] || null);
+}
+function gradedCell(tool, term, value, text, muted){
+  const tiers = gradeTiers(tool, term);
+  const tier = tiers && value != null ? tiers.find(t => value >= t[0]) : null;
+  if (!tier) return '<td>'+text+'</td>';
+  const bg = muted ? tier[3] : tier[1], fg = muted ? tier[4] : tier[2];
+  return '<td style="background:'+bg+';color:'+fg+(muted ? '' : ';font-weight:700')+'">'+text+'</td>';
 }
 const wrapCell = c => (typeof c === 'string' && c.indexOf('<td') === 0) ? c : '<td>'+c+'</td>';
 
@@ -355,8 +375,8 @@ function renderComprehension(rows, classRows){
   const rowsHtml = rows.map(r => {
     const d = r.detail || {}, domains = d.domains || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
-      esc(r.test_id), r.score+'/'+r.total, gradedCell('comprehension', r.percent, r.percent+'%'),
-      ...domainKeys.map(k => domains[k] ? gradedCell('comprehension', domains[k].percent, domains[k].score+'/'+domains[k].total+' ('+domains[k].percent+'%)') : '–')];
+      esc(r.test_id), r.score+'/'+r.total, gradedCell('comprehension', r.term, r.percent, r.percent+'%'),
+      ...domainKeys.map(k => domains[k] ? gradedCell('comprehension', r.term, domains[k].percent, domains[k].score+'/'+domains[k].total+' ('+domains[k].percent+'%)', true) : '–')];
     return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
   }).join('');
   $("compTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
@@ -368,7 +388,7 @@ function renderComprehension(rows, classRows){
     const avgHead = ['Level','Class average %','Pupils tested'];
     const avgRows = avgs.map(a => '<tr>'+[
       '<td>Level '+esc(a.level)+(bandName(a.level)?' ('+bandName(a.level)+')':'')+'</td>',
-      gradedCell('comprehension', a.avgPercent, Math.round(a.avgPercent)+'%'),
+      gradedCell('comprehension', null, a.avgPercent, Math.round(a.avgPercent)+'%'),
       '<td>'+a.n+'</td>'].join('')+'</tr>').join('');
     $("compAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
   }

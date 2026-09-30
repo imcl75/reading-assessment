@@ -22,9 +22,6 @@ select{font-size:16px;padding:9px;border:1px solid #c9d3dc;border-radius:8px;bac
 table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.85rem}
 th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top;white-space:nowrap}
 th{background:var(--soft);font-size:.78rem}
-tr.band-secure td.band,tr.band-on_track td.band,tr.band-on_target td.band,tr.band-greater_depth td.band{color:var(--good);font-weight:700}
-tr.band-nearly td.band{color:var(--amber);font-weight:700}
-tr.band-not_yet td.band,tr.band-below_target td.band{color:var(--bad);font-weight:700}
 .tblwrap{overflow-x:auto}
 .empty{font-size:.85rem;color:#789;font-style:italic;margin:6px 0 0}
 footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
@@ -64,7 +61,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <footer>Reading Assessment Results &middot; Version <span id="ver"></span></footer>
 <script>
 /*SAVE_RESULTS*/
-const VERSION = "30.09.26f";
+const VERSION = "30.09.26g";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -72,7 +69,6 @@ const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return 
 const BANDS = [[17,18,"Turquoise"],[19,20,"Purple"],[21,22,"Gold"],[23,24,"White"],[25,26,"Lime"],[27,28,"Ruby"],[29,30,"Sapphire"],[31,36,"Free Reader"]];
 const bandName = l => { const n = +l.replace('F','') + (String(l).startsWith('F') ? 30 : 0); const b = BANDS.find(b => n >= b[0] && n <= b[1]); return b ? b[2] : ''; };
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2f":"Structure","2g":"Language","2h":"Comparison"};
-const BAND_LABEL = {greater_depth:'Greater depth', on_track:'On track', not_yet:'Not yet', secure:'Secure', nearly:'Nearly', on_target:'On target', below_target:'Below target'};
 
 // Term/week lookup (Innes, 30.09.26): reuses the site-wide TermDates calendar (one row per
 // week, Term/Week/Label/StartDate) rather than storing a week number on every saved result —
@@ -137,13 +133,13 @@ function renderComprehension(rows){
   $("compEmpty").hidden = rows.length > 0;
   if (!rows.length) { $("compTbl").innerHTML = ''; return; }
   const domainKeys = [...new Set(rows.flatMap(r => Object.keys((r.detail && r.detail.domains) || {})))].sort();
-  const head = ['Date','Term / Week','Level','Test','Score','%','Attainment', ...domainKeys.map(k => DOM[k] || k)];
+  const head = ['Date','Term / Week','Level','Test','Score','%', ...domainKeys.map(k => DOM[k] || k)];
   const rowsHtml = rows.map(r => {
     const d = r.detail || {}, domains = d.domains || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
-      esc(r.test_id), r.score+'/'+r.total, r.percent+'%', '<span class="band">'+(BAND_LABEL[r.band]||r.band)+'</span>',
+      esc(r.test_id), r.score+'/'+r.total, r.percent+'%',
       ...domainKeys.map(k => domains[k] ? domains[k].score+'/'+domains[k].total+' ('+domains[k].percent+'%)' : '–')];
-    return '<tr class="band-'+r.band+'">'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
+    return '<tr>'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
   }).join('');
   $("compTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
 }
@@ -159,7 +155,7 @@ function renderPhonics(rows){
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), esc(r.level), esc(r.test_id), r.score+'/3',
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
       r.detail && r.detail.rubric_total != null ? r.detail.rubric_total+'/20' : '–'];
-    return '<tr class="band-'+r.band+'">'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
+    return '<tr>'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
   }).join('');
   $("phonTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
 }
@@ -169,15 +165,14 @@ function renderFluency(rows){
   $("fluEmpty").hidden = rows.length > 0;
   if (!rows.length) { $("fluTbl").innerHTML = ''; return; }
   const RKEYS = [['volume','Volume'],['expression','Expression'],['phrasing','Phrasing'],['smoothness','Smoothness'],['pace','Pace']];
-  const head = ['Date','Term / Week','Level','WPM','Accuracy','Attainment', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
+  const head = ['Date','Term / Week','Level','WPM','Accuracy', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
   const rowsHtml = rows.map(r => {
     const d = r.detail || {}, rub = d.rubric || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
       d.wcpm != null ? d.wcpm : '–', d.accuracy != null ? d.accuracy+'%' : '–',
-      '<span class="band">'+(BAND_LABEL[r.band]||r.band)+'</span>',
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
       d.rubric_total != null ? d.rubric_total+'/20' : '–'];
-    return '<tr class="band-'+r.band+'">'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
+    return '<tr>'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
   }).join('');
   $("fluTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
 }

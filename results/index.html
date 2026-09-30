@@ -228,7 +228,7 @@ const SaveResults = (function(){
   };
 })();
 
-const VERSION = "30.09.26d";
+const VERSION = "30.09.26e";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -317,11 +317,10 @@ function renderPhonics(rows){
   $("phonEmpty").hidden = rows.length > 0;
   if (!rows.length) { $("phonTbl").innerHTML = ''; return; }
   const RKEYS = [['gpc','GPC'],['blending','Blending'],['word_structure','Word structure'],['continuity','Continuity'],['independence','Independence']];
-  const head = ['Date','Term / Week','Phase','Test','Score','Band', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
+  const head = ['Date','Term / Week','Phase','Test','Score', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
   const rowsHtml = rows.map(r => {
     const rub = (r.detail && r.detail.rubric) || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), esc(r.level), esc(r.test_id), r.score+'/3',
-      '<span class="band">'+(BAND_LABEL[r.band]||r.band)+'</span>',
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
       r.detail && r.detail.rubric_total != null ? r.detail.rubric_total+'/20' : '–'];
     return '<tr class="band-'+r.band+'">'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';

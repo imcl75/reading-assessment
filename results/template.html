@@ -44,24 +44,27 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
     <h2>Comprehension by level</h2>
     <div class="tblwrap"><table id="compTbl"></table></div>
     <p class="empty" id="compEmpty" hidden>No comprehension results saved for this pupil yet.</p>
+    <div id="compAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="compAvgTbl"></table></div></div>
   </section>
 
   <section class="card" id="phonCard" hidden>
     <h2>Phonics comprehension (KS1)</h2>
     <div class="tblwrap"><table id="phonTbl"></table></div>
     <p class="empty" id="phonEmpty" hidden>No phonics results saved for this pupil yet.</p>
+    <div id="phonAvgWrap" hidden><h3>Class average, same phase</h3><div class="tblwrap"><table id="phonAvgTbl"></table></div></div>
   </section>
 
   <section class="card" id="fluCard" hidden>
     <h2>Reading fluency</h2>
     <div class="tblwrap"><table id="fluTbl"></table></div>
     <p class="empty" id="fluEmpty" hidden>No fluency results saved for this pupil yet.</p>
+    <div id="fluAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="fluAvgTbl"></table></div></div>
   </section>
 </main>
 <footer>Reading Assessment Results &middot; Version <span id="ver"></span></footer>
 <script>
 /*SAVE_RESULTS*/
-const VERSION = "30.09.26g";
+const VERSION = "30.09.26h";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -69,6 +72,43 @@ const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return 
 const BANDS = [[17,18,"Turquoise"],[19,20,"Purple"],[21,22,"Gold"],[23,24,"White"],[25,26,"Lime"],[27,28,"Ruby"],[29,30,"Sapphire"],[31,36,"Free Reader"]];
 const bandName = l => { const n = +l.replace('F','') + (String(l).startsWith('F') ? 30 : 0); const b = BANDS.find(b => n >= b[0] && n <= b[1]); return b ? b[2] : ''; };
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2f":"Structure","2g":"Language","2h":"Comparison"};
+
+// Score colouring (Innes, 30.09.26): DOOYA-aligned bands, highest threshold met wins — D (greater
+// depth) down to A (well below). Comprehension thresholds given 30.09.26; other tools' thresholds
+// not given yet, so they're left uncoloured until Innes supplies them (add a "phonics"/"fluency"
+// key here, same [minPercent, background, text] shape, once he does).
+const GRADE_THRESHOLDS = {
+  comprehension: [[80,'#1e8449','#fff'],[60,'#6fbf73','#0a2e13'],[54,'#f2d27a','#4a3b00'],[40,'#f2a154','#4a2600'],[0,'#c0392b','#fff']],
+};
+function gradedCell(tool, pc, text){
+  const tiers = GRADE_THRESHOLDS[tool];
+  const tier = tiers && pc != null ? tiers.find(t => pc >= t[0]) : null;
+  return tier ? '<td style="background:'+tier[1]+';color:'+tier[2]+';font-weight:700">'+text+'</td>' : '<td>'+text+'</td>';
+}
+const wrapCell = c => (typeof c === 'string' && c.indexOf('<td') === 0) ? c : '<td>'+c+'</td>';
+
+// Class averages (Innes, 30.09.26): context for "is 71% good?" — averaged across every saved
+// attempt (any pupil, any attempt) at the same level, including the pupil being viewed, since
+// that's the standard reading of "class average". Not deduped to one attempt per pupil, so a
+// level with lots of retests weights those pupils more — acceptable for a quick-glance comparison.
+let classHistCache = {};
+async function loadClassHistory(cls, tool){
+  if (!cls) return [];
+  const key = cls + '|' + tool;
+  if (classHistCache[key]) return classHistCache[key];
+  const d = await SaveResults.call('GET', '/readingresults-db', {class:cls, tool:tool, limit:2000});
+  return (classHistCache[key] = (d && d.results) || []);
+}
+function classAverages(classRows, levelsWanted){
+  const byLevel = {};
+  classRows.forEach(r => { if (levelsWanted.includes(r.level)) (byLevel[r.level] = byLevel[r.level] || []).push(r); });
+  return levelsWanted.filter(l => byLevel[l]).map(level => {
+    const rs = byLevel[level];
+    return {level, n: rs.length,
+      avgScore: rs.reduce((a,r)=>a+(+r.score||0),0) / rs.length,
+      avgPercent: rs.reduce((a,r)=>a+(+r.percent||0),0) / rs.length};
+  });
+}
 
 // Term/week lookup (Innes, 30.09.26): reuses the site-wide TermDates calendar (one row per
 // week, Term/Week/Label/StartDate) rather than storing a week number on every saved result —
@@ -115,39 +155,54 @@ function onClass(){
 }
 
 async function onPupil(){
-  const upn = $("rPupil").value;
+  const upn = $("rPupil").value, cls = $("rClass").value;
   ["compCard","phonCard","fluCard"].forEach(id => $(id).hidden = true);
   if (!upn) { status(''); return; }
   status('Loading results…');
-  const d = await SaveResults.call('GET', '/readingresults-db', {upn:upn, limit:200});
+  const [d, compClass, phonClass, fluClass] = await Promise.all([
+    SaveResults.call('GET', '/readingresults-db', {upn:upn, limit:200}),
+    loadClassHistory(cls, 'comprehension'), loadClassHistory(cls, 'phonics'), loadClassHistory(cls, 'fluency'),
+  ]);
   if (!d.results) { status(d.error || 'Could not load results.', true); return; }
   status(d.results.length ? '' : 'No results saved for this pupil yet.');
   const results = [...d.results].sort((a,b) => (a.taken_on||'').localeCompare(b.taken_on||'') || a.id - b.id);
-  renderComprehension(results.filter(r => r.tool === 'comprehension'));
-  renderPhonics(results.filter(r => r.tool === 'phonics'));
-  renderFluency(results.filter(r => r.tool === 'fluency'));
+  renderComprehension(results.filter(r => r.tool === 'comprehension'), compClass);
+  renderPhonics(results.filter(r => r.tool === 'phonics'), phonClass);
+  renderFluency(results.filter(r => r.tool === 'fluency'), fluClass);
 }
 
-function renderComprehension(rows){
+function renderComprehension(rows, classRows){
   $("compCard").hidden = false;
   $("compEmpty").hidden = rows.length > 0;
-  if (!rows.length) { $("compTbl").innerHTML = ''; return; }
+  if (!rows.length) { $("compTbl").innerHTML = ''; $("compAvgWrap").hidden = true; return; }
   const domainKeys = [...new Set(rows.flatMap(r => Object.keys((r.detail && r.detail.domains) || {})))].sort();
   const head = ['Date','Term / Week','Level','Test','Score','%', ...domainKeys.map(k => DOM[k] || k)];
   const rowsHtml = rows.map(r => {
     const d = r.detail || {}, domains = d.domains || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
-      esc(r.test_id), r.score+'/'+r.total, r.percent+'%',
+      esc(r.test_id), r.score+'/'+r.total, gradedCell('comprehension', r.percent, r.percent+'%'),
       ...domainKeys.map(k => domains[k] ? domains[k].score+'/'+domains[k].total+' ('+domains[k].percent+'%)' : '–')];
-    return '<tr>'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
+    return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
   }).join('');
   $("compTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
+
+  const levels = [...new Set(rows.map(r => r.level))];
+  const avgs = classAverages(classRows, levels);
+  $("compAvgWrap").hidden = !avgs.length;
+  if (avgs.length) {
+    const avgHead = ['Level','Class average %','Pupils tested'];
+    const avgRows = avgs.map(a => '<tr>'+[
+      '<td>Level '+esc(a.level)+(bandName(a.level)?' ('+bandName(a.level)+')':'')+'</td>',
+      gradedCell('comprehension', a.avgPercent, Math.round(a.avgPercent)+'%'),
+      '<td>'+a.n+'</td>'].join('')+'</tr>').join('');
+    $("compAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
+  }
 }
 
-function renderPhonics(rows){
+function renderPhonics(rows, classRows){
   $("phonCard").hidden = false;
   $("phonEmpty").hidden = rows.length > 0;
-  if (!rows.length) { $("phonTbl").innerHTML = ''; return; }
+  if (!rows.length) { $("phonTbl").innerHTML = ''; $("phonAvgWrap").hidden = true; return; }
   const RKEYS = [['gpc','GPC'],['blending','Blending'],['word_structure','Word structure'],['continuity','Continuity'],['independence','Independence']];
   const head = ['Date','Term / Week','Phase','Test','Score', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
   const rowsHtml = rows.map(r => {
@@ -155,15 +210,24 @@ function renderPhonics(rows){
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), esc(r.level), esc(r.test_id), r.score+'/3',
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
       r.detail && r.detail.rubric_total != null ? r.detail.rubric_total+'/20' : '–'];
-    return '<tr>'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
+    return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
   }).join('');
   $("phonTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
+
+  const levels = [...new Set(rows.map(r => r.level))];
+  const avgs = classAverages(classRows, levels);
+  $("phonAvgWrap").hidden = !avgs.length;
+  if (avgs.length) {
+    const avgHead = ['Phase','Class average score','Pupils tested'];
+    const avgRows = avgs.map(a => '<tr><td>'+esc(a.level)+'</td><td>'+a.avgScore.toFixed(1)+' / 3</td><td>'+a.n+'</td></tr>').join('');
+    $("phonAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
+  }
 }
 
-function renderFluency(rows){
+function renderFluency(rows, classRows){
   $("fluCard").hidden = false;
   $("fluEmpty").hidden = rows.length > 0;
-  if (!rows.length) { $("fluTbl").innerHTML = ''; return; }
+  if (!rows.length) { $("fluTbl").innerHTML = ''; $("fluAvgWrap").hidden = true; return; }
   const RKEYS = [['volume','Volume'],['expression','Expression'],['phrasing','Phrasing'],['smoothness','Smoothness'],['pace','Pace']];
   const head = ['Date','Term / Week','Level','WPM','Accuracy', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
   const rowsHtml = rows.map(r => {
@@ -172,9 +236,18 @@ function renderFluency(rows){
       d.wcpm != null ? d.wcpm : '–', d.accuracy != null ? d.accuracy+'%' : '–',
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
       d.rubric_total != null ? d.rubric_total+'/20' : '–'];
-    return '<tr>'+cells.map(c=>'<td>'+c+'</td>').join('')+'</tr>';
+    return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
   }).join('');
   $("fluTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
+
+  const levels = [...new Set(rows.map(r => r.level))];
+  const avgs = classAverages(classRows, levels);
+  $("fluAvgWrap").hidden = !avgs.length;
+  if (avgs.length) {
+    const avgHead = ['Level','Class average WPM','Pupils tested'];
+    const avgRows = avgs.map(a => '<tr><td>Level '+esc(a.level)+(bandName(a.level)?' ('+bandName(a.level)+')':'')+'</td><td>'+Math.round(a.avgScore)+'</td><td>'+a.n+'</td></tr>').join('');
+    $("fluAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
+  }
 }
 
 $("rClass").addEventListener('change', onClass);

@@ -87,6 +87,12 @@
   .tag { font-size: 11px; font-weight: 700; background: #eef7fb; color: #0a6fa8; border: 1px solid #b3dff5; border-radius: 6px; padding: 2px 7px; margin-top: 5px; display: inline-block; }
   details.print-texts summary { list-style: none; cursor: pointer; }
   details.print-texts summary::-webkit-details-marker { display: none; }
+  .section details.collapsible summary { list-style: none; cursor: pointer; }
+  .section details.collapsible summary::-webkit-details-marker { display: none; }
+  .section details.collapsible summary h2 { display: flex; align-items: center; gap: 6px; }
+  .section details.collapsible summary .chev { color: #8aacbe; font-weight: 400; font-size: .9em; transition: transform .15s; }
+  .section details.collapsible[open] summary .chev { transform: rotate(90deg); }
+  .section details.collapsible .intro { margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -169,7 +175,8 @@
 </div>
 
 <div class="section" id="papers">
-  <h2>Year group reading papers (on screen)</h2>
+  <details class="collapsible">
+  <summary><h2>Year group reading papers (on screen) <span class="chev">&#8250;</span></h2></summary>
   <p class="intro">The full Year 2 to Year 5 reading papers that pupils complete on a device, marked with Claude.</p>
   <div class="cards">
 <!-- Pupil — unified login -->
@@ -205,6 +212,7 @@
   </a>
 
   </div>
+  </details>
 </div>
 
 <div class="section" id="texts">
@@ -257,7 +265,7 @@
   <div id="group-status-content"></div>
 </div>
 
-<p class="footer">Wallscourt Farm Academy · Cabot Learning Federation · <span style="opacity:.6">v30.09.26k</span></p>
+<p class="footer">Wallscourt Farm Academy · Cabot Learning Federation · <span style="opacity:.6">v30.09.26l</span></p>
 
 <script>
 const BACKEND_URL = 'https://api.wallscourt-farm-academy.co.uk/planning/readassess-db';

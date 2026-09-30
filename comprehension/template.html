@@ -104,7 +104,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "30.09.26c";
+const VERSION = "30.09.26d";
 const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};
@@ -281,6 +281,7 @@ ScanMarking.init({getTest:()=>L.texts[T], getMeta:()=>({title:L.texts[T].title, 
   buildPupilPassageHTML:(pupilName,className)=>scanPassageHTML(L.texts[T],L,pupilName,className),
   buildPupilAnswerHTML:(pupilName,className)=>scanAnswerHTML(L.texts[T],L,pupilName,className)});
 document.querySelector("main").appendChild($("markCard"));   // now that the Save and Scan cards exist, move manual marking below both — it's used less now
+document.querySelector("main").appendChild($("saveCard"));   // Innes, 30.09.26: Save belongs after markCard too, not before it — its own marks come from markCard, so it should be the last thing on the page, not the second
 $("markToggle").onclick=()=>{ const on=$("markBody").hidden; $("markBody").hidden=!on; $("markToggle").textContent=on?"Hide":"Show"; };
 $("ver").textContent=VERSION;
 buildSheets(); renderLevels(); renderTexts();

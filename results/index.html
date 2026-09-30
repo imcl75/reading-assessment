@@ -228,7 +228,7 @@ const SaveResults = (function(){
   };
 })();
 
-const VERSION = "30.09.26h";
+const VERSION = "30.09.26i";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -250,6 +250,17 @@ function gradedCell(tool, pc, text){
   return tier ? '<td style="background:'+tier[1]+';color:'+tier[2]+';font-weight:700">'+text+'</td>' : '<td>'+text+'</td>';
 }
 const wrapCell = c => (typeof c === 'string' && c.indexOf('<td') === 0) ? c : '<td>'+c+'</td>';
+
+// Fluency accuracy colouring (Innes, 30.09.26): standard reading-level accuracy bands — below
+// 90% is too hard (amber), 90-95% inclusive is the instructional level (green), above 95% is easy
+// for them (blue). Independent of the DOOYA comprehension colouring above.
+function accuracyCell(acc){
+  if (acc == null) return '<td>–</td>';
+  const style = acc > 95 ? 'background:#4a90d9;color:#fff'
+    : acc >= 90 ? 'background:#6fbf73;color:#0a2e13'
+    : 'background:#f2a154;color:#4a2600';
+  return '<td style="'+style+';font-weight:700">'+acc+'%</td>';
+}
 
 // Class averages (Innes, 30.09.26): context for "is 71% good?" — averaged across every saved
 // attempt (any pupil, any attempt) at the same level, including the pupil being viewed, since
@@ -397,7 +408,7 @@ function renderFluency(rows, classRows){
   const rowsHtml = rows.map(r => {
     const d = r.detail || {}, rub = d.rubric || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
-      d.wcpm != null ? d.wcpm : '–', d.accuracy != null ? d.accuracy+'%' : '–',
+      d.wcpm != null ? d.wcpm : '–', accuracyCell(d.accuracy),
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
       d.rubric_total != null ? d.rubric_total+'/20' : '–'];
     return '<tr>'+cells.map(wrapCell).join('')+'</tr>';

@@ -94,10 +94,8 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 
   <section class="card">
     <h2>3. Read and mark</h2>
-    <p class="note">Tap a word to mark it. Switch mode for errors, self-corrections, or (if the child doesn't finish) the stopping point.</p>
+    <p class="note">Tap a word to mark it: first tap &ndash; error, second tap &ndash; self-correction, third tap &ndash; clear. If the child doesn't finish, use &ldquo;Set stopping point&rdquo; then tap the last word reached.</p>
     <div class="actions" style="margin:0 0 10px">
-      <button class="act alt on" id="modeErr">Mark errors</button>
-      <button class="act alt" id="modeSC">Mark self-corrections</button>
       <button class="act alt" id="modeStop">Set stopping point</button>
       <button class="act alt" id="clearMarks">Clear marks</button>
     </div>
@@ -133,7 +131,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "01.10.26a";
+const VERSION = "01.10.26b";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const RUBRIC = [
@@ -145,7 +143,7 @@ const RUBRIC = [
 ];
 const QTAG = {"Literal":"Literal","Inferential":"Inferential","Applied Knowledge":"Applied Knowledge","Vocabulary":"Vocabulary"};
 
-let L = DATA[0], T = 0, mode = "err", errs = new Set(), selfCorr = new Set(), stopAt = 0, marks = [], rubricScores = {};
+let L = DATA[0], T = 0, mode = "mark", errs = new Set(), selfCorr = new Set(), stopAt = 0, marks = [], rubricScores = {};
 
 // Text-history avoidance (same pattern as phonics, 28.09.26): a re-test at the same level
 // should default to a text this pupil hasn't already done, among the level's 2 Blue + 2 Red
@@ -231,7 +229,7 @@ function renderTexts(){
   $("info").textContent = t.text_type+' · '+t.running_words+' words · '+t.questions.length+' questions';
   $("orientation").innerHTML = '<b>Introduce the book:</b> '+esc(t.book_orientation);
   $("txNote").textContent = !curPupil || !seenSet.has(T) ? '' : (seenSet.size >= L.texts.length ? 'This pupil has already done every text at this level.' : 'This pupil has already done this text at this level.');
-  errs = new Set(); selfCorr = new Set(); stopAt = words(t).length; setMode("err");
+  errs = new Set(); selfCorr = new Set(); stopAt = words(t).length; setMode("mark");
   renderPassage();
   marks = t.questions.map(()=>null);
   $("qs").innerHTML = t.questions.map((q,n)=>{
@@ -270,19 +268,22 @@ function compScore(){
   $("compScore").textContent = marks.includes(null) ? 'Tap a tick or cross for each question.' : 'Comprehension: '+s+' / '+n+' ('+band+')';
   SaveResults.refresh();
 }
-function setMode(m){ mode = m; $("modeErr").classList.toggle("on", m==="err"); $("modeSC").classList.toggle("on", m==="sc"); $("modeStop").classList.toggle("on", m==="stop"); }
-$("modeErr").onclick = () => setMode("err");
-$("modeSC").onclick = () => setMode("sc");
-$("modeStop").onclick = () => setMode("stop");
-$("clearMarks").onclick = () => { errs = new Set(); selfCorr = new Set(); stopAt = words(L.texts[T]).length; setMode("err"); refresh(); };
+function setMode(m){ mode = m; $("modeStop").classList.toggle("on", m==="stop"); }
+$("modeStop").onclick = () => setMode(mode==="stop" ? "mark" : "stop");
+$("clearMarks").onclick = () => { errs = new Set(); selfCorr = new Set(); stopAt = words(L.texts[T]).length; setMode("mark"); refresh(); };
+// Click cycle on a word (Innes, 01.10.26): 1st tap error, 2nd tap self-correction, 3rd tap clear,
+// then back to error again — no mode switch needed for the common case. "Set stopping point" is
+// still its own toggle, since it marks one special word rather than cycling.
 $("tpassage").addEventListener("click", e => {
   const w = e.target.closest(".w"); if (!w) return; const n = +w.dataset.i;
-  if (mode === "err") {
-    if (errs.has(n)) errs.delete(n); else { errs.add(n); selfCorr.delete(n); }
-  } else if (mode === "sc") {
-    if (selfCorr.has(n)) selfCorr.delete(n); else { selfCorr.add(n); errs.delete(n); }
+  if (mode === "stop") {
+    stopAt = n; setMode("mark");
+  } else if (errs.has(n)) {
+    errs.delete(n); selfCorr.add(n);
+  } else if (selfCorr.has(n)) {
+    selfCorr.delete(n);
   } else {
-    stopAt = n;
+    errs.add(n);
   }
   refresh();
 });

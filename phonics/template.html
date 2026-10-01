@@ -132,7 +132,7 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "01.10.26c";
+const VERSION = "01.10.26d";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
@@ -265,7 +265,7 @@ SaveResults.init({tool:"phonics", onPupilChange:loadPupilHistory, get:()=>{ cons
   const rSummary = rComplete ? ", rubric "+RUBRIC.reduce((a,r)=>a+rubricScores[r.key],0)+"/20" : "";
   const body = {test_id:"phonics-"+L.level+"-"+(T+1), level:L.name, marks:marks.map(m=>m?1:0)};
   if (rComplete) body.rubric = Object.assign({}, rubricScores);
-  const hint = !qDone ? "Tap a tick or cross for each question." : !rComplete ? "Score all five rubric rows before saving." : "";
+  const hint = !rComplete ? "Score all five rubric rows before saving." : "";
   return {ready:qDone && rComplete, hint:hint, summary:s+"/3, "+L.name+rSummary,
           body:body}; }});
 document.querySelector("main").appendChild($("saveCard"));   // Innes, 30.09.26: keep Save at the bottom, below the (now required) rubric — otherwise it's easy to miss after scrolling down to score the rubric

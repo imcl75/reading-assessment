@@ -61,11 +61,16 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .sheet.long .qq{margin:12px 0;font-size:14pt}
 .sheet.long .line{height:26px;margin-top:4px}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
+.pics{display:flex;gap:10px;justify-content:center;align-items:center;margin:0 auto 12px}
+.pics[hidden]{display:none}
+.pics .pic{flex:1 1 0;min-width:0;margin:0}
 .pic{display:block;max-width:100%;border-radius:12px;margin:0 auto 12px;border:2px solid var(--line)}
 #pic{max-width:420px}
+.sheet .pics{margin:6px auto 2px;width:150mm}
+.sheet .pics .pic{width:auto;margin:0}
 .sheet .pic{width:105mm;max-width:none;margin:6px auto 2px;border-radius:8px;border:1px solid #cfe3ee}
-.sheet.med .pic{width:90mm}
-.sheet.long .pic{width:90mm}
+.sheet.med .pics{width:130mm}
+.sheet.long .pics{width:120mm}
 body.nopics .pic{display:none}
 .opt{font-size:.9rem;margin-top:8px}
 .rtbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.85rem}
@@ -91,24 +96,24 @@ body.nopics .pic{display:none}
     <p class="meta" id="lvmeta"></p>
   </section>
   <section class="card">
-    <h2>2. Choose a text (six per level, so neighbours can't copy)</h2>
+    <h2>2. Choose a text (three per level)</h2>
     <div class="row" id="texts"></div>
     <p class="note" id="txNote"></p>
     <div class="actions">
       <button class="act" id="pPupil">Print this pupil copy</button>
       <button class="act alt" id="pTeacher">Print this teacher copy</button>
-      <button class="act alt" id="pAllPupil">Print all 6 pupil copies</button>
-      <button class="act alt" id="pAllTeacher">Print all 6 teacher copies</button>
+      <button class="act alt" id="pAllPupil">Print all 3 pupil copies</button>
+      <button class="act alt" id="pAllTeacher">Print all 3 teacher copies</button>
     </div>
     <div class="actions">
-      <button class="act alt" id="pEveryPupil">Print every pupil copy, every phase (66 pages)</button>
+      <button class="act alt" id="pEveryPupil">Print every pupil copy, every phase (33 pages)</button>
     </div>
     <label class="opt"><input type="checkbox" id="picToggle" checked> Show the picture on printed sheets</label>
     <p class="note">Adults read the questions aloud and the child answers out loud (or writes if they can). The child reads the text themselves.</p>
   </section>
   <section class="card">
     <h2 id="tt"></h2>
-    <img class="pic" id="pic" alt="" hidden>
+    <div class="pics" id="pic" hidden></div>
     <p class="passage" id="passage"></p>
     <p class="note" id="focus"></p>
     <div id="qs"></div>
@@ -127,7 +132,7 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "01.10.26a";
+const VERSION = "01.10.26c";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
@@ -167,6 +172,7 @@ async function loadPupilHistory(upn){
   pupilRows = (d && d.results) || [];
   autoPickText(); renderTexts();
 }
+function picsHTML(t){ return '<div class="pics">'+t.images.map(s=>'<img class="pic" src="'+s+'" alt="">').join('')+'</div>'; }
 function sheet(l, i, teacher){
   const t = l.texts[i];
   // Longer phases (Phase 5a (all)/5b/5c) need smaller print sizing to keep every sheet on one page — see the
@@ -175,7 +181,7 @@ function sheet(l, i, teacher){
   const sizeCls = wc > 50 ? ' long' : wc > 35 ? ' med' : '';
   let h = '<section class="sheet'+sizeCls+'" data-l="'+l.level+'" data-i="'+i+'" data-k="'+(teacher?"t":"p")+'"><div class="head"><h1>'+esc(t.title)+'</h1><small>Unlocking Letters and Sounds &middot; '+esc(l.name)+(teacher?' &middot; Teacher copy':'')+'</small></div>';
   h += '<div class="fields"><span>Name:</span>'+(teacher?'<span>Class:</span><span>Date:</span>':'')+'</div>';
-  if (t.image) h += '<img class="pic" src="'+t.image+'" alt="">';
+  if (t.images.length) h += picsHTML(t);
   h += '<p class="passage">'+esc(t.text)+'</p>';
   if (teacher && t.focus && t.focus.length) h += '<p class="ta"><b>Words that check this phase:</b> '+esc(t.focus.join(", "))+'</p>';
   t.qs.forEach((q,n)=>{
@@ -225,7 +231,7 @@ function renderTexts(){
   const t = L.texts[T];
   $("tt").textContent = t.title+' ('+t.text.split(/\s+/).length+' words)';
   $("passage").textContent = t.text;
-  const pic = $("pic"); if (t.image) { pic.src = t.image; pic.hidden = false; } else { pic.hidden = true; }
+  const pic = $("pic"); if (t.images.length) { pic.innerHTML = t.images.map(s=>'<img class="pic" src="'+s+'" alt="">').join(''); pic.hidden = false; } else { pic.hidden = true; }
   $("focus").textContent = t.focus && t.focus.length ? "Words that check this phase: "+t.focus.join(", ") : "";
   marks = t.qs.map(()=>null);
   $("qs").innerHTML = t.qs.map((q,n)=>'<div class="q"><span class="tag">'+q.t+'</span><b>'+(n+1)+'. '+esc(q.q)+'</b><div class="ans">Accept: '+esc(q.a)+'</div><div class="m"><button data-n="'+n+'" data-v="1">&#10003;</button><button data-n="'+n+'" data-v="0">&#10007;</button></div></div>').join("");

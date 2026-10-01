@@ -131,7 +131,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "01.10.26e";
+const VERSION = "01.10.26f";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const RUBRIC = [
@@ -167,17 +167,13 @@ async function loadPupilHistory(upn){
 
 function words(t){ return t.text.trim().split(/\s+/); }
 function passageHTML(t, teacher){
+  // The books' line breaks are not kept: the text flows as one paragraph.
   let i = 0;
-  return t.pages.map(p => {
-    const lines = p.lines.map(line => {
-      const h = line.split(/\s+/).map(w => { i++; return '<span class="w" data-i="'+i+'">'+esc(w)+'</span>'; }).join(' ');
-      return '<p class="ln">'+h+'</p>';
-    }).join('');
-    return (teacher ? '<div class="page-label">Page '+p.page+'</div>' : '') + lines;
-  }).join('');
+  const all = t.pages.flatMap(p => p.lines).join(' ');
+  return '<p class="ln">'+all.split(/\s+/).map(w => { i++; return '<span class="w" data-i="'+i+'">'+esc(w)+'</span>'; }).join(' ')+'</p>';
 }
 function plainPassageHTML(t){
-  return t.pages.map(p => p.lines.map(line => '<p class="ln">'+esc(line)+'</p>').join('')).join('');
+  return '<p class="ln">'+esc(t.pages.flatMap(p => p.lines).join(' '))+'</p>';
 }
 function sheet(t, teacher){
   let h = '<section class="sheet" data-id="'+esc(t.id)+'" data-k="'+(teacher?"t":"p")+'"><div class="head"><h1>'+esc(t.title)+'</h1><small>Benchmarking &middot; Level '+t.level+' &middot; '+esc(t.colour)+(teacher?' &middot; Teacher copy':'')+' &middot; '+esc(t.text_type)+'</small></div>';

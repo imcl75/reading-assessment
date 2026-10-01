@@ -236,7 +236,7 @@ const SaveResults = (function(){
   };
 })();
 
-const VERSION = "01.10.26e";
+const VERSION = "01.10.26f";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };

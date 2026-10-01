@@ -103,7 +103,14 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
   </section>
 
   <section class="card">
-    <h2>4. Accuracy</h2>
+    <h2>4. Fluency rubric</h2>
+    <p class="note">Listen to the reading and judge each row 1&ndash;4. Tap the cell that best fits.</p>
+    <div id="rubric"></div>
+    <p class="rtotal" id="rubricTotal"></p>
+  </section>
+
+  <section class="card">
+    <h2>5. Accuracy</h2>
     <div class="grid">
       <div><label>Words read</label><div class="result" id="attempted">0</div></div>
       <div><label>Errors</label><div class="result" id="errors">0</div></div>
@@ -114,24 +121,18 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
   </section>
 
   <section class="card">
-    <h2>5. Comprehension</h2>
+    <h2>6. Comprehension</h2>
     <div id="qs"></div>
     <p class="result" id="compScore"></p>
   </section>
 
-  <section class="card">
-    <h2>6. Fluency rubric</h2>
-    <p class="note">Listen to the reading and judge each row 1&ndash;4. Tap the cell that best fits.</p>
-    <div id="rubric"></div>
-    <p class="rtotal" id="rubricTotal"></p>
-  </section>
 </main>
 <footer>Benchmarking &middot; Version <span id="ver"></span></footer>
 <div id="sheets"></div>
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "01.10.26f";
+const VERSION = "01.10.26g";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const RUBRIC = [

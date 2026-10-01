@@ -29,7 +29,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 </style>
 </head>
 <body>
-<header><h1>Reading Assessment Results</h1><p>Wallscourt Farm Academy &middot; Cabot Learning Federation</p><nav class="toolnav"><a href="../home.html">&#8962; Reading assessment home</a><a href="../fluency/">Reading fluency</a><a href="../phonics/">Phonics comprehension</a><a href="../comprehension/">Comprehension by level</a><a href="../results/" aria-current="page">Results</a></nav></header>
+<header><h1>Reading Assessment Results</h1><p>Wallscourt Farm Academy &middot; Cabot Learning Federation</p><nav class="toolnav"><a href="../home.html">&#8962; Reading assessment home</a><a href="../fluency/">Reading fluency</a><a href="../phonics/">Phonics comprehension</a><a href="../comprehension/">Comprehension by level</a><a href="../pm-benchmark/">PM Benchmark</a><a href="../results/" aria-current="page">Results</a></nav></header>
 <main>
   <section class="card">
     <h2>Choose a pupil</h2>
@@ -60,11 +60,18 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
     <p class="empty" id="fluEmpty" hidden>No fluency results saved for this pupil yet.</p>
     <div id="fluAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="fluAvgTbl"></table></div></div>
   </section>
+
+  <section class="card" id="pmbCard" hidden>
+    <h2>PM Benchmark</h2>
+    <div class="tblwrap"><table id="pmbTbl"></table></div>
+    <p class="empty" id="pmbEmpty" hidden>No PM Benchmark results saved for this pupil yet.</p>
+    <div id="pmbAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="pmbAvgTbl"></table></div></div>
+  </section>
 </main>
 <footer>Reading Assessment Results &middot; Version <span id="ver"></span></footer>
 <script>
 /*SAVE_RESULTS*/
-const VERSION = "30.09.26l";
+const VERSION = "01.10.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -137,7 +144,8 @@ function classAverages(classRows, levelsWanted){
     const rs = byLevel[level];
     return {level, n: rs.length,
       avgScore: rs.reduce((a,r)=>a+(+r.score||0),0) / rs.length,
-      avgPercent: rs.reduce((a,r)=>a+(+r.percent||0),0) / rs.length};
+      avgPercent: rs.reduce((a,r)=>a+(+r.percent||0),0) / rs.length,
+      avgAccuracy: rs.reduce((a,r)=>a+(+(r.detail && r.detail.accuracy)||0),0) / rs.length};
   });
 }
 
@@ -181,18 +189,18 @@ function onClass(){
   const c = $("rClass").value, list = (roster && roster[c]) || [];
   $("rPupil").disabled = !c;
   $("rPupil").innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => '<option value="'+esc(p.upn)+'">'+esc(p.first+' '+p.last)+'</option>').join('');
-  ["compCard","phonCard","fluCard"].forEach(id => $(id).hidden = true);
+  ["compCard","phonCard","fluCard","pmbCard"].forEach(id => $(id).hidden = true);
   status('');
 }
 
 async function onPupil(){
   const upn = $("rPupil").value, cls = $("rClass").value;
-  ["compCard","phonCard","fluCard"].forEach(id => $(id).hidden = true);
+  ["compCard","phonCard","fluCard","pmbCard"].forEach(id => $(id).hidden = true);
   if (!upn) { status(''); return; }
   status('Loading results…');
-  const [d, compClass, phonClass, fluClass] = await Promise.all([
+  const [d, compClass, phonClass, fluClass, pmbClass] = await Promise.all([
     SaveResults.call('GET', '/readingresults-db', {upn:upn, limit:200}),
-    loadClassHistory(cls, 'comprehension'), loadClassHistory(cls, 'phonics'), loadClassHistory(cls, 'fluency'),
+    loadClassHistory(cls, 'comprehension'), loadClassHistory(cls, 'phonics'), loadClassHistory(cls, 'fluency'), loadClassHistory(cls, 'pm_benchmark'),
   ]);
   if (!d.results) { status(d.error || 'Could not load results.', true); return; }
   status(d.results.length ? '' : 'No results saved for this pupil yet.');
@@ -200,6 +208,7 @@ async function onPupil(){
   renderComprehension(results.filter(r => r.tool === 'comprehension'), compClass);
   renderPhonics(results.filter(r => r.tool === 'phonics'), phonClass);
   renderFluency(results.filter(r => r.tool === 'fluency'), fluClass);
+  renderPMBenchmark(results.filter(r => r.tool === 'pm_benchmark'), pmbClass);
 }
 
 function renderComprehension(rows, classRows){
@@ -278,6 +287,38 @@ function renderFluency(rows, classRows){
     const avgHead = ['Level','Class average WPM','Pupils tested'];
     const avgRows = avgs.map(a => '<tr><td>Level '+esc(a.level)+(bandName(a.level)?' ('+bandName(a.level)+')':'')+'</td><td>'+Math.round(a.avgScore)+'</td><td>'+a.n+'</td></tr>').join('');
     $("fluAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
+  }
+}
+
+function renderPMBenchmark(rows, classRows){
+  $("pmbCard").hidden = false;
+  $("pmbEmpty").hidden = rows.length > 0;
+  if (!rows.length) { $("pmbTbl").innerHTML = ''; $("pmbAvgWrap").hidden = true; return; }
+  const RKEYS = [['volume','Volume'],['expression','Expression'],['phrasing','Phrasing'],['smoothness','Smoothness'],['pace','Pace']];
+  const head = ['Date','Term / Week','Level','Colour','Test','Accuracy','Self-corrections','Comprehension', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
+  const COMP_BAND = {excellent:'Excellent', satisfactory:'Satisfactory', unsatisfactory:'Unsatisfactory'};
+  const rowsHtml = rows.map(r => {
+    const d = r.detail || {}, rub = d.rubric || {};
+    const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
+      esc(d.colour || ''), esc(r.test_id), accuracyCell(d.accuracy), d.self_corrections != null ? d.self_corrections : '–',
+      r.score+'/'+r.total+' ('+(COMP_BAND[r.band]||r.band)+')',
+      ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
+      d.rubric_total != null ? d.rubric_total+'/20' : '–'];
+    return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
+  }).join('');
+  $("pmbTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
+
+  const levels = [...new Set(rows.map(r => r.level))];
+  const avgs = classAverages(classRows, levels);
+  $("pmbAvgWrap").hidden = !avgs.length;
+  if (avgs.length) {
+    const avgHead = ['Level','Class average accuracy','Class average comprehension','Pupils tested'];
+    const avgRows = avgs.map(a => '<tr>'+[
+      '<td>Level '+esc(a.level)+(bandName(a.level)?' ('+bandName(a.level)+')':'')+'</td>',
+      accuracyCell(Math.round(a.avgAccuracy*10)/10),
+      '<td>'+(Math.round(a.avgScore*10)/10)+'</td>',
+      '<td>'+a.n+'</td>'].join('')+'</tr>').join('');
+    $("pmbAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
   }
 }
 

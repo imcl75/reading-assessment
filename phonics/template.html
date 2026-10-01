@@ -63,14 +63,16 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
 .pics{display:flex;gap:10px;justify-content:center;align-items:center;margin:0 auto 12px}
 .pics[hidden]{display:none}
-.pics .pic{flex:1 1 0;min-width:0;margin:0}
+.pics .pic{flex:0 1 48%;min-width:0;margin:0;object-fit:contain}
 .pic{display:block;max-width:100%;border-radius:12px;margin:0 auto 12px;border:2px solid var(--line)}
 #pic{max-width:420px}
 .sheet .pics{margin:6px auto 2px;width:150mm}
-.sheet .pics .pic{width:auto;margin:0}
+.sheet .pics .pic{width:auto;max-width:48%;max-height:60mm;margin:0}
 .sheet .pic{width:105mm;max-width:none;margin:6px auto 2px;border-radius:8px;border:1px solid #cfe3ee}
 .sheet.med .pics{width:130mm}
+.sheet.med .pics .pic{max-height:52mm}
 .sheet.long .pics{width:120mm}
+.sheet.long .pics .pic{max-height:46mm}
 body.nopics .pic{display:none}
 .opt{font-size:.9rem;margin-top:8px}
 .rtbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.85rem}
@@ -134,7 +136,7 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "01.10.26h";
+const VERSION = "01.10.26i";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];

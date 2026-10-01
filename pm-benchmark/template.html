@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PM Benchmark Running Records</title>
+<title>Benchmarking</title>
 <style>
 :root{--brand:#1798d3;--dark:#0a0101;--soft:#eaf6fc;--line:#cfe3ee;--bad:#c0392b;--good:#1e8449;--amber:#b9770e}
 *{box-sizing:border-box}
@@ -73,7 +73,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 </style>
 </head>
 <body>
-<header><h1>PM Benchmark Running Records</h1><p>Wallscourt Farm Academy &middot; Cabot Learning Federation</p><nav class="toolnav"><a href="../home.html">&#8962; Reading assessment home</a><a href="../fluency/">Reading fluency</a><a href="../phonics/">Phonics comprehension</a><a href="../comprehension/">Comprehension by level</a><a href="../pm-benchmark/" aria-current="page">PM Benchmark</a><a href="../results/">Results</a></nav></header>
+<header><h1>Benchmarking</h1><p>Wallscourt Farm Academy &middot; Cabot Learning Federation</p><nav class="toolnav"><a href="../home.html">&#8962; Reading assessment home</a><a href="../fluency/">Reading fluency</a><a href="../phonics/">Phonics comprehension</a><a href="../comprehension/">Comprehension by level</a><a href="../pm-benchmark/" aria-current="page">Benchmarking</a><a href="../results/">Results</a></nav></header>
 <main>
   <section class="card">
     <h2>1. Choose the level</h2>
@@ -126,12 +126,12 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
     <p class="rtotal" id="rubricTotal"></p>
   </section>
 </main>
-<footer>PM Benchmark Running Records &middot; Version <span id="ver"></span></footer>
+<footer>Benchmarking &middot; Version <span id="ver"></span></footer>
 <div id="sheets"></div>
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "01.10.26b";
+const VERSION = "01.10.26e";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const RUBRIC = [
@@ -180,7 +180,7 @@ function plainPassageHTML(t){
   return t.pages.map(p => p.lines.map(line => '<p class="ln">'+esc(line)+'</p>').join('')).join('');
 }
 function sheet(t, teacher){
-  let h = '<section class="sheet" data-id="'+esc(t.id)+'" data-k="'+(teacher?"t":"p")+'"><div class="head"><h1>'+esc(t.title)+'</h1><small>PM Benchmark &middot; Level '+t.level+' &middot; '+esc(t.colour)+(teacher?' &middot; Teacher copy':'')+' &middot; '+esc(t.text_type)+'</small></div>';
+  let h = '<section class="sheet" data-id="'+esc(t.id)+'" data-k="'+(teacher?"t":"p")+'"><div class="head"><h1>'+esc(t.title)+'</h1><small>Benchmarking &middot; Level '+t.level+' &middot; '+esc(t.colour)+(teacher?' &middot; Teacher copy':'')+' &middot; '+esc(t.text_type)+'</small></div>';
   h += '<div class="fields"><span>Name:</span>'+(teacher?'<span>Class:</span><span>Date:</span>':'')+'</div>';
   h += '<p class="orientation"><b>Introduce the book:</b> '+esc(t.book_orientation)+'</p>';
   h += '<div class="passage">'+plainPassageHTML(t)+'</div>';
@@ -193,7 +193,7 @@ function sheet(t, teacher){
     h += '<p class="ta"><b>Comprehension:</b> excellent '+t.scoring.comprehension.excellent+', satisfactory '+t.scoring.comprehension.satisfactory+', unsatisfactory '+t.scoring.comprehension.unsatisfactory+' (out of '+t.questions.length+')</p>';
     h += rubricTableHTML();
   }
-  h += '<div class="foot"><span>Wallscourt Farm Academy</span><span>PM Benchmark &middot; Level '+t.level+' '+esc(t.colour)+' &middot; v'+VERSION+'</span></div></section>';
+  h += '<div class="foot"><span>Wallscourt Farm Academy</span><span>Benchmarking &middot; Level '+t.level+' '+esc(t.colour)+' &middot; v'+VERSION+'</span></div></section>';
   return h;
 }
 function rubricTableHTML(){
@@ -265,7 +265,7 @@ function compScore(){
   const t = L.texts[T], s = marks.filter(m=>m===1).length, n = t.questions.length;
   const wrong = n - s;
   const band = marks.includes(null) ? '' : wrong===0 ? 'Excellent' : wrong<=2 ? 'Satisfactory' : 'Unsatisfactory';
-  $("compScore").textContent = marks.includes(null) ? 'Tap a tick or cross for each question.' : 'Comprehension: '+s+' / '+n+' ('+band+')';
+  $("compScore").textContent = marks.includes(null) ? '' : 'Comprehension: '+s+' / '+n+' ('+band+')';
   SaveResults.refresh();
 }
 function setMode(m){ mode = m; $("modeStop").classList.toggle("on", m==="stop"); }
@@ -297,15 +297,15 @@ $("rubric").addEventListener("click", e => {
 });
 $("levels").onclick = e => { const b = e.target.closest(".lv"); if (!b) return; L = DATA.find(l=>l.level==b.dataset.l); T = 0; autoPickText(); renderLevels(); renderTexts(); };
 $("texts").onclick = e => { const b = e.target.closest(".tx"); if (!b) return; T = +b.dataset.i; renderTexts(); };
-$("pPupil").onclick = () => printSel('.sheet[data-id="'+L.texts[T].id+'"][data-k="p"]', 'PM Benchmark - Level '+L.level+' - '+L.texts[T].title+' - Pupil Copy');
-$("pTeacher").onclick = () => printSel('.sheet[data-id="'+L.texts[T].id+'"][data-k="t"]', 'PM Benchmark - Level '+L.level+' - '+L.texts[T].title+' - Teacher Copy');
+$("pPupil").onclick = () => printSel('.sheet[data-id="'+L.texts[T].id+'"][data-k="p"]', 'Benchmarking - Level '+L.level+' - '+L.texts[T].title+' - Pupil Copy');
+$("pTeacher").onclick = () => printSel('.sheet[data-id="'+L.texts[T].id+'"][data-k="t"]', 'Benchmarking - Level '+L.level+' - '+L.texts[T].title+' - Teacher Copy');
 SaveResults.init({tool:"pm_benchmark", onPupilChange: loadPupilHistory, get: () => {
   const t = L.texts[T], attempted = stopAt, e = [...errs].filter(n=>n<=attempted).length, sc = [...selfCorr].filter(n=>n<=attempted).length;
   const acc = attempted>0 ? Math.round((attempted-e)/attempted*1000)/10 : 0;
   const qDone = !marks.includes(null), s = marks.filter(m=>m===1).length;
   const rDone = RUBRIC.filter(r=>rubricScores[r.key]).length, rComplete = rDone===RUBRIC.length;
   const ready = attempted>0 && qDone && rComplete;
-  const hint = attempted===0 ? "Mark the reading first." : !qDone ? "Tap a tick or cross for each comprehension question." : !rComplete ? "Score all five rubric rows before saving." : "";
+  const hint = attempted===0 ? "Mark the reading first." :  !rComplete ? "Score all five rubric rows before saving." : "";
   const body = {test_id: t.id, level: String(t.level), colour: t.colour, attempted, errors: e, self_corrections: sc,
     marks: marks.map(m=>m?1:0)};
   if (rComplete) body.rubric = Object.assign({}, rubricScores);

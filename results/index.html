@@ -29,7 +29,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 </style>
 </head>
 <body>
-<header><h1>Reading Assessment Results</h1><p>Wallscourt Farm Academy &middot; Cabot Learning Federation</p><nav class="toolnav"><a href="../home.html">&#8962; Reading assessment home</a><a href="../fluency/">Reading fluency</a><a href="../phonics/">Phonics comprehension</a><a href="../comprehension/">Comprehension by level</a><a href="../pm-benchmark/">PM Benchmark</a><a href="../results/" aria-current="page">Results</a></nav></header>
+<header><h1>Reading Assessment Results</h1><p>Wallscourt Farm Academy &middot; Cabot Learning Federation</p><nav class="toolnav"><a href="../home.html">&#8962; Reading assessment home</a><a href="../fluency/">Reading fluency</a><a href="../phonics/">Phonics comprehension</a><a href="../comprehension/">Comprehension by level</a><a href="../pm-benchmark/">Benchmarking</a><a href="../results/" aria-current="page">Results</a></nav></header>
 <main>
   <section class="card">
     <h2>Choose a pupil</h2>
@@ -62,9 +62,9 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
   </section>
 
   <section class="card" id="pmbCard" hidden>
-    <h2>PM Benchmark</h2>
+    <h2>Benchmarking</h2>
     <div class="tblwrap"><table id="pmbTbl"></table></div>
-    <p class="empty" id="pmbEmpty" hidden>No PM Benchmark results saved for this pupil yet.</p>
+    <p class="empty" id="pmbEmpty" hidden>No Benchmarking results saved for this pupil yet.</p>
     <div id="pmbAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="pmbAvgTbl"></table></div></div>
   </section>
 </main>
@@ -236,7 +236,7 @@ const SaveResults = (function(){
   };
 })();
 
-const VERSION = "01.10.26a";
+const VERSION = "01.10.26e";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };

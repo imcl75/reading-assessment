@@ -92,10 +92,11 @@ const SaveResults = (function(){
     $q('srHist').innerHTML = d.results.length ? '<li><b>Earlier results for this pupil</b></li>' + d.results.map(r => '<li>' + h(r.taken_on) + ' &middot; ' + h(describe(r)) + '</li>').join('') : '<li>No results saved for this pupil yet.</li>';
   }
   function describe(r){
-    const bands = {greater_depth: 'greater depth', on_track: 'on track', not_yet: 'not yet on track', secure: 'secure', nearly: 'nearly there', on_target: 'on target', below_target: 'below target'};
+    const bands = {greater_depth: 'greater depth', on_track: 'on track', not_yet: 'not yet on track', secure: 'secure', nearly: 'nearly there', on_target: 'on target', below_target: 'below target', excellent: 'excellent', satisfactory: 'satisfactory', unsatisfactory: 'unsatisfactory'};
     const b = bands[r.band] || r.band;
     if (r.tool === 'fluency') return 'Level ' + r.level + ': ' + r.detail.wcpm + ' words correct per minute, ' + r.detail.accuracy + '% accurate (' + b + ')' + (r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
     if (r.tool === 'phonics') return r.level + ': ' + r.score + '/3 (' + b + ')' + (r.detail && r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
+    if (r.tool === 'pm_benchmark') return 'Level ' + r.level + ' (' + (r.detail && r.detail.colour || '') + '): ' + r.detail.accuracy + '% accurate, comprehension ' + r.score + '/' + r.total + ' (' + b + ')' + (r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
     return 'Level ' + r.level + ' test ' + r.test_id + ': ' + r.score + '/' + r.total + ', ' + r.percent + '% (' + b + ')';
   }
   function sig(){ const s = cfg.get(); return JSON.stringify([$q('srPupil').value, s.body, $q('srDate').value, $q('srTerm').value]); }

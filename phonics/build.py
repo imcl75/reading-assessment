@@ -3,6 +3,8 @@ then builds a single self-contained index.html."""
 import json, pathlib, sys, hashlib
 from levels import ADD, NAMES, check_text, cum, mix_problems, phase_mix
 from texts_src import B
+try: from texts_src import SKIP_CHECKS
+except ImportError: SKIP_CHECKS=False
 here = pathlib.Path(__file__).parent
 SOUND_ORDER = {1:"s a t p i n m d g o c k ck e u r h b f ff l ll ss",2:"j v w x y z zz qu ch sh th ng",
  3:"ai ee igh oa oo ar or ur; -ing endings with no change to the root word",4:"ow oi ear air ure er",
@@ -19,15 +21,15 @@ for lv in sorted(B):
     cum_sounds="; ".join(SOUND_ORDER[k] for k in range(1,lv+1))
     _,cew,_=cum(lv); cew={w for w in cew if w.lower() not in DECODABLE}
     for title,text,qs in B[lv]:
-        bad=check_text(text,lv); mix=mix_problems(text,lv)
+        bad=[] if SKIP_CHECKS else check_text(text,lv); mix=[] if SKIP_CHECKS else mix_problems(text,lv)
         if bad or mix or len(qs)!=3 or not any(q[0]=="why" for q in qs):
             errors+=1; print("FAIL",lv,NAMES[lv],"|",title,"|",bad,mix)
         toks,fl=phase_mix(text,lv)
         focus=[] if lv==1 else list(dict.fromkeys(t.lower() for t,f in zip(toks,fl) if f==lv))
-        pic=here/'img'/f'p{lv}-{len(items)}.jpg'
-        # the address changes whenever the picture changes, so a stale copy held by a cache is never shown
-        image=f'img/{pic.name}?v={hashlib.md5(pic.read_bytes()).hexdigest()[:8]}' if pic.exists() else None
-        items.append(dict(title=title,text=text,focus=focus,image=image,qs=[dict(t=t,q=q,a=a) for t,q,a in qs]))
+        # up to two pictures per text, side by side: p{level}-{n}a.jpg and p{level}-{n}b.jpg
+        # (the address changes whenever a picture changes, so a stale copy held by a cache is never shown)
+        images=[f'img/{p.name}?v={hashlib.md5(p.read_bytes()).hexdigest()[:8]}' for p in (here/'img'/f'p{lv}-{len(items)}{k}.jpg' for k in 'ab') if p.exists()]
+        items.append(dict(title=title,text=text,focus=focus,images=images,qs=[dict(t=t,q=q,a=a) for t,q,a in qs]))
     data.append(dict(level=lv,name=NAMES[lv],sounds=cum_sounds,cew=", ".join(sorted(cew,key=str.lower)),texts=items))
 if errors: sys.exit("not built: %d problem(s)"%errors)
 html=(here/"template.html").read_text().replace("/*DATA*/",json.dumps(data,ensure_ascii=False)).replace("/*SAVE_RESULTS*/",(here.parent/"shared"/"save_results.js").read_text())

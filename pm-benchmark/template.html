@@ -42,15 +42,6 @@ label{font-size:.85rem;display:block;font-weight:600;margin-bottom:3px}
 .m button{font-size:16px;padding:6px 14px;border-radius:8px;border:2px solid var(--line);background:#fff;font-weight:700;cursor:pointer}
 .m button.yes{background:var(--good);color:#fff;border-color:var(--good)}.m button.no{background:var(--bad);color:#fff;border-color:var(--bad)}
 .rewritten{font-size:.78rem;color:var(--amber);margin-top:2px}
-.rtbl{width:100%;border-collapse:collapse;margin-top:10px;font-size:.85rem}
-.rtbl th,.rtbl td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
-.rtbl th{background:var(--soft);font-size:.8rem}
-.rtbl td.rlabel{font-weight:700;background:var(--soft);white-space:nowrap}
-.rtbl td.rcell{cursor:pointer}
-.rtbl td.rcell:hover{background:var(--soft)}
-.rtbl td.rcell.on{background:var(--dark);color:#fff;font-weight:600}
-.rtotal{font-size:1.1rem;font-weight:800;margin-top:8px}
-@media (max-width:640px){.rtbl{display:block;overflow-x:auto;white-space:nowrap}}
 footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .sheet{display:none}
 @media print{
@@ -68,7 +59,6 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .sheet .foot{margin-top:14px;font-size:.75rem;color:#567;display:flex;justify-content:space-between}
 .sheet .ta{font-size:.95rem;margin:6px 0}
 .sheet .orientation{border:1px solid #000;background:none}
-.sheet .rtbl th,.sheet .rtbl td{border:1px solid #000;padding:5px 6px}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
 </style>
 </head>
@@ -102,15 +92,9 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
     <div class="passage" id="tpassage"></div>
   </section>
 
-  <section class="card">
-    <h2>4. Fluency rubric</h2>
-    <p class="note">Listen to the reading and judge each row 1&ndash;4. Tap the cell that best fits.</p>
-    <div id="rubric"></div>
-    <p class="rtotal" id="rubricTotal"></p>
-  </section>
 
   <section class="card">
-    <h2>5. Accuracy</h2>
+    <h2>4. Accuracy</h2>
     <div class="grid">
       <div><label>Words read</label><div class="result" id="attempted">0</div></div>
       <div><label>Errors</label><div class="result" id="errors">0</div></div>
@@ -121,7 +105,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
   </section>
 
   <section class="card">
-    <h2>6. Comprehension</h2>
+    <h2>5. Comprehension</h2>
     <div id="qs"></div>
   </section>
 
@@ -131,19 +115,12 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "02.10.26a";
+const VERSION = "04.10.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-const RUBRIC = [
-  {key:"volume",     label:"Volume",     d:["Quiet – hard to hear","Quiet","Good volume","Excellent volume"]},
-  {key:"expression", label:"Expression", d:["None","Some natural expression","Good expression","Conversational expression"]},
-  {key:"phrasing",   label:"Phrasing",   d:["Word by word","Short phrase groups, little or no attention to punctuation","Some good rhythm, some punctuation awareness","Good rhythm, attending to punctuation"]},
-  {key:"smoothness", label:"Smoothness", d:["Sounds out many words, lots of hesitation","Pauses or hesitation. Continued rough spots","Occasional rough spots, generally with more complex words or sentences","Smooth throughout, corrects challenging words and structure"]},
-  {key:"pace",       label:"Pace",       d:["Slow and with great effort","Moderately slowly","Fast and slow throughout, less natural","Conversational pace"]},
-];
 const QTAG = {"Literal":"Literal","Inferential":"Inferential","Applied Knowledge":"Applied Knowledge","Vocabulary":"Vocabulary"};
 
-let L = DATA[0], T = 0, mode = "mark", errs = new Set(), selfCorr = new Set(), stopAt = 0, marks = [], rubricScores = {};
+let L = DATA[0], T = 0, mode = "mark", errs = new Set(), selfCorr = new Set(), stopAt = 0, marks = [];
 
 // Text-history avoidance (same pattern as phonics, 28.09.26): a re-test at the same level
 // should default to a text this pupil hasn't already done, among the level's 2 Blue + 2 Red
@@ -187,24 +164,9 @@ function sheet(t, teacher){
       h += '<p class="ta"><b>'+q.number+'. ('+esc(q.type)+') '+esc(q.question)+'</b><br><i>Accept:</i> '+esc(q.accepted_answers.join(' / '))+'</p>';
     });
     h += '<p class="ta"><b>Comprehension:</b> excellent '+t.scoring.comprehension.excellent+', satisfactory '+t.scoring.comprehension.satisfactory+', unsatisfactory '+t.scoring.comprehension.unsatisfactory+' (out of '+t.questions.length+')</p>';
-    h += rubricTableHTML();
   }
   h += '<div class="foot"><span>Wallscourt Farm Academy</span><span>Benchmarking &middot; Level '+t.level+' '+esc(t.colour)+' &middot; v'+VERSION+'</span></div></section>';
   return h;
-}
-function rubricTableHTML(){
-  let h = '<table class="rtbl"><tr><th>Fluency rubric</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>';
-  RUBRIC.forEach(r => { h += '<tr><td class="rlabel">'+esc(r.label)+'</td>'+r.d.map(d=>'<td>'+esc(d)+'</td>').join('')+'</tr>'; });
-  h += '</table><p class="ta">Total: ____ / 20.</p>';
-  return h;
-}
-function renderRubric(){
-  $("rubric").innerHTML = '<table class="rtbl"><tr><th>Category</th><th>1</th><th>2</th><th>3</th><th>4</th></tr>'+
-    RUBRIC.map(r=>'<tr><td class="rlabel">'+esc(r.label)+'</td>'+r.d.map((d,i)=>
-      '<td class="rcell'+(rubricScores[r.key]===i+1?' on':'')+'" data-k="'+r.key+'" data-v="'+(i+1)+'">'+esc(d)+'</td>').join('')+'</tr>').join('')+
-    '</table>';
-  const done = RUBRIC.filter(r=>rubricScores[r.key]).length, total = RUBRIC.reduce((a,r)=>a+(rubricScores[r.key]||0),0);
-  $("rubricTotal").textContent = done===0 ? '' : done<RUBRIC.length ? 'Score so far: '+total+' ('+done+'/5 rows done)' : 'Total: '+total+' / 20';
 }
 function buildSheets(){
   let h = ''; DATA.forEach(l => l.texts.forEach(t => { h += sheet(t,false) + sheet(t,true); })); $("sheets").innerHTML = h;
@@ -234,7 +196,6 @@ function renderTexts(){
       '<div class="ans">Accept: '+esc(q.accepted_answers.join(' / '))+'</div>'+rewritten+
       '<div class="m"><button data-n="'+n+'" data-v="1">&#10003;</button><button data-n="'+n+'" data-v="0">&#10007;</button></div></div>';
   }).join("");
-  rubricScores = {}; renderRubric();
   compScore();
 }
 function renderPassage(){
@@ -287,10 +248,6 @@ $("qs").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return; const n = +b.dataset.n; marks[n] = +b.dataset.v;
   b.parentNode.querySelectorAll("button").forEach(x=>x.className=""); b.className = marks[n] ? "yes" : "no"; compScore();
 });
-$("rubric").addEventListener("click", e => {
-  const c = e.target.closest(".rcell"); if (!c) return;
-  rubricScores[c.dataset.k] = +c.dataset.v; renderRubric(); SaveResults.refresh();
-});
 $("levels").onclick = e => { const b = e.target.closest(".lv"); if (!b) return; L = DATA.find(l=>l.level==b.dataset.l); T = 0; autoPickText(); renderLevels(); renderTexts(); };
 $("texts").onclick = e => { const b = e.target.closest(".tx"); if (!b) return; T = +b.dataset.i; renderTexts(); };
 $("pPupil").onclick = () => printSel('.sheet[data-id="'+L.texts[T].id+'"][data-k="p"]', 'Benchmarking - Level '+L.level+' - '+L.texts[T].title+' - Pupil Copy');
@@ -299,13 +256,11 @@ SaveResults.init({tool:"pm_benchmark", onPupilChange: loadPupilHistory, get: () 
   const t = L.texts[T], attempted = stopAt, e = [...errs].filter(n=>n<=attempted).length, sc = [...selfCorr].filter(n=>n<=attempted).length;
   const acc = attempted>0 ? Math.round((attempted-e)/attempted*1000)/10 : 0;
   const qDone = !marks.includes(null), s = marks.filter(m=>m===1).length;
-  const rDone = RUBRIC.filter(r=>rubricScores[r.key]).length, rComplete = rDone===RUBRIC.length;
-  const ready = attempted>0 && qDone && rComplete;
-  const hint = attempted===0 ? "Mark the reading first." :  !rComplete ? "Score all five rubric rows before saving." : "";
+  const ready = attempted>0 && qDone;
+  const hint = attempted===0 ? "Mark the reading first." : "";
   const body = {test_id: t.id, level: String(t.level), colour: t.colour, attempted, errors: e, self_corrections: sc,
     marks: marks.map(m=>m?1:0)};
-  if (rComplete) body.rubric = Object.assign({}, rubricScores);
-  return {ready, hint, summary: acc+"% accuracy, "+s+"/"+t.questions.length+" comprehension, level "+t.level+(rComplete?", rubric "+RUBRIC.reduce((a,r)=>a+rubricScores[r.key],0)+"/20":""),
+  return {ready, hint, summary: acc+"% accuracy, "+s+"/"+t.questions.length+" comprehension, level "+t.level,
           body}; }});
 document.querySelector("main").appendChild(document.getElementById("saveCard"));
 $("ver").textContent = VERSION;

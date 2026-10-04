@@ -96,7 +96,7 @@ const SaveResults = (function(){
     const b = bands[r.band] || r.band;
     if (r.tool === 'fluency') return 'Level ' + r.level + ': ' + r.detail.wcpm + ' words correct per minute, ' + r.detail.accuracy + '% accurate (' + b + ')' + (r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
     if (r.tool === 'phonics') return r.level + ': ' + r.score + '/3 (' + b + ')' + (r.detail && r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
-    if (r.tool === 'pm_benchmark') return 'Level ' + r.level + ' (' + (r.detail && r.detail.colour || '') + '): ' + r.detail.accuracy + '% accurate, comprehension ' + r.score + '/' + r.total + ' (' + b + ')' + (r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
+    if (r.tool === 'pm_benchmark') return 'Level ' + r.level + ' (' + (r.detail && r.detail.colour || '') + '): ' + r.detail.accuracy + '% accurate, comprehension ' + r.score + '/' + r.total;
     return 'Level ' + r.level + ' test ' + r.test_id + ': ' + r.score + '/' + r.total + ', ' + r.percent + '% (' + b + ')';
   }
   function sig(){ const s = cfg.get(); return JSON.stringify([$q('srPupil').value, s.body, $q('srDate').value, $q('srTerm').value]); }

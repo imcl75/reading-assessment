@@ -71,7 +71,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <footer>Reading Assessment Results &middot; Version <span id="ver"></span></footer>
 <script>
 /*SAVE_RESULTS*/
-const VERSION = "02.10.26a";
+const VERSION = "04.10.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -268,10 +268,9 @@ function renderFluency(rows, classRows){
   $("fluCard").hidden = false;
   $("fluEmpty").hidden = rows.length > 0;
   if (!rows.length) { $("fluTbl").innerHTML = ''; $("fluAvgWrap").hidden = true; return; }
-  const RKEYS = [['volume','Volume'],['expression','Expression'],['phrasing','Phrasing'],['smoothness','Smoothness'],['pace','Pace']];
   const head = ['Date','Term / Week','Level','WPM','Accuracy', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
   const rowsHtml = rows.map(r => {
-    const d = r.detail || {}, rub = d.rubric || {};
+    const d = r.detail || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
       d.wcpm != null ? d.wcpm : '–', accuracyCell(d.accuracy),
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
@@ -294,16 +293,12 @@ function renderPMBenchmark(rows, classRows){
   $("pmbCard").hidden = false;
   $("pmbEmpty").hidden = rows.length > 0;
   if (!rows.length) { $("pmbTbl").innerHTML = ''; $("pmbAvgWrap").hidden = true; return; }
-  const RKEYS = [['volume','Volume'],['expression','Expression'],['phrasing','Phrasing'],['smoothness','Smoothness'],['pace','Pace']];
-  const head = ['Date','Term / Week','Level','Colour','Test','Accuracy','Self-corrections','Comprehension', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
-  const COMP_BAND = {excellent:'Excellent', satisfactory:'Satisfactory', unsatisfactory:'Unsatisfactory'};
+  const head = ['Date','Term / Week','Level','Colour','Test','Accuracy','Self-corrections','Comprehension'];
   const rowsHtml = rows.map(r => {
-    const d = r.detail || {}, rub = d.rubric || {};
+    const d = r.detail || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
       esc(d.colour || ''), esc(r.test_id), accuracyCell(d.accuracy), d.self_corrections != null ? d.self_corrections : '–',
-      r.score+'/'+r.total+' ('+(COMP_BAND[r.band]||r.band)+')',
-      ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
-      d.rubric_total != null ? d.rubric_total+'/20' : '–'];
+      r.score+'/'+r.total];
     return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
   }).join('');
   $("pmbTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;

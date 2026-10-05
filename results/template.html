@@ -71,7 +71,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <footer>Reading Assessment Results &middot; Version <span id="ver"></span></footer>
 <script>
 /*SAVE_RESULTS*/
-const VERSION = "05.10.26b";
+const VERSION = "05.10.26c";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -268,9 +268,10 @@ function renderFluency(rows, classRows){
   $("fluCard").hidden = false;
   $("fluEmpty").hidden = rows.length > 0;
   if (!rows.length) { $("fluTbl").innerHTML = ''; $("fluAvgWrap").hidden = true; return; }
+  const RKEYS = [['volume','Volume'],['expression','Expression'],['phrasing','Phrasing'],['smoothness','Smoothness'],['pace','Pace']];
   const head = ['Date','Term / Week','Level','WPM','Accuracy', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
   const rowsHtml = rows.map(r => {
-    const d = r.detail || {};
+    const d = r.detail || {}, rub = d.rubric || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':''),
       d.wcpm != null ? d.wcpm : '–', accuracyCell(d.accuracy),
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),

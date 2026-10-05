@@ -16,6 +16,10 @@ main{max-width:900px;margin:0 auto;padding:14px 16px 40px}
 h2{font-size:1rem;margin:0 0 8px}
 .levels{display:flex;flex-wrap:wrap;gap:8px}
 .lv{font-size:16px;min-width:52px;padding:10px 8px;border:2px solid var(--line);border-radius:10px;background:#fff;cursor:pointer;font-weight:700}
+.lv.target{border-color:var(--brand);background:var(--soft)}
+.tgt{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:0 0 12px}
+.tgt label{display:block;font-weight:700;font-size:.85rem;margin-bottom:4px}
+.tgt select{font-size:16px;padding:9px 10px;border:2px solid var(--line);border-radius:10px;background:#fff}
 .lv[aria-pressed=true]{border-color:var(--dark);box-shadow:0 0 0 2px var(--dark)}
 .band{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid #0004;vertical-align:-2px;margin-right:4px}
 .meta{font-size:.9rem;color:#345}
@@ -84,6 +88,11 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <main>
   <section class="card">
     <h2>1. Choose Year Group / Term Target level for expected standard</h2>
+    <div class="tgt">
+      <div><label for="tgtYear">Year group</label><select id="tgtYear"><option value="">Choose…</option><option>Y2</option><option>Y3</option><option>Y4</option><option>Y5</option><option>Y6</option></select></div>
+      <div><label for="tgtTerm">Term</label><select id="tgtTerm"><option value="">Choose…</option><option value="1">Term 1</option><option value="2">Term 2</option><option value="3">Term 3</option><option value="4">Term 4</option><option value="5">Term 5</option><option value="6">Term 6</option></select></div>
+    </div>
+    <p class="meta" id="tgtNote"></p>
     <div class="levels" id="levels"></div>
     <p class="meta" id="lvmeta"></p>
     <div class="actions">
@@ -136,7 +145,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 const TEXTS = /*TEXTS*/;
-const VERSION = "05.10.26a";
+const VERSION = "05.10.26b";
 const BANDS = [[17,18,"Turquoise","#00e5c8"],[19,20,"Purple","#800080"],[21,22,"Gold","#ffc000"],[23,24,"White","#ffffff"],[25,26,"Lime","#00ee00"],[27,28,"Ruby","#c00000"],[29,30,"Sapphire","#000080"],[31,36,"Free Reader","#f2b705"]];
 const band = l => BANDS.find(b => l >= b[0] && l <= b[1]);
 const lv = l => l > 30 ? 'F' + (l - 30) : l;   // levels end at 30; above that the levels are F1-F4 (Free Reader)
@@ -208,10 +217,27 @@ function printSheets(sel, name){
   window.print();
   document.title = old;
 }
+// Expected-standard target level by year group and term (Innes, 05.10.26). F(n) = Free Reader n = level 30+n; null = no target set.
+const TARGETS = {
+  Y2:[null,null,18,20,22,23], Y3:[24,25,25,26,26,27], Y4:[27,28,28,29,30,31],
+  Y5:[31,32,32,33,33,34], Y6:[34,35,36,36,36,36]
+};
+let targetLevel = null;
+function applyTarget(){
+  const y = $("tgtYear").value, t = +$("tgtTerm").value;
+  try { localStorage.setItem("wfa_fluency_target", JSON.stringify({y:y, t:t||""})); } catch(e) {}
+  targetLevel = null;
+  if (y && t) {
+    const l = TARGETS[y][t-1];
+    if (l == null) $("tgtNote").textContent = y+" Term "+t+": no target level is set. Choose a level below.";
+    else { targetLevel = l; $("tgtNote").innerHTML = '<b>'+y+' Term '+t+' expected standard: Level '+lv(l)+'</b>'; choose(l); return; }
+  } else $("tgtNote").textContent = "";
+  renderLevels();
+}
 function renderLevels(){
   $("levels").innerHTML = TEXTS.map(t=>{
     const b=band(t.level);
-    return '<button class="lv" data-l="'+t.level+'" aria-pressed="'+(t.level===cur.level)+'"><span class="band" style="background:'+b[3]+'"></span>'+lv(t.level)+'</button>';
+    return '<button class="lv'+(t.level===targetLevel?' target':'')+'" data-l="'+t.level+'" aria-pressed="'+(t.level===cur.level)+'"><span class="band" style="background:'+b[3]+'"></span>'+lv(t.level)+'</button>';
   }).join('');
   $("lvmeta").innerHTML = '<b>'+esc(cur.title)+'</b> &middot; Level '+lv(cur.level)+' ('+band(cur.level)[2]+') &middot; '+esc(cur.type)+' &middot; '+words(cur).length+' words';
 }
@@ -237,6 +263,7 @@ function refresh(){
 }
 function choose(l){ cur = TEXTS.find(t=>t.level===l); renderLevels(); renderScore(); }
 
+$("tgtYear").onchange = applyTarget; $("tgtTerm").onchange = applyTarget;
 $("levels").addEventListener("click", e=>{ const b=e.target.closest(".lv"); if(b) choose(+b.dataset.l); });
 $("tpassage").addEventListener("click", e=>{
   const w=e.target.closest(".w"); if(!w) return; const n=+w.dataset.i;
@@ -271,6 +298,7 @@ SaveResults.init({tool:"fluency", get:()=>{ const a=stopAt, e=[...errs].filter(n
 document.querySelector("main").appendChild($("saveCard"));   // Innes, 30.09.26: keep Save at the bottom, below the (now required) rubric — otherwise it's easy to miss after scrolling down to score the rubric
 $("ver").textContent = VERSION;
 buildSheets(); choose(TEXTS[0].level);
+try { const sv = JSON.parse(localStorage.getItem("wfa_fluency_target")||"null"); if (sv) { $("tgtYear").value = sv.y||""; $("tgtTerm").value = sv.t||""; if (sv.y && sv.t) applyTarget(); } } catch(e) {}
 </script>
 </body>
 </html>

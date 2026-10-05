@@ -134,7 +134,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
       <div><label>Words correct per minute</label><div class="result" id="wcpm">&ndash;</div><div id="wcpmTag"></div></div>
       <div><label>Accuracy</label><div class="result" id="acc">&ndash;</div><div id="accTag"></div></div>
     </div>
-    <p class="key">Target: 90&ndash;100 words correct per minute at the pupil's current level. Accuracy: above 95% independent, 90&ndash;95% instructional, below 90% difficult.</p>
+    <p class="key">Target: 90&ndash;100 words correct per minute, always, once a child is reading a levelled book. Accuracy: above 95% independent, 90&ndash;95% instructional, below 90% difficult.</p>
   </section>
 
 </main>
@@ -145,7 +145,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 const TEXTS = /*TEXTS*/;
-const VERSION = "05.10.26c";
+const VERSION = "05.10.26d";
 const BANDS = [[17,18,"Turquoise","#00e5c8"],[19,20,"Purple","#800080"],[21,22,"Gold","#ffc000"],[23,24,"White","#ffffff"],[25,26,"Lime","#00ee00"],[27,28,"Ruby","#c00000"],[29,30,"Sapphire","#000080"],[31,36,"Free Reader","#f2b705"]];
 const band = l => BANDS.find(b => l >= b[0] && l <= b[1]);
 const lv = l => l > 30 ? 'F' + (l - 30) : l;   // levels end at 30; above that the levels are F1-F4 (Free Reader)
@@ -179,7 +179,7 @@ function sheetHTML(t, teacher){
     h += '<p class="passage">'+passageHTML(t,true)+'</p>';
     h += '<p class="key">Cross out or circle each error. The 100th word is underlined and marked. Stop the child at one minute and mark the last word reached. Total text length: '+n+' words.</p>';
     h += '<table class="tbl"><tr><th>Words attempted</th><th>Errors</th><th>Seconds</th><th>Words correct per minute</th><th>Accuracy %</th></tr><tr><td>&nbsp;<br>&nbsp;</td><td></td><td></td><td></td><td></td></tr></table>';
-    h += '<p class="key">Words correct per minute = (words attempted &minus; errors) &times; 60 &divide; seconds. Accuracy = (words attempted &minus; errors) &divide; words attempted &times; 100. Target: 90&ndash;100 wcpm at current level.</p>';
+    h += '<p class="key">Words correct per minute = (words attempted &minus; errors) &times; 60 &divide; seconds. Accuracy = (words attempted &minus; errors) &divide; words attempted &times; 100. Target: 90&ndash;100 wcpm (always, once reading a levelled book).</p>';
     h += rubricTableHTML();
   } else {
     h += '<div class="fields"><span>Name:</span></div>';
@@ -217,18 +217,14 @@ function printSheets(sel, name){
   window.print();
   document.title = old;
 }
-// Expected-standard target level by year group and term (Innes, 05.10.26). F(n) = Free Reader n = level 30+n; null = no target set.
-const TARGETS = {
-  Y2:[null,null,18,20,22,23], Y3:[24,25,25,26,26,27], Y4:[27,28,28,29,30,31],
-  Y5:[31,32,32,33,33,34], Y6:[34,35,36,36,36,36]
-};
+/*TARGETS*/
 let targetLevel = null;
 function applyTarget(){
   const y = $("tgtYear").value, t = +$("tgtTerm").value;
   try { localStorage.setItem("wfa_fluency_target", JSON.stringify({y:y, t:t||""})); } catch(e) {}
   targetLevel = null;
   if (y && t) {
-    const l = TARGETS[y][t-1];
+    const l = targetLevelFor(y, t);
     if (l == null) $("tgtNote").textContent = y+" Term "+t+": no target level is set. Choose a level below.";
     else { targetLevel = l; $("tgtNote").innerHTML = '<b>'+y+' Term '+t+' expected standard: Level '+lv(l)+'</b>'; choose(l); return; }
   } else $("tgtNote").textContent = "";
@@ -257,7 +253,7 @@ function refresh(){
   if (s>0){
     const wc = Math.round((attempted-e)*60/s), acc = Math.round((attempted-e)/attempted*1000)/10;
     $("wcpm").textContent = wc; $("acc").textContent = acc+"%";
-    $("wcpmTag").innerHTML = wc>=90 ? '<span class="tag" style="background:var(--good)">On target (90+)</span>' : '<span class="tag" style="background:var(--amber)">Below 90</span>';
+    $("wcpmTag").innerHTML = wc>=90 ? '<span class="tag" style="background:var(--good)">On target (90&ndash;100)</span>' : '<span class="tag" style="background:var(--amber)">Below 90 target</span>';
     $("accTag").innerHTML = acc>95 ? '<span class="tag" style="background:var(--good)">Independent</span>' : acc>=90 ? '<span class="tag" style="background:var(--amber)">Instructional</span>' : '<span class="tag" style="background:var(--bad)">Difficult</span>';
   }
 }

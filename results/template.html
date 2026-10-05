@@ -72,7 +72,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 /*TARGETS*/
-const VERSION = "05.10.26d";
+const VERSION = "05.10.26e";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -93,12 +93,22 @@ const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d"
 // vivid pair so it reads as the headline number; the domain/rubric breakdown cells pass muted:true
 // (Innes, 30.09.26: those were competing with the overall % for attention) for a softer tint.
 const GRADE_THRESHOLDS = {
+  // Comprehension targets (Innes, 05.10.26), same for every form of assessment (comprehension tool,
+  // Benchmarking questions): D above 75%, O1 55-75%, O2 45-55%, Y 40-45%, A below 40%. A boundary
+  // percentage belongs to the higher band, except 75% which is O1 (D is "above 75").
   comprehension: [
-    [80,'#1e8449','#fff','#eaf7ee','#1e8449'],
-    [60,'#6fbf73','#0a2e13','#eef8ec','#3f7a43'],
-    [54,'#f2d27a','#4a3b00','#fdf6e3','#8a6d1f'],
+    [75.01,'#1e8449','#fff','#eaf7ee','#1e8449'],
+    [55,'#6fbf73','#0a2e13','#eef8ec','#3f7a43'],
+    [45,'#f2d27a','#4a3b00','#fdf6e3','#8a6d1f'],
     [40,'#f2a154','#4a2600','#fdeee0','#8a4b1f'],
     [0,'#c0392b','#fff','#fbe9e7','#a13327'],
+  ],
+  // Phonics books have only 3 questions, scored by number right (Innes, 05.10.26): 0 = Y, 1 = O2,
+  // 2 = O1, 3 = O1. No greater depth on the phonics books.
+  phonics: [
+    [2,'#6fbf73','#0a2e13','#eef8ec','#3f7a43'],
+    [1,'#f2d27a','#4a3b00','#fdf6e3','#8a6d1f'],
+    [0,'#f2a154','#4a2600','#fdeee0','#8a4b1f'],
   ],
 };
 function gradeTiers(tool, term){
@@ -265,7 +275,7 @@ function renderPhonics(rows, classRows){
   const head = ['Date','Term / Week','Phase','Test','Score', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
   const rowsHtml = rows.map(r => {
     const rub = (r.detail && r.detail.rubric) || {};
-    const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), esc(r.level), esc(r.test_id), r.score+'/3',
+    const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), esc(r.level), esc(r.test_id), gradedCell('phonics', null, r.score, r.score+'/3'),
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
       r.detail && r.detail.rubric_total != null ? r.detail.rubric_total+'/20' : '–'];
     return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
@@ -317,7 +327,7 @@ function renderPMBenchmark(rows, classRows){
     const d = r.detail || {};
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), levelCell(r),
       esc(d.colour || ''), esc(r.test_id), accuracyCell(d.accuracy), d.self_corrections != null ? d.self_corrections : '–',
-      r.score+'/'+r.total];
+      gradedCell('comprehension', r.term, r.percent, r.score+'/'+r.total)];
     return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
   }).join('');
   $("pmbTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;

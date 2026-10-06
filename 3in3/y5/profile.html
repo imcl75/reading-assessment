@@ -113,6 +113,13 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 .mk.on { background: #1798d3; border-color: #1798d3; color: #fff; }
 .mk:disabled { opacity: .5; cursor: default; }
 .mk-err { color: #c62828; font-size: 11px; }
+.txt-btn { margin-left: 10px; border: 1px solid #1798d3; background: #fff; color: #1798d3; border-radius: 7px; padding: 3px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.txt-btn:hover { background: #e8f5fd; }
+.txt-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.txt-box { background: #fff; border-radius: 14px; max-width: 760px; width: 100%; max-height: 88vh; display: flex; flex-direction: column; box-shadow: 0 10px 40px rgba(0,0,0,.3); }
+.txt-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid #eee; font-weight: 800; color: #1a1a2e; }
+.txt-close { border: none; background: #f3f4f6; border-radius: 8px; padding: 6px 12px; font-weight: 700; cursor: pointer; }
+.txt-body { padding: 18px 22px 24px; overflow-y: auto; font-size: 17px; line-height: 1.7; color: #1a1a2e; white-space: pre-wrap; }
 .history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .history-table th {
   text-align: left; padding: 8px 10px; border-bottom: 2px solid #e5e7eb;
@@ -430,6 +437,42 @@ function closeDetail() {
   document.querySelectorAll('.pupil-card').forEach(c => c.classList.remove('active'));
 }
 
+// ── View the passage a pupil read ─────────────────────────────────────────────
+let textsJson = null;
+async function loadTextsJson() {
+  if (textsJson) return textsJson;
+  const res = await fetch('../texts.json', { cache: 'no-store' });
+  if (!res.ok) throw new Error('could not load the texts');
+  textsJson = await res.json();
+  return textsJson;
+}
+function closeTextPopup() { const o = document.getElementById('txt-overlay'); if (o) o.remove(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTextPopup(); });
+document.addEventListener('click', async function(e) {
+  const b = e.target.closest('.txt-btn');
+  if (!b) return;
+  e.stopPropagation();
+  closeTextPopup();
+  let title = 'Text', body = '';
+  try {
+    const all = await loadTextsJson();
+    const yr = b.dataset.yr && all[b.dataset.yr] ? b.dataset.yr : CLASS_YEAR;
+    const ti = all[yr].sessions[b.dataset.idx];
+    const t = ti === undefined ? null : all[yr].texts[ti];
+    title = 'Text ' + Math.ceil(Number(b.dataset.idx) / 2) + ' (' + yr + ' content)';
+    body = t || 'The text for this session could not be found.';
+  } catch (err) {
+    body = 'Could not load the text (' + err.message + '). Reload the page and try again.';
+  }
+  const o = document.createElement('div');
+  o.id = 'txt-overlay'; o.className = 'txt-overlay';
+  o.innerHTML = '<div class="txt-box"><div class="txt-head"><span></span><button class="txt-close" type="button">Close ✕</button></div><div class="txt-body"></div></div>';
+  o.querySelector('.txt-head span').textContent = title;
+  o.querySelector('.txt-body').textContent = body;
+  o.addEventListener('click', ev => { if (ev.target === o || ev.target.closest('.txt-close')) closeTextPopup(); });
+  document.body.appendChild(o);
+});
+
 // ── Teacher sets a mark by hand ───────────────────────────────────────────────
 const escAttr = v => String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
 function markButtons(s, q) {
@@ -485,6 +528,7 @@ function buildSessionDetail(s) {
     <div style="font-weight:800;color:#1a1a2e;margin-bottom:8px;font-size:14px;">
       Text ${Math.ceil((s.sessionIdx || 1) / 2)} · Set ${s.sessionSet || 'A'}
       <span style="font-weight:600;color:#9ca3af;font-size:12px;margin-left:8px;">${s.date}</span>
+      <button class="txt-btn" type="button" data-idx="${escAttr(s.sessionIdx)}" data-yr="${escAttr(s.interventionYear)}">📖 View text</button>
       ${s.timeTaken && !/NaN/.test(s.timeTaken) ? `<span style="font-weight:600;color:#9ca3af;font-size:12px;margin-left:4px;">· ${s.timeTaken}</span>` : ''}
     </div>
     <table class="history-table">
@@ -525,6 +569,6 @@ async function triggerMarking() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y5-06.10.26c</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y5-06.10.26d</p>
 </body>
 </html>

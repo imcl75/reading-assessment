@@ -204,8 +204,8 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 </div>
 
 <script>
-const BACKEND_URL = 'https://api.wallscourt-farm-academy.co.uk/planning/readassess-db';
-const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
+const BACKEND_URL = '/_api/planning/readassess-db';
+const WFA_TOKEN = '__hub__';   // swapped for the real token by the staff sign-in relay
 const CORRECT_PIN = '2013';
 
 const CLASS_YEAR = 'Y5';
@@ -244,17 +244,18 @@ function checkPin() {
 }
 
 // ── JSONP ─────────────────────────────────────────────────────────────────────
-function jsonpFetch(url, timeout = 12000) {
-  return new Promise((resolve, reject) => {
-    const cb = 'jcb3_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    const script = document.createElement('script');
-    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout);
-    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
-    window[cb] = data => { cleanup(); resolve(data); };
-    script.onerror = () => { cleanup(); reject(new Error('Network error')); };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN + '&callback=' + cb;
-    document.body.appendChild(script);
-  });
+function jsonpFetch(url, timeout) {
+  // Goes through /_api on this site: Cloudflare checks the staff sign-in and a Worker adds the real token.
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), timeout || 30000);
+  url += (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN;
+  return fetch(url, { headers: { 'X-WFA-Proxy': '1' }, cache: 'no-store', signal: ctl.signal })
+    .then(res => {
+      if (res.status === 401) throw new Error('Your staff sign-in has ended. Reload this page and sign in again.');
+      if (!res.ok) throw new Error('The school server returned an error (' + res.status + ').');
+      return res.json();
+    })
+    .finally(() => clearTimeout(timer));
 }
 
 // ── Load data ─────────────────────────────────────────────────────────────────
@@ -486,6 +487,6 @@ async function triggerMarking() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y5-09.09.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y5-06.10.26a</p>
 </body>
 </html>

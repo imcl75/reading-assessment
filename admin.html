@@ -333,8 +333,8 @@ tr:hover td { background: #f9fafb; }
 </div>
 
 <script>
-const BACKEND_URL = 'https://api.wallscourt-farm-academy.co.uk/planning/readassess-db';
-const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
+const BACKEND_URL = '/_api/planning/readassess-db';
+const WFA_TOKEN = '__hub__';   // swapped for the real token by the staff sign-in relay
 
 // No PIN: this page is its own Cloudflare Access app (WFA Staff policy),
 // so a staff sign-in already happened before anyone reaches this HTML.
@@ -345,32 +345,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ===== JSONP helper (bypasses CORS on Apps Script) =====
-function jsonpFetch(url, timeoutMs) {
-  timeoutMs = timeoutMs || 30000;
+function jsonpFetch(url, timeout) {
+  // Goes through /_api on this site: Cloudflare checks the staff sign-in and a Worker adds the real token.
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), timeout || 30000);
   url += (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN;
-  return new Promise(function(resolve, reject) {
-    const cb = 'gs_cb_' + Date.now() + '_' + Math.floor(Math.random()*9999);
-    const script = document.createElement('script');
-    const timer = setTimeout(function() {
-      delete window[cb];
-      if (script.parentNode) document.body.removeChild(script);
-      reject(new Error('Request timed out'));
-    }, timeoutMs);
-    window[cb] = function(data) {
-      clearTimeout(timer);
-      delete window[cb];
-      if (script.parentNode) document.body.removeChild(script);
-      resolve(data);
-    };
-    script.onerror = function() {
-      clearTimeout(timer);
-      delete window[cb];
-      reject(new Error('Network error'));
-    };
-    const sep = url.indexOf('?') >= 0 ? '&' : '?';
-    script.src = url + sep + 'callback=' + cb;
-    document.body.appendChild(script);
-  });
+  return fetch(url, { headers: { 'X-WFA-Proxy': '1' }, cache: 'no-store', signal: ctl.signal })
+    .then(res => {
+      if (res.status === 401) throw new Error('Your staff sign-in has ended. Reload this page and sign in again.');
+      if (!res.ok) throw new Error('The school server returned an error (' + res.status + ').');
+      return res.json();
+    })
+    .finally(() => clearTimeout(timer));
 }
 
 // ===== SUBMISSIONS =====
@@ -1273,6 +1259,6 @@ function renderPupilPane() {
   document.getElementById('pupil-detail').innerHTML = html;
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v27.09.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v06.10.26a</p>
 </body>
 </html>

@@ -127,8 +127,8 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 </div>
 
 <script>
-const BACKEND_URL = 'https://api.wallscourt-farm-academy.co.uk/planning/readassess-db';
-const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
+const BACKEND_URL = '/_api/planning/readassess-db';
+const WFA_TOKEN = '__hub__';   // swapped for the real token by the staff sign-in relay
 const CORRECT_PIN = '2013';
 const CLASS_YEAR = 'Y3';
 const AVAILABLE_YEARS = ['Y3'];
@@ -168,16 +168,17 @@ function checkPin() {
 
 // ── JSONP ─────────────────────────────────────────────────────────────────────
 function jsonpFetch(url, timeout) {
-  return new Promise((resolve, reject) => {
-    const cb = 'jcb3s_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    const script = document.createElement('script');
-    const timer = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, timeout || 12000);
-    function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
-    window[cb] = data => { cleanup(); resolve(data); };
-    script.onerror = () => { cleanup(); reject(new Error('Network error')); };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN + '&callback=' + cb;
-    document.body.appendChild(script);
-  });
+  // Goes through /_api on this site: Cloudflare checks the staff sign-in and a Worker adds the real token.
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), timeout || 30000);
+  url += (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN;
+  return fetch(url, { headers: { 'X-WFA-Proxy': '1' }, cache: 'no-store', signal: ctl.signal })
+    .then(res => {
+      if (res.status === 401) throw new Error('Your staff sign-in has ended. Reload this page and sign in again.');
+      if (!res.ok) throw new Error('The school server returned an error (' + res.status + ').');
+      return res.json();
+    })
+    .finally(() => clearTimeout(timer));
 }
 
 // ── Load ──────────────────────────────────────────────────────────────────────
@@ -207,8 +208,12 @@ let rosterPicked = null;
 async function loadRosterCandidates() {
   try {
     const data = await jsonpFetch(BACKEND_URL + '?action=get3in3roster&classYear=' + CLASS_YEAR, 15000);
-    rosterCandidates = Array.isArray(data) ? data : [];
-  } catch(e) { rosterCandidates = []; }
+    if (!Array.isArray(data)) throw new Error((data && data.error) || 'unexpected reply');
+    rosterCandidates = data;
+  } catch(e) {
+    rosterCandidates = [];
+    showAddMsg('Could not load the pupil list (' + e.message + '). Reload the page and try again.', 'err');
+  }
   if (document.getElementById('roster-search').value.trim()) renderRosterResults();
 }
 
@@ -364,7 +369,7 @@ async function save() {
       showSaveMsg('✓ Saved ' + result.count + ' child' + (result.count === 1 ? '' : 'ren'), 'ok');
     } else { throw new Error(); }
   } catch(e) {
-    showSaveMsg('Error saving — check your connection.', 'err');
+    showSaveMsg('Error saving — ' + (e.message || 'check your connection.'), 'err');
   }
 }
 function showSaveMsg(t, c) {
@@ -372,6 +377,6 @@ function showSaveMsg(t, c) {
   el.textContent = t; el.className = 'msg' + (c ? ' ' + c : '');
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-09.09.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-06.10.26a</p>
 </body>
 </html>

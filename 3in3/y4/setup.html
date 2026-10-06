@@ -13,15 +13,7 @@ body { font-family: 'Nunito', sans-serif; background: #f0f6fb; min-height: 100vh
 .logo { font-size: 2rem; margin-bottom: 4px; }
 h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2px; }
 .sub { color: #888; font-size: 0.9rem; margin-bottom: 28px; }
-#pin-screen { width: 100%; max-width: 380px; text-align: center; }
-.pin-wrap { display: flex; gap: 10px; justify-content: center; margin: 20px 0 16px; }
-.pin-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--brand); background: #fff; transition: background .15s; }
-.pin-dot.filled { background: var(--brand); }
-.pin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 240px; margin: 0 auto 12px; }
-.pin-btn { padding: 16px; border: 2px solid #ddd; border-radius: 12px; background: #fff; font-size: 1.4rem; font-weight: bold; cursor: pointer; font-family: inherit; transition: background .1s, border-color .1s; }
-.pin-btn:active { background: #e8f5fd; border-color: var(--brand); }
-#pin-error { color: #e53935; font-size: 14px; min-height: 20px; margin-top: 4px; }
-#setup-panel { display: none; width: 100%; max-width: 600px; }
+#setup-panel { width: 100%; max-width: 600px; }
 .card { background: #fff; border-radius: 16px; padding: 28px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
 .card h2 { color: var(--brand); font-size: 1.1rem; font-weight: 800; margin-bottom: 6px; }
 .card .hint { font-size: 13px; color: #888; margin-bottom: 16px; line-height: 1.5; }
@@ -79,27 +71,7 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 <p class="sub">Wallscourt Farm Academy</p>
 <p style="margin-bottom:20px;"><a class="back-link" href="home.html">← Home</a></p>
 
-<div id="pin-screen">
-  <p style="font-size:15px;color:#555;margin-bottom:8px;">Enter teacher PIN to continue</p>
-  <div class="pin-wrap">
-    <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
-    <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
-  </div>
-  <div class="pin-grid">
-    <button class="pin-btn" onclick="pinPress('1')">1</button>
-    <button class="pin-btn" onclick="pinPress('2')">2</button>
-    <button class="pin-btn" onclick="pinPress('3')">3</button>
-    <button class="pin-btn" onclick="pinPress('4')">4</button>
-    <button class="pin-btn" onclick="pinPress('5')">5</button>
-    <button class="pin-btn" onclick="pinPress('6')">6</button>
-    <button class="pin-btn" onclick="pinPress('7')">7</button>
-    <button class="pin-btn" onclick="pinPress('8')">8</button>
-    <button class="pin-btn" onclick="pinPress('9')">9</button>
-    <button class="pin-btn" onclick="pinPress('0')">0</button>
-    <button class="pin-btn" onclick="pinDel()">⌫</button>
-  </div>
-  <p id="pin-error"></p>
-</div>
+
 
 <div id="setup-panel">
   <div class="card">
@@ -130,42 +102,12 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 <script>
 const BACKEND_URL = '/_api/planning/readassess-db';
 const WFA_TOKEN = '__hub__';   // swapped for the real token by the staff sign-in relay
-const CORRECT_PIN = '2013';
 const CLASS_YEAR = 'Y4';
 const AVAILABLE_YEARS = ['Y3', 'Y4'];
 
 let children = []; // [{name, interventionYear}]
 
-// ── PIN ───────────────────────────────────────────────────────────────────────
-let pinEntry = '';
-function pinPress(d) {
-  if (pinEntry.length >= 4) return;
-  pinEntry += d;
-  document.getElementById('d' + (pinEntry.length - 1)).classList.add('filled');
-  if (pinEntry.length === 4) checkPin();
-}
-function pinDel() {
-  if (!pinEntry.length) return;
-  document.getElementById('d' + (pinEntry.length - 1)).classList.remove('filled');
-  pinEntry = pinEntry.slice(0, -1);
-  document.getElementById('pin-error').textContent = '';
-}
-document.addEventListener('keydown', function(e) {
-  if (document.getElementById('pin-screen').style.display === 'none') return;
-  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
-  else if (e.key === 'Backspace') pinDel();
-});
-function checkPin() {
-  if (pinEntry === CORRECT_PIN) {
-    document.getElementById('pin-screen').style.display = 'none';
-    document.getElementById('setup-panel').style.display = 'block';
-    loadCurrent();
-  } else {
-    document.getElementById('pin-error').textContent = 'Incorrect PIN — try again';
-    pinEntry = '';
-    [0,1,2,3].forEach(i => document.getElementById('d'+i).classList.remove('filled'));
-  }
-}
+
 
 // ── JSONP ─────────────────────────────────────────────────────────────────────
 function jsonpFetch(url, timeout) {
@@ -377,7 +319,10 @@ function showSaveMsg(t, c) {
   const el = document.getElementById('save-msg');
   el.textContent = t; el.className = 'msg' + (c ? ' ' + c : '');
 }
+
+// Staff page: Cloudflare Access already checks the sign-in, so there is no PIN.
+loadCurrent();
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-06.10.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-06.10.26b</p>
 </body>
 </html>

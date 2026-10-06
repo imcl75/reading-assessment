@@ -107,6 +107,12 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
 .close-btn:hover { border-color: var(--brand); color: var(--brand); }
 
 /* History table */
+.mk-row { margin-top: 5px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; font-size: 11px; color: #9ca3af; }
+.mk { border: 1px solid #d1d5db; background: #fff; color: #374151; border-radius: 6px; min-width: 28px; padding: 3px 7px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.mk:hover { background: #f3f4f6; }
+.mk.on { background: #1798d3; border-color: #1798d3; color: #fff; }
+.mk:disabled { opacity: .5; cursor: default; }
+.mk-err { color: #c62828; font-size: 11px; }
 .history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .history-table th {
   text-align: left; padding: 8px 10px; border-bottom: 2px solid #e5e7eb;
@@ -424,6 +430,38 @@ function closeDetail() {
   document.querySelectorAll('.pupil-card').forEach(c => c.classList.remove('active'));
 }
 
+// ── Teacher sets a mark by hand ───────────────────────────────────────────────
+const escAttr = v => String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+function markButtons(s, q) {
+  const max = q.max || 1;
+  let btns = '';
+  for (let n = 0; n <= max; n++) {
+    btns += `<button class="mk${q.score === n ? ' on' : ''}" data-name="${escAttr(s.name)}" data-idx="${escAttr(s.sessionIdx)}" data-key="${escAttr(q.key)}" data-n="${n}">${n}</button>`;
+  }
+  return `<div class="mk-row">Set mark: ${btns}</div>`;
+}
+document.addEventListener('click', async function(e) {
+  const b = e.target.closest('.mk');
+  if (!b) return;
+  e.stopPropagation();
+  const { name, idx, key, n } = b.dataset;
+  const row = b.parentNode;
+  row.querySelectorAll('.mk').forEach(x => x.disabled = true);
+  const old = row.querySelector('.mk-err'); if (old) old.remove();
+  try {
+    const r = await jsonpFetch(BACKEND_URL + '?action=set3in3score&name=' + encodeURIComponent(name) + '&idx=' + encodeURIComponent(idx) + '&key=' + encodeURIComponent(key) + '&score=' + encodeURIComponent(n), 15000);
+    if (!r || !r.ok) throw new Error((r && r.error) || 'the server did not accept it');
+    const s = allData.find(x => x.name === name && String(x.sessionIdx) === String(idx));
+    const q = s && Array.isArray(s.questions) ? s.questions.find(x => x.key === key) : null;
+    if (q) { q.score = r.score; q.reasoning = 'Marked by teacher.'; q.needsReview = false; }
+    document.getElementById('detail-content').innerHTML = allData.filter(x => x.name === name).map(x => buildSessionDetail(x)).join('');
+    renderGrid();
+  } catch (err) {
+    row.querySelectorAll('.mk').forEach(x => x.disabled = false);
+    row.insertAdjacentHTML('beforeend', '<span class="mk-err">Not saved: ' + escAttr(err.message) + '</span>');
+  }
+});
+
 function buildSessionDetail(s) {
   const qRows = Array.isArray(s.questions) ? s.questions.map(q => {
     const scoreHtml = q.score === null
@@ -438,7 +476,7 @@ function buildSessionDetail(s) {
       <td><span class="domain-chip ${q.domain}">${q.domain}</span></td>
       <td style="color:#555;font-size:13px;">${(q.question||'').replace(/<[^>]+>/g,'')}</td>
       <td style="color:#1a1a2e;font-weight:600;font-size:13px;">${q.answer || '—'}</td>
-      <td>${scoreHtml}</td>
+      <td>${scoreHtml}${markButtons(s, q)}</td>
       ${q.reasoning ? `<td style="font-size:12px;color:#888;max-width:180px;">${q.reasoning}</td>` : '<td></td>'}
     </tr>`;
   }).join('') : '<tr><td colspan="5" style="color:#aaa;font-size:13px;">No question detail available</td></tr>';
@@ -487,6 +525,6 @@ async function triggerMarking() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-06.10.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-06.10.26b</p>
 </body>
 </html>

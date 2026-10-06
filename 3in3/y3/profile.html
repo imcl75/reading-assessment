@@ -483,9 +483,9 @@ function buildSessionDetail(s) {
 
   return `<div style="margin-bottom:24px;">
     <div style="font-weight:800;color:#1a1a2e;margin-bottom:8px;font-size:14px;">
-      Week ${s.week} · Session ${s.session}
+      Text ${Math.ceil((s.sessionIdx || 1) / 2)} · Set ${s.sessionSet || 'A'}
       <span style="font-weight:600;color:#9ca3af;font-size:12px;margin-left:8px;">${s.date}</span>
-      ${s.timeTaken ? `<span style="font-weight:600;color:#9ca3af;font-size:12px;margin-left:4px;">· ${s.timeTaken}</span>` : ''}
+      ${s.timeTaken && !/NaN/.test(s.timeTaken) ? `<span style="font-weight:600;color:#9ca3af;font-size:12px;margin-left:4px;">· ${s.timeTaken}</span>` : ''}
     </div>
     <table class="history-table">
       <thead><tr>
@@ -525,6 +525,6 @@ async function triggerMarking() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-06.10.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-06.10.26c</p>
 </body>
 </html>

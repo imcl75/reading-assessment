@@ -50,6 +50,11 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .sheet .markhint{font-size:.8rem;color:#567;margin:0 0 8px}
 .sheet .fields{display:flex;gap:18px;margin:8px 0 12px;font-size:.95rem;align-items:flex-end}
 .sheet .fields span{flex:1;border-bottom:1px solid #000;padding-bottom:2px}
+.sheet .idstrip{display:flex;align-items:center;gap:14px;border-top:1.5px solid #000;border-bottom:1.5px solid #000;padding:5px 0;margin:8px 0 12px}
+.sheet .idstrip .ini{font:700 15pt Helvetica,Arial,sans-serif}
+.sheet .idstrip .code{font:700 17pt "Courier New",Courier,monospace;border:1.5px solid #000;padding:2px 8px;letter-spacing:.5px;white-space:nowrap}
+.sheet .idstrip .nocode{font-size:9pt}
+.sheet .idstrip .pg{margin-left:auto;color:#567;font-size:.8rem;white-space:nowrap}
 .sheet .fields .pg{flex:0 0 auto;border-bottom:none;color:#567;font-size:.8rem;white-space:nowrap}
 .sheet .passage p{font-size:14pt;line-height:1.7;margin:0 0 11pt}
 .sheet .passage.long p{font-size:11.5pt;line-height:1.5;margin:0 0 7pt}
@@ -104,7 +109,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "05.10.26e";
+const VERSION = "09.10.26a";
 const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};
@@ -175,7 +180,7 @@ function measureQuestionHeights(t){
   probe.className = 'sheet';
   document.body.appendChild(probe);
   probe.innerHTML = '<div class="head"><h1>'+esc(t.title)+'</h1><small>placeholder</small></div>'
-    + '<div class="fields"><span>Name</span><span>Class</span><span class="pg">Page 1 of 1</span></div>'
+    + idStrip('XX','p_abcdefghij','Page 1 of 1')
     + '<p class="markhint">Marking: colour a circle GREEN if that mark was earned; leave it blank, or cancel in a different colour, if not.</p>';
   const chromeH = probe.getBoundingClientRect().height / PX_PER_MM;
   const footEl = document.createElement('div'); footEl.className = 'foot'; footEl.innerHTML = '<span>a</span><span>b</span>';
@@ -219,12 +224,20 @@ function paginateQuestions(t){
   if (cur.length) pages.push(cur);
   return (_pageCache[key] = pages);
 }
-function scanAnswerHTML(t,l,pupilName,className){
+function idStrip(label,code,pg){
+  return '<div class="idstrip"><span class="ini">'+esc(label)+'</span>'+
+    (code?'<span class="code">Code: '+esc(code)+'</span>':'<span class="nocode">No code (match by hand)</span>')+
+    (pg?'<span class="pg">'+esc(pg)+'</span>':'')+'</div>';
+}
+function scanAnswerHTML(t,l,label,code){
+  // Scanned answer sheet: NO name and NO class anywhere. Every page carries a boxed strip with the pupil's
+  // INITIALS (a label for the teacher handing it out) and their large boxed CODE (what the scan reader
+  // looks for). Black on white so the code survives photocopying and scanning.
   const b=band(l.level);
   const pages = paginateQuestions(t), N = pages.length;
   const foot='<div class="foot"><span>Wallscourt Farm Academy</span><span>Comprehension &middot; Level '+lv(l.level)+' &middot; v'+VERSION+'</span></div>';
   return pages.map((idxs,pi) => {
-    const fields='<div class="fields"><span>'+esc(pupilName)+'</span><span>'+esc(className)+'</span>'+(N>1?'<span class="pg">Page '+(pi+1)+' of '+N+'</span>':'')+'</div>';
+    const fields=idStrip(label,code,N>1?'Page '+(pi+1)+' of '+N:'');
     const head='<div class="head"><h1>'+esc(t.title)+'</h1><small>Level '+lv(l.level)+' &middot; '+b[2]+' &middot; Questions</small></div>';
     const hint='<p class="markhint">Marking: colour a circle GREEN if that mark was earned; leave it blank, or cancel in a different colour, if not.</p>';
     const body=idxs.map(n=>qHTML(t.qs[n],n,false,true)).join('');
@@ -279,7 +292,7 @@ SaveResults.init({tool:"comprehension", get:()=>{ const t=L.texts[T], s=marks.re
 ScanMarking.init({getTest:()=>L.texts[T], getMeta:()=>({title:L.texts[T].title, test_id:L.texts[T].id, level:String(lv(L.level))}),
   listTexts:()=>L.texts.map(t=>({id:t.id, title:t.title})), getIndex:()=>T, selectText:i=>{T=i;renderTexts();},
   buildPupilPassageHTML:(pupilName,className)=>scanPassageHTML(L.texts[T],L,pupilName,className),
-  buildPupilAnswerHTML:(pupilName,className)=>scanAnswerHTML(L.texts[T],L,pupilName,className)});
+  buildPupilAnswerHTML:(label,code)=>scanAnswerHTML(L.texts[T],L,label,code)});
 document.querySelector("main").appendChild($("markCard"));   // now that the Save and Scan cards exist, move manual marking below both — it's used less now
 document.querySelector("main").appendChild($("saveCard"));   // Innes, 30.09.26: Save belongs after markCard too, not before it — its own marks come from markCard, so it should be the last thing on the page, not the second
 $("markToggle").onclick=()=>{ const on=$("markBody").hidden; $("markBody").hidden=!on; $("markToggle").textContent=on?"Hide":"Show"; };

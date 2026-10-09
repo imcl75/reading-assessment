@@ -70,6 +70,84 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 </main>
 <footer>Reading Assessment Results &middot; Version <span id="ver"></span></footer>
 <script>
+/* Loads the shared "Show names" helper on STAFF tools only (this repo is public static hosting, so the helper is
+   fetched from the wfa-shared CDN copy rather than bundled). Inlined by each tool's build.py. Screens show pupil
+   initials; elements marked data-pupil-id="<pupil code>" are swapped for the full name only while a teacher has
+   loaded their own names file (kept in page memory, never uploaded or stored). If the CDN is unreachable the
+   tool simply carries on showing initials. */
+(function(){
+  try {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/gh/wallscourtfarm/wfa-shared@main/web/names-file.js?v=2';
+    s.async = true;
+    s.onload = function(){
+      try {
+        if (window.WFANames && WFANames.screen) {
+          WFANames.screen.init();
+          const st = document.createElement('style'); st.textContent = '@media print{body>button[style*="z-index:99997"],body>div[style*="z-index:99998"]{display:none!important}}';
+          document.head.appendChild(st);
+        }
+      } catch(e) {}
+    };
+    document.head.appendChild(s);
+  } catch(e) {}
+})();
+/* Initials labels for pupils (shared by every reading-assessment tool; inlined by each tool's build.py
+   together with save_results.js). Same rule as WFANames.initialsLabels in wfa-shared/web/names-file.js
+   and names_display.py on the server: first letter of the first name + first letter of the last word of
+   the surname, upper case ("IM"); pupils in the SAME class whose labels clash get 2 then 3 letters
+   ("InMc"). Screens and printed sheets show these labels, never full names; the pupil's identity value
+   everywhere (dropdown values, requests, localStorage) is the pupil CODE (pupilId, "p_" + 10 chars). */
+const PupilLabels = (function(){
+  const LETTERS = /[^A-Za-zÀ-ɏ]/g;
+  // pairs: [[first, last], ...] -> labels, same order, clash-aware across the list
+  function labels(pairs){
+    const P = pairs.map(p => {
+      const f = String(p[0] || '').trim().split(/\s+/)[0] || '';
+      const lw = String(p[1] || '').trim().split(/\s+/).filter(Boolean);
+      return [f.replace(LETTERS, ''), (lw.length ? lw[lw.length - 1] : '').replace(LETTERS, '')];
+    });
+    const lab = (i, n) => {
+      const f = P[i][0], l = P[i][1];
+      if (!l) return f ? f.charAt(0).toUpperCase() + f.slice(1, 2).toLowerCase() : '';
+      if (n === 1) return (f.charAt(0) + l.charAt(0)).toUpperCase();
+      const fp = f.slice(0, n), lp = l.slice(0, n);
+      return fp.charAt(0).toUpperCase() + fp.slice(1) + lp.charAt(0).toUpperCase() + lp.slice(1);
+    };
+    const lv = P.map(() => 1);
+    let out = [];
+    for (let guard = 0; guard < 40; guard++) {
+      out = P.map((_, i) => lab(i, lv[i]));
+      const groups = {};
+      out.forEach((t, i) => { (groups[t.toLowerCase()] = groups[t.toLowerCase()] || []).push(i); });
+      let changed = false;
+      Object.keys(groups).forEach(k => {
+        const idxs = groups[k];
+        if (idxs.length < 2) return;
+        const distinct = {};
+        idxs.forEach(i => { distinct[(P[i][0] + '|' + P[i][1]).toLowerCase()] = 1; });
+        if (Object.keys(distinct).length < 2) return;
+        idxs.forEach(i => { if (P[i][1] && lv[i] < Math.max(P[i][0].length, P[i][1].length)) { lv[i]++; changed = true; } });
+      });
+      if (!changed) break;
+    }
+    const seen = {};
+    return out.map(t => { const k = t.toLowerCase(); seen[k] = (seen[k] || 0) + 1; return seen[k] === 1 ? t : t + ' ' + seen[k]; });
+  }
+  // /_api/planning/pupils list -> {className: [pupil, ...]} sorted by surname then first name, each pupil
+  // given .label (clash-aware inside its own class) and .code (pupilId, '' if the pupil has none yet).
+  function byClass(pupils){
+    const roster = {};
+    (pupils || []).forEach(p => { const c = p.class || p.code || '?'; (roster[c] = roster[c] || []).push(p); });
+    Object.values(roster).forEach(list => {
+      list.sort((a, b) => (a.last + a.first).localeCompare(b.last + b.first));
+      const ls = labels(list.map(p => [p.first, p.last]));
+      list.forEach((p, i) => { p.label = ls[i]; p.pcode = String(p.pupilId || '').trim(); });
+    });
+    return roster;
+  }
+  return {labels, byClass};
+})();
 /* Save-to-pupil panel shared by the three teacher tools (fluency, phonics, comprehension).
    Inlined into each tool's index.html by its build.py (the SAVE_RESULTS placeholder in template.html).
    Talks to /_api/planning/... on this same site: a Cloudflare Worker checks the staff sign-in and adds the
@@ -135,13 +213,12 @@ const SaveResults = (function(){
   async function loadRoster(){
     const d = await call('GET', '/pupils');
     if (!d.pupils) { status(d.error || 'Could not load the class lists.', false); $q('srClass').innerHTML = '<option value="">Class lists unavailable</option>'; return; }
-    roster = {};
-    d.pupils.forEach(p => { const c = p.class || p.code || '?'; (roster[c] = roster[c] || []).push(p); });
-    Object.values(roster).forEach(a => a.sort((x, y) => (x.last + x.first).localeCompare(y.last + y.first)));
+    roster = PupilLabels.byClass(d.pupils);   // sorted, each pupil gets .label (initials) and .pcode (pupil code)
     const names = Object.keys(roster).sort((a, b) => (roster[a][0].yearGroup || '').localeCompare(roster[b][0].yearGroup || '', undefined, {numeric: true}) || a.localeCompare(b));
     $q('srClass').innerHTML = '<option value="">Choose a class</option>' + names.map(n => '<option value="'+h(n)+'">'+h(n)+'</option>').join('');
     const last = store.get(CLASS_KEY);
-    if (last && roster[last]) { $q('srClass').value = last; onClass(); const lp = store.get(PUPIL_KEY); if (lp) { $q('srPupil').value = lp; onPupil(); } }
+    if (last && roster[last]) { $q('srClass').value = last; onClass(); let lp = store.get(PUPIL_KEY); if (lp && !/^p_/.test(lp)) { store.del(PUPIL_KEY); lp = null; }   // an older page stored a UPN here: drop it, keep only codes
+    if (lp) { $q('srPupil').value = lp; onPupil(); } }
     const c = await call('GET', '/readingresults-db', {limit: 1});
     if (c && c.current) { current = c.current; $q('srTerm').value = String(c.current.term); }
     refresh();
@@ -150,12 +227,13 @@ const SaveResults = (function(){
     const c = $q('srClass').value, list = roster && roster[c] || [];
     store.set(CLASS_KEY, c);
     $q('srPupil').disabled = !c;
-    $q('srPupil').innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => '<option value="'+h(p.upn)+'">'+h(p.first+' '+p.last)+'</option>').join('');
+    $q('srPupil').innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => p.pcode ? '<option value="'+h(p.pcode)+'" data-pupil-id="'+h(p.pcode)+'">'+h(p.label)+'</option>'
+      : '<option value="" disabled>'+h(p.label)+' (no code yet)</option>').join('');
     $q('srHist').innerHTML = ''; refresh();
     if (cfg.onPupilChange) cfg.onPupilChange('');
   }
   async function onPupil(){
-    const upn = $q('srPupil').value; store.set(PUPIL_KEY, upn); refresh();
+    const upn = $q('srPupil').value; store.set(PUPIL_KEY, upn); refresh();   // upn here = the pupil CODE (server accepts a code or a UPN in `upn`)
     if (cfg.onPupilChange) cfg.onPupilChange(upn);
     $q('srHist').innerHTML = '';
     if (!upn) return;
@@ -249,7 +327,7 @@ function targetLevelFor(yearGroup, term){
   return row && t >= 1 && t <= 6 && row[t - 1] != null ? row[t - 1] : null;
 }
 
-const VERSION = "05.10.26e";
+const VERSION = "09.10.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -377,9 +455,7 @@ let roster = null;
 async function loadRoster(){
   const d = await SaveResults.call('GET', '/pupils');
   if (!d.pupils) { $("rClass").innerHTML = '<option value="">Class lists unavailable</option>'; status('Could not load class lists.', true); return; }
-  roster = {};
-  d.pupils.forEach(p => { const c = p.class || p.code || '?'; (roster[c] = roster[c] || []).push(p); });
-  Object.values(roster).forEach(list => list.sort((a,b) => (a.last+a.first).localeCompare(b.last+b.first)));
+  roster = PupilLabels.byClass(d.pupils);   // each pupil gets .label (initials, clash-aware per class) and .pcode (pupil code)
   const names = Object.keys(roster).sort();
   $("rClass").innerHTML = '<option value="">Choose a class</option>' + names.map(n => '<option value="'+esc(n)+'">'+esc(n)+'</option>').join('');
 }
@@ -392,16 +468,17 @@ function status(msg, bad){ const e = $("status"); e.textContent = msg || ''; e.c
 function onClass(){
   const c = $("rClass").value, list = (roster && roster[c]) || [];
   $("rPupil").disabled = !c;
-  $("rPupil").innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => '<option value="'+esc(p.upn)+'">'+esc(p.first+' '+p.last)+'</option>').join('');
+  $("rPupil").innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => p.pcode ? '<option value="'+esc(p.pcode)+'" data-pupil-id="'+esc(p.pcode)+'">'+esc(p.label)+'</option>'
+    : '<option value="" disabled>'+esc(p.label)+' (no code yet)</option>').join('');
   ["compCard","phonCard","fluCard","pmbCard"].forEach(id => $(id).hidden = true);
   status('');
 }
 
 async function onPupil(){
-  const upn = $("rPupil").value, cls = $("rClass").value;
+  const upn = $("rPupil").value, cls = $("rClass").value;   // upn = the pupil CODE (server accepts a code or a UPN)
   ["compCard","phonCard","fluCard","pmbCard"].forEach(id => $(id).hidden = true);
   if (!upn) { status(''); return; }
-  curYear = ((roster && roster[cls] || []).find(p => p.upn === upn) || {}).yearGroup || '';
+  curYear = ((roster && roster[cls] || []).find(p => p.pcode === upn) || {}).yearGroup || '';
   status('Loading results…');
   const [d, compClass, phonClass, fluClass, pmbClass] = await Promise.all([
     SaveResults.call('GET', '/readingresults-db', {upn:upn, limit:200}),

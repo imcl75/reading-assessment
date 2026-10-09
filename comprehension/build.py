@@ -21,5 +21,5 @@ for t in TESTS:
 for w in fk_warnings(TESTS): print("  note:", w)
 if err: sys.exit("not built:\n"+"\n".join(err))
 data=[dict(level=l,texts=v) for l,v in sorted(by.items())]
-(here/"index.html").write_text((here/"template.html").read_text().replace("/*DATA*/",json.dumps(data,ensure_ascii=False)).replace("/*SAVE_RESULTS*/",(here.parent/"shared"/"save_results.js").read_text()).replace("/*SCAN_MARKING*/",(here.parent/"shared"/"scan_marking.js").read_text()))
+(here/"index.html").write_text((here/"template.html").read_text().replace("/*DATA*/",json.dumps(data,ensure_ascii=False)).replace("/*SAVE_RESULTS*/","".join((here.parent / "shared" / f).read_text() for f in ("names-file.js", "pupil_labels.js", "save_results.js"))).replace("/*SCAN_MARKING*/",(here.parent/"shared"/"scan_marking.js").read_text()))
 print("built index.html:",len(TESTS),"tests across",len(by),"levels")

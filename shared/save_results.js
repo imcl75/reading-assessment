@@ -63,13 +63,12 @@ const SaveResults = (function(){
   async function loadRoster(){
     const d = await call('GET', '/pupils');
     if (!d.pupils) { status(d.error || 'Could not load the class lists.', false); $q('srClass').innerHTML = '<option value="">Class lists unavailable</option>'; return; }
-    roster = {};
-    d.pupils.forEach(p => { const c = p.class || p.code || '?'; (roster[c] = roster[c] || []).push(p); });
-    Object.values(roster).forEach(a => a.sort((x, y) => (x.last + x.first).localeCompare(y.last + y.first)));
+    roster = PupilLabels.byClass(d.pupils);   // sorted, each pupil gets .label (initials) and .pcode (pupil code)
     const names = Object.keys(roster).sort((a, b) => (roster[a][0].yearGroup || '').localeCompare(roster[b][0].yearGroup || '', undefined, {numeric: true}) || a.localeCompare(b));
     $q('srClass').innerHTML = '<option value="">Choose a class</option>' + names.map(n => '<option value="'+h(n)+'">'+h(n)+'</option>').join('');
     const last = store.get(CLASS_KEY);
-    if (last && roster[last]) { $q('srClass').value = last; onClass(); const lp = store.get(PUPIL_KEY); if (lp) { $q('srPupil').value = lp; onPupil(); } }
+    if (last && roster[last]) { $q('srClass').value = last; onClass(); let lp = store.get(PUPIL_KEY); if (lp && !/^p_/.test(lp)) { store.del(PUPIL_KEY); lp = null; }   // an older page stored a UPN here: drop it, keep only codes
+    if (lp) { $q('srPupil').value = lp; onPupil(); } }
     const c = await call('GET', '/readingresults-db', {limit: 1});
     if (c && c.current) { current = c.current; $q('srTerm').value = String(c.current.term); }
     refresh();
@@ -78,12 +77,13 @@ const SaveResults = (function(){
     const c = $q('srClass').value, list = roster && roster[c] || [];
     store.set(CLASS_KEY, c);
     $q('srPupil').disabled = !c;
-    $q('srPupil').innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => '<option value="'+h(p.upn)+'">'+h(p.first+' '+p.last)+'</option>').join('');
+    $q('srPupil').innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => p.pcode ? '<option value="'+h(p.pcode)+'" data-pupil-id="'+h(p.pcode)+'">'+h(p.label)+'</option>'
+      : '<option value="" disabled>'+h(p.label)+' (no code yet)</option>').join('');
     $q('srHist').innerHTML = ''; refresh();
     if (cfg.onPupilChange) cfg.onPupilChange('');
   }
   async function onPupil(){
-    const upn = $q('srPupil').value; store.set(PUPIL_KEY, upn); refresh();
+    const upn = $q('srPupil').value; store.set(PUPIL_KEY, upn); refresh();   // upn here = the pupil CODE (server accepts a code or a UPN in `upn`)
     if (cfg.onPupilChange) cfg.onPupilChange(upn);
     $q('srHist').innerHTML = '';
     if (!upn) return;

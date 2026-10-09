@@ -72,7 +72,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 /*TARGETS*/
-const VERSION = "05.10.26e";
+const VERSION = "09.10.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -200,9 +200,7 @@ let roster = null;
 async function loadRoster(){
   const d = await SaveResults.call('GET', '/pupils');
   if (!d.pupils) { $("rClass").innerHTML = '<option value="">Class lists unavailable</option>'; status('Could not load class lists.', true); return; }
-  roster = {};
-  d.pupils.forEach(p => { const c = p.class || p.code || '?'; (roster[c] = roster[c] || []).push(p); });
-  Object.values(roster).forEach(list => list.sort((a,b) => (a.last+a.first).localeCompare(b.last+b.first)));
+  roster = PupilLabels.byClass(d.pupils);   // each pupil gets .label (initials, clash-aware per class) and .pcode (pupil code)
   const names = Object.keys(roster).sort();
   $("rClass").innerHTML = '<option value="">Choose a class</option>' + names.map(n => '<option value="'+esc(n)+'">'+esc(n)+'</option>').join('');
 }
@@ -215,16 +213,17 @@ function status(msg, bad){ const e = $("status"); e.textContent = msg || ''; e.c
 function onClass(){
   const c = $("rClass").value, list = (roster && roster[c]) || [];
   $("rPupil").disabled = !c;
-  $("rPupil").innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => '<option value="'+esc(p.upn)+'">'+esc(p.first+' '+p.last)+'</option>').join('');
+  $("rPupil").innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => p.pcode ? '<option value="'+esc(p.pcode)+'" data-pupil-id="'+esc(p.pcode)+'">'+esc(p.label)+'</option>'
+    : '<option value="" disabled>'+esc(p.label)+' (no code yet)</option>').join('');
   ["compCard","phonCard","fluCard","pmbCard"].forEach(id => $(id).hidden = true);
   status('');
 }
 
 async function onPupil(){
-  const upn = $("rPupil").value, cls = $("rClass").value;
+  const upn = $("rPupil").value, cls = $("rClass").value;   // upn = the pupil CODE (server accepts a code or a UPN)
   ["compCard","phonCard","fluCard","pmbCard"].forEach(id => $(id).hidden = true);
   if (!upn) { status(''); return; }
-  curYear = ((roster && roster[cls] || []).find(p => p.upn === upn) || {}).yearGroup || '';
+  curYear = ((roster && roster[cls] || []).find(p => p.pcode === upn) || {}).yearGroup || '';
   status('Loading results…');
   const [d, compClass, phonClass, fluClass, pmbClass] = await Promise.all([
     SaveResults.call('GET', '/readingresults-db', {upn:upn, limit:200}),

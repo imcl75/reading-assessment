@@ -115,6 +115,16 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
 <p class="sub">Wallscourt Farm Academy</p>
 
 <div class="card">
+  <!-- Personal card / QR link -->
+  <div id="card-section" style="display:none;text-align:center;padding:24px 8px">
+    <div class="spinner" style="margin:0 auto 14px"></div>
+    <p class="card-heading" style="margin:0">Checking your card…</p>
+  </div>
+  <div id="card-bad" style="display:none;text-align:center;padding:12px 8px">
+    <p class="card-heading">We couldn't read your card</p>
+    <p class="fallback-msg">Please ask your teacher for help. Don't share your card with anyone.</p>
+  </div>
+
   <!-- Loading state -->
   <div id="loading-msg">
     <div class="spinner"></div>
@@ -123,7 +133,8 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
 
   <!-- Name grid (shown when loaded) -->
   <div id="name-section" style="display:none">
-    <p class="card-heading">Tap your name to begin</p>
+    <p class="card-heading">Scan your card to begin</p>
+    <p class="fallback-msg" style="margin-bottom:12px">Use the camera on your iPad to scan the QR code on your card. No card? Ask your teacher.</p>
     <div id="letter-bar"></div>
     <div id="name-grid"></div>
     <p style="text-align:center;margin-top:14px;font-size:13px;color:#aaa;">
@@ -162,8 +173,42 @@ const ASSESSMENT_URLS = {
 
 let groupsData = null; // { groups: [...], pupils: [...] }
 
+// Personal card: the link carries the pupil code after #c= (the part after # is never sent to a server)
+const CODE_RE = /^p_[a-z2-7]{10}$/;
+function cardCode() {
+  const m = /[#?&]c=([^&]+)/.exec(location.hash + location.search);
+  const c = m ? decodeURIComponent(m[1]).trim() : '';
+  return CODE_RE.test(c) ? c : '';
+}
+function cardLogin(code) {
+  document.getElementById('loading-msg').style.display = 'none';
+  document.getElementById('card-section').style.display = 'block';
+  try { history.replaceState(null, '', location.pathname); } catch (e) {}
+  const cb = 'cbw_' + Date.now();
+  const script = document.createElement('script');
+  const bad = () => {
+    clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script);
+    document.getElementById('card-section').style.display = 'none';
+    document.getElementById('card-bad').style.display = 'block';
+  };
+  const timer = setTimeout(bad, 15000);
+  window[cb] = function (out) {
+    if (!out || !out.ok) { bad(); return; }
+    clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script);
+    const assessment = out.assessment || 'summer';
+    const texts = Array.isArray(out.selectedTexts) ? out.selectedTexts : [0,1,2];
+    localStorage.setItem('ra_preload', JSON.stringify({ code, label: out.label || '', assessment, texts }));
+    window.location.href = ASSESSMENT_URLS[assessment] || 'index.html';
+  };
+  script.onerror = bad;
+  script.src = BACKEND_URL + '?action=whoami&code=' + encodeURIComponent(code) + '&token=' + WFA_TOKEN + '&callback=' + cb;
+  document.body.appendChild(script);
+}
+
 // Fetch groups config via JSONP
 (function fetchGroups() {
+  const code = cardCode();
+  if (code) { cardLogin(code); return; }
   const cb = 'cb_' + Date.now();
   const script = document.createElement('script');
   const timer = setTimeout(() => {
@@ -281,6 +326,6 @@ function startFallback() {
   window.location.href = 'index.html';
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v09.10.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v09.10.26c</p>
 </body>
 </html>

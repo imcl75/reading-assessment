@@ -28,7 +28,7 @@ for level in sorted(by_level):
 
 html = (here / "template.html").read_text()
 html = html.replace("/*DATA*/", json.dumps(DATA, ensure_ascii=False))
-html = html.replace("/*SAVE_RESULTS*/", (here.parent / "shared" / "save_results.js").read_text())
+html = html.replace("/*SAVE_RESULTS*/", "".join((here.parent / "shared" / f).read_text() for f in ("names-file.js", "pupil_labels.js", "save_results.js")))
 (here / "index.html").write_text(html)
 print(f"built index.html: {sum(len(l['texts']) for l in DATA)} texts across {len(DATA)} levels, "
       f"{sum(len(t['questions']) for l in DATA for t in l['texts'])} questions")

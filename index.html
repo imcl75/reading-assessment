@@ -544,6 +544,8 @@ const TTYPE_LABELS = { 'NF':'Non-fiction', 'P':'Poetry', 'F':'Fiction' };
 // STATE
 // ======================================================
 let pupilName = '';
+let pupilCode = '';     // set when the child came in with a personal card (no name is held)
+let pupilLabel = '';    // their initials, shown in the header
 let selectedSections = [0,1,2];
 let currentSection = 0;
 let answers = {};
@@ -555,17 +557,18 @@ let timeTaken = '';
 // ======================================================
 // AUTOSAVE / RESTORE (localStorage)
 // ======================================================
-function autosaveKey() { return 'ra_answers_summer_' + pupilName; }
+function pupilId() { return pupilCode || pupilName; }
+function autosaveKey() { return 'ra_answers_summer_' + pupilId(); }
 
 function persistAnswers() {
-  if (!pupilName) return;
+  if (!pupilId()) return;
   try {
     localStorage.setItem(autosaveKey(), JSON.stringify({ answers, startTime }));
   } catch(e) {}
 }
 
 function restoreAnswers() {
-  if (!pupilName) return false;
+  if (!pupilId()) return false;
   try {
     const saved = JSON.parse(localStorage.getItem(autosaveKey()) || 'null');
     if (saved && saved.answers && Object.keys(saved.answers).length > 0) {
@@ -578,7 +581,7 @@ function restoreAnswers() {
 }
 
 function clearAutosave() {
-  if (!pupilName) return;
+  if (!pupilId()) return;
   try { localStorage.removeItem(autosaveKey()); } catch(e) {}
 }
 
@@ -603,7 +606,8 @@ window.addEventListener('beforeunload', e => {
   const preload = JSON.parse(localStorage.getItem('ra_preload') || 'null');
   if (preload && preload.assessment === 'summer') {
     localStorage.removeItem('ra_preload');
-    pupilName = preload.name;
+    if (/^p_[a-z2-7]{10}$/.test(preload.code || '')) { pupilCode = preload.code; pupilLabel = preload.label || ''; }
+    else pupilName = preload.name;
     applyTextConfig(Array.isArray(preload.texts) ? preload.texts : [0,1,2]);
     startInstructions();
     return;
@@ -682,11 +686,11 @@ function selectName(btn, name) {
 
 function startInstructions() {
   // Name from grid selection OR fallback text input
-  if (!pupilName) {
+  if (!pupilId()) {
     const typed = document.getElementById('inp-name') && document.getElementById('inp-name').value.trim();
     if (typed) pupilName = typed;
   }
-  if (!pupilName) { alert('Please tap your name to select it.'); return; }
+  if (!pupilId()) { alert('Please scan your card, or tap your name to select it.'); return; }
   show('s-instructions');
 }
 
@@ -702,7 +706,7 @@ function startAssessment() {
   show('s-assessment');
   const restored = restoreAnswers();
   if (!restored) startTime = Date.now();
-  document.getElementById('hdr-pupil').textContent = pupilName;
+  document.getElementById('hdr-pupil').textContent = pupilCode ? pupilLabel : pupilName;
   updateTabStyles();
   currentSection = selectedSections[0];
   document.getElementById('tab-'+currentSection).classList.add('active');
@@ -1274,7 +1278,8 @@ function postToBackend() {
   });
 
   const payload = {
-    pupilName,
+    pupilName: pupilCode ? '' : pupilName,
+    code: pupilCode || undefined,
     date: new Date().toLocaleDateString('en-GB'),
     timeTaken,
     sections: selectedSections,
@@ -1328,6 +1333,7 @@ function dropOutboxed(payload) {
 function checkPupilSavedRemotely(payload) {
   const qs = '?action=checkpupil&token=' + WFA_TOKEN +
     '&pup=' + encodeURIComponent(payload.pupilName || '') +
+    (payload.code ? '&code=' + encodeURIComponent(payload.code) : '') +
     '&d=' + encodeURIComponent(payload.date || '');
   return fetch(BACKEND_URL + qs, { cache: 'no-store' })
     .then(r => r.json())
@@ -1367,6 +1373,6 @@ function calcTotals() {
 }
 
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v09.10.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v09.10.26c</p>
 </body>
 </html>

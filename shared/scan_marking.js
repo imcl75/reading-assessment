@@ -134,7 +134,7 @@ const ScanMarking = (function(){
       if (ta && tb && ta !== tb) return ta.localeCompare(tb, undefined, {numeric: true});
       if (ta && !tb) return -1;
       if (tb && !ta) return 1;
-      return (a.last + a.first).localeCompare(b.last + b.first);
+      return (a.first + ' ' + a.last).localeCompare(b.first + ' ' + b.last);
     });
   }
   function renderPupilRows(pool, table){

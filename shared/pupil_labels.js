@@ -40,13 +40,13 @@ const PupilLabels = (function(){
     const seen = {};
     return out.map(t => { const k = t.toLowerCase(); seen[k] = (seen[k] || 0) + 1; return seen[k] === 1 ? t : t + ' ' + seen[k]; });
   }
-  // /_api/planning/pupils list -> {className: [pupil, ...]} sorted by surname then first name, each pupil
+  // /_api/planning/pupils list -> {className: [pupil, ...]} sorted by first name then surname (first-initial order), each pupil
   // given .label (clash-aware inside its own class) and .code (pupilId, '' if the pupil has none yet).
   function byClass(pupils){
     const roster = {};
     (pupils || []).forEach(p => { const c = p.class || p.code || '?'; (roster[c] = roster[c] || []).push(p); });
     Object.values(roster).forEach(list => {
-      list.sort((a, b) => (a.last + a.first).localeCompare(b.last + b.first));
+      list.sort((a, b) => (a.first + ' ' + a.last).localeCompare(b.first + ' ' + b.last));
       const ls = labels(list.map(p => [p.first, p.last]));
       list.forEach((p, i) => { p.label = ls[i]; p.pcode = String(p.pupilId || '').trim(); });
     });

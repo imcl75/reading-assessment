@@ -7163,10 +7163,19 @@ const SESSIONS_Y6 = [
     idx: 48, set: "B", textIndex: 23,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q4",
-          stem: "Where do you think John was?",
-          answers: ["wedding", "graduation", "awards"],
-          guidance: "A wedding/graduation/awards ceremony."
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q4",
+          "stem": "Where do you think John was?",
+          "answers": [
+            "wedding",
+            "funeral",
+            "graduation",
+            "church",
+            "ceremony"
+          ],
+          "guidance": "Award 1 mark for a ceremony such as a wedding, funeral, graduation or a church service (accept ‘ceremony’ or ‘church’). Reject answers with no evidence of a ceremony."
         },
         {
           "num": 2,
@@ -7842,6 +7851,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y6-14.10.26e</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y6-14.10.26f</p>
 </body>
 </html>

@@ -85,8 +85,8 @@ B[6] = [
 # ---- Phase 5a (Weeks 1–4)
 B[7] = [
  ('Eric the Pie Rat',
-  'It was just like a boat! “Help! We cannot swim!” said Mr and Mrs Judd. “I am the boss of this pie dish!” Eric said to them. “And I say you can jump in.” There was room in the pie dish for Eric and for Mr and Mrs Judd! “Thank you, little rat,” said Mrs Judd. “I am sad that we were mean to you on the boat.”',
-  [('who', 'Who says "I am the boss of this pie dish"?', 'Eric'), ('what', 'What do Mr and Mrs Judd say they cannot do?', 'Swim'), ('why', 'Why does Eric say they can jump in?', 'Because they cannot swim and the pie dish is like a boat (also accept: so they will be safe; to help them)')]),
+  '“Help! We cannot swim!” said Mr and Mrs Judd. “I am the boss of this pie dish!” Eric said to them. “And I say you can jump in.” There was room in the pie dish for Eric and for Mr and Mrs Judd! “Thank you, little rat,” said Mrs Judd. “I am sad that we were mean to you on the boat.”',
+  [('who', 'Who says "I am the boss of this pie dish"?', 'Eric'), ('what', 'What do Mr and Mrs Judd say they cannot do?', 'Swim'), ('why', 'Why does Eric say they can jump in?', 'Because they cannot swim and there is room in the pie dish (also accept: so they will be safe; to help them)')]),
  ('Flip Flap Fox',
   'They stand next to Fox and clap and yell. “Go back to the woods, little fox! Shoo!” But Fox still needs food for her cub. So, as she runs, she grabs Mr Blue’s chicken supper! Pad, pad, pad. Back to the wood she trots, back to her den, back to her cub. “Yum,” whispers the little fox cub, deep in the den.',
   [('who', "Who grabs Mr Blue's chicken supper?", 'Fox'), ('where', 'Where does Fox run back to?', 'Her den (also accept: to her cub)'), ('why', 'Why does Fox grab the chicken?', 'Because she needs food for her cub')]),

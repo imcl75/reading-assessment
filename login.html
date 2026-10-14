@@ -195,6 +195,12 @@ function cardLogin(code) {
   window[cb] = function (out) {
     if (!out || !out.ok) { bad(); return; }
     clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script);
+    if (!out.assessment && out.threeInThree) {          // a child in the 3 in 3 intervention goes to their year's session page
+      const t = out.threeInThree;
+      localStorage.setItem('ra_preload', JSON.stringify({ code, label: out.label || '', classYear: t.classYear, interventionYear: t.interventionYear || t.classYear, assessment: '3in3-' + t.classYear }));
+      window.location.href = '3in3/' + String(t.classYear).toLowerCase() + '/index.html';
+      return;
+    }
     const assessment = out.assessment || 'summer';
     const texts = Array.isArray(out.selectedTexts) ? out.selectedTexts : [0,1,2];
     localStorage.setItem('ra_preload', JSON.stringify({ code, label: out.label || '', assessment, texts }));
@@ -326,6 +332,6 @@ function startFallback() {
   window.location.href = 'index.html';
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v09.10.26c</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v14.10.26a</p>
 </body>
 </html>

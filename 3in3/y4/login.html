@@ -87,13 +87,22 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
 <p class="sub">Wallscourt Farm Academy</p>
 
 <div class="card">
+  <div id="card-section" style="display:none;text-align:center;padding:24px 8px">
+    <div class="spinner" style="margin:0 auto 14px"></div>
+    <p class="card-heading" style="margin:0">Checking your card…</p>
+  </div>
+  <div id="card-bad" style="display:none;text-align:center;padding:12px 8px">
+    <p class="card-heading">We couldn't read your card</p>
+    <p class="fallback-msg">Please ask your teacher for help. Don't share your card with anyone.</p>
+  </div>
   <div id="loading-msg">
     <div class="spinner"></div>
     <span>Loading…</span>
   </div>
 
   <div id="name-section" style="display:none">
-    <p class="card-heading">Tap your name to begin</p>
+    <p class="card-heading">Scan your card to begin</p>
+    <p class="fallback-msg" style="margin-bottom:12px">Use the camera on your iPad to scan the QR code on your card. No card? Ask your teacher.</p>
     <div id="letter-bar"></div>
     <div id="name-grid"></div>
     <p style="text-align:center;margin-top:14px;font-size:13px;color:#aaa;">
@@ -134,7 +143,40 @@ const DEFAULT_INTERVENTION = 'Y4';
 let allPupils = []; // [{name, interventionYear}]
 let activeLetter = '';
 
+// Personal card: the link carries the pupil code after #c= (the part after # is never sent to a server)
+const CODE_RE = /^p_[a-z2-7]{10}$/;
+function cardCode() {
+  const m = /[#?&]c=([^&]+)/.exec(location.hash + location.search);
+  const c = m ? decodeURIComponent(m[1]).trim() : '';
+  return CODE_RE.test(c) ? c : '';
+}
+function cardLogin(code) {
+  document.getElementById('loading-msg').style.display = 'none';
+  document.getElementById('card-section').style.display = 'block';
+  try { history.replaceState(null, '', location.pathname); } catch (e) {}
+  const cb = 'cbw_' + Date.now();
+  const script = document.createElement('script');
+  const bad = () => {
+    clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script);
+    document.getElementById('card-section').style.display = 'none';
+    document.getElementById('card-bad').style.display = 'block';
+  };
+  const timer = setTimeout(bad, 15000);
+  window[cb] = function (out) {
+    if (!out || !out.ok || !out.threeInThree) { bad(); return; }
+    clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script);
+    const t = out.threeInThree;                       // {classYear, interventionYear, nextIdx}
+    localStorage.setItem('ra_preload', JSON.stringify({ code, label: out.label || '', classYear: t.classYear, interventionYear: t.interventionYear || t.classYear, assessment: '3in3-' + t.classYear }));
+    window.location.href = '../' + String(t.classYear || CLASS_YEAR).toLowerCase() + '/index.html';
+  };
+  script.onerror = bad;
+  script.src = BACKEND_URL + '?action=whoami&code=' + encodeURIComponent(code) + '&token=' + WFA_TOKEN + '&callback=' + cb;
+  document.body.appendChild(script);
+}
+
 (async function load() {
+  const code = cardCode();
+  if (code) { cardLogin(code); return; }
   try {
     const data = await jsonpFetch(BACKEND_URL + '?action=get3in3pupils&classYear=' + CLASS_YEAR);
     let pupils = [];
@@ -216,6 +258,6 @@ function startFallback() {
   start(name, DEFAULT_INTERVENTION);
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-09.09.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-14.10.26a</p>
 </body>
 </html>

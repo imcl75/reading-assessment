@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>3 in 3 — Pupil History</title>
+<script src="https://cdn.jsdelivr.net/gh/wallscourtfarm/wfa-shared@main/web/names-file.js?v=2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root { --brand: #1798d3; --brand-dk: #0a6fa8; }
@@ -170,7 +171,7 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; text-align: cente
   <div class="search-bar">
     <div class="autocomplete-wrap">
       <input type="text" id="search-input" class="search-input"
-        placeholder="Search pupil name…" autocomplete="off"
+        placeholder="Search by initials, e.g. IM…" autocomplete="off"
         oninput="onSearchInput()" onkeydown="onSearchKey(event)">
       <div class="autocomplete-list" id="ac-list" style="display:none"></div>
     </div>
@@ -206,51 +207,56 @@ function jsonpFetch(url, timeout) {
     .finally(() => clearTimeout(timer));
 }
 
-// ───── Names autocomplete ─────
-let allNames = [];
+// ───── Pupil autocomplete (initials; identified by pupil code) ─────
+let allPupils = [];            // [{key, label, code, name, year}]
+let picked = null;             // the child chosen from the list
 
 async function loadAllNames() {
   try {
-    // Fetch pupils from all class years
     const years = ['Y3','Y4','Y5','Y6'];
     const sets = await Promise.allSettled(
       years.map(y => jsonpFetch(`${BACKEND_URL}?action=get3in3pupils&classYear=${y}`))
     );
-    const nameSet = new Set();
-    sets.forEach(r => {
-      if (r.status === 'fulfilled') {
-        const data = r.value;
-        let pupils = [];
-        if (Array.isArray(data)) pupils = data;
-        else if (data && Array.isArray(data.pupils)) pupils = data.pupils;
-        pupils.forEach(p => {
-          const name = typeof p === 'string' ? p : p.name;
-          if (name) nameSet.add(name);
-        });
-      }
+    const seen = {};
+    sets.forEach((r, i) => {
+      if (r.status !== 'fulfilled') return;
+      const data = r.value;
+      let pupils = Array.isArray(data) ? data : (data && Array.isArray(data.pupils) ? data.pupils : []);
+      pupils.forEach(p => {
+        const o = typeof p === 'string' ? { name: p } : p;
+        const key = o.pupilCode || o.name;
+        if (!key || seen[key]) return;
+        seen[key] = 1;
+        const label = o.label || String(o.name || '').trim().split(/\s+/).filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?';
+        allPupils.push({ key, label, code: o.pupilCode || '', name: o.name || '', year: years[i] });
+      });
     });
-    allNames = [...nameSet].sort();
+    allPupils.sort((a, b) => a.label.localeCompare(b.label) || a.year.localeCompare(b.year));     // first-initial order
   } catch(e) {
-    allNames = [];
+    allPupils = [];
   }
 }
 
 function onSearchInput() {
+  picked = null;
   const q = document.getElementById('search-input').value.trim().toLowerCase();
   if (q.length < 1) { closeAC(); return; }
-  const matches = allNames.filter(n => n.toLowerCase().includes(q)).slice(0, 8);
+  const matches = allPupils.filter(p => p.label.toLowerCase().includes(q) || p.year.toLowerCase() === q).slice(0, 12);
   if (!matches.length) { closeAC(); return; }
   const list = document.getElementById('ac-list');
-  list.innerHTML = matches.map(n =>
-    `<div class="autocomplete-item" onclick="selectName('${n.replace(/'/g,'&#39;')}')">${n}</div>`
+  list.innerHTML = matches.map(p =>
+    `<div class="autocomplete-item" onclick="selectPupil('${escHtml(p.key).replace(/'/g,'&#39;')}')"><span${p.code ? ` data-pupil-id="${escHtml(p.code)}"` : ''}>${escHtml(p.label)}</span> <span style="color:#aaa;font-size:12px">${p.year}</span></div>`
   ).join('');
   list.style.display = 'block';
+  try { if (window.WFANames && WFANames.screen && WFANames.screen.active) WFANames.screen._swapAll(list); } catch (e) {}
 }
 
 function closeAC() { document.getElementById('ac-list').style.display = 'none'; }
 
-function selectName(name) {
-  document.getElementById('search-input').value = name;
+function selectPupil(key) {
+  picked = allPupils.find(p => p.key === key) || null;
+  if (!picked) return;
+  document.getElementById('search-input').value = picked.label;
   closeAC();
   doSearch();
 }
@@ -266,8 +272,14 @@ document.addEventListener('click', function(e) {
 
 // ───── History fetch & render ─────
 async function doSearch() {
-  const name = document.getElementById('search-input').value.trim();
-  if (!name) return;
+  const typed = document.getElementById('search-input').value.trim();
+  if (!typed) return;
+  if (!picked) {                       // typed initials with no list click: use the single match, else ask
+    const m = allPupils.filter(p => p.label.toLowerCase() === typed.toLowerCase());
+    if (m.length === 1) picked = m[0];
+    else { document.getElementById('pupil-list').innerHTML = '<div class="pupil-card"><div class="empty-state"><div class="big">🔍</div>' + (m.length ? 'More than one child has those initials: pick one from the list.' : 'Pick a child from the list.') + '</div></div>'; return; }
+  }
+  const name = picked.label;
 
   const overlay = document.getElementById('loading-overlay');
   const list    = document.getElementById('pupil-list');
@@ -276,14 +288,14 @@ async function doSearch() {
 
   try {
     const data = await jsonpFetch(
-      `${BACKEND_URL}?action=get3in3history&name=${encodeURIComponent(name)}`
+      `${BACKEND_URL}?action=get3in3history&${picked.code ? 'code=' + encodeURIComponent(picked.code) : 'name=' + encodeURIComponent(picked.name)}`
     );
     overlay.style.display = 'none';
     if (!data || !Array.isArray(data) || data.length === 0) {
       list.innerHTML = `<div class="pupil-card"><div class="empty-state"><div class="big">🔍</div>No sessions found for <strong>${escHtml(name)}</strong></div></div>`;
       return;
     }
-    renderHistory(name, data, list);
+    renderHistory(name, data, list, picked.code);
   } catch(e) {
     overlay.style.display = 'none';
     list.innerHTML = `<div class="pupil-card"><div class="empty-state"><div class="big">⚠️</div>Could not load data. Please try again.</div></div>`;
@@ -301,7 +313,7 @@ const YR_COLORS = {
   Y6: { bg: '#f0e4fd', color: '#7020c0' },
 };
 
-function renderHistory(name, rows, container) {
+function renderHistory(name, rows, container, code) {
   // Group by interventionYear (fallback to classYear)
   const byYear = {};
   rows.forEach(r => {
@@ -319,7 +331,7 @@ function renderHistory(name, rows, container) {
       <div class="pupil-card-header">
         <div class="pupil-avatar" style="background:${c.color}">${escHtml(initials)}</div>
         <div>
-          <div class="pupil-name-big">${escHtml(name)}</div>
+          <div class="pupil-name-big"${code ? ` data-pupil-id="${escHtml(code)}"` : ''}>${escHtml(name)}</div>
           <div class="pupil-meta">${totalSessions} session${totalSessions !== 1 ? 's' : ''} across ${Object.keys(byYear).length} intervention year${Object.keys(byYear).length !== 1 ? 's' : ''}</div>
         </div>
       </div>
@@ -501,8 +513,9 @@ function buildDomainSummary(sessions, yr) {
 
 // Staff page: Cloudflare Access already checks the sign-in, so there is no PIN.
 loadAllNames();
+try { if (window.WFANames && WFANames.screen) WFANames.screen.init(); } catch (e) { /* names on screen is optional */ }
 </script>
 
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">06.10.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">14.10.26a</p>
 </body>
 </html>

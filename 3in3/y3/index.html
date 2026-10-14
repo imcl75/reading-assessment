@@ -314,7 +314,7 @@ const TEXTS_Y3 = {
   10: "Soil is extremely important. Without soil, no plants would grow and there would be nothing to eat. So perhaps it would help to have the recipe, just in case we ever ran out. First, you need crunched rocks. These need to be ground into tiny particles, but just how tiny depends upon the type of soil you want. Next you need the rotting remains of dead plants and animals. Yummy! Stir in a healthy dollop of micro-organisms to break it all down. Then mix together using worms and other minibeasts. Finally, leave for a thousand years per inch (2 ½ cm) of soil.",
   11: "Think how much you know about the place where you live. Now think about what it was like before you arrived on the scene. Most of us live in a village, town or city that has been there for centuries. Over the years, there are bound to have been people who have been remembered for doing great things. Do you know who they are? There are usually clues, if you keep your eyes open. Perhaps there is a statue that you have never really given a second glance. Maybe there’s a name that keeps appearing on buildings or street signs.",
   12: "Look at any map of the world and you will notice that the continents of North and South America are joined by a very narrow strip of land. This also separates the Atlantic from the Pacific. Right up until the 19th century, any ship that wanted to travel from one ocean to the other had to go around the southern tip of South America. This would take nearly two weeks and mean sailing through some very rough seas. It was a big problem for world trade. The answer was to build a ship canal right through what we now call Panama.",
-  13: "Most of us like a good sing-song, even if we’re not very good. But have you ever wondered how we make the noise that gives us a voice? Inside your neck there is a tube called the larynx through which air passes between your mouth and nose and your lungs. Stretched across the larynx are folded strips of tissue called vocal chords. These move in a way that makes the air vibrate at different speeds. Faster movements make higher notes and slower ones make lower notes. We then need our lips, teeth and tongue to turn the tune into words.",
+  13: "Most of us like a good sing-song, even if we’re not very good. But have you ever wondered how we make the noise that gives us a voice? Inside your neck there is a tube called the larynx through which air passes between your mouth and nose and your lungs. Stretched across the larynx are folded strips of tissue called vocal cords. These move in a way that makes the air vibrate at different speeds. Faster movements make higher notes and slower ones make lower notes. We then need our lips, teeth and tongue to turn the tune into words.",
   14: "Great sports teams will always need great players. But success depends on more than having a group of skilled individuals. The coach needs to look at the pool of talent and choose the ones that will be most likely to work together as a well-balanced team. For example, a cricket team could have all the best bowlers in the world but if they don’t have anyone who can score runs with the bat, they will find it hard to win any game. Also, a netball team could be superb at keeping possession, but what good is that if none of them can score?",
   15: "English is a very rich and special language. Whatever you want to say, there are often many different words you can use. The trick is to find the ones that best express your particular meaning. How did we get the words we use today? Thanks to our eventful history, new words kept being added to the mix from all sorts of different languages. The word bicycle, for example, comes from the Latin for two (bi) and the Greek for circle or wheel.  The result is the name of a machine that no one in the ancient world ever dreamed of.",
   16: "Zara glanced around the room. Someone had tried really hard to make it look calm and relaxing. There were soothing pictures on the walls. Potted plants were dotted around the place. A coffee table covered with magazines tried and failed to suggest that this was an ordinary cosy lounge. But all Zara could think about was her teeth. Had her brushing been thorough enough? Was it a good or bad thing that she hadn’t lost all her baby teeth yet? How many sweets was too many? Just then, the door opened and a lady with a kind smile said, ‘Zara?’",
@@ -339,10 +339,18 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: stick, on a stick, notches on a stick"
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q3",
-          stem: "What did they do when the fifth item was counted?",
-          answers: ["second cut", "V", "notch", "fifth item", "symbol V", "cut when fifth"],
-          guidance: "Award 1 mark for: second cut, V, notch"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "What did they do when the fifth item was counted?",
+          "answers": [
+            "second cut",
+            "second notch",
+            "made a second cut",
+            "cut a second"
+          ],
+          "guidance": "Award 1 mark for saying they made a second cut or second notch when the fifth item was reached. Do not accept answers that only say they counted or cut once."
         }
     ]
   },
@@ -363,13 +371,36 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: made two notches, cut two notches, formed X"
         },
         {
-          num: 3, domain: "retrieval", type: "short_parts", key: "q6",
-          stem: "Which two parts of the hand made the symbol for 5?",
-          parts: [
-            { label: "a)", key: "q6a", answers: [], guidance: "" },
-            { label: "b)", key: "q6b", answers: [], guidance: "" }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q6",
+          "stem": "Which two parts of the hand made the symbol for 5?",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q6a",
+              "answers": [
+                "thumb",
+                "little finger",
+                "pinky",
+                "pinkie"
+              ],
+              "guidance": "The two parts are the thumb and the little finger, in either order. The two parts must be different answers; either order is fine."
+            },
+            {
+              "label": "b)",
+              "key": "q6b",
+              "answers": [
+                "thumb",
+                "little finger",
+                "pinky",
+                "pinkie"
+              ],
+              "guidance": "The two parts are the thumb and the little finger, in either order. The two parts must be different answers; either order is fine."
+            }
           ],
-          guidance: ""
+          "guidance": "Answer: thumb and little finger (either order)."
         }
     ]
   },
@@ -377,10 +408,16 @@ const SESSIONS_Y3 = [
     idx: 3, set: "A", textIndex: 1,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q1",
-          stem: "According to the text, what does science look at?",
-          answers: ["the world", "world", "looking at the world", "questions about the world", "asks questions"],
-          guidance: "Award 1 mark for: the world, world, looking at the world"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q1",
+          "stem": "According to the text, what does science look at?",
+          "answers": [
+            "the world",
+            "world"
+          ],
+          "guidance": "Award 1 mark for: the world, looking at the world. Do not accept answers that only say it asks questions."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
@@ -401,16 +438,27 @@ const SESSIONS_Y3 = [
     idx: 4, set: "B", textIndex: 1,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q4",
-          stem: "In what way should the experiment test your ideas?",
-          answers: ["fairly", "control variables", "keep constant", "separate factors", "one explanation", "test ideas fairly"],
-          guidance: "Award 1 mark for: fairly, control variables, keep constant"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q4",
+          "stem": "In what way should the experiment test your ideas?",
+          "answers": [
+            "fairly",
+            "fair test"
+          ],
+          "guidance": "Award 1 mark for: fairly, a fair test. Do not accept 'unfairly' or answers about one explanation or keeping things constant."
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q5",
-          stem: "What is the first thing you should do once you have found something interesting to ask?",
-          answers: ["predict", "prediction", "think the answer", "what you think", "hypothesis", "make a prediction"],
-          guidance: "Award 1 mark for: predict, prediction, think the answer"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "What is the first thing you should do once you have found something interesting to ask?",
+          "answers": [
+            "predict"
+          ],
+          "guidance": "Award 1 mark for: predict, make a prediction, say what you think the answer will be. Do not accept 'hypothesis' or 'ask a question'."
         },
         {
                     num: 3, domain: "vocabulary", type: "mc", key: "q6",
@@ -431,10 +479,15 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: printing press, books produced more cheaply, books in greater numbers"
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q2",
-          stem: "When did he set up the first printing press in England?",
-          answers: ["1472", "in 1472", "the year 1472", "1472", "first printing press", "England"],
-          guidance: "Award 1 mark for: 1472, in 1472, the year 1472"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q2",
+          "stem": "When did he set up the first printing press in England?",
+          "answers": [
+            "1472"
+          ],
+          "guidance": "Award 1 mark for 1472."
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
@@ -448,19 +501,56 @@ const SESSIONS_Y3 = [
     idx: 6, set: "B", textIndex: 2,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short_parts", key: "q4",
-          stem: "There were problems with writing books and documents by hand. Name two of these problems.",
-          parts: [
-            { label: "a)", key: "q4a", answers: [], guidance: "" },
-            { label: "b)", key: "q4b", answers: [], guidance: "" }
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q4",
+          "stem": "There were problems with writing books and documents by hand. Name two of these problems.",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q4a",
+              "answers": [
+                "skilled",
+                "difficult",
+                "long time",
+                "lot of time",
+                "time-consuming",
+                "time consuming",
+                "expensive"
+              ],
+              "guidance": "Accept any two different problems: it was skilled or difficult, it took a lot of time, it was expensive. The two parts must be different answers; either order is fine."
+            },
+            {
+              "label": "b)",
+              "key": "q4b",
+              "answers": [
+                "skilled",
+                "difficult",
+                "long time",
+                "lot of time",
+                "time-consuming",
+                "time consuming",
+                "expensive"
+              ],
+              "guidance": "Accept any two different problems: it was skilled or difficult, it took a lot of time, it was expensive. The two parts must be different answers; either order is fine."
+            }
           ],
-          guidance: ""
+          "guidance": "Any two of: skilled/difficult, took a lot of time, expensive."
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q5",
-          stem: "Name one of the advantages of printing books.",
-          answers: ["cheaper", "less expensive", "more quickly", "greater numbers", "faster", "quicker production"],
-          guidance: "Award 1 mark for: cheaper, less expensive, more quickly"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "Name one of the advantages of printing books.",
+          "answers": [
+            "cheap",
+            "less expensive",
+            "greater numbers",
+            "more books"
+          ],
+          "guidance": "Award 1 mark for: books are cheaper / less expensive, or more books can be made (in greater numbers). Do NOT accept faster or quicker: the text does not say this."
         },
         {
                     num: 3, domain: "vocabulary", type: "mc", key: "q6",
@@ -481,16 +571,27 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: Pacific Ocean, Pacific, the Pacific Ocean"
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q2",
-          stem: "How far is Russia from the USA at its nearest point?",
-          answers: ["55 miles", "55", "miles", "only 55 miles", "nearest point", "closest point"],
-          guidance: "Award 1 mark for: 55 miles, 55, miles"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q2",
+          "stem": "How far is Russia from the USA at its nearest point?",
+          "answers": [
+            "55 miles",
+            "55"
+          ],
+          "guidance": "Award 1 mark for 55 miles (or 55)."
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q3",
-          stem: "Which stretch of water separates Russia and the USA?",
-          answers: ["Bering Strait", "narrow stretch of water", "Bering", "Strait", "55 miles", "water"],
-          guidance: "Award 1 mark for: Bering Strait, narrow stretch of water, Bering"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "Which stretch of water separates Russia and the USA?",
+          "answers": [
+            "bering"
+          ],
+          "guidance": "Award 1 mark for: the Bering Strait (or Bering)."
         }
     ]
   },
@@ -504,15 +605,30 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: freezes, freezes over, ice"
         },
         {
-          num: 2, domain: "inference", type: "open", key: "q5",
-          stem: "What might it be possible to do in the middle of winter?",
-          guidance: ""
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "When the Bering Strait freezes over, what should it be possible to do?",
+          "guidance": "Award 1 mark for saying you could walk from one country to the other (Russia to the USA / across the strait). Accept 'walk across it'. Do not accept answers that only say it freezes.",
+          "answers": [
+            "walk from",
+            "walk across",
+            "walk to",
+            "walk between",
+            "walk over"
+          ]
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q6",
-          stem: "What makes the ice unstable?",
-          answers: ["strong sea currents", "sea currents", "currents", "unstable ice", "not stable"],
-          guidance: "Award 1 mark for: strong sea currents, sea currents, currents"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q6",
+          "stem": "What makes the ice unstable?",
+          "answers": [
+            "current"
+          ],
+          "guidance": "Award 1 mark for strong sea currents (or currents). Do not accept 'unstable' alone."
         }
     ]
   },
@@ -527,10 +643,15 @@ const SESSIONS_Y3 = [
           guidance: "Answer: types."
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q2",
-          stem: "What were early flutes made of?",
-          answers: ["animal bones", "bones", "bone", "holes drilled", "drilled holes"],
-          guidance: "Award 1 mark for: animal bones, bones, bone"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q2",
+          "stem": "What were early flutes made of?",
+          "answers": [
+            "bone"
+          ],
+          "guidance": "Award 1 mark for animal bones (or bones). Do not accept 'holes' alone."
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
@@ -556,13 +677,32 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: musician"
         },
         {
-          num: 3, domain: "retrieval", type: "short_parts", key: "q6",
-          stem: "Name the two metals that your instrument might be made of if you played flute for a living.",
-          parts: [
-            { label: "a)", key: "q6a", answers: [], guidance: "" },
-            { label: "b)", key: "q6b", answers: [], guidance: "" }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q6",
+          "stem": "Name the two metals that your instrument might be made of if you played flute for a living.",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q6a",
+              "answers": [
+                "silver",
+                "gold"
+              ],
+              "guidance": "The two metals are silver and gold, in either order. The two parts must be different answers; either order is fine."
+            },
+            {
+              "label": "b)",
+              "key": "q6b",
+              "answers": [
+                "silver",
+                "gold"
+              ],
+              "guidance": "The two metals are silver and gold, in either order. The two parts must be different answers; either order is fine."
+            }
           ],
-          guidance: ""
+          "guidance": "Answer: silver and gold (either order)."
         }
     ]
   },
@@ -576,19 +716,52 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: Egypt, Egyptian, in Egypt"
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q2",
-          stem: "How old are the paintings thought to be?",
-          answers: ["ten thousand years ago", "10,000 years ago", "ten thousand", "10000", "ancient Egypt", "Egypt"],
-          guidance: "Award 1 mark for: ten thousand years ago, 10,000 years ago, ten thousand"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q2",
+          "stem": "How old are the paintings thought to be?",
+          "answers": [
+            "ten thousand",
+            "10,000",
+            "10000",
+            "10 000"
+          ],
+          "guidance": "Award 1 mark for ten thousand years (old). Do not accept Egypt or ancient Egypt."
         },
         {
-          num: 3, domain: "retrieval", type: "short_parts", key: "q3",
-          stem: "Which two swimming strokes does the article suggest might be shown in the paintings?",
-          parts: [
-            { label: "a)", key: "q3a", answers: [], guidance: "" },
-            { label: "b)", key: "q3b", answers: [], guidance: "" }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q3",
+          "stem": "Which two swimming strokes does the article suggest might be shown in the paintings?",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q3a",
+              "answers": [
+                "breaststroke",
+                "breast stroke",
+                "doggy paddle",
+                "doggy-paddle",
+                "dog paddle"
+              ],
+              "guidance": "The two strokes are breaststroke and doggy paddle, in either order. The two parts must be different answers; either order is fine."
+            },
+            {
+              "label": "b)",
+              "key": "q3b",
+              "answers": [
+                "breaststroke",
+                "breast stroke",
+                "doggy paddle",
+                "doggy-paddle",
+                "dog paddle"
+              ],
+              "guidance": "The two strokes are breaststroke and doggy paddle, in either order. The two parts must be different answers; either order is fine."
+            }
           ],
-          guidance: ""
+          "guidance": "Answer: breaststroke and doggy paddle (either order)."
         }
     ]
   },
@@ -596,11 +769,19 @@ const SESSIONS_Y3 = [
     idx: 12, set: "B", textIndex: 5,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "mc", key: "q4",
-          stem: "How is the land around the caves described? Circle one",
-          options: ["sandy beaches", "rocky desert", "dense jungle", "rolling fields"],
-          answer: "rocky desert",
-          guidance: "Answer: rocky desert."
+          "num": 1,
+          "domain": "retrieval",
+          "type": "mc",
+          "key": "q4",
+          "stem": "How is the land around the caves described? Tick one.",
+          "options": [
+            "sandy beaches",
+            "rocky desert",
+            "dense jungle",
+            "rolling fields"
+          ],
+          "answer": "rocky desert",
+          "guidance": "Answer: rocky desert."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
@@ -627,11 +808,19 @@ const SESSIONS_Y3 = [
           guidance: "Answer: story."
         },
         {
-                    num: 2, domain: "vocabulary", type: "mc", key: "q2",
-          stem: "… stood a lonely tower…  This means that the tower was _________ . Circle one.",
-          options: ["sad", "on its own", "tall", "built of stone"],
-          answer: "on its own",
-          guidance: "Answer: on its own."
+          "num": 2,
+          "domain": "vocabulary",
+          "type": "mc",
+          "key": "q2",
+          "stem": "The text says a lonely tower stood in the forest. What does lonely mean here? Tick one.",
+          "options": [
+            "sad",
+            "on its own",
+            "tall",
+            "built of stone"
+          ],
+          "answer": "on its own",
+          "guidance": "Answer: on its own."
         },
         {
                     num: 3, domain: "vocabulary", type: "find_copy", key: "q3",
@@ -645,10 +834,15 @@ const SESSIONS_Y3 = [
     idx: 14, set: "B", textIndex: 6,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q4",
-          stem: "What was the legend about?",
-          answers: ["warlock's treasure", "wizard's treasure", "treasure", "never ending life", "eternal life", "immortality", "wealth", "dungeon"],
-          guidance: "Award 1 mark for: warlock's treasure, wizard's treasure, treasure"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q4",
+          "stem": "What was the legend about?",
+          "answers": [
+            "treasure"
+          ],
+          "guidance": "Award 1 mark for the warlock's (wizard's) treasure. Do not accept never ending life, wealth or dungeon alone."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
@@ -657,10 +851,13 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: never ending life, eternal life, immortality"
         },
         {
-                    num: 3, domain: "vocabulary", type: "find_copy", key: "q6",
-          stem: "The text describes the wizard as wicked. Find and copy one example of something he did that was wicked.",
-          answer: "used dark magic to stay young and maintain his strength",
-          guidance: "Award 1 mark for: used dark magic to stay young and maintain his strength"
+          "num": 3,
+          "domain": "inference",
+          "type": "open",
+          "key": "q6",
+          "stem": "The text describes the wizard as wicked. What did he do that was wicked?",
+          "answer": "used dark magic to stay young and maintain his strength",
+          "guidance": "Accept a wicked act from the text: he used dark magic to stay young / live for ever, or he gathered wealth through foul means (by wicked or unfair ways). Do not accept only that he built a tower, lived alone or had a dungeon."
         }
     ]
   },
@@ -668,10 +865,15 @@ const SESSIONS_Y3 = [
     idx: 15, set: "A", textIndex: 7,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q1",
-          stem: "What language does the root of the word ‘sentence’ come from?",
-          answers: ["Latin", "Romans", "Latin language", "Roman language", "language Romans spoke"],
-          guidance: "Award 1 mark for: Latin, Romans, Latin language"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q1",
+          "stem": "What language does the root of the word ‘sentence’ come from?",
+          "answers": [
+            "latin"
+          ],
+          "guidance": "Award 1 mark for Latin. Do not accept Romans alone (that is the next question)."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q2",
@@ -692,23 +894,43 @@ const SESSIONS_Y3 = [
     idx: 16, set: "B", textIndex: 7,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q4",
-          stem: "What can you use conjunctions to make?",
-          answers: ["longer sentences", "complex sentences", "longer complex sentences", "join sentences together"],
-          guidance: "Award 1 mark for: longer sentences, complex sentences, longer complex sentences"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q4",
+          "stem": "What can you use conjunctions to make?",
+          "answers": [
+            "longer",
+            "complex"
+          ],
+          "guidance": "Award 1 mark for longer sentences or more complex sentences. Do not accept 'join sentences together'."
         },
         {
-                    num: 2, domain: "vocabulary", type: "mc", key: "q5",
-          stem: "Which word is used to describe longer sentences that contain conjunctions? Tick one.",
-          options: ["idea", "opinion", "complex", "Roman"],
-          answer: "complex",
-          guidance: "Answer: complex."
+          "num": 2,
+          "domain": "retrieval",
+          "type": "mc",
+          "key": "q5",
+          "stem": "Which word is used to describe longer sentences that contain conjunctions? Tick one.",
+          "options": [
+            "idea",
+            "opinion",
+            "complex",
+            "Roman"
+          ],
+          "answer": "complex",
+          "guidance": "Answer: complex."
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q6",
-          stem: "According to the text, what should each sentence contain?",
-          answers: ["thought", "idea", "sense", "opinion", "meaning", "make sense"],
-          guidance: "Award 1 mark for: thought, idea, sense"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q6",
+          "stem": "According to the text, what should each sentence contain?",
+          "answers": [
+            "thought",
+            "idea"
+          ],
+          "guidance": "Award 1 mark for a thought or idea (that makes sense). Do not accept opinion or meaning alone."
         }
     ]
   },
@@ -722,16 +944,31 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: wall, corner shop wall, the wall"
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q2",
-          stem: "What were Troy’s friends doing?",
-          answers: ["choosing sweets", "enjoying sweets", "inside the shop", "selecting sweets", "picking sweets", "choosing candy"],
-          guidance: "Award 1 mark for: choosing sweets, enjoying sweets, inside the shop"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q2",
+          "stem": "What were Troy’s friends doing?",
+          "answers": [
+            "choosing sweets",
+            "enjoying sweets",
+            "inside the shop",
+            "selecting sweets",
+            "picking sweets"
+          ],
+          "guidance": "Award 1 mark for choosing / picking sweets inside the shop."
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q3",
-          stem: "How much money did Troy have?",
-          answers: ["three pence", "3 pence", "3p", "three", "pence", "coins"],
-          guidance: "Award 1 mark for: three pence, 3 pence, 3p"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "How much money did Troy have?",
+          "answers": [
+            "three pence",
+            "3 pence"
+          ],
+          "guidance": "Award 1 mark for three pence (3p / 3 pence). Do not accept amounts other than three pence or just 'coins'."
         }
     ]
   },
@@ -746,10 +983,15 @@ const SESSIONS_Y3 = [
           guidance: "Answer: not enough."
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q5",
-          stem: "What did Troy used to rub his two pence coin?",
-          answers: ["thumb", "his thumb", "rubbed his thumb", "thumb over", "cleaned it"],
-          guidance: "Award 1 mark for: thumb, his thumb, rubbed his thumb"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "What did Troy use to rub his two pence coin?",
+          "answers": [
+            "thumb"
+          ],
+          "guidance": "Award 1 mark for his thumb. Do not accept 'cleaned it'."
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
@@ -775,10 +1017,17 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: kilos, grams, units of mass"
         },
         {
-                    num: 3, domain: "vocabulary", type: "find_copy", key: "q3",
-          stem: "Find and copy the words that describe what weight really is.",
-          answer: "Weight is a force caused by the effect of gravity on a mass.",
-          guidance: "Award 1 mark for: Weight is a force caused by the effect of gravity on a mass."
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "Find and copy the words that describe what weight really is.",
+          "answer": "Weight is a force caused by the effect of gravity on a mass.",
+          "guidance": "Award 1 mark for copying the definition: a force caused by the effect of gravity on a mass (the words 'Weight is' may be included). Do not accept 'mass' alone.",
+          "answers": [
+            "force caused by the effect of gravity",
+            "force caused by gravity"
+          ]
         }
     ]
   },
@@ -786,16 +1035,26 @@ const SESSIONS_Y3 = [
     idx: 20, set: "B", textIndex: 9,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q4",
-          stem: "Where does the text say your weight be less than on Earth?",
-          answers: ["moon", "on the moon", "the moon", "moon's gravity", "less gravity", "weigh less"],
-          guidance: "Award 1 mark for: moon, on the moon, the moon"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q4",
+          "stem": "Where does the text say your weight would be less than on Earth?",
+          "answers": [
+            "moon"
+          ],
+          "guidance": "Award 1 mark for the moon. Do not accept 'less gravity' alone."
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q5",
-          stem: "On which planet would your weight be greater?",
-          answers: ["Jupiter", "Jupiter's gravity", "greater gravity", "stronger gravity", "larger planet", "Jupiter would"],
-          guidance: "Award 1 mark for: Jupiter, Jupiter's gravity, greater gravity"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "On which planet would your weight be greater?",
+          "answers": [
+            "jupiter"
+          ],
+          "guidance": "Award 1 mark for Jupiter."
         },
         {
                     num: 3, domain: "vocabulary", type: "find_copy", key: "q6",
@@ -816,16 +1075,28 @@ const SESSIONS_Y3 = [
           guidance: "Answer: very."
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q2",
-          stem: "What does the text say would happen if no plants were able to grow?",
-          answers: ["nothing to eat", "there would be nothing to eat", "no food", "would starve", "starvation"],
-          guidance: "Award 1 mark for: nothing to eat, there would be nothing to eat, no food"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q2",
+          "stem": "What does the text say would happen if no plants were able to grow?",
+          "answers": [
+            "nothing to eat",
+            "no food"
+          ],
+          "guidance": "Award 1 mark for: there would be nothing to eat (no food). Do not accept starve unless it says nothing to eat."
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q3",
-          stem: "Why does the text suggest having the recipe might be useful?",
-          answers: ["ran out of soil", "ran out", "in case we ran out", "if we ran out", "emergency", "backup plan"],
-          guidance: "Award 1 mark for: ran out of soil, ran out, in case we ran out"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "Why does the text suggest having the recipe might be useful?",
+          "answers": [
+            "ran out",
+            "run out"
+          ],
+          "guidance": "Award 1 mark for: in case we ever ran out (of soil). Do not accept emergency or backup plan alone."
         }
     ]
   },
@@ -839,11 +1110,19 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: crunched rocks, crushed rocks, rocks"
         },
         {
-                    num: 2, domain: "vocabulary", type: "mc", key: "q5",
-          stem: "These need to be ground into tiny particles… Which word is closest in meaning to ground? Tick one.",
-          options: ["rocks", "soil", "cooked", "crunched"],
-          answer: "rocks",
-          guidance: "Answer: rocks."
+          "num": 2,
+          "domain": "vocabulary",
+          "type": "mc",
+          "key": "q5",
+          "stem": "These need to be ground into tiny particles… Which word is closest in meaning to ground? Tick one.",
+          "options": [
+            "rocks",
+            "soil",
+            "cooked",
+            "crunched"
+          ],
+          "answer": "crunched",
+          "guidance": "Answer: crunched."
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q6",
@@ -857,16 +1136,33 @@ const SESSIONS_Y3 = [
     idx: 23, set: "A", textIndex: 11,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "find_copy", key: "q1",
-          stem: "The text names three sorts of places where people live. Find and copy two of them.",
-          answer: "village, town or city",
-          guidance: "Award 1 mark for: village, town or city"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q1",
+          "stem": "The text names three sorts of places where people live. Find and copy two of them.",
+          "answer": "village, town or city",
+          "guidance": "Award 1 mark for any two of: village, town, city. One place alone gets no mark.",
+          "answers": [
+            "village, town",
+            "village and town",
+            "village or town",
+            "village, city",
+            "village and city",
+            "village or city",
+            "town or city",
+            "town and city",
+            "town, city"
+          ]
         },
         {
-                    num: 2, domain: "vocabulary", type: "find_copy", key: "q2",
-          stem: "Find and copy the word that describes how long these places have been there.",
-          answer: "for centuries",
-          guidance: "Award 1 mark for: for centuries"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "find_copy",
+          "key": "q2",
+          "stem": "Find and copy the word that tells you how long these places have been there.",
+          "answer": "centuries",
+          "guidance": "Award 1 mark for: for centuries"
         },
         {
                     num: 3, domain: "vocabulary", type: "mc", key: "q3",
@@ -887,15 +1183,24 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: keep your eyes open, eyes open, look"
         },
         {
-          num: 2, domain: "inference", type: "open", key: "q5",
-          stem: "What might you have not given a second glance?",
-          guidance: ""
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "What does the text say you may never have given a second glance?",
+          "guidance": "Award 1 mark for a statue.",
+          "answers": [
+            "statue"
+          ]
         },
         {
-                    num: 3, domain: "vocabulary", type: "find_copy", key: "q6",
-          stem: "Find and copy the two places where the text suggests you might see names.",
-          answer: "buildings or street signs",
-          guidance: "Award 1 mark for: buildings or street signs"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "find_copy",
+          "key": "q6",
+          "stem": "Find and copy the two places where the text suggests you might see names.",
+          "answer": "buildings or street signs",
+          "guidance": "Award 1 mark for: buildings or street signs"
         }
     ]
   },
@@ -909,16 +1214,27 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: Look"
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q2",
-          stem: "What are North and South America joined by?",
-          answers: ["narrow strip of land", "strip of land", "isthmus", "Panama", "land bridge", "narrow land"],
-          guidance: "Award 1 mark for: narrow strip of land, strip of land, isthmus"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q2",
+          "stem": "What are North and South America joined by?",
+          "answers": [
+            "strip of land",
+            "narrow strip"
+          ],
+          "guidance": "Award 1 mark for a (very) narrow strip of land. Do not accept Panama, isthmus or land bridge alone."
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q3",
-          stem: "What are the Atlantic and Pacific?",
-          answers: ["oceans", "two oceans", "bodies of water", "seas", "water", "Atlantic Ocean", "Pacific Ocean"],
-          guidance: "Award 1 mark for: oceans, two oceans, bodies of water"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "What kind of water are the Atlantic and the Pacific?",
+          "answers": [
+            "ocean"
+          ],
+          "guidance": "Award 1 mark for oceans. Do not accept seas or just water."
         }
     ]
   },
@@ -932,16 +1248,26 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: nearly two weeks, two weeks, about two weeks"
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q5",
-          stem: "What does the text suggest made this trip dangerous?",
-          answers: ["rough seas", "dangerous waters", "harsh conditions", "difficult journey", "treacherous seas", "challenging voyage"],
-          guidance: "Award 1 mark for: rough seas, dangerous waters, harsh conditions"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "What made the journey around South America difficult?",
+          "answers": [
+            "rough sea"
+          ],
+          "guidance": "Award 1 mark for very rough seas. Do not accept vague answers like difficult journey."
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q6",
-          stem: "What is the name of the place through which the ship canal passes?",
-          answers: ["Panama", "Panama Canal", "through Panama", "strip of land", "narrow strip"],
-          guidance: "Award 1 mark for: Panama, Panama Canal, through Panama"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q6",
+          "stem": "What is the name of the place through which the ship canal passes?",
+          "answers": [
+            "panama"
+          ],
+          "guidance": "Award 1 mark for Panama."
         }
     ]
   },
@@ -972,23 +1298,43 @@ const SESSIONS_Y3 = [
     idx: 28, set: "B", textIndex: 13,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q4",
-          stem: "What are vocal chords folded strips of?",
-          answers: ["tissue", "folded strips of tissue", "strips of tissue"],
-          guidance: "Award 1 mark for: tissue, folded strips of tissue, strips of tissue"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q4",
+          "stem": "What are vocal cords folded strips of?",
+          "answers": [
+            "tissue",
+            "folded strips of tissue",
+            "strips of tissue"
+          ],
+          "guidance": "Award 1 mark for: tissue, folded strips of tissue, strips of tissue"
         },
         {
-                    num: 2, domain: "vocabulary", type: "mc", key: "q5",
-          stem: "… these make the air vibrate at different speeds. Which word is closest in meaning to vibrate? Tick one.",
-          options: ["sound", "shake", "sing", "tune"],
-          answer: "shake",
-          guidance: "Answer: shake."
+          "num": 2,
+          "domain": "vocabulary",
+          "type": "mc",
+          "key": "q5",
+          "stem": "… These move in a way that makes the air vibrate … Which word is closest in meaning to vibrate? Tick one.",
+          "options": [
+            "sound",
+            "shake",
+            "sing",
+            "tune"
+          ],
+          "answer": "shake",
+          "guidance": "Answer: shake."
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q6",
-          stem: "What makes higher notes?",
-          answers: ["faster movements", "faster", "vocal chords move faster", "faster vibrations", "quick movements", "speed"],
-          guidance: "Award 1 mark for: faster movements, faster, vocal chords move faster"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q6",
+          "stem": "What makes higher notes?",
+          "answers": [
+            "faster"
+          ],
+          "guidance": "Award 1 mark for faster movements (vocal cords moving faster). Do not accept speed alone."
         }
     ]
   },
@@ -996,10 +1342,17 @@ const SESSIONS_Y3 = [
     idx: 29, set: "A", textIndex: 14,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q1",
-          stem: "What will great sports teams always need?",
-          answers: ["great players", "skilled individuals", "skilled players", "best players", "talented players", "great athletes"],
-          guidance: "Award 1 mark for: great players, skilled individuals, skilled players"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q1",
+          "stem": "What will great sports teams always need?",
+          "answers": [
+            "great players",
+            "skilled individuals",
+            "skilled players"
+          ],
+          "guidance": "Award 1 mark for: great players, skilled individuals."
         },
         {
                     num: 2, domain: "vocabulary", type: "mc", key: "q2",
@@ -1020,16 +1373,26 @@ const SESSIONS_Y3 = [
     idx: 30, set: "B", textIndex: 14,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q4",
-          stem: "What sort of team could have all the best bowlers?",
-          answers: ["cricket team", "cricket", "team", "bowlers", "a cricket team", "all the best bowlers"],
-          guidance: "Award 1 mark for: cricket team, cricket, team"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q4",
+          "stem": "What sort of team could have all the best bowlers?",
+          "answers": [
+            "cricket"
+          ],
+          "guidance": "Award 1 mark for a cricket team."
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q5",
-          stem: "What could a netball team be superb at doing?",
-          answers: ["keeping possession", "possession", "keeping", "defence", "defending"],
-          guidance: "Award 1 mark for: keeping possession, possession, keeping"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "What could a netball team be superb at doing?",
+          "answers": [
+            "possession"
+          ],
+          "guidance": "Award 1 mark for keeping possession. Do not accept defence or defending."
         },
         {
                     num: 3, domain: "vocabulary", type: "mc", key: "q6",
@@ -1044,11 +1407,19 @@ const SESSIONS_Y3 = [
     idx: 31, set: "A", textIndex: 15,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "mc", key: "q1",
-          stem: "English is a very rich and special language. Which word is closest in meaning to rich? Tick one.",
-          options: ["expensive", "full", "funny", "creamy"],
-          answer: "full",
-          guidance: "Answer: full."
+          "num": 1,
+          "domain": "vocabulary",
+          "type": "mc",
+          "key": "q1",
+          "stem": "English is a very rich and special language. Which word is closest in meaning to rich? Tick one.",
+          "options": [
+            "expensive",
+            "full of variety",
+            "funny",
+            "creamy"
+          ],
+          "answer": "full of variety",
+          "guidance": "Answer: full of variety."
         },
         {
                     num: 2, domain: "vocabulary", type: "find_copy", key: "q2",
@@ -1057,10 +1428,15 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: express"
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q3",
-          stem: "Which word is used to describe our history?",
-          answers: ["eventful", "our history is eventful", "eventful history", "history is eventful", "Thanks to our eventful history"],
-          guidance: "Award 1 mark for: eventful, our history is eventful, eventful history"
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "Which word is used to describe our history?",
+          "answers": [
+            "eventful"
+          ],
+          "guidance": "Award 1 mark for eventful."
         }
     ]
   },
@@ -1068,16 +1444,26 @@ const SESSIONS_Y3 = [
     idx: 32, set: "B", textIndex: 15,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q4",
-          stem: "What does the prefix bi mean?",
-          answers: ["two", "bi means two", "the number two", "means two", "prefix bi two", "two wheels"],
-          guidance: "Award 1 mark for: two, bi means two, the number two"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q4",
+          "stem": "What does bi mean in the word bicycle?",
+          "answers": [
+            "two"
+          ],
+          "guidance": "Award 1 mark for two."
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q5",
-          stem: "From which language does the root word cycle come?",
-          answers: ["Greek", "Greek for circle", "Greek for wheel", "cycle comes from Greek", "from Greek"],
-          guidance: "Award 1 mark for: Greek, Greek for circle, Greek for wheel"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "Which language does the word for circle or wheel come from?",
+          "answers": [
+            "greek"
+          ],
+          "guidance": "Award 1 mark for Greek."
         },
         {
                     num: 3, domain: "vocabulary", type: "mc", key: "q6",
@@ -1092,15 +1478,27 @@ const SESSIONS_Y3 = [
     idx: 33, set: "A", textIndex: 16,
     questions: [
         {
-                    num: 1, domain: "vocabulary", type: "find_copy", key: "q1",
-          stem: "Find and copy the two words used describe how someone had tried to make the room look.",
-          answer: "calm and relaxing",
-          guidance: "Award 1 mark for: calm and relaxing"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q1",
+          "stem": "Find and copy the two words that describe how someone tried to make the room look.",
+          "answer": "calm and relaxing",
+          "guidance": "Award 1 mark for calm and relaxing (both words needed).",
+          "answers": [
+            "calm and relaxing",
+            "calm, relaxing",
+            "calm relaxing",
+            "relaxing and calm"
+          ]
         },
         {
-          num: 2, domain: "inference", type: "open", key: "q2",
-          stem: "The room was supposed to make people feel at home. How do you know this hadn’t been achieved?",
-          guidance: ""
+          "num": 2,
+          "domain": "inference",
+          "type": "open",
+          "key": "q2",
+          "stem": "The room was supposed to make people feel at home. How do you know this hadn’t been achieved?",
+          "guidance": "Award 1 mark for a reason showing the room did not feel homely, e.g. the coffee table with magazines 'tried and failed' to look like an ordinary cosy lounge, or Zara could only think about her teeth / was worried. Do not accept answers that just say she did not like it with no evidence."
         },
         {
           num: 3, domain: "retrieval", type: "short", key: "q3",
@@ -1120,16 +1518,27 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: magazines, covered with magazines, magazines on the coffee table"
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q5",
-          stem: "What hadn’t Zara lost?",
-          answers: ["baby teeth", "all her baby teeth", "baby teeth yet", "teeth"],
-          guidance: "Award 1 mark for: baby teeth, all her baby teeth, baby teeth yet"
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q5",
+          "stem": "What hadn't Zara lost all of yet?",
+          "answers": [
+            "baby teeth"
+          ],
+          "guidance": "Award 1 mark for baby teeth. Do not accept 'teeth' alone."
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q6",
-          stem: "Where do you think Zara was?",
-          answers: ["dentist", "dentist's office", "dental office", "dental clinic", "dentist's surgery", "dental surgery"],
-          guidance: "Award 1 mark for: dentist, dentist's office, dental office"
+          "num": 3,
+          "domain": "inference",
+          "type": "short",
+          "key": "q6",
+          "stem": "Where do you think Zara was?",
+          "answers": [
+            "dentist",
+            "dental"
+          ],
+          "guidance": "Award 1 mark for the dentist (dentist's, dental surgery / clinic / office). Do not accept hospital or doctor."
         }
     ]
   },
@@ -1143,10 +1552,22 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: dark cloud, cloud, sadness"
         },
         {
-          num: 2, domain: "retrieval", type: "short", key: "q2",
-          stem: "… I felt like I was wearing a high-viz jacket of sadness … What does the author mean by this?",
-          answers: ["visible", "obvious", "noticeable", "sadness was apparent", "sadness was obvious", "sadness was on display", "clearly visible", "couldn't be missed"],
-          guidance: "Award 1 mark for: visible, obvious, noticeable"
+          "num": 2,
+          "domain": "inference",
+          "type": "open",
+          "key": "q2",
+          "stem": "… I felt like I was wearing a high-viz jacket of sadness … What does the author mean by this?",
+          "answers": [
+            "visible",
+            "obvious",
+            "noticeable",
+            "sadness was apparent",
+            "sadness was obvious",
+            "sadness was on display",
+            "clearly visible",
+            "couldn't be missed"
+          ],
+          "guidance": "Award 1 mark for explaining that the narrator's sadness felt very obvious / easy for others to see (like a bright high-viz jacket), even though nobody noticed. Do not accept answers about a real jacket or about the weather."
         },
         {
                     num: 3, domain: "vocabulary", type: "mc", key: "q3",
@@ -1167,17 +1588,35 @@ const SESSIONS_Y3 = [
           guidance: "Award 1 mark for: back, corner, seat at the back"
         },
         {
-                    num: 2, domain: "vocabulary", type: "mc", key: "q5",
-          stem: "…I used my finger to track … Which word is closest in meaning to track? Tick one.",
-          options: ["railway", "path", "follow", "train"],
-          answer: "path",
-          guidance: "Answer: path."
+          "num": 2,
+          "domain": "vocabulary",
+          "type": "mc",
+          "key": "q5",
+          "stem": "…I used my finger to track … Which word is closest in meaning to track? Tick one.",
+          "options": [
+            "railway",
+            "hide",
+            "follow",
+            "train"
+          ],
+          "answer": "follow",
+          "guidance": "Answer: follow."
         },
         {
-          num: 3, domain: "retrieval", type: "short", key: "q6",
-          stem: "What do you think the author means by follow the right path?",
-          answers: ["metaphor", "life direction", "guidance", "uncertain future", "finding way forward", "emotional struggle"],
-          guidance: "Award 1 mark for: metaphor, life direction, guidance"
+          "num": 3,
+          "domain": "inference",
+          "type": "open",
+          "key": "q6",
+          "stem": "What do you think the author means by follow the right path?",
+          "answers": [
+            "metaphor",
+            "life direction",
+            "guidance",
+            "uncertain future",
+            "finding way forward",
+            "emotional struggle"
+          ],
+          "guidance": "Award 1 mark for an idea that the narrator is trying to find the right way forward / cope with or deal with the sadness (e.g. trying to find the way to feel better). Do not accept answers that only say 'metaphor' or only describe following the rain drops."
         }
     ]
   },
@@ -1185,22 +1624,38 @@ const SESSIONS_Y3 = [
     idx: 37, set: "A", textIndex: 18,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q1",
-          stem: "What did Agnes do at the top of the stairs?",
-          answers: ["took a deep breath", "breathe", "deep breath", "paused", "stopped"],
-          guidance: "Award 1 mark for: took a deep breath, breathe, deep breath"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q1",
+          "stem": "What did Agnes do at the top of the stairs?",
+          "answers": [
+            "deep breath"
+          ],
+          "guidance": "Award 1 mark for taking a deep breath. Do not accept paused or stopped."
         },
         {
-          num: 2, domain: "inference", type: "open", key: "q2",
-          stem: "How is Agnes feeling? Use evidence from the text to support your answer.",
-          guidance: ""
+          "num": 2,
+          "domain": "inference",
+          "type": "open",
+          "key": "q2",
+          "stem": "How is Agnes feeling? Use evidence from the text to support your answer.",
+          "guidance": "Award 1 mark for a feeling of nervous / worried / scared / anxious WITH evidence from the text, e.g. took a deep breath, trembling, could hardly hold the handle, worrying she had done something wrong. A feeling with no evidence is not enough."
         },
         {
-                    num: 3, domain: "vocabulary", type: "mc", key: "q3",
-          stem: "… walked down the dimly lit passage … Which word is closest in meaning to dimly? Tick one.",
-          options: ["brightly", "poorly", "quickly", "angrily"],
-          answer: "poorly",
-          guidance: "Answer: poorly."
+          "num": 3,
+          "domain": "vocabulary",
+          "type": "mc",
+          "key": "q3",
+          "stem": "… walked down the dimly lit passage … Which word is closest in meaning to dimly? Tick one.",
+          "options": [
+            "brightly",
+            "faintly",
+            "quickly",
+            "angrily"
+          ],
+          "answer": "faintly",
+          "guidance": "Answer: faintly."
         }
     ]
   },
@@ -1208,10 +1663,16 @@ const SESSIONS_Y3 = [
     idx: 38, set: "B", textIndex: 18,
     questions: [
         {
-          num: 1, domain: "retrieval", type: "short", key: "q4",
-          stem: "What glared down at Agnes?",
-          answers: ["portraits", "old portraits", "grumpy old portraits", "pictures on the wall", "wall"],
-          guidance: "Award 1 mark for: portraits, old portraits, grumpy old portraits"
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q4",
+          "stem": "What glared down at Agnes?",
+          "answers": [
+            "portrait",
+            "pictures on the wall"
+          ],
+          "guidance": "Award 1 mark for the (grumpy old) portraits / pictures on the wall. Do not accept 'wall' alone."
         },
         {
           num: 2, domain: "retrieval", type: "short", key: "q5",
@@ -1460,8 +1921,12 @@ function autoMark(questions) {
         scores[q.key] = null;
       }
     } else if (q.type === 'short_parts') {
+      const usedAnswers = new Set();   // the same answer written in two parts only earns one mark automatically
       q.parts.forEach(p => {
-        if (p.answers && p.answers.length) {
+        const given = (answers[p.key] || '').toLowerCase().trim();
+        const repeated = given !== '' && usedAnswers.has(given);
+        usedAnswers.add(given);
+        if (p.answers && p.answers.length && !repeated) {
           scores[p.key] = matchAnswers(answers[p.key] || '', p.answers) ? 1 : null;
         } else {
           scores[p.key] = null;
@@ -1583,6 +2048,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-14.10.26c</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-14.10.26d</p>
 </body>
 </html>

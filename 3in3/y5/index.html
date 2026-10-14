@@ -1181,13 +1181,13 @@ const SESSIONS_Y3 = [
           "key": "q4",
           "stem": "…pulled out his feeble collection of coins. Which word is closest in meaning to feeble? Tick one.",
           "options": [
-            "not enough",
+            "weak",
             "shiny",
             "sweet",
             "too much"
           ],
-          "answer": "not enough",
-          "guidance": "Answer: not enough."
+          "answer": "weak",
+          "guidance": "Answer: weak."
         },
         {
           "num": 2,
@@ -1495,9 +1495,9 @@ const SESSIONS_Y3 = [
           "domain": "vocabulary",
           "type": "find_copy",
           "key": "q1",
-          "stem": "Find and copy the word in the first sentence that means see.",
-          "answer": "Look",
-          "guidance": "Award 1 mark for: Look"
+          "stem": "Find and copy the word in the first sentence that means ‘become aware of’.",
+          "answer": "notice",
+          "guidance": "Award 1 mark for: notice"
         },
         {
           "num": 2,
@@ -2345,12 +2345,20 @@ const SESSIONS_Y4 = [
         answer: 'in some ways'
       },
       {
-        num: 2, domain: 'vocabulary', type: 'mc', key: 'q2',
-        stem: 'In this context, which word is closest in meaning to concerned?',
-        quote: '… As far as Britain is concerned …',
-        options: ['involved', 'worried', 'extinct', 'invaded'],
-        answer: 'involved'
-      },
+          "num": 2,
+          "domain": "vocabulary",
+          "type": "mc",
+          "key": "q2",
+          "stem": "In this context, which phrase is closest in meaning to ‘As far as Britain is concerned’?",
+          "quote": "… As far as Britain is concerned …",
+          "options": [
+            "when it comes to",
+            "when it is afraid",
+            "when it is worried",
+            "when it is far away"
+          ],
+          "answer": "when it comes to"
+        },
       {
           "num": 3,
           "domain": "retrieval",
@@ -2408,10 +2416,13 @@ const SESSIONS_Y4 = [
         guidance: "By mentioning 'your own address' and 'your home town's name' – directly involving the reader and suggesting the Anglo Saxon influence might apply to where they live."
       },
       {
-        num: 3, domain: 'inference', type: 'open', key: 'q3',
-        stem: "Your next question is, what do these roots mean? Why do you think the author doesn't explain what the roots mean?",
-        guidance: "To create curiosity and encourage the reader to find out for themselves; or the passage is intended as an introduction and the explanation would follow in the next part of the text."
-      }
+          "num": 3,
+          "domain": "inference",
+          "type": "open",
+          "key": "q3",
+          "stem": "Your next question is, what do these roots mean? What effect does ending the text with a question have on the reader?",
+          "guidance": "Award 1 mark for the idea that it makes the reader curious or want to read on or find out the answer for themselves."
+        }
     ]
   },
   {
@@ -2914,11 +2925,17 @@ const SESSIONS_Y4 = [
         answer: 'out of control'
       },
       {
-        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
-        stem: 'Who had some success on the battlefield?',
-        answers: ['saxons', 'anglo saxons'],
-        guidance: 'The Saxons (Anglo Saxons).'
-      }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "Which group preferred to live and farm in peace even though they had some success on the battlefield?",
+          "answers": [
+            "saxons",
+            "anglo saxons"
+          ],
+          "guidance": "The Saxons (Anglo Saxons)."
+        }
     ]
   },
   {
@@ -5157,6 +5174,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y5-14.10.26d</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y5-14.10.26e</p>
 </body>
 </html>

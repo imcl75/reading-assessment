@@ -98,17 +98,17 @@ body.nopics .pic{display:none}
     <p class="meta" id="lvmeta"></p>
   </section>
   <section class="card">
-    <h2>2. Choose a text (three per level)</h2>
+    <h2>2. Choose a text</h2>
     <div class="row" id="texts"></div>
     <p class="note" id="txNote"></p>
     <div class="actions">
       <button class="act" id="pPupil">Print this pupil copy</button>
       <button class="act alt" id="pTeacher">Print this teacher copy</button>
-      <button class="act alt" id="pAllPupil">Print all 3 pupil copies</button>
-      <button class="act alt" id="pAllTeacher">Print all 3 teacher copies</button>
+      <button class="act alt" id="pAllPupil">Print all pupil copies</button>
+      <button class="act alt" id="pAllTeacher">Print all teacher copies</button>
     </div>
     <div class="actions">
-      <button class="act alt" id="pEveryPupil">Print every pupil copy, every phase (33 pages)</button>
+      <button class="act alt" id="pEveryPupil">Print every pupil copy, every phase</button>
     </div>
     <label class="opt"><input type="checkbox" id="picToggle" checked> Show the picture on printed sheets</label>
     <p class="note">Adults read the questions aloud and the child answers out loud (or writes if they can). The child reads the text themselves.</p>
@@ -136,7 +136,7 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "14.10.26i";
+const VERSION = "14.10.26j";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
@@ -233,6 +233,7 @@ function renderLevels(){
 function renderTexts(){
   $("texts").innerHTML = L.texts.map((t,i)=>'<button class="tx" data-i="'+i+'" aria-pressed="'+(i===T)+'">'+(i+1)+'. '+esc(t.title)+'</button>').join("");
   const t = L.texts[T];
+  { const n=L.texts.length; $("pAllPupil").textContent="Print all "+n+" pupil copies"; $("pAllTeacher").textContent="Print all "+n+" teacher copies"; $("pEveryPupil").textContent="Print every pupil copy, every phase ("+DATA.reduce((a,l)=>a+l.texts.length,0)+" pages)"; }
   $("tt").textContent = t.title+' ('+t.text.split(/\s+/).length+' words)';
   $("passage").textContent = t.text;
   const pic = $("pic"); if (t.images.length) { pic.innerHTML = t.images.map(s=>'<img class="pic" src="'+s+'" alt="">').join(''); pic.hidden = false; } else { pic.hidden = true; }

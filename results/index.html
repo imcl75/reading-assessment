@@ -327,7 +327,7 @@ function targetLevelFor(yearGroup, term){
   return row && t >= 1 && t <= 6 && row[t - 1] != null ? row[t - 1] : null;
 }
 
-const VERSION = "14.10.26d";
+const VERSION = "14.10.26e";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };

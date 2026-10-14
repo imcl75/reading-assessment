@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<!-- 3in3/y4/setup.html — Manage children in the Y4 3 in 3 intervention -->
+<!-- 3in3/y6/setup.html — Manage children in the Y4 3 in 3 intervention -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3 in 3 Setup — Year 6</title>
+<script src="https://cdn.jsdelivr.net/gh/wallscourtfarm/wfa-shared@main/web/names-file.js?v=2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root { --brand: #1798d3; --brand-dk: #0a6fa8; }
@@ -77,7 +78,7 @@ h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; margin-bottom: 2p
   <div class="card">
     <h2>👧 Add a Child</h2>
     <p class="hint">Search for the child on the school roster, then choose which year's intervention content they'll work on. A Year 6 child who is reading significantly below age-related expectations may be doing Year 3 content.</p>
-    <input type="text" id="roster-search" class="inp-name" style="width:100%" placeholder="Type a name…" autocomplete="off" oninput="renderRosterResults()">
+    <input type="text" id="roster-search" class="inp-name" style="width:100%" placeholder="Type initials or a class, e.g. IM or 5IM…" autocomplete="off" oninput="renderRosterResults()">
     <div id="roster-results" style="max-height:200px;overflow-y:auto;border:1px solid #ddd;border-radius:8px;margin-top:8px;display:none"></div>
     <div class="add-row" id="add-row-picked" style="display:none;margin-top:12px">
       <span id="picked-name" style="font-weight:800;flex:1;color:#1a1a2e"></span>
@@ -162,29 +163,43 @@ async function loadRosterCandidates() {
   if (document.getElementById('roster-search').value.trim()) renderRosterResults();
 }
 
+function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+// Children are shown as INITIALS (label) and identified by pupil code; no name or UPN is stored here.
+function tagOf(c) { return c.label || (c.name ? c.name.trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2) : '?'); }
+function pidOf(c) { return c.pupilCode ? ` data-pupil-id="${esc(c.pupilCode)}"` : ''; }
+
 function renderRosterResults() {
   const q = document.getElementById('roster-search').value.trim().toLowerCase();
   const box = document.getElementById('roster-results');
   pickRosterReset();
   if (!q) { box.style.display = 'none'; return; }
-  const matches = rosterCandidates.filter(p => (p.first + ' ' + p.last).toLowerCase().includes(q)).slice(0, 8);
+  const have = new Set(children.map(c => c.pupilCode).filter(Boolean));
+  const matches = rosterCandidates
+    .filter(p => p.pupilCode && !have.has(p.pupilCode)
+      && ((p.label || '').toLowerCase().includes(q) || (p.class || '').toLowerCase().includes(q) || ((p.class || '') + ' ' + (p.label || '')).toLowerCase().includes(q)))
+    .sort((a, b) => (a.class || '').localeCompare(b.class || '') || (a.label || '').localeCompare(b.label || ''))   // first-initial order
+    .slice(0, 12);
   if (!matches.length) {
     box.innerHTML = '<div style="padding:10px;color:#aaa;font-size:13px">No matches</div>';
   } else {
     box.innerHTML = matches.map(p =>
-      `<div onclick="pickRosterPupil('${p.upn}')" style="padding:9px 12px;cursor:pointer;border-bottom:1px solid #f0f0f0;font-size:14px" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">${p.first} ${p.last} <span style="color:#aaa;font-size:12px">${p.class||''}</span></div>`
+      `<div onclick="pickRosterPupil('${esc(p.pupilCode)}')" style="padding:9px 12px;cursor:pointer;border-bottom:1px solid #f0f0f0;font-size:14px" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''"><span data-pupil-id="${esc(p.pupilCode)}">${esc(p.label)}</span> <span style="color:#aaa;font-size:12px">${esc(p.yearGroup||'')} ${esc(p.class||'')}</span></div>`
     ).join('');
   }
   box.style.display = 'block';
+  try { if (window.WFANames && WFANames.screen && WFANames.screen.active) WFANames.screen._swapAll(box); } catch (e) {}
 }
 
-function pickRosterPupil(upn) {
-  rosterPicked = rosterCandidates.find(p => p.upn === upn);
+function pickRosterPupil(code) {
+  rosterPicked = rosterCandidates.find(p => p.pupilCode === code);
   if (!rosterPicked) return;
   document.getElementById('roster-results').style.display = 'none';
   document.getElementById('roster-search').value = '';
-  document.getElementById('picked-name').textContent = rosterPicked.first + ' ' + rosterPicked.last;
+  const pn = document.getElementById('picked-name');
+  pn.textContent = rosterPicked.label;
+  pn.setAttribute('data-pupil-id', rosterPicked.pupilCode);
   document.getElementById('add-row-picked').style.display = 'flex';
+  try { if (window.WFANames && WFANames.screen && WFANames.screen.active) WFANames.screen._swapAll(pn.parentNode); } catch (e) {}
 }
 
 function pickRosterReset() {
@@ -201,7 +216,7 @@ async function syncRosterQuiet() {
       children = result.pupils;
       renderList();
       if (result.unmatched && result.unmatched.length) {
-        showSaveMsg('Could not match on the roster: ' + result.unmatched.join(', ') + ' — check the name matches Bromcom exactly.', 'err');
+        showSaveMsg('Could not match on the roster: ' + result.unmatched.join(', ') + ' — remove them and add them again from the roster.', 'err');
       }
     }
   } catch(e) { /* background sync — non-critical */ }
@@ -211,13 +226,12 @@ async function syncRosterQuiet() {
 function addChild() {
   if (!rosterPicked) return;
   const yr = document.getElementById('inp-year').value;
-  const name = rosterPicked.first + ' ' + rosterPicked.last;
-  if (children.some(c => (c.upn && c.upn === rosterPicked.upn) || c.name.toLowerCase() === name.toLowerCase())) {
+  if (children.some(c => c.pupilCode === rosterPicked.pupilCode)) {
     showAddMsg('That child is already in the list.', 'err'); return;
   }
-  children.push({ name, upn: rosterPicked.upn, interventionYear: yr });
-  children.sort((a, b) => a.name.localeCompare(b.name));
-  rosterCandidates = rosterCandidates.filter(p => p.upn !== rosterPicked.upn);
+  children.push({ pupilCode: rosterPicked.pupilCode, label: rosterPicked.label, interventionYear: yr });
+  children.sort((a, b) => tagOf(a).localeCompare(tagOf(b)));
+  rosterCandidates = rosterCandidates.filter(p => p.pupilCode !== rosterPicked.pupilCode);
   pickRosterReset();
   renderList();
   showAddMsg('Added — remember to save.', 'ok');
@@ -231,6 +245,7 @@ function showAddMsg(t, c) {
 function renderList() {
   const list = document.getElementById('name-list');
   const saveBtn = document.getElementById('save-btn');
+  children.sort((a, b) => tagOf(a).localeCompare(tagOf(b)));      // first-initial order
   const active   = children.filter(c => !c.archived);
   const archived = children.filter(c => c.archived);
 
@@ -243,7 +258,7 @@ function renderList() {
   const activeHtml = active.length ? active.map((c, i) => {
     const realIdx = children.indexOf(c);
     return `<div class="name-row">
-      <span class="name-text">${c.name}</span>
+      <span class="name-text"${pidOf(c)}>${esc(tagOf(c))}</span>
       <span class="yr-chip ${c.interventionYear.toLowerCase()}">${c.interventionYear} content</span>
       <select class="yr-select" style="padding:6px 8px;font-size:12px;" onchange="changeYear(${realIdx}, this.value)">
         ${AVAILABLE_YEARS.map(y => '<option value="' + y + '"' + (y===c.interventionYear?' selected':'') + '>' + y + '</option>').join('')}
@@ -261,7 +276,7 @@ function renderList() {
       ${archived.map(c => {
         const realIdx = children.indexOf(c);
         return `<div class="name-row archived">
-          <span class="name-text" style="color:#aaa;">${c.name}</span>
+          <span class="name-text" style="color:#aaa;"${pidOf(c)}>${esc(tagOf(c))}</span>
           <span class="yr-chip ${c.interventionYear.toLowerCase()}" style="opacity:.5;">${c.interventionYear}</span>
           <button class="archive-btn" style="background:#e8f5e9;color:#2e7d32;border-color:#c8e6c9;" onclick="unarchiveChild(${realIdx})">Reactivate</button>
         </div>`;
@@ -306,7 +321,9 @@ function unarchiveChild(i) {
 async function save() {
   showSaveMsg('Saving…', '');
   try {
-    const payload = encodeURIComponent(JSON.stringify(children));
+    const payload = encodeURIComponent(JSON.stringify(children.map(c => c.pupilCode
+      ? { code: c.pupilCode, interventionYear: c.interventionYear, archived: !!c.archived }     // stored by pupil code only
+      : c)));                                                                                   // an old name-only entry is kept as it was
     const result = await jsonpFetch(
       BACKEND_URL + '?action=save3in3pupils&classYear=' + CLASS_YEAR + '&pupils=' + payload
     );
@@ -324,7 +341,8 @@ function showSaveMsg(t, c) {
 
 // Staff page: Cloudflare Access already checks the sign-in, so there is no PIN.
 loadCurrent();
+try { if (window.WFANames && WFANames.screen) WFANames.screen.init(); } catch (e) { /* names on screen is optional */ }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y6-06.10.26b</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y6-14.10.26a</p>
 </body>
 </html>

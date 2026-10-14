@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reading Assessment — Teacher Marking Panel</title>
+<script src="https://cdn.jsdelivr.net/gh/wallscourtfarm/wfa-shared@main/web/names-file.js?v=2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -368,7 +369,7 @@ async function loadSubmissions() {
 
   try {
     const data = await jsonpFetch(BACKEND_URL + '?action=results');
-    submissionsData = Array.isArray(data) ? data : [];
+    submissionsData = normRows(Array.isArray(data) ? data : []);
     renderSubmissions();
   } catch (err) {
     content.innerHTML = `<div class="empty-state"><p style="color:#ef4444">Failed to load submissions. Check your internet connection and try again.</p></div>`;
@@ -400,7 +401,7 @@ function renderSubmissions() {
 
   const rows = data.map(s => `
     <tr>
-      <td><strong>${esc(s.pupil)}</strong></td>
+      <td><strong${pid(s)}>${esc(s.pupil)}</strong></td>
       <td style="color:var(--muted);font-size:13px">${esc(s.date)}</td>
       <td style="color:var(--muted);font-size:13px">${esc(s.timeTaken)}</td>
       <td style="font-size:13px">${esc(s.sections)}</td>
@@ -513,7 +514,9 @@ function displayMarkingResults(results) {
   results.forEach(sub => {
     Object.entries(sub.marks || {}).forEach(([qid, mark]) => {
       rows.push({
-        pupil: sub.pupil,
+        pupil: sub.label || sub.pupil || '?',
+        pupilKey: sub.pupilCode || sub.pupil || '',
+        pupilCode: sub.pupilCode || '',
         date: sub.date,
         qid,
         score: mark.score,
@@ -549,23 +552,23 @@ function displayMarkingResults(results) {
       : `<span style="color:#aaa">—</span>`;
     const rowId = `row-${i}`;
     return `<tr id="${rowId}" class="${needsReview ? 'conf-low-row' : ''}">
-      <td><strong>${esc(r.pupil)}</strong><br><span style="font-size:12px;color:var(--muted)">${esc(r.date)}</span></td>
+      <td><strong${pid(r)}>${esc(r.pupil)}</strong><br><span style="font-size:12px;color:var(--muted)">${esc(r.date)}</span></td>
       <td style="font-weight:600">${esc(r.qid)}</td>
       <td style="max-width:260px;font-size:13px;color:#374151">${answerHtml}</td>
       <td>
         <span id="score-disp-${i}" style="font-weight:700;font-size:1.1rem">${scoreDisp}</span>
-        <button onclick="confirmOverride(${i},'${esc(r.pupil)}','${esc(r.qid)}',${r.max})"
+        <button onclick="confirmOverride(${i},'${esc(r.pupilKey)}','${esc(r.qid)}',${r.max})"
           style="margin-left:8px;background:#16a34a;color:#fff;border:none;border-radius:4px;padding:3px 9px;font-size:12px;cursor:pointer;font-weight:600"
           title="Confirm this score" id="confirm-btn-${i}">✓ Confirm</button>
-        <button onclick="startOverride(${i},'${esc(r.pupil)}','${esc(r.qid)}',${r.score},${r.max})"
+        <button onclick="startOverride(${i},'${esc(r.pupilKey)}','${esc(r.qid)}',${r.score},${r.max})"
           style="margin-left:4px;background:none;border:1px solid #d1d5db;border-radius:4px;padding:2px 7px;font-size:12px;cursor:pointer;color:#6b7280"
           title="Change score" id="edit-btn-${i}">✏️ Change</button>
         <span id="override-ui-${i}" style="display:none;margin-top:6px">
           <input type="number" id="override-val-${i}" min="0" max="${r.max}" value="${r.score ?? 0}"
             style="width:48px;padding:3px 6px;border:2px solid #009ae4;border-radius:4px;font-size:14px;font-weight:bold"
-            onkeydown="if(event.key==='Enter')confirmOverride(${i},'${esc(r.pupil)}','${esc(r.qid)}',${r.max})">
+            onkeydown="if(event.key==='Enter')confirmOverride(${i},'${esc(r.pupilKey)}','${esc(r.qid)}',${r.max})">
           <span style="font-size:13px;color:#888">/${r.max}</span>
-          <button id="confirm-btn-${i}" onclick="confirmOverride(${i},'${esc(r.pupil)}','${esc(r.qid)}',${r.max})"
+          <button id="confirm-btn-${i}" onclick="confirmOverride(${i},'${esc(r.pupilKey)}','${esc(r.qid)}',${r.max})"
             style="margin-left:4px;background:#009ae4;color:#fff;border:none;border-radius:4px;padding:3px 10px;cursor:pointer;font-size:13px;font-weight:bold">Save</button>
           <button onclick="cancelOverride(${i})"
             style="background:#f3f4f6;border:none;border-radius:4px;padding:3px 8px;cursor:pointer;font-size:13px;color:#6b7280">Cancel</button>
@@ -764,6 +767,20 @@ function esc(str) {
   return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+// Children are shown as INITIALS (the server's `label`) and identified by pupil code. `normRows` keeps the code as
+// `pupilKey` (what the server is sent) and puts the initials in `pupil` (what every table here displays).
+function normRows(rows) {
+  (Array.isArray(rows) ? rows : []).forEach(r => {
+    if (!r || r._norm) return;
+    r.pupilKey = r.pupilCode || r.pupil || '';
+    r.pupil = r.label || r.pupil || '?';
+    r._norm = true;
+  });
+  return rows;
+}
+function pid(r) { return r && r.pupilCode ? ` data-pupil-id="${esc(r.pupilCode)}"` : ''; }
+try { if (window.WFANames && WFANames.screen) WFANames.screen.init(); } catch (e) { /* names on screen is optional */ }
+
 // ===== CLASS ANALYSIS =====
 const QUESTION_META = [
   {id:'1',   domain:'2b', ttype:'NF', marks:1},
@@ -813,7 +830,7 @@ async function loadAnalysis() {
   btn.textContent = 'Loading…';
   btn.disabled = true;
   try {
-    classData = await jsonpFetch(BACKEND_URL + '?action=classdata', 30000);
+    classData = normRows(await jsonpFetch(BACKEND_URL + '?action=classdata', 30000));
     if (!Array.isArray(classData) || classData.length === 0) {
       alert('No data found in the sheet yet.');
       btn.textContent = 'Load Class Analysis';
@@ -841,7 +858,7 @@ function renderFilterPanel() {
     <label style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e5e7eb;
       border-radius:6px;padding:6px 10px;font-size:13px;cursor:pointer;white-space:nowrap">
       <input type="checkbox" id="sub-chk-${i}" checked style="accent-color:#009ae4">
-      <strong>${esc(p.pupil)}</strong>
+      <strong${pid(p)}>${esc(p.pupil)}</strong>
       <span style="color:#9ca3af">${esc(p.date)} · ${esc(p.sections)}</span>
     </label>`).join('');
 }
@@ -884,7 +901,7 @@ function applyFilter() {
 function mergeByPupil(rows) {
   const map = new Map();
   rows.forEach(p => {
-    const key = p.pupil.trim().toLowerCase();
+    const key = String(p.pupilKey || p.pupil).trim().toLowerCase();
     if (!map.has(key)) {
       // Clone the row
       map.set(key, { ...p, scores: { ...p.scores }, _dates: [p.date], _sections: [p.sections] });
@@ -962,7 +979,7 @@ function renderHeatmap() {
     const sectionsTaken = pupil.sections || '';
     let pupilScored = 0, pupilMax = 0;
 
-    html += `<tr><td class="pupil-cell">${esc(pupil.pupil)}<br><span style="font-weight:400;font-size:11px;color:#9ca3af">${esc(pupil.date)}</span></td>`;
+    html += `<tr><td class="pupil-cell"${pid(pupil)}>${esc(pupil.pupil)}<br><span style="font-weight:400;font-size:11px;color:#9ca3af">${esc(pupil.date)}</span></td>`;
 
     QUESTION_META.forEach(q => {
       const qid = 'Q' + q.id;
@@ -1169,7 +1186,7 @@ function renderPupilPane() {
   });
 
   let html = `<div style="background:#f0f9ff;border-radius:8px;padding:16px;margin-bottom:20px">
-    <strong style="font-size:16px">${esc(pupil.pupil)}</strong>
+    <strong style="font-size:16px"${pid(pupil)}>${esc(pupil.pupil)}</strong>
     <span style="margin-left:12px;color:#6b7280;font-size:14px">${esc(pupil.date)} · ${esc(pupil.sections)}</span>
     <span style="margin-left:16px;font-size:18px;font-weight:700;color:#009ae4">${pupil.autoScore}/${pupil.totalMax}</span>
   </div>`;
@@ -1259,6 +1276,6 @@ function renderPupilPane() {
   document.getElementById('pupil-detail').innerHTML = html;
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v06.10.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v14.10.26a</p>
 </body>
 </html>

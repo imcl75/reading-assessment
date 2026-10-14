@@ -123,26 +123,20 @@ B[9] = [
 
 # ---- Phase 5b
 B[10] = [
- ('Willow Saves the Day',
-  'Willow had a new yellow boomerang. “Can I see if I can throw it?” she asked her mum. “Yes,” said Mum. “Throw it in the garden. I have to make some bread.” Willow went out into the garden. She drew back her arm and flicked her hand. The boomerang flew high in the air. She laughed because it looked so good as it flew. Then … Whack! The boomerang hit a window. Mum banged on the window with her fist.',
-  [('who', 'Who had a new yellow boomerang?', 'Willow'), ('where', 'Where did the boomerang hit?', 'A window'), ('why', 'Why did Mum bang on the window?', "Because the boomerang hit it (also accept: because Willow's boomerang hit the window)")]),
- ("Ella's Dragon",
-  'Ella looked on top of a big hill. No dragon. She looked in a huge, old cave. No dragon. She even looked in the castle, just in case. But everywhere she looked, there were no dragons. “Mum will not be happy if I don’t find a dragon,” Ella thought. Ella spent the weekend in her shed. CLANK! BANG! THUD! She made a robot dragon! It had a very loud growl and red hot fire came out of its mouth.',
-  [('who', 'Who looked in the castle?', 'Ella'), ('what', 'What did Ella make in her shed?', 'A robot dragon'), ('why', 'Why did Ella make a robot dragon?', 'Because she could not find a real dragon (also accept: because Mum would not be happy if she did not find a dragon)')]),
- ('The Nest Quest',
-  'Luna couldn’t sleep. It was too noisy in the nest. Mum’s snoring sounded like thunder. Nana’s music was too loud, and Flo and Norm would not stop fighting. When Flo and Norm started pushing and pulling, Luna hopped out of the way. PLOP! She fell right out of the nest! Luna looked up at the nest. It was so high up! There was no way she could reach it on her own. It’s a bit cold down here, Luna thought.',
-  [('who', 'Who could not sleep?', 'Luna'), ('where', 'Where did Luna fall?', 'Out of the nest'), ('why', 'Why did Luna hop out of the way?', 'Because Flo and Norm were pushing and pulling (also accept: because Flo and Norm were fighting)')]),
+ ('Jogging into Space',
+  'It was Monday and Gill and Chris were at Space Club. They were both looking up at the night sky. “Look!” Gill said. “I can see the lights of a spacecraft. It is orbiting our planet.” “Space starts about sixty miles up in the sky,” she whispered. “I read that in a book.” “No way!” Chris replied. “Gill’s right,” their teacher told him. “I want to go into space,” said Gill.',
+  [('who', 'Who could see the lights of a spacecraft?', 'Gill'), ('where', 'Where were Gill and Chris?', 'At Space Club'), ('why', 'Why did Chris say "No way!"?', 'Because he did not believe that space starts about sixty miles up (also accept: he was surprised; he did not believe Gill)')]),
+ ('The Tap Tap Kids',
+  'Spring, Sage and Toby were born in a barn on a farm. One day, Mum said, “I think you could play outside this morning.” The three kid goats had never been outside the barn so they went WILD! They jumped up everywhere. Tap, tap, tap went their feet on the tin roof. They had so much energy! The farmer was on her tractor in the field. “STOP!” she called, with a frown. “All this tapping is very annoying!” The kids jumped onto the bonnet of her tractor and began to tap!',
+  [('who', 'Who were born in a barn on a farm?', 'Spring, Sage and Toby (the three kid goats)'), ('where', 'Where did the kids tap their feet?', "On the tin roof (also accept: on the farmer's tractor)"), ('why', 'Why did the farmer shout "STOP!"?', 'Because the tapping was very annoying (also accept: she did not like the noise)')]),
 ]
 
 # ---- Phase 5c
 B[11] = [
- ('The Best Nest',
-  'Madge sat on a huge bean bag and looked out at the birds. They were pecking at some seeds and nuts she had put on the window ledge. “What can you see?” asked her sister, Fran. “Nests,” said Madge. “The garden is full of them. Look. There is one in the oak tree, another in the hedge and a little one in the holly bush.” “Oh,” said Fran. “Nests! Is that all?” She put on the TV. But it was so loud that all the birds flew away.',
-  [('who', 'Who sat on a huge bean bag?', 'Madge'), ('what', 'What had Madge put on the window ledge?', 'Seeds and nuts'), ('why', 'Why did the birds fly away?', 'Because the TV was so loud (also accept: because Fran put on the TV)')]),
- ("Getting to Gran's",
-  'It was the day of Gran’s birthday party. “I love Gran,” said Clare. “Me too,” said Bear. “What shall I wear?” asked Clare. “Dungarees?” said Mum. They rushed to the car and got in. Mum turned the key. Nothing! “Oh no! Flat battery!” she cried. “Let’s go by train,” said Clare. “I like going on trains.” “Me too,” said Bear. They walked to the train. Mum paid the fare as the train came in. “Take care you don’t fall,” said Mum.',
-  [('who', 'Whose birthday party was it?', "Gran's"), ('what', 'What did Mum turn?', 'The key'), ('why', 'Why did they go by train?', 'Because the car had a flat battery (also accept: because the car would not start)')]),
- ('The Fire of London',
-  'It was the second of September, three hundred and fifty years ago. Tom Farriner, the King’s baker, was in bed over his bakery in Pudding Lane. He sniffed. Then he woke his wife. “I can smell smoke,” he said. “Did you check that the fire for the bread oven was out?” she asked sleepily. “Yes,” said Tom. “But I’ll go and check again.” He ran downstairs in the darkness and went to his oven. As he poked the ashes, he stubbed his toe on a stone and his hand jolted.',
-  [('who', "Who was the King's baker?", 'Tom Farriner'), ('where', 'Where was Tom in bed?', 'Over his bakery in Pudding Lane'), ('why', 'Why did Tom go to check the oven again?', 'Because he could smell smoke (also accept: to make sure the fire was out)')]),
+ ('Jake the Snake',
+  'By the side of a big fishing lake there was an old viper called Jake. He got his fang stuck in a deep pile of muck. He was really a silly old snake. In the lake were a drake and a duck. They could see Jake had run out of luck. The duck said, “Can I help?” as Jake started to yelp. “We will help get your trapped fang unstuck.”',
+  [('who', 'Who got his fang stuck in a pile of muck?', 'Jake (the old viper / snake)'), ('where', 'Where were the drake and the duck?', 'In the lake'), ('why', 'Why did the duck say "Can I help?"', 'Because Jake was stuck and yelping (also accept: to help Jake; Jake was in trouble)')]),
+ ("I'm Not a Monster!",
+  'I’m a water bear. Some people call me a moss piglet. Can you count how many legs I have? I can live almost anywhere, from the tops of mountains to the bottom of the deep sea. I may look rather frightening, but I’m not a monster. I’m very, very small, so you can hardly spot me without a microscope! I was chosen to go on a special mission ... into space. I stayed alive because I can survive without air in almost any temperature.',
+  [('what', 'What animal is talking?', 'A water bear (also accept: a moss piglet)'), ('what', 'What was the water bear chosen to go on?', 'A special mission into space'), ('why', 'Why did the water bear stay alive in space?', 'Because it can survive without air in almost any temperature')]),
 ]

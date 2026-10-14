@@ -306,7 +306,7 @@ const TEXTS = {
   2: "We often hear about the damage that humans cause to the environment. While this is certainly true, we can also have a positive impact. For example, there is a really cool insect that lives in our country called the stag beetle. These beetles are big – nearly eight centimetres long – with fierce looking 'antlers'. If you're lucky, you might see them flying around on warm evenings. Sadly, they are dying out, however, mostly due to the lack of suitable habitat. If you have the space, why not help to protect them by creating a pile of rotten logs where they can lay their eggs?",
   3: "You might believe that the Anglo Saxons are long gone and, to a certain extent, you'd be right. As far as Britain is concerned, their time was really between the eighth and eleventh centuries. But there are still traces where they live on, if you know where to look – including your own address. Many of the place names that are so familiar to us today actually come from Anglo Saxon roots. If your home town's name ends in bury, borough, ton or ley, then the Anglo Saxons started a settlement there. Your next question is, what do these roots mean?",
   4: "If you glance at a map of Britain, with a bit of imagination you might think that it looks like someone sitting down. Scotland is the head; the arms are folded over a very full tummy to make Wales; Devon and Cornwall are the outstretched legs and feet; and East Anglia is, well, what we use to sit on. If that is the case, then the backbone of this craggy figure must be the Pennines – a range of hills, moors and mountains that divides northern England. Large sections of the Pennines are protected as an area of outstanding natural beauty.",
-  5: "So, you've found a musical instrument that you want to play; how long it will take for you to become good at it? This question, you won't be surprised to learn, will have various answers. First, it depends on how good you want to be. If you want to play music professionally, you will probably have to practise for thousands of hours to reach the right standard. But remember, music should be a pleasure, and there is nothing wrong with just getting to a level that gives you enjoyment, providing, of course, that it's not too painful for everyone else!",
+  5: "So, you've found a musical instrument that you want to play; how long will it take for you to become good at it? This question, you won't be surprised to learn, will have various answers. First, it depends on how good you want to be. If you want to play music professionally, you will probably have to practise for thousands of hours to reach the right standard. But remember, music should be a pleasure, and there is nothing wrong with just getting to a level that gives you enjoyment, providing, of course, that it's not too painful for everyone else!",
   6: "For a sport with such an English name, badminton has a long and global history. Once called 'battledore and shuttlecock', it dates right back to early Greece, India and China where it was played some two thousand years ago. The word shuttlecock has stuck as the name of the feathered object that gets hit over a net. The sport itself is named after the big country house in the west of England, where it was enjoyed in the nineteenth century. Even though it was played by the ancient Greeks, it is one of the younger sports at the Olympic Games.",
   7: "Clouds swept over the cold, watchful moon like a cloak shrouding a face. Across the lonely moor, the rising wind started to shake the trees and bushes along the side of the muddy track and unseen animal voices shrieked into the night. Still the coach pressed on, pulled by a tiring team of four anxious horses. Inside, the kindly gentleman softly squeezed his daughter's hand to calm her racing pulse. Meanwhile, less than a mile away, two cruel eyes sprang open, alerted by the sound of approaching hooves. They then narrowed as their owner's mouth stretched into a greedy smile.",
   8: "In a panicky flurry of feathers, Ferdinand launched himself into the air to escape the vicious broomstick. What was wrong with humans? First, they built these wonderful stone cliffs, so perfect for resting and nesting. Then, they got upset whenever he and his fellow pigeons perched on the ledges to relax their wings and unload their droppings. Madness! Not that he had time to worry about that now. Out here in the space between the tower blocks, he was in serious danger from the hawks. Where had they suddenly arrived from and why had his mother not warned him about them?",
@@ -327,20 +327,46 @@ const SESSIONS = [
     idx: 1, set: 'A', textIndex: 0,
     questions: [
       {
-        num: 1, domain: 'retrieval', type: 'short_parts', key: 'q1',
-        stem: 'Which two teams are mentioned?',
-        parts: [
-          { label: 'a)', key: 'q1a', answers: ['netball'], guidance: 'Netball team' },
-          { label: 'b)', key: 'q1b', answers: ['football'], guidance: 'Football team' }
-        ],
-        guidance: 'Netball team and football team'
-      },
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q1",
+          "stem": "Which two teams are mentioned?",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q1a",
+              "answers": [
+                "netball",
+                "football"
+              ],
+              "guidance": "Netball or football (either order). Must differ from part b)."
+            },
+            {
+              "label": "b)",
+              "key": "q1b",
+              "answers": [
+                "netball",
+                "football"
+              ],
+              "guidance": "Netball or football (either order). Must differ from part a)."
+            }
+          ],
+          "guidance": "Netball team and football team, in either order. The two parts must differ."
+        },
       {
-        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
-        stem: 'Which words are used to describe the triplets?',
-        answers: ['new-born', 'new born'],
-        guidance: 'new-born'
-      },
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q2",
+          "stem": "Which word is used to describe the triplets?",
+          "answers": [
+            "new-born",
+            "new born",
+            "newborn"
+          ],
+          "guidance": "New-born (accept newborn / new born)."
+        },
       {
         num: 3, domain: 'inference', type: 'open', key: 'q3',
         stem: "Why might the reader's first thought have been that it was 'a strange party'?",
@@ -402,11 +428,23 @@ const SESSIONS = [
     idx: 4, set: 'B', textIndex: 1,
     questions: [
       {
-        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
-        stem: 'According to the text, what might you dislike having to do?',
-        answers: ['make notes', 'plans', 'notes or plans'],
-        guidance: 'Make notes or plans (accept: check spellings/meanings, check a thesaurus).'
-      },
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q1",
+          "stem": "According to the text, name one thing you might dislike having to do.",
+          "answers": [
+            "make notes",
+            "plans",
+            "notes or plans",
+            "check spellings",
+            "check meanings",
+            "spellings",
+            "meanings",
+            "thesaurus"
+          ],
+          "guidance": "Accept any one thing the text lists as disliked: checking spellings or meanings in a dictionary, checking a thesaurus, making notes, making plans. Reject the writer's tools being 'liked' or things not in the text."
+        },
       {
         num: 2, domain: 'retrieval', type: 'short', key: 'q2',
         stem: 'Who should you imagine visiting, according to the text?',
@@ -414,14 +452,37 @@ const SESSIONS = [
         guidance: 'A professional writer.'
       },
       {
-        num: 3, domain: 'retrieval', type: 'short_parts', key: 'q3',
-        stem: "What does the text suggest are the tools of the writer's trade? Name two.",
-        parts: [
-          { label: 'a)', key: 'q3a', answers: ['dictionary', 'thesaurus', 'notes', 'plans'], guidance: 'Any one of: dictionary, thesaurus, notes, plans' },
-          { label: 'b)', key: 'q3b', answers: ['dictionary', 'thesaurus', 'notes', 'plans'], guidance: 'Any one of the remaining: dictionary, thesaurus, notes, plans' }
-        ],
-        guidance: 'Any two of: dictionary, thesaurus, notes, plans.'
-      }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q3",
+          "stem": "What does the text suggest are the tools of the writer's trade? Name two.",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q3a",
+              "answers": [
+                "dictionary",
+                "thesaurus",
+                "notes",
+                "plans"
+              ],
+              "guidance": "Any one of: dictionary, thesaurus, notes, plans. Must differ from part b)."
+            },
+            {
+              "label": "b)",
+              "key": "q3b",
+              "answers": [
+                "dictionary",
+                "thesaurus",
+                "notes",
+                "plans"
+              ],
+              "guidance": "Any one of: dictionary, thesaurus, notes, plans. Must differ from part a)."
+            }
+          ],
+          "guidance": "Any two different items from: dictionary, thesaurus, notes, plans. The two parts must differ."
+        }
     ]
   },
   {
@@ -439,10 +500,13 @@ const SESSIONS = [
         guidance: 'A positive impact.'
       },
       {
-        num: 3, domain: 'inference', type: 'open', key: 'q3',
-        stem: "Why do you think the author believes that stag beetles look 'cool'?",
-        guidance: "The author describes them as big, nearly eight centimetres long, with fierce-looking 'antlers' – these features make them seem impressive and interesting."
-      }
+          "num": 3,
+          "domain": "inference",
+          "type": "open",
+          "key": "q3",
+          "stem": "Why do you think the author describes the stag beetle as a 'cool' insect?",
+          "guidance": "The author describes them as big, nearly eight centimetres long, with fierce-looking 'antlers' – these features make them seem impressive and interesting."
+        }
     ]
   },
   {
@@ -485,25 +549,56 @@ const SESSIONS = [
         answer: 'involved'
       },
       {
-        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
-        stem: 'According to the text, when did the Anglo Saxons have their time?',
-        answers: ['eighth', 'eleventh', 'eighth and eleventh centuries', 'eighth to eleventh'],
-        guidance: 'Between the eighth and eleventh centuries.'
-      }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "According to the text, when did the Anglo Saxons have their time?",
+          "answers": [
+            "eighth and eleventh",
+            "eighth to eleventh",
+            "8th and 11th",
+            "8th to 11th"
+          ],
+          "guidance": "Between the eighth and eleventh centuries. Both centuries needed (accept 8th and 11th, 8th to 11th). Reject only one century given alone."
+        }
     ]
   },
   {
     idx: 8, set: 'B', textIndex: 3,
     questions: [
       {
-        num: 1, domain: 'retrieval', type: 'short_parts', key: 'q1',
-        stem: 'According to the text, which endings to place names come from Anglo Saxon roots? Find and copy two examples.',
-        parts: [
-          { label: 'a)', key: 'q1a', answers: ['bury', 'borough', 'ton', 'ley'], guidance: 'Any one of: bury, borough, ton, ley' },
-          { label: 'b)', key: 'q1b', answers: ['bury', 'borough', 'ton', 'ley'], guidance: 'Any one of the remaining: bury, borough, ton, ley' }
-        ],
-        guidance: 'Any two of: bury, borough, ton, ley.'
-      },
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q1",
+          "stem": "According to the text, which endings to place names come from Anglo Saxon roots? Find and copy two examples.",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q1a",
+              "answers": [
+                "bury",
+                "borough",
+                "ton",
+                "ley"
+              ],
+              "guidance": "Any one of: bury, borough, ton, ley. Must differ from part b)."
+            },
+            {
+              "label": "b)",
+              "key": "q1b",
+              "answers": [
+                "bury",
+                "borough",
+                "ton",
+                "ley"
+              ],
+              "guidance": "Any one of: bury, borough, ton, ley. Must differ from part a)."
+            }
+          ],
+          "guidance": "Any two different endings from: bury, borough, ton, ley. The two parts must differ."
+        },
       {
         num: 2, domain: 'inference', type: 'open', key: 'q2',
         stem: 'How does the author try to make this text feel relevant to you?',
@@ -533,11 +628,17 @@ const SESSIONS = [
         guidance: 'Someone sitting down.'
       },
       {
-        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
-        stem: 'What are the arms folded over the top of?',
-        answers: ['tummy', 'full tummy', 'wales'],
-        guidance: 'A very full tummy (to make Wales).'
-      }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "What are the arms folded over?",
+          "answers": [
+            "tummy",
+            "full tummy"
+          ],
+          "guidance": "A very full tummy. Do not accept 'Wales' alone (that is what the arms and tummy make, not what the arms are folded over)."
+        }
     ]
   },
   {
@@ -575,11 +676,17 @@ const SESSIONS = [
         answer: 'various'
       },
       {
-        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
-        stem: 'According to the text, what does the answer to the question in the first sentence depend upon?',
-        answers: ['how good you want to be', 'how good', 'standard'],
-        guidance: 'How good you want to be.'
-      }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "According to the text, what does the answer to the question in the first sentence depend upon?",
+          "answers": [
+            "how good you want to be",
+            "how good"
+          ],
+          "guidance": "How good you want to be (accept the same idea in own words, e.g. the level or standard you want to reach). Reject answers that name only a different factor."
+        }
     ]
   },
   {
@@ -622,14 +729,35 @@ const SESSIONS = [
         guidance: "Battledore and shuttlecock."
       },
       {
-        num: 3, domain: 'retrieval', type: 'short_parts', key: 'q3',
-        stem: 'Find and copy the names of two of the countries where badminton was first played.',
-        parts: [
-          { label: 'a)', key: 'q3a', answers: ['greece', 'india', 'china'], guidance: 'Any one of: Greece, India, China' },
-          { label: 'b)', key: 'q3b', answers: ['greece', 'india', 'china'], guidance: 'Any one of the remaining: Greece, India, China' }
-        ],
-        guidance: 'Any two of: Greece, India, China.'
-      }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q3",
+          "stem": "Find and copy the names of two of the countries where badminton was first played.",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q3a",
+              "answers": [
+                "greece",
+                "india",
+                "china"
+              ],
+              "guidance": "Any one of: greece, india, china. Must differ from part b)."
+            },
+            {
+              "label": "b)",
+              "key": "q3b",
+              "answers": [
+                "greece",
+                "india",
+                "china"
+              ],
+              "guidance": "Any one of: greece, india, china. Must differ from part a)."
+            }
+          ],
+          "guidance": "Any two different countries from: Greece, India, China. The two parts must differ."
+        }
     ]
   },
   {
@@ -669,10 +797,13 @@ const SESSIONS = [
         answer: 'shrouding'
       },
       {
-        num: 3, domain: 'inference', type: 'open', key: 'q3',
-        stem: '… like a cloak, shrouding a face … How do these words create a feeling of danger?',
-        guidance: "A cloak shrouding a face suggests concealment and mystery – something hidden and threatening, like a villain hiding their identity; it creates a sense of menace and the unknown."
-      }
+          "num": 3,
+          "domain": "inference",
+          "type": "open",
+          "key": "q3",
+          "stem": "… like a cloak shrouding a face … How do these words create a feeling of danger?",
+          "guidance": "A cloak shrouding a face suggests concealment and mystery – something hidden and threatening, like a villain hiding their identity; it creates a sense of menace and the unknown."
+        }
     ]
   },
   {
@@ -705,11 +836,17 @@ const SESSIONS = [
         guidance: "He launched himself into the air to escape the vicious broomstick – the word 'vicious' and the fact he had to escape suggest someone was trying to hit him."
       },
       {
-        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
-        stem: 'What sort of creature is Ferdinand?',
-        answers: ['pigeon', 'bird'],
-        guidance: 'A pigeon.'
-      },
+          "num": 2,
+          "domain": "inference",
+          "type": "short",
+          "key": "q2",
+          "stem": "What sort of creature is Ferdinand?",
+          "answers": [
+            "pigeon",
+            "bird"
+          ],
+          "guidance": "A pigeon."
+        },
       {
         num: 3, domain: 'inference', type: 'open', key: 'q3',
         stem: 'What do you think the author means by the wonderful stone cliffs built by humans?',
@@ -721,12 +858,20 @@ const SESSIONS = [
     idx: 18, set: 'B', textIndex: 8,
     questions: [
       {
-        num: 1, domain: 'vocabulary', type: 'mc', key: 'q1',
-        stem: "What does the word 'perched' mean in this context?",
-        quote: '…fellow pigeons perched on ledges.',
-        options: ['flew', 'sang', 'swept', 'sat'],
-        answer: 'sat'
-      },
+          "num": 1,
+          "domain": "vocabulary",
+          "type": "mc",
+          "key": "q1",
+          "stem": "What does the word 'perched' mean in this context?",
+          "quote": "… his fellow pigeons perched on the ledges to relax their wings …",
+          "options": [
+            "flew",
+            "sang",
+            "swept",
+            "sat"
+          ],
+          "answer": "sat"
+        },
       {
         num: 2, domain: 'retrieval', type: 'short', key: 'q2',
         stem: 'Name one of the things that the pigeons liked to do on ledges, according to the text.',
@@ -745,11 +890,19 @@ const SESSIONS = [
     idx: 19, set: 'A', textIndex: 9,
     questions: [
       {
-        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
-        stem: 'What subjects usually stay separate from each other, according to the text?',
-        answers: ['maths and english', 'maths', 'english'],
-        guidance: 'Maths and English.'
-      },
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q1",
+          "stem": "Which two subjects usually stay separate from each other, according to the text?",
+          "answers": [
+            "maths and english",
+            "english and maths",
+            "maths & english",
+            "maths, english"
+          ],
+          "guidance": "Maths and English (either order). Both subjects needed; one alone is not enough."
+        },
       {
         num: 2, domain: 'retrieval', type: 'short', key: 'q2',
         stem: 'What does the text compare these subjects to when they swing towards each other?',
@@ -757,10 +910,18 @@ const SESSIONS = [
         guidance: 'Acrobats on the trapeze.'
       },
       {
-        num: 3, domain: 'retrieval', type: 'find_copy', key: 'q3',
-        stem: 'Find and copy the words that describe a trapezium.',
-        answer: 'a four-sided, 2D shape with one pair of parallel lines'
-      }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "Find and copy the words that describe a trapezium.",
+          "answer": "a four-sided, 2D shape with one pair of parallel lines",
+          "answers": [
+            "a four-sided, 2d shape with one pair of parallel lines",
+            "four-sided, 2d shape with one pair of parallel lines"
+          ],
+          "guidance": "The copied description of a trapezium: 'a four-sided, 2D shape with one pair of parallel lines'. Accept minor punctuation differences (e.g. missing comma or hyphen). Accept the whole description; reject a copy that leaves out important parts (e.g. only 'four-sided')."
+        }
     ]
   },
   {
@@ -796,14 +957,35 @@ const SESSIONS = [
         guidance: 'A favourite author.'
       },
       {
-        num: 2, domain: 'retrieval', type: 'short_parts', key: 'q2',
-        stem: 'Write two things that might be described to capture your interest.',
-        parts: [
-          { label: 'a)', key: 'q2a', answers: ['settings', 'characters', 'action'], guidance: 'Any one of: settings, characters, action' },
-          { label: 'b)', key: 'q2b', answers: ['settings', 'characters', 'action'], guidance: 'Any one of the remaining: settings, characters, action' }
-        ],
-        guidance: 'Any two of: settings, characters, action.'
-      },
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q2",
+          "stem": "Write two things that might be described to capture your interest.",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q2a",
+              "answers": [
+                "settings",
+                "characters",
+                "action"
+              ],
+              "guidance": "Any one of: settings, characters, action. Must differ from part b)."
+            },
+            {
+              "label": "b)",
+              "key": "q2b",
+              "answers": [
+                "settings",
+                "characters",
+                "action"
+              ],
+              "guidance": "Any one of: settings, characters, action. Must differ from part a)."
+            }
+          ],
+          "guidance": "Any two different items from: settings, characters, action. The two parts must differ."
+        },
       {
         num: 3, domain: 'inference', type: 'find_copy', key: 'q3',
         stem: 'Find and copy the words that suggest story-tellers play tricks to entertain their readers.',
@@ -828,11 +1010,20 @@ const SESSIONS = [
         answer: 'pleases'
       },
       {
-        num: 3, domain: 'retrieval', type: 'short', key: 'q3',
-        stem: "According to the text, why couldn't you possibly know who the best authors ever are?",
-        answers: ["haven't read them all", "not read them all", "read them all"],
-        guidance: "Because you haven't read them all."
-      }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q3",
+          "stem": "According to the text, why couldn't you possibly know who the best authors ever are?",
+          "answers": [
+            "haven't read them all",
+            "have not read them all",
+            "not read them all",
+            "haven't read all",
+            "have not read all"
+          ],
+          "guidance": "Because you have not read them all (or have not read all authors/books). Reject an answer saying you HAVE read them all."
+        }
     ]
   },
   {
@@ -872,14 +1063,35 @@ const SESSIONS = [
         guidance: 'Humans.'
       },
       {
-        num: 3, domain: 'retrieval', type: 'short_parts', key: 'q3',
-        stem: 'Find and copy the names of two of the different types of teeth mentioned in the text.',
-        parts: [
-          { label: 'a)', key: 'q3a', answers: ['molars', 'canines', 'incisors'], guidance: 'Any one of: molars, canines, incisors' },
-          { label: 'b)', key: 'q3b', answers: ['molars', 'canines', 'incisors'], guidance: 'Any one of the remaining: molars, canines, incisors' }
-        ],
-        guidance: 'Any two of: molars, canines, incisors.'
-      }
+          "num": 3,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q3",
+          "stem": "Find and copy the names of two of the different types of teeth mentioned in the text.",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q3a",
+              "answers": [
+                "molars",
+                "canines",
+                "incisors"
+              ],
+              "guidance": "Any one of: molars, canines, incisors. Must differ from part b)."
+            },
+            {
+              "label": "b)",
+              "key": "q3b",
+              "answers": [
+                "molars",
+                "canines",
+                "incisors"
+              ],
+              "guidance": "Any one of: molars, canines, incisors. Must differ from part a)."
+            }
+          ],
+          "guidance": "Any two different types from: molars, canines, incisors. The two parts must differ."
+        }
     ]
   },
   {
@@ -1003,20 +1215,51 @@ const SESSIONS = [
     idx: 30, set: 'B', textIndex: 14,
     questions: [
       {
-        num: 1, domain: 'retrieval', type: 'short', key: 'q1',
-        stem: 'How old was Beethoven when he started to lose his hearing?',
-        answers: ['before his thirtieth', 'under thirty', 'thirtieth', 'under 30', 'before 30'],
-        guidance: 'Before he reached his thirtieth birthday (under thirty years old).'
-      },
+          "num": 1,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q1",
+          "stem": "How old was Beethoven when he started to lose his hearing?",
+          "answers": [
+            "before his thirtieth",
+            "before he had reached his thirtieth",
+            "before he reached his thirtieth",
+            "under thirty",
+            "under 30",
+            "before 30",
+            "before thirty",
+            "in his twenties"
+          ],
+          "guidance": "Before his thirtieth birthday: accept under 30 / in his twenties / before thirty. Reject exactly 30 or 'thirtieth' alone with no sense of 'before'."
+        },
       {
-        num: 2, domain: 'retrieval', type: 'short_parts', key: 'q2',
-        stem: 'Find and copy the two senses that cooks would not like to lose.',
-        parts: [
-          { label: 'a)', key: 'q2a', answers: ['taste'], guidance: 'Taste' },
-          { label: 'b)', key: 'q2b', answers: ['smell'], guidance: 'Smell' }
-        ],
-        guidance: 'Taste and smell.'
-      },
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short_parts",
+          "key": "q2",
+          "stem": "Find and copy the two senses that cooks would not like to lose.",
+          "parts": [
+            {
+              "label": "a)",
+              "key": "q2a",
+              "answers": [
+                "taste",
+                "smell"
+              ],
+              "guidance": "Taste or smell (either order). Must differ from part b)."
+            },
+            {
+              "label": "b)",
+              "key": "q2b",
+              "answers": [
+                "taste",
+                "smell"
+              ],
+              "guidance": "Taste or smell (either order). Must differ from part a)."
+            }
+          ],
+          "guidance": "Taste and smell, in either order. The two parts must differ."
+        },
       {
         num: 3, domain: 'inference', type: 'open', key: 'q3',
         stem: 'Why was Beethoven losing his hearing like a painter going blind?',
@@ -1034,11 +1277,18 @@ const SESSIONS = [
         guidance: 'Get your heart beating faster.'
       },
       {
-        num: 2, domain: 'retrieval', type: 'short', key: 'q2',
-        stem: 'According to the text, what does sport help our bodies to do?',
-        answers: ['stay fit and healthy', 'fit and healthy', 'fit'],
-        guidance: 'Stay fit and healthy.'
-      },
+          "num": 2,
+          "domain": "retrieval",
+          "type": "short",
+          "key": "q2",
+          "stem": "According to the text, what does sport help our bodies to do?",
+          "answers": [
+            "stay fit and healthy",
+            "fit and healthy",
+            "stay fit"
+          ],
+          "guidance": "Stay fit and healthy (accept stay fit)."
+        },
       {
         num: 3, domain: 'inference', type: 'open', key: 'q3',
         stem: 'Explain, in your own words, what the text means by get your chest pounding.',
@@ -1062,11 +1312,19 @@ const SESSIONS = [
         guidance: 'Your courage.'
       },
       {
-        num: 3, domain: 'inference', type: 'mc', key: 'q3',
-        stem: 'What do you think the adventurous activities would be making you feel if your pulse was racing?',
-        options: ['excited', 'tired', 'bored', 'rushed'],
-        answer: 'excited'
-      }
+          "num": 3,
+          "domain": "inference",
+          "type": "mc",
+          "key": "q3",
+          "stem": "How would you feel if an adventurous activity set your pulse racing?",
+          "options": [
+            "excited",
+            "tired",
+            "bored",
+            "rushed"
+          ],
+          "answer": "excited"
+        }
     ]
   },
   {
@@ -1192,10 +1450,13 @@ const SESSIONS = [
         guidance: 'A row of chairs.'
       },
       {
-        num: 3, domain: 'inference', type: 'open', key: 'q3',
-        stem: 'What do you think will happen to the ball?',
-        guidance: "The ball has gone over the fence so it is likely lost/out of reach – Tamsin may have to go and retrieve it, or they may not be able to continue playing."
-      }
+          "num": 3,
+          "domain": "inference",
+          "type": "open",
+          "key": "q3",
+          "stem": "What do you think Tamsin and Jamila will do next?",
+          "guidance": "Accept any sensible prediction linked to the text: e.g. go and look for/fetch the ball, carry on playing with another ball, laugh about it, or give up because the ball is lost over the fence. Tamsin was dismayed so accept predictions of disappointment or embarrassment. Reject predictions with no link to the text."
+        }
     ]
   }
 ];
@@ -1432,8 +1693,12 @@ function autoMark(questions) {
         scores[q.key] = null;
       }
     } else if (q.type === 'short_parts') {
+      const usedAnswers = new Set();   // the same answer written in two parts only earns one mark automatically
       q.parts.forEach(p => {
-        if (p.answers && p.answers.length) {
+        const given = (answers[p.key] || '').toLowerCase().trim();
+        const repeated = given !== '' && usedAnswers.has(given);
+        usedAnswers.add(given);
+        if (p.answers && p.answers.length && !repeated) {
           scores[p.key] = matchAnswers(answers[p.key] || '', p.answers) ? 1 : null;
         } else {
           scores[p.key] = null;
@@ -1556,6 +1821,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-14.10.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-14.10.26d</p>
 </body>
 </html>

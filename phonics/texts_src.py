@@ -84,41 +84,41 @@ B[6] = [
 
 # ---- Phase 5a (Weeks 1–4)
 B[7] = [
- ('Eric the Pie Rat',
-  '“Help! We cannot swim!” said Mr and Mrs Judd. “I am the boss of this pie dish!” Eric said to them. “And I say you can jump in.” There was room in the pie dish for Eric and for Mr and Mrs Judd! “Thank you, little rat,” said Mrs Judd. “I am sad that we were mean to you on the boat.”',
-  [('who', 'Who says "I am the boss of this pie dish"?', 'Eric'), ('what', 'What do Mr and Mrs Judd say they cannot do?', 'Swim'), ('why', 'Why does Eric say they can jump in?', 'Because they cannot swim and there is room in the pie dish (also accept: so they will be safe; to help them)')]),
- ('Flip Flap Fox',
-  'They stand next to Fox and clap and yell. “Go back to the woods, little fox! Shoo!” But Fox still needs food for her cub. So, as she runs, she grabs Mr Blue’s chicken supper! Pad, pad, pad. Back to the wood she trots, back to her den, back to her cub. “Yum,” whispers the little fox cub, deep in the den.',
-  [('who', "Who grabs Mr Blue's chicken supper?", 'Fox'), ('where', 'Where does Fox run back to?', 'Her den (also accept: to her cub)'), ('why', 'Why does Fox grab the chicken?', 'Because she needs food for her cub')]),
+ ('Stunt Star',
+  'Jazz is proud of what she can do. It’s a thrilling feat. On Thursday, she has fun doing tricks on her hands. She can tilt the chair, then spin and twist it around. She needs strong arms and hands to do such tricks. On Friday, Jazz looks at the top ramp. It’s the highest ramp in the park. It’s steep too. That’s a big drop from the top! This high ramp will be a big test for Jazz.',
+  [('who', 'Who is proud of what she can do?', 'Jazz'), ('when', 'On what day does Jazz look at the top ramp?', 'Friday'), ('why', 'Why does Jazz need strong arms and hands?', 'To do tricks (in her chair)')]),
  ('Three Clues',
   'Kirsten grinned. “I like Delroy,” she said. “He has a big garden with fir trees at the end.” On Saturday, Kirsten got out her best trainers and a blue shirt. Mum took her up the road. There were lots of people in the garden. “Have fantastic fun!” said Mum. Then Mum left, and Kirsten ran off to play with Amal and Carlos.',
   [('who', 'Who took Kirsten up the road?', 'Mum'), ('what', 'What did Kirsten get out to wear?', 'Her best trainers and a blue shirt'), ('why', 'Why did Kirsten grin?', 'Because she likes Delroy and was going to his garden (also accept: because she was happy to go to the party)')]),
+ ('Airship Rescue',
+  'Dew stood under the brand new airship and looked up. It seemed so big! She saw dark clouds hanging in the air. The ground crew were looking up at the clouds too. Was a storm on its way? A man called Paul shouted to her. He was one of the crew. “Dew! We need to shelter from the storm,” he said. “A twister has been spotted.”',
+  [('who', 'Who shouted to Dew?', 'Paul (a man called Paul, one of the crew)'), ('what', 'What did Dew see in the air?', 'Dark clouds (also accept: a storm; the airship)'), ('why', 'Why did Paul tell Dew they needed to shelter?', 'Because a twister had been spotted (also accept: a storm was coming; it was not safe)')]),
 ]
 
 # ---- Phase 5a (Weeks 5–6)
 B[8] = [
- ("The King's Cats",
-  'Queen June was sitting on her throne playing her silver flute. All of a sudden, there was a loud yell. “The King and his cats have come to visit!” “Oh no!” Queen June said. “Not the cats!” “Sister, we have come to stay for three weeks!” said the King. The King had lots and lots of cats. He kept them with him all the time.',
-  [('who', 'Who has lots and lots of cats?', 'The King'), ('what', 'What was Queen June playing?', 'Her silver flute'), ('why', 'Why did Queen June say "Oh no!"?', 'Because the King and his cats had come to stay for three weeks (also accept: she did not want the cats to stay)')]),
+ ('Caves',
+  'You can see caves at the coast, next to the sea. You can see caves inland too. Caves at the coast are made when the wind and the waves destroy the rock. This can take a long time. Some caves go deep under the cliffs. You can sometimes go inside these caves. But do not get cut off when the tide comes in!',
+  [('where', 'Where can you see caves at the coast?', 'Next to the sea (also accept: at the coast; by the cliffs)'), ('what', 'What makes caves at the coast?', 'The wind and the waves destroying the rock (also accept: wind and waves)'), ('why', 'Why should you not get cut off when the tide comes in?', 'Because the sea would come in and you could be trapped (also accept: you might get stuck; it is not safe; you could get wet or drown)')]),
+ ('Looking at the Stars',
+  'Is that a star? Yes. Those dots of light are stars. Stars send out light. We can see planets too. They look like dots of light as well. Some planets are brighter than stars. Looking at stars can be like looking at a map. You can use them to navigate. There are patterns in the stars too. Look, that pattern of seven stars is the big dipper. And you might see the Pole Star too.',
+  [('what', 'What do stars send out?', 'Light'), ('what', 'What is the pattern of seven stars called?', 'The big dipper'), ('why', 'Why can looking at stars be like looking at a map?', 'Because you can use them to navigate (also accept: to find your way; they make patterns)')]),
  ("Canute's Flute",
   '“I will play a tune for you,” said Canute. “Excuse me,” Luke said. “What have you got in that box?” Canute grinned and lifted the lid. Inside was a long, silver pipe. “This is my flute,” said Canute. “I use it to make people feel better.” He jumped off the mule and trotted into the street. Then he started to play the flute. The tune was so astonishing that the rain stopped in an instant.',
   [('who', 'Who has a flute?', 'Canute'), ('what', 'What was in the box?', 'A flute (a long, silver pipe)'), ('why', 'Why does Canute use his flute?', 'To make people feel better')]),
- ('Camping Kit',
-  'It will take lots of people to heave the tent upright! Some tents are made from ripstop fabric, which is strong and will not rip. There are five poles to keep the tent up. The tent pegs are made of steel. Sometimes pegs are made of plastic. But when you hammer tent pegs into the ground, plastic ones can snap if the ground is too hard.',
-  [('what', 'What does it take lots of people to heave upright?', 'The tent'), ('what', 'What are the tent pegs made of?', 'Steel (sometimes plastic)'), ('why', 'Why can plastic tent pegs snap?', 'If the ground is too hard (also accept: when you hammer them into hard ground)')]),
 ]
 
 # ---- Phase 5a (all)
 B[9] = [
- ('Little Phantom',
-  '“I’ll frighten that thing,” she said. “Boo!” “Boo!” “Oh!” said Little Phantom. The thing had said “Boo!” back to her! Little Phantom flew under the bed. She fluttered like the wings of a bird. That thing had frightened her. Then there was a loud, deep sound. “Little Phantom?” It was Big Phantom. Little Phantom floated out from under the bed. “I was frightened,” she said. “What frightened you?” boomed Big Phantom.',
-  [('who', 'Who flew under the bed?', 'Little Phantom'), ('who', 'Who asked "What frightened you?"', 'Big Phantom'), ('why', 'Why did Little Phantom fly under the bed?', 'Because she was frightened (also accept: because the thing said Boo back to her)')]),
- ('Stunt Star',
-  'Jazz is proud of what she can do. It’s a thrilling feat. On Thursday, she has fun doing tricks on her hands. She can tilt the chair, then spin and twist it around. She needs strong arms and hands to do such tricks. On Friday, Jazz looks at the top ramp. It’s the highest ramp in the park. It’s steep too. That’s a big drop from the top! This high ramp will be a big test for Jazz.',
-  [('who', 'Who is proud of what she can do?', 'Jazz'), ('when', 'On what day does Jazz look at the top ramp?', 'Friday'), ('why', 'Why does Jazz need strong arms and hands?', 'To do tricks (in her chair)')]),
- ('Mudlarking',
-  '“Look!” cried Jan. There was a bag in the mud. She yanked at it, but it was stuck. Frank helped Jan to yank the bag free. They looked inside the bag. It was filled with cash! “Nan, we found the bank robber’s cash!” Frank shouted. “We need to take the cash back to the bank,” said Jan. On Sunday, the bank gave Jan and Frank a prize of one hundred pounds each.',
-  [('where', 'Where was the bag?', 'In the mud'), ('when', 'When did the bank give Jan and Frank a prize?', 'On Sunday'), ('why', 'Why do Jan and Frank take the cash back to the bank?', "Because it was the bank robber's cash (also accept: because it belongs to the bank)")]),
+ ('Spot the Magnets',
+  'Are there magnets in this room? Yes! In fact, there might be lots. How will this food stay cool? Magnets! A magnetic strip on the inside keeps it shut and helps keep the food cool. How do these things stay out of the way? Magnets! Magnets attract things made of steel. These letters have magnets in them, so they stick to the steel. Little magnets are good for sticking up notes too.',
+  [('what', 'What keeps the fridge door shut and helps keep the food cool?', 'A magnetic strip (also accept: a magnet)'), ('what', 'What do magnets attract?', 'Things made of steel'), ('why', 'Why do the letters stick to the steel?', 'Because they have magnets in them')]),
+ ('Camping Kit',
+  'It will take lots of people to heave the tent upright! Some tents are made from ripstop fabric, which is strong and will not rip. There are five poles to keep the tent up. The tent pegs are made of steel. Sometimes pegs are made of plastic. But when you hammer tent pegs into the ground, plastic ones can snap if the ground is too hard.',
+  [('what', 'What does it take lots of people to heave upright?', 'The tent'), ('what', 'What are the tent pegs made of?', 'Steel (sometimes plastic)'), ('why', 'Why can plastic tent pegs snap?', 'If the ground is too hard (also accept: when you hammer them into hard ground)')]),
+ ("The King's Cats",
+  'Queen June was sitting on her throne playing her silver flute. All of a sudden, there was a loud yell. “The King and his cats have come to visit!” “Oh no!” Queen June said. “Not the cats!” “Sister, we have come to stay for three weeks!” said the King. The King had lots and lots of cats. He kept them with him all the time.',
+  [('who', 'Who has lots and lots of cats?', 'The King'), ('what', 'What was Queen June playing?', 'Her silver flute'), ('why', 'Why did Queen June say "Oh no!"?', 'Because the King and his cats had come to stay for three weeks (also accept: she did not want the cats to stay)')]),
 ]
 
 # ---- Phase 5b

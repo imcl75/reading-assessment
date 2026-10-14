@@ -4271,6 +4271,8 @@ const ALL_TEXTS    = { Y3: TEXTS_Y3,    Y4: TEXTS_Y4,    Y5: TEXTS_Y5,    Y6: TE
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let pupilName = '';
+let pupilCode = '';     // set when the child came in with a personal card: no name is held
+let pupilLabel = '';    // their initials, shown in the header
 let interventionYear = 'Y6';
 let classYear = 'Y6';
 let activeSessions = SESSIONS_Y6;
@@ -4283,12 +4285,15 @@ let startTime = null;
 (function init() {
   try {
     const preload = JSON.parse(localStorage.getItem('ra_preload') || '{}');
-    pupilName = preload.name || 'Unknown';
+    pupilName = preload.name || '';
+    pupilCode = /^p_[a-z2-7]{10}$/.test(preload.code || '') ? preload.code : '';
+    pupilLabel = preload.label || '';
+    if (!pupilName && !pupilCode) pupilName = 'Unknown';
     interventionYear = preload.interventionYear || 'Y6';
     classYear = preload.classYear || 'Y6';
     activeSessions = ALL_SESSIONS[interventionYear] || SESSIONS_Y6;
     TEXTS = ALL_TEXTS[interventionYear] || TEXTS_Y6;
-    document.getElementById('pupil-name-hdr').textContent = pupilName;
+    document.getElementById('pupil-name-hdr').textContent = pupilCode ? pupilLabel : pupilName;
     fetchProgress();
   } catch(err) {
     // If anything throws, hide spinner and show session 1 anyway
@@ -4322,14 +4327,14 @@ function jsonpFetch(url, timeout = 12000) {
 // ── Fetch progress from backend ───────────────────────────────────────────────
 async function fetchProgress() {
   // Show immediately from localStorage cache (instant) — no spinning
-  const cacheKey = '3in3_idx_' + pupilName;
+  const cacheKey = '3in3_idx_' + (pupilCode || pupilName);
   const cached = parseInt(localStorage.getItem(cacheKey) || '0', 10);
   loadSession(cached || 1);
 
   // Then verify with backend in the background; update if different
   try {
     const data = await jsonpFetch(
-      BACKEND_URL + '?action=get3in3progress&name=' + encodeURIComponent(pupilName) + '&interventionYear=' + encodeURIComponent(interventionYear),
+      BACKEND_URL + '?action=get3in3progress&' + (pupilCode ? 'code=' + encodeURIComponent(pupilCode) : 'name=' + encodeURIComponent(pupilName)) + '&interventionYear=' + encodeURIComponent(interventionYear),
       10000
     );
     if (data && data.idx) {
@@ -4570,7 +4575,8 @@ async function submitSession() {
   const reviewList = buildReviewList(currentSession.questions, scores);
 
   const payload = {
-    name: encodeURIComponent(pupilName),
+    name: encodeURIComponent(pupilCode ? '' : pupilName),
+    code: encodeURIComponent(pupilCode),
     idx: currentSession.idx,
     set: currentSession.set,
     date: new Date().toLocaleDateString('en-GB'),
@@ -4587,7 +4593,7 @@ async function submitSession() {
 
   // Update local cache immediately so next session loads instantly
   const nextIdx = currentSession.idx + 1;
-  localStorage.setItem('3in3_idx_' + pupilName, String(nextIdx));
+  localStorage.setItem('3in3_idx_' + (pupilCode || pupilName), String(nextIdx));
 
   try {
     await jsonpFetch(url, 15000);
@@ -4604,7 +4610,7 @@ function showDone(scores) {
   document.getElementById('done-screen').style.display = 'block';
 
   document.getElementById('done-title').textContent =
-    'Well done, ' + pupilName.split(' ')[0] + '! 🌟';
+    'Well done, ' + (pupilCode ? pupilLabel : pupilName.split(' ')[0]) + '! 🌟';
 
   const textNum = Math.ceil(currentSession.idx / 2);
   document.getElementById('done-sub').textContent =
@@ -4613,6 +4619,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y6-06.10.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y6-14.10.26a</p>
 </body>
 </html>

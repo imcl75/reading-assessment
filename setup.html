@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Assessment Setup — Wallscourt Farm Academy</title>
+<script src="https://cdn.jsdelivr.net/gh/wallscourtfarm/wfa-shared@main/web/names-file.js?v=2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root { --brand: #1798d3; --brand-dk: #0a6fa8; }
@@ -105,7 +106,7 @@
   <div class="card">
     <h2>📋 Pupil List &amp; Group Assignments</h2>
     <p class="hint">Search the school roster and click a name to add them. Everyone defaults to your <strong>first group</strong> — only change the dropdown for the few exceptions. Highlighted rows <span style="background:#fff8e1;border:1.5px solid #ffe082;border-radius:4px;padding:1px 6px;">like this</span> are not in the main group.</p>
-    <input type="text" id="roster-search" class="group-name-inp" style="width:100%" placeholder="Type a name…" autocomplete="off" oninput="renderRosterResults()">
+    <input type="text" id="roster-search" class="group-name-inp" style="width:100%" placeholder="Type initials or a class, e.g. IM or 5IM…" autocomplete="off" oninput="renderRosterResults()">
     <div id="roster-results" style="max-height:220px;overflow-y:auto;border:1px solid #ddd;border-radius:8px;margin-top:8px;display:none"></div>
     <div id="pupil-assign-rows"></div>
     <div id="group-summary"></div>
@@ -143,6 +144,7 @@ let groupIdCounter = 0;
 // so a staff sign-in already happened before anyone reaches this HTML.
 // The client-side PIN this used to check was removed 27.09.26.
 document.addEventListener('DOMContentLoaded', loadExistingConfig);
+try { if (window.WFANames && WFANames.screen) WFANames.screen.init(); } catch (e) { /* names on screen is optional */ }
 
 // ── JSONP helper ──────────────────────────────────────
 function jsonpFetch(url, timeout) {
@@ -191,26 +193,35 @@ async function loadRosterCandidates() {
   } catch(e) { rosterCandidates = []; }
 }
 
+function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+// Children are shown as INITIALS (label) and identified by pupil code; no name is stored here.
+function pupilTag(p) { return p.label || (p.name ? p.name.trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().slice(0, 2) : '?'); }
+
 function renderRosterResults() {
   const q = document.getElementById('roster-search').value.trim().toLowerCase();
   const box = document.getElementById('roster-results');
   if (!q) { box.style.display = 'none'; return; }
-  const matches = rosterCandidates.filter(p => (p.first + ' ' + p.last).toLowerCase().includes(q)).slice(0, 8);
+  const have = new Set(pupils.map(x => x.pupilCode).filter(Boolean));
+  const matches = rosterCandidates
+    .filter(p => p.pupilCode && !have.has(p.pupilCode)
+      && ((p.label || '').toLowerCase().includes(q) || (p.class || '').toLowerCase().includes(q) || ((p.class || '') + ' ' + (p.label || '')).toLowerCase().includes(q)))
+    .sort((a, b) => (a.class || '').localeCompare(b.class || '') || (a.label || '').localeCompare(b.label || ''))   // first-initial order
+    .slice(0, 12);
   box.innerHTML = matches.length
     ? matches.map(p =>
-        `<div onclick="addRosterPupil('${p.upn}')" style="padding:9px 12px;cursor:pointer;border-bottom:1px solid #f0f0f0;font-size:14px" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''">${p.first} ${p.last} <span style="color:#aaa;font-size:12px">${p.yearGroup||''} ${p.class||''}</span></div>`
+        `<div onclick="addRosterPupil('${esc(p.pupilCode)}')" style="padding:9px 12px;cursor:pointer;border-bottom:1px solid #f0f0f0;font-size:14px" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background=''"><span data-pupil-id="${esc(p.pupilCode)}">${esc(p.label)}</span> <span style="color:#aaa;font-size:12px">${esc(p.yearGroup||'')} ${esc(p.class||'')}</span></div>`
       ).join('')
     : '<div style="padding:10px;color:#aaa;font-size:13px">No matches</div>';
   box.style.display = 'block';
+  try { if (window.WFANames && WFANames.screen && WFANames.screen.active) WFANames.screen._swapAll(box); } catch (e) {}
 }
 
-function addRosterPupil(upn) {
-  const p = rosterCandidates.find(c => c.upn === upn);
+function addRosterPupil(code) {
+  const p = rosterCandidates.find(c => c.pupilCode === code);
   if (!p) return;
-  const name = p.first + ' ' + p.last;
-  if (pupils.some(x => (x.upn && x.upn === upn) || x.name.toLowerCase() === name.toLowerCase())) return;
-  pupils.push({ name, upn, group: groups[0] ? groups[0].id : '' });
-  rosterCandidates = rosterCandidates.filter(c => c.upn !== upn);
+  if (pupils.some(x => x.pupilCode === code)) return;
+  pupils.push({ pupilCode: code, label: p.label, group: groups[0] ? groups[0].id : '' });
+  rosterCandidates = rosterCandidates.filter(c => c.pupilCode !== code);
   document.getElementById('roster-search').value = '';
   document.getElementById('roster-results').style.display = 'none';
   renderPupilRows();
@@ -231,7 +242,7 @@ async function syncRosterQuiet() {
       renderPupilRows();
       if (result.unmatched && result.unmatched.length) {
         document.getElementById('save-msg').textContent =
-          'Could not match on the roster: ' + result.unmatched.join(', ') + ' — check the name matches Bromcom exactly.';
+          'Could not match on the roster: ' + result.unmatched.join(', ') + ' — remove them and add them again from the roster.';
         document.getElementById('save-msg').className = 'msg err';
       }
     }
@@ -335,13 +346,13 @@ function renderPupilRows() {
 
   const mainGroupId = groups[0] ? groups[0].id : '';
 
-  container.innerHTML = pupils.map((p, i) => {
+  container.innerHTML = pupils.map((p, i) => [p, i]).sort((a, b) => pupilTag(a[0]).localeCompare(pupilTag(b[0]))).map(([p, i]) => {
     const isException = p.group && p.group !== mainGroupId;
     const opts = groups.map(g =>
       `<option value="${g.id}" ${p.group === g.id ? 'selected' : ''}>${g.name || '(unnamed)'}</option>`
     ).join('');
     return `<div class="pupil-assign-row${isException ? ' exception' : ''}">
-      <span class="pupil-assign-name">${p.name}</span>
+      <span class="pupil-assign-name"${p.pupilCode ? ` data-pupil-id="${esc(p.pupilCode)}"` : ''}>${esc(pupilTag(p))}</span>
       <select class="pupil-group-sel${isException ? ' changed' : ''}" data-idx="${i}" onchange="updatePupilGroup(${i}, this.value)">
         ${opts}
       </select>
@@ -394,7 +405,9 @@ async function saveConfig() {
     const url = BACKEND_URL
       + '?action=savegroups'
       + '&groups=' + encodeURIComponent(JSON.stringify(cleanGroups))
-      + '&pupils=' + encodeURIComponent(JSON.stringify(pupils));
+      + '&pupils=' + encodeURIComponent(JSON.stringify(pupils.map(p => p.pupilCode
+          ? { code: p.pupilCode, group: p.group }                       // a child with a pupil code is stored by code only
+          : { name: p.name, upn: p.upn, group: p.group })));            // an old name-only entry is kept as it was
 
     const result = await jsonpFetch(url);
     if (result && result.ok) {
@@ -407,6 +420,6 @@ async function saveConfig() {
   }
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v06.10.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">v14.10.26a</p>
 </body>
 </html>

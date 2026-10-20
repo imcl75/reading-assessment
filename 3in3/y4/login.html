@@ -179,16 +179,17 @@ function cardLogin(code) {
   if (code) { cardLogin(code); return; }
   try {
     const data = await jsonpFetch(BACKEND_URL + '?action=get3in3pupils&classYear=' + CLASS_YEAR);
-    let pupils = [];
-    if (Array.isArray(data) && data.length) {
-      if (typeof data[0] === 'object') {
-        pupils = data;
-      } else {
-        pupils = data.map(n => ({ name: n, interventionYear: DEFAULT_INTERVENTION }));
-      }
-    } else if (data && Array.isArray(data.pupils)) {
-      pupils = data.pupils.map(n => typeof n === 'object' ? n : { name: n, interventionYear: DEFAULT_INTERVENTION });
-    }
+    const raw = Array.isArray(data) ? data : (data && Array.isArray(data.pupils) ? data.pupils : []);
+    // Entries are {code, label (initials), interventionYear, archived}; older entries may be a plain name or {name}
+    const pupils = raw
+      .map(p => typeof p === 'string' ? { name: p } : p)
+      .filter(p => p && !p.archived)
+      .map(p => {
+        const code = /^p_[a-z2-7]{10}$/.test(p.pupilCode || p.code || '') ? (p.pupilCode || p.code) : '';
+        const label = String(p.label || p.name || '').trim();
+        return { code, label, name: code ? '' : String(p.name || label).trim(), interventionYear: p.interventionYear || DEFAULT_INTERVENTION };
+      })
+      .filter(p => p.label);
     if (pupils.length) {
       renderGrid(pupils);
     } else {
@@ -203,9 +204,9 @@ function renderGrid(pupils) {
   document.getElementById('loading-msg').style.display = 'none';
   document.getElementById('name-section').style.display = 'block';
 
-  allPupils = [...pupils].sort((a, b) => a.name.localeCompare(b.name));
+  allPupils = [...pupils].sort((a, b) => a.label.localeCompare(b.label));
 
-  const letters = [...new Set(allPupils.map(p => p.name[0].toUpperCase()))].sort();
+  const letters = [...new Set(allPupils.map(p => p.label[0].toUpperCase()))].sort();
   const bar = document.getElementById('letter-bar');
   bar.innerHTML = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(l =>
     `<button class="letter-btn${letters.includes(l) ? '' : ' disabled'}" data-letter="${l}">${l}</button>`
@@ -225,7 +226,10 @@ function renderGrid(pupils) {
   document.getElementById('name-grid').addEventListener('click', function(e) {
     const btn = e.target.closest('.name-btn');
     if (!btn) return;
-    start(btn.dataset.name, btn.dataset.interventionYear || DEFAULT_INTERVENTION);
+    const p = allPupils[+btn.dataset.idx];
+    if (!p) return;
+    if (p.code) startCode(p.code, p.label, p.interventionYear);
+    else start(p.name, p.interventionYear);
   });
 }
 
@@ -234,15 +238,21 @@ function renderFiltered() {
     b.classList.toggle('active', b.dataset.letter === activeLetter)
   );
   const filtered = activeLetter
-    ? allPupils.filter(p => p.name[0].toUpperCase() === activeLetter)
+    ? allPupils.filter(p => p.label[0].toUpperCase() === activeLetter)
     : allPupils;
+  const esc = v => String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
   document.getElementById('name-grid').innerHTML = filtered.map(p =>
-    `<button class="name-btn" data-name="${p.name.replace(/"/g,'&quot;')}" data-intervention-year="${p.interventionYear}">${p.name}</button>`
+    `<button class="name-btn" data-idx="${allPupils.indexOf(p)}">${esc(p.label)}</button>`
   ).join('');
 }
 
 function start(name, interventionYear) {
   localStorage.setItem('ra_preload', JSON.stringify({ name, classYear: CLASS_YEAR, interventionYear: interventionYear || DEFAULT_INTERVENTION, assessment: '3in3-Y4' }));
+  window.location.href = 'index.html';
+}
+
+function startCode(code, label, interventionYear) {
+  localStorage.setItem('ra_preload', JSON.stringify({ code, label, classYear: CLASS_YEAR, interventionYear: interventionYear || DEFAULT_INTERVENTION, assessment: '3in3-Y4' }));
   window.location.href = 'index.html';
 }
 
@@ -258,6 +268,6 @@ function startFallback() {
   start(name, DEFAULT_INTERVENTION);
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-14.10.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y4-20.10.26a</p>
 </body>
 </html>

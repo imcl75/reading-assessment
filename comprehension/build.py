@@ -12,6 +12,8 @@ _last = {t["id"]: t for t in TESTS}
 TESTS[:] = list(_last.values())
 from patches import apply_patches
 apply_patches(_last, sorted(glob.glob(str(here/"qa_patches_*.py"))))
+from renames import apply_renames
+apply_renames(TESTS)      # per-text character renames (renames.py), after patches
 TESTS.sort(key=lambda t:(t["level"], int(t["id"].split("-")[1])))
 err = validate(TESTS)
 by={}

@@ -13,3 +13,9 @@ Reading assessment suite (fluency, phonics and comprehension), served with a `CN
 - **Reference data** (term dates, staff, pupils, curriculum plan) comes from the WFA database, never a Google Sheet or Apps Script.
 - **Systems reference:** `docs/SYSTEM.md` in the private `wallscourtfarm/wfa-data` repo.
 - **Files that aren't code** (decks, PDFs, school documents) live in OneDrive, not here.
+
+## Comprehension texts: character names
+
+- The source files in `comprehension/` (`tests_batch_*.py`, `qa_patches_*.py`) still contain the ORIGINAL names. `comprehension/renames.py` swaps names per text at the end of `build.py`, so the live page differs from a grep of the sources.
+- To change a character name, edit `renames.py`, not the sources, then run `python3 comprehension/build.py` and bump `VERSION` in `comprehension/template.html`.
+- Keep each first name to one text. Check the built `index.html` before adding a new text.

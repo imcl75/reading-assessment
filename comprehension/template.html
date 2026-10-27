@@ -199,7 +199,7 @@ function paginateQuestions(t){
   const key = t.id;
   if (_pageCache[key]) return _pageCache[key];
   const {chromeH, footH, heightsMm} = measureQuestionHeights(t);
-  // Safety margin widened 28.09.26 after a real print (AA, Level 18, "The Lost
+  // Safety margin widened 28.09.26 after a real print (a pupil, Level 18, "The Lost
   // Mitten") measured at 251mm — comfortably under the old 265mm budget — but still spilled
   // onto a genuine second physical page. Printer/print-dialog margins (e.g. Chrome/Safari's
   // own "Headers and footers" option, or a Margins setting other than "None") eat into the

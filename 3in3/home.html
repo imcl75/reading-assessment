@@ -52,6 +52,7 @@
 <h1>3 in 3 Reading</h1>
 <p class="sub">Wallscourt Farm Academy</p>
 <p class="hint">Select your year group to begin</p>
+<p id="unlock-banner" style="display:none;font-weight:800;font-size:.95rem;text-align:center;margin:-18px 0 22px;padding:8px 16px;border-radius:12px"></p>
 
 <div class="cards">
 
@@ -107,7 +108,23 @@
 
 </div>
 
-<p class="footer">3 in 3 Reading Intervention · <span style="opacity:.6">09.09.26b</span></p>
+<p class="footer">3 in 3 Reading Intervention · <span style="opacity:.6">28.10.26a</span></p>
+<p class="footer" style="margin-top:6px"><a href="unlock.html" style="color:#8aacbe">Teachers: show today's unlock code</a></p>
 
+<script src="unlock.js"></script>
+<script>
+// A teacher's QR opens this page as home.html#u=<code>; keep the code on this iPad until midnight.
+(function () {
+  var b = document.getElementById('unlock-banner');
+  function show(text, bad) {
+    b.textContent = text; b.style.display = 'block';
+    b.style.background = bad ? '#fde8e8' : '#e3f6e8'; b.style.color = bad ? '#b42318' : '#15803d';
+  }
+  WFAUnlock.absorbHash().then(function (r) {
+    if (r === 'bad') show('That code did not work. Ask your teacher to show today\u2019s code again.', true);
+    else if (r === 'ok' || WFAUnlock.code()) show('\u2705 This iPad is unlocked for today.');
+  });
+})();
+</script>
 </body>
 </html>

@@ -121,6 +121,7 @@ h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: cente
   </div>
 </div>
 
+<script src="../unlock.js"></script>
 <script>
 const BACKEND_URL = 'https://api.wallscourt-farm-academy.co.uk/planning/readassess-db';
 const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
@@ -132,7 +133,7 @@ function jsonpFetch(url, timeout) {
     function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
     window[cb] = data => { cleanup(); resolve(data); };
     script.onerror = () => { cleanup(); reject(); };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN + '&callback=' + cb;
+    script.src = url + (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN + '&unlock=' + encodeURIComponent(WFAUnlock.code()) + '&callback=' + cb;
     document.body.appendChild(script);
   });
 }
@@ -178,7 +179,12 @@ function cardLogin(code) {
   const code = cardCode();
   if (code) { cardLogin(code); return; }
   try {
-    const data = await jsonpFetch(BACKEND_URL + '?action=get3in3pupils&classYear=' + CLASS_YEAR);
+    if (!WFAUnlock.code()) await WFAUnlock.ask();   // a teacher scans today's code onto the iPad first
+    let data = await jsonpFetch(BACKEND_URL + '?action=get3in3pupils&classYear=' + CLASS_YEAR);
+    if (data && data.error === 'unlock required') {   // code out of date (new day, or the teacher changed it)
+      WFAUnlock.clear(); await WFAUnlock.ask();
+      data = await jsonpFetch(BACKEND_URL + '?action=get3in3pupils&classYear=' + CLASS_YEAR);
+    }
     const raw = Array.isArray(data) ? data : (data && Array.isArray(data.pupils) ? data.pupils : []);
     // Entries are {code, label (initials), interventionYear, archived}; older entries may be a plain name or {name}
     const pupils = raw
@@ -268,6 +274,6 @@ function startFallback() {
   start(name, DEFAULT_INTERVENTION);
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-20.10.26a</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y3-28.10.26a</p>
 </body>
 </html>

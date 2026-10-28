@@ -295,6 +295,7 @@ html, body {
   </div>
 </div>
 
+<script src="../unlock.js"></script>
 <script>
 const BACKEND_URL = 'https://api.wallscourt-farm-academy.co.uk/planning/readassess-db';
 const WFA_TOKEN = localStorage.getItem('wfa_shared_token') || '2013';
@@ -4845,7 +4846,7 @@ let startTime = null;
     activeSessions = ALL_SESSIONS[interventionYear] || SESSIONS_Y5;
     TEXTS = ALL_TEXTS[interventionYear] || TEXTS_Y5;
     document.getElementById('pupil-name-hdr').textContent = pupilCode ? pupilLabel : pupilName;
-    fetchProgress();
+    (WFAUnlock.code() ? Promise.resolve() : WFAUnlock.ask()).then(fetchProgress);   // iPad must be unlocked for today
   } catch(err) {
     // If anything throws, hide spinner and show session 1 anyway
     document.getElementById('loading-screen').style.display = 'none';
@@ -4870,7 +4871,7 @@ function jsonpFetch(url, timeout = 12000) {
     function cleanup() { clearTimeout(timer); delete window[cb]; if (script.parentNode) document.body.removeChild(script); }
     window[cb] = data => { cleanup(); resolve(data); };
     script.onerror = () => { cleanup(); reject(new Error('Network error')); };
-    script.src = url + (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN + '&callback=' + cb;
+    script.src = url + (url.includes('?') ? '&' : '?') + 'token=' + WFA_TOKEN + '&unlock=' + encodeURIComponent(WFAUnlock.code()) + '&callback=' + cb;
     document.body.appendChild(script);
   });
 }
@@ -5151,7 +5152,12 @@ async function submitSession() {
   localStorage.setItem('3in3_idx_' + (pupilCode || pupilName), String(nextIdx));
 
   try {
-    await jsonpFetch(url, 15000);
+    let saved = await jsonpFetch(url, 15000);
+    while (saved && saved.error === 'unlock required') {   // the code changed mid-session: keep the answers, ask, save again
+      WFAUnlock.clear();
+      await WFAUnlock.ask('Your answers are safe. Ask your teacher to unlock this iPad so they can be saved.');
+      saved = await jsonpFetch(url, 15000);
+    }
   } catch(e) {
     // Save failed silently — show done screen anyway (data may still have saved)
   }
@@ -5174,6 +5180,6 @@ function showDone(scores) {
   document.getElementById('done-screen').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
-<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y5-14.10.26f</p>
+<p style="text-align:center;font-size:11px;color:#a0b8c8;margin-top:32px;opacity:.7">Y5-28.10.26a</p>
 </body>
 </html>

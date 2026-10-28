@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- 3in3/unlock.html — Teachers: today's unlock code for the 3 in 3 iPads (staff sign-in only) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 in 3 — unlock iPads</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --brand: #1798d3; --brand-dk: #0a6fa8; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; min-height: 100vh; background: #f0f6fb; color: #1a1a2e;
+         display: flex; flex-direction: column; align-items: center; padding: 28px 16px 40px; }
+  h1 { color: var(--brand); font-size: 1.6rem; font-weight: 800; text-align: center; }
+  .sub { color: #5a8fa8; margin: 4px 0 20px; text-align: center; }
+  .card { background: #fff; border-radius: 20px; padding: 26px 22px; width: 100%; max-width: 460px;
+          box-shadow: 0 4px 20px rgba(23,152,211,.14); text-align: center; }
+  #qr svg { width: 100%; max-width: 300px; height: auto; }
+  .code { font-size: 2.6rem; font-weight: 800; letter-spacing: .12em; color: var(--brand-dk); margin: 10px 0 2px; }
+  .until { color: #6b7280; font-size: .9rem; margin-bottom: 14px; }
+  ol { text-align: left; color: #444; font-size: .95rem; line-height: 1.55; margin: 14px 0 0 20px; }
+  button { font-family: inherit; font-weight: 800; font-size: .95rem; border: 2px solid var(--brand); color: var(--brand);
+           background: #fff; border-radius: 12px; padding: 9px 18px; cursor: pointer; margin-top: 18px; }
+  button:hover { background: #e8f5fd; }
+  .err { color: #b42318; font-weight: 700; }
+  .ver { margin-top: 24px; font-size: 11px; color: #a0b8c8; }
+</style>
+</head>
+<body>
+<h1>3 in 3: unlock iPads for today</h1>
+<p class="sub">Wallscourt Farm Academy · teachers only</p>
+
+<div class="card">
+  <div id="qr" aria-label="QR code that unlocks an iPad for today"></div>
+  <div class="code" id="code">Loading…</div>
+  <div class="until" id="until"></div>
+  <div id="msg" class="err"></div>
+  <ol>
+    <li>Point the iPad camera at the QR code and tap the link.</li>
+    <li>The iPad says it is unlocked, and stays unlocked until midnight.</li>
+    <li>Do this once for each iPad you hand to a child.</li>
+  </ol>
+  <button id="new-code" type="button">Make a new code (locks every iPad again)</button>
+</div>
+<p class="ver">28.10.26a</p>
+
+<script src="qrcode.min.js"></script>
+<!-- QR generator: qrcode-generator 1.4.4 by Kazuhiko Arase, MIT licence (cdnjs) -->
+<script>
+const API = '/_api/planning/readassess-db';
+function pretty(c) { return c.slice(0, 4) + ' ' + c.slice(4); }
+
+async function load(rotate) {
+  const msg = document.getElementById('msg');
+  msg.textContent = '';
+  try {
+    // Goes through /_api on this site: Cloudflare checks the staff sign-in and a Worker adds the real token.
+    const r = await fetch(API + '?action=unlockcode&token=__hub__' + (rotate ? '&rotate=1' : ''),
+      { headers: { 'X-WFA-Proxy': '1' }, cache: 'no-store' });
+    const d = await r.json();
+    if (!d || !d.ok || !/^\d{8}$/.test(d.code || '')) throw new Error((d && d.error) || 'unexpected reply');
+    const link = location.origin + '/3in3/home.html#u=' + d.code;
+    const qr = qrcode(0, 'M'); qr.addData(link); qr.make();
+    document.getElementById('qr').innerHTML = qr.createSvgTag(8, 2);
+    document.getElementById('code').textContent = pretty(d.code);
+    const day = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+    document.getElementById('until').textContent = 'Works until midnight tonight (' + day + ')';
+  } catch (e) {
+    document.getElementById('code').textContent = '—';
+    msg.textContent = 'Could not load today’s code (' + e.message + '). Reload and try again.';
+  }
+}
+document.getElementById('new-code').onclick = function () {
+  if (confirm('Make a new code? Every iPad you already unlocked today will need scanning again.')) load(true);
+};
+load(false);
+</script>
+</body>
+</html>

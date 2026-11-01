@@ -108,6 +108,7 @@ body.nopics .pic{display:none}
       <button class="act alt" id="pAllTeacher">Print all teacher copies</button>
     </div>
     <div class="actions">
+      <button class="act alt" id="pChild">Show on screen for the child to read</button>
       <button class="act alt" id="pEveryPupil">Print every pupil copy, every phase</button>
     </div>
     <label class="opt"><input type="checkbox" id="picToggle" checked> Show the picture on printed sheets</label>
@@ -136,7 +137,7 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "14.10.26n";
+const VERSION = "01.11.26b";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
@@ -259,6 +260,7 @@ $("pTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-i="'+T+'"]
 $("pAllPupil").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="p"]', 'Phonics - '+L.name+' - All Texts - Pupil Copies');
 $("pAllTeacher").onclick=()=>printSel('.sheet[data-l="'+L.level+'"][data-k="t"]', 'Phonics - '+L.name+' - All Texts - Marking Copies');
 $("pEveryPupil").onclick=()=>printSel('.sheet[data-k="p"]', 'Phonics - Every Phase - Pupil Copies');
+$("pChild").onclick=()=>{ const t=L.texts[T]; ChildReader.open({title:t.title, text:t.text, images:t.images, min:22, max:64}); };   // Innes, 01.11.26: the child can read from the iPad instead of a printed pupil copy
 $("picToggle").onchange = e => document.body.classList.toggle("nopics", !e.target.checked);
 $("rubric").addEventListener("click", e=>{
   const c=e.target.closest(".rcell"); if(!c) return;

@@ -1,14 +1,14 @@
 /* Child reading view (shared by fluency and phonics; inlined by each tool's build.py). Fills the screen
    with just the title, the text and any pictures, so a child can read from the iPad instead of a printed
-   pupil copy. No marks, no 100-word marker, no buttons except a small "Done" for the adult.
+   pupil copy, on a soft cream background (easier on the eye than pure white behind black text). No marks, no 100-word marker, no buttons except a small "Done" for the adult.
    Sits above everything else on the page, including the staff "Show names" button.
    The text is sized to fill the screen without scrolling (it re-fits when the iPad is turned round). */
 const ChildReader = (function(){
-  const css = '#childReader{position:fixed;inset:0;z-index:2147483000;background:#fff;color:#0a0101;display:flex;flex-direction:column;'+
+  const css = '#childReader{position:fixed;inset:0;z-index:2147483000;background:#fbf7ec;color:#0a0101;display:flex;flex-direction:column;'+
     'padding:max(18px,env(safe-area-inset-top)) max(22px,env(safe-area-inset-right)) max(18px,env(safe-area-inset-bottom)) max(22px,env(safe-area-inset-left));'+
     'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-user-select:none;user-select:none}'+
     '#childReader[hidden]{display:none}'+
-    '#childReader .cr-done{position:absolute;top:max(10px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));font-size:16px;padding:8px 14px;border-radius:10px;border:2px solid #cfe3ee;background:#fff;color:#567;font-weight:700;cursor:pointer}'+
+    '#childReader .cr-done{position:absolute;top:max(10px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));font-size:16px;padding:8px 14px;border-radius:10px;border:2px solid #e3dccb;background:#fbf7ec;color:#567;font-weight:700;cursor:pointer}'+
     '#childReader .cr-body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;align-items:center}'+
     '#childReader .cr-inner{width:100%;max-width:1100px;margin:auto 0}'+
     '#childReader h1{margin:0 90px .5em;text-align:center;font-size:1.15em;line-height:1.25}'+

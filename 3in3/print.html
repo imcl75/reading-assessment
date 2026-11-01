@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!-- 3in3/print.html — Printable 3 in 3 texts: several cut-out cards per A4 sheet.
+     Reads texts.json (the shared copy of the TEXTS/SESSIONS data built into each yN/index.html;
+     if a year page's texts change, update texts.json too). No pupil data, no API calls. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 in 3 — print the texts</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --brand: #1798d3; --brand-dk: #0a6fa8; --text-size: 14pt; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: #f0f6fb; color: #1a1a2e; padding: 24px 16px 40px; }
+
+  /* ── Screen controls ── */
+  .controls { max-width: 760px; margin: 0 auto 22px; background: #fff; border-radius: 18px; padding: 20px 22px;
+              box-shadow: 0 4px 20px rgba(23,152,211,.12); }
+  h1 { color: var(--brand); font-size: 1.5rem; font-weight: 800; }
+  .sub { color: #5a8fa8; margin: 2px 0 16px; font-size: .95rem; }
+  .row { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-bottom: 14px; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field > span { font-size: .78rem; font-weight: 800; color: #5a8fa8; text-transform: uppercase; letter-spacing: .04em; }
+  .seg { display: inline-flex; border: 2px solid var(--brand); border-radius: 12px; overflow: hidden; }
+  .seg button { font-family: inherit; font-weight: 800; font-size: .95rem; border: 0; background: #fff; color: var(--brand);
+                padding: 8px 14px; cursor: pointer; min-height: 40px; }
+  .seg button + button { border-left: 2px solid var(--brand); }
+  .seg button[aria-pressed="true"] { background: var(--brand); color: #fff; }
+  select, input[type=number] { font-family: inherit; font-size: 16px; font-weight: 700; padding: 8px 10px; border: 2px solid #c8e3f3;
+                               border-radius: 10px; background: #fff; color: #1a1a2e; min-height: 40px; }
+  input[type=number] { width: 90px; }
+  .print-btn { font-family: inherit; font-weight: 800; font-size: 1rem; border: 0; background: var(--brand); color: #fff;
+               border-radius: 12px; padding: 11px 22px; cursor: pointer; min-height: 44px; }
+  .print-btn:hover { background: var(--brand-dk); }
+  .summary { color: #444; font-size: .92rem; line-height: 1.5; }
+  .err { color: #b42318; font-weight: 700; margin-top: 8px; }
+  .hidden { display: none !important; }
+
+  /* ── The sheet (what prints) ── */
+  .sheet { max-width: 210mm; margin: 0 auto; background: #fff; padding: 10mm 12mm; box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+  .card { border: 1.5px dashed #9aa9b4; border-radius: 3mm; padding: 3.5mm 5mm 4mm; margin-bottom: 4mm;
+          break-inside: avoid; page-break-inside: avoid; }
+  .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm;
+               border-bottom: 1px solid #d5dde3; padding-bottom: 1.2mm; margin-bottom: 2mm; }
+  .card-title { font-weight: 800; font-size: 12pt; color: #0a6fa8; }
+  .card-meta { font-size: 9pt; color: #6b7280; font-weight: 700; white-space: nowrap; }
+  .card-text { font-size: var(--text-size); line-height: 1.45; color: #000; }
+  .ver { text-align: center; margin-top: 18px; font-size: 11px; color: #a0b8c8; }
+
+  @page { size: A4 portrait; margin: 9mm 11mm; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .controls, .ver { display: none !important; }
+    .sheet { max-width: none; margin: 0; padding: 0; box-shadow: none; }
+    .card-title { color: #000; }
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <h1>3 in 3: print the texts</h1>
+  <p class="sub">Wallscourt Farm Academy · paper copies for the weekly group read</p>
+
+  <div class="row">
+    <label class="field"><span>Year group</span>
+      <select id="year">
+        <option value="Y3">Year 3</option>
+        <option value="Y4">Year 4</option>
+        <option value="Y5" selected>Year 5</option>
+        <option value="Y6">Year 6</option>
+      </select>
+    </label>
+    <div class="field"><span>Print</span>
+      <div class="seg" role="group" aria-label="What to print">
+        <button type="button" data-mode="all" aria-pressed="true">Every text</button>
+        <button type="button" data-mode="set" aria-pressed="false">Class set of one text</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row hidden" id="set-row">
+    <label class="field"><span>Text</span><select id="text"></select></label>
+    <label class="field"><span>Copies</span><input id="copies" type="number" min="1" max="60" value="8" inputmode="numeric"></label>
+  </div>
+
+  <div class="row">
+    <div class="field"><span>Text size</span>
+      <div class="seg" role="group" aria-label="Text size">
+        <button type="button" data-size="14pt" aria-pressed="true">Standard</button>
+        <button type="button" data-size="16pt" aria-pressed="false">Large</button>
+      </div>
+    </div>
+    <button type="button" class="print-btn" id="print">Print</button>
+  </div>
+
+  <p class="summary" id="summary">Loading the texts…</p>
+  <p class="err" id="err"></p>
+</div>
+
+<div class="sheet" id="sheet"></div>
+<p class="ver">01.11.26a</p>
+
+<script>
+let DATA = null;
+let mode = 'all';
+
+// One card per distinct text. Each text is normally read in two sessions (Set A and Set B);
+// the app labels both "Text N" where N = ceil(session / 2). A text repeated across
+// consecutive entries (Y5 Dora, Texts 9 & 10) is printed once with both labels.
+function cardsFor(year) {
+  const d = DATA[year];
+  const bySession = Object.keys(d.sessions).map(Number).sort((a, b) => a - b);
+  const byIndex = {};
+  bySession.forEach(s => {
+    const ti = d.sessions[s];
+    (byIndex[ti] = byIndex[ti] || []).push(s);
+  });
+  const cards = [];
+  Object.keys(byIndex).map(Number).sort((a, b) => a - b).forEach(ti => {
+    const text = d.texts[ti];
+    if (!text) return;
+    const sessions = byIndex[ti];
+    const nums = [...new Set(sessions.map(s => Math.ceil(s / 2)))];
+    const prev = cards[cards.length - 1];
+    if (prev && prev.text === text) {
+      prev.nums.push(...nums);
+      prev.sessions.push(...sessions);
+    } else {
+      cards.push({ text, nums, sessions });
+    }
+  });
+  return cards;
+}
+
+function cardLabel(c) {
+  return c.nums.length > 1 ? 'Texts ' + c.nums.slice(0, -1).join(', ') + ' & ' + c.nums[c.nums.length - 1]
+                           : 'Text ' + c.nums[0];
+}
+
+function sessionLabel(c) {
+  const s = c.sessions.slice().sort((a, b) => a - b);
+  const contiguous = s.every((v, i) => i === 0 || v === s[i - 1] + 1);
+  return 'Sessions ' + (contiguous && s.length > 2 ? s[0] + '–' + s[s.length - 1] : s.join(' & '));
+}
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function makeCard(year, c) {
+  const card = el('div', 'card');
+  const head = el('div', 'card-head');
+  head.appendChild(el('span', 'card-title', '3 in 3 · Year ' + year.slice(1) + ' · ' + cardLabel(c)));
+  head.appendChild(el('span', 'card-meta', sessionLabel(c)));
+  card.appendChild(head);
+  card.appendChild(el('p', 'card-text', c.text));
+  return card;
+}
+
+function fillTextPicker() {
+  const year = document.getElementById('year').value;
+  const pick = document.getElementById('text');
+  const keep = pick.value;
+  pick.innerHTML = '';
+  cardsFor(year).forEach((c, i) => {
+    const o = el('option', null, cardLabel(c) + ' — ' + c.text.split(/\s+/).slice(0, 6).join(' ') + '…');
+    o.value = i;
+    pick.appendChild(o);
+  });
+  if (keep && pick.options[keep]) pick.value = keep;
+}
+
+function render() {
+  if (!DATA) return;
+  const year = document.getElementById('year').value;
+  const sheet = document.getElementById('sheet');
+  const cards = cardsFor(year);
+  sheet.innerHTML = '';
+  let summary;
+  if (mode === 'all') {
+    cards.forEach(c => sheet.appendChild(makeCard(year, c)));
+    summary = 'Year ' + year.slice(1) + ': all ' + cards.length + ' texts, several to a page. Cut along the dashed lines.';
+  } else {
+    const c = cards[Number(document.getElementById('text').value) || 0];
+    let n = Math.round(Number(document.getElementById('copies').value));
+    if (!(n >= 1)) n = 1;
+    if (n > 60) n = 60;
+    for (let i = 0; i < n; i++) sheet.appendChild(makeCard(year, c));
+    summary = n + ' cop' + (n === 1 ? 'y' : 'ies') + ' of Year ' + year.slice(1) + ' ' + cardLabel(c) +
+              ', several to a page. Cut along the dashed lines.';
+  }
+  document.getElementById('summary').textContent = summary;
+}
+
+document.getElementById('year').addEventListener('change', () => { fillTextPicker(); render(); });
+document.getElementById('text').addEventListener('change', render);
+document.getElementById('copies').addEventListener('input', render);
+document.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
+  mode = b.dataset.mode;
+  document.querySelectorAll('[data-mode]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  document.getElementById('set-row').classList.toggle('hidden', mode !== 'set');
+  render();
+}));
+document.querySelectorAll('[data-size]').forEach(b => b.addEventListener('click', () => {
+  document.documentElement.style.setProperty('--text-size', b.dataset.size);
+  document.querySelectorAll('[data-size]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+}));
+document.getElementById('print').addEventListener('click', () => window.print());
+
+fetch('texts.json', { cache: 'no-store' })
+  .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  .then(d => {
+    DATA = d;
+    const q = new URLSearchParams(location.search).get('year');
+    if (q && DATA[q.toUpperCase()]) document.getElementById('year').value = q.toUpperCase();
+    fillTextPicker();
+    render();
+  })
+  .catch(e => {
+    document.getElementById('summary').textContent = '';
+    document.getElementById('err').textContent = 'Could not load the texts (' + e.message + '). Check the internet connection and reload.';
+  });
+</script>
+</body>
+</html>

@@ -100,6 +100,9 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
       <button class="act alt" id="printTeacher">Print teacher copy</button>
       <button class="act alt" id="printAllPupil">Print all pupil copies</button>
     </div>
+    <div class="actions">
+      <button class="act alt" id="childView">Show on screen for the child to read</button>
+    </div>
   </section>
 
   <section class="card teacher" id="scoreCard">
@@ -138,14 +141,14 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
   </section>
 
 </main>
-<footer>Fluency Assessment &middot; Version <span id="ver">28.09.26n</span></footer>
+<footer>Fluency Assessment &middot; Version <span id="ver">01.11.26b</span></footer>
 
 <div id="sheets"></div>
 
 <script>
 /*SAVE_RESULTS*/
 const TEXTS = /*TEXTS*/;
-const VERSION = "14.10.26n";
+const VERSION = "01.11.26b";
 const BANDS = [[17,18,"Turquoise","#00e5c8"],[19,20,"Purple","#800080"],[21,22,"Gold","#ffc000"],[23,24,"White","#ffffff"],[25,26,"Lime","#00ee00"],[27,28,"Ruby","#c00000"],[29,30,"Sapphire","#000080"],[31,36,"Free Reader","#f2b705"]];
 const band = l => BANDS.find(b => l >= b[0] && l <= b[1]);
 const lv = l => l > 30 ? 'F' + (l - 30) : l;   // levels end at 30; above that the levels are F1-F4 (Free Reader)
@@ -272,6 +275,7 @@ $("clearMarks").onclick=()=>{ errs=new Set(); stopAt=words(cur).length; setMode(
 $("secs").addEventListener("input", refresh);
 $("printPupil").onclick=()=>printSheets('.sheet[data-p="'+cur.level+'"]', 'Reading Fluency - Level '+lv(cur.level)+' - Pupil Copy');
 $("printTeacher").onclick=()=>printSheets('.sheet[data-t="'+cur.level+'"]', 'Reading Fluency - Level '+lv(cur.level)+' - Marking Copy');
+$("childView").onclick=()=>ChildReader.open({title:cur.title, text:cur.text, min:20, max:48});   // Innes, 01.11.26: the child can read from the iPad instead of a printed pupil copy
 $("printAllPupil").onclick=()=>printSheets('.sheet[data-p]', 'Reading Fluency - All Levels - Pupil Copies');
 let tm=null, t0=0;
 function tick(){ const s=Math.floor((Date.now()-t0)/1000); $("clock").textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0"); }

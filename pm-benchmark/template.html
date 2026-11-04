@@ -79,6 +79,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
     <div class="actions">
       <button class="act" id="pPupil">Print pupil copy</button>
       <button class="act alt" id="pTeacher">Print teacher copy</button>
+      <button class="act alt" id="pChild">Show on screen for the child to read</button>
     </div>
   </section>
 
@@ -115,7 +116,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "14.10.26n";
+const VERSION = "04.11.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const QTAG = {"Literal":"Literal","Inferential":"Inferential","Applied Knowledge":"Applied Knowledge","Vocabulary":"Vocabulary"};
@@ -250,6 +251,7 @@ $("qs").addEventListener("click", e => {
 });
 $("levels").onclick = e => { const b = e.target.closest(".lv"); if (!b) return; L = DATA.find(l=>l.level==b.dataset.l); T = 0; autoPickText(); renderLevels(); renderTexts(); };
 $("texts").onclick = e => { const b = e.target.closest(".tx"); if (!b) return; T = +b.dataset.i; renderTexts(); };
+$("pChild").onclick = () => { const t = L.texts[T]; ChildReader.open({title:t.title, text:t.pages.flatMap(p => p.lines).join(' '), min:22, max:48}); };   // Innes, 04.11.26: the child can read from the iPad instead of a printed pupil copy (printing stays)
 $("pPupil").onclick = () => printSel('.sheet[data-id="'+L.texts[T].id+'"][data-k="p"]', 'Benchmarking - Level '+L.level+' - '+L.texts[T].title+' - Pupil Copy');
 $("pTeacher").onclick = () => printSel('.sheet[data-id="'+L.texts[T].id+'"][data-k="t"]', 'Benchmarking - Level '+L.level+' - '+L.texts[T].title+' - Teacher Copy');
 SaveResults.init({tool:"pm_benchmark", onPupilChange: loadPupilHistory, get: () => {

@@ -29,52 +29,56 @@ th{background:var(--soft);font-size:.78rem}
 footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
 </style>
+<style>
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tab{font:inherit;font-weight:700;font-size:.9rem;padding:9px 14px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--dark);cursor:pointer}
+.tab[aria-selected=true]{background:var(--brand);border-color:var(--brand);color:#fff}
+.pn{background:none;border:0;font:inherit;font-weight:700;color:#0a6fa8;text-decoration:underline;cursor:pointer;padding:0}
+td.none{color:#9aa;background:#fafcfd}
+tr.tot td{background:var(--soft);font-weight:700}
+td small{font-weight:400}
+.back{margin:0 0 10px}
+.sumline{margin:10px 0 0;font-size:.9rem;color:#345}
+.tblwrap table th:first-child,.tblwrap table td:first-child{position:sticky;left:0;background:#fff;z-index:1}
+.tblwrap table th:first-child{background:var(--soft)}
+</style>
 </head>
 <body>
 <header><h1>Reading Assessment Results</h1><p>Wallscourt Farm Academy &middot; Cabot Learning Federation</p><nav class="toolnav"><a href="../home.html">&#8962; Reading assessment home</a><a href="../fluency/">Reading fluency</a><a href="../phonics/">Phonics comprehension</a><a href="../comprehension/">Comprehension by level</a><a href="../pm-benchmark/">Benchmarking</a><a href="../results/" aria-current="page">Results</a></nav></header>
 <main>
   <section class="card">
-    <h2>Choose a pupil</h2>
+    <h2>Class results</h2>
     <div class="row">
       <div><label for="rClass">Class</label><select id="rClass"><option value="">Loading classes&hellip;</option></select></div>
-      <div><label for="rPupil">Pupil</label><select id="rPupil" disabled><option value="">Choose a class first</option></select></div>
+      <div><label for="rTerm">Term</label><select id="rTerm"></select></div>
+      <div><label for="rPupil">Pupil</label><select id="rPupil" disabled><option value="">Whole class</option></select></div>
     </div>
+    <div class="tabs" id="tabs" role="tablist"></div>
     <p class="st" id="status"></p>
   </section>
 
-  <section class="card" id="compCard" hidden>
-    <h2>Comprehension by level</h2>
-    <div class="tblwrap"><table id="compTbl"></table></div>
-    <p class="empty" id="compEmpty" hidden>No comprehension results saved for this pupil yet.</p>
-    <div id="compAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="compAvgTbl"></table></div></div>
+  <section class="card" id="classView" hidden>
+    <h2 id="clsTitle"></h2>
+    <p class="sumline" id="clsSum"></p>
+    <div class="tblwrap"><table id="clsTbl"></table></div>
+    <p class="empty" id="clsEmpty" hidden></p>
+    <div id="clsAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="clsAvgTbl"></table></div></div>
   </section>
 
-  <section class="card" id="phonCard" hidden>
-    <h2>Phonics comprehension (KS1)</h2>
-    <div class="tblwrap"><table id="phonTbl"></table></div>
-    <p class="empty" id="phonEmpty" hidden>No phonics results saved for this pupil yet.</p>
-    <div id="phonAvgWrap" hidden><h3>Class average, same phase</h3><div class="tblwrap"><table id="phonAvgTbl"></table></div></div>
-  </section>
-
-  <section class="card" id="fluCard" hidden>
-    <h2>Reading fluency</h2>
-    <div class="tblwrap"><table id="fluTbl"></table></div>
-    <p class="empty" id="fluEmpty" hidden>No fluency results saved for this pupil yet.</p>
-    <div id="fluAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="fluAvgTbl"></table></div></div>
-  </section>
-
-  <section class="card" id="pmbCard" hidden>
-    <h2>Benchmarking</h2>
-    <div class="tblwrap"><table id="pmbTbl"></table></div>
-    <p class="empty" id="pmbEmpty" hidden>No Benchmarking results saved for this pupil yet.</p>
-    <div id="pmbAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="pmbAvgTbl"></table></div></div>
-  </section>
+  <div id="pupilView" hidden>
+    <p class="back"><button class="link" id="backBtn" type="button">&larr; Back to the whole class</button></p>
+    <section class="card"><h2 id="pupTitle"></h2><p class="sumline" id="pupSum"></p></section>
+    <section class="card" id="compCard"><h2>Comprehension by level</h2><div class="tblwrap"><table id="compTbl"></table></div><p class="empty" id="compEmpty" hidden>No comprehension results for this pupil.</p><div id="compAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="compAvgTbl"></table></div></div></section>
+    <section class="card" id="phonCard"><h2>Phonics comprehension (KS1)</h2><div class="tblwrap"><table id="phonTbl"></table></div><p class="empty" id="phonEmpty" hidden>No phonics results for this pupil.</p><div id="phonAvgWrap" hidden><h3>Class average, same phase</h3><div class="tblwrap"><table id="phonAvgTbl"></table></div></div></section>
+    <section class="card" id="fluCard"><h2>Reading fluency</h2><div class="tblwrap"><table id="fluTbl"></table></div><p class="empty" id="fluEmpty" hidden>No fluency results for this pupil.</p><div id="fluAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="fluAvgTbl"></table></div></div></section>
+    <section class="card" id="pmbCard"><h2>Benchmarking</h2><div class="tblwrap"><table id="pmbTbl"></table></div><p class="empty" id="pmbEmpty" hidden>No Benchmarking results for this pupil.</p><div id="pmbAvgWrap" hidden><h3>Class average, same level</h3><div class="tblwrap"><table id="pmbAvgTbl"></table></div></div></section>
+  </div>
 </main>
 <footer>Reading Assessment Results &middot; Version <span id="ver"></span></footer>
 <script>
 /*SAVE_RESULTS*/
 /*TARGETS*/
-const VERSION = "11.11.26a";
+const VERSION = "11.11.26c";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -154,21 +158,18 @@ function accuracyCell(acc){
   return '<td style="'+style+';font-weight:700">'+acc+'%</td>';
 }
 
-// Class averages (Innes, 30.09.26): context for "is 71% good?" — averaged across every saved
-// attempt (any pupil, any attempt) at the same level, including the pupil being viewed, since
-// that's the standard reading of "class average". Not deduped to one attempt per pupil, so a
-// level with lots of retests weights those pupils more — acceptable for a quick-glance comparison.
-let classHistCache = {};
-async function loadClassHistory(cls, tool){
-  if (!cls) return [];
-  const key = cls + '|' + tool;
-  if (classHistCache[key]) return classHistCache[key];
-  const d = await SaveResults.call('GET', '/readingresults-db', {class:cls, tool:tool, limit:2000});
-  return (classHistCache[key] = (d && d.results) || []);
-}
-function classAverages(classRows, levelsWanted){
+
+// ---------------------------------------------------------------------------------------------------------
+// Class view (11.11.26): pick a class and see everyone at once. Overview = each child's latest result per tool
+// for the chosen term; one tab per tool lists every result; click a child's initials for their own history.
+// ---------------------------------------------------------------------------------------------------------
+const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }, set(k,v){ try { localStorage.setItem(k,v); } catch(e){} } };
+const TOOLS = [['fluency','Fluency'],['phonics','Phonics'],['comprehension','Comprehension'],['pm_benchmark','Benchmarking']];
+let roster = null, ALL = [], cls = '', TERM = 0, TAB = 'overview', PUPIL = '', CURRENT_TERM = 0;
+
+function classAverages(rows, levelsWanted){
   const byLevel = {};
-  classRows.forEach(r => { if (levelsWanted.includes(r.level)) (byLevel[r.level] = byLevel[r.level] || []).push(r); });
+  rows.forEach(r => { if (levelsWanted.includes(r.level)) (byLevel[r.level] = byLevel[r.level] || []).push(r); });
   return levelsWanted.filter(l => byLevel[l]).map(level => {
     const rs = byLevel[level];
     return {level, n: rs.length,
@@ -178,190 +179,204 @@ function classAverages(classRows, levelsWanted){
   });
 }
 
-// Term/week lookup (Innes, 30.09.26): reuses the site-wide TermDates calendar (one row per
-// week, Term/Week/Label/StartDate) rather than storing a week number on every saved result —
-// same "latest week whose StartDate <= the date" logic already used by teaching-schedule's
-// buildWeeks/currentWeekIdx and cover-plan's planner.html, just for an arbitrary past date
-// instead of today.
+// Term/week lookup from the school calendar (TermDates), for the "Term / Week" column
 let WEEKS = [];
 function parseUKDate(s){ const [d,m,y] = s.split('/').map(Number); return new Date(y, m-1, d); }
 function buildWeeks(rows){
-  return (rows || []).map(r => ({term:+r.Term, week:+r.Week, label:r.Label, start: parseUKDate(r.StartDate)}))
+  return (rows || []).map(r => ({term:+r.Term, week:+r.Week, start: parseUKDate(r.StartDate)}))
     .filter(w => !isNaN(w.start)).sort((a,b) => a.start - b.start);
 }
 function weekLabelForDate(iso){
   if (!iso || !WEEKS.length) return '';
-  const d = new Date(iso + 'T00:00:00');
-  let match = null;
+  const d = new Date(iso + 'T00:00:00'); let match = null;
   for (const w of WEEKS) { if (w.start <= d) match = w; else break; }
   return match ? ('Term ' + match.term + ' Week ' + match.week) : '';
 }
+async function loadWeeks(){ const d = await SaveResults.call('GET', '/tab', {tab:'TermDates'}); WEEKS = buildWeeks(d && d.rows); }
 
-let roster = null;
-// Fix a mistake (11.11.26): Move a result to the right child / term / date, or Remove it
+// Fix a mistake: Move a result to the right child / term / date, or Remove it
 const byId = {};
 function fixCell(r){ byId[r.id] = r; return '<td><button class="link" data-fix="move" data-id="'+r.id+'">Move</button> <button class="link" data-fix="remove" data-id="'+r.id+'">Remove</button>'+(r.edit_note?' <small title="'+esc(r.edit_note)+'">(corrected)</small>':'')+'</td>'; }
 document.addEventListener('click', e => {
+  const pn = e.target.closest('button.pn');
+  if (pn) { choosePupil(pn.dataset.code); return; }
   const b = e.target.closest('button[data-fix]'); if (!b) return;
   const r = byId[+b.dataset.id]; if (!r) return;
   const tr = b.closest('tr'); let fr = tr.nextElementSibling;
   if (!fr || !fr.classList.contains('fixrow')) { fr = document.createElement('tr'); fr.className = 'fixrow'; fr.innerHTML = '<td colspan="30" style="white-space:normal"><div class="fixhost"></div></td>'; tr.parentNode.insertBefore(fr, tr.nextSibling); }
   const host = fr.querySelector('.fixhost');
-  if (b.dataset.fix === 'move') SaveResults.fixResult(r, host, onPupil); else SaveResults.removeResult(r, host, onPupil);
+  if (b.dataset.fix === 'move') SaveResults.fixResult(r, host, reload); else SaveResults.removeResult(r, host, reload);
 });
+
+function status(msg, bad){ const e = $("status"); e.textContent = msg || ''; e.className = 'st' + (bad ? ' bad' : ''); }
+const people = () => (roster && roster[cls]) || [];
+const labelFor = r => { const p = people().find(p => p.pcode === r.pupilCode); return p ? p.label : (r.label || '?'); };
+const inTerm = r => !TERM || r.term === TERM;
+const byTime = (a,b) => (a.taken_on||'').localeCompare(b.taken_on||'') || a.id - b.id;
+const nameCell = (code, label) => '<td><button class="pn" type="button" data-code="'+esc(code)+'" data-pupil-id="'+esc(code)+'">'+esc(label)+'</button></td>';
 
 async function loadRoster(){
   const d = await SaveResults.call('GET', '/pupils');
-  if (!d.pupils) { $("rClass").innerHTML = '<option value="">Class lists unavailable</option>'; status('Could not load class lists.', true); return; }
-  roster = PupilLabels.byClass(d.pupils);   // each pupil gets .label (initials, clash-aware per class) and .pcode (pupil code)
-  const names = Object.keys(roster).sort();
+  if (!d.pupils) { $("rClass").innerHTML = '<option value="">Class lists unavailable</option>'; status(d.error || 'Could not load class lists.', true); return false; }
+  roster = PupilLabels.byClass(d.pupils);
+  const names = Object.keys(roster).sort((a,b) => (roster[a][0].yearGroup||'').localeCompare(roster[b][0].yearGroup||'', undefined, {numeric:true}) || a.localeCompare(b));
   $("rClass").innerHTML = '<option value="">Choose a class</option>' + names.map(n => '<option value="'+esc(n)+'">'+esc(n)+'</option>').join('');
+  return true;
 }
-async function loadWeeks(){
-  const d = await SaveResults.call('GET', '/tab', {tab:'TermDates'});
-  WEEKS = buildWeeks(d && d.rows);
+async function reload(){
+  if (!cls) return;
+  const d = await SaveResults.call('GET', '/readingresults-db', {class:cls, limit:2000});
+  if (!d.results) { status(d.error || 'Could not load results.', true); return; }
+  ALL = d.results.sort(byTime); status('');
+  if (d.current && !CURRENT_TERM) { CURRENT_TERM = d.current.term; if (store.get('rr_term') == null) { TERM = CURRENT_TERM; $("rTerm").value = String(TERM); } }
+  render();
 }
-function status(msg, bad){ const e = $("status"); e.textContent = msg || ''; e.className = 'st' + (bad ? ' bad' : ''); }
+
+function renderTabs(){
+  const tabs = [['overview','Overview'], ...TOOLS];
+  $("tabs").innerHTML = tabs.map(t => '<button type="button" class="tab" role="tab" data-tab="'+t[0]+'" aria-selected="'+(TAB===t[0])+'">'+t[1]+'</button>').join('');
+  $("tabs").onclick = e => { const b = e.target.closest('.tab'); if (!b) return; TAB = b.dataset.tab; store.set('rr_tab', TAB); if (PUPIL) choosePupil(''); else render(); };
+}
+
+function render(){
+  renderTabs();
+  $("tabs").hidden = !cls || !!PUPIL;
+  $("classView").hidden = !cls || !!PUPIL;
+  $("pupilView").hidden = !PUPIL;
+  if (!cls) return;
+  curYear = (people()[0] || {}).yearGroup || '';
+  if (PUPIL) return renderPupil();
+  const termTxt = TERM ? 'Term ' + TERM : 'all terms';
+  if (TAB === 'overview') renderOverview(termTxt); else renderToolTab(TAB, termTxt);
+}
+
+// Latest result of each tool per child, in the chosen term
+function renderOverview(termTxt){
+  const rows = ALL.filter(inTerm), list = people();
+  $("clsTitle").textContent = 'Class ' + cls + ': latest result for each child (' + termTxt + ')';
+  const latest = {};   // code|tool -> row
+  rows.forEach(r => { latest[r.pupilCode + '|' + r.tool] = r; });
+  const cellFor = (tool, r) => {
+    if (!r) return '<td class="none">&ndash;</td>';
+    const d = r.detail || {};
+    if (tool === 'fluency') return levelCell(r).replace(/<\/td>$/, '<br><small>' + (d.wcpm != null ? d.wcpm + ' wpm, ' : '') + (d.accuracy != null ? d.accuracy + '% accurate' : '') + '</small></td>');
+    if (tool === 'phonics') return gradedCell('phonics', null, r.score, esc(r.level) + '<br><small>' + r.score + '/3</small>');
+    if (tool === 'comprehension') return gradedCell('comprehension', r.term, r.percent, 'Level ' + esc(r.level) + '<br><small>' + r.percent + '%</small>');
+    return gradedCell('comprehension', r.term, r.percent, 'Level ' + esc(r.level) + '<br><small>' + (d.accuracy != null ? d.accuracy + '% accurate, ' : '') + r.score + '/' + r.total + '</small>');
+  };
+  const counts = {fluency:0, phonics:0, comprehension:0, pm_benchmark:0};
+  const body = list.map(p => {
+    const cells = TOOLS.map(t => { const r = latest[p.pcode + '|' + t[0]]; if (r) counts[t[0]]++; return cellFor(t[0], r); });
+    return '<tr>' + nameCell(p.pcode, p.label) + cells.join('') + '</tr>';
+  }).join('');
+  const assessed = new Set(rows.map(r => r.pupilCode).filter(c => list.some(p => p.pcode === c))).size;
+  $("clsTbl").innerHTML = '<tr><th>Pupil</th>' + TOOLS.map(t => '<th>' + t[1] + '</th>').join('') + '</tr>' + body
+    + '<tr class="tot"><td>Assessed</td>' + TOOLS.map(t => '<td>' + counts[t[0]] + ' of ' + list.length + '</td>').join('') + '</tr>';
+  $("clsSum").textContent = list.length + ' children. ' + assessed + ' have at least one result in ' + termTxt + '. Click a child\'s initials for their full history.';
+  $("clsEmpty").hidden = true; $("clsAvgWrap").hidden = true;
+}
+
+// Every result for one tool, for the whole class
+function renderToolTab(tool, termTxt){
+  const name = (TOOLS.find(t => t[0] === tool) || [])[1];
+  const rows = ALL.filter(r => r.tool === tool && inTerm(r)), list = people();
+  $("clsTitle").textContent = 'Class ' + cls + ': ' + name + ' (' + termTxt + ')';
+  const order = {}; list.forEach((p,i) => order[p.pcode] = i);
+  const sorted = [...rows].sort((a,b) => (order[a.pupilCode] ?? 99) - (order[b.pupilCode] ?? 99) || byTime(a,b));
+  const doneCodes = new Set(rows.map(r => r.pupilCode));
+  const missing = list.filter(p => !doneCodes.has(p.pcode));
+  $("clsSum").innerHTML = rows.length + ' result' + (rows.length === 1 ? '' : 's') + ' from ' + (list.length - missing.length) + ' of ' + list.length + ' children.'
+    + (missing.length ? ' <b>Not yet done:</b> ' + missing.map(p => '<span data-pupil-id="'+esc(p.pcode)+'">'+esc(p.label)+'</span>').join(', ') + '.' : ' Everyone has a result.');
+  if (!rows.length) { $("clsTbl").innerHTML = ''; $("clsEmpty").hidden = false; $("clsEmpty").textContent = 'No ' + name.toLowerCase() + ' results saved for this class in ' + termTxt + ' yet.'; $("clsAvgWrap").hidden = true; return; }
+  $("clsEmpty").hidden = true;
+  $("clsTbl").innerHTML = toolTable(tool, sorted, true);
+  const levels = [...new Set(rows.map(r => r.level))];
+  const av = avgTable(tool, rows, levels);
+  $("clsAvgWrap").hidden = !av; if (av) $("clsAvgTbl").innerHTML = av;
+}
+
+// One table of results for a tool. withPupil: add the Pupil column (class view).
+function toolTable(tool, rows, withPupil){
+  let head, cellsFor;
+  if (tool === 'comprehension') {
+    const dk = [...new Set(rows.flatMap(r => Object.keys((r.detail && r.detail.domains) || {})))].sort();
+    head = ['Date','Term / Week','Level','Test','Score','%', ...dk.map(k => DOM[k] || k)];
+    cellsFor = r => { const d = (r.detail||{}).domains || {};
+      return [uk(r.taken_on), weekLabelForDate(r.taken_on), levelCell(r), esc(r.test_id), r.score+'/'+r.total, gradedCell('comprehension', r.term, r.percent, r.percent+'%'),
+        ...dk.map(k => d[k] ? gradedCell('comprehension', r.term, d[k].percent, d[k].score+'/'+d[k].total+' ('+d[k].percent+'%)', true) : '–')]; };
+  } else if (tool === 'phonics') {
+    const RK = [['gpc','GPC'],['blending','Blending'],['word_structure','Word structure'],['continuity','Continuity'],['independence','Independence']];
+    head = ['Date','Term / Week','Phase','Test','Score', ...RK.map(k=>k[1]), 'Rubric /20'];
+    cellsFor = r => { const rub = (r.detail||{}).rubric || {};
+      return [uk(r.taken_on), weekLabelForDate(r.taken_on), esc(r.level), esc(r.test_id), gradedCell('phonics', null, r.score, r.score+'/3'),
+        ...RK.map(k => rub[k[0]] != null ? rub[k[0]] : '–'), (r.detail||{}).rubric_total != null ? r.detail.rubric_total+'/20' : '–']; };
+  } else if (tool === 'fluency') {
+    const RK = [['volume','Volume'],['expression','Expression'],['phrasing','Phrasing'],['smoothness','Smoothness'],['pace','Pace']];
+    head = ['Date','Term / Week','Level','WPM','Accuracy', ...RK.map(k=>k[1]), 'Rubric /20'];
+    cellsFor = r => { const d = r.detail || {}, rub = d.rubric || {};
+      return [uk(r.taken_on), weekLabelForDate(r.taken_on), levelCell(r), d.wcpm != null ? d.wcpm : '–', accuracyCell(d.accuracy),
+        ...RK.map(k => rub[k[0]] != null ? rub[k[0]] : '–'), d.rubric_total != null ? d.rubric_total+'/20' : '–']; };
+  } else {
+    head = ['Date','Term / Week','Level','Colour','Test','Accuracy','Self-corrections','Comprehension'];
+    cellsFor = r => { const d = r.detail || {};
+      return [uk(r.taken_on), weekLabelForDate(r.taken_on), levelCell(r), esc(d.colour || ''), esc(r.test_id), accuracyCell(d.accuracy),
+        d.self_corrections != null ? d.self_corrections : '–', gradedCell('comprehension', r.term, r.percent, r.score+'/'+r.total)]; };
+  }
+  const body = rows.map(r => '<tr>' + (withPupil ? nameCell(r.pupilCode, labelFor(r)) : '') + cellsFor(r).map(wrapCell).join('') + fixCell(r) + '</tr>').join('');
+  return '<tr>' + (withPupil ? '<th>Pupil</th>' : '') + head.map(h => '<th>'+h+'</th>').join('') + '<th></th></tr>' + body;
+}
+function avgTable(tool, rows, levels){
+  const avgs = classAverages(rows, levels); if (!avgs.length) return '';
+  const lvl = a => 'Level '+esc(a.level)+(bandName(a.level)?' ('+bandName(a.level)+')':'');
+  if (tool === 'comprehension') return '<tr><th>Level</th><th>Class average %</th><th>Tests</th></tr>' + avgs.map(a => '<tr><td>'+lvl(a)+'</td>'+gradedCell('comprehension', null, a.avgPercent, Math.round(a.avgPercent)+'%')+'<td>'+a.n+'</td></tr>').join('');
+  if (tool === 'phonics') return '<tr><th>Phase</th><th>Class average score</th><th>Tests</th></tr>' + avgs.map(a => '<tr><td>'+esc(a.level)+'</td><td>'+a.avgScore.toFixed(1)+' / 3</td><td>'+a.n+'</td></tr>').join('');
+  if (tool === 'fluency') return '<tr><th>Level</th><th>Class average WPM</th><th>Tests</th></tr>' + avgs.map(a => '<tr><td>'+lvl(a)+'</td><td>'+Math.round(a.avgScore)+'</td><td>'+a.n+'</td></tr>').join('');
+  return '<tr><th>Level</th><th>Class average accuracy</th><th>Class average comprehension</th><th>Tests</th></tr>' + avgs.map(a => '<tr><td>'+lvl(a)+'</td>'+accuracyCell(Math.round(a.avgAccuracy*10)/10)+'<td>'+(Math.round(a.avgScore*10)/10)+'</td><td>'+a.n+'</td></tr>').join('');
+}
+
+// One child's whole history, all four tools (the term filter does not apply: this is their record)
+function choosePupil(code){
+  PUPIL = code; $("rPupil").value = code; store.set('rr_pupil', code); render();
+  window.scrollTo({top: 0});
+}
+function renderPupil(){
+  const p = people().find(p => p.pcode === PUPIL);
+  if (!p) { PUPIL = ''; return render(); }
+  $("pupTitle").innerHTML = 'Results for <span data-pupil-id="'+esc(p.pcode)+'">'+esc(p.label)+'</span> (' + esc(cls) + ')';
+  const mine = ALL.filter(r => r.pupilCode === PUPIL);
+  $("pupSum").textContent = mine.length + ' result' + (mine.length === 1 ? '' : 's') + ' saved, all terms.';
+  const cards = {comprehension:['comp','Comprehension'], phonics:['phon','Phonics'], fluency:['flu','Fluency'], pm_benchmark:['pmb','Benchmarking']};
+  Object.keys(cards).forEach(tool => {
+    const id = cards[tool][0], rows = mine.filter(r => r.tool === tool), classRows = ALL.filter(r => r.tool === tool);
+    $(id+'Empty').hidden = rows.length > 0;
+    $(id+'Tbl').innerHTML = rows.length ? toolTable(tool, rows, false) : '';
+    const av = rows.length ? avgTable(tool, classRows, [...new Set(rows.map(r => r.level))]) : '';
+    $(id+'AvgWrap').hidden = !av; if (av) $(id+'AvgTbl').innerHTML = av;
+  });
+}
 
 function onClass(){
-  const c = $("rClass").value, list = (roster && roster[c]) || [];
-  $("rPupil").disabled = !c;
-  $("rPupil").innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => p.pcode ? '<option value="'+esc(p.pcode)+'" data-pupil-id="'+esc(p.pcode)+'">'+esc(p.label)+'</option>'
-    : '<option value="" disabled>'+esc(p.label)+' (no code yet)</option>').join('');
-  ["compCard","phonCard","fluCard","pmbCard"].forEach(id => $(id).hidden = true);
-  status('');
+  cls = $("rClass").value; store.set('rr_cls', cls); PUPIL = '';
+  $("rPupil").disabled = !cls;
+  $("rPupil").innerHTML = '<option value="">Whole class</option>' + people().map(p => p.pcode ? '<option value="'+esc(p.pcode)+'" data-pupil-id="'+esc(p.pcode)+'">'+esc(p.label)+'</option>' : '').join('');
+  ALL = []; render();
+  if (cls) { status('Loading results…'); reload(); } else status('');
 }
 
-async function onPupil(){
-  const upn = $("rPupil").value, cls = $("rClass").value;   // upn = the pupil CODE (server accepts a code or a UPN)
-  ["compCard","phonCard","fluCard","pmbCard"].forEach(id => $(id).hidden = true);
-  if (!upn) { status(''); return; }
-  curYear = ((roster && roster[cls] || []).find(p => p.pcode === upn) || {}).yearGroup || '';
-  status('Loading results…');
-  const [d, compClass, phonClass, fluClass, pmbClass] = await Promise.all([
-    SaveResults.call('GET', '/readingresults-db', {upn:upn, limit:200}),
-    loadClassHistory(cls, 'comprehension'), loadClassHistory(cls, 'phonics'), loadClassHistory(cls, 'fluency'), loadClassHistory(cls, 'pm_benchmark'),
-  ]);
-  if (!d.results) { status(d.error || 'Could not load results.', true); return; }
-  status(d.results.length ? '' : 'No results saved for this pupil yet.');
-  const results = [...d.results].sort((a,b) => (a.taken_on||'').localeCompare(b.taken_on||'') || a.id - b.id);
-  renderComprehension(results.filter(r => r.tool === 'comprehension'), compClass);
-  renderPhonics(results.filter(r => r.tool === 'phonics'), phonClass);
-  renderFluency(results.filter(r => r.tool === 'fluency'), fluClass);
-  renderPMBenchmark(results.filter(r => r.tool === 'pm_benchmark'), pmbClass);
-}
-
-function renderComprehension(rows, classRows){
-  $("compCard").hidden = false;
-  $("compEmpty").hidden = rows.length > 0;
-  if (!rows.length) { $("compTbl").innerHTML = ''; $("compAvgWrap").hidden = true; return; }
-  const domainKeys = [...new Set(rows.flatMap(r => Object.keys((r.detail && r.detail.domains) || {})))].sort();
-  const head = ['Date','Term / Week','Level','Test','Score','%', ...domainKeys.map(k => DOM[k] || k)];
-  const rowsHtml = rows.map(r => {
-    const d = r.detail || {}, domains = d.domains || {};
-    const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), levelCell(r),
-      esc(r.test_id), r.score+'/'+r.total, gradedCell('comprehension', r.term, r.percent, r.percent+'%'),
-      ...domainKeys.map(k => domains[k] ? gradedCell('comprehension', r.term, domains[k].percent, domains[k].score+'/'+domains[k].total+' ('+domains[k].percent+'%)', true) : '–')];
-    return '<tr>'+cells.map(wrapCell).join('')+fixCell(r)+'</tr>';
-  }).join('');
-  $("compTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'<th></th></tr>'+rowsHtml;
-
-  const levels = [...new Set(rows.map(r => r.level))];
-  const avgs = classAverages(classRows, levels);
-  $("compAvgWrap").hidden = !avgs.length;
-  if (avgs.length) {
-    const avgHead = ['Level','Class average %','Pupils tested'];
-    const avgRows = avgs.map(a => '<tr>'+[
-      '<td>Level '+esc(a.level)+(bandName(a.level)?' ('+bandName(a.level)+')':'')+'</td>',
-      gradedCell('comprehension', null, a.avgPercent, Math.round(a.avgPercent)+'%'),
-      '<td>'+a.n+'</td>'].join('')+'</tr>').join('');
-    $("compAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
-  }
-}
-
-function renderPhonics(rows, classRows){
-  $("phonCard").hidden = false;
-  $("phonEmpty").hidden = rows.length > 0;
-  if (!rows.length) { $("phonTbl").innerHTML = ''; $("phonAvgWrap").hidden = true; return; }
-  const RKEYS = [['gpc','GPC'],['blending','Blending'],['word_structure','Word structure'],['continuity','Continuity'],['independence','Independence']];
-  const head = ['Date','Term / Week','Phase','Test','Score', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
-  const rowsHtml = rows.map(r => {
-    const rub = (r.detail && r.detail.rubric) || {};
-    const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), esc(r.level), esc(r.test_id), gradedCell('phonics', null, r.score, r.score+'/3'),
-      ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
-      r.detail && r.detail.rubric_total != null ? r.detail.rubric_total+'/20' : '–'];
-    return '<tr>'+cells.map(wrapCell).join('')+fixCell(r)+'</tr>';
-  }).join('');
-  $("phonTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'<th></th></tr>'+rowsHtml;
-
-  const levels = [...new Set(rows.map(r => r.level))];
-  const avgs = classAverages(classRows, levels);
-  $("phonAvgWrap").hidden = !avgs.length;
-  if (avgs.length) {
-    const avgHead = ['Phase','Class average score','Pupils tested'];
-    const avgRows = avgs.map(a => '<tr><td>'+esc(a.level)+'</td><td>'+a.avgScore.toFixed(1)+' / 3</td><td>'+a.n+'</td></tr>').join('');
-    $("phonAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
-  }
-}
-
-function renderFluency(rows, classRows){
-  $("fluCard").hidden = false;
-  $("fluEmpty").hidden = rows.length > 0;
-  if (!rows.length) { $("fluTbl").innerHTML = ''; $("fluAvgWrap").hidden = true; return; }
-  const RKEYS = [['volume','Volume'],['expression','Expression'],['phrasing','Phrasing'],['smoothness','Smoothness'],['pace','Pace']];
-  const head = ['Date','Term / Week','Level','WPM','Accuracy', ...RKEYS.map(k=>k[1]), 'Rubric /20'];
-  const rowsHtml = rows.map(r => {
-    const d = r.detail || {}, rub = d.rubric || {};
-    const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), levelCell(r),
-      d.wcpm != null ? d.wcpm : '–', accuracyCell(d.accuracy),
-      ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
-      d.rubric_total != null ? d.rubric_total+'/20' : '–'];
-    return '<tr>'+cells.map(wrapCell).join('')+fixCell(r)+'</tr>';
-  }).join('');
-  $("fluTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'<th></th></tr>'+rowsHtml;
-
-  const levels = [...new Set(rows.map(r => r.level))];
-  const avgs = classAverages(classRows, levels);
-  $("fluAvgWrap").hidden = !avgs.length;
-  if (avgs.length) {
-    const avgHead = ['Level','Class average WPM','Pupils tested'];
-    const avgRows = avgs.map(a => '<tr><td>Level '+esc(a.level)+(bandName(a.level)?' ('+bandName(a.level)+')':'')+'</td><td>'+Math.round(a.avgScore)+'</td><td>'+a.n+'</td></tr>').join('');
-    $("fluAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
-  }
-}
-
-function renderPMBenchmark(rows, classRows){
-  $("pmbCard").hidden = false;
-  $("pmbEmpty").hidden = rows.length > 0;
-  if (!rows.length) { $("pmbTbl").innerHTML = ''; $("pmbAvgWrap").hidden = true; return; }
-  const head = ['Date','Term / Week','Level','Colour','Test','Accuracy','Self-corrections','Comprehension'];
-  const rowsHtml = rows.map(r => {
-    const d = r.detail || {};
-    const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), levelCell(r),
-      esc(d.colour || ''), esc(r.test_id), accuracyCell(d.accuracy), d.self_corrections != null ? d.self_corrections : '–',
-      gradedCell('comprehension', r.term, r.percent, r.score+'/'+r.total)];
-    return '<tr>'+cells.map(wrapCell).join('')+fixCell(r)+'</tr>';
-  }).join('');
-  $("pmbTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'<th></th></tr>'+rowsHtml;
-
-  const levels = [...new Set(rows.map(r => r.level))];
-  const avgs = classAverages(classRows, levels);
-  $("pmbAvgWrap").hidden = !avgs.length;
-  if (avgs.length) {
-    const avgHead = ['Level','Class average accuracy','Class average comprehension','Pupils tested'];
-    const avgRows = avgs.map(a => '<tr>'+[
-      '<td>Level '+esc(a.level)+(bandName(a.level)?' ('+bandName(a.level)+')':'')+'</td>',
-      accuracyCell(Math.round(a.avgAccuracy*10)/10),
-      '<td>'+(Math.round(a.avgScore*10)/10)+'</td>',
-      '<td>'+a.n+'</td>'].join('')+'</tr>').join('');
-    $("pmbAvgTbl").innerHTML = '<tr>'+avgHead.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+avgRows;
-  }
-}
-
-$("rClass").addEventListener('change', onClass);
-$("rPupil").addEventListener('change', onPupil);
-$("ver").textContent = VERSION;
-Promise.all([loadRoster(), loadWeeks()]);
+(async function init(){
+  $("ver").textContent = VERSION;
+  $("rTerm").innerHTML = '<option value="0">All terms</option>' + [1,2,3,4,5,6].map(n => '<option value="'+n+'">Term '+n+'</option>').join('');
+  const savedTerm = store.get('rr_term'); if (savedTerm != null) { TERM = +savedTerm; $("rTerm").value = String(TERM); }
+  TAB = store.get('rr_tab') || 'overview';
+  $("rClass").addEventListener('change', onClass);
+  $("rTerm").addEventListener('change', () => { TERM = +$("rTerm").value; store.set('rr_term', String(TERM)); render(); });
+  $("rPupil").addEventListener('change', () => choosePupil($("rPupil").value));
+  $("backBtn").addEventListener('click', () => choosePupil(''));
+  renderTabs();
+  await Promise.all([loadRoster(), loadWeeks()]);
+  const last = store.get('rr_cls');
+  if (roster && last && roster[last]) { $("rClass").value = last; onClass(); }
+})();
 </script>
 </body>
 </html>

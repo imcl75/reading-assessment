@@ -23,6 +23,8 @@ table{width:100%;border-collapse:collapse;margin-top:6px;font-size:.85rem}
 th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top;white-space:nowrap}
 th{background:var(--soft);font-size:.78rem}
 .tblwrap{overflow-x:auto}
+.link{background:none;border:0;color:#0a6fa8;text-decoration:underline;font:inherit;cursor:pointer;padding:0 4px}
+.srfix{background:#f1f8fc;border:1px solid #c9d3dc;border-radius:10px;padding:10px;margin:6px 0}.srfix .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:8px}.srfix select,.srfix input{width:100%;min-width:0;font-size:16px;padding:9px;border:1px solid #c9d3dc;border-radius:8px}.srfix .btns{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.act{background:#1798d3;color:#fff;border:0;border-radius:8px;padding:9px 14px;font:inherit;font-weight:700;cursor:pointer}
 .empty{font-size:.85rem;color:#789;font-style:italic;margin:6px 0 0}
 footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 .toolnav{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 14px}.toolnav a{color:#fff;font-size:.85rem;opacity:.85;text-decoration:none;border-bottom:2px solid transparent}.toolnav a:hover{opacity:1}.toolnav a[aria-current=page]{opacity:1;font-weight:700;border-bottom-color:#fff}
@@ -72,7 +74,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 /*TARGETS*/
-const VERSION = "14.10.26n";
+const VERSION = "11.11.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -196,6 +198,17 @@ function weekLabelForDate(iso){
 }
 
 let roster = null;
+// Fix a mistake (11.11.26): Move a result to the right child / term / date, or Remove it
+const byId = {};
+function fixCell(r){ byId[r.id] = r; return '<td><button class="link" data-fix="move" data-id="'+r.id+'">Move</button> <button class="link" data-fix="remove" data-id="'+r.id+'">Remove</button>'+(r.edit_note?' <small title="'+esc(r.edit_note)+'">(corrected)</small>':'')+'</td>'; }
+document.addEventListener('click', e => {
+  const b = e.target.closest('button[data-fix]'); if (!b) return;
+  const r = byId[+b.dataset.id]; if (!r) return;
+  const tr = b.closest('tr'); let fr = tr.nextElementSibling;
+  if (!fr || !fr.classList.contains('fixrow')) { fr = document.createElement('tr'); fr.className = 'fixrow'; fr.innerHTML = '<td colspan="30" style="white-space:normal"><div class="fixhost"></div></td>'; tr.parentNode.insertBefore(fr, tr.nextSibling); }
+  const host = fr.querySelector('.fixhost');
+  if (b.dataset.fix === 'move') SaveResults.fixResult(r, host, onPupil); else SaveResults.removeResult(r, host, onPupil);
+});
 
 async function loadRoster(){
   const d = await SaveResults.call('GET', '/pupils');
@@ -249,9 +262,9 @@ function renderComprehension(rows, classRows){
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), levelCell(r),
       esc(r.test_id), r.score+'/'+r.total, gradedCell('comprehension', r.term, r.percent, r.percent+'%'),
       ...domainKeys.map(k => domains[k] ? gradedCell('comprehension', r.term, domains[k].percent, domains[k].score+'/'+domains[k].total+' ('+domains[k].percent+'%)', true) : '–')];
-    return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
+    return '<tr>'+cells.map(wrapCell).join('')+fixCell(r)+'</tr>';
   }).join('');
-  $("compTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
+  $("compTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'<th></th></tr>'+rowsHtml;
 
   const levels = [...new Set(rows.map(r => r.level))];
   const avgs = classAverages(classRows, levels);
@@ -277,9 +290,9 @@ function renderPhonics(rows, classRows){
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), esc(r.level), esc(r.test_id), gradedCell('phonics', null, r.score, r.score+'/3'),
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
       r.detail && r.detail.rubric_total != null ? r.detail.rubric_total+'/20' : '–'];
-    return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
+    return '<tr>'+cells.map(wrapCell).join('')+fixCell(r)+'</tr>';
   }).join('');
-  $("phonTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
+  $("phonTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'<th></th></tr>'+rowsHtml;
 
   const levels = [...new Set(rows.map(r => r.level))];
   const avgs = classAverages(classRows, levels);
@@ -303,9 +316,9 @@ function renderFluency(rows, classRows){
       d.wcpm != null ? d.wcpm : '–', accuracyCell(d.accuracy),
       ...RKEYS.map(k => rub[k[0]] != null ? rub[k[0]] : '–'),
       d.rubric_total != null ? d.rubric_total+'/20' : '–'];
-    return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
+    return '<tr>'+cells.map(wrapCell).join('')+fixCell(r)+'</tr>';
   }).join('');
-  $("fluTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
+  $("fluTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'<th></th></tr>'+rowsHtml;
 
   const levels = [...new Set(rows.map(r => r.level))];
   const avgs = classAverages(classRows, levels);
@@ -327,9 +340,9 @@ function renderPMBenchmark(rows, classRows){
     const cells = [uk(r.taken_on), weekLabelForDate(r.taken_on), levelCell(r),
       esc(d.colour || ''), esc(r.test_id), accuracyCell(d.accuracy), d.self_corrections != null ? d.self_corrections : '–',
       gradedCell('comprehension', r.term, r.percent, r.score+'/'+r.total)];
-    return '<tr>'+cells.map(wrapCell).join('')+'</tr>';
+    return '<tr>'+cells.map(wrapCell).join('')+fixCell(r)+'</tr>';
   }).join('');
-  $("pmbTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+rowsHtml;
+  $("pmbTbl").innerHTML = '<tr>'+head.map(h=>'<th>'+h+'</th>').join('')+'<th></th></tr>'+rowsHtml;
 
   const levels = [...new Set(rows.map(r => r.level))];
   const avgs = classAverages(classRows, levels);

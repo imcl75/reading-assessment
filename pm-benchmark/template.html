@@ -116,7 +116,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "04.11.26a";
+const VERSION = "11.11.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const QTAG = {"Literal":"Literal","Inferential":"Inferential","Applied Knowledge":"Applied Knowledge","Vocabulary":"Vocabulary"};
@@ -254,7 +254,7 @@ $("texts").onclick = e => { const b = e.target.closest(".tx"); if (!b) return; T
 $("pChild").onclick = () => { const t = L.texts[T]; ChildReader.open({title:t.title, text:t.pages.flatMap(p => p.lines).join(' '), min:22, max:48}); };   // Innes, 04.11.26: the child can read from the iPad instead of a printed pupil copy (printing stays)
 $("pPupil").onclick = () => printSel('.sheet[data-id="'+L.texts[T].id+'"][data-k="p"]', 'Benchmarking - Level '+L.level+' - '+L.texts[T].title+' - Pupil Copy');
 $("pTeacher").onclick = () => printSel('.sheet[data-id="'+L.texts[T].id+'"][data-k="t"]', 'Benchmarking - Level '+L.level+' - '+L.texts[T].title+' - Teacher Copy');
-SaveResults.init({tool:"pm_benchmark", onPupilChange: loadPupilHistory, get: () => {
+SaveResults.init({tool:"pm_benchmark", onPupilChange: loadPupilHistory, reset:()=>renderTexts(), get: () => {
   const t = L.texts[T], attempted = stopAt, e = [...errs].filter(n=>n<=attempted).length, sc = [...selfCorr].filter(n=>n<=attempted).length;
   const acc = attempted>0 ? Math.round((attempted-e)/attempted*1000)/10 : 0;
   const qDone = !marks.includes(null), s = marks.filter(m=>m===1).length;

@@ -213,14 +213,22 @@ const PupilLabels = (function(){
   }
   return {labels, byClass};
 })();
-/* Save-to-pupil panel shared by the three teacher tools (fluency, phonics, comprehension).
+/* Save-to-pupil panel shared by the teacher tools (fluency, phonics, comprehension, PM benchmark).
    Inlined into each tool's index.html by its build.py (the SAVE_RESULTS placeholder in template.html).
    Talks to /_api/planning/... on this same site: a Cloudflare Worker checks the staff sign-in and adds the
-   API token, so no token lives in this page. Off unless the page is opened with ?results=on, until it is proven. */
+   API token, so no token lives in this page.
+
+   Flow (11.11.26): STEP 1 at the very top of the page = who you are assessing (class, pupil, term, date), with a
+   sticky bar that keeps the chosen child in view while you assess. The bottom card only saves, and says plainly
+   who it will save for. After a save, "Next pupil" clears the child and the marks so a result can't be saved twice
+   or to the wrong child. A result saved to the wrong child / term / date can be moved afterwards (Move / Remove on
+   the pupil's earlier results here, and on the Results page). A save that fails is kept on this device and shown at
+   the top until it is saved. */
 const SaveResults = (function(){
-  const ON = true;   // switched on for everyone 27.09.26 — proven live end to end (real sign-in, real class/pupil, save + undo)
+  const ON = true;
   const API = '/_api/planning', PENDING_KEY = 'ra_pending', CLASS_KEY = 'ra_last_class', PUPIL_KEY = 'ra_last_pupil';
-  let cfg = null, roster = null, current = null, lastSaved = null, saving = false, card = null;
+  let cfg = null, roster = null, current = null, lastSaved = null, saving = false, card = null, topCard = null, bar = null;
+  let attemptSig = '', attemptId = '', rosterLoading = null;
   const $q = id => document.getElementById(id);
   const h = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const store = {
@@ -230,7 +238,9 @@ const SaveResults = (function(){
   };
   const uuid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'ra-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
   const today = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); };
+  const ukDate = iso => { const m = /^(\d{4})-(\d\d)-(\d\d)/.exec(iso || ''); if (!m) return iso || ''; return +m[3] + ' ' + ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[2]-1] + ' ' + m[1]; };
 
+  const SIGNIN_MSG = 'Your staff sign-in has ended. Open this page in a new tab, sign in, then come back here and press Try again. Your result is kept on this device.';
   async function call(method, path, params, body){
     const qs = new URLSearchParams(Object.assign({token: '__hub__'}, params || {}));
     let res;
@@ -238,73 +248,148 @@ const SaveResults = (function(){
       res = await fetch(API + path + '?' + qs, {
         method, headers: Object.assign({'X-WFA-Proxy': '1'}, body ? {'Content-Type': 'application/json'} : {}),
         body: body ? JSON.stringify(body) : undefined, cache: 'no-store'});
-    } catch(e){ return {error: 'Could not reach the school server. Check the wifi and try again.', network: true}; }
-    if (res.status === 401) return {error: 'Your staff sign-in has ended. Open this page in a new tab, sign in, then come back here and press Save again. Your marks are still here.', signin: true};
+    } catch(e){ return {error: 'Could not reach the school server. Check the wifi. Your result is kept on this device.', network: true}; }
+    if (res.status === 401 || res.status === 403) return {error: SIGNIN_MSG, signin: true};
     let data = null;
     try { data = await res.json(); } catch(e){}
-    if (!data) return {error: 'The school server did not answer properly. Your result is kept: try again in a minute.', network: true};
+    if (!data) {
+      // not JSON: a sign-in page from Cloudflare (HTML / redirected), or a server error page
+      if (res.status < 500 && (res.redirected || /html/i.test(res.headers.get('content-type') || ''))) return {error: SIGNIN_MSG, signin: true};
+      return {error: 'The school server had a problem (error ' + res.status + '). Your result is kept on this device: press Try again in a minute.', network: true, status: res.status};
+    }
     return data;
   }
 
-  const css = '#saveCard .sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0}'
-    + '#saveCard label{display:block;font-size:.8rem;font-weight:700;margin-bottom:3px}'
-    + '#saveCard select,#saveCard input{width:100%;font-size:16px;padding:9px;border:1px solid #c9d3dc;border-radius:8px;background:#fff}'
-    + '#saveCard .st{margin:10px 0 4px;font-weight:700}#saveCard .st.ok{color:#146c2e}#saveCard .st.bad{color:#b3261e}'
-    + '#saveCard .hist{font-size:.85rem;color:#4b5563;margin:6px 0 0;padding-left:18px}'
-    + '#saveCard .link{background:none;border:0;color:#0a6fa8;text-decoration:underline;font:inherit;cursor:pointer;padding:0 4px}'
-    + '#saveCard .pend{background:#fff7e0;border:1px solid #f2d27a;border-radius:8px;padding:8px 10px;margin-bottom:8px}';
+  const css = '#srStick{position:sticky;top:0;z-index:30;margin:-4px -4px 12px}'
+    + '.srbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px;border-radius:10px;font-weight:700;font-size:1rem;box-shadow:0 2px 6px rgba(0,0,0,.15)}'
+    + '.srbar.ok{background:#146c2e;color:#fff}.srbar.bad{background:#b3261e;color:#fff}'
+    + '.srbar button{margin-left:auto;background:#fff;color:#0a0101;border:0;border-radius:8px;padding:6px 12px;font:inherit;font-size:.85rem;cursor:pointer}'
+    + '.srPendBox .pend{background:#fff7e0;border:2px solid #e0a800;border-radius:10px;padding:10px 12px;margin-top:8px;color:#0a0101;font-weight:400;font-size:.9rem}'
+    + '#srTop h2,#saveCard h2{margin-top:0}#srTop .hint{margin:0 0 8px;font-size:.9rem;color:#456}'
+    + '.sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0}'
+    + '.sr>div{min-width:0}'
+    + '#srTop label,#saveCard label,.srfix label{display:block;font-size:.8rem;font-weight:700;margin-bottom:3px}'
+    + '#srTop select,#srTop input,.srfix select,.srfix input{width:100%;min-width:0;max-width:100%;box-sizing:border-box;font-size:16px;padding:9px;border:1px solid #c9d3dc;border-radius:8px;background:#fff}'
+    + '#srWho{margin:8px 0 0;font-weight:700}#srWho.ok{color:#146c2e}#srWho.bad{color:#b3261e}'
+    + '.srFor{font-size:1.1rem;margin:4px 0 10px}.srFor b{font-size:1.3rem}.srFor.bad{color:#b3261e;font-weight:700}'
+    + '#saveCard .st,#srTop .st{margin:10px 0 4px;font-weight:700}.st.ok{color:#146c2e}.st.bad{color:#b3261e}'
+    + '.hist{font-size:.85rem;color:#4b5563;margin:8px 0 0;padding-left:18px}.hist li{margin:4px 0}.hist .note{color:#8a5a00;font-size:.78rem}'
+    + '.link{background:none;border:0;color:#0a6fa8;text-decoration:underline;font:inherit;cursor:pointer;padding:0 4px}'
+    + '.srfix{background:#f1f8fc;border:1px solid #c9d3dc;border-radius:10px;padding:10px;margin:6px 0;color:#0a0101}'
+    + '.srfix .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:8px}'
+    + '.srfix .btns{display:flex;gap:10px;align-items:center;flex-wrap:wrap}';
+
+  function termOptions(sel){ return [1,2,3,4,5,6].map(n => '<option value="'+n+'"'+(n === sel ? ' selected' : '')+'>Term '+n+'</option>').join(''); }
 
   function build(){
     const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
-    card = document.createElement('section'); card.className = 'card'; card.id = 'saveCard';
-    card.innerHTML = '<h2>Save this result to the pupil</h2><div id="srPend"></div>'
+    const main = document.querySelector('main') || document.body;
+
+    // Sticky bar: who is being assessed, and anything not yet saved
+    bar = document.createElement('div'); bar.id = 'srStick';
+    bar.innerHTML = '<div class="srbar bad" id="srBar"><span id="srBarTxt"></span><button id="srBarBtn" type="button">Choose</button></div><div class="srPendBox"></div>';
+    main.insertBefore(bar, main.firstChild);
+
+    // Step 1: choose the child, at the very top
+    topCard = document.createElement('section'); topCard.className = 'card'; topCard.id = 'srTop';
+    topCard.innerHTML = '<h2>Step 1: Who are you assessing?</h2>'
+      + '<p class="hint">Choose the child before you start. The result is saved to the child shown here.</p>'
       + '<div class="sr"><div><label for="srClass">Class</label><select id="srClass"><option value="">Loading classes…</option></select></div>'
       + '<div><label for="srPupil">Pupil</label><select id="srPupil" disabled><option value="">Choose a class first</option></select></div>'
-      + '<div><label for="srDate">Date taken</label><input type="date" id="srDate"></div>'
-      + '<div><label for="srTerm">Term</label><select id="srTerm">' + [1,2,3,4,5,6].map(n => '<option value="'+n+'">Term '+n+'</option>').join('') + '</select></div></div>'
-      + '<div class="actions"><button class="act" id="srSave" disabled>Save result</button><button class="link" id="srUndo" hidden>Undo</button></div>'
-      + '<p class="st" id="srStatus"></p><ul class="hist" id="srHist"></ul>';
-    const main = document.querySelector('main') || document.body;
-    const firstSection = main.querySelector('section.card');
-    if (firstSection && firstSection.nextSibling) firstSection.parentNode.insertBefore(card, firstSection.nextSibling);
-    else main.appendChild(card);
+      + '<div><label for="srTerm">Term</label><select id="srTerm">' + termOptions(0) + '</select></div>'
+      + '<div><label for="srDate">Date taken</label><input type="date" id="srDate"></div></div>'
+      + '<p id="srWho"></p><ul class="hist" id="srHist"></ul>';
+    main.insertBefore(topCard, bar.nextSibling);
+
+    // Bottom card: save only
+    card = document.createElement('section'); card.className = 'card'; card.id = 'saveCard';
+    card.innerHTML = '<h2>Save the result</h2><div class="srPendBox"></div>'
+      + '<p class="srFor" id="srFor"></p>'
+      + '<div class="actions"><button class="act" id="srSave" disabled>Save result</button><button class="link" id="srUndo" hidden>Undo</button><button class="act" id="srNext" hidden>Next pupil &rsaquo;</button></div>'
+      + '<p class="st" id="srStatus"></p><a id="srSignin" class="link" href="" target="_blank" rel="noopener" hidden>Open a new tab to sign in</a>';
+    main.appendChild(card);
+
     $q('srDate').value = today();
     $q('srClass').onchange = onClass; $q('srPupil').onchange = onPupil;
-    $q('srSave').onclick = save; $q('srUndo').onclick = undo;
+    $q('srSave').onclick = save; $q('srUndo').onclick = undo; $q('srNext').onclick = nextPupil;
     $q('srDate').oninput = $q('srTerm').onchange = () => refresh();
+    $q('srBarBtn').onclick = () => { topCard.scrollIntoView({behavior: 'smooth', block: 'start'}); setTimeout(() => { const e = $q('srPupil').disabled ? $q('srClass') : $q('srPupil'); try { e.focus(); } catch(x){} }, 350); };
+    $q('srSignin').href = location.href;
     showPending(); loadRoster();
+    // a save that failed is tried again by itself when the wifi comes back or the page is reopened
+    window.addEventListener('online', retryPending);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') retryPending(); });
   }
 
+  function ensureRoster(){
+    if (roster) return Promise.resolve(roster);
+    if (!rosterLoading) rosterLoading = call('GET', '/pupils').then(d => {
+      rosterLoading = null;
+      if (d && d.pupils) roster = PupilLabels.byClass(d.pupils);   // sorted, each pupil gets .label (initials) and .pcode (pupil code)
+      return roster;
+    });
+    return rosterLoading;
+  }
+  function classNames(){
+    return Object.keys(roster).sort((a, b) => (roster[a][0].yearGroup || '').localeCompare(roster[b][0].yearGroup || '', undefined, {numeric: true}) || a.localeCompare(b));
+  }
+  function pupilOptions(cls, selected){
+    const list = roster && roster[cls] || [];
+    return '<option value="">' + (cls ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => p.pcode
+      ? '<option value="'+h(p.pcode)+'" data-pupil-id="'+h(p.pcode)+'"'+(p.pcode === selected ? ' selected' : '')+'>'+h(p.label)+'</option>'
+      : '<option value="" disabled>'+h(p.label)+' (no code yet)</option>').join('');
+  }
+  function classOf(code){ for (const c of Object.keys(roster || {})) if (roster[c].some(p => p.pcode === code)) return c; return ''; }
+  function labelOf(code){ for (const c of Object.keys(roster || {})) { const p = roster[c].find(p => p.pcode === code); if (p) return p.label; } return ''; }
+
   async function loadRoster(){
-    const d = await call('GET', '/pupils');
-    if (!d.pupils) { status(d.error || 'Could not load the class lists.', false); $q('srClass').innerHTML = '<option value="">Class lists unavailable</option>'; return; }
-    roster = PupilLabels.byClass(d.pupils);   // sorted, each pupil gets .label (initials) and .pcode (pupil code)
-    const names = Object.keys(roster).sort((a, b) => (roster[a][0].yearGroup || '').localeCompare(roster[b][0].yearGroup || '', undefined, {numeric: true}) || a.localeCompare(b));
-    $q('srClass').innerHTML = '<option value="">Choose a class</option>' + names.map(n => '<option value="'+h(n)+'">'+h(n)+'</option>').join('');
+    await ensureRoster();
+    if (!roster) { status('Could not load the class lists. Check the wifi or sign in again.', false); $q('srClass').innerHTML = '<option value="">Class lists unavailable</option>'; return; }
+    $q('srClass').innerHTML = '<option value="">Choose a class</option>' + classNames().map(n => '<option value="'+h(n)+'">'+h(n)+'</option>').join('');
     const last = store.get(CLASS_KEY);
-    if (last && roster[last]) { $q('srClass').value = last; onClass(); let lp = store.get(PUPIL_KEY); if (lp && !/^p_/.test(lp)) { store.del(PUPIL_KEY); lp = null; }   // an older page stored a UPN here: drop it, keep only codes
-    if (lp) { $q('srPupil').value = lp; onPupil(); } }
+    if (last && roster[last]) { $q('srClass').value = last; onClass(); }
+    // the pupil is NOT pre-filled from last time: choosing the child is the first step, every time
     const c = await call('GET', '/readingresults-db', {limit: 1});
     if (c && c.current) { current = c.current; $q('srTerm').value = String(c.current.term); }
     refresh();
   }
   function onClass(){
-    const c = $q('srClass').value, list = roster && roster[c] || [];
+    const c = $q('srClass').value;
     store.set(CLASS_KEY, c);
     $q('srPupil').disabled = !c;
-    $q('srPupil').innerHTML = '<option value="">' + (c ? 'Choose a pupil' : 'Choose a class first') + '</option>' + list.map(p => p.pcode ? '<option value="'+h(p.pcode)+'" data-pupil-id="'+h(p.pcode)+'">'+h(p.label)+'</option>'
-      : '<option value="" disabled>'+h(p.label)+' (no code yet)</option>').join('');
+    $q('srPupil').innerHTML = pupilOptions(c, '');
     $q('srHist').innerHTML = ''; refresh();
     if (cfg.onPupilChange) cfg.onPupilChange('');
   }
   async function onPupil(){
-    const upn = $q('srPupil').value; store.set(PUPIL_KEY, upn); refresh();   // upn here = the pupil CODE (server accepts a code or a UPN in `upn`)
+    const upn = $q('srPupil').value;   // upn here = the pupil CODE (server accepts a code or a UPN in `upn`)
+    lastSaved = null; refresh();
     if (cfg.onPupilChange) cfg.onPupilChange(upn);
     $q('srHist').innerHTML = '';
     if (!upn) return;
-    const d = await call('GET', '/readingresults-db', {upn: upn, tool: cfg.tool, limit: 5});
-    if (upn !== $q('srPupil').value || !d.results) return;
-    $q('srHist').innerHTML = d.results.length ? '<li><b>Earlier results for this pupil</b></li>' + d.results.map(r => '<li>' + h(r.taken_on) + ' &middot; ' + h(describe(r)) + '</li>').join('') : '<li>No results saved for this pupil yet.</li>';
+    loadHistory();
+  }
+  async function loadHistory(){
+    const u = $q('srPupil').value; if (!u) return;
+    const d = await call('GET', '/readingresults-db', {upn: u, tool: cfg.tool, limit: 8});
+    if (u !== $q('srPupil').value || !d.results) return;
+    renderHist(d.results);
+  }
+  function renderHist(results){
+    const ul = $q('srHist');
+    ul.innerHTML = results.length
+      ? '<li><b>Earlier results for this pupil</b> <span class="note">Saved to the wrong child, term or date? Use Move. Wrong test? Remove it and assess again.</span></li>'
+        + results.map(r => '<li data-id="'+r.id+'">' + h(ukDate(r.taken_on)) + ' &middot; Term ' + r.term + ' &middot; ' + h(describe(r))
+          + (r.edit_note ? ' <span class="note">(corrected: ' + h(r.edit_note) + ')</span>' : '')
+          + ' <button class="link" data-act="move" data-id="'+r.id+'">Move</button><button class="link" data-act="remove" data-id="'+r.id+'">Remove</button><div class="fixhost"></div></li>').join('')
+      : '<li>No results saved for this pupil yet.</li>';
+    ul.onclick = e => {
+      const b = e.target.closest('button[data-act]'); if (!b) return;
+      const r = results.find(x => x.id === +b.dataset.id); if (!r) return;
+      const host = b.closest('li').querySelector('.fixhost');
+      if (b.dataset.act === 'move') fixResult(r, host, loadHistory);
+      else removeResult(r, host, loadHistory);
+    };
   }
   function describe(r){
     const bands = {greater_depth: 'greater depth', on_track: 'on track', not_yet: 'not yet on track', secure: 'secure', nearly: 'nearly there', on_target: 'on target', below_target: 'below target', excellent: 'excellent', satisfactory: 'satisfactory', unsatisfactory: 'unsatisfactory'};
@@ -314,60 +399,142 @@ const SaveResults = (function(){
     if (r.tool === 'pm_benchmark') return 'Level ' + r.level + ' (' + (r.detail && r.detail.colour || '') + '): ' + r.detail.accuracy + '% accurate, comprehension ' + r.score + '/' + r.total;
     return 'Level ' + r.level + ' test ' + r.test_id + ': ' + r.score + '/' + r.total + ', ' + r.percent + '% (' + b + ')';
   }
+
+  // ---- Correcting a saved result (also used by the Results page) ----
+  async function fixResult(r, host, done){
+    if (host.firstChild) { host.innerHTML = ''; return; }   // second tap closes it
+    host.innerHTML = '<div class="srfix">Loading…</div>';
+    await ensureRoster();
+    if (!roster) { host.innerHTML = '<div class="srfix">Could not load the class lists.</div>'; return; }
+    const code = r.pupilCode || r.upn, cls = classOf(code) || Object.keys(roster)[0];
+    host.innerHTML = '<div class="srfix"><b>Move this result</b> (' + h(describe(r)) + ')'
+      + '<div class="row"><div><label>Class</label><select class="fxc">' + classNames().map(n => '<option value="'+h(n)+'"'+(n === cls ? ' selected' : '')+'>'+h(n)+'</option>').join('') + '</select></div>'
+      + '<div><label>Pupil</label><select class="fxp">' + pupilOptions(cls, code) + '</select></div>'
+      + '<div><label>Term</label><select class="fxt">' + termOptions(r.term) + '</select></div>'
+      + '<div><label>Date taken</label><input type="date" class="fxd" value="' + h((r.taken_on || '').slice(0, 10)) + '"></div></div>'
+      + '<div class="btns"><button class="act fxs" type="button">Save change</button><button class="link fxx" type="button">Cancel</button><span class="st fxm"></span></div></div>';
+    const q = s => host.querySelector(s);
+    q('.fxc').onchange = () => { q('.fxp').innerHTML = pupilOptions(q('.fxc').value, ''); };
+    q('.fxx').onclick = () => { host.innerHTML = ''; };
+    q('.fxs').onclick = async () => {
+      const pup = q('.fxp').value; if (!pup) { q('.fxm').textContent = 'Choose the pupil.'; q('.fxm').className = 'st fxm bad'; return; }
+      q('.fxs').disabled = true; q('.fxm').textContent = 'Saving…'; q('.fxm').className = 'st fxm';
+      const d = await call('POST', '/readingresults-db', {}, {action: 'update', id: r.id, upn: pup, term: +q('.fxt').value, taken_on: q('.fxd').value});
+      if (d.ok) { if (lastSaved && lastSaved.id === r.id) lastSaved = null; host.innerHTML = '<div class="srfix st ok">' + (d.changed ? 'Moved: now with ' + h(labelOf(pup)) + ' (' + h(classOf(pup)) + '), Term ' + d.result.term + ', ' + h(ukDate(d.result.taken_on)) + '.' : 'No change.') + '</div>'; setTimeout(() => done && done(), 900); }
+      else { q('.fxs').disabled = false; q('.fxm').textContent = d.error || 'Could not change it.'; q('.fxm').className = 'st fxm bad'; }
+    };
+  }
+  async function removeResult(r, host, done){
+    if (!confirm('Remove this result?\n\n' + describe(r) + '\n\nIt will disappear from the pupil\'s record. (To put it with a different child, use Move instead.)')) return;
+    const d = await call('POST', '/readingresults-db', {}, {action: 'void', id: r.id});
+    if (d.ok) { if (lastSaved && lastSaved.id === r.id) { lastSaved = null; refresh(false); } done && done(); }
+    else { host.innerHTML = '<div class="srfix st bad">' + h(d.error || 'Could not remove it.') + '</div>'; }
+  }
+
+  // ---- Saving ----
   function sig(){ const s = cfg.get(); return JSON.stringify([$q('srPupil').value, s.body, $q('srDate').value, $q('srTerm').value]); }
-  function status(msg, ok){ const e = $q('srStatus'); e.textContent = msg || ''; e.className = 'st' + (ok === true ? ' ok' : ok === false ? ' bad' : ''); }
+  function status(msg, ok){ const e = $q('srStatus'); if (!e) return; e.textContent = msg || ''; e.className = 'st' + (ok === true ? ' ok' : ok === false ? ' bad' : ''); }
+  function chosenText(){
+    const sel = $q('srPupil'), cls = $q('srClass').value;
+    if (!sel.value) return null;
+    return {name: sel.options[sel.selectedIndex].text, cls: cls, term: $q('srTerm').value, date: $q('srDate').value};
+  }
 
   function refresh(msg){
     if (!card) return;
-    const s = cfg.get(), pupil = $q('srPupil').value, btn = $q('srSave');
+    const s = cfg.get(), pupil = $q('srPupil').value, btn = $q('srSave'), who = chosenText();
     const done = lastSaved && lastSaved.sig === sig();
     btn.disabled = saving || !s.ready || !pupil || !!done;
-    btn.textContent = done ? 'Saved' : 'Save result';
-    if (msg !== false && !saving && !done) status(!pupil ? 'Choose the class and pupil to save this result.' : !s.ready ? s.hint : 'Ready to save: ' + s.summary);
-    $q('srUndo').hidden = !done;
+    btn.textContent = done ? 'Saved' : (who ? 'Save result for ' + who.name : 'Save result');
+    $q('srNext').hidden = !done; $q('srUndo').hidden = !done;
+    // the sticky bar and the Step 1 line
+    const b = $q('srBar');
+    if (who) {
+      const line = who.name + ' (' + who.cls + ') · Term ' + who.term + ' · ' + ukDate(who.date);
+      b.className = 'srbar ok'; $q('srBarTxt').innerHTML = 'Assessing: <span data-pupil-id="' + h(pupil) + '">' + h(who.name) + '</span> (' + h(who.cls) + ') &middot; Term ' + h(who.term) + ' &middot; ' + h(ukDate(who.date));
+      $q('srBarBtn').textContent = 'Change';
+      $q('srWho').className = 'ok'; $q('srWho').textContent = 'Saving this result for ' + line;
+      $q('srFor').className = 'srFor'; $q('srFor').innerHTML = 'Saving for: <b data-pupil-id="' + h(pupil) + '">' + h(who.name) + '</b> (' + h(who.cls) + ') &middot; Term ' + h(who.term) + ' &middot; ' + h(ukDate(who.date)) + ' <button class="link" id="srChange" type="button">Wrong child? Change</button>';
+      $q('srChange').onclick = () => $q('srBarBtn').onclick();
+    } else {
+      b.className = 'srbar bad'; $q('srBarTxt').textContent = 'Choose who you are assessing (Step 1) before you save';
+      $q('srBarBtn').textContent = 'Choose pupil';
+      $q('srWho').className = 'bad'; $q('srWho').textContent = 'No pupil chosen yet.';
+      $q('srFor').className = 'srFor bad'; $q('srFor').innerHTML = 'No pupil chosen. <button class="link" id="srChange" type="button">Choose the pupil at the top</button>';
+      $q('srChange').onclick = () => $q('srBarBtn').onclick();
+    }
+    if (msg !== false && !saving && !done) status(!pupil ? '' : !s.ready ? s.hint : 'Ready to save: ' + s.summary);
+    if (!done && !saving && msg !== false) $q('srSignin').hidden = true;
   }
 
   async function save(){
     const s = cfg.get(), sel = $q('srPupil'); if (!s.ready || !sel.value || saving) return;
+    const sg = sig();
+    if (sg !== attemptSig) { attemptSig = sg; attemptId = uuid(); }   // the same marks keep the same id, so a retry can never add it twice
     saving = true; refresh();
-    const payload = Object.assign({action: 'save', client_id: uuid(), upn: sel.value, tool: cfg.tool, source: 'paper',
+    const payload = Object.assign({action: 'save', client_id: attemptId, upn: sel.value, tool: cfg.tool, source: 'paper',
       taken_on: $q('srDate').value, term: +$q('srTerm').value}, s.body);
-    const name = sel.options[sel.selectedIndex].text;
-    await send(payload, name, s.summary);
+    const name = sel.options[sel.selectedIndex].text + ' (' + $q('srClass').value + ')';
+    await send(payload, name, s.summary, sg);
     saving = false; refresh(false);
   }
-  async function send(payload, name, summary){
-    status('Saving…');
+  async function send(payload, name, summary, sg){
+    status('Saving…'); $q('srSignin').hidden = true;
     const d = await call('POST', '/readingresults-db', {}, payload);
     if (d.ok) {
       dropPending(payload.client_id);
-      lastSaved = {id: d.result.id, sig: sig(), name: name};
-      status('Saved for ' + name + ': ' + (summary || describe(d.result)) + ' (Term ' + d.result.term + ')' + (d.duplicate ? ' – already saved' : ''), true);
-      onPupilHistoryOnly();
-    } else {
-      if (d.network || d.signin) keepPending(payload, name, summary);
-      status(d.error || 'Could not save. Try again.', false);
+      if (sg) { lastSaved = {id: d.result.id, sig: sg, name: name}; attemptSig = ''; }
+      status('Saved for ' + name + ': ' + (summary || describe(d.result)) + ' (Term ' + d.result.term + ')' + (d.duplicate ? ' – already saved' : '') + (sg ? '. Now press Next pupil.' : '.'), true);
+      if ($q('srPupil').value === (payload.upn)) loadHistory();
+      return true;
     }
+    if (d.network || d.signin) { keepPending(payload, name, summary); $q('srSignin').hidden = !d.signin; }
+    status((d.error || 'Could not save. Try again.') + ((d.network || d.signin) ? '' : ' Nothing was saved.'), false);
+    return false;
   }
-  async function onPupilHistoryOnly(){ const u = $q('srPupil').value; if (u) { const d = await call('GET', '/readingresults-db', {upn: u, tool: cfg.tool, limit: 5});
-    if (d.results && u === $q('srPupil').value) $q('srHist').innerHTML = d.results.length ? '<li><b>Earlier results for this pupil</b></li>' + d.results.map(r => '<li>' + h(r.taken_on) + ' &middot; ' + h(describe(r)) + '</li>').join('') : '<li>No results saved for this pupil yet.</li>'; } }
   async function undo(){
     if (!lastSaved) return; const id = lastSaved.id, name = lastSaved.name;
     const d = await call('POST', '/readingresults-db', {}, {action: 'void', id: id});
-    if (d.ok) { lastSaved = null; status('Removed the result for ' + name + '.', true); onPupilHistoryOnly(); refresh(false); }
+    if (d.ok) { lastSaved = null; status('Removed the result for ' + name + '.', true); loadHistory(); refresh(false); }
     else status(d.error || 'Could not remove it.', false);
   }
+  // After a save: clear the child and the marks, ready for the next one
+  function nextPupil(){
+    lastSaved = null; attemptSig = '';
+    $q('srPupil').value = ''; $q('srHist').innerHTML = '';
+    if (cfg.onPupilChange) cfg.onPupilChange('');
+    if (cfg.reset) { try { cfg.reset(); } catch(e){} }
+    status(''); refresh();
+    topCard.scrollIntoView({behavior: 'smooth', block: 'start'});
+    setTimeout(() => { try { $q('srPupil').focus(); } catch(e){} }, 350);
+  }
 
-  // A save that failed (wifi, or sign-in ended) is kept with its own id so a retry can never add it twice.
+  // A save that failed (wifi, sign-in ended, server problem) is kept on this device with its own id so a retry can never
+  // add it twice; the same child + marks is only ever kept once.
   function pendingList(){ try { return JSON.parse(store.get(PENDING_KEY) || '[]'); } catch(e){ return []; } }
-  function keepPending(payload, name, summary){ const l = pendingList().filter(x => x.payload.client_id !== payload.client_id); l.push({payload: payload, name: name, summary: summary}); store.set(PENDING_KEY, JSON.stringify(l)); showPending(); }
+  function keepPending(payload, name, summary){
+    const key = x => JSON.stringify([x.upn, x.tool, x.taken_on, x.term, x.test_id, x.level, x.marks, x.attempted, x.errors, x.seconds, x.rubric]);
+    const l = pendingList().filter(x => x.payload.client_id !== payload.client_id && key(x.payload) !== key(payload));
+    l.push({payload: payload, name: name, summary: summary}); store.set(PENDING_KEY, JSON.stringify(l)); showPending();
+  }
   function dropPending(id){ store.set(PENDING_KEY, JSON.stringify(pendingList().filter(x => x.payload.client_id !== id))); showPending(); }
+  let retrying = false;
+  async function retryPending(){
+    if (retrying || saving) return; const l = pendingList(); if (!l.length) return;
+    retrying = true;
+    for (const x of l) { const ok = await send(x.payload, x.name, x.summary); if (!ok) break; }
+    retrying = false; refresh(false);
+  }
   function showPending(){
-    const l = pendingList(), box = $q('srPend'); if (!box) return;
-    box.innerHTML = l.length ? '<div class="pend"><b>' + l.length + ' result' + (l.length > 1 ? 's' : '') + ' not saved yet:</b> ' + l.map(x => h(x.name) + ' (' + h(x.summary) + ')').join('; ')
-      + ' <button class="link" id="srRetry">Try again</button><button class="link" id="srDrop">Discard</button></div>' : '';
-    if (l.length) { $q('srRetry').onclick = async () => { for (const x of pendingList()) await send(x.payload, x.name, x.summary); refresh(false); };
-      $q('srDrop').onclick = () => { store.del(PENDING_KEY); showPending(); }; }
+    const l = pendingList();
+    const html = l.length ? '<div class="pend"><b>' + l.length + ' result' + (l.length > 1 ? 's' : '') + ' not saved yet:</b> ' + l.map(x => h(x.name) + ' (' + h(x.summary) + ')').join('; ')
+      + ' <button class="link" data-pend="retry">Try again</button><button class="link" data-pend="drop">Discard</button></div>' : '';
+    document.querySelectorAll('.srPendBox').forEach(box => {
+      box.innerHTML = html;
+      box.onclick = e => { const b = e.target.closest('button[data-pend]'); if (!b) return;
+        if (b.dataset.pend === 'retry') retryPending();
+        else if (confirm('Discard ' + l.length + ' result' + (l.length > 1 ? 's' : '') + ' that have not been saved? They will be lost.')) { store.del(PENDING_KEY); showPending(); } };
+    });
   }
 
   return {
@@ -376,6 +543,7 @@ const SaveResults = (function(){
     isOn(){ return ON; },
     call,   // exposed so other shared modules (e.g. scan_marking.js) reuse the same authed /_api call + 401 handling, instead of duplicating it
     uuid, today,
+    fixResult, removeResult, describe,   // the Results page uses these for its Move / Remove links
   };
 })();
 /* Child reading view (shared by fluency and phonics; inlined by each tool's build.py). Fills the screen
@@ -445,7 +613,7 @@ const ChildReader = (function(){
 })();
 
 const DATA = [{"level": 1, "name": "Phase 2", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss", "cew": "go, I, into, no, the, to", "texts": [{"title": "On and Off the Bus", "text": "Mum, Dad and Nell get on the bus. Dad gets the bus tickets. Dad has the tickets in his pocket. Mum, Dad and Nell sit at the top of the bus.", "focus": [], "images": ["img/p1-0a.jpg?v=2e99f556", "img/p1-0b.jpg?v=dcb6c9bc"], "qs": [{"t": "who", "q": "Who gets the bus tickets?", "a": "Dad"}, {"t": "where", "q": "Where do Mum, Dad and Nell sit on the bus?", "a": "At the top"}, {"t": "why", "q": "Why did Dad put the tickets in his pocket?", "a": "To keep them safe (also accept: so he does not lose them; so he has them; so they do not fall out)"}]}, {"title": "The Dog Pig", "text": "The sad dog fell in the pit. \"Mum! The dog is in the pit!\" \"Get a net! Get a bag! Get a sack!\" The dog is big. The dog is fat.", "focus": [], "images": ["img/p1-1a.jpg?v=4033cac6", "img/p1-1b.jpg?v=825aba52"], "qs": [{"t": "what", "q": "What fell in the pit?", "a": "The (sad) dog"}, {"t": "what", "q": "What is the dog like?", "a": "Big and fat"}, {"t": "why", "q": "Why do they shout \"Get a net! Get a bag! Get a sack!\"?", "a": "To get the dog out of the pit (also accept: to help the dog)"}]}, {"title": "A Hug and a Kiss", "text": "The dog can get a hug. The cat can get a hug and a kiss. Can Pam hug a duck? Can Kim hug a hen? Is it a dog in a cup?", "focus": [], "images": ["img/p1-2a.jpg?v=242a1d84", "img/p1-2b.jpg?v=0a22ee83"], "qs": [{"t": "what", "q": "What can the cat get?", "a": "A hug and a kiss"}, {"t": "who", "q": "Who can hug a duck?", "a": "Pam"}, {"t": "why", "q": "Why might Kim want to hug a hen?", "a": "Because she likes it (also accept: it is soft; it is nice)"}]}]}, {"level": 2, "name": "Phase 3 (Weeks 1–3)", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng", "cew": "be, go, he, I, into, me, no, she, the, to, we", "texts": [{"title": "Jack is Not Well", "text": "Jack is sad. He had no luck. He is not well. He is ill. He is sick and will go to the vet. Mum, Viv and Jack go to the vet. “No fuss,” the vet tells Viv.", "focus": ["jack", "he", "well", "will", "vet", "viv"], "images": ["img/p2-0a.jpg?v=62684341", "img/p2-0b.jpg?v=2e3fcbfb"], "qs": [{"t": "who", "q": "Who is sad?", "a": "Jack"}, {"t": "where", "q": "Where do Mum, Viv and Jack go?", "a": "To the vet"}, {"t": "why", "q": "Why do Mum, Viv and Jack go to the vet?", "a": "Because Jack is sick (also accept: because he is not well; because he is ill)"}]}, {"title": "Hats", "text": "Caz can sit in the sun. Will Caz be hot? No! Caz has a sun hat. Caz will not be hot in the sun. Kez has a hat. The hat is a fez. The fez is red.", "focus": ["caz", "will", "be", "kez", "fez"], "images": ["img/p2-1a.jpg?v=0d458f73", "img/p2-1b.jpg?v=748ac56e"], "qs": [{"t": "who", "q": "Who can sit in the sun?", "a": "Caz"}, {"t": "what", "q": "What colour is the fez?", "a": "Red"}, {"t": "why", "q": "Why will Caz not be hot in the sun?", "a": "Because she has a sun hat (also accept: her hat keeps the sun off)"}]}, {"title": "Is It Hot?", "text": "Yasmin has a pan. She has a metal pan. The metal pan has a lid. The metal pan is on the gas. If the gas is on, will the pan get hot? Yes, it will get hot.", "focus": ["she", "will", "yes"], "images": ["img/p2-2a.jpg?v=0cf6bd07", "img/p2-2b.jpg?v=2e1190fe"], "qs": [{"t": "who", "q": "Who has a pan?", "a": "Yasmin"}, {"t": "what", "q": "What is the pan on?", "a": "The gas"}, {"t": "why", "q": "Why will the pan get hot?", "a": "Because the gas is on (also accept: because it is on the gas)"}]}]}, {"level": 3, "name": "Phase 3 (Weeks 4–6)", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng; ai ee igh oa oo ar or ur; -ing endings with no change to the root word", "cew": "all, be, go, he, I, into, me, no, she, the, they, to, was, we, you", "texts": [{"title": "The Long Red Coat", "text": "Shem had ten chickens. Zak had a foal. Beth had Gosh, the goat. Gosh was a big, bad goat! Beth had a long red coat. At night Beth hung the long red coat on a peg. The peg was high up in the shed.", "focus": ["foal", "goat", "was", "coat", "night", "high"], "images": ["img/p3-0a.jpg?v=99efb58b", "img/p3-0b.jpg?v=78552318"], "qs": [{"t": "who", "q": "Who had ten chickens?", "a": "Shem"}, {"t": "where", "q": "Where was the peg?", "a": "High up in the shed"}, {"t": "why", "q": "Why did Beth hang her coat high up on a peg?", "a": "So Gosh the goat could not get it (also accept: so the goat could not reach it; to keep it safe from the goat)"}]}, {"title": "Sheepdogs", "text": "This is a sheepdog. This sheepdog is not a pet. He has a job on a farm. His job is to keep the sheep on the farm. Look at this sheepdog run. She is quick! Zoom! This sheepdog can get the sheep if they run off.", "focus": ["farm", "keep", "sheep", "look", "zoom", "they"], "images": ["img/p3-1a.jpg?v=9d370458", "img/p3-1b.jpg?v=7d3a0a4b"], "qs": [{"t": "where", "q": "Where does the sheepdog work?", "a": "On a farm"}, {"t": "what", "q": "What is the sheepdog's job?", "a": "To keep the sheep on the farm"}, {"t": "why", "q": "Why does the sheepdog need to be quick?", "a": "To get the sheep if they run off"}]}, {"title": "The Vixen", "text": "The van is too quick. The van will hit the vixen. Vic feels sad. He sighs and runs into the road. Jeevan feels sad too. She is looking for the vixen. She sees it vanish into the woods. It is not hurt.", "focus": ["too", "feels", "sighs", "road", "jeevan", "looking", "for", "sees", "woods", "hurt"], "images": ["img/p3-2a.jpg?v=e02e584b", "img/p3-2b.jpg?v=c865d68c"], "qs": [{"t": "who", "q": "Who feels sad?", "a": "Vic and Jeevan"}, {"t": "where", "q": "Where does the vixen go?", "a": "Into the woods"}, {"t": "why", "q": "Why do Vic and Jeevan feel sad?", "a": "Because they think the van will hit the vixen (also accept: they are afraid the vixen will get hurt)"}]}]}, {"level": 4, "name": "Phase 3 (Weeks 7–8)", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng; ai ee igh oa oo ar or ur; -ing endings with no change to the root word; ow oi ear air ure er", "cew": "all, are, be, go, he, her, I, into, me, my, no, she, the, they, to, was, we, you", "texts": [{"title": "Darth, Boss of the Road", "text": "But then Darth gets a shock. A turnip hits him on his ear. \"Ow!\" he yells. \"That hurts such a lot!\" He sits down on a chair as tears run down his chin. \"Boo hoo!\" he sobs. Chan, Martha and Gareth look down at him.", "focus": ["ow", "down", "chair"], "images": ["img/p4-0a.jpg?v=41bf4826", "img/p4-0b.jpg?v=73d1b28c"], "qs": [{"t": "what", "q": "What hits Darth on his ear?", "a": "A turnip"}, {"t": "who", "q": "Who look down at Darth?", "a": "Chan, Martha and Gareth"}, {"t": "why", "q": "Why does Darth sob?", "a": "Because it hurts a lot (also accept: because the turnip hurt him)"}]}, {"title": "Moaning Min", "text": "Min is good at moaning. She moans if she has to cook the food. She moans if she has to sort things in the living room. She moans if she has to pick up her books. She moans if she has to go to the woods in her boots.", "focus": ["her"], "images": ["img/p4-1a.jpg?v=b3bc27bc"], "qs": [{"t": "who", "q": "Who is good at moaning?", "a": "Min"}, {"t": "where", "q": "Where does Min moan about having to go?", "a": "To the woods (also accept: to the woods in her boots)"}, {"t": "why", "q": "Why does Min moan?", "a": "Because she does not like doing jobs (also accept: she does not want to do things; she does not want to do what she has to do)"}]}, {"title": "Ding Dong!", "text": "The food van zooms into the farmyard and up to the farm. \"Food!\" yell Duck, Dog and Chick. The van parks in the yard. The van man is on the porch. He rings the bell. Ding Dong! Can Farmer Sam hear the bell? No, she cannot hear the bell!", "focus": ["farmer"], "images": ["img/p4-2a.jpg?v=1162c3b0", "img/p4-2b.jpg?v=95482f41"], "qs": [{"t": "who", "q": "Who rings the bell?", "a": "The van man"}, {"t": "where", "q": "Where does the van park?", "a": "In the yard"}, {"t": "why", "q": "Why does the van man ring the bell?", "a": "So Farmer Sam will hear it and come for the food (also accept: to tell Farmer Sam the food is here; to get Farmer Sam)"}]}]}, {"level": 5, "name": "Phase 4", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng; ai ee igh oa oo ar or ur; -ing endings with no change to the root word; ow oi ear air ure er; adjacent consonants in one-syllable words (CVCC, CCVC, CCVCC, CCCVC); -ed endings", "cew": "all, are, be, come, do, go, have, he, her, I, into, like, little, me, my, no, one, out, said, she, so, some, the, there, they, to, was, we, were, what, when, you", "texts": [{"title": "Stuck!", "text": "Malak was hidden in the weeds. \"There you are!\" said Camila. \"I think you are stuck,\" said Tarek. Camila got into the pond. She had a cloth to pick Malak up. Malak was so wet! Camila and Tarek were wet too! Next morning, Malak was missing. Camila and Tarek had to hunt for her.", "focus": ["there", "said", "think", "stuck", "pond", "cloth", "so", "were", "next", "hunt"], "images": ["img/p5-0a.jpg?v=e5f27b58", "img/p5-0b.jpg?v=472b9395"], "qs": [{"t": "who", "q": "Who got into the pond?", "a": "Camila"}, {"t": "when", "q": "When was Malak missing?", "a": "Next morning"}, {"t": "why", "q": "Why did Camila get into the pond?", "a": "To get Malak out (also accept: because Malak was stuck; to pick Malak up)"}]}, {"title": "Big Bins", "text": "Amma and Aban were sad. There was litter on the road. There was litter on the sand and next to the huts too. There was a litter bin next to the road, but it had no room in it. \"I do not like all this litter,\" said Amma. \"Let us pick it all up.\"", "focus": ["were", "there", "sand", "next", "do", "like", "said"], "images": ["img/p5-1a.jpg?v=2917f7d5", "img/p5-1b.jpg?v=7b1eade6"], "qs": [{"t": "who", "q": "Who was sad?", "a": "Amma and Aban"}, {"t": "where", "q": "Where was the litter?", "a": "On the road, on the sand and next to the huts"}, {"t": "why", "q": "Why were Amma and Aban sad?", "a": "Because there was litter everywhere (also accept: because the bin was full; because they do not like litter)"}]}, {"title": "The King's Crown is Missing!", "text": "“Help! Help!” said the king. He was so upset! Now he did not look at all important! “Quick! I need my crown back!” he said. The queen said, “I will summon that clever owl. He might get the crown for us.” Tap! Tap! Tap! Owl ran into the room! The owl said, “I have come to help!”", "focus": ["help", "said", "so", "crown", "have", "come"], "images": ["img/p5-2a.jpg?v=9d845e9b", "img/p5-2b.jpg?v=9fa1a660"], "qs": [{"t": "who", "q": "Who will summon the owl?", "a": "The queen"}, {"t": "what", "q": "What does the king need back?", "a": "His crown"}, {"t": "why", "q": "Why is the king upset?", "a": "Because his crown is missing (also accept: because he has lost his crown; because the cat took his crown)"}]}]}, {"level": 6, "name": "Phase 4 Mastery", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng; ai ee igh oa oo ar or ur; -ing endings with no change to the root word; ow oi ear air ure er; adjacent consonants in one-syllable words (CVCC, CCVC, CCVCC, CCCVC); -ed endings; polysyllabic words, longer consonant clusters and all graphemes so far; -es, -er, -est, un-; contractions", "cew": "all, are, be, come, do, go, have, he, her, I, into, like, little, me, my, no, one, out, said, she, so, some, the, there, they, to, was, we, were, what, when, you", "texts": [{"title": "Lunches for Alfred", "text": "Alix and Kris are in the park when they see Alfred. Then Alfred trips up. Alix rushes to him. Kris dashes to him. They help Alfred to sit up. \"Dear me,\" moans Alfred. \"I feel faint. You see, I have to miss my lunches. I have no food in my flat.\" Alix helps Alfred to stand up.", "focus": ["lunches"], "images": ["img/p6-0a.jpg?v=a08cb3bc", "img/p6-0b.jpg?v=72e75141"], "qs": [{"t": "who", "q": "Who trips up?", "a": "Alfred"}, {"t": "where", "q": "Where are Alix and Kris?", "a": "In the park"}, {"t": "why", "q": "Why does Alfred feel faint?", "a": "Because he has no food and has to miss his lunches (also accept: because he has missed his lunch; because he is hungry)"}]}, {"title": "Too Much Stuff!", "text": "Dom and Jem were going on a trip. Dom was packing his bag. It was a big bag. \"I cannot lift my bag,\" said Dom. \"You have too much stuff in it,\" Jem explained. \"You need to unpack the bag,\" she went on. \"Unzip the bag and I will help you. But we must be quick, or we will miss the bus!\"", "focus": ["cannot", "explained", "unpack", "unzip"], "images": ["img/p6-1a.jpg?v=ea24bdc2", "img/p6-1b.jpg?v=51bc00af"], "qs": [{"t": "who", "q": "Who was packing his bag?", "a": "Dom"}, {"t": "what", "q": "What does Jem tell Dom to do?", "a": "Unpack the bag"}, {"t": "why", "q": "Why can Dom not lift his bag?", "a": "Because he has too much stuff in it (also accept: because it is too full; because it is too heavy)"}]}, {"title": "Stan's Glittering Trail", "text": "Stan sat next to Slug in the moonlight. “Look at the moon and the stars glittering up there!” said Stan. “I am just a dull, brown snail. I wish I was glittering too.” Stan felt a little sad. “If I can get as high as the moon and stars,” said Stan, “do you think I will glitter too?”", "focus": ["moonlight", "glitter"], "images": ["img/p6-2a.jpg?v=b0969b9d", "img/p6-2b.jpg?v=ebbfaf74"], "qs": [{"t": "who", "q": "Who sat next to Slug?", "a": "Stan"}, {"t": "what", "q": "What does Stan wish he could do?", "a": "Glitter (like the moon and stars)"}, {"t": "why", "q": "Why does Stan feel sad?", "a": "Because he is a dull, brown snail and he wants to glitter (also accept: because he is not glittering; because he thinks he is dull)"}]}]}, {"level": 7, "name": "Phase 5a (Weeks 1–4)", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng; ai ee igh oa oo ar or ur; -ing endings with no change to the root word; ow oi ear air ure er; adjacent consonants in one-syllable words (CVCC, CCVC, CCVCC, CCCVC); -ed endings; polysyllabic words, longer consonant clusters and all graphemes so far; -es, -er, -est, un-; contractions; ay ou ie ea oy ir ue aw wh ph ew oe au ey", "cew": "all, are, asked, be, called, come, do, Friday, go, have, he, her, I, into, like, little, looked, me, Monday, Mr, Mrs, my, no, oh, one, out, people, said, Saturday, she, so, some, Sunday, the, their, there, they, Thursday, to, Tuesday, was, we, Wednesday, were, what, when, you", "texts": [{"title": "Stunt Star", "text": "Jazz is proud of what she can do. It’s a thrilling feat. On Thursday, she has fun doing tricks on her hands. She can tilt the chair, then spin and twist it around. She needs strong arms and hands to do such tricks. On Friday, Jazz looks at the top ramp. It’s the highest ramp in the park. It’s steep too. That’s a big drop from the top! This high ramp will be a big test for Jazz.", "focus": ["proud", "feat", "thursday", "around", "friday"], "images": ["img/p7-0a.jpg?v=6bab510d", "img/p7-0b.jpg?v=2866332c"], "qs": [{"t": "who", "q": "Who is proud of what she can do?", "a": "Jazz"}, {"t": "when", "q": "On what day does Jazz look at the top ramp?", "a": "Friday"}, {"t": "why", "q": "Why does Jazz need strong arms and hands?", "a": "To do tricks (in her chair)"}]}, {"title": "Three Clues", "text": "Kirsten grinned. “I like Delroy,” she said. “He has a big garden with fir trees at the end.” On Saturday, Kirsten got out her best trainers and a blue shirt. Mum took her up the road. There were lots of people in the garden. “Have fantastic fun!” said Mum. Then Mum left, and Kirsten ran off to play with Amal and Carlos.", "focus": ["kirsten", "delroy", "fir", "saturday", "blue", "shirt", "people", "play"], "images": ["img/p7-1a.jpg?v=9027f75d", "img/p7-1b.jpg?v=d1973f98"], "qs": [{"t": "who", "q": "Who took Kirsten up the road?", "a": "Mum"}, {"t": "what", "q": "What did Kirsten get out to wear?", "a": "Her best trainers and a blue shirt"}, {"t": "why", "q": "Why did Kirsten grin?", "a": "Because she likes Delroy and was going to his garden (also accept: because she was happy to go to the party)"}]}, {"title": "Airship Rescue", "text": "Dew stood under the brand new airship and looked up. It seemed so big! She saw dark clouds hanging in the air. The ground crew were looking up at the clouds too. Was a storm on its way? A man called Paul shouted to her. He was one of the crew. “Dew! We need to shelter from the storm,” he said. “A twister has been spotted.”", "focus": ["dew", "new", "saw", "clouds", "ground", "crew", "way", "paul", "shouted"], "images": ["img/p7-2a.jpg?v=4383fb5d", "img/p7-2b.jpg?v=aa5801c6"], "qs": [{"t": "who", "q": "Who shouted to Dew?", "a": "Paul (a man called Paul, one of the crew)"}, {"t": "what", "q": "What did Dew see in the air?", "a": "Dark clouds (also accept: a storm; the airship)"}, {"t": "why", "q": "Why did Paul tell Dew they needed to shelter?", "a": "Because a twister had been spotted (also accept: a storm was coming; it was not safe)"}]}]}, {"level": 8, "name": "Phase 5a (Weeks 5–6)", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng; ai ee igh oa oo ar or ur; -ing endings with no change to the root word; ow oi ear air ure er; adjacent consonants in one-syllable words (CVCC, CCVC, CCVCC, CCCVC); -ed endings; polysyllabic words, longer consonant clusters and all graphemes so far; -es, -er, -est, un-; contractions; ay ou ie ea oy ir ue aw wh ph ew oe au ey; split digraphs a-e e-e i-e o-e u-e", "cew": "all, are, asked, be, called, come, do, Friday, go, have, he, her, I, into, like, little, looked, me, Monday, Mr, Mrs, my, no, oh, one, out, people, said, Saturday, she, so, some, Sunday, the, their, there, they, Thursday, to, Tuesday, was, we, Wednesday, were, what, when, you", "texts": [{"title": "Caves", "text": "You can see caves at the coast, next to the sea. You can see caves inland too. Caves at the coast are made when the wind and the waves destroy the rock. This can take a long time. Some caves go deep under the cliffs. You can sometimes go inside these caves. But do not get cut off when the tide comes in!", "focus": ["made", "take", "time", "inside", "these", "tide"], "images": ["img/p8-0a.jpg?v=5bb1f2c9", "img/p8-0b.jpg?v=3489fee0"], "qs": [{"t": "where", "q": "Where can you see caves at the coast?", "a": "Next to the sea (also accept: at the coast; by the cliffs)"}, {"t": "what", "q": "What makes caves at the coast?", "a": "The wind and the waves destroying the rock (also accept: wind and waves)"}, {"t": "why", "q": "Why should you not get cut off when the tide comes in?", "a": "Because the sea would come in and you could be trapped (also accept: you might get stuck; it is not safe; you could get wet or drown)"}]}, {"title": "Looking at the Stars", "text": "Is that a star? Yes. Those dots of light are stars. Stars send out light. We can see planets too. They look like dots of light as well. Some planets are brighter than stars. Looking at stars can be like looking at a map. You can use them to navigate. There are patterns in the stars too. Look, that pattern of seven stars is the big dipper. And you might see the Pole Star too.", "focus": ["those", "use", "navigate", "pole"], "images": ["img/p8-1a.jpg?v=9bfedd63", "img/p8-1b.jpg?v=36645663"], "qs": [{"t": "what", "q": "What do stars send out?", "a": "Light"}, {"t": "what", "q": "What is the pattern of seven stars called?", "a": "The big dipper"}, {"t": "why", "q": "Why can looking at stars be like looking at a map?", "a": "Because you can use them to navigate (also accept: to find your way; they make patterns)"}]}, {"title": "Canute's Flute", "text": "“I will play a tune for you,” said Canute. “Excuse me,” Luke said. “What have you got in that box?” Canute grinned and lifted the lid. Inside was a long, silver pipe. “This is my flute,” said Canute. “I use it to make people feel better.” He jumped off the mule and trotted into the street. Then he started to play the flute. The tune was so astonishing that the rain stopped in an instant.", "focus": ["tune", "canute", "excuse", "luke", "inside", "pipe", "flute", "use", "make", "mule"], "images": ["img/p8-2a.jpg?v=21554e5d", "img/p8-2b.jpg?v=66387d61"], "qs": [{"t": "who", "q": "Who has a flute?", "a": "Canute"}, {"t": "what", "q": "What was in the box?", "a": "A flute (a long, silver pipe)"}, {"t": "why", "q": "Why does Canute use his flute?", "a": "To make people feel better"}]}]}, {"level": 9, "name": "Phase 5a (all)", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng; ai ee igh oa oo ar or ur; -ing endings with no change to the root word; ow oi ear air ure er; adjacent consonants in one-syllable words (CVCC, CCVC, CCVCC, CCCVC); -ed endings; polysyllabic words, longer consonant clusters and all graphemes so far; -es, -er, -est, un-; contractions; ay ou ie ea oy ir ue aw wh ph ew oe au ey; split digraphs a-e e-e i-e o-e u-e; no new graphemes — consolidates the whole of Phase 5a", "cew": "all, are, asked, be, called, come, do, Friday, go, have, he, her, I, into, like, little, looked, me, Monday, Mr, Mrs, my, no, oh, one, out, people, said, Saturday, she, so, some, Sunday, the, their, there, they, Thursday, to, Tuesday, was, we, Wednesday, were, what, when, you", "texts": [{"title": "Spot the Magnets", "text": "Are there magnets in this room? Yes! In fact, there might be lots. How will this food stay cool? Magnets! A magnetic strip on the inside keeps it shut and helps keep the food cool. How do these things stay out of the way? Magnets! Magnets attract things made of steel. These letters have magnets in them, so they stick to the steel. Little magnets are good for sticking up notes too.", "focus": [], "images": ["img/p9-0a.jpg?v=33cdb56d", "img/p9-0b.jpg?v=1a6390f3"], "qs": [{"t": "what", "q": "What keeps the fridge door shut and helps keep the food cool?", "a": "A magnetic strip (also accept: a magnet)"}, {"t": "what", "q": "What do magnets attract?", "a": "Things made of steel"}, {"t": "why", "q": "Why do the letters stick to the steel?", "a": "Because they have magnets in them"}]}, {"title": "Camping Kit", "text": "It will take lots of people to heave the tent upright! Some tents are made from ripstop fabric, which is strong and will not rip. There are five poles to keep the tent up. The tent pegs are made of steel. Sometimes pegs are made of plastic. But when you hammer tent pegs into the ground, plastic ones can snap if the ground is too hard.", "focus": [], "images": ["img/p9-1a.jpg?v=aeb6ac3d"], "qs": [{"t": "what", "q": "What does it take lots of people to heave upright?", "a": "The tent"}, {"t": "what", "q": "What are the tent pegs made of?", "a": "Steel (sometimes plastic)"}, {"t": "why", "q": "Why can plastic tent pegs snap?", "a": "If the ground is too hard (also accept: when you hammer them into hard ground)"}]}, {"title": "The King's Cats", "text": "Queen June was sitting on her throne playing her silver flute. All of a sudden, there was a loud yell. “The King and his cats have come to visit!” “Oh no!” Queen June said. “Not the cats!” “Sister, we have come to stay for three weeks!” said the King. The King had lots and lots of cats. He kept them with him all the time.", "focus": [], "images": ["img/p9-2a.jpg?v=607aa6f9", "img/p9-2b.jpg?v=d7b7f286"], "qs": [{"t": "who", "q": "Who has lots and lots of cats?", "a": "The King"}, {"t": "what", "q": "What was Queen June playing?", "a": "Her silver flute"}, {"t": "why", "q": "Why did Queen June say \"Oh no!\"?", "a": "Because the King and his cats had come to stay for three weeks (also accept: she did not want the cats to stay)"}]}]}, {"level": 10, "name": "Phase 5b", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng; ai ee igh oa oo ar or ur; -ing endings with no change to the root word; ow oi ear air ure er; adjacent consonants in one-syllable words (CVCC, CCVC, CCVCC, CCCVC); -ed endings; polysyllabic words, longer consonant clusters and all graphemes so far; -es, -er, -est, un-; contractions; ay ou ie ea oy ir ue aw wh ph ew oe au ey; split digraphs a-e e-e i-e o-e u-e; no new graphemes — consolidates the whole of Phase 5a; alternative pronunciations (e.g. snow, chief, head, find, cold, soft c and g, y as in by / very)", "cew": "again, all, any, are, asked, be, because, called, come, different, do, eyes, Friday, friends, go, have, he, her, I, into, laughed, like, little, looked, many, me, Monday, mouse, Mr, Mrs, my, no, oh, once, one, out, people, please, said, Saturday, she, so, some, Sunday, the, their, there, they, thought, through, Thursday, to, Tuesday, was, water, we, Wednesday, were, what, when, where, who, work, you", "texts": [{"title": "Jogging into Space", "text": "It was Monday and Gill and Chris were at Space Club. They were both looking up at the night sky. “Look!” Gill said. “I can see the lights of a spacecraft. It is orbiting our planet.” “Space starts about sixty miles up in the sky,” she whispered. “I read that in a book.” “No way!” Chris replied. “Gill’s right,” their teacher told him. “I want to go into space,” said Gill.", "focus": ["space", "both", "sky", "spacecraft", "sixty", "read", "told", "want"], "images": ["img/p10-0a.jpg?v=4e57b920", "img/p10-0b.jpg?v=6bd9e32e"], "qs": [{"t": "who", "q": "Who could see the lights of a spacecraft?", "a": "Gill"}, {"t": "where", "q": "Where were Gill and Chris?", "a": "At Space Club"}, {"t": "why", "q": "Why did Chris say \"No way!\"?", "a": "Because he did not believe that space starts about sixty miles up (also accept: he was surprised; he did not believe Gill)"}]}, {"title": "The Tap Tap Kids", "text": "Spring, Sage and Toby were born in a barn on a farm. One day, Mum said, “I think you could play outside this morning.” The three kid goats had never been outside the barn so they went WILD! They jumped up everywhere. Tap, tap, tap went their feet on the tin roof. They had so much energy! The farmer was on her tractor in the field. “STOP!” she called, with a frown. “All this tapping is very annoying!” The kids jumped onto the bonnet of her tractor and began to tap!", "focus": ["toby", "wild", "everywhere", "energy", "field", "very"], "images": ["img/p10-1a.jpg?v=0f053bf3", "img/p10-1b.jpg?v=23cb7263"], "qs": [{"t": "who", "q": "Who were born in a barn on a farm?", "a": "Spring, Sage and Toby (the three kid goats)"}, {"t": "where", "q": "Where did the kids tap their feet?", "a": "On the tin roof (also accept: on the farmer's tractor)"}, {"t": "why", "q": "Why did the farmer shout \"STOP!\"?", "a": "Because the tapping was very annoying (also accept: she did not like the noise)"}]}]}, {"level": 11, "name": "Phase 5c", "sounds": "s a t p i n m d g o c k ck e u r h b f ff l ll ss; j v w x y z zz qu ch sh th ng; ai ee igh oa oo ar or ur; -ing endings with no change to the root word; ow oi ear air ure er; adjacent consonants in one-syllable words (CVCC, CCVC, CCVCC, CCCVC); -ed endings; polysyllabic words, longer consonant clusters and all graphemes so far; -es, -er, -est, un-; contractions; ay ou ie ea oy ir ue aw wh ph ew oe au ey; split digraphs a-e e-e i-e o-e u-e; no new graphemes — consolidates the whole of Phase 5a; alternative pronunciations (e.g. snow, chief, head, find, cold, soft c and g, y as in by / very); alternative spellings (e.g. tch, dge, kn, wr, mb, ture, tion)", "cew": "again, all, any, are, asked, be, because, called, come, different, do, eyes, Friday, friends, go, have, he, her, I, into, laughed, like, little, looked, many, me, Monday, mouse, Mr, Mrs, my, no, oh, once, one, out, people, please, said, Saturday, she, so, some, Sunday, the, their, there, they, thought, through, Thursday, to, Tuesday, was, water, we, Wednesday, were, what, when, where, who, work, you", "texts": [{"title": "Jake the Snake", "text": "By the side of a big fishing lake there was an old viper called Jake. He got his fang stuck in a deep pile of muck. He was really a silly old snake. In the lake were a drake and a duck. They could see Jake had run out of luck. The duck said, “Can I help?” as Jake started to yelp. “We will help get your trapped fang unstuck.”", "focus": [], "images": ["img/p11-0a.jpg?v=a5388033", "img/p11-0b.jpg?v=d2ead8d6"], "qs": [{"t": "who", "q": "Who got his fang stuck in a pile of muck?", "a": "Jake (the old viper / snake)"}, {"t": "where", "q": "Where were the drake and the duck?", "a": "In the lake"}, {"t": "why", "q": "Why did the duck say \"Can I help?\"", "a": "Because Jake was stuck and yelping (also accept: to help Jake; Jake was in trouble)"}]}, {"title": "I'm Not a Monster!", "text": "I’m a water bear. Some people call me a moss piglet. Can you count how many legs I have? I can live almost anywhere, from the tops of mountains to the bottom of the deep sea. I may look rather frightening, but I’m not a monster. I’m very, very small, so you can hardly spot me without a microscope! I was chosen to go on a special mission ... into space. I stayed alive because I can survive without air in almost any temperature.", "focus": ["call", "small", "special", "mission"], "images": ["img/p11-1a.jpg?v=594b28ba"], "qs": [{"t": "what", "q": "What animal is talking?", "a": "A water bear (also accept: a moss piglet)"}, {"t": "what", "q": "What was the water bear chosen to go on?", "a": "A special mission into space"}, {"t": "why", "q": "Why did the water bear stay alive in space?", "a": "Because it can survive without air in almost any temperature"}]}]}];
-const VERSION = "01.11.26c";
+const VERSION = "11.11.26a";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
@@ -574,7 +742,7 @@ $("rubric").addEventListener("click", e=>{
   const c=e.target.closest(".rcell"); if(!c) return;
   rubricScores[c.dataset.k] = +c.dataset.v; renderRubric(); SaveResults.refresh();
 });
-SaveResults.init({tool:"phonics", onPupilChange:loadPupilHistory, get:()=>{ const s=marks.filter(m=>m===1).length;
+SaveResults.init({tool:"phonics", onPupilChange:loadPupilHistory, reset:()=>renderTexts(), get:()=>{ const s=marks.filter(m=>m===1).length;
   const qDone = !marks.includes(null);
   const rDone = RUBRIC.filter(r=>rubricScores[r.key]).length, rComplete = rDone===RUBRIC.length;
   const rSummary = rComplete ? ", rubric "+RUBRIC.reduce((a,r)=>a+rubricScores[r.key],0)+"/20" : "";

@@ -78,7 +78,7 @@ td small{font-weight:400}
 <script>
 /*SAVE_RESULTS*/
 /*TARGETS*/
-const VERSION = "11.11.26e";
+const VERSION = "11.11.26f";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -259,7 +259,7 @@ function renderOverview(termTxt){
   const cellFor = (tool, r) => {
     if (!r) return '<td class="none">&ndash;</td>';
     const d = r.detail || {};
-    if (tool === 'fluency') return levelCell(r).replace(/<\/td>$/, '<br><small>' + (d.wcpm != null ? d.wcpm + ' wpm, ' : '') + (d.accuracy != null ? d.accuracy + '% accurate' : '') + '</small></td>');
+    if (tool === 'fluency') return levelCell(r).replace(/<\/td>$/, '<br><small>' + (d.wcpm != null ? d.wcpm + ' wpm, ' : '') + (d.accuracy != null ? d.accuracy + '% accurate' : '') + (d.rubric_total != null ? '<br>Flu ' + d.rubric_total + '/20' : '') + '</small></td>');
     if (tool === 'phonics') return gradedCell('phonics', null, r.score, esc(r.level) + '<br><small>' + r.score + '/3</small>');
     if (tool === 'comprehension') return gradedCell('comprehension', r.term, r.percent, 'Level ' + esc(r.level) + '<br><small>' + r.percent + '%</small>');
     return gradedCell('comprehension', r.term, r.percent, 'Level ' + esc(r.level) + '<br><small>' + (d.accuracy != null ? d.accuracy + '% accurate, ' : '') + r.score + '/' + r.total + '</small>');

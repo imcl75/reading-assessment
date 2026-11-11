@@ -13,7 +13,7 @@ const SaveResults = (function(){
   const ON = true;
   const API = '/_api/planning', PENDING_KEY = 'ra_pending', CLASS_KEY = 'ra_last_class', PUPIL_KEY = 'ra_last_pupil';
   let cfg = null, roster = null, current = null, lastSaved = null, saving = false, card = null, topCard = null, bar = null;
-  let attemptSig = '', attemptId = '', rosterLoading = null;
+  let attemptSig = '', attemptId = '', rosterLoading = null, shown = '';   // shown = the child the marks on screen belong to
   const $q = id => document.getElementById(id);
   const h = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const store = {
@@ -140,14 +140,24 @@ const SaveResults = (function(){
   }
   function onClass(){
     const c = $q('srClass').value;
+    switchGuard('');
     store.set(CLASS_KEY, c);
     $q('srPupil').disabled = !c;
     $q('srPupil').innerHTML = pupilOptions(c, '');
     $q('srHist').innerHTML = ''; refresh();
     if (cfg.onPupilChange) cfg.onPupilChange('');
   }
+  // Changing the child must not carry the last child's marks over: clear them if that result was saved, otherwise ask.
+  function switchGuard(next){
+    const was = shown; shown = next;
+    if (!was || was === next || !cfg.reset) return;
+    const saved = !!lastSaved || (!!attemptId && pendingList().some(x => x.payload.client_id === attemptId)), dirty = cfg.dirty ? cfg.dirty() : true;
+    if (saved || !dirty) { try { cfg.reset(); } catch(e){} return; }
+    if (confirm('You have marks for the previous child that are not saved.\n\nOK = clear them and start fresh for this child.\nCancel = keep the marks and use them for this child.')) { try { cfg.reset(); } catch(e){} }
+  }
   async function onPupil(){
     const upn = $q('srPupil').value;   // upn here = the pupil CODE (server accepts a code or a UPN in `upn`)
+    switchGuard(upn);
     lastSaved = null; refresh();
     if (cfg.onPupilChange) cfg.onPupilChange(upn);
     $q('srHist').innerHTML = '';
@@ -285,7 +295,7 @@ const SaveResults = (function(){
   }
   // After a save: clear the child and the marks, ready for the next one
   function nextPupil(){
-    lastSaved = null; attemptSig = '';
+    lastSaved = null; attemptSig = ''; shown = '';
     $q('srPupil').value = ''; $q('srHist').innerHTML = '';
     if (cfg.onPupilChange) cfg.onPupilChange('');
     if (cfg.reset) { try { cfg.reset(); } catch(e){} }

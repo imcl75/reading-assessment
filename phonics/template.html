@@ -137,7 +137,7 @@ body.nopics .pic{display:none}
 <script>
 /*SAVE_RESULTS*/
 const DATA = /*DATA*/;
-const VERSION = "11.11.26a";
+const VERSION = "11.11.26d";
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 let L = DATA[0], T = 0, marks = [];
@@ -266,7 +266,7 @@ $("rubric").addEventListener("click", e=>{
   const c=e.target.closest(".rcell"); if(!c) return;
   rubricScores[c.dataset.k] = +c.dataset.v; renderRubric(); SaveResults.refresh();
 });
-SaveResults.init({tool:"phonics", onPupilChange:loadPupilHistory, reset:()=>renderTexts(), get:()=>{ const s=marks.filter(m=>m===1).length;
+SaveResults.init({tool:"phonics", onPupilChange:loadPupilHistory, dirty:()=>marks.some(m=>m!==null)||Object.keys(rubricScores).length>0, reset:()=>renderTexts(), get:()=>{ const s=marks.filter(m=>m===1).length;
   const qDone = !marks.includes(null);
   const rDone = RUBRIC.filter(r=>rubricScores[r.key]).length, rComplete = rDone===RUBRIC.length;
   const rSummary = rComplete ? ", rubric "+RUBRIC.reduce((a,r)=>a+rubricScores[r.key],0)+"/20" : "";

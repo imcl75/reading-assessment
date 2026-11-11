@@ -95,7 +95,7 @@ const ScanMarking = (function(){
   // level/test id, so ticking/unticking pupils or changing level doesn't need a fresh request each time.
   async function loadHistory(cls){
     if (historyCache[cls]) return historyCache[cls];
-    const d = await SaveResults.call('GET', '/readingresults-db', {class: cls, tool: 'comprehension', include_voided: 1, limit: 2000});
+    const d = await SaveResults.call('GET', '/readingresults-db', {codes: (roster[cls] || []).map(p => p.pcode).filter(Boolean).join(','), tool: 'comprehension', include_voided: 1, limit: 2000});
     return (historyCache[cls] = (d && d.results) || []);
   }
   function setTextNote(msg, warn){

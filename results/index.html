@@ -511,7 +511,7 @@ function targetLevelFor(yearGroup, term){
   return row && t >= 1 && t <= 6 && row[t - 1] != null ? row[t - 1] : null;
 }
 
-const VERSION = "11.11.26d";
+const VERSION = "11.11.26e";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -658,7 +658,7 @@ async function loadRoster(){
 }
 async function reload(){
   if (!cls) return;
-  const d = await SaveResults.call('GET', '/readingresults-db', {class:cls, limit:2000});
+  const d = await SaveResults.call('GET', '/readingresults-db', {codes: people().map(p => p.pcode).filter(Boolean).join(','), limit:2000});
   if (!d.results) { status(d.error || 'Could not load results.', true); return; }
   ALL = d.results.sort(byTime); status('');
   if (d.current && !CURRENT_TERM) { CURRENT_TERM = d.current.term; if (store.get('rr_term') == null) { TERM = CURRENT_TERM; $("rTerm").value = String(TERM); } }

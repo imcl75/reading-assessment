@@ -78,7 +78,7 @@ td small{font-weight:400}
 <script>
 /*SAVE_RESULTS*/
 /*TARGETS*/
-const VERSION = "11.11.26f";
+const VERSION = "11.11.26g";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -144,6 +144,28 @@ function levelCell(r){
   const diff = n - tgt, tier = LEVEL_TIERS.find(t => diff >= t[0]);
   const txt = diff === 0 ? 'at target' : diff > 0 ? diff+(diff===1?' level':' levels')+' above target' : (-diff)+(diff===-1?' level':' levels')+' below target';
   return '<td style="background:'+tier[1]+';color:'+tier[2]+';font-weight:700">'+label+'<br><small style="font-weight:400">'+txt+'</small></td>';
+}
+// Class-view fluency box (Innes, 11.11.26): colour = how the child READ at the level they were assessed
+// (accuracy + pace), not where the level sits against target; level-vs-target is plain text underneath.
+// Green: accuracy over 95% and 90+ wpm. Red: under 90% accurate or under 60 wpm. Amber: anything between.
+function fluencyCell(r){
+  const d = r.detail || {}, acc = d.accuracy, wpm = d.wcpm;
+  const label = 'Level '+esc(r.level)+(bandName(r.level)?' ('+bandName(r.level)+')':'');
+  let st = ['#f2d27a','#4a3b00'];
+  if (acc != null){
+    if (acc < 90 || (wpm != null && wpm < 60)) st = ['#e8837c','#4a0f0a'];
+    else if (acc > 95 && (wpm == null || wpm >= 90)) st = ['#6fbf73','#0a2e13'];
+  }
+  const tgt = targetLevelFor(curYear, r.term), n = levelNum(r.level);
+  let lt = '';
+  if (tgt != null && !isNaN(n)){
+    const diff = n - tgt;
+    lt = diff === 0 ? 'At target level' : diff > 0 ? diff+(diff===1?' level':' levels')+' above target' : (-diff)+(diff===-1?' level':' levels')+' below target';
+  }
+  const nums = (wpm != null ? wpm+' wpm, ' : '') + (acc != null ? acc+'% accurate' : '');
+  return '<td style="background:'+st[0]+';color:'+st[1]+'"><b>'+label+'</b><br>'+nums
+    + (d.rubric_total != null ? '<br><span style="display:inline-block;background:rgba(255,255,255,.65);border-radius:10px;padding:0 8px;font-size:.8em;font-weight:700">Flu '+d.rubric_total+'/20</span>' : '')
+    + (lt ? '<br><small>'+lt+'</small>' : '') + '</td>';
 }
 const wrapCell = c => (typeof c === 'string' && c.indexOf('<td') === 0) ? c : '<td>'+c+'</td>';
 
@@ -259,7 +281,7 @@ function renderOverview(termTxt){
   const cellFor = (tool, r) => {
     if (!r) return '<td class="none">&ndash;</td>';
     const d = r.detail || {};
-    if (tool === 'fluency') return levelCell(r).replace(/<\/td>$/, '<br><small>' + (d.wcpm != null ? d.wcpm + ' wpm, ' : '') + (d.accuracy != null ? d.accuracy + '% accurate' : '') + (d.rubric_total != null ? '<br>Flu ' + d.rubric_total + '/20' : '') + '</small></td>');
+    if (tool === 'fluency') return fluencyCell(r);
     if (tool === 'phonics') return gradedCell('phonics', null, r.score, esc(r.level) + '<br><small>' + r.score + '/3</small>');
     if (tool === 'comprehension') return gradedCell('comprehension', r.term, r.percent, 'Level ' + esc(r.level) + '<br><small>' + r.percent + '%</small>');
     return gradedCell('comprehension', r.term, r.percent, 'Level ' + esc(r.level) + '<br><small>' + (d.accuracy != null ? d.accuracy + '% accurate, ' : '') + r.score + '/' + r.total + '</small>');

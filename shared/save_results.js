@@ -187,7 +187,7 @@ const SaveResults = (function(){
     };
   }
   function describe(r){
-    const bands = {greater_depth: 'greater depth', on_track: 'on track', not_yet: 'not yet on track', secure: 'secure', nearly: 'nearly there', on_target: 'on target', below_target: 'below target', excellent: 'excellent', satisfactory: 'satisfactory', unsatisfactory: 'unsatisfactory'};
+    const bands = {greater_depth: 'greater depth', on_track: 'on track', not_yet: 'not yet on track', o1: 'O1', o2: 'O2', y: 'Y', a: 'A', secure: 'secure', nearly: 'nearly there', on_target: 'on target', below_target: 'below target', excellent: 'excellent', satisfactory: 'satisfactory', unsatisfactory: 'unsatisfactory'};
     const b = bands[r.band] || r.band;
     if (r.tool === 'fluency') return 'Level ' + r.level + ': ' + r.detail.wcpm + ' words correct per minute, ' + r.detail.accuracy + '% accurate (' + b + ')' + (r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
     if (r.tool === 'phonics') return r.level + ': ' + r.score + '/3 (' + b + ')' + (r.detail && r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');

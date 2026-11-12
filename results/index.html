@@ -343,7 +343,7 @@ const SaveResults = (function(){
     };
   }
   function describe(r){
-    const bands = {greater_depth: 'greater depth', on_track: 'on track', not_yet: 'not yet on track', secure: 'secure', nearly: 'nearly there', on_target: 'on target', below_target: 'below target', excellent: 'excellent', satisfactory: 'satisfactory', unsatisfactory: 'unsatisfactory'};
+    const bands = {greater_depth: 'greater depth', on_track: 'on track', not_yet: 'not yet on track', o1: 'O1', o2: 'O2', y: 'Y', a: 'A', secure: 'secure', nearly: 'nearly there', on_target: 'on target', below_target: 'below target', excellent: 'excellent', satisfactory: 'satisfactory', unsatisfactory: 'unsatisfactory'};
     const b = bands[r.band] || r.band;
     if (r.tool === 'fluency') return 'Level ' + r.level + ': ' + r.detail.wcpm + ' words correct per minute, ' + r.detail.accuracy + '% accurate (' + b + ')' + (r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
     if (r.tool === 'phonics') return r.level + ': ' + r.score + '/3 (' + b + ')' + (r.detail && r.detail.rubric_total != null ? ', rubric ' + r.detail.rubric_total + '/20' : '');
@@ -511,7 +511,7 @@ function targetLevelFor(yearGroup, term){
   return row && t >= 1 && t <= 6 && row[t - 1] != null ? row[t - 1] : null;
 }
 
-const VERSION = "11.11.26g";
+const VERSION = "12.11.26d";
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const uk = iso => { if (!iso) return ''; const [y,m,d] = iso.split('-'); return d+'/'+m+'/'+y; };
@@ -532,13 +532,13 @@ const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d"
 // vivid pair so it reads as the headline number; the domain/rubric breakdown cells pass muted:true
 // (Innes, 30.09.26: those were competing with the overall % for attention) for a softer tint.
 const GRADE_THRESHOLDS = {
-  // Comprehension targets (Innes, 05.10.26), same for every form of assessment (comprehension tool,
-  // Benchmarking questions): D above 75%, O1 55-75%, O2 45-55%, Y 40-45%, A below 40%. A boundary
-  // percentage belongs to the higher band, except 75% which is O1 (D is "above 75").
+  // Comprehension targets (Innes, 05.10.26; O1/O2/Y steps changed 12.11.26), same for every form of assessment
+  // (comprehension tool, Benchmarking questions): D above 75%, O1 60-75%, O2 50-60%, Y 40-50%, A below 40%.
+  // A boundary percentage belongs to the higher band, except 75% which is O1 (D is "above 75").
   comprehension: [
     [75.01,'#1e8449','#fff','#eaf7ee','#1e8449'],
-    [55,'#6fbf73','#0a2e13','#eef8ec','#3f7a43'],
-    [45,'#f2d27a','#4a3b00','#fdf6e3','#8a6d1f'],
+    [60,'#6fbf73','#0a2e13','#eef8ec','#3f7a43'],
+    [50,'#f2d27a','#4a3b00','#fdf6e3','#8a6d1f'],
     [40,'#f2a154','#4a2600','#fdeee0','#8a4b1f'],
     [0,'#c0392b','#fff','#fbe9e7','#a13327'],
   ],

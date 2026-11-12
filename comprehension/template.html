@@ -87,7 +87,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
       <button class="act" id="pPupil">Print pupil copy</button>
       <button class="act alt" id="pTeacher">Print mark scheme</button>
     </div>
-    <p class="note">Pupil copy: page 1 is the text, page 2 the questions. Each test shows its number of questions and total marks. On track = 60% or more; greater depth = 80% or more.</p>
+    <p class="note">Pupil copy: page 1 is the text, page 2 the questions. Each test shows its number of questions and total marks. GD = 80% or more, O1 = 60-80%, O2 = 50-60%, Y = 40-50%, A = below 40%.</p>
   </section>
   <section class="card">
     <h2 id="tt"></h2>
@@ -109,9 +109,19 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "12.11.26c";
-const PASS_PC = 0.8, DEV_PC = 0.6;   // greater depth at 80%+, on track 60-79%, below 60% not yet on track (edit here to change thresholds)
-const tot = t => t.qs.reduce((a,q)=>a+q.m,0), thr = t => [Math.ceil(PASS_PC*tot(t)-1e-9), Math.ceil(DEV_PC*tot(t)-1e-9)];
+const VERSION = "12.11.26d";
+// Innes, 12.11.26: GD 80%+, O1 60-80, O2 50-60, Y 40-50, A below 40 (a boundary mark goes to the higher band;
+// whole marks, rounded up). Edit the percentages here to change them everywhere on this page.
+const BAND_PC = [["GD",0.8],["O1",0.6],["O2",0.5],["Y",0.4]];
+const tot = t => t.qs.reduce((a,q)=>a+q.m,0);
+// -> [[code, lowest mark, highest mark], ...] from the top band down; bands that hold no whole mark are left out
+function bandsOf(t){
+  const N=tot(t), out=[]; let hi=N;
+  BAND_PC.forEach(([c,p])=>{ const lo=Math.ceil(p*N-1e-9); if(lo<=hi){ out.push([c,lo,hi]); hi=lo-1; } });
+  out.push(["A",0,hi]); return out;
+}
+const bandOfScore = (t,sc) => bandsOf(t).find(b=>sc>=b[1]&&sc<=b[2])[0];
+const RETEST = "A: retest with a different text or try the level below";
 const DOM = {"2a":"Vocabulary","2b":"Retrieval","2c":"Summarise / sequence","2d":"Inference","2e":"Predict","2g":"Language"};
 const BANDS = [[17,18,"Turquoise","#00e5c8"],[19,20,"Purple","#800080"],[21,22,"Gold","#ffc000"],[23,24,"White","#ffffff"],[25,26,"Lime","#00ee00"],[27,28,"Ruby","#c00000"],[29,30,"Sapphire","#000080"],[31,34,"Free Reader","#f2b705"]];
 const band = l => BANDS.find(b => l >= b[0] && l <= b[1]);
@@ -148,7 +158,7 @@ function sheets(l,i){
   let p1='<section class="sheet" '+key+' data-k="p"><div class="fields"><span>Name:</span><span>Date:</span></div>'+head('')+'<div class="passage'+(t.text.join(" ").split(/\s+/).length>390?' long':'')+(t.text.join(" ").split(/\s+/).length>480?' xlong':'')+'">'+t.text.map(x=>'<p>'+esc(x)+'</p>').join('')+'</div>'+foot+'</section>';
   let p2='<section class="sheet" '+key+' data-k="p"><div class="fields"><span>Name:</span><span>Date:</span></div>'+head(' &middot; Questions')+t.qs.map((q,n)=>qHTML(q,n,false)).join('')+'<div class="foot"><span>Total: ____ / '+tot(t)+'</span><span>v'+VERSION+'</span></div></section>';
   let p3='<section class="sheet" '+key+' data-k="t"><div class="fields"><span>Name:</span><span>Class:</span><span>Date:</span></div>'+head(' &middot; Mark scheme')+t.qs.map((q,n)=>qHTML(q,n,true)).join('')+
-    (()=>{const [P,D]=thr(t),N=tot(t);return '<table><tr><th>Total</th><th>Result</th></tr><tr><td>____ / '+N+'</td><td>'+P+'&ndash;'+N+' greater depth at this level &nbsp;|&nbsp; '+D+'&ndash;'+(P-1)+' on track at this level &nbsp;|&nbsp; 0&ndash;'+(D-1)+' not yet on track: retest with a different text or try the level below</td></tr></table>';})()+foot+'</section>';
+    (()=>{const N=tot(t);return '<table><tr><th>Total</th><th>Result</th></tr><tr><td>____ / '+N+'</td><td>'+bandsOf(t).map(b=>(b[1]===b[2]?b[1]:b[1]+'&ndash;'+b[2])+' '+b[0]+(b[0]==='A'?' ('+RETEST.slice(3)+')':'')).join(' &nbsp;|&nbsp; ')+'</td></tr></table>';})()+foot+'</section>';
   return p1+p2+p3;
 }
 function scanPassageHTML(t,l,pupilName,className){
@@ -275,10 +285,10 @@ function renderTexts(){
   score();
 }
 function score(){
-  const t=L.texts[T], s=marks.reduce((a,b)=>a+(b||0),0), done=!marks.includes(null), [P,D]=thr(t);
+  const t=L.texts[T], s=marks.reduce((a,b)=>a+(b||0),0), done=!marks.includes(null);
   $("scoreLine").textContent = "Score: "+s+" / "+tot(t)+" ("+Math.round(100*s/tot(t))+"%)";
   SaveResults.refresh();
-  $("scoreNote").textContent = !done ? "Tap a mark for every question." : s>=P ? "Greater depth at this level." : s>=D ? "On track at this level." : "Not yet on track: retest at this level with a different text, or try the level beneath.";
+  $("scoreNote").textContent = !done ? "Tap a mark for every question." : (b=>b==="A" ? "A: not yet secure. Retest at this level with a different text, or try the level beneath." : b==="GD" ? "GD: greater depth at this level." : b+" at this level.")(bandOfScore(t,s));
 }
 $("levels").onclick=e=>{const b=e.target.closest(".lv");if(!b||b.disabled)return;L=DATA.find(l=>l.level==b.dataset.l);T=0;renderLevels();renderTexts();ScanMarking.onSelectionChanged();};
 $("texts").onclick=e=>{const b=e.target.closest(".tx");if(!b)return;T=+b.dataset.i;renderTexts();ScanMarking.onSelectionChanged();};

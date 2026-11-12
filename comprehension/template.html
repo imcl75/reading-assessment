@@ -87,7 +87,7 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
       <button class="act" id="pPupil">Print pupil copy</button>
       <button class="act alt" id="pTeacher">Print mark scheme</button>
     </div>
-    <p class="note">Pupil copy: page 1 is the text, page 2 the questions. Each test shows its number of questions and total marks. GD = 80% or more, O1 = 60-80%, O2 = 50-60%, Y = 40-50%, A = below 40%.</p>
+    <p class="note">Pupil copy: page 1 is the text, page 2 the questions. Each test shows its number of questions and total marks. GD = above 75%, O1 = 60-75%, O2 = 50-60%, Y = 40-50%, A = below 40%.</p>
   </section>
   <section class="card">
     <h2 id="tt"></h2>
@@ -109,15 +109,16 @@ footer{text-align:center;color:#567;font-size:.8rem;padding:10px}
 /*SAVE_RESULTS*/
 /*SCAN_MARKING*/
 const DATA = /*DATA*/;
-const VERSION = "12.11.26d";
-// Innes, 12.11.26: GD 80%+, O1 60-80, O2 50-60, Y 40-50, A below 40 (a boundary mark goes to the higher band;
-// whole marks, rounded up). Edit the percentages here to change them everywhere on this page.
-const BAND_PC = [["GD",0.8],["O1",0.6],["O2",0.5],["Y",0.4]];
+const VERSION = "12.11.26e";
+// Innes, 12.11.26: GD above 75%, O1 60-75, O2 50-60, Y 40-50, A below 40 (a boundary mark goes to the higher band,
+// except 75% itself which is O1; whole marks). Edit the percentages here to change them everywhere on this page.
+// [code, percentage, true = must be ABOVE that percentage]
+const BAND_PC = [["GD",0.75,true],["O1",0.6],["O2",0.5],["Y",0.4]];
 const tot = t => t.qs.reduce((a,q)=>a+q.m,0);
 // -> [[code, lowest mark, highest mark], ...] from the top band down; bands that hold no whole mark are left out
 function bandsOf(t){
   const N=tot(t), out=[]; let hi=N;
-  BAND_PC.forEach(([c,p])=>{ const lo=Math.ceil(p*N-1e-9); if(lo<=hi){ out.push([c,lo,hi]); hi=lo-1; } });
+  BAND_PC.forEach(([c,p,above])=>{ const lo=above ? Math.floor(p*N+1e-9)+1 : Math.ceil(p*N-1e-9); if(lo<=hi){ out.push([c,lo,hi]); hi=lo-1; } });
   out.push(["A",0,hi]); return out;
 }
 const bandOfScore = (t,sc) => bandsOf(t).find(b=>sc>=b[1]&&sc<=b[2])[0];

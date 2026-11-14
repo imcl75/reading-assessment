@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+ WFA reading text for the iPad (open page, no sign-in). Built by show/build.py from the four teacher tools.
+ The teacher's laptop (Reading Assessment.html in the CLF Staff-Tools library) shows a QR code with ONLY the text to
+ show: ?a=<fluency|phonics|pm_benchmark|comprehension>&id=<text id>. No pupil data, no results, no server calls.
+-->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Reading</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{background:#fbf7ec;color:#0a0101;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
+  #reader{position:fixed;inset:0;display:flex;flex-direction:column;
+    padding:max(18px,env(safe-area-inset-top)) max(22px,env(safe-area-inset-right)) max(26px,env(safe-area-inset-bottom)) max(22px,env(safe-area-inset-left));-webkit-user-select:none;user-select:none}
+  #reader[hidden],#pick[hidden]{display:none}
+  .body{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;align-items:center}
+  .inner{width:100%;max-width:1100px;margin:auto 0}
+  h1{margin:0 0 .5em;text-align:center;font-size:1.15em;line-height:1.25}
+  .pics{display:flex;gap:16px;justify-content:center;margin:0 0 .6em}
+  .pics img{min-width:0;max-width:48%;max-height:34vh;object-fit:contain;border-radius:12px;border:2px solid #cfe3ee}
+  .pics img:only-child{max-width:70%}
+  .text p{margin:0 0 .7em;line-height:1.7;white-space:pre-line}
+  .text p:last-child{margin-bottom:0}
+  .ver{position:fixed;right:max(10px,env(safe-area-inset-right));bottom:max(4px,env(safe-area-inset-bottom));font-size:11px;color:#a59c86}
+  .ver a{color:#a59c86}
+  #pick{max-width:900px;margin:0 auto;padding:20px 18px 50px}
+  #pick h2{font-size:22px;margin:22px 0 8px}
+  #pick .lvl{font-weight:700;color:#5b6472;margin:12px 0 4px;font-size:15px}
+  #pick a.tx{display:inline-block;margin:3px 6px 3px 0;padding:8px 12px;border-radius:10px;background:#fff;border:2px solid #e3dccb;color:#0a0101;text-decoration:none;font-size:16px}
+  #pick .msg{background:#fff1d6;border-radius:10px;padding:10px 14px;margin-top:10px}
+</style>
+</head>
+<body>
+<div id="reader" hidden><div class="body"><div class="inner"></div></div></div>
+<div id="pick" hidden></div>
+<div class="ver"><span id="ver">@@VERSION@@</span></div>
+<script>
+'use strict';
+const TEXTS = /*@@TEXTS@@*/null;
+const NAMES = {fluency: 'Reading fluency', phonics: 'Phonics comprehension', pm_benchmark: 'Benchmarking', comprehension: 'Comprehension'};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const q = new URLSearchParams(location.search), A = q.get('a') || '', ID = q.get('id') || '';
+const T = TEXTS[A] && TEXTS[A].find(t => t.id === ID);
+const reader = document.getElementById('reader'), body = reader.querySelector('.body'), inner = reader.querySelector('.inner');
+let MIN = 20, MAX = 48;
+// Largest font size between MIN and MAX at which everything fits on the screen with no scrolling (as the teacher
+// tools' "Show on screen"); a long text that will not fit at MIN scrolls instead.
+function fit(){
+  if (reader.hidden) return;
+  let lo = MIN, hi = MAX;
+  inner.style.fontSize = hi + 'px';
+  if (body.scrollHeight <= body.clientHeight) return;
+  while (hi - lo > 1){ const mid = (lo + hi) >> 1; inner.style.fontSize = mid + 'px'; if (body.scrollHeight <= body.clientHeight) lo = mid; else hi = mid; }
+  inner.style.fontSize = lo + 'px';
+}
+if (T){
+  if (A === 'phonics'){ MIN = 22; MAX = 64; }
+  document.title = T.title;
+  inner.innerHTML = '<h1>' + esc(T.title) + '</h1>'
+    + (T.images && T.images.length ? '<div class="pics">' + T.images.map(s => '<img src="' + esc(s) + '" alt="">').join('') + '</div>' : '')
+    + '<div class="text">' + T.paras.map(p => '<p>' + esc(p) + '</p>').join('') + '</div>';
+  reader.hidden = false;
+  fit();
+  inner.querySelectorAll('img').forEach(i => { if (!i.complete) i.addEventListener('load', fit, {once: true}); });
+  window.addEventListener('resize', fit);
+  window.addEventListener('orientationchange', () => setTimeout(fit, 250));
+} else {
+  // Opened without a code (or an old one): the list of every text, for the adult to pick from
+  const p = document.getElementById('pick');
+  let h = '<h1 style="text-align:left">Reading texts</h1>'
+    + ((A || ID) ? '<p class="msg">That text was not found. Choose it below, or scan the code on the laptop again.</p>' : '<p>Scan the code on the teacher\'s laptop, or choose a text.</p>');
+  Object.keys(NAMES).forEach(a => {
+    h += '<h2>' + NAMES[a] + '</h2>';
+    let last = null;
+    (TEXTS[a] || []).forEach(t => {
+      if (t.level !== last){ h += '<div class="lvl">' + esc(t.level) + '</div>'; last = t.level; }
+      h += '<a class="tx" href="?a=' + encodeURIComponent(a) + '&id=' + encodeURIComponent(t.id) + '">' + esc(t.title) + '</a>';
+    });
+  });
+  p.innerHTML = h; p.hidden = false;
+}
+</script>
+</body>
+</html>

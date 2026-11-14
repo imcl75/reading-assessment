@@ -12,7 +12,7 @@ import json, os, re, shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-VERSION = 'WFA-14.11.26a'
+VERSION = 'WFA-14.11.26b'
 
 
 def const(folder, name):
@@ -23,7 +23,7 @@ def const(folder, name):
 
 
 lv = lambda l: 'F' + str(l - 30) if l > 30 else str(l)
-texts = {'fluency': [], 'phonics': [], 'pm_benchmark': [], 'comprehension': []}
+texts = {'fluency': [], 'phonics': [], 'comprehension': []}
 
 for t in const('fluency', 'TEXTS'):
     texts['fluency'].append({'id': str(t['level']), 'level': 'Level ' + lv(t['level']), 'title': t['title'], 'paras': [t['text'].strip()]})
@@ -39,10 +39,7 @@ for lvl in const('phonics', 'DATA'):
             imgs.append('img/' + m.group(1) + (m.group(2) or ''))
         texts['phonics'].append({'id': '%d-%d' % (lvl['level'], i), 'level': lvl['name'], 'title': t['title'], 'paras': [t['text'].strip()], 'images': imgs})
 
-for lvl in const('pm-benchmark', 'DATA'):
-    for t in lvl['texts']:
-        texts['pm_benchmark'].append({'id': t['id'], 'level': 'Level %d · %s' % (t['level'], t.get('colour') or ''), 'title': t['title'],
-                                      'paras': [' '.join(p['lines']) for p in t['pages']]})
+# Benchmarking (PM Benchmark) texts are licensed: never on this open page (Innes, 14.11.26). Use the printed book.
 
 for lvl in const('comprehension', 'DATA'):
     for t in lvl['texts']:
@@ -58,6 +55,7 @@ page = open(os.path.join(HERE, 'template.html'), encoding='utf-8').read()
 assert page.count('/*@@TEXTS@@*/null') == 1
 page = page.replace('/*@@TEXTS@@*/null', data).replace('@@VERSION@@', VERSION)
 assert '@@' not in page
+assert 'pmb-' not in page and 'Earthquake' not in page, 'no Benchmarking text on the open page'
 assert 'fetch(' not in page and 'XMLHttpRequest' not in page and '/_api' not in page
 assert not re.search(r'<(script|link)[^>]+(src|href)="https?://', page), 'no external loads'
 open(os.path.join(HERE, 'index.html'), 'w', encoding='utf-8').write(page)

@@ -2,7 +2,7 @@
 <!--
  WFA reading text for the iPad (open page, no sign-in). Built by show/build.py from the four teacher tools.
  The teacher's laptop (Reading Assessment.html in the CLF Staff-Tools library) shows a QR code with ONLY the text to
- show: ?a=<fluency|phonics|pm_benchmark|comprehension>&id=<text id>. No pupil data, no results, no server calls.
+ show: ?a=<fluency|phonics|comprehension> (Benchmarking texts are licensed: not here)&id=<text id>. No pupil data, no results, no server calls.
 -->
 <html lang="en-GB">
 <head>
@@ -43,7 +43,7 @@
 <script>
 'use strict';
 const TEXTS = /*@@TEXTS@@*/null;
-const NAMES = {fluency: 'Reading fluency', phonics: 'Phonics comprehension', pm_benchmark: 'Benchmarking', comprehension: 'Comprehension'};
+const NAMES = {fluency: 'Reading fluency', phonics: 'Phonics comprehension', comprehension: 'Comprehension'};
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const q = new URLSearchParams(location.search), A = q.get('a') || '', ID = q.get('id') || '';
 const T = TEXTS[A] && TEXTS[A].find(t => t.id === ID);

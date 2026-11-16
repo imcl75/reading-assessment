@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 3in3/y4/open.html — 3 in 3 Reading, OPEN version (WFA-14.11.26a): no pupil list, no sign-in, no unlock code, no server calls, nothing saved or stored on the device. Score shows on screen for the teacher to record. Texts and questions are copied from index.html (rebuild if they change). Live version with saving: index.html -->
+<!-- 3in3/y4/open.html — 3 in 3 Reading, OPEN version (WFA-16.11.26a): no pupil list, no sign-in, no unlock code, no server calls, nothing saved or stored on the device. Score shows on screen for the teacher to record. Texts and questions are copied from index.html (rebuild if they change). Live version with saving: index.html -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1783,8 +1783,11 @@ function renderResult() {
     '<br>' + esc(dateStr) + ' · time ' + esc(timeTaken);
 }
 renderPick();
+// Opened from a laptop's "Show on iPad" code: #go=<year>-<session> goes straight to that text and set (only the text is in the link)
+(function () { var m = /^#go=(Y[3-6])-(\d+)$/.exec(location.hash || ''); if (!m || !ALL_SESSIONS[m[1]] || !ALL_SESSIONS[m[1]].some(function (s) { return s.idx === +m[2]; })) return;
+  try { history.replaceState(null, '', location.pathname); } catch (e) {} setLevel(m[1]); startSession(+m[2]); })();
 show('pick-screen');
 </script>
-<div class="version-footer">Y4 · WFA-14.11.26a</div>
+<div class="version-footer">Y4 · WFA-16.11.26a</div>
 </body>
 </html>
